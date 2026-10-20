@@ -6,6 +6,7 @@ import { KYSELY } from '../../common/database/database.module';
 import { Database } from '../../common/database/schema';
 import { BookingNotifier } from '../notification/booking-notifier';
 import { BookingNotFound } from './booking-edit.service';
+import { BookingInvalid, EXCLUSION_VIOLATION, SlotTaken } from './booking.service';
 
 /** ACL-008 is ROLE-002's alone — a General User, or a System Administrator, decides nothing. */
 export class NotRoomAdministrator extends Error {}
@@ -40,6 +41,14 @@ export interface PendingPage {
   page: number;
   pageSize: number;
   total: number;
+}
+
+/** A decision that can no longer be changed — the meeting has started, or there is no decision to change. */
+export class DecisionLocked extends Error {}
+
+export interface ChangeDecisionInput {
+  decision: 'APPROVED' | 'REJECTED';
+  reason: string;
 }
 
 /** UI-mrr-009 overflow — 20 to a page, the nearest start first. */
@@ -133,9 +142,74 @@ export class BookingApprovalService {
     });
   }
 
+  /** API-013 — APPROVED ↔ REJECTED, with a reason, before the meeting starts (UC-mrr-008 · ACL-009). */
+  async changeDecision(caller: Caller, id: string, input: ChangeDecisionInput): Promise<{ message: string }> {
+    // ACL-009 names no room approver, unlike ACL-008: any Room Administrator may change a decision.
+    await this.assertRoomAdministrator(this.db, caller, 'เฉพาะผู้ดูแลห้องเท่านั้นที่เปลี่ยนผลการอนุมัติได้');
+    const reason = input.reason.trim();
+    if (!reason) throw new BookingInvalid('reason', 'กรุณาระบุเหตุผล');
+    const now = this.clock.now();
+    return this.db.transaction().execute(async (tx) => {
+      const current = await tx
+        .selectFrom('bookings')
+        .select(['id', 'room_id', 'booked_by', 'title', 'start_at', 'end_at', 'status'])
+        .where('id', '=', id)
+        .forUpdate()
+        .executeTakeFirst();
+      if (!current) throw new BookingNotFound();
+      if (current.status !== 'APPROVED' && current.status !== 'REJECTED') {
+        throw new DecisionLocked('เปลี่ยนผลได้เฉพาะการจองที่อนุมัติแล้วหรือปฏิเสธแล้ว');
+      }
+      if (current.status === input.decision) {
+        throw new DecisionLocked(`การจองนี้${input.decision === 'APPROVED' ? 'อนุมัติแล้ว' : 'ปฏิเสธแล้ว'}อยู่แล้ว`);
+      }
+      if (current.start_at.getTime() <= now.getTime()) {
+        throw new DecisionLocked('การประชุมเริ่มแล้ว ไม่สามารถเปลี่ยนผลการอนุมัติได้');
+      }
+      try {
+        await tx.updateTable('bookings').set({ status: input.decision }).where('id', '=', id).execute();
+      } catch (err) {
+        // REJECTED held no time; approving it again claims the slot, which may be booked by now.
+        if ((err as { code?: string }).code === EXCLUSION_VIOLATION) throw new SlotTaken();
+        throw err;
+      }
+      await this.record(tx, caller, id, 'CHANGE_DECISION', now, reason, { from: current.status, to: input.decision });
+
+      if (input.decision === 'APPROVED') {
+        const room = await tx
+          .selectFrom('meeting_rooms as r')
+          .innerJoin('meeting_room_versions as v', 'v.id', 'r.current_version_id')
+          .select('v.name')
+          .where('r.id', '=', current.room_id)
+          .executeTakeFirstOrThrow();
+        const { email: bookerEmail } = await tx
+          .selectFrom('users')
+          .select('email')
+          .where('id', '=', current.booked_by)
+          .executeTakeFirstOrThrow();
+        // Approved is approved, however it got there (BR-mrr-007 (1)); a mail that does not go undoes it (BR-mrr-019).
+        await this.notifier.bookingApproved({
+          title: current.title, roomName: room.name, startAt: current.start_at, endAt: current.end_at, bookerEmail, attendeeEmails: [],
+        });
+      }
+      return { message: 'เปลี่ยนผลการอนุมัติสำเร็จ' };
+    });
+  }
+
   /** BR-mrr-017 — who · when · what · why, in the same transaction as the decision. */
-  private async record(tx: Kysely<Database>, caller: Caller, id: string, action: 'APPROVE' | 'REJECT', at: Date) {
-    await tx.insertInto('booking_audit_entries').values({ booking_id: id, actor_id: caller.userId, action, reason: null, detail: null, at }).execute();
+  private async record(
+    tx: Kysely<Database>,
+    caller: Caller,
+    id: string,
+    action: 'APPROVE' | 'REJECT' | 'CHANGE_DECISION',
+    at: Date,
+    reason: string | null = null,
+    detail: unknown = null,
+  ) {
+    await tx
+      .insertInto('booking_audit_entries')
+      .values({ booking_id: id, actor_id: caller.userId, action, reason, detail: detail === null ? null : JSON.stringify(detail), at })
+      .execute();
   }
 
   /** The booking, locked for this transaction, if the caller may decide it (ACL-008 · BR-mrr-013). */

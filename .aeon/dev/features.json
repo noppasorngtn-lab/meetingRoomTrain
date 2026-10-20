@@ -2166,7 +2166,10 @@
           }
         ],
         "apis": []
-      }
+      },
+      "commits": [
+        "8006e803558d916ad655f3128531c5ca241e9144"
+      ]
     },
     {
       "id": "FE-mrr-029",
@@ -2218,7 +2221,58 @@
           "hash": "sha256:fb41b9378eaf8f1f19c7e0cb570aad7582f05713eab16d4c5f2f9d57de03f3fc"
         }
       ],
-      "status": "draft"
+      "status": "validated",
+      "build": {
+        "iterations": 0,
+        "proof": [
+          {
+            "cmd": "powershell -File scripts/dev-build.ps1 -App api",
+            "result": "tsc -p tsconfig.build.json · exit 0",
+            "at": "2026-10-20"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App api -Filter FE-mrr-029",
+            "result": "Test Suites: 14 skipped, 2 passed, 2 of 16 total · Tests: 173 skipped, 29 passed, 202 total · exit 0",
+            "at": "2026-10-20"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1",
+            "result": "api: Test Suites 16 passed, Tests 202 passed · web: Test Files 7 passed, Tests 104 passed · exit 0",
+            "at": "2026-10-20"
+          }
+        ],
+        "last_error": null,
+        "recorded_by": "Noppasorn",
+        "recorded_at": "2026-10-20"
+      },
+      "manifest": {
+        "files": [
+          "apps/api/src/modules/booking/booking-approval.service.ts",
+          "apps/api/src/modules/booking/booking-approval.controller.ts",
+          "apps/api/test/booking/booking-decision.spec.ts",
+          "apps/api/test/booking/booking-decision.http.spec.ts"
+        ],
+        "unit_tests": [
+          {
+            "file": "apps/api/test/booking/booking-decision.spec.ts",
+            "calc_ref": null,
+            "gd_ref": null
+          },
+          {
+            "file": "apps/api/test/booking/booking-decision.http.spec.ts",
+            "calc_ref": null,
+            "gd_ref": null
+          }
+        ],
+        "ui_controls": [],
+        "apis": [
+          {
+            "api_ref": "API-013",
+            "route": "POST /bookings/:id/decision",
+            "file": "apps/api/src/modules/booking/booking-approval.controller.ts"
+          }
+        ]
+      }
     },
     {
       "id": "FE-mrr-008",
@@ -3711,8 +3765,8 @@
   "rollup": {
     "features_total": 33,
     "by_status": {
-      "validated": 17,
-      "draft": 16
+      "validated": 18,
+      "draft": 15
     },
     "by_origin": {
       "new": 33

@@ -1,24 +1,29 @@
 import {
-  BadRequestException, ConflictException, Controller, ForbiddenException, Get, HttpCode, NotFoundException, Param, Post, Query,
+  BadRequestException, Body, ConflictException, Controller, ForbiddenException, Get, HttpCode, NotFoundException, Param, Post, Query,
   ServiceUnavailableException,
 } from '@nestjs/common';
 import { Caller, CurrentUser, UUID } from '../../common/auth/current-user';
 import { EmailDeliveryFailed } from '../notification/booking-notifier';
 import {
-  BookingApprovalService, NotPending, NotRoomAdministrator, NotTheApprover, PendingPage,
+  BookingApprovalService, DecisionLocked, NotPending, NotRoomAdministrator, NotTheApprover, PendingPage,
 } from './booking-approval.service';
 import { BookingNotFound } from './booking-edit.service';
+import { BookingInvalid, SlotTaken } from './booking.service';
 
 /** The domain's refusals as HTTP answers, with the domain's words. */
 function answer(err: unknown): never {
+  if (err instanceof BookingInvalid) throw new BadRequestException({ statusCode: 400, field: err.field, message: err.message });
   if (err instanceof BookingNotFound) throw new NotFoundException(err.message);
   if (err instanceof NotRoomAdministrator || err instanceof NotTheApprover) throw new ForbiddenException(err.message);
-  if (err instanceof NotPending) throw new ConflictException(err.message);
+  if (err instanceof NotPending || err instanceof DecisionLocked || err instanceof SlotTaken) throw new ConflictException(err.message);
   if (err instanceof EmailDeliveryFailed) throw new ServiceUnavailableException(err.message);
   throw err;
 }
 
-/** API-010 · API-011 · API-012 — a Room Administrator's pending list and decisions (ACL-008). */
+/**
+ * API-010 · API-011 · API-012 — a Room Administrator's pending list and decisions (ACL-008).
+ * API-013 — changing a decision already made (ACL-009).
+ */
 @Controller('bookings')
 export class BookingApprovalController {
   constructor(private readonly approvals: BookingApprovalService) {}
@@ -57,6 +62,25 @@ export class BookingApprovalController {
     if (!UUID.test(id)) throw new NotFoundException('ไม่พบการจอง');
     try {
       return await this.approvals.reject(caller, id);
+    } catch (err) {
+      answer(err);
+    }
+  }
+
+  @Post(':id/decision')
+  @HttpCode(200)
+  async changeDecision(
+    @CurrentUser() caller: Caller,
+    @Param('id') id: string,
+    @Body() body: Record<string, unknown> = {},
+  ): Promise<{ message: string }> {
+    if (!UUID.test(id)) throw new NotFoundException('ไม่พบการจอง');
+    const { decision } = body;
+    if (decision !== 'APPROVED' && decision !== 'REJECTED') {
+      throw new BadRequestException({ statusCode: 400, field: 'decision', message: 'decision ต้องเป็น APPROVED หรือ REJECTED' });
+    }
+    try {
+      return await this.approvals.changeDecision(caller, id, { decision, reason: typeof body.reason === 'string' ? body.reason : '' });
     } catch (err) {
       answer(err);
     }
