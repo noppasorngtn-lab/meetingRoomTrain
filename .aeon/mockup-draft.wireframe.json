@@ -1,0 +1,110 @@
+{
+  "$comment": "draft for wireframes.mjs --write --from — keep the screens to make, set layout (copy suggestedLayout when a person agrees with it) and delete the rest",
+  "screens": [
+    {
+      "id": "UI-mrr-001",
+      "layout": "form",
+      "suggestedLayout": "form",
+      "ready": true,
+      "unkinded": []
+    },
+    {
+      "id": "UI-mrr-002",
+      "layout": "form",
+      "suggestedLayout": "form",
+      "ready": true,
+      "unkinded": []
+    },
+    {
+      "id": "UI-mrr-004",
+      "layout": "rows",
+      "suggestedLayout": "rows",
+      "ready": true,
+      "unkinded": []
+    },
+    {
+      "id": "UI-mrr-005",
+      "layout": "form",
+      "suggestedLayout": "form",
+      "ready": true,
+      "unkinded": []
+    },
+    {
+      "id": "UI-mrr-006",
+      "layout": "form",
+      "suggestedLayout": "form",
+      "ready": true,
+      "unkinded": []
+    },
+    {
+      "id": "UI-mrr-007",
+      "layout": "rows",
+      "suggestedLayout": "rows",
+      "ready": true,
+      "unkinded": []
+    },
+    {
+      "id": "UI-mrr-008",
+      "layout": "form",
+      "suggestedLayout": "form",
+      "ready": true,
+      "unkinded": []
+    },
+    {
+      "id": "UI-mrr-009",
+      "layout": "rows",
+      "suggestedLayout": "rows",
+      "ready": true,
+      "unkinded": []
+    },
+    {
+      "id": "UI-mrr-010",
+      "layout": "rows",
+      "suggestedLayout": "rows",
+      "ready": true,
+      "unkinded": []
+    },
+    {
+      "id": "UI-mrr-011",
+      "layout": "rows",
+      "suggestedLayout": "rows",
+      "ready": true,
+      "unkinded": []
+    },
+    {
+      "id": "UI-mrr-012",
+      "layout": "rows",
+      "suggestedLayout": "rows",
+      "ready": true,
+      "unkinded": []
+    },
+    {
+      "id": "UI-mrr-013",
+      "layout": "form",
+      "suggestedLayout": "form",
+      "ready": true,
+      "unkinded": []
+    },
+    {
+      "id": "UI-mrr-014",
+      "layout": "rows",
+      "suggestedLayout": "rows",
+      "ready": true,
+      "unkinded": []
+    },
+    {
+      "id": "RPT-mrr-001",
+      "layout": "report",
+      "suggestedLayout": "report",
+      "ready": true,
+      "unkinded": []
+    },
+    {
+      "id": "UI-mrr-003",
+      "layout": "form",
+      "suggestedLayout": "form",
+      "ready": true,
+      "unkinded": []
+    }
+  ]
+}

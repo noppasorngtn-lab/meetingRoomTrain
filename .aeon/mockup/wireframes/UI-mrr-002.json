@@ -1,0 +1,142 @@
+{
+  "schemaVersion": "1.4",
+  "producedBy": "mock · scripts/wireframes.mjs",
+  "project": "mrr",
+  "id": "MCK-mrr-002",
+  "screen": "UI-mrr-002",
+  "title": "ยืนยันรหัส OTP",
+  "purpose": "ผู้ใช้กรอกรหัสที่ได้รับ (หรือเปิด magic link) เพื่อเข้าสู่ระบบ",
+  "level": "L1",
+  "layout": "form",
+  "kind": "auth",
+  "visibleTo": [
+    "ROLE-001",
+    "ROLE-002",
+    "ROLE-003"
+  ],
+  "zones": [
+    {
+      "name": "header",
+      "kind": "header",
+      "kindSource": "derived",
+      "source": "mock",
+      "items": [
+        {
+          "type": "title",
+          "text": "ยืนยันรหัส OTP"
+        }
+      ]
+    },
+    {
+      "name": "verify-form",
+      "kind": "form",
+      "kindSource": "derived",
+      "source": "design",
+      "items": [
+        {
+          "type": "field",
+          "name": "Email ที่ขอรหัส",
+          "required": true,
+          "entity": null,
+          "attribute": null,
+          "validation": "แสดง Email ที่ขอรหัสไว้ แก้ไม่ได้",
+          "rules": [],
+          "visibleTo": [
+            "ROLE-001",
+            "ROLE-002",
+            "ROLE-003"
+          ],
+          "input": false
+        },
+        {
+          "type": "field",
+          "name": "รหัส OTP",
+          "required": true,
+          "entity": null,
+          "attribute": null,
+          "validation": "ตัวเลข 6 หลัก · หมดอายุ 10 นาทีนับจากเวลาส่ง · ใช้ได้ครั้งเดียว",
+          "rules": [],
+          "visibleTo": [
+            "ROLE-001",
+            "ROLE-002",
+            "ROLE-003"
+          ],
+          "input": true
+        },
+        {
+          "type": "action",
+          "key": "verify",
+          "name": "เข้าสู่ระบบ",
+          "kind": "command",
+          "presentation": "text",
+          "placement": "verify-form",
+          "container": "navigate",
+          "accessibleName": "เข้าสู่ระบบ",
+          "conventions": [],
+          "destination": "หน้าค้นหาห้องว่าง",
+          "rules": []
+        },
+        {
+          "type": "action",
+          "key": "resend",
+          "name": "ขอรหัสใหม่",
+          "kind": "command",
+          "presentation": "text",
+          "placement": "verify-form",
+          "container": "inline",
+          "accessibleName": "ขอรหัสใหม่",
+          "conventions": [],
+          "destination": "อยู่ที่หน้าเดิม",
+          "rules": []
+        }
+      ]
+    }
+  ],
+  "controls": [
+    {
+      "id": "ui-mrr-002-requested-email",
+      "type": "field",
+      "key": "requested-email",
+      "name": "Email ที่ขอรหัส"
+    },
+    {
+      "id": "ui-mrr-002-otp-code",
+      "type": "field",
+      "key": "otp-code",
+      "name": "รหัส OTP"
+    },
+    {
+      "id": "ui-mrr-002-verify",
+      "type": "action",
+      "key": "verify"
+    },
+    {
+      "id": "ui-mrr-002-resend",
+      "type": "action",
+      "key": "resend"
+    }
+  ],
+  "states": {
+    "empty": {
+      "occurs": true,
+      "text": "ช่องรหัสว่าง พร้อมบอกว่ารหัสถูกส่งไปที่ Email ใด"
+    },
+    "loading": {
+      "occurs": true,
+      "text": "ปุ่มเข้าสู่ระบบถูกปิดระหว่างตรวจรหัส"
+    },
+    "error": {
+      "occurs": true,
+      "text": "รหัสผิด หมดอายุ หรือใช้ไปแล้ว — แจ้งเหตุและให้ขอรหัสใหม่"
+    },
+    "unauthorized": {
+      "occurs": false,
+      "text": "ไม่เกิด — หน้านี้เปิดได้ก่อนยืนยันตัวตน"
+    },
+    "overflow": {
+      "occurs": false,
+      "text": "ไม่เกิด — รหัสรับได้ 6 หลักเท่านั้น"
+    }
+  },
+  "extensions": {}
+}

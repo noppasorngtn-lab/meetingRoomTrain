@@ -1,0 +1,4166 @@
+{
+  "meta": {
+    "module": "mrr",
+    "schema_version": "0.6.0",
+    "scale": "FULL",
+    "status": "validated",
+    "created_at": "2026-10-16T11:40+07:00",
+    "updated_at": "2026-10-19T12:10+07:00",
+    "approved_by": "Noppasorn",
+    "approved_at": "2026-10-19T03:53:17.093Z"
+  },
+  "sources": [
+    {
+      "id": "SRC-001",
+      "kind": "file",
+      "path": "docs/requirements/Meeting_Room_Reservation_System_Requirements.docx",
+      "imported_from": null,
+      "hash_at_import": "sha256:4639ca291c52a327ab433f0e6f16300c17f3072abdc63a3217322fb39bb68056",
+      "captured_at": "2026-10-16T11:40+07:00",
+      "captured_by": "/req:capture mrr docs/requirements/Meeting_Room_Reservation_System_Requirements.docx",
+      "extracted": {
+        "by": "python-docx",
+        "text": "ระบบการจองห้องประชุมถูกออกแบบมาเพื่ออำนวยความสะดวกให้พนักงานหรือผู้ใช้งานสามารถตรวจสอบสถานะ จอง แก้ไข และยกเลิกการใช้ห้องประชุมได้อย่างสะดวกรวดเร็ว ลดความซ้ำซ้อนในการจอง และบริหารจัดการทรัพยากรห้องประชุมขององค์กรให้เกิดประโยชน์สูงสุด",
+        "sidecar": "docs/sources/SRC-001.extracted.txt"
+      }
+    },
+    {
+      "id": "SRC-002",
+      "kind": "chat",
+      "captured_at": "2026-10-16T11:51+07:00",
+      "captured_by": "/req:ask end_goal,scope (ชั้น 1 รอบ A)",
+      "content": "QB-goal-01: ถ้าส่งมอบแล้วพนักงานยังต้องจองห้องด้วยวิธีเดิมนอกระบบ ถือว่าไม่สำเร็จ — ต้องเลิกทำมือทั้งหมด\nQB-bound-01: การแจ้งเตือนผ่านแอปแชทขององค์กร (Line, Microsoft Teams, Slack) ไม่อยู่ในรอบนี้ — ยกไปรอบถัดไป รอบนี้แจ้งเตือนผ่าน Email\nQB-bound-02: ตัดการแจ้งเตือนผ่านแอปแชทออกแล้วยังบรรลุเป้าหมาย — ของที่ตัดออกเป็นส่วนขยาย",
+      "hash_at_import": "sha256:58a76622922655cd022966a1d4567b771f565d068a2cfb421633c9b2f28ef61d"
+    },
+    {
+      "id": "SRC-003",
+      "kind": "chat",
+      "captured_at": "2026-10-16T12:02+07:00",
+      "captured_by": "/req:ask actors,language (ชั้น 1 รอบ B)",
+      "content": "QB-actor-01: นอกจาก 3 บทบาทใน §2 มีงานอัตโนมัติ / งานตามเวลาที่ไม่มีคนกด แตะข้อมูลการจองด้วย (เช่น ตัวส่งแจ้งเตือนก่อนเริ่มประชุม)\nQB-actor-02: General User ไม่มีข้อห้ามเพิ่มเติม — ทำได้ทุกอย่างในขอบเขตการจองของตัวเอง\nQB-lang-01: \"สิ่งอำนวยความสะดวก\" กับ \"อุปกรณ์เสริม\" เป็นสิ่งเดียวกัน — ใช้คำเดียวทั้งเอกสาร โค้ด และ UI",
+      "hash_at_import": "sha256:958da821af4fae95e50d671d7c51a091d8a50f9dcf78fe29ccfc48e2411b1e27"
+    },
+    {
+      "id": "SRC-004",
+      "kind": "chat",
+      "captured_at": "2026-10-16T12:15+07:00",
+      "captured_by": "/req:ask permission",
+      "content": "QB-perm-01: ผู้จองแก้ไขหรือยกเลิกการจองได้บางช่วง ที่เหลือ Room Administrator เป็นผู้ทำ — เป็นกฎคนละข้อกับ BR-mrr-003\nจุดตัด: เมื่อถึงเวลาเริ่มประชุม ผู้จองแก้ไขหรือยกเลิกเองไม่ได้แล้ว\nQB-perm-02: คนที่แก้ไขหรือยกเลิกการจองต้องเป็นผู้จองเท่านั้น\n\"แอดมิน\" ที่อนุมัติการจองใน §3.2 คือ Room Administrator",
+      "hash_at_import": "sha256:033de2219d1cd0b3506bc34038ba53d28871ff2073a453984336ffb1b1043d6e"
+    },
+    {
+      "id": "SRC-005",
+      "kind": "chat",
+      "captured_at": "2026-10-16T12:28+07:00",
+      "captured_by": "/req:ask temporal",
+      "content": "QB-tmp-01: Room Administrator แก้ค่าตั้งของห้อง (เช่น ตั้งเป็นต้องอนุมัติ หรือลดความจุ) มีผลเฉพาะการจองใหม่ การจองเดิมใช้ค่าตั้ง ณ ตอนที่สร้าง\nQB-tmp-02: การจองเก็บ id เวอร์ชันของห้อง ณ ตอนจอง — ข้อมูลห้องมี version ห้ามลบ\nการจองที่จบ 10:00 กับการจองที่เริ่ม 10:00 ในห้องเดียวกัน ไม่นับว่าซ้อน จองต่อกันได้",
+      "hash_at_import": "sha256:8fb92a5b59ea6661a9dd323add87b24e9c0cb8e359aeb793e2f8149dfe2df8db"
+    },
+    {
+      "id": "SRC-006",
+      "kind": "chat",
+      "captured_at": "2026-10-16T12:40+07:00",
+      "captured_by": "/req:ask reversal",
+      "content": "QB-rev-01: Room Administrator อนุมัติหรือปฏิเสธการจองผิดไปแล้ว ถอยผลได้ แต่ต้องระบุเหตุผล\nQB-rev-02: ถอยผลการอนุมัติได้เฉพาะก่อนถึงเวลาเริ่มประชุม\nห้องที่ตั้งเป็นปิดปรับปรุง ห้ามรับการจองใหม่ การจองที่มีอยู่แล้วคงไว้",
+      "hash_at_import": "sha256:655e87731f961af1256c3fd3a7d63fc6849982b83a07b79dbd6fdf9406a8724b"
+    },
+    {
+      "id": "SRC-007",
+      "kind": "chat",
+      "captured_at": "2026-10-16T12:52+07:00",
+      "captured_by": "/req:ask approval",
+      "content": "QB-apr-01: แต่ละห้องกำหนด Room Administrator ที่เป็นผู้อนุมัติได้ — เป็นกฎคนละข้อกับ BR-mrr-004\nQB-apr-02: ห้องที่ต้องอนุมัติแต่ยังไม่กำหนดผู้อนุมัติ ใช้ค่าเริ่มต้นคือ Room Administrator ทุกคนอนุมัติได้ และกำหนดทีหลังได้\nการจองที่รออนุมัติกันช่วงเวลานั้นไว้ จนกว่าจะถูกปฏิเสธหรือยกเลิก — แก้ BR-mrr-001 ทับ @v1",
+      "hash_at_import": "sha256:5d1900944a93e64cb3b24508da4032544b11b2bb4727d647b9b67cdec19016f2"
+    },
+    {
+      "id": "SRC-008",
+      "kind": "chat",
+      "captured_at": "2026-10-16T13:05+07:00",
+      "captured_by": "/req:ask freeze_point",
+      "content": "QB-frz-01: การจองที่ผ่านเวลาจบประชุมแล้วยังแก้ได้ แต่ต้องมีคนอนุมัติ — เป็นกฎคนละข้อกับ BR-mrr-009\nผู้อนุมัติการแก้การจองหลังประชุมจบ คือ Room Administrator คนอื่นที่ไม่ใช่คนแก้\nQB-frz-02: รายงานการใช้ห้องที่ออกไปแล้ว ถ้าข้อมูลการจองเปลี่ยนทีหลัง ให้ออกฉบับใหม่ทับ และเก็บฉบับเดิมไว้\nถ้าถึงเวลาเริ่มประชุมแล้วการจองยังรออนุมัติ ให้ยกเลิกอัตโนมัติและแจ้งผู้จอง",
+      "hash_at_import": "sha256:739ed4866334b9dc4cf5790e6b3cf294a07a4a05b3bd1eb8cfa4ce04fee06de3"
+    },
+    {
+      "id": "SRC-009",
+      "kind": "chat",
+      "captured_at": "2026-10-16T13:18+07:00",
+      "captured_by": "/req:ask audit",
+      "content": "QB-aud-01: การแก้การจองหลังประชุมจบ เก็บเป็นคำขอแก้แยก ค่าเดิมคงไว้ — แก้ BR-mrr-014 ทับ @v1\nบันทึกร่องรอย (ใคร · เมื่อไหร่ · ทำอะไร · เหตุผล) เฉพาะการกระทำของ Room Administrator: อนุมัติ · ปฏิเสธ · ถอยผล · แก้/ยกเลิกแทนผู้จอง\nร่องรอยดูได้โดย Room Administrator และ System Administrator — ผู้จองดูไม่ได้\nกฎร่องรอยวางไว้ใต้ REQ-mrr-002",
+      "hash_at_import": "sha256:ec4ccf04f981d2dbc29da06f4b2991b39d8782deed643d1b224f8e68e83ed06b"
+    },
+    {
+      "id": "SRC-010",
+      "kind": "chat",
+      "captured_at": "2026-10-16T13:30+07:00",
+      "captured_by": "/req:ask integration",
+      "content": "QB-int-01: ส่ง Email แจ้งเตือนไม่สำเร็จ (mail server ล่ม) — ล้มทันที แจ้ง user ให้กดใหม่ การกระทำที่ทำให้เกิดแจ้งเตือนไม่สำเร็จตามไปด้วย\nเข้าสู่ระบบด้วย Email ขององค์กรอย่างเดียว — ไม่เชื่อม Active Directory (SSO) ในรอบนี้\nBR-mrr-007 แก้ทับ @v1 ให้เหลือแจ้งเตือนทาง Email ตามขอบเขตชั้น 1",
+      "hash_at_import": "sha256:a5745ffdd4eec4adcd24f30b02714f43f49b6ec62399bb386cd407bf1d226ae6"
+    },
+    {
+      "id": "SRC-011",
+      "kind": "chat",
+      "captured_at": "2026-10-16T13:45+07:00",
+      "captured_by": "/req:ask idempotency",
+      "content": "QB-idem-01: ผู้ใช้กดจองซ้ำ (ดับเบิลคลิก / เน็ตหน่วงแล้วกดใหม่) — กันที่ DB แล้วแสดง error\nงานตามเวลาส่ง Email เตือนก่อนเริ่ม 15 นาทีไม่สำเร็จ — ไม่ส่งซ้ำ บันทึกว่าส่งไม่สำเร็จ\nงานยกเลิกอัตโนมัติส่ง Email แจ้งผู้จองไม่สำเร็จ — ยังไม่ยกเลิก รองานรอบถัดไปทำใหม่ (แก้ BR-mrr-016 ทับ @v1)\nระหว่างที่การจองค้างรออนุมัติเลยเวลาเริ่ม Room Administrator ยังอนุมัติได้ ถ้ายังไม่ถูกยกเลิก",
+      "hash_at_import": "sha256:fd7617edbdb2abcc8cf1b5660df21d1b9b50be94c760dcd021451a893bc36b9e"
+    },
+    {
+      "id": "SRC-012",
+      "kind": "chat",
+      "captured_at": "2026-10-16T13:58+07:00",
+      "captured_by": "/req:ask calculation",
+      "content": "อัตราการใช้งานของห้อง = ชั่วโมงที่ถูกจอง ÷ ชั่วโมงทำการของห้อง\nนับเฉพาะการจองที่ใช้ได้จริง (ไม่ต้องอนุมัติ หรืออนุมัติแล้ว) — ไม่นับที่ยกเลิก / ปฏิเสธ / รออนุมัติ\nQB-calc-01: ผลที่มีเศษทศนิยม ปัดทุกจุดแบบ round half up",
+      "hash_at_import": "sha256:ddbe9238acba0634af5c3390f011b232a1a5cbd2c60adf68ff76a3b33d4f2b77"
+    },
+    {
+      "id": "SRC-013",
+      "kind": "chat",
+      "captured_at": "2026-10-16T14:10+07:00",
+      "captured_by": "/req:ask data_scope",
+      "content": "QB-scope-01: ในปฏิทิน General User เห็นรายละเอียดเฉพาะการจองที่ตัวเองจองหรือเป็นผู้เข้าร่วม — ของคนอื่นเห็นแค่ว่า \"ไม่ว่าง\"\nเป็นกฎคนละข้อกับ BR-mrr-003 — BR-mrr-003 คือหน้า My Bookings ส่วนข้อนี้คือการมองเห็นในปฏิทิน\nรายงานและสถิติการใช้ห้องดูได้เฉพาะ Room Administrator\nงานตามเวลาที่รันซ้ำ ต้องส่ง Email เตือนครั้งเดียวต่อการจอง",
+      "hash_at_import": "sha256:0f044dcc28c07d3d56d1fddb087542002d2f006a82fa8258e5fc5e70cbba9d22"
+    },
+    {
+      "id": "SRC-014",
+      "kind": "chat",
+      "captured_at": "2026-10-16T14:30+07:00",
+      "captured_by": "/req:calc BR-mrr-006@v1",
+      "content": "formula: ผลเก็บเป็นเปอร์เซ็นต์ — ชั่วโมงที่ถูกจอง ÷ ชั่วโมงทำการของห้อง × 100\ninputs: นับเป็นนาที (int) ทั้งตัวตั้งและตัวหาร\ninputs: ชั่วโมงทำการเป็นค่าเดียวทั้งองค์กร คือ จ.–ศ. 08:00–18:00\nnumeric_type / rounding: decimal ปัด 2 ตำแหน่ง (ตอบ DQ-mrr-008) วิธีปัด HALF_UP ตาม DQ-mrr-009\nboundary: การจองที่เลยนอกชั่วโมงทำการ นับเฉพาะส่วนที่อยู่ในเวลาทำการ\nboundary: ช่วงที่ห้องปิดปรับปรุง หักออกจากตัวหาร\nboundary: ถ้าตัวหารเหลือ 0 (ห้องปิดทั้งช่วงรายงาน) แสดง \"—\" ไม่คำนวณ\nboundary: วันหยุดนักขัตฤกษ์ที่ตรงกับ จ.–ศ. นับเป็นเวลาทำการตามปกติ\nboundary: การจองที่คงอยู่ในช่วงปิดปรับปรุง (BR-mrr-012) ไม่นับในตัวตั้ง — ตัวตั้งและตัวหารใช้ช่วงเวลาเดียวกัน",
+      "hash_at_import": "sha256:73b0d661b8bab37057a5baa49e8e29123e981a0070506504cebd6ac4a721a411"
+    },
+    {
+      "id": "SRC-015",
+      "kind": "chat",
+      "captured_at": "2026-10-16T14:45+07:00",
+      "captured_by": "/req:example BR-mrr-001@v1",
+      "content": "ข้อความเมื่อช่วงเวลาไม่ว่าง: \"ห้องนี้ไม่ว่างในช่วงเวลาที่เลือก กรุณาเลือกเวลาอื่น\"\nข้อความเมื่อจองสำเร็จ (ห้องที่ไม่ต้องอนุมัติ): \"จองห้องสำเร็จ\"",
+      "hash_at_import": "sha256:c18c002b42a79bd2c413e0bd8bddbae4cd74c44e593b068ae50c286a31ba4c11"
+    },
+    {
+      "id": "SRC-016",
+      "kind": "chat",
+      "captured_at": "2026-10-16T14:55+07:00",
+      "captured_by": "/req:example BR-mrr-002@v1",
+      "content": "ข้อความเมื่อไม่ระบุหัวข้อ: \"กรุณาระบุหัวข้อการประชุม\"\nข้อความเมื่อไม่ระบุผู้เข้าร่วม: \"กรุณาระบุผู้เข้าร่วมอย่างน้อย 1 คน\"\nผู้จองไม่ถูกนับเป็นผู้เข้าร่วมโดยอัตโนมัติ — ต้องใส่รายชื่อผู้เข้าร่วมเอง",
+      "hash_at_import": "sha256:8a27edb9fc2fa39ab5564e1e136e1bc065cd96b110a23b1e5c43087bd2b8eb63"
+    },
+    {
+      "id": "SRC-017",
+      "kind": "chat",
+      "captured_at": "2026-10-16T15:05+07:00",
+      "captured_by": "/req:example BR-mrr-003@v1",
+      "content": "ข้อความเมื่อแก้ไขการจองสำเร็จ: \"บันทึกการแก้ไขสำเร็จ\"\nข้อความเมื่อยกเลิกการจองสำเร็จ: \"ยกเลิกการจองสำเร็จ\"\nข้อความเมื่อไม่ใช่ผู้จองแต่พยายามแก้ไขหรือยกเลิก: \"เฉพาะผู้จองเท่านั้นที่แก้ไขหรือยกเลิกได้\"",
+      "hash_at_import": "sha256:af0b0f327ef82516baba6ee9e4588f3c05204785f89a706dffc947c6f213c0e5"
+    },
+    {
+      "id": "SRC-018",
+      "kind": "chat",
+      "captured_at": "2026-10-16T15:15+07:00",
+      "captured_by": "/req:example BR-mrr-004@v1",
+      "content": "ข้อความที่ผู้จองเห็นเมื่อจองห้องที่ต้องอนุมัติ: \"ส่งคำขอจองแล้ว รอการอนุมัติ\"\nข้อความที่ Room Administrator เห็นเมื่ออนุมัติสำเร็จ: \"อนุมัติการจองสำเร็จ\"\nข้อความเมื่อคนที่ไม่ใช่ Room Administrator พยายามอนุมัติ: \"เฉพาะผู้ดูแลห้องเท่านั้นที่อนุมัติได้\"",
+      "hash_at_import": "sha256:fa3eab05072c2d00e7ff1ae9ad6f4ad824876afa86df9c88f4a886092c3c172b"
+    },
+    {
+      "id": "SRC-019",
+      "kind": "chat",
+      "captured_at": "2026-10-16T15:25+07:00",
+      "captured_by": "/req:example BR-mrr-005@v1",
+      "content": "ข้อความเมื่อ Room Administrator บันทึกข้อมูลห้อง (เพิ่มหรือแก้) สำเร็จ: \"บันทึกข้อมูลห้องสำเร็จ\"\nข้อความเมื่อตั้งห้องเป็นปิดปรับปรุงสำเร็จ: \"ตั้งห้องเป็นปิดปรับปรุงแล้ว การจองที่มีอยู่คงเดิม\"\nข้อความเมื่อคนที่ไม่ใช่ Room Administrator พยายามจัดการข้อมูลห้อง: \"เฉพาะผู้ดูแลห้องเท่านั้นที่จัดการข้อมูลห้องได้\"",
+      "hash_at_import": "sha256:bd4cf1a8724c784683c9874d67eab96d9cbb0f21acc91fbd0ac5e93eebc083a3"
+    },
+    {
+      "id": "SRC-020",
+      "kind": "chat",
+      "captured_at": "2026-10-16T15:40+07:00",
+      "captured_by": "/req:example BR-mrr-007@v1",
+      "content": "Email แจ้งเตือนส่งถึงผู้จองทุกกรณี และถึงผู้เข้าร่วมเฉพาะกรณี ใกล้ถึงเวลาประชุม / เปลี่ยนเวลา / ยกเลิกการจอง\nการแก้เฉพาะหัวข้อหรือรายชื่อผู้เข้าร่วม (ไม่ได้เปลี่ยนเวลา) ไม่ส่ง Email\nหัวเรื่อง Email: \"[จองห้องประชุม] <เหตุการณ์>: <หัวข้อ> · <ห้อง> <วัน> <เวลา>\" เช่น \"[จองห้องประชุม] จองสำเร็จ: ประชุมทีม · ห้อง A 17/10 10:00–11:00\"",
+      "hash_at_import": "sha256:e523992147aceaf83f01fb4c6b8a3681f58c10be7fdb1a394f6b2b4f4625417f"
+    },
+    {
+      "id": "SRC-021",
+      "kind": "chat",
+      "captured_at": "2026-10-16T15:55+07:00",
+      "captured_by": "/req:example BR-mrr-008@v1",
+      "content": "จองตอน 09:50 สำหรับประชุมที่เริ่ม 10:00 (น้อยกว่า 15 นาทีก่อนเริ่ม) — ส่ง Email เตือนทันที\nการจองที่ยังรออนุมัติตอนถึงจุดเตือน — ไม่ส่ง Email เตือน",
+      "hash_at_import": "sha256:3b810b40f9183e5e578bc37ca0b3e7c685ba0471a4070b6523d1ed23048c137e"
+    },
+    {
+      "id": "SRC-022",
+      "kind": "chat",
+      "captured_at": "2026-10-16T16:05+07:00",
+      "captured_by": "/req:example BR-mrr-009@v1",
+      "content": "ข้อความเมื่อผู้จองพยายามแก้ไขหรือยกเลิกหลังเวลาเริ่มประชุม: \"การประชุมเริ่มแล้ว กรุณาติดต่อผู้ดูแลห้องเพื่อแก้ไขหรือยกเลิก\"\nRoom Administrator แก้ไขหรือยกเลิกแทนผู้จอง ต้องระบุเหตุผล — ไม่ระบุแสดงข้อความ \"กรุณาระบุเหตุผล\"\nข้อความเมื่อ Room Administrator ยกเลิกแทนผู้จองสำเร็จ: \"ยกเลิกการจองสำเร็จ\"\nก่อนเวลาเริ่มประชุม Room Administrator แก้ไขหรือยกเลิกการจองของคนอื่นไม่ได้ (คำตอบรูปกฎ — รอ /req:ask permission)",
+      "hash_at_import": "sha256:d7f15a0b3cdab8355419bc766df2011d1dd8f4996b39d0b58e45fafc9b2ef445"
+    },
+    {
+      "id": "SRC-023",
+      "kind": "chat",
+      "captured_at": "2026-10-19T10:00+07:00",
+      "captured_by": "/req:change BR-mrr-010",
+      "content": "การประชุมล่าสุดกับลูกค้า 19/10/2026 — ลูกค้า (คุณ Somchai) ขอให้เปลี่ยน BR-mrr-010 · อนุมัติฝั่งเราโดย Adisorn · เริ่มใช้วันนี้ 19/10/2026\nข้อความกฎที่ยืนยัน: การแก้ค่าตั้งของห้อง (เช่น ต้องอนุมัติ หรือความจุ — ไม่รวมการตั้งปิดปรับปรุง ซึ่งเป็นไปตาม BR-mrr-012) มีผลกับการจองที่ยังไม่ถึงเวลาเริ่มด้วย — ถ้าห้องถูกแก้เป็นต้องอนุมัติ การจองเดิมที่ยังไม่ถึงเวลาเริ่มจะกลับไปเป็นสถานะ 'รออนุมัติ' · ถ้าห้องถูกแก้เป็นไม่ต้องอนุมัติ การจองที่รออนุมัติอยู่จะใช้ได้ทันที",
+      "hash_at_import": "sha256:6e6a67bdb91b933de93de2c470174b06ac23b789f077f14f745c926fa7feca3c"
+    },
+    {
+      "id": "SRC-024",
+      "kind": "chat",
+      "captured_at": "2026-10-19T11:00+07:00",
+      "captured_by": "/req:example BR-mrr-012",
+      "content": "ข้อความเมื่อพยายามจองห้องที่ปิดปรับปรุง: \"ห้องนี้ปิดปรับปรุง ไม่สามารถจองได้\" — ไม่สร้างการจอง\nการเปลี่ยนเวลาของการจองที่คงอยู่ในห้องที่ปิดปรับปรุง นับเป็นการจองใหม่ — ถูกปฏิเสธด้วยข้อความเดียวกัน การจองเดิมคงเวลาเดิม\nข้อความเมื่อ Room Administrator เปิดห้องกลับมาใช้งาน (ออกจากปิดปรับปรุง): \"เปิดห้องใช้งานแล้ว\" — หลังจากนั้นจองได้ทันที",
+      "hash_at_import": "sha256:47492c894abd8b94759e463924db95315dcf3c8a685411a23ef14f80d28c6a89"
+    },
+    {
+      "id": "SRC-025",
+      "kind": "chat",
+      "captured_at": "2026-10-19T11:30+07:00",
+      "captured_by": "/req:example BR-mrr-006",
+      "content": "ช่วงรายงานของอัตราการใช้งานคือเดือนปฏิทิน (วันที่ 1 ถึงวันสุดท้ายของเดือน)\nหน้ารายงานแสดงอัตราการใช้งานเป็นทศนิยม 2 ตำแหน่งต่อท้ายด้วย % เช่น \"66.67%\" · ห้องที่ไม่คำนวณแสดง \"—\" และไม่มีเลขอันดับ",
+      "hash_at_import": "sha256:e7a52beaf0b208a59c3357a7a0317655ca18ed9c0c8c5316520ae642cd4d0e77"
+    }
+  ],
+  "glossary": [
+    {
+      "id": "UL-mrr-001",
+      "term_th": "ห้องประชุม",
+      "term_en": "MeetingRoom",
+      "definition": "ห้องที่เปิดให้จองใช้ได้ มีความจุ รูปภาพ และสิ่งอำนวยความสะดวกประจำห้อง จัดการข้อมูลโดย Room Administrator",
+      "aka": [],
+      "not_to_confuse_with": [],
+      "status": "draft",
+      "provenance": [
+        {
+          "source": "SRC-001",
+          "locator": {
+            "section": "3.2"
+          },
+          "quote": "เพิ่ม, แก้ไข, ปิดปรับปรุง หรือลบข้อมูลห้องประชุม พร้อมกำหนดความจุและรูปภาพ",
+          "confidence": 0.9
+        }
+      ],
+      "becomes_entity": null
+    },
+    {
+      "id": "UL-mrr-002",
+      "term_th": "การจอง",
+      "term_en": "Booking",
+      "definition": "การขอใช้ห้องประชุมหนึ่งห้องในช่วงเวลาหนึ่ง ระบุหัวข้อการประชุม รายชื่อผู้เข้าร่วม และอุปกรณ์เสริมที่ต้องการ",
+      "aka": [],
+      "not_to_confuse_with": [],
+      "status": "draft",
+      "provenance": [
+        {
+          "source": "SRC-001",
+          "locator": {
+            "section": "3.1"
+          },
+          "quote": "ระบุหัวข้อการประชุม, รายชื่อผู้เข้าร่วม, และเลือกอุปกรณ์เสริมที่ต้องการ",
+          "confidence": 0.85
+        }
+      ],
+      "becomes_entity": null
+    },
+    {
+      "id": "UL-mrr-003",
+      "term_th": "สิ่งอำนวยความสะดวก",
+      "term_en": "Facility",
+      "definition": "อุปกรณ์ที่ห้องมีอยู่ เช่น โปรเจคเตอร์ กระดานไวท์บอร์ด ระบบ Video Conference — ใช้กรองตอนค้นหาห้อง และเลือกระบุตอนจองว่าต้องการใช้ (เรียกอีกอย่างว่า อุปกรณ์เสริม)",
+      "aka": [
+        "อุปกรณ์เสริม"
+      ],
+      "not_to_confuse_with": [],
+      "status": "draft",
+      "provenance": [
+        {
+          "source": "SRC-001",
+          "locator": {
+            "section": "3.1"
+          },
+          "quote": "กรองตามสิ่งอำนวยความสะดวก เช่น โปรเจคเตอร์, กระดานไวท์บอร์ด, ระบบ Video Conference",
+          "confidence": 0.85
+        },
+        {
+          "source": "SRC-001",
+          "locator": {
+            "section": "3.1"
+          },
+          "quote": "เลือกอุปกรณ์เสริมที่ต้องการ",
+          "confidence": 0.6
+        },
+        {
+          "source": "SRC-003",
+          "locator": {
+            "line": 3
+          },
+          "quote": "\"สิ่งอำนวยความสะดวก\" กับ \"อุปกรณ์เสริม\" เป็นสิ่งเดียวกัน — ใช้คำเดียวทั้งเอกสาร โค้ด และ UI",
+          "confidence": 1
+        }
+      ],
+      "becomes_entity": null
+    },
+    {
+      "id": "UL-mrr-005",
+      "term_th": "การจองซ้ำ",
+      "term_en": "BookingConflict",
+      "definition": "การจองห้องเดียวกันในช่วงเวลาที่ทับกับการจองที่มีอยู่แล้ว ระบบต้องตรวจจับอัตโนมัติ (Conflict Check)",
+      "aka": [
+        "Conflict"
+      ],
+      "not_to_confuse_with": [],
+      "status": "draft",
+      "provenance": [
+        {
+          "source": "SRC-001",
+          "locator": {
+            "section": "3.1"
+          },
+          "quote": "ระบบตรวจสอบความพร้อมของห้องอัตโนมัติ (Conflict Check)",
+          "confidence": 0.8
+        }
+      ],
+      "becomes_entity": null
+    },
+    {
+      "id": "UL-mrr-006",
+      "term_th": "การอนุมัติการจอง",
+      "term_en": "BookingApproval",
+      "definition": "ขั้นที่ Room Administrator ต้องอนุมัติการจองก่อนจึงใช้ห้องได้จริง ใช้เฉพาะห้องที่ถูกตั้งไว้ว่าต้องอนุมัติ",
+      "aka": [],
+      "not_to_confuse_with": [],
+      "status": "draft",
+      "provenance": [
+        {
+          "source": "SRC-001",
+          "locator": {
+            "section": "3.2"
+          },
+          "quote": "กำหนดได้ว่าห้องใดต้องได้รับการอนุมัติจากแอดมินก่อนใช้งานจริง",
+          "confidence": 0.85
+        },
+        {
+          "source": "SRC-004",
+          "locator": {
+            "line": 4
+          },
+          "quote": "\"แอดมิน\" ที่อนุมัติการจองใน §3.2 คือ Room Administrator",
+          "confidence": 1
+        }
+      ],
+      "becomes_entity": null
+    },
+    {
+      "id": "UL-mrr-007",
+      "term_th": "ปิดปรับปรุง",
+      "term_en": "",
+      "definition": "สถานะของห้องที่ Room Administrator ตั้งให้ห้องรับการจองใหม่ไม่ได้ชั่วคราว โดยการจองที่มีอยู่แล้วคงไว้ และข้อมูลห้องยังไม่ถูกลบ",
+      "aka": [],
+      "not_to_confuse_with": [],
+      "status": "draft",
+      "provenance": [
+        {
+          "source": "SRC-001",
+          "locator": {
+            "section": "3.2"
+          },
+          "quote": "เพิ่ม, แก้ไข, ปิดปรับปรุง หรือลบข้อมูลห้องประชุม",
+          "confidence": 0.6
+        },
+        {
+          "source": "SRC-006",
+          "locator": {
+            "line": 3
+          },
+          "quote": "ห้องที่ตั้งเป็นปิดปรับปรุง ห้ามรับการจองใหม่ การจองที่มีอยู่แล้วคงไว้",
+          "confidence": 1
+        }
+      ],
+      "becomes_entity": null
+    },
+    {
+      "id": "UL-mrr-008",
+      "term_th": "อัตราการใช้งาน",
+      "term_en": "UtilizationRate",
+      "definition": "สัดส่วนชั่วโมงที่ห้องถูกจองและใช้ได้จริง ต่อชั่วโมงทำการของห้องในช่วงรายงาน ใช้จัดอันดับห้องเพื่อวางแผนทรัพยากร",
+      "aka": [],
+      "not_to_confuse_with": [],
+      "status": "draft",
+      "provenance": [
+        {
+          "source": "SRC-001",
+          "locator": {
+            "section": "3.2"
+          },
+          "quote": "สถิติห้องที่มีอัตราการใช้งานสูงสุด (Utilization Rate) เพื่อนำไปวางแผนทรัพยากร",
+          "confidence": 0.85
+        },
+        {
+          "source": "SRC-012",
+          "locator": {
+            "line": 1
+          },
+          "quote": "อัตราการใช้งานของห้อง = ชั่วโมงที่ถูกจอง ÷ ชั่วโมงทำการของห้อง",
+          "confidence": 1
+        }
+      ],
+      "becomes_entity": null
+    },
+    {
+      "id": "UL-mrr-009",
+      "term_th": "งานแจ้งเตือนตามเวลา",
+      "term_en": "ReminderJob",
+      "definition": "งานอัตโนมัติที่ระบบรันเองตามเวลา โดยไม่มีคนกด เช่น ส่งแจ้งเตือนก่อนเริ่มประชุม",
+      "aka": [],
+      "not_to_confuse_with": [],
+      "status": "draft",
+      "provenance": [
+        {
+          "source": "SRC-003",
+          "locator": {
+            "line": 1
+          },
+          "quote": "มีงานอัตโนมัติ / งานตามเวลาที่ไม่มีคนกด แตะข้อมูลการจองด้วย (เช่น ตัวส่งแจ้งเตือนก่อนเริ่มประชุม)",
+          "confidence": 1
+        }
+      ],
+      "becomes_entity": null
+    },
+    {
+      "id": "UL-mrr-010",
+      "term_th": "ผู้อนุมัติประจำห้อง",
+      "term_en": "RoomApprover",
+      "definition": "Room Administrator ที่ถูกกำหนดให้อนุมัติการจองของห้องหนึ่ง — ถ้าห้องยังไม่กำหนด Room Administrator ทุกคนอนุมัติได้",
+      "aka": [],
+      "not_to_confuse_with": [],
+      "status": "draft",
+      "provenance": [
+        {
+          "source": "SRC-007",
+          "locator": {
+            "line": 1
+          },
+          "quote": "QB-apr-01: แต่ละห้องกำหนด Room Administrator ที่เป็นผู้อนุมัติได้ — เป็นกฎคนละข้อกับ BR-mrr-004",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-007",
+          "locator": {
+            "line": 2
+          },
+          "quote": "QB-apr-02: ห้องที่ต้องอนุมัติแต่ยังไม่กำหนดผู้อนุมัติ ใช้ค่าเริ่มต้นคือ Room Administrator ทุกคนอนุมัติได้ และกำหนดทีหลังได้",
+          "confidence": 1
+        }
+      ],
+      "becomes_entity": null
+    },
+    {
+      "id": "UL-mrr-011",
+      "term_th": "คำขอแก้ไขการจอง",
+      "term_en": "BookingAdjustmentRequest",
+      "definition": "รายการแก้ไขการจองที่ประชุมจบไปแล้ว เก็บแยกจากค่าเดิม และมีผลต่อเมื่อ Room Administrator คนอื่นที่ไม่ใช่คนแก้อนุมัติ",
+      "aka": [
+        "คำขอแก้"
+      ],
+      "not_to_confuse_with": [],
+      "status": "draft",
+      "provenance": [
+        {
+          "source": "SRC-009",
+          "locator": {
+            "line": 1
+          },
+          "quote": "QB-aud-01: การแก้การจองหลังประชุมจบ เก็บเป็นคำขอแก้แยก ค่าเดิมคงไว้ — แก้ BR-mrr-014 ทับ @v1",
+          "confidence": 1
+        }
+      ],
+      "becomes_entity": null
+    },
+    {
+      "id": "UL-mrr-012",
+      "term_th": "ชั่วโมงทำการของห้อง",
+      "term_en": "RoomOperatingHours",
+      "definition": "ช่วงเวลาที่ห้องเปิดให้ใช้ ใช้เป็นตัวหารของอัตราการใช้งาน — ค่าเดียวทั้งองค์กร จ.–ศ. 08:00–18:00 (วันหยุดนักขัตฤกษ์นับตามปกติ) หักช่วงที่ห้องปิดปรับปรุง",
+      "aka": [],
+      "not_to_confuse_with": [],
+      "status": "draft",
+      "provenance": [
+        {
+          "source": "SRC-012",
+          "locator": {
+            "line": 1
+          },
+          "quote": "อัตราการใช้งานของห้อง = ชั่วโมงที่ถูกจอง ÷ ชั่วโมงทำการของห้อง",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-014",
+          "locator": {
+            "line": 3
+          },
+          "quote": "inputs: ชั่วโมงทำการเป็นค่าเดียวทั้งองค์กร คือ จ.–ศ. 08:00–18:00",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-014",
+          "locator": {
+            "line": 6
+          },
+          "quote": "boundary: ช่วงที่ห้องปิดปรับปรุง หักออกจากตัวหาร",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-014",
+          "locator": {
+            "line": 8
+          },
+          "quote": "boundary: วันหยุดนักขัตฤกษ์ที่ตรงกับ จ.–ศ. นับเป็นเวลาทำการตามปกติ",
+          "confidence": 1
+        }
+      ],
+      "becomes_entity": null
+    }
+  ],
+  "stakeholders": [
+    {
+      "id": "STK-mrr-001",
+      "name": "General User (ผู้ใช้งานทั่วไป)",
+      "kind": "internal",
+      "description": "พนักงานทั่วไปที่ค้นหาห้อง ตรวจสอบตารางว่าง และจองห้องประชุม",
+      "aka": [
+        "ผู้ใช้งานทั่วไป",
+        "พนักงาน"
+      ],
+      "status": "draft",
+      "provenance": [
+        {
+          "source": "SRC-001",
+          "locator": {
+            "section": "2"
+          },
+          "quote": "General User (ผู้ใช้งานทั่วไป): พนักงานทั่วไปที่มีสิทธิ์ค้นหาห้อง ตรวจสอบตารางว่าง และจองห้องประชุม",
+          "confidence": 0.95
+        }
+      ],
+      "becomes_role": null
+    },
+    {
+      "id": "STK-mrr-002",
+      "name": "Room Administrator (ผู้ดูแลระบบห้องประชุม)",
+      "kind": "internal",
+      "description": "เจ้าหน้าที่ดูแลอาคาร/สถานที่ ที่อนุมัติการจอง จัดการข้อมูลห้อง และกำหนดสิ่งอำนวยความสะดวก",
+      "aka": [
+        "ผู้ดูแลระบบห้องประชุม"
+      ],
+      "status": "draft",
+      "provenance": [
+        {
+          "source": "SRC-001",
+          "locator": {
+            "section": "2"
+          },
+          "quote": "Room Administrator (ผู้ดูแลระบบห้องประชุม): เจ้าหน้าที่ดูแลอาคาร/สถานที่ ที่มีสิทธิ์อนุมัติ จัดการข้อมูลห้อง และกำหนดสิ่งอำนวยความสะดวก",
+          "confidence": 0.95
+        }
+      ],
+      "becomes_role": null
+    },
+    {
+      "id": "STK-mrr-003",
+      "name": "System Administrator (ผู้ดูแลระบบไอที)",
+      "kind": "internal",
+      "description": "จัดการสิทธิ์การใช้งานของระบบ ตั้งค่าระบบหลังบ้าน และดูแลความปลอดภัย",
+      "aka": [
+        "ผู้ดูแลระบบไอที"
+      ],
+      "status": "draft",
+      "provenance": [
+        {
+          "source": "SRC-001",
+          "locator": {
+            "section": "2"
+          },
+          "quote": "System Administrator (ผู้ดูแลระบบไอที): จัดการสิทธิ์การใช้งานของระบบ ตั้งค่าระบบหลังบ้าน และดูแลความปลอดภัย",
+          "confidence": 0.95
+        }
+      ],
+      "becomes_role": null
+    },
+    {
+      "id": "STK-mrr-004",
+      "name": "งานแจ้งเตือนตามเวลา (ระบบ)",
+      "kind": "system",
+      "description": "งานตามเวลาที่อ่านข้อมูลการจองแล้วส่งแจ้งเตือนก่อนเริ่มประชุม โดยไม่มีคนกด",
+      "aka": [],
+      "status": "draft",
+      "provenance": [
+        {
+          "source": "SRC-003",
+          "locator": {
+            "line": 1
+          },
+          "quote": "มีงานอัตโนมัติ / งานตามเวลาที่ไม่มีคนกด แตะข้อมูลการจองด้วย (เช่น ตัวส่งแจ้งเตือนก่อนเริ่มประชุม)",
+          "confidence": 1
+        }
+      ],
+      "becomes_role": null
+    }
+  ],
+  "requirements": [
+    {
+      "id": "REQ-mrr-001",
+      "title": "การจองห้องประชุม",
+      "actor": "General User",
+      "goal": "ค้นหาห้องว่าง ดูตารางการใช้ห้อง จองห้อง และจัดการการจองของตนเองได้ โดยไม่เกิดการจองซ้ำ — การจองห้องทุกครั้งต้องผ่านระบบ ไม่เหลือการจองนอกระบบ",
+      "business_value": "ลดความซ้ำซ้อนในการจอง และบริหารจัดการทรัพยากรห้องประชุมขององค์กรให้เกิดประโยชน์สูงสุด",
+      "priority": "high",
+      "status": "draft",
+      "has_ui": true,
+      "domain_concepts": [
+        "UL-mrr-001",
+        "UL-mrr-002",
+        "UL-mrr-003",
+        "UL-mrr-005",
+        "UL-mrr-011"
+      ],
+      "rules": [
+        "BR-mrr-001",
+        "BR-mrr-002",
+        "BR-mrr-003",
+        "BR-mrr-009",
+        "BR-mrr-014",
+        "BR-mrr-021"
+      ],
+      "provenance": [
+        {
+          "source": "SRC-001",
+          "locator": {
+            "section": "1"
+          },
+          "quote": "ระบบการจองห้องประชุมถูกออกแบบมาเพื่ออำนวยความสะดวกให้พนักงานหรือผู้ใช้งานสามารถตรวจสอบสถานะ จอง แก้ไข และยกเลิกการใช้ห้องประชุมได้อย่างสะดวกรวดเร็ว",
+          "confidence": 0.95
+        },
+        {
+          "source": "SRC-001",
+          "locator": {
+            "section": "3.1"
+          },
+          "quote": "ปฏิทินแสดงสถานะ (Room Calendar): แสดงตารางการใช้ห้องในรูปแบบรายวัน รายสัปดาห์ และรายเดือน เพื่อป้องกันการจองซ้ำ",
+          "confidence": 0.95
+        },
+        {
+          "source": "SRC-002",
+          "locator": {
+            "line": 1
+          },
+          "quote": "ถ้าส่งมอบแล้วพนักงานยังต้องจองห้องด้วยวิธีเดิมนอกระบบ ถือว่าไม่สำเร็จ — ต้องเลิกทำมือทั้งหมด",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-003",
+          "locator": {
+            "line": 2
+          },
+          "quote": "General User ไม่มีข้อห้ามเพิ่มเติม — ทำได้ทุกอย่างในขอบเขตการจองของตัวเอง",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-010",
+          "locator": {
+            "line": 2
+          },
+          "quote": "เข้าสู่ระบบด้วย Email ขององค์กรอย่างเดียว — ไม่เชื่อม Active Directory (SSO) ในรอบนี้",
+          "confidence": 1
+        }
+      ],
+      "nfr": [
+        {
+          "id": "NFR-mrr-001",
+          "kind": "security",
+          "statement": "เข้าสู่ระบบด้วย Email ขององค์กรอย่างเดียว — ไม่เชื่อม Active Directory (SSO) ในรอบนี้ (SRC-010)"
+        },
+        {
+          "id": "NFR-mrr-002",
+          "kind": "performance",
+          "statement": "รองรับผู้ใช้งานพร้อมกัน 200 คน และหน้าจอตารางห้องประชุมโหลดเสร็จภายใน 2 วินาที (เอกสารเขียน \"อย่างน้อย 100-200 คน\" — เจ้าของเลือก 200 ดู Q-mrr-004)",
+          "verified_by": "load_test"
+        },
+        {
+          "id": "NFR-mrr-003",
+          "kind": "security",
+          "statement": "เข้ารหัสข้อมูลการใช้งานผ่าน HTTPS และจำกัดสิทธิ์การเข้าถึงตามระดับผู้ใช้งาน (Role-Based Access Control)"
+        },
+        {
+          "id": "NFR-mrr-004",
+          "kind": "availability",
+          "statement": "เปิดให้บริการตลอด 24 ชั่วโมง (Uptime 99.9%)"
+        },
+        {
+          "id": "NFR-mrr-005",
+          "kind": "usability",
+          "statement": "รองรับ Chrome, Safari, Edge, Firefox และแสดงผลได้ดีบนอุปกรณ์เคลื่อนที่ (Responsive Design)"
+        }
+      ],
+      "narrative": "**ข้อห้ามของ General User (ชั้น 1 รอบ B, SRC-003):** ไม่มีข้อห้ามเพิ่มเติม — ทำได้ทุกอย่างในขอบเขตการจองของตัวเอง · หมวด permission ชั้น 2 ยืนยันแล้วว่าตรงกับ BR-mrr-003 และเพิ่มจุดตัดเวลาเริ่มประชุมเป็น BR-mrr-009 (SRC-004)\n\n**นอกขอบเขตรอบนี้:** การเข้าสู่ระบบผ่าน Active Directory (SSO) ที่ §3.1 เอ่ยถึง — รอบนี้ใช้ Email ขององค์กรอย่างเดียว (SRC-010)"
+    },
+    {
+      "id": "REQ-mrr-002",
+      "title": "การอนุมัติการจอง",
+      "actor": "Room Administrator",
+      "goal": "กำหนดได้ว่าห้องใดต้องได้รับอนุมัติก่อนใช้งานจริง และอนุมัติการจองของห้องเหล่านั้น",
+      "priority": "medium",
+      "status": "draft",
+      "has_ui": true,
+      "domain_concepts": [
+        "UL-mrr-001",
+        "UL-mrr-002",
+        "UL-mrr-006",
+        "UL-mrr-010",
+        "UL-mrr-009"
+      ],
+      "rules": [
+        "BR-mrr-004",
+        "BR-mrr-011",
+        "BR-mrr-013",
+        "BR-mrr-016",
+        "BR-mrr-017",
+        "BR-mrr-018"
+      ],
+      "provenance": [
+        {
+          "source": "SRC-001",
+          "locator": {
+            "section": "3.2"
+          },
+          "quote": "ระบบอนุมัติการจอง (Approval Workflow): กำหนดได้ว่าห้องใดต้องได้รับการอนุมัติจากแอดมินก่อนใช้งานจริง",
+          "confidence": 0.95
+        },
+        {
+          "source": "SRC-004",
+          "locator": {
+            "line": 4
+          },
+          "quote": "\"แอดมิน\" ที่อนุมัติการจองใน §3.2 คือ Room Administrator",
+          "confidence": 1
+        }
+      ],
+      "narrative": "**กฎข้าม REQ:** BR-mrr-017 และ BR-mrr-018 (ร่องรอย) วางไว้ที่นี่ตามที่เจ้าของเลือก (SRC-009) แต่ครอบการกระทำของ Room Administrator ใน REQ-mrr-001 ด้วย — แก้หรือยกเลิกแทนผู้จอง (BR-mrr-009) และอนุมัติคำขอแก้หลังประชุมจบ (BR-mrr-014)"
+    },
+    {
+      "id": "REQ-mrr-003",
+      "title": "การจัดการข้อมูลห้องประชุม",
+      "actor": "Room Administrator",
+      "goal": "เพิ่ม แก้ไข ปิดปรับปรุง หรือลบข้อมูลห้องประชุม พร้อมกำหนดความจุ รูปภาพ และสิ่งอำนวยความสะดวก",
+      "priority": "medium",
+      "status": "draft",
+      "has_ui": true,
+      "domain_concepts": [
+        "UL-mrr-001",
+        "UL-mrr-003",
+        "UL-mrr-007"
+      ],
+      "rules": [
+        "BR-mrr-005",
+        "BR-mrr-010",
+        "BR-mrr-012"
+      ],
+      "provenance": [
+        {
+          "source": "SRC-001",
+          "locator": {
+            "section": "3.2"
+          },
+          "quote": "จัดการข้อมูลห้องประชุม (Room Management): เพิ่ม, แก้ไข, ปิดปรับปรุง หรือลบข้อมูลห้องประชุม พร้อมกำหนดความจุและรูปภาพ",
+          "confidence": 0.95
+        }
+      ]
+    },
+    {
+      "id": "REQ-mrr-004",
+      "title": "รายงานและสถิติการใช้ห้อง",
+      "actor": "Room Administrator",
+      "goal": "ดูรายงานการใช้ห้องประชุมรายเดือน/รายปี และสถิติห้องที่มีอัตราการใช้งานสูงสุด เพื่อวางแผนทรัพยากร",
+      "priority": "low",
+      "status": "draft",
+      "has_ui": true,
+      "domain_concepts": [
+        "UL-mrr-001",
+        "UL-mrr-008",
+        "UL-mrr-012"
+      ],
+      "rules": [
+        "BR-mrr-006",
+        "BR-mrr-015",
+        "BR-mrr-022"
+      ],
+      "provenance": [
+        {
+          "source": "SRC-001",
+          "locator": {
+            "section": "3.2"
+          },
+          "quote": "รายงานการใช้งานห้องประชุมประจำเดือน/ปี",
+          "confidence": 0.95
+        },
+        {
+          "source": "SRC-001",
+          "locator": {
+            "section": "3.2"
+          },
+          "quote": "สถิติห้องที่มีอัตราการใช้งานสูงสุด (Utilization Rate) เพื่อนำไปวางแผนทรัพยากร",
+          "confidence": 0.95
+        }
+      ]
+    },
+    {
+      "id": "REQ-mrr-005",
+      "title": "การแจ้งเตือน",
+      "actor": "General User · งานแจ้งเตือนตามเวลา (ระบบ)",
+      "goal": "ได้รับแจ้งเตือนทาง Email เมื่อการจองมีความเคลื่อนไหวหรือใกล้ถึงเวลาประชุม",
+      "priority": "medium",
+      "status": "draft",
+      "has_ui": false,
+      "domain_concepts": [
+        "UL-mrr-002",
+        "UL-mrr-006",
+        "UL-mrr-009"
+      ],
+      "rules": [
+        "BR-mrr-007",
+        "BR-mrr-008",
+        "BR-mrr-019",
+        "BR-mrr-020",
+        "BR-mrr-023"
+      ],
+      "provenance": [
+        {
+          "source": "SRC-001",
+          "locator": {
+            "section": "3.3"
+          },
+          "quote": "แจ้งเตือนผ่าน Email หรือแอปพลิเคชันแชทขององค์กร (เช่น Line, Microsoft Teams, Slack)",
+          "confidence": 0.95
+        },
+        {
+          "source": "SRC-002",
+          "locator": {
+            "line": 2
+          },
+          "quote": "การแจ้งเตือนผ่านแอปแชทขององค์กร (Line, Microsoft Teams, Slack) ไม่อยู่ในรอบนี้ — ยกไปรอบถัดไป รอบนี้แจ้งเตือนผ่าน Email",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-002",
+          "locator": {
+            "line": 3
+          },
+          "quote": "ตัดการแจ้งเตือนผ่านแอปแชทออกแล้วยังบรรลุเป้าหมาย — ของที่ตัดออกเป็นส่วนขยาย",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-003",
+          "locator": {
+            "line": 1
+          },
+          "quote": "มีงานอัตโนมัติ / งานตามเวลาที่ไม่มีคนกด แตะข้อมูลการจองด้วย (เช่น ตัวส่งแจ้งเตือนก่อนเริ่มประชุม)",
+          "confidence": 1
+        }
+      ],
+      "narrative": "**นอกขอบเขตรอบนี้:** การแจ้งเตือนผ่านแอปแชทขององค์กร (Line, Microsoft Teams, Slack) ที่ §3.3 ยกตัวอย่างไว้ — ยกไปรอบถัดไป ตัดออกแล้วยังบรรลุเป้าหมาย เป็นส่วนขยาย (ชั้น 1 รอบ A, SRC-002)"
+    }
+  ],
+  "rules": [
+    {
+      "id": "BR-mrr-001@v1",
+      "base_id": "BR-mrr-001",
+      "version": 1,
+      "is_current": true,
+      "status": "draft",
+      "belongs_to": "REQ-mrr-001",
+      "statement": "ห้องเดียวกันห้ามมีการจองที่ช่วงเวลาทับกัน — ระบบตรวจสอบความพร้อมของห้องอัตโนมัติก่อนรับการจอง · ช่วงเวลานับแบบ [เริ่ม, จบ) การจองที่จบ 10:00 กับที่เริ่ม 10:00 ไม่นับว่าทับ จองต่อกันได้ · การจองที่รออนุมัตินับเป็นการจองที่กันช่วงเวลา จนกว่าจะถูกปฏิเสธหรือยกเลิก",
+      "kind": "invariant",
+      "enforced_by": [],
+      "examples": [
+        "EX-mrr-001",
+        "EX-mrr-002",
+        "EX-mrr-003",
+        "EX-mrr-004"
+      ],
+      "questions": [],
+      "test_design": [
+        "BVA"
+      ],
+      "provenance": [
+        {
+          "source": "SRC-001",
+          "locator": {
+            "section": "3.1"
+          },
+          "quote": "ระบบตรวจสอบความพร้อมของห้องอัตโนมัติ (Conflict Check)",
+          "confidence": 0.9
+        },
+        {
+          "source": "SRC-001",
+          "locator": {
+            "section": "3.1"
+          },
+          "quote": "แสดงตารางการใช้ห้องในรูปแบบรายวัน รายสัปดาห์ และรายเดือน เพื่อป้องกันการจองซ้ำ",
+          "confidence": 0.85
+        },
+        {
+          "source": "SRC-005",
+          "locator": {
+            "line": 3
+          },
+          "quote": "การจองที่จบ 10:00 กับการจองที่เริ่ม 10:00 ในห้องเดียวกัน ไม่นับว่าซ้อน จองต่อกันได้",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-007",
+          "locator": {
+            "line": 3
+          },
+          "quote": "การจองที่รออนุมัติกันช่วงเวลานั้นไว้ จนกว่าจะถูกปฏิเสธหรือยกเลิก — แก้ BR-mrr-001 ทับ @v1",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-011",
+          "locator": {
+            "line": 1
+          },
+          "quote": "QB-idem-01: ผู้ใช้กดจองซ้ำ (ดับเบิลคลิก / เน็ตหน่วงแล้วกดใหม่) — กันที่ DB แล้วแสดง error",
+          "confidence": 1
+        }
+      ],
+      "supersedes": null,
+      "superseded_by": null,
+      "superseded_at": null,
+      "change_reason": null,
+      "traces_down": {
+        "features": [],
+        "test_cases": []
+      }
+    },
+    {
+      "id": "BR-mrr-002@v1",
+      "base_id": "BR-mrr-002",
+      "version": 1,
+      "is_current": true,
+      "status": "draft",
+      "belongs_to": "REQ-mrr-001",
+      "statement": "การจองต้องระบุหัวข้อการประชุมและรายชื่อผู้เข้าร่วม ส่วนอุปกรณ์เสริมเลือกหรือไม่เลือกก็ได้",
+      "kind": "constraint",
+      "enforced_by": [],
+      "examples": [
+        "EX-mrr-005",
+        "EX-mrr-006",
+        "EX-mrr-007"
+      ],
+      "questions": [
+        "Q-mrr-001"
+      ],
+      "test_design": [
+        "EP"
+      ],
+      "provenance": [
+        {
+          "source": "SRC-001",
+          "locator": {
+            "section": "3.1"
+          },
+          "quote": "ระบุหัวข้อการประชุม, รายชื่อผู้เข้าร่วม, และเลือกอุปกรณ์เสริมที่ต้องการ",
+          "confidence": 0.9
+        },
+        {
+          "source": "SRC-016",
+          "locator": {
+            "line": 3
+          },
+          "quote": "ผู้จองไม่ถูกนับเป็นผู้เข้าร่วมโดยอัตโนมัติ — ต้องใส่รายชื่อผู้เข้าร่วมเอง",
+          "confidence": 1
+        }
+      ],
+      "supersedes": null,
+      "superseded_by": null,
+      "superseded_at": null,
+      "change_reason": null,
+      "traces_down": {
+        "features": [],
+        "test_cases": []
+      }
+    },
+    {
+      "id": "BR-mrr-003@v1",
+      "base_id": "BR-mrr-003",
+      "version": 1,
+      "is_current": true,
+      "status": "draft",
+      "belongs_to": "REQ-mrr-001",
+      "statement": "ผู้ใช้ดูประวัติ แก้ไข หรือยกเลิกได้เฉพาะการจองของตนเอง",
+      "kind": "policy",
+      "enforced_by": [],
+      "examples": [
+        "EX-mrr-008",
+        "EX-mrr-009",
+        "EX-mrr-010",
+        "EX-mrr-011"
+      ],
+      "questions": [],
+      "test_design": [
+        "decision_table"
+      ],
+      "provenance": [
+        {
+          "source": "SRC-001",
+          "locator": {
+            "section": "3.1"
+          },
+          "quote": "จัดการการจองของฉัน (My Bookings): ผู้ใช้สามารถดูประวัติ, แก้ไขรายละเอียด, หรือยกเลิกการจองของตนเองได้",
+          "confidence": 0.85
+        },
+        {
+          "source": "SRC-004",
+          "locator": {
+            "line": 3
+          },
+          "quote": "QB-perm-02: คนที่แก้ไขหรือยกเลิกการจองต้องเป็นผู้จองเท่านั้น",
+          "confidence": 1
+        }
+      ],
+      "supersedes": null,
+      "superseded_by": null,
+      "superseded_at": null,
+      "change_reason": null,
+      "traces_down": {
+        "features": [],
+        "test_cases": []
+      }
+    },
+    {
+      "id": "BR-mrr-004@v1",
+      "base_id": "BR-mrr-004",
+      "version": 1,
+      "is_current": true,
+      "status": "draft",
+      "belongs_to": "REQ-mrr-002",
+      "statement": "การจองห้องที่ถูกตั้งไว้ว่า \"ต้องอนุมัติ\" จะใช้งานจริงได้ต่อเมื่อ Room Administrator อนุมัติแล้ว ห้องที่ไม่ได้ตั้งไว้ไม่ต้องรออนุมัติ",
+      "kind": "policy",
+      "enforced_by": [],
+      "examples": [
+        "EX-mrr-012",
+        "EX-mrr-013",
+        "EX-mrr-014",
+        "EX-mrr-001"
+      ],
+      "questions": [],
+      "test_design": [
+        "state_transition",
+        "decision_table"
+      ],
+      "provenance": [
+        {
+          "source": "SRC-001",
+          "locator": {
+            "section": "3.2"
+          },
+          "quote": "กำหนดได้ว่าห้องใดต้องได้รับการอนุมัติจากแอดมินก่อนใช้งานจริง",
+          "confidence": 0.9
+        },
+        {
+          "source": "SRC-004",
+          "locator": {
+            "line": 4
+          },
+          "quote": "\"แอดมิน\" ที่อนุมัติการจองใน §3.2 คือ Room Administrator",
+          "confidence": 1
+        }
+      ],
+      "supersedes": null,
+      "superseded_by": null,
+      "superseded_at": null,
+      "change_reason": null,
+      "traces_down": {
+        "features": [],
+        "test_cases": []
+      }
+    },
+    {
+      "id": "BR-mrr-005@v1",
+      "base_id": "BR-mrr-005",
+      "version": 1,
+      "is_current": true,
+      "status": "draft",
+      "belongs_to": "REQ-mrr-003",
+      "statement": "การเพิ่ม แก้ไข ปิดปรับปรุง หรือลบข้อมูลห้องประชุม ทำได้เฉพาะ Room Administrator",
+      "kind": "policy",
+      "enforced_by": [],
+      "examples": [
+        "EX-mrr-015",
+        "EX-mrr-016",
+        "EX-mrr-017",
+        "EX-mrr-018"
+      ],
+      "questions": [
+        "Q-mrr-002"
+      ],
+      "test_design": [
+        "decision_table"
+      ],
+      "provenance": [
+        {
+          "source": "SRC-001",
+          "locator": {
+            "section": "2"
+          },
+          "quote": "Room Administrator (ผู้ดูแลระบบห้องประชุม): เจ้าหน้าที่ดูแลอาคาร/สถานที่ ที่มีสิทธิ์อนุมัติ จัดการข้อมูลห้อง และกำหนดสิ่งอำนวยความสะดวก",
+          "confidence": 0.8
+        },
+        {
+          "source": "SRC-001",
+          "locator": {
+            "section": "3.2"
+          },
+          "quote": "เพิ่ม, แก้ไข, ปิดปรับปรุง หรือลบข้อมูลห้องประชุม พร้อมกำหนดความจุและรูปภาพ",
+          "confidence": 0.9
+        }
+      ],
+      "supersedes": null,
+      "superseded_by": null,
+      "superseded_at": null,
+      "change_reason": null,
+      "traces_down": {
+        "features": [],
+        "test_cases": []
+      }
+    },
+    {
+      "id": "BR-mrr-006@v1",
+      "base_id": "BR-mrr-006",
+      "version": 1,
+      "is_current": true,
+      "status": "draft",
+      "belongs_to": "REQ-mrr-004",
+      "statement": "อัตราการใช้งานรายห้อง = ชั่วโมงที่ถูกจองและใช้ได้จริง (ไม่ต้องอนุมัติ หรืออนุมัติแล้ว — ไม่นับยกเลิก / ปฏิเสธ / รออนุมัติ) ÷ ชั่วโมงทำการของห้องในช่วงรายงาน · ปัดทุกจุดแบบ round half up · ใช้จัดอันดับห้องที่ใช้งานสูงสุด",
+      "kind": "calculation",
+      "enforced_by": [],
+      "examples": [
+        "EX-mrr-084",
+        "EX-mrr-085",
+        "EX-mrr-086",
+        "EX-mrr-087"
+      ],
+      "questions": [],
+      "test_design": [
+        "BVA"
+      ],
+      "provenance": [
+        {
+          "source": "SRC-001",
+          "locator": {
+            "section": "3.2"
+          },
+          "quote": "สถิติห้องที่มีอัตราการใช้งานสูงสุด (Utilization Rate) เพื่อนำไปวางแผนทรัพยากร",
+          "confidence": 0.85
+        },
+        {
+          "source": "SRC-012",
+          "locator": {
+            "line": 1
+          },
+          "quote": "อัตราการใช้งานของห้อง = ชั่วโมงที่ถูกจอง ÷ ชั่วโมงทำการของห้อง",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-012",
+          "locator": {
+            "line": 2
+          },
+          "quote": "นับเฉพาะการจองที่ใช้ได้จริง (ไม่ต้องอนุมัติ หรืออนุมัติแล้ว) — ไม่นับที่ยกเลิก / ปฏิเสธ / รออนุมัติ",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-012",
+          "locator": {
+            "line": 3
+          },
+          "quote": "QB-calc-01: ผลที่มีเศษทศนิยม ปัดทุกจุดแบบ round half up",
+          "confidence": 1
+        }
+      ],
+      "supersedes": null,
+      "superseded_by": null,
+      "superseded_at": null,
+      "change_reason": null,
+      "traces_down": {
+        "features": [],
+        "test_cases": []
+      },
+      "constrained_by": "CALC-mrr-001@v1",
+      "golden": [
+        "GD-mrr-001"
+      ]
+    },
+    {
+      "id": "BR-mrr-007@v1",
+      "base_id": "BR-mrr-007",
+      "version": 1,
+      "is_current": true,
+      "status": "draft",
+      "belongs_to": "REQ-mrr-005",
+      "statement": "ระบบส่งแจ้งเตือนทาง Email เมื่อ (1) จองห้องสำเร็จหรือได้รับการอนุมัติ — ถึงผู้จอง (2) ใกล้ถึงเวลาประชุม (3) มีการเปลี่ยนเวลาหรือยกเลิกการจอง — (2)(3) ถึงผู้จองและผู้เข้าร่วมทุกคน · การแก้เฉพาะหัวข้อหรือรายชื่อผู้เข้าร่วมไม่ส่ง Email · หัวเรื่อง: [จองห้องประชุม] <เหตุการณ์>: <หัวข้อ> · <ห้อง> <วัน> <เวลา>",
+      "kind": "policy",
+      "enforced_by": [],
+      "examples": [
+        "EX-mrr-019",
+        "EX-mrr-020",
+        "EX-mrr-021",
+        "EX-mrr-022"
+      ],
+      "questions": [],
+      "test_design": [
+        "EP"
+      ],
+      "provenance": [
+        {
+          "source": "SRC-001",
+          "locator": {
+            "section": "3.3"
+          },
+          "quote": "จองห้องสำเร็จ / ได้รับการอนุมัติ",
+          "confidence": 0.95
+        },
+        {
+          "source": "SRC-001",
+          "locator": {
+            "section": "3.3"
+          },
+          "quote": "มีการเปลี่ยนแปลงเวลาหรือยกเลิกการจอง",
+          "confidence": 0.95
+        },
+        {
+          "source": "SRC-010",
+          "locator": {
+            "line": 3
+          },
+          "quote": "BR-mrr-007 แก้ทับ @v1 ให้เหลือแจ้งเตือนทาง Email ตามขอบเขตชั้น 1",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-002",
+          "locator": {
+            "line": 2
+          },
+          "quote": "การแจ้งเตือนผ่านแอปแชทขององค์กร (Line, Microsoft Teams, Slack) ไม่อยู่ในรอบนี้ — ยกไปรอบถัดไป รอบนี้แจ้งเตือนผ่าน Email",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-020",
+          "locator": {
+            "line": 1
+          },
+          "quote": "Email แจ้งเตือนส่งถึงผู้จองทุกกรณี และถึงผู้เข้าร่วมเฉพาะกรณี ใกล้ถึงเวลาประชุม / เปลี่ยนเวลา / ยกเลิกการจอง",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-020",
+          "locator": {
+            "line": 2
+          },
+          "quote": "การแก้เฉพาะหัวข้อหรือรายชื่อผู้เข้าร่วม (ไม่ได้เปลี่ยนเวลา) ไม่ส่ง Email",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-020",
+          "locator": {
+            "line": 3
+          },
+          "quote": "หัวเรื่อง Email: \"[จองห้องประชุม] <เหตุการณ์>: <หัวข้อ> · <ห้อง> <วัน> <เวลา>\" เช่น \"[จองห้องประชุม] จองสำเร็จ: ประชุมทีม · ห้อง A 17/10 10:00–11:00\"",
+          "confidence": 1
+        }
+      ],
+      "supersedes": null,
+      "superseded_by": null,
+      "superseded_at": null,
+      "change_reason": null,
+      "traces_down": {
+        "features": [],
+        "test_cases": []
+      }
+    },
+    {
+      "id": "BR-mrr-008@v1",
+      "base_id": "BR-mrr-008",
+      "version": 1,
+      "is_current": true,
+      "status": "draft",
+      "belongs_to": "REQ-mrr-005",
+      "statement": "แจ้งเตือนใกล้ถึงเวลาประชุมส่งล่วงหน้า 15 นาทีก่อนเวลาเริ่ม (ค่าตายตัว) · การจองที่สร้างเมื่อเหลือน้อยกว่า 15 นาทีก่อนเริ่ม ส่งเตือนทันที · การจองที่ยังรออนุมัติไม่ส่งเตือน",
+      "kind": "constraint",
+      "enforced_by": [],
+      "examples": [
+        "EX-mrr-023",
+        "EX-mrr-024",
+        "EX-mrr-025",
+        "EX-mrr-020"
+      ],
+      "questions": [
+        "Q-mrr-003"
+      ],
+      "test_design": [
+        "BVA"
+      ],
+      "provenance": [
+        {
+          "source": "SRC-001",
+          "locator": {
+            "section": "3.3"
+          },
+          "quote": "ใกล้ถึงเวลาประชุม (Reminders เช่น ก่อนเริ่ม 15 นาที)",
+          "confidence": 0.7
+        },
+        {
+          "source": "SRC-021",
+          "locator": {
+            "line": 1
+          },
+          "quote": "จองตอน 09:50 สำหรับประชุมที่เริ่ม 10:00 (น้อยกว่า 15 นาทีก่อนเริ่ม) — ส่ง Email เตือนทันที",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-021",
+          "locator": {
+            "line": 2
+          },
+          "quote": "การจองที่ยังรออนุมัติตอนถึงจุดเตือน — ไม่ส่ง Email เตือน",
+          "confidence": 1
+        }
+      ],
+      "supersedes": null,
+      "superseded_by": null,
+      "superseded_at": null,
+      "change_reason": null,
+      "traces_down": {
+        "features": [],
+        "test_cases": []
+      }
+    },
+    {
+      "id": "BR-mrr-009@v1",
+      "base_id": "BR-mrr-009",
+      "version": 1,
+      "is_current": true,
+      "status": "draft",
+      "belongs_to": "REQ-mrr-001",
+      "statement": "เมื่อถึงเวลาเริ่มประชุมแล้ว ผู้จองแก้ไขหรือยกเลิกการจองเองไม่ได้ — ต้องให้ Room Administrator เป็นผู้แก้ไขหรือยกเลิก โดยต้องระบุเหตุผลทุกครั้ง",
+      "kind": "policy",
+      "enforced_by": [],
+      "examples": [
+        "EX-mrr-026",
+        "EX-mrr-027",
+        "EX-mrr-028",
+        "EX-mrr-029"
+      ],
+      "questions": [],
+      "test_design": [
+        "BVA",
+        "decision_table"
+      ],
+      "provenance": [
+        {
+          "source": "SRC-004",
+          "locator": {
+            "line": 1
+          },
+          "quote": "QB-perm-01: ผู้จองแก้ไขหรือยกเลิกการจองได้บางช่วง ที่เหลือ Room Administrator เป็นผู้ทำ — เป็นกฎคนละข้อกับ BR-mrr-003",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-004",
+          "locator": {
+            "line": 2
+          },
+          "quote": "จุดตัด: เมื่อถึงเวลาเริ่มประชุม ผู้จองแก้ไขหรือยกเลิกเองไม่ได้แล้ว",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-022",
+          "locator": {
+            "line": 2
+          },
+          "quote": "Room Administrator แก้ไขหรือยกเลิกแทนผู้จอง ต้องระบุเหตุผล — ไม่ระบุแสดงข้อความ \"กรุณาระบุเหตุผล\"",
+          "confidence": 1
+        }
+      ],
+      "supersedes": null,
+      "superseded_by": null,
+      "superseded_at": null,
+      "change_reason": null,
+      "traces_down": {
+        "features": [],
+        "test_cases": []
+      }
+    },
+    {
+      "id": "BR-mrr-010@v1",
+      "base_id": "BR-mrr-010",
+      "version": 1,
+      "is_current": false,
+      "status": "superseded",
+      "belongs_to": "REQ-mrr-003",
+      "statement": "การแก้ค่าตั้งของห้อง (เช่น ต้องอนุมัติ หรือความจุ) มีผลเฉพาะการจองที่สร้างหลังการแก้ — การจองที่มีอยู่แล้วใช้ค่าตั้ง ณ ตอนที่สร้าง",
+      "kind": "policy",
+      "enforced_by": [],
+      "examples": [
+        "EX-mrr-030",
+        "EX-mrr-031",
+        "EX-mrr-032",
+        "EX-mrr-033",
+        "EX-mrr-034"
+      ],
+      "questions": [],
+      "test_design": [
+        "state_transition",
+        "decision_table"
+      ],
+      "provenance": [
+        {
+          "source": "SRC-005",
+          "locator": {
+            "line": 1
+          },
+          "quote": "QB-tmp-01: Room Administrator แก้ค่าตั้งของห้อง (เช่น ตั้งเป็นต้องอนุมัติ หรือลดความจุ) มีผลเฉพาะการจองใหม่ การจองเดิมใช้ค่าตั้ง ณ ตอนที่สร้าง",
+          "confidence": 1
+        }
+      ],
+      "supersedes": null,
+      "superseded_by": "BR-mrr-010@v2",
+      "superseded_at": "2026-10-19T10:00+07:00",
+      "change_reason": null,
+      "traces_down": {
+        "features": [],
+        "test_cases": []
+      }
+    },
+    {
+      "id": "BR-mrr-010@v2",
+      "base_id": "BR-mrr-010",
+      "version": 2,
+      "is_current": true,
+      "status": "draft",
+      "belongs_to": "REQ-mrr-003",
+      "statement": "การแก้ค่าตั้งของห้อง (เช่น ต้องอนุมัติ หรือความจุ — ไม่รวมการตั้งปิดปรับปรุง ซึ่งเป็นไปตาม BR-mrr-012) มีผลกับการจองที่ยังไม่ถึงเวลาเริ่มด้วย — ถ้าห้องถูกแก้เป็นต้องอนุมัติ การจองเดิมที่ยังไม่ถึงเวลาเริ่มจะกลับไปเป็นสถานะ 'รออนุมัติ' · ถ้าห้องถูกแก้เป็นไม่ต้องอนุมัติ การจองที่รออนุมัติอยู่จะใช้ได้ทันที",
+      "kind": "policy",
+      "enforced_by": [],
+      "examples": [
+        "EX-mrr-030",
+        "EX-mrr-033",
+        "EX-mrr-034",
+        "EX-mrr-078",
+        "EX-mrr-079",
+        "EX-mrr-080"
+      ],
+      "questions": [],
+      "test_design": [
+        "state_transition",
+        "decision_table"
+      ],
+      "provenance": [
+        {
+          "source": "SRC-023",
+          "locator": {
+            "line": 2
+          },
+          "quote": "การแก้ค่าตั้งของห้อง (เช่น ต้องอนุมัติ หรือความจุ — ไม่รวมการตั้งปิดปรับปรุง ซึ่งเป็นไปตาม BR-mrr-012) มีผลกับการจองที่ยังไม่ถึงเวลาเริ่มด้วย — ถ้าห้องถูกแก้เป็นต้องอนุมัติ การจองเดิมที่ยังไม่ถึงเวลาเริ่มจะกลับไปเป็นสถานะ 'รออนุมัติ' · ถ้าห้องถูกแก้เป็นไม่ต้องอนุมัติ การจองที่รออนุมัติอยู่จะใช้ได้ทันที",
+          "confidence": 1
+        }
+      ],
+      "supersedes": "BR-mrr-010@v1",
+      "superseded_by": null,
+      "superseded_at": null,
+      "change_reason": "ลูกค้า (คุณ Somchai) ขอให้เปลี่ยนในการประชุมล่าสุด 19/10/2026",
+      "traces_down": {
+        "features": [],
+        "test_cases": []
+      },
+      "effective_from": "2026-10-19"
+    },
+    {
+      "id": "BR-mrr-011@v1",
+      "base_id": "BR-mrr-011",
+      "version": 1,
+      "is_current": true,
+      "status": "draft",
+      "belongs_to": "REQ-mrr-002",
+      "statement": "Room Administrator เปลี่ยนผลการอนุมัติหรือปฏิเสธการจองได้ โดยต้องระบุเหตุผลทุกครั้ง และทำได้เฉพาะก่อนถึงเวลาเริ่มประชุม",
+      "kind": "policy",
+      "enforced_by": [],
+      "examples": [
+        "EX-mrr-035",
+        "EX-mrr-036",
+        "EX-mrr-037",
+        "EX-mrr-038"
+      ],
+      "questions": [],
+      "test_design": [
+        "state_transition",
+        "BVA"
+      ],
+      "provenance": [
+        {
+          "source": "SRC-006",
+          "locator": {
+            "line": 1
+          },
+          "quote": "QB-rev-01: Room Administrator อนุมัติหรือปฏิเสธการจองผิดไปแล้ว ถอยผลได้ แต่ต้องระบุเหตุผล",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-006",
+          "locator": {
+            "line": 2
+          },
+          "quote": "QB-rev-02: ถอยผลการอนุมัติได้เฉพาะก่อนถึงเวลาเริ่มประชุม",
+          "confidence": 1
+        }
+      ],
+      "supersedes": null,
+      "superseded_by": null,
+      "superseded_at": null,
+      "change_reason": null,
+      "traces_down": {
+        "features": [],
+        "test_cases": []
+      }
+    },
+    {
+      "id": "BR-mrr-012@v1",
+      "base_id": "BR-mrr-012",
+      "version": 1,
+      "is_current": true,
+      "status": "draft",
+      "belongs_to": "REQ-mrr-003",
+      "statement": "ห้องที่ตั้งเป็นปิดปรับปรุงรับการจองใหม่ไม่ได้ — การจองที่มีอยู่แล้วคงไว้ตามเดิม",
+      "kind": "constraint",
+      "enforced_by": [],
+      "examples": [
+        "EX-mrr-016",
+        "EX-mrr-081",
+        "EX-mrr-082",
+        "EX-mrr-083"
+      ],
+      "questions": [],
+      "test_design": [
+        "state_transition",
+        "decision_table"
+      ],
+      "provenance": [
+        {
+          "source": "SRC-006",
+          "locator": {
+            "line": 3
+          },
+          "quote": "ห้องที่ตั้งเป็นปิดปรับปรุง ห้ามรับการจองใหม่ การจองที่มีอยู่แล้วคงไว้",
+          "confidence": 1
+        }
+      ],
+      "supersedes": null,
+      "superseded_by": null,
+      "superseded_at": null,
+      "change_reason": null,
+      "traces_down": {
+        "features": [],
+        "test_cases": []
+      }
+    },
+    {
+      "id": "BR-mrr-013@v1",
+      "base_id": "BR-mrr-013",
+      "version": 1,
+      "is_current": true,
+      "status": "draft",
+      "belongs_to": "REQ-mrr-002",
+      "statement": "แต่ละห้องที่ต้องอนุมัติกำหนดผู้อนุมัติประจำห้อง (Room Administrator) ได้ — ถ้ายังไม่กำหนด Room Administrator ทุกคนอนุมัติได้ และกำหนดทีหลังได้",
+      "kind": "policy",
+      "enforced_by": [],
+      "examples": [
+        "EX-mrr-039",
+        "EX-mrr-040",
+        "EX-mrr-041",
+        "EX-mrr-042"
+      ],
+      "questions": [],
+      "test_design": [
+        "decision_table"
+      ],
+      "provenance": [
+        {
+          "source": "SRC-007",
+          "locator": {
+            "line": 1
+          },
+          "quote": "QB-apr-01: แต่ละห้องกำหนด Room Administrator ที่เป็นผู้อนุมัติได้ — เป็นกฎคนละข้อกับ BR-mrr-004",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-007",
+          "locator": {
+            "line": 2
+          },
+          "quote": "QB-apr-02: ห้องที่ต้องอนุมัติแต่ยังไม่กำหนดผู้อนุมัติ ใช้ค่าเริ่มต้นคือ Room Administrator ทุกคนอนุมัติได้ และกำหนดทีหลังได้",
+          "confidence": 1
+        }
+      ],
+      "supersedes": null,
+      "superseded_by": null,
+      "superseded_at": null,
+      "change_reason": null,
+      "traces_down": {
+        "features": [],
+        "test_cases": []
+      }
+    },
+    {
+      "id": "BR-mrr-014@v1",
+      "base_id": "BR-mrr-014",
+      "version": 1,
+      "is_current": true,
+      "status": "draft",
+      "belongs_to": "REQ-mrr-001",
+      "statement": "หลังเวลาจบประชุม การแก้ไขการจองเก็บเป็นคำขอแก้แยก ค่าเดิมคงไว้ — คำขอจะมีผลต่อเมื่อได้รับอนุมัติจาก Room Administrator คนอื่นที่ไม่ใช่คนแก้",
+      "kind": "policy",
+      "enforced_by": [],
+      "examples": [
+        "EX-mrr-043",
+        "EX-mrr-044",
+        "EX-mrr-045",
+        "EX-mrr-046"
+      ],
+      "questions": [],
+      "test_design": [
+        "state_transition",
+        "decision_table"
+      ],
+      "provenance": [
+        {
+          "source": "SRC-008",
+          "locator": {
+            "line": 1
+          },
+          "quote": "QB-frz-01: การจองที่ผ่านเวลาจบประชุมแล้วยังแก้ได้ แต่ต้องมีคนอนุมัติ — เป็นกฎคนละข้อกับ BR-mrr-009",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-008",
+          "locator": {
+            "line": 2
+          },
+          "quote": "ผู้อนุมัติการแก้การจองหลังประชุมจบ คือ Room Administrator คนอื่นที่ไม่ใช่คนแก้",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-009",
+          "locator": {
+            "line": 1
+          },
+          "quote": "QB-aud-01: การแก้การจองหลังประชุมจบ เก็บเป็นคำขอแก้แยก ค่าเดิมคงไว้ — แก้ BR-mrr-014 ทับ @v1",
+          "confidence": 1
+        }
+      ],
+      "supersedes": null,
+      "superseded_by": null,
+      "superseded_at": null,
+      "change_reason": null,
+      "traces_down": {
+        "features": [],
+        "test_cases": []
+      }
+    },
+    {
+      "id": "BR-mrr-015@v1",
+      "base_id": "BR-mrr-015",
+      "version": 1,
+      "is_current": true,
+      "status": "draft",
+      "belongs_to": "REQ-mrr-004",
+      "statement": "รายงานการใช้ห้องที่ออกไปแล้ว ถ้าข้อมูลการจองเปลี่ยนทีหลัง ต้องออกฉบับใหม่ทับ และเก็บฉบับเดิมไว้ — ห้ามแก้ฉบับที่ออกไปแล้ว",
+      "kind": "invariant",
+      "enforced_by": [],
+      "examples": [
+        "EX-mrr-047",
+        "EX-mrr-048",
+        "EX-mrr-049"
+      ],
+      "questions": [],
+      "test_design": [
+        "state_transition"
+      ],
+      "provenance": [
+        {
+          "source": "SRC-008",
+          "locator": {
+            "line": 3
+          },
+          "quote": "QB-frz-02: รายงานการใช้ห้องที่ออกไปแล้ว ถ้าข้อมูลการจองเปลี่ยนทีหลัง ให้ออกฉบับใหม่ทับ และเก็บฉบับเดิมไว้",
+          "confidence": 1
+        }
+      ],
+      "supersedes": null,
+      "superseded_by": null,
+      "superseded_at": null,
+      "change_reason": null,
+      "traces_down": {
+        "features": [],
+        "test_cases": []
+      }
+    },
+    {
+      "id": "BR-mrr-016@v1",
+      "base_id": "BR-mrr-016",
+      "version": 1,
+      "is_current": true,
+      "status": "draft",
+      "belongs_to": "REQ-mrr-002",
+      "statement": "การจองที่ยังรออนุมัติเมื่อถึงเวลาเริ่มประชุม ถูกยกเลิกอัตโนมัติ ปล่อยช่วงเวลาคืน และแจ้งผู้จอง — ถ้าส่ง Email แจ้งผู้จองไม่สำเร็จ ยังไม่ยกเลิก รองานรอบถัดไปทำใหม่ · ระหว่างที่ค้างอยู่ Room Administrator ยังอนุมัติได้",
+      "kind": "policy",
+      "enforced_by": [],
+      "examples": [
+        "EX-mrr-050",
+        "EX-mrr-051",
+        "EX-mrr-052",
+        "EX-mrr-053"
+      ],
+      "questions": [],
+      "test_design": [
+        "state_transition",
+        "BVA"
+      ],
+      "provenance": [
+        {
+          "source": "SRC-008",
+          "locator": {
+            "line": 4
+          },
+          "quote": "ถ้าถึงเวลาเริ่มประชุมแล้วการจองยังรออนุมัติ ให้ยกเลิกอัตโนมัติและแจ้งผู้จอง",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-011",
+          "locator": {
+            "line": 3
+          },
+          "quote": "งานยกเลิกอัตโนมัติส่ง Email แจ้งผู้จองไม่สำเร็จ — ยังไม่ยกเลิก รองานรอบถัดไปทำใหม่ (แก้ BR-mrr-016 ทับ @v1)",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-011",
+          "locator": {
+            "line": 4
+          },
+          "quote": "ระหว่างที่การจองค้างรออนุมัติเลยเวลาเริ่ม Room Administrator ยังอนุมัติได้ ถ้ายังไม่ถูกยกเลิก",
+          "confidence": 1
+        }
+      ],
+      "supersedes": null,
+      "superseded_by": null,
+      "superseded_at": null,
+      "change_reason": null,
+      "traces_down": {
+        "features": [],
+        "test_cases": []
+      }
+    },
+    {
+      "id": "BR-mrr-017@v1",
+      "base_id": "BR-mrr-017",
+      "version": 1,
+      "is_current": true,
+      "status": "draft",
+      "belongs_to": "REQ-mrr-002",
+      "statement": "ทุกการกระทำของ Room Administrator ต่อการจอง (อนุมัติ · ปฏิเสธ · ถอยผล · แก้หรือยกเลิกแทนผู้จอง) ต้องบันทึกร่องรอย: ใคร · เมื่อไหร่ · ทำอะไร · เหตุผล",
+      "kind": "invariant",
+      "enforced_by": [],
+      "examples": [
+        "EX-mrr-054",
+        "EX-mrr-055",
+        "EX-mrr-056",
+        "EX-mrr-057"
+      ],
+      "questions": [],
+      "test_design": [
+        "decision_table"
+      ],
+      "provenance": [
+        {
+          "source": "SRC-009",
+          "locator": {
+            "line": 2
+          },
+          "quote": "บันทึกร่องรอย (ใคร · เมื่อไหร่ · ทำอะไร · เหตุผล) เฉพาะการกระทำของ Room Administrator: อนุมัติ · ปฏิเสธ · ถอยผล · แก้/ยกเลิกแทนผู้จอง",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-009",
+          "locator": {
+            "line": 4
+          },
+          "quote": "กฎร่องรอยวางไว้ใต้ REQ-mrr-002",
+          "confidence": 1
+        }
+      ],
+      "supersedes": null,
+      "superseded_by": null,
+      "superseded_at": null,
+      "change_reason": null,
+      "traces_down": {
+        "features": [],
+        "test_cases": []
+      }
+    },
+    {
+      "id": "BR-mrr-018@v1",
+      "base_id": "BR-mrr-018",
+      "version": 1,
+      "is_current": true,
+      "status": "draft",
+      "belongs_to": "REQ-mrr-002",
+      "statement": "ร่องรอยการกระทำดูได้เฉพาะ Room Administrator และ System Administrator — ผู้จองดูไม่ได้",
+      "kind": "policy",
+      "enforced_by": [],
+      "examples": [
+        "EX-mrr-058",
+        "EX-mrr-059",
+        "EX-mrr-060",
+        "EX-mrr-061"
+      ],
+      "questions": [],
+      "test_design": [
+        "decision_table"
+      ],
+      "provenance": [
+        {
+          "source": "SRC-009",
+          "locator": {
+            "line": 3
+          },
+          "quote": "ร่องรอยดูได้โดย Room Administrator และ System Administrator — ผู้จองดูไม่ได้",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-009",
+          "locator": {
+            "line": 4
+          },
+          "quote": "กฎร่องรอยวางไว้ใต้ REQ-mrr-002",
+          "confidence": 1
+        }
+      ],
+      "supersedes": null,
+      "superseded_by": null,
+      "superseded_at": null,
+      "change_reason": null,
+      "traces_down": {
+        "features": [],
+        "test_cases": []
+      }
+    },
+    {
+      "id": "BR-mrr-019@v1",
+      "base_id": "BR-mrr-019",
+      "version": 1,
+      "is_current": true,
+      "status": "draft",
+      "belongs_to": "REQ-mrr-005",
+      "statement": "ถ้าส่ง Email แจ้งเตือนไม่สำเร็จ การกระทำของผู้ใช้ที่ทำให้เกิดแจ้งเตือนนั้นล้มทันที และแจ้งผู้ใช้ให้กดใหม่ — ไม่มีคิวส่งซ้ำ",
+      "kind": "policy",
+      "enforced_by": [],
+      "examples": [
+        "EX-mrr-062",
+        "EX-mrr-063",
+        "EX-mrr-064",
+        "EX-mrr-065"
+      ],
+      "questions": [],
+      "test_design": [
+        "decision_table"
+      ],
+      "provenance": [
+        {
+          "source": "SRC-010",
+          "locator": {
+            "line": 1
+          },
+          "quote": "QB-int-01: ส่ง Email แจ้งเตือนไม่สำเร็จ (mail server ล่ม) — ล้มทันที แจ้ง user ให้กดใหม่ การกระทำที่ทำให้เกิดแจ้งเตือนไม่สำเร็จตามไปด้วย",
+          "confidence": 1
+        }
+      ],
+      "supersedes": null,
+      "superseded_by": null,
+      "superseded_at": null,
+      "change_reason": null,
+      "traces_down": {
+        "features": [],
+        "test_cases": []
+      }
+    },
+    {
+      "id": "BR-mrr-020@v1",
+      "base_id": "BR-mrr-020",
+      "version": 1,
+      "is_current": true,
+      "status": "draft",
+      "belongs_to": "REQ-mrr-005",
+      "statement": "ถ้างานตามเวลาส่ง Email เตือนก่อนเริ่มประชุมไม่สำเร็จ ไม่ส่งซ้ำ — บันทึกว่าส่งไม่สำเร็จ",
+      "kind": "policy",
+      "enforced_by": [],
+      "examples": [
+        "EX-mrr-066",
+        "EX-mrr-067"
+      ],
+      "questions": [],
+      "test_design": [
+        "decision_table"
+      ],
+      "provenance": [
+        {
+          "source": "SRC-011",
+          "locator": {
+            "line": 2
+          },
+          "quote": "งานตามเวลาส่ง Email เตือนก่อนเริ่ม 15 นาทีไม่สำเร็จ — ไม่ส่งซ้ำ บันทึกว่าส่งไม่สำเร็จ",
+          "confidence": 1
+        }
+      ],
+      "supersedes": null,
+      "superseded_by": null,
+      "superseded_at": null,
+      "change_reason": null,
+      "traces_down": {
+        "features": [],
+        "test_cases": []
+      }
+    },
+    {
+      "id": "BR-mrr-021@v1",
+      "base_id": "BR-mrr-021",
+      "version": 1,
+      "is_current": true,
+      "status": "draft",
+      "belongs_to": "REQ-mrr-001",
+      "statement": "ในปฏิทิน General User เห็นรายละเอียด (ผู้จอง · หัวข้อ · ผู้เข้าร่วม) เฉพาะการจองที่ตัวเองจองหรือเป็นผู้เข้าร่วม — การจองของคนอื่นเห็นแค่ว่าช่วงเวลานั้น \"ไม่ว่าง\"",
+      "kind": "policy",
+      "enforced_by": [],
+      "examples": [
+        "EX-mrr-068",
+        "EX-mrr-069",
+        "EX-mrr-070",
+        "EX-mrr-071"
+      ],
+      "questions": [],
+      "test_design": [
+        "decision_table"
+      ],
+      "provenance": [
+        {
+          "source": "SRC-013",
+          "locator": {
+            "line": 1
+          },
+          "quote": "QB-scope-01: ในปฏิทิน General User เห็นรายละเอียดเฉพาะการจองที่ตัวเองจองหรือเป็นผู้เข้าร่วม — ของคนอื่นเห็นแค่ว่า \"ไม่ว่าง\"",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-013",
+          "locator": {
+            "line": 2
+          },
+          "quote": "เป็นกฎคนละข้อกับ BR-mrr-003 — BR-mrr-003 คือหน้า My Bookings ส่วนข้อนี้คือการมองเห็นในปฏิทิน",
+          "confidence": 1
+        }
+      ],
+      "supersedes": null,
+      "superseded_by": null,
+      "superseded_at": null,
+      "change_reason": null,
+      "traces_down": {
+        "features": [],
+        "test_cases": []
+      }
+    },
+    {
+      "id": "BR-mrr-022@v1",
+      "base_id": "BR-mrr-022",
+      "version": 1,
+      "is_current": true,
+      "status": "draft",
+      "belongs_to": "REQ-mrr-004",
+      "statement": "รายงานและสถิติการใช้ห้องดูได้เฉพาะ Room Administrator",
+      "kind": "policy",
+      "enforced_by": [],
+      "examples": [
+        "EX-mrr-072",
+        "EX-mrr-073",
+        "EX-mrr-074"
+      ],
+      "questions": [],
+      "test_design": [
+        "decision_table"
+      ],
+      "provenance": [
+        {
+          "source": "SRC-013",
+          "locator": {
+            "line": 3
+          },
+          "quote": "รายงานและสถิติการใช้ห้องดูได้เฉพาะ Room Administrator",
+          "confidence": 1
+        }
+      ],
+      "supersedes": null,
+      "superseded_by": null,
+      "superseded_at": null,
+      "change_reason": null,
+      "traces_down": {
+        "features": [],
+        "test_cases": []
+      }
+    },
+    {
+      "id": "BR-mrr-023@v1",
+      "base_id": "BR-mrr-023",
+      "version": 1,
+      "is_current": true,
+      "status": "draft",
+      "belongs_to": "REQ-mrr-005",
+      "statement": "Email เตือนก่อนเริ่มประชุมส่งได้ครั้งเดียวต่อการจอง — งานตามเวลาที่รันซ้ำต้องข้ามการจองที่ส่งไปแล้ว",
+      "kind": "invariant",
+      "enforced_by": [],
+      "examples": [
+        "EX-mrr-075",
+        "EX-mrr-076",
+        "EX-mrr-077"
+      ],
+      "questions": [],
+      "test_design": [
+        "state_transition"
+      ],
+      "provenance": [
+        {
+          "source": "SRC-013",
+          "locator": {
+            "line": 4
+          },
+          "quote": "งานตามเวลาที่รันซ้ำ ต้องส่ง Email เตือนครั้งเดียวต่อการจอง",
+          "confidence": 1
+        }
+      ],
+      "supersedes": null,
+      "superseded_by": null,
+      "superseded_at": null,
+      "change_reason": null,
+      "traces_down": {
+        "features": [],
+        "test_cases": []
+      }
+    }
+  ],
+  "examples": [
+    {
+      "id": "EX-mrr-001",
+      "kind": "happy",
+      "given": "ห้อง A (ไม่ต้องอนุมัติ) มีการจอง 09:00–10:00",
+      "when": "ผู้ใช้จองห้อง A เวลา 10:00–11:00",
+      "then": "ระบบรับการจอง และแสดงข้อความ 'จองห้องสำเร็จ' — จบ 10:00 กับเริ่ม 10:00 ไม่นับว่าทับ",
+      "proves": [
+        "BR-mrr-001@v1",
+        "BR-mrr-004@v1"
+      ],
+      "status": "draft",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-002",
+      "kind": "boundary",
+      "given": "ห้อง A (ไม่ต้องอนุมัติ) มีการจอง 09:00–10:00",
+      "when": "ผู้ใช้จองห้อง A เวลา 09:59–11:00",
+      "then": "ระบบไม่รับการจอง และแสดงข้อความ 'ห้องนี้ไม่ว่างในช่วงเวลาที่เลือก กรุณาเลือกเวลาอื่น'",
+      "proves": [
+        "BR-mrr-001@v1"
+      ],
+      "status": "draft",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-003",
+      "kind": "exception",
+      "given": "ห้อง B (ต้องอนุมัติ) มีการจอง 09:00–10:00 สถานะรออนุมัติ",
+      "when": "ผู้ใช้อีกคนจองห้อง B เวลา 09:30–10:30",
+      "then": "ระบบไม่รับการจอง และแสดงข้อความ 'ห้องนี้ไม่ว่างในช่วงเวลาที่เลือก กรุณาเลือกเวลาอื่น' — การจองที่รออนุมัติกันช่วงเวลาไว้",
+      "proves": [
+        "BR-mrr-001@v1"
+      ],
+      "status": "draft",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-004",
+      "kind": "alternate",
+      "given": "ห้อง A (ไม่ต้องอนุมัติ) มีการจอง 09:00–10:00 ที่ผู้จองยกเลิกแล้ว",
+      "when": "ผู้ใช้อีกคนจองห้อง A เวลา 09:00–10:00",
+      "then": "ระบบรับการจอง และแสดงข้อความ 'จองห้องสำเร็จ' — การจองที่ถูกยกเลิกไม่กันช่วงเวลา",
+      "proves": [
+        "BR-mrr-001@v1"
+      ],
+      "status": "draft",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-005",
+      "kind": "happy",
+      "given": "ห้อง A (ไม่ต้องอนุมัติ) ว่างช่วง 13:00–14:00",
+      "when": "ผู้ใช้จองห้อง A 13:00–14:00 หัวข้อ 'ประชุมทีม' ผู้เข้าร่วม 3 คน ไม่เลือกอุปกรณ์เสริม",
+      "then": "ระบบรับการจอง และแสดงข้อความ 'จองห้องสำเร็จ' — อุปกรณ์เสริมไม่บังคับ",
+      "proves": [
+        "BR-mrr-002@v1"
+      ],
+      "status": "draft",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-006",
+      "kind": "exception",
+      "given": "ห้อง A (ไม่ต้องอนุมัติ) ว่างช่วง 13:00–14:00",
+      "when": "ผู้ใช้จองห้อง A 13:00–14:00 โดยเว้นช่องหัวข้อการประชุมว่าง ผู้เข้าร่วม 3 คน",
+      "then": "ระบบไม่รับการจอง และแสดงข้อความ 'กรุณาระบุหัวข้อการประชุม'",
+      "proves": [
+        "BR-mrr-002@v1"
+      ],
+      "status": "draft",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-007",
+      "kind": "exception",
+      "given": "ห้อง A (ไม่ต้องอนุมัติ) ว่างช่วง 13:00–14:00",
+      "when": "ผู้ใช้จองห้อง A 13:00–14:00 หัวข้อ 'ประชุมทีม' โดยไม่ใส่ผู้เข้าร่วมเลย (ผู้จองไม่ถูกนับอัตโนมัติ)",
+      "then": "ระบบไม่รับการจอง และแสดงข้อความ 'กรุณาระบุผู้เข้าร่วมอย่างน้อย 1 คน'",
+      "proves": [
+        "BR-mrr-002@v1"
+      ],
+      "status": "draft",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-008",
+      "proves": [
+        "BR-mrr-003@v1"
+      ],
+      "kind": "happy",
+      "status": "draft",
+      "given": "U1 เป็นผู้จองห้อง A พรุ่งนี้ 10:00–11:00 หัวข้อ 'ประชุมทีม' (ยังไม่ถึงเวลาเริ่ม)",
+      "when": "U1 แก้หัวข้อเป็น 'ประชุมวางแผน' แล้วกดบันทึก",
+      "then": "ระบบบันทึกการแก้ไข และแสดงข้อความ 'บันทึกการแก้ไขสำเร็จ'",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-009",
+      "proves": [
+        "BR-mrr-003@v1"
+      ],
+      "kind": "happy",
+      "status": "draft",
+      "given": "U1 เป็นผู้จองห้อง A พรุ่งนี้ 10:00–11:00 (ยังไม่ถึงเวลาเริ่ม)",
+      "when": "U1 กดยกเลิกการจองนี้",
+      "then": "ระบบยกเลิกการจอง และแสดงข้อความ 'ยกเลิกการจองสำเร็จ'",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-010",
+      "proves": [
+        "BR-mrr-003@v1"
+      ],
+      "kind": "exception",
+      "status": "draft",
+      "given": "U1 เป็นผู้จองห้อง A พรุ่งนี้ 10:00–11:00 และ U2 อยู่ในรายชื่อผู้เข้าร่วม (ไม่ใช่ผู้จอง)",
+      "when": "U2 ส่งคำสั่งยกเลิกการจองนี้ (แม้หน้าจอจะซ่อนปุ่มไว้)",
+      "then": "ระบบไม่ยกเลิก การจองคงเดิม และแสดงข้อความ 'เฉพาะผู้จองเท่านั้นที่แก้ไขหรือยกเลิกได้'",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-011",
+      "proves": [
+        "BR-mrr-003@v1"
+      ],
+      "kind": "alternate",
+      "status": "draft",
+      "given": "U1 จองห้อง A พรุ่งนี้ 10:00–11:00 เอง และเป็นผู้เข้าร่วมในการจองห้อง B 13:00–14:00 ของ U2",
+      "when": "U1 เปิดหน้า My Bookings",
+      "then": "รายการแสดงเฉพาะการจองห้อง A 10:00–11:00 ที่ U1 สร้างเอง ไม่แสดงการจองห้อง B ของ U2",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-012",
+      "proves": [
+        "BR-mrr-004@v1"
+      ],
+      "kind": "happy",
+      "status": "draft",
+      "given": "ห้อง B ถูกตั้งไว้ว่าต้องอนุมัติ และว่างช่วงพรุ่งนี้ 10:00–11:00",
+      "when": "U1 จองห้อง B พรุ่งนี้ 10:00–11:00 หัวข้อ 'ประชุมลูกค้า' ผู้เข้าร่วม 2 คน",
+      "then": "การจองมีสถานะ 'รออนุมัติ' ยังใช้ห้องไม่ได้ และแสดงข้อความ 'ส่งคำขอจองแล้ว รอการอนุมัติ'",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-013",
+      "proves": [
+        "BR-mrr-004@v1"
+      ],
+      "kind": "happy",
+      "status": "draft",
+      "given": "การจองห้อง B พรุ่งนี้ 10:00–11:00 ของ U1 มีสถานะ 'รออนุมัติ' และผู้ใช้ล็อกอินเป็น Room Administrator",
+      "when": "Room Administrator กดอนุมัติการจองนี้",
+      "then": "การจองเปลี่ยนเป็นสถานะ 'อนุมัติแล้ว' ใช้ห้องได้ และ Room Administrator เห็นข้อความ 'อนุมัติการจองสำเร็จ'",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-014",
+      "proves": [
+        "BR-mrr-004@v1"
+      ],
+      "kind": "exception",
+      "status": "draft",
+      "given": "การจองห้อง B พรุ่งนี้ 10:00–11:00 ของ U1 มีสถานะ 'รออนุมัติ' และ U1 เป็น General User",
+      "when": "U1 ส่งคำสั่งอนุมัติการจองของตัวเอง",
+      "then": "สถานะยังเป็น 'รออนุมัติ' และแสดงข้อความ 'เฉพาะผู้ดูแลห้องเท่านั้นที่อนุมัติได้'",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-015",
+      "proves": [
+        "BR-mrr-005@v1"
+      ],
+      "kind": "happy",
+      "status": "draft",
+      "given": "ผู้ใช้ล็อกอินเป็น Room Administrator และยังไม่มีห้อง C ในระบบ",
+      "when": "Room Administrator เพิ่มห้อง C ความจุ 10 คน แล้วกดบันทึก",
+      "then": "ระบบสร้างห้อง C และแสดงข้อความ 'บันทึกข้อมูลห้องสำเร็จ'",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-016",
+      "proves": [
+        "BR-mrr-005@v1",
+        "BR-mrr-012@v1"
+      ],
+      "kind": "happy",
+      "status": "draft",
+      "given": "ผู้ใช้ล็อกอินเป็น Room Administrator และห้อง A เปิดใช้งานอยู่ มีการจองพรุ่งนี้ 10:00–11:00",
+      "when": "Room Administrator ตั้งห้อง A เป็นปิดปรับปรุง",
+      "then": "ห้อง A เป็นสถานะปิดปรับปรุง การจองพรุ่งนี้ 10:00–11:00 คงเดิม และแสดงข้อความ 'ตั้งห้องเป็นปิดปรับปรุงแล้ว การจองที่มีอยู่คงเดิม'",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-017",
+      "proves": [
+        "BR-mrr-005@v1"
+      ],
+      "kind": "exception",
+      "status": "draft",
+      "given": "ห้อง A ความจุ 8 คน และผู้ใช้ล็อกอินเป็น General User",
+      "when": "General User ส่งคำสั่งแก้ความจุห้อง A เป็น 12 คน",
+      "then": "ความจุห้อง A ยังเป็น 8 คน และแสดงข้อความ 'เฉพาะผู้ดูแลห้องเท่านั้นที่จัดการข้อมูลห้องได้'",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-018",
+      "proves": [
+        "BR-mrr-005@v1"
+      ],
+      "kind": "exception",
+      "status": "draft",
+      "given": "ห้อง A ความจุ 8 คน และผู้ใช้ล็อกอินเป็น System Administrator",
+      "when": "System Administrator ส่งคำสั่งแก้ความจุห้อง A เป็น 12 คน",
+      "then": "ความจุห้อง A ยังเป็น 8 คน และแสดงข้อความ 'เฉพาะผู้ดูแลห้องเท่านั้นที่จัดการข้อมูลห้องได้'",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-019",
+      "proves": [
+        "BR-mrr-007@v1"
+      ],
+      "kind": "happy",
+      "status": "draft",
+      "given": "ห้อง A (ไม่ต้องอนุมัติ) ว่างวันที่ 17/10 10:00–11:00",
+      "when": "U1 จองห้อง A 17/10 10:00–11:00 หัวข้อ 'ประชุมทีม' ผู้เข้าร่วม U2, U3",
+      "then": "U1 ได้รับ Email หัวเรื่อง '[จองห้องประชุม] จองสำเร็จ: ประชุมทีม · ห้อง A 17/10 10:00–11:00' — U2 และ U3 ไม่ได้รับ Email",
+      "has_ui": false
+    },
+    {
+      "id": "EX-mrr-020",
+      "proves": [
+        "BR-mrr-007@v1",
+        "BR-mrr-008@v1"
+      ],
+      "kind": "happy",
+      "status": "draft",
+      "given": "การจองห้อง A 17/10 10:00–11:00 หัวข้อ 'ประชุมทีม' ของ U1 ใช้ได้จริง ผู้เข้าร่วม U2, U3",
+      "when": "ถึงเวลา 09:45 วันที่ 17/10",
+      "then": "U1, U2 และ U3 ได้รับ Email หัวเรื่อง '[จองห้องประชุม] ใกล้ถึงเวลาประชุม: ประชุมทีม · ห้อง A 17/10 10:00–11:00'",
+      "has_ui": false
+    },
+    {
+      "id": "EX-mrr-021",
+      "proves": [
+        "BR-mrr-007@v1"
+      ],
+      "kind": "happy",
+      "status": "draft",
+      "given": "การจองห้อง A 17/10 10:00–11:00 หัวข้อ 'ประชุมทีม' ของ U1 ผู้เข้าร่วม U2, U3 (ยังไม่ถึงเวลาเริ่ม) และห้อง A ว่างช่วง 14:00–15:00",
+      "when": "U1 เปลี่ยนเวลาเป็น 14:00–15:00",
+      "then": "U1, U2 และ U3 ได้รับ Email หัวเรื่อง '[จองห้องประชุม] เปลี่ยนเวลา: ประชุมทีม · ห้อง A 17/10 14:00–15:00'",
+      "has_ui": false
+    },
+    {
+      "id": "EX-mrr-022",
+      "proves": [
+        "BR-mrr-007@v1"
+      ],
+      "kind": "alternate",
+      "status": "draft",
+      "given": "การจองห้อง A 17/10 10:00–11:00 หัวข้อ 'ประชุมทีม' ของ U1 ผู้เข้าร่วม U2, U3 (ยังไม่ถึงเวลาเริ่ม)",
+      "when": "U1 แก้หัวข้อเป็น 'ประชุมวางแผน' โดยไม่เปลี่ยนเวลา",
+      "then": "ระบบบันทึกการแก้ไข แสดงข้อความ 'บันทึกการแก้ไขสำเร็จ' และไม่มีใครได้รับ Email",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-023",
+      "proves": [
+        "BR-mrr-008@v1"
+      ],
+      "kind": "boundary",
+      "status": "draft",
+      "given": "การจองห้อง A 17/10 10:00–11:00 หัวข้อ 'ประชุมทีม' ของ U1 ใช้ได้จริง ผู้เข้าร่วม U2, U3",
+      "when": "ถึงเวลา 09:44 วันที่ 17/10",
+      "then": "ยังไม่มีใครได้รับ Email หัวเรื่อง '[จองห้องประชุม] ใกล้ถึงเวลาประชุม: ประชุมทีม · ห้อง A 17/10 10:00–11:00'",
+      "has_ui": false
+    },
+    {
+      "id": "EX-mrr-024",
+      "proves": [
+        "BR-mrr-008@v1"
+      ],
+      "kind": "boundary",
+      "status": "draft",
+      "given": "ห้อง A (ไม่ต้องอนุมัติ) ว่างวันที่ 17/10 10:00–11:00 และขณะนี้เวลา 09:50",
+      "when": "U1 จองห้อง A 17/10 10:00–11:00 หัวข้อ 'ประชุมด่วน' ผู้เข้าร่วม U2",
+      "then": "U1 ได้รับ Email หัวเรื่อง '[จองห้องประชุม] จองสำเร็จ: ประชุมด่วน · ห้อง A 17/10 10:00–11:00' และ U1, U2 ได้รับ Email หัวเรื่อง '[จองห้องประชุม] ใกล้ถึงเวลาประชุม: ประชุมด่วน · ห้อง A 17/10 10:00–11:00' ทันที",
+      "has_ui": false
+    },
+    {
+      "id": "EX-mrr-025",
+      "proves": [
+        "BR-mrr-008@v1"
+      ],
+      "kind": "exception",
+      "status": "draft",
+      "given": "ห้อง B (ต้องอนุมัติ) มีการจอง 17/10 10:00–11:00 หัวข้อ 'ประชุมลูกค้า' ของ U1 สถานะรออนุมัติ ผู้เข้าร่วม U2",
+      "when": "ถึงเวลา 09:45 วันที่ 17/10",
+      "then": "ไม่มีใครได้รับ Email หัวเรื่อง '[จองห้องประชุม] ใกล้ถึงเวลาประชุม: ประชุมลูกค้า · ห้อง B 17/10 10:00–11:00'",
+      "has_ui": false
+    },
+    {
+      "id": "EX-mrr-026",
+      "proves": [
+        "BR-mrr-009@v1"
+      ],
+      "kind": "boundary",
+      "status": "draft",
+      "given": "U1 เป็นผู้จองห้อง A วันนี้ 10:00–11:00 และขณะนี้เวลา 09:59",
+      "when": "U1 กดยกเลิกการจองนี้",
+      "then": "ระบบยกเลิกการจอง และแสดงข้อความ 'ยกเลิกการจองสำเร็จ'",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-027",
+      "proves": [
+        "BR-mrr-009@v1"
+      ],
+      "kind": "boundary",
+      "status": "draft",
+      "given": "U1 เป็นผู้จองห้อง A วันนี้ 10:00–11:00 และขณะนี้เวลา 10:00",
+      "when": "U1 กดยกเลิกการจองนี้",
+      "then": "การจองคงเดิม และแสดงข้อความ 'การประชุมเริ่มแล้ว กรุณาติดต่อผู้ดูแลห้องเพื่อแก้ไขหรือยกเลิก'",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-028",
+      "proves": [
+        "BR-mrr-009@v1"
+      ],
+      "kind": "happy",
+      "status": "draft",
+      "given": "U1 เป็นผู้จองห้อง A วันนี้ 10:00–11:00 ขณะนี้เวลา 10:30 และผู้ใช้ล็อกอินเป็น Room Administrator",
+      "when": "Room Administrator ยกเลิกการจองนี้แทน U1 พร้อมเหตุผล 'ห้องต้องใช้จัดงานด่วน'",
+      "then": "ระบบยกเลิกการจอง และ Room Administrator เห็นข้อความ 'ยกเลิกการจองสำเร็จ'",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-029",
+      "proves": [
+        "BR-mrr-009@v1"
+      ],
+      "kind": "exception",
+      "status": "draft",
+      "given": "U1 เป็นผู้จองห้อง A วันนี้ 10:00–11:00 ขณะนี้เวลา 10:30 และผู้ใช้ล็อกอินเป็น Room Administrator",
+      "when": "Room Administrator ยกเลิกการจองนี้แทน U1 โดยเว้นช่องเหตุผลว่าง",
+      "then": "การจองคงเดิม และแสดงข้อความ 'กรุณาระบุเหตุผล'",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-030",
+      "proves": [
+        "BR-mrr-010@v1",
+        "BR-mrr-010@v2"
+      ],
+      "kind": "happy",
+      "status": "draft",
+      "given": "ห้อง A ไม่ต้องอนุมัติ · วันที่ 16/10 เวลา 10:00 Room Administrator แก้ห้อง A เป็นต้องอนุมัติ และเห็นข้อความ 'บันทึกข้อมูลห้องสำเร็จ' · ห้อง A ว่างวันที่ 18/10 13:00–14:00",
+      "when": "วันที่ 16/10 เวลา 11:00 U2 จองห้อง A 18/10 13:00–14:00 หัวข้อ 'ประชุมทีม' ผู้เข้าร่วม 2 คน",
+      "then": "การจองมีสถานะ 'รออนุมัติ' ยังใช้ห้องไม่ได้ และแสดงข้อความ 'ส่งคำขอจองแล้ว รอการอนุมัติ' — การจองที่สร้างหลังการแก้ใช้ค่าตั้งใหม่",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-031",
+      "proves": [
+        "BR-mrr-010@v1"
+      ],
+      "kind": "exception",
+      "status": "draft",
+      "given": "วันที่ 16/10 เวลา 09:00 U1 จองห้อง A (ตอนนั้นไม่ต้องอนุมัติ) 18/10 10:00–11:00 และเห็นข้อความ 'จองห้องสำเร็จ' · เวลา 10:00 Room Administrator แก้ห้อง A เป็นต้องอนุมัติ",
+      "when": "Room Administrator เปิดรายการการจองที่ 'รออนุมัติ'",
+      "then": "การจองของ U1 วันที่ 18/10 10:00–11:00 ไม่อยู่ในรายการ 'รออนุมัติ' และยังใช้ห้องได้ตามเดิม — การจองที่มีอยู่แล้วไม่ถูกย้อนกลับไปรออนุมัติ",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-032",
+      "proves": [
+        "BR-mrr-010@v1"
+      ],
+      "kind": "exception",
+      "status": "draft",
+      "given": "วันที่ 16/10 เวลา 09:00 U1 จองห้อง B (ตอนนั้นต้องอนุมัติ) 18/10 10:00–11:00 สถานะ 'รออนุมัติ' · เวลา 10:00 Room Administrator แก้ห้อง B เป็นไม่ต้องอนุมัติ",
+      "when": "วันที่ 16/10 เวลา 11:00 Room Administrator เปิดรายการการจองที่ 'รออนุมัติ' แล้วกดอนุมัติการจองของ U1",
+      "then": "ก่อนกด การจองของ U1 ยังอยู่ในรายการ 'รออนุมัติ' (ไม่ถูกปล่อยให้ใช้ได้เองเมื่อค่าตั้งเปลี่ยน) · หลังกด การจองเปลี่ยนเป็นสถานะ 'อนุมัติแล้ว' และ Room Administrator เห็นข้อความ 'อนุมัติการจองสำเร็จ'",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-033",
+      "proves": [
+        "BR-mrr-010@v1",
+        "BR-mrr-010@v2"
+      ],
+      "kind": "boundary",
+      "status": "draft",
+      "given": "ห้อง A ไม่ต้องอนุมัติ · วันที่ 16/10 เวลา 09:58 U2 เปิดฟอร์มจองห้อง A 18/10 15:00–16:00 · เวลา 10:00 Room Administrator แก้ห้อง A เป็นต้องอนุมัติ",
+      "when": "วันที่ 16/10 เวลา 10:01 U2 กดยืนยันการจองจากฟอร์มที่เปิดไว้ หัวข้อ 'ประชุมย่อย' ผู้เข้าร่วม 1 คน",
+      "then": "การจองมีสถานะ 'รออนุมัติ' และแสดงข้อความ 'ส่งคำขอจองแล้ว รอการอนุมัติ' — นับเวลาสร้างที่กดยืนยัน ไม่ใช่เวลาที่เปิดฟอร์ม",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-034",
+      "proves": [
+        "BR-mrr-010@v1",
+        "BR-mrr-010@v2"
+      ],
+      "kind": "alternate",
+      "status": "draft",
+      "given": "ห้อง A (ไม่ต้องอนุมัติ) ความจุ 10 คน · วันที่ 16/10 เวลา 09:00 U1 จองห้อง A 18/10 10:00–11:00 ผู้เข้าร่วม 8 คน · เวลา 10:00 Room Administrator แก้ความจุห้อง A เป็น 4 คน และเห็นข้อความ 'บันทึกข้อมูลห้องสำเร็จ' · ห้อง A ว่าง 18/10 13:00–14:00",
+      "when": "วันที่ 16/10 เวลา 11:00 U2 จองห้อง A 18/10 13:00–14:00 หัวข้อ 'ประชุมใหญ่' ผู้เข้าร่วม 6 คน",
+      "then": "ระบบรับการจองของ U2 และแสดงข้อความ 'จองห้องสำเร็จ' · การจองของ U1 (ผู้เข้าร่วม 8 คน) คงเดิมและยังใช้ห้องได้ — ความจุไม่บังคับจำนวนผู้เข้าร่วม ทั้งการจองเดิมและการจองที่สร้างหลังการแก้",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-035",
+      "proves": [
+        "BR-mrr-011@v1"
+      ],
+      "kind": "happy",
+      "status": "draft",
+      "given": "การจองห้อง B 18/10 10:00–11:00 ของ U1 มีสถานะ 'อนุมัติแล้ว' · ขณะนี้ 16/10 15:00 และผู้ใช้ล็อกอินเป็น Room Administrator",
+      "when": "Room Administrator เปลี่ยนผลเป็นปฏิเสธ พร้อมเหตุผล 'อนุมัติผิดห้อง'",
+      "then": "การจองเปลี่ยนเป็นสถานะ 'ปฏิเสธแล้ว' และ Room Administrator เห็นข้อความ 'เปลี่ยนผลการอนุมัติสำเร็จ'",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-036",
+      "proves": [
+        "BR-mrr-011@v1"
+      ],
+      "kind": "exception",
+      "status": "draft",
+      "given": "การจองห้อง B 18/10 10:00–11:00 ของ U1 มีสถานะ 'อนุมัติแล้ว' · ขณะนี้ 16/10 15:00 และผู้ใช้ล็อกอินเป็น Room Administrator",
+      "when": "Room Administrator เปลี่ยนผลเป็นปฏิเสธ โดยเว้นช่องเหตุผลว่าง",
+      "then": "สถานะยังเป็น 'อนุมัติแล้ว' และแสดงข้อความ 'กรุณาระบุเหตุผล'",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-037",
+      "proves": [
+        "BR-mrr-011@v1"
+      ],
+      "kind": "boundary",
+      "status": "draft",
+      "given": "การจองห้อง B 18/10 10:00–11:00 ของ U1 มีสถานะ 'ปฏิเสธแล้ว' ห้อง B ช่วงนั้นยังไม่มีการจองอื่น · ขณะนี้ 18/10 09:59 และผู้ใช้ล็อกอินเป็น Room Administrator",
+      "when": "Room Administrator เปลี่ยนผลเป็นอนุมัติ พร้อมเหตุผล 'ปฏิเสธผิดคน'",
+      "then": "การจองเปลี่ยนเป็นสถานะ 'อนุมัติแล้ว' และ Room Administrator เห็นข้อความ 'เปลี่ยนผลการอนุมัติสำเร็จ' — 1 นาทีก่อนเริ่มยังเปลี่ยนได้",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-038",
+      "proves": [
+        "BR-mrr-011@v1"
+      ],
+      "kind": "boundary",
+      "status": "draft",
+      "given": "การจองห้อง B 18/10 10:00–11:00 ของ U1 มีสถานะ 'อนุมัติแล้ว' · ขณะนี้ 18/10 10:00 และผู้ใช้ล็อกอินเป็น Room Administrator",
+      "when": "Room Administrator เปลี่ยนผลเป็นปฏิเสธ พร้อมเหตุผล 'อนุมัติผิดห้อง'",
+      "then": "สถานะยังเป็น 'อนุมัติแล้ว' และแสดงข้อความ 'การประชุมเริ่มแล้ว ไม่สามารถเปลี่ยนผลการอนุมัติได้'",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-039",
+      "proves": [
+        "BR-mrr-013@v1"
+      ],
+      "kind": "happy",
+      "status": "draft",
+      "given": "ห้อง B ต้องอนุมัติ และกำหนดผู้อนุมัติประจำห้องเป็น RA1 · การจองห้อง B 18/10 10:00–11:00 ของ U1 มีสถานะ 'รออนุมัติ' · ผู้ใช้ล็อกอินเป็น RA1",
+      "when": "RA1 กดอนุมัติการจองนี้",
+      "then": "การจองเปลี่ยนเป็นสถานะ 'อนุมัติแล้ว' และ RA1 เห็นข้อความ 'อนุมัติการจองสำเร็จ'",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-040",
+      "proves": [
+        "BR-mrr-013@v1"
+      ],
+      "kind": "exception",
+      "status": "draft",
+      "given": "ห้อง B ต้องอนุมัติ และกำหนดผู้อนุมัติประจำห้องเป็น RA1 · การจองห้อง B 18/10 10:00–11:00 ของ U1 มีสถานะ 'รออนุมัติ' · ผู้ใช้ล็อกอินเป็น RA2 (เป็น Room Administrator แต่ไม่ใช่ผู้อนุมัติประจำห้อง B)",
+      "when": "RA2 กดอนุมัติการจองนี้",
+      "then": "สถานะยังเป็น 'รออนุมัติ' และแสดงข้อความ 'เฉพาะผู้อนุมัติประจำห้องนี้เท่านั้นที่อนุมัติได้'",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-041",
+      "proves": [
+        "BR-mrr-013@v1"
+      ],
+      "kind": "alternate",
+      "status": "draft",
+      "given": "ห้อง B ต้องอนุมัติ และยังไม่กำหนดผู้อนุมัติประจำห้อง · การจองห้อง B 18/10 10:00–11:00 ของ U1 มีสถานะ 'รออนุมัติ' · ผู้ใช้ล็อกอินเป็น RA2",
+      "when": "RA2 กดอนุมัติการจองนี้",
+      "then": "การจองเปลี่ยนเป็นสถานะ 'อนุมัติแล้ว' และ RA2 เห็นข้อความ 'อนุมัติการจองสำเร็จ' — ห้องที่ยังไม่กำหนด Room Administrator ทุกคนอนุมัติได้",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-042",
+      "proves": [
+        "BR-mrr-013@v1"
+      ],
+      "kind": "happy",
+      "status": "draft",
+      "given": "ห้อง B ต้องอนุมัติ ยังไม่กำหนดผู้อนุมัติประจำห้อง และผู้ใช้ล็อกอินเป็น Room Administrator",
+      "when": "Room Administrator แก้ข้อมูลห้อง B กำหนดผู้อนุมัติประจำห้องเป็น RA1 แล้วกดบันทึก",
+      "then": "ผู้อนุมัติประจำห้อง B เป็น RA1 และแสดงข้อความ 'บันทึกข้อมูลห้องสำเร็จ' — กำหนดทีหลังได้",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-043",
+      "proves": [
+        "BR-mrr-014@v1"
+      ],
+      "kind": "boundary",
+      "status": "draft",
+      "given": "การจองห้อง A 18/10 10:00–11:00 หัวข้อ 'ประชุมทีม' ของ U1 · ขณะนี้ 18/10 11:00 (ตรงเวลาจบ) และผู้ใช้ล็อกอินเป็น RA1",
+      "when": "RA1 แก้หัวข้อเป็น 'ประชุมวางแผน' พร้อมเหตุผล 'ผู้จองพิมพ์หัวข้อผิด' แล้วกดบันทึก",
+      "then": "ระบบสร้างคำขอแก้ไข หัวข้อของการจองยังเป็น 'ประชุมทีม' และ RA1 เห็นข้อความ 'ส่งคำขอแก้ไขแล้ว รอผู้ดูแลห้องคนอื่นอนุมัติ'",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-044",
+      "proves": [
+        "BR-mrr-014@v1"
+      ],
+      "kind": "boundary",
+      "status": "draft",
+      "given": "การจองห้อง A 18/10 10:00–11:00 หัวข้อ 'ประชุมทีม' ของ U1 · ขณะนี้ 18/10 10:59 (ก่อนจบ 1 นาที) และผู้ใช้ล็อกอินเป็น RA1",
+      "when": "RA1 แก้หัวข้อเป็น 'ประชุมวางแผน' พร้อมเหตุผล 'ผู้จองพิมพ์หัวข้อผิด' แล้วกดบันทึก",
+      "then": "หัวข้อของการจองเปลี่ยนเป็น 'ประชุมวางแผน' ทันที ไม่มีคำขอแก้ไข และ RA1 เห็นข้อความ 'บันทึกการแก้ไขสำเร็จ'",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-045",
+      "proves": [
+        "BR-mrr-014@v1"
+      ],
+      "kind": "happy",
+      "status": "draft",
+      "given": "การจองห้อง A 18/10 10:00–11:00 หัวข้อ 'ประชุมทีม' ของ U1 ประชุมจบแล้ว · มีคำขอแก้ไขที่ RA1 สร้าง ขอเปลี่ยนหัวข้อเป็น 'ประชุมวางแผน' · ผู้ใช้ล็อกอินเป็น RA2",
+      "when": "RA2 กดอนุมัติคำขอแก้ไขนี้",
+      "then": "หัวข้อของการจองเปลี่ยนเป็น 'ประชุมวางแผน' และ RA2 เห็นข้อความ 'อนุมัติคำขอแก้ไขสำเร็จ'",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-046",
+      "proves": [
+        "BR-mrr-014@v1"
+      ],
+      "kind": "exception",
+      "status": "draft",
+      "given": "การจองห้อง A 18/10 10:00–11:00 หัวข้อ 'ประชุมทีม' ของ U1 ประชุมจบแล้ว · มีคำขอแก้ไขที่ RA1 สร้าง ขอเปลี่ยนหัวข้อเป็น 'ประชุมวางแผน' · ผู้ใช้ล็อกอินเป็น RA1",
+      "when": "RA1 กดอนุมัติคำขอแก้ไขของตัวเอง",
+      "then": "หัวข้อของการจองยังเป็น 'ประชุมทีม' คำขอยังรออนุมัติ และแสดงข้อความ 'ผู้แก้ไขอนุมัติคำขอของตัวเองไม่ได้ ต้องให้ผู้ดูแลห้องคนอื่นอนุมัติ'",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-047",
+      "proves": [
+        "BR-mrr-015@v1"
+      ],
+      "kind": "happy",
+      "status": "draft",
+      "given": "รายงานการใช้ห้องประจำเดือน ต.ค. 2569 ออกไปแล้วเป็นฉบับที่ 1 เมื่อ 1/11 · วันที่ 3/11 การจองห้อง A 15/10 10:00–11:00 ถูกแก้เวลาผ่านคำขอแก้ไขที่อนุมัติแล้ว · ผู้ใช้ล็อกอินเป็น Room Administrator",
+      "when": "Room Administrator สั่งออกรายงานเดือน ต.ค. 2569 อีกครั้ง",
+      "then": "ระบบสร้างรายงานฉบับที่ 2 ที่คิดจากข้อมูลการจองล่าสุด ฉบับที่ 1 ยังอยู่ในรายการรายงาน และแสดงข้อความ 'ออกรายงานฉบับใหม่แล้ว ฉบับเดิมยังเก็บไว้'",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-048",
+      "proves": [
+        "BR-mrr-015@v1"
+      ],
+      "kind": "exception",
+      "status": "draft",
+      "given": "รายงานการใช้ห้องประจำเดือน ต.ค. 2569 ออกไปแล้วเป็นฉบับที่ 1 เมื่อ 1/11 · ผู้ใช้ล็อกอินเป็น Room Administrator",
+      "when": "Room Administrator ส่งคำสั่งแก้ตัวเลขชั่วโมงที่ถูกจองของห้อง A ในรายงานฉบับที่ 1",
+      "then": "ตัวเลขในฉบับที่ 1 คงเดิม และแสดงข้อความ 'รายงานที่ออกแล้วแก้ไขไม่ได้ กรุณาออกฉบับใหม่'",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-049",
+      "proves": [
+        "BR-mrr-015@v1"
+      ],
+      "kind": "boundary",
+      "status": "draft",
+      "given": "รายงานการใช้ห้องประจำเดือน ต.ค. 2569 ออกไปแล้วเป็นฉบับที่ 1 เมื่อ 1/11 · หลังข้อมูลการจองเปลี่ยน Room Administrator ออกฉบับที่ 2 แล้วเมื่อ 3/11",
+      "when": "Room Administrator เปิดดูรายงานเดือน ต.ค. 2569 ฉบับที่ 1",
+      "then": "ฉบับที่ 1 แสดงตัวเลขทุกค่าเท่ากับตอนออกเมื่อ 1/11 ไม่เปลี่ยนตามข้อมูลการจองที่แก้ทีหลัง — ตัวเลขที่เปลี่ยนแล้วอยู่ในฉบับที่ 2 เท่านั้น",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-050",
+      "proves": [
+        "BR-mrr-016@v1"
+      ],
+      "kind": "boundary",
+      "status": "draft",
+      "given": "ห้อง B (ต้องอนุมัติ) มีการจอง 18/10 10:00–11:00 หัวข้อ 'ประชุมลูกค้า' ของ U1 สถานะ 'รออนุมัติ'",
+      "when": "งานตามเวลารันตอน 18/10 09:59",
+      "then": "การจองยังเป็นสถานะ 'รออนุมัติ' ช่วงเวลายังถูกกันไว้ และ U1 ไม่ได้รับ Email — ยังไม่ถึงเวลาเริ่ม",
+      "has_ui": false
+    },
+    {
+      "id": "EX-mrr-051",
+      "proves": [
+        "BR-mrr-016@v1"
+      ],
+      "kind": "happy",
+      "status": "draft",
+      "given": "ห้อง B (ต้องอนุมัติ) มีการจอง 18/10 10:00–11:00 หัวข้อ 'ประชุมลูกค้า' ของ U1 สถานะ 'รออนุมัติ'",
+      "when": "งานตามเวลารันตอน 18/10 10:00 และส่ง Email ถึง U1 สำเร็จ",
+      "then": "การจองเปลี่ยนเป็นสถานะ 'ยกเลิกแล้ว' ช่วง 10:00–11:00 ของห้อง B ว่างให้จองได้ และ U1 ได้รับ Email หัวเรื่อง '[จองห้องประชุม] ยกเลิกอัตโนมัติ: ประชุมลูกค้า · ห้อง B 18/10 10:00–11:00'",
+      "has_ui": false
+    },
+    {
+      "id": "EX-mrr-052",
+      "proves": [
+        "BR-mrr-016@v1"
+      ],
+      "kind": "exception",
+      "status": "draft",
+      "given": "ห้อง B (ต้องอนุมัติ) มีการจอง 18/10 10:00–11:00 หัวข้อ 'ประชุมลูกค้า' ของ U1 สถานะ 'รออนุมัติ'",
+      "when": "งานตามเวลารันตอน 18/10 10:00 แต่ส่ง Email ถึง U1 ไม่สำเร็จ",
+      "then": "การจองยังเป็นสถานะ 'รออนุมัติ' ช่วงเวลายังถูกกันไว้ และรองานตามเวลารอบถัดไปลองยกเลิกและส่ง Email ใหม่",
+      "has_ui": false
+    },
+    {
+      "id": "EX-mrr-053",
+      "proves": [
+        "BR-mrr-016@v1"
+      ],
+      "kind": "alternate",
+      "status": "draft",
+      "given": "ห้อง B (ต้องอนุมัติ) มีการจอง 18/10 10:00–11:00 หัวข้อ 'ประชุมลูกค้า' ของ U1 สถานะ 'รออนุมัติ' · งานตามเวลารอบ 10:00 ส่ง Email ไม่สำเร็จ การจองจึงยังค้างอยู่ · ขณะนี้ 18/10 10:03 และผู้ใช้ล็อกอินเป็น Room Administrator",
+      "when": "Room Administrator กดอนุมัติการจองนี้ก่อนงานรอบถัดไปรัน",
+      "then": "การจองเปลี่ยนเป็นสถานะ 'อนุมัติแล้ว' Room Administrator เห็นข้อความ 'อนุมัติการจองสำเร็จ' และงานรอบถัดไปไม่ยกเลิกการจองนี้",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-054",
+      "proves": [
+        "BR-mrr-017@v1"
+      ],
+      "kind": "happy",
+      "status": "draft",
+      "given": "การจองห้อง B 18/10 10:00–11:00 ของ U1 สถานะ 'รออนุมัติ' · ผู้ใช้ล็อกอินเป็น RA1",
+      "when": "16/10 14:05 RA1 กดอนุมัติการจองนี้ แล้วเปิดดูร่องรอยของการจองนี้",
+      "then": "RA1 เห็นข้อความ 'อนุมัติการจองสำเร็จ' และร่องรอยมีรายการใหม่ 1 รายการ: ผู้ทำ RA1 · เวลา 16/10 14:05 · การกระทำ 'อนุมัติ' · เหตุผล '—'",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-055",
+      "proves": [
+        "BR-mrr-017@v1"
+      ],
+      "kind": "happy",
+      "status": "draft",
+      "given": "การจองห้อง A 18/10 10:00–11:00 ของ U1 · ขณะนี้ 18/10 10:30 และผู้ใช้ล็อกอินเป็น RA1",
+      "when": "RA1 ยกเลิกการจองนี้แทน U1 พร้อมเหตุผล 'ห้องต้องใช้จัดงานด่วน' แล้วเปิดดูร่องรอยของการจองนี้",
+      "then": "RA1 เห็นข้อความ 'ยกเลิกการจองสำเร็จ' และร่องรอยมีรายการใหม่ 1 รายการ: ผู้ทำ RA1 · เวลา 18/10 10:30 · การกระทำ 'ยกเลิกแทนผู้จอง' · เหตุผล 'ห้องต้องใช้จัดงานด่วน'",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-056",
+      "proves": [
+        "BR-mrr-017@v1"
+      ],
+      "kind": "exception",
+      "status": "draft",
+      "given": "U1 เป็นผู้จองห้อง A 18/10 10:00–11:00 · ขณะนี้ 17/10 09:00 (ยังไม่ถึงเวลาเริ่ม)",
+      "when": "U1 กดยกเลิกการจองของตัวเอง แล้ว Room Administrator เปิดดูร่องรอยของการจองนี้",
+      "then": "U1 เห็นข้อความ 'ยกเลิกการจองสำเร็จ' และร่องรอยของการจองนี้ไม่มีรายการใหม่ — การกระทำของผู้จองเองไม่บันทึกร่องรอย",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-057",
+      "proves": [
+        "BR-mrr-017@v1"
+      ],
+      "kind": "exception",
+      "status": "draft",
+      "given": "การจองห้อง A 18/10 10:00–11:00 ของ U1 · ขณะนี้ 18/10 10:30 และผู้ใช้ล็อกอินเป็น RA1",
+      "when": "RA1 ยกเลิกการจองนี้แทน U1 โดยเว้นช่องเหตุผลว่าง แล้วเปิดดูร่องรอยของการจองนี้",
+      "then": "การจองคงเดิม แสดงข้อความ 'กรุณาระบุเหตุผล' และร่องรอยของการจองนี้ไม่มีรายการใหม่ — การกระทำที่ไม่สำเร็จไม่บันทึกร่องรอย",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-058",
+      "proves": [
+        "BR-mrr-018@v1"
+      ],
+      "kind": "happy",
+      "status": "draft",
+      "given": "การจองห้อง A 18/10 10:00–11:00 ของ U1 ผู้เข้าร่วม U2 ถูก RA1 ยกเลิกแทนผู้จองเมื่อ 18/10 10:30 พร้อมเหตุผล 'ห้องต้องใช้จัดงานด่วน' · ผู้ใช้ล็อกอินเป็น RA2 (Room Administrator คนอื่นที่ไม่ใช่คนทำ)",
+      "when": "RA2 เปิดดูร่องรอยของการจองนี้",
+      "then": "RA2 เห็นร่องรอย 1 รายการ: ผู้ทำ RA1 · เวลา 18/10 10:30 · การกระทำ 'ยกเลิกแทนผู้จอง' · เหตุผล 'ห้องต้องใช้จัดงานด่วน'",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-059",
+      "proves": [
+        "BR-mrr-018@v1"
+      ],
+      "kind": "happy",
+      "status": "draft",
+      "given": "การจองห้อง A 18/10 10:00–11:00 ของ U1 ผู้เข้าร่วม U2 ถูก RA1 ยกเลิกแทนผู้จองเมื่อ 18/10 10:30 พร้อมเหตุผล 'ห้องต้องใช้จัดงานด่วน' · ผู้ใช้ล็อกอินเป็น System Administrator",
+      "when": "System Administrator เปิดดูร่องรอยของการจองนี้",
+      "then": "System Administrator เห็นร่องรอย 1 รายการ: ผู้ทำ RA1 · เวลา 18/10 10:30 · การกระทำ 'ยกเลิกแทนผู้จอง' · เหตุผล 'ห้องต้องใช้จัดงานด่วน'",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-060",
+      "proves": [
+        "BR-mrr-018@v1"
+      ],
+      "kind": "exception",
+      "status": "draft",
+      "given": "การจองห้อง A 18/10 10:00–11:00 ของ U1 ผู้เข้าร่วม U2 ถูก RA1 ยกเลิกแทนผู้จองเมื่อ 18/10 10:30 พร้อมเหตุผล 'ห้องต้องใช้จัดงานด่วน' · ผู้ใช้ล็อกอินเป็น U1 (ผู้จอง · General User)",
+      "when": "U1 ส่งคำขอดูร่องรอยของการจองนี้",
+      "then": "U1 ไม่เห็นร่องรอย และแสดงข้อความ 'เฉพาะผู้ดูแลห้องและผู้ดูแลระบบเท่านั้นที่ดูร่องรอยได้'",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-061",
+      "proves": [
+        "BR-mrr-018@v1"
+      ],
+      "kind": "exception",
+      "status": "draft",
+      "given": "การจองห้อง A 18/10 10:00–11:00 ของ U1 ผู้เข้าร่วม U2 ถูก RA1 ยกเลิกแทนผู้จองเมื่อ 18/10 10:30 พร้อมเหตุผล 'ห้องต้องใช้จัดงานด่วน' · ผู้ใช้ล็อกอินเป็น U2 (ผู้เข้าร่วม · General User)",
+      "when": "U2 ส่งคำขอดูร่องรอยของการจองนี้",
+      "then": "U2 ไม่เห็นร่องรอย และแสดงข้อความ 'เฉพาะผู้ดูแลห้องและผู้ดูแลระบบเท่านั้นที่ดูร่องรอยได้'",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-062",
+      "proves": [
+        "BR-mrr-019@v1"
+      ],
+      "kind": "exception",
+      "status": "draft",
+      "given": "ห้อง A (ไม่ต้องอนุมัติ) ว่าง 17/10 13:00–14:00 · ระบบ Email ส่งไม่สำเร็จ (mail server ล่ม)",
+      "when": "U1 จองห้อง A 17/10 13:00–14:00 หัวข้อ 'ประชุมทีม' ผู้เข้าร่วม U2",
+      "then": "ระบบไม่สร้างการจอง ห้อง A ช่วง 13:00–14:00 ยังว่าง และแสดงข้อความ 'ส่ง Email แจ้งเตือนไม่สำเร็จ กรุณากดใหม่อีกครั้ง'",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-063",
+      "proves": [
+        "BR-mrr-019@v1"
+      ],
+      "kind": "exception",
+      "status": "draft",
+      "given": "การจองห้อง A 17/10 10:00–11:00 หัวข้อ 'ประชุมทีม' ของ U1 ผู้เข้าร่วม U2 (ยังไม่ถึงเวลาเริ่ม) ห้อง A ว่าง 14:00–15:00 · ระบบ Email ส่งไม่สำเร็จ (mail server ล่ม)",
+      "when": "U1 เปลี่ยนเวลาเป็น 14:00–15:00",
+      "then": "การจองยังเป็น 10:00–11:00 ตามเดิม และแสดงข้อความ 'ส่ง Email แจ้งเตือนไม่สำเร็จ กรุณากดใหม่อีกครั้ง'",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-064",
+      "proves": [
+        "BR-mrr-019@v1"
+      ],
+      "kind": "exception",
+      "status": "draft",
+      "given": "การจองห้อง B 17/10 10:00–11:00 ของ U1 สถานะ 'รออนุมัติ' ผู้ใช้ล็อกอินเป็น Room Administrator · ระบบ Email ส่งไม่สำเร็จ (mail server ล่ม)",
+      "when": "Room Administrator กดอนุมัติการจองนี้",
+      "then": "สถานะยังเป็น 'รออนุมัติ' และ Room Administrator เห็นข้อความ 'ส่ง Email แจ้งเตือนไม่สำเร็จ กรุณากดใหม่อีกครั้ง'",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-065",
+      "proves": [
+        "BR-mrr-019@v1"
+      ],
+      "kind": "alternate",
+      "status": "draft",
+      "given": "การจองห้อง A 17/10 10:00–11:00 หัวข้อ 'ประชุมทีม' ของ U1 (ยังไม่ถึงเวลาเริ่ม) · ระบบ Email ส่งไม่สำเร็จ (mail server ล่ม)",
+      "when": "U1 แก้หัวข้อเป็น 'ประชุมวางแผน' โดยไม่เปลี่ยนเวลา",
+      "then": "ระบบบันทึกการแก้ไข และแสดงข้อความ 'บันทึกการแก้ไขสำเร็จ' — การกระทำนี้ไม่ส่ง Email จึงไม่ล้มตาม",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-066",
+      "proves": [
+        "BR-mrr-020@v1"
+      ],
+      "kind": "exception",
+      "status": "draft",
+      "given": "การจองห้อง A 17/10 10:00–11:00 หัวข้อ 'ประชุมทีม' ของ U1 ใช้ได้จริง ผู้เข้าร่วม U2, U3 · ระบบ Email ส่งไม่สำเร็จ (mail server ล่ม)",
+      "when": "งานตามเวลารันตอน 17/10 09:45",
+      "then": "U1, U2 และ U3 ไม่ได้รับ Email หัวเรื่อง '[จองห้องประชุม] ใกล้ถึงเวลาประชุม: ประชุมทีม · ห้อง A 17/10 10:00–11:00' · ระบบบันทึกการส่งเตือนของการจองนี้เป็น 'ส่งไม่สำเร็จ' และการจองยังใช้ได้ตามเดิม",
+      "has_ui": false
+    },
+    {
+      "id": "EX-mrr-067",
+      "proves": [
+        "BR-mrr-020@v1"
+      ],
+      "kind": "exception",
+      "status": "draft",
+      "given": "การจองห้อง A 17/10 10:00–11:00 หัวข้อ 'ประชุมทีม' ของ U1 ใช้ได้จริง ผู้เข้าร่วม U2, U3 · งานตามเวลารอบ 09:45 ส่ง Email เตือนไม่สำเร็จ และบันทึกเป็น 'ส่งไม่สำเร็จ' แล้ว · ตอนนี้ระบบ Email กลับมาใช้ได้",
+      "when": "งานตามเวลารันรอบถัดไปตอน 17/10 09:50",
+      "then": "ยังไม่มีใครได้รับ Email หัวเรื่อง '[จองห้องประชุม] ใกล้ถึงเวลาประชุม: ประชุมทีม · ห้อง A 17/10 10:00–11:00' และบันทึกการส่งเตือนยังเป็น 'ส่งไม่สำเร็จ' — ไม่ส่งซ้ำ",
+      "has_ui": false
+    },
+    {
+      "id": "EX-mrr-068",
+      "proves": [
+        "BR-mrr-021@v1"
+      ],
+      "kind": "happy",
+      "status": "draft",
+      "given": "ห้อง A มีการจอง 17/10 10:00–11:00 หัวข้อ 'ประชุมทีม' ของ U1 ผู้เข้าร่วม U2, U3 · ผู้ใช้ล็อกอินเป็น U1 (General User · ผู้จอง)",
+      "when": "U1 เปิดปฏิทินห้อง A วันที่ 17/10",
+      "then": "ช่อง 10:00–11:00 ของห้อง A แสดงผู้จอง 'U1' · หัวข้อ 'ประชุมทีม' · ผู้เข้าร่วม 'U2, U3'",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-069",
+      "proves": [
+        "BR-mrr-021@v1"
+      ],
+      "kind": "happy",
+      "status": "draft",
+      "given": "ห้อง A มีการจอง 17/10 10:00–11:00 หัวข้อ 'ประชุมทีม' ของ U1 ผู้เข้าร่วม U2, U3 · ผู้ใช้ล็อกอินเป็น U2 (General User · ผู้เข้าร่วม)",
+      "when": "U2 เปิดปฏิทินห้อง A วันที่ 17/10",
+      "then": "ช่อง 10:00–11:00 ของห้อง A แสดงผู้จอง 'U1' · หัวข้อ 'ประชุมทีม' · ผู้เข้าร่วม 'U2, U3'",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-070",
+      "proves": [
+        "BR-mrr-021@v1"
+      ],
+      "kind": "exception",
+      "status": "draft",
+      "given": "ห้อง A มีการจอง 17/10 10:00–11:00 หัวข้อ 'ประชุมทีม' ของ U1 ผู้เข้าร่วม U2, U3 · ผู้ใช้ล็อกอินเป็น U4 (General User · ไม่ได้จองและไม่ได้เป็นผู้เข้าร่วม)",
+      "when": "U4 เปิดปฏิทินห้อง A วันที่ 17/10",
+      "then": "ช่อง 10:00–11:00 ของห้อง A แสดงแค่คำว่า 'ไม่ว่าง' ไม่แสดงผู้จอง หัวข้อ หรือผู้เข้าร่วม",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-071",
+      "proves": [
+        "BR-mrr-021@v1"
+      ],
+      "kind": "exception",
+      "status": "draft",
+      "given": "ห้อง B (ต้องอนุมัติ) มีการจอง 17/10 10:00–11:00 หัวข้อ 'ประชุมลูกค้า' ของ U1 สถานะ 'รออนุมัติ' ผู้เข้าร่วม U2 · ผู้ใช้ล็อกอินเป็น U4 (General User · ไม่เกี่ยวข้อง)",
+      "when": "U4 เปิดปฏิทินห้อง B วันที่ 17/10",
+      "then": "ช่อง 10:00–11:00 ของห้อง B แสดงแค่คำว่า 'ไม่ว่าง' ไม่แสดงผู้จอง หัวข้อ ผู้เข้าร่วม หรือสถานะ 'รออนุมัติ'",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-072",
+      "proves": [
+        "BR-mrr-022@v1"
+      ],
+      "kind": "happy",
+      "status": "draft",
+      "given": "รายงานการใช้ห้องประจำเดือน ต.ค. 2569 ออกแล้ว · ผู้ใช้ล็อกอินเป็น Room Administrator",
+      "when": "Room Administrator เปิดหน้ารายงานการใช้ห้อง เดือน ต.ค. 2569",
+      "then": "เห็นรายงานเดือน ต.ค. 2569 พร้อมอันดับห้องที่มีอัตราการใช้งานสูงสุด",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-073",
+      "proves": [
+        "BR-mrr-022@v1"
+      ],
+      "kind": "exception",
+      "status": "draft",
+      "given": "รายงานการใช้ห้องประจำเดือน ต.ค. 2569 ออกแล้ว · ผู้ใช้ล็อกอินเป็น System Administrator",
+      "when": "System Administrator ส่งคำขอเปิดหน้ารายงานการใช้ห้อง เดือน ต.ค. 2569",
+      "then": "System Administrator ไม่เห็นรายงานและสถิติ และแสดงข้อความ 'เฉพาะผู้ดูแลห้องเท่านั้นที่ดูรายงานได้'",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-074",
+      "proves": [
+        "BR-mrr-022@v1"
+      ],
+      "kind": "exception",
+      "status": "draft",
+      "given": "รายงานการใช้ห้องประจำเดือน ต.ค. 2569 ออกแล้ว · ผู้ใช้ล็อกอินเป็น U1 (General User)",
+      "when": "U1 ส่งคำขอเปิดหน้ารายงานการใช้ห้อง เดือน ต.ค. 2569",
+      "then": "U1 ไม่เห็นรายงานและสถิติ และแสดงข้อความ 'เฉพาะผู้ดูแลห้องเท่านั้นที่ดูรายงานได้'",
+      "has_ui": true
+    },
+    {
+      "id": "EX-mrr-075",
+      "proves": [
+        "BR-mrr-023@v1"
+      ],
+      "kind": "happy",
+      "status": "draft",
+      "given": "การจองห้อง A 17/10 10:00–11:00 หัวข้อ 'ประชุมทีม' ของ U1 ใช้ได้จริง ผู้เข้าร่วม U2, U3 · ยังไม่เคยส่ง Email เตือนของการจองนี้",
+      "when": "งานตามเวลารันตอน 17/10 09:45",
+      "then": "U1, U2 และ U3 ได้รับ Email หัวเรื่อง '[จองห้องประชุม] ใกล้ถึงเวลาประชุม: ประชุมทีม · ห้อง A 17/10 10:00–11:00' คนละ 1 ฉบับ และระบบบันทึกว่าการจองนี้ส่งเตือนแล้ว",
+      "has_ui": false
+    },
+    {
+      "id": "EX-mrr-076",
+      "proves": [
+        "BR-mrr-023@v1"
+      ],
+      "kind": "exception",
+      "status": "draft",
+      "given": "การจองห้อง A 17/10 10:00–11:00 หัวข้อ 'ประชุมทีม' ของ U1 ใช้ได้จริง ผู้เข้าร่วม U2, U3 · งานตามเวลารอบ 09:45 ส่ง Email เตือนของการจองนี้สำเร็จแล้ว",
+      "when": "งานตามเวลารันซ้ำตอน 17/10 09:50",
+      "then": "ไม่มีใครได้รับ Email หัวเรื่อง '[จองห้องประชุม] ใกล้ถึงเวลาประชุม: ประชุมทีม · ห้อง A 17/10 10:00–11:00' เพิ่ม — U1, U2 และ U3 มี Email นี้คนละ 1 ฉบับเท่าเดิม",
+      "has_ui": false
+    },
+    {
+      "id": "EX-mrr-077",
+      "proves": [
+        "BR-mrr-023@v1"
+      ],
+      "kind": "boundary",
+      "status": "draft",
+      "given": "ขณะนี้ 17/10 09:50 · U1 จองห้อง A 17/10 10:00–11:00 หัวข้อ 'ประชุมด่วน' ผู้เข้าร่วม U2 และ U1, U2 ได้รับ Email หัวเรื่อง '[จองห้องประชุม] ใกล้ถึงเวลาประชุม: ประชุมด่วน · ห้อง A 17/10 10:00–11:00' ทันทีตอนจอง",
+      "when": "งานตามเวลารันตอน 17/10 09:55",
+      "then": "ไม่มีใครได้รับ Email หัวเรื่อง '[จองห้องประชุม] ใกล้ถึงเวลาประชุม: ประชุมด่วน · ห้อง A 17/10 10:00–11:00' เพิ่ม — Email ที่ส่งทันทีตอนจองนับเป็นครั้งเดียวของการจองนี้แล้ว",
+      "has_ui": false
+    },
+    {
+      "id": "EX-mrr-078",
+      "kind": "happy",
+      "status": "draft",
+      "has_ui": true,
+      "proves": [
+        "BR-mrr-010@v2"
+      ],
+      "given": "ห้อง A ไม่ต้องอนุมัติ · วันที่ 16/10 เวลา 09:00 U1 จองห้อง A 18/10 10:00–11:00 หัวข้อ 'ประชุมทีม' และเห็นข้อความ 'จองห้องสำเร็จ'",
+      "when": "วันที่ 16/10 เวลา 10:00 Room Administrator แก้ห้อง A เป็นต้องอนุมัติ แล้วเปิดรายการการจองที่ 'รออนุมัติ'",
+      "then": "Room Administrator เห็นข้อความ 'บันทึกข้อมูลห้องสำเร็จ' · การจองของ U1 วันที่ 18/10 10:00–11:00 เปลี่ยนเป็นสถานะ 'รออนุมัติ' ยังใช้ห้องไม่ได้ และอยู่ในรายการ 'รออนุมัติ' · U1 ไม่ได้รับ Email — การจองเดิมที่ยังไม่ถึงเวลาเริ่มกลับไปรออนุมัติ"
+    },
+    {
+      "id": "EX-mrr-079",
+      "kind": "alternate",
+      "status": "draft",
+      "has_ui": true,
+      "proves": [
+        "BR-mrr-010@v2"
+      ],
+      "given": "ห้อง B ต้องอนุมัติ · วันที่ 16/10 เวลา 09:00 U1 จองห้อง B 18/10 10:00–11:00 หัวข้อ 'ประชุมทีม' สถานะ 'รออนุมัติ'",
+      "when": "วันที่ 16/10 เวลา 10:00 Room Administrator แก้ห้อง B เป็นไม่ต้องอนุมัติ แล้วเปิดรายการการจองที่ 'รออนุมัติ'",
+      "then": "Room Administrator เห็นข้อความ 'บันทึกข้อมูลห้องสำเร็จ' · การจองของ U1 ไม่อยู่ในรายการ 'รออนุมัติ' และใช้ห้องได้ทันทีโดยไม่ขึ้นสถานะ 'อนุมัติแล้ว' (เหมือนจองห้องที่ไม่ต้องอนุมัติ) · U1 ได้รับ Email หัวเรื่อง '[จองห้องประชุม] จองสำเร็จ: ประชุมทีม · ห้อง B 18/10 10:00–11:00'"
+    },
+    {
+      "id": "EX-mrr-080",
+      "kind": "boundary",
+      "status": "draft",
+      "has_ui": true,
+      "proves": [
+        "BR-mrr-010@v2"
+      ],
+      "given": "ห้อง A ไม่ต้องอนุมัติ · มีการจองห้อง A วันที่ 16/10 สองรายการที่ใช้ห้องได้แล้ว: U1 10:00–11:00 หัวข้อ 'ประชุมเช้า' และ U2 11:00–12:00 หัวข้อ 'ประชุมสาย'",
+      "when": "วันที่ 16/10 เวลา 10:00 พอดี Room Administrator แก้ห้อง A เป็นต้องอนุมัติ แล้วเปิดรายการการจองที่ 'รออนุมัติ'",
+      "then": "การจองของ U1 (เริ่ม 10:00 = เวลาที่แก้) ไม่อยู่ในรายการ 'รออนุมัติ' และยังใช้ห้องได้ตามเดิม — เริ่มพอดีนับว่าถึงเวลาเริ่มแล้ว · การจองของ U2 (เริ่ม 11:00) เปลี่ยนเป็นสถานะ 'รออนุมัติ' และอยู่ในรายการ 'รออนุมัติ'"
+    },
+    {
+      "id": "EX-mrr-081",
+      "kind": "exception",
+      "status": "draft",
+      "has_ui": true,
+      "proves": [
+        "BR-mrr-012@v1"
+      ],
+      "given": "ห้อง A ไม่ต้องอนุมัติ และ Room Administrator ตั้งห้อง A เป็นปิดปรับปรุงแล้ว · ห้อง A ไม่มีการจอง 18/10 13:00–14:00",
+      "when": "U2 จองห้อง A 18/10 13:00–14:00 หัวข้อ 'ประชุมทีม' ผู้เข้าร่วม 2 คน",
+      "then": "ระบบไม่สร้างการจอง และแสดงข้อความ 'ห้องนี้ปิดปรับปรุง ไม่สามารถจองได้'"
+    },
+    {
+      "id": "EX-mrr-082",
+      "kind": "alternate",
+      "status": "draft",
+      "has_ui": true,
+      "proves": [
+        "BR-mrr-012@v1"
+      ],
+      "given": "U1 มีการจองห้อง A 18/10 10:00–11:00 หัวข้อ 'ประชุมทีม' ที่ใช้ห้องได้ · จากนั้น Room Administrator ตั้งห้อง A เป็นปิดปรับปรุง · ห้อง A ว่าง 18/10 14:00–15:00",
+      "when": "U1 แก้เวลาการจองของตนเป็น 18/10 14:00–15:00 แล้วกดบันทึก",
+      "then": "ระบบไม่บันทึกการแก้ไข และแสดงข้อความ 'ห้องนี้ปิดปรับปรุง ไม่สามารถจองได้' · การจองของ U1 ยังเป็น 18/10 10:00–11:00 และใช้ห้องได้ตามเดิม — การเปลี่ยนเวลานับเป็นการจองใหม่"
+    },
+    {
+      "id": "EX-mrr-083",
+      "kind": "boundary",
+      "status": "draft",
+      "has_ui": true,
+      "proves": [
+        "BR-mrr-012@v1"
+      ],
+      "given": "ห้อง A ไม่ต้องอนุมัติ และอยู่ในสถานะปิดปรับปรุง · ห้อง A ว่าง 18/10 13:00–14:00",
+      "when": "Room Administrator เปิดห้อง A กลับมาใช้งาน จากนั้น U2 จองห้อง A 18/10 13:00–14:00 หัวข้อ 'ประชุมทีม' ผู้เข้าร่วม 2 คน",
+      "then": "Room Administrator เห็นข้อความ 'เปิดห้องใช้งานแล้ว' · การจองของ U2 สร้างสำเร็จทันที และแสดงข้อความ 'จองห้องสำเร็จ' — ออกจากปิดปรับปรุงแล้วรับการจองใหม่ได้"
+    },
+    {
+      "id": "EX-mrr-084",
+      "kind": "happy",
+      "status": "draft",
+      "has_ui": true,
+      "proves": [
+        "BR-mrr-006@v1"
+      ],
+      "given": "ต.ค. 2569 มีวัน จ.–ศ. 22 วัน (ชั่วโมงทำการ 13,200 นาทีต่อห้อง) · ห้อง A มีการจองที่ใช้ได้จริง (ไม่ต้องอนุมัติ หรืออนุมัติแล้ว) ทุกวัน จ.–ศ. 09:00–12:20 รวม 4,400 นาที และมีการจองที่ยกเลิก 5/10 13:00–15:00 · รออนุมัติ 6/10 13:00–14:00 · ถูกปฏิเสธ 7/10 13:00–14:00 · ห้อง B มีการจองที่ใช้ได้จริงทุกวัน จ.–ศ. 08:00–14:40 รวม 8,800 นาที",
+      "when": "Room Administrator เปิดรายงานการใช้ห้องเดือน ต.ค. 2569",
+      "then": "อันดับ 1 ห้อง B '66.67%' · อันดับ 2 ห้อง A '33.33%' — การจองที่ยกเลิก / รออนุมัติ / ถูกปฏิเสธไม่นับ และ 66.666… ปัดแบบ round half up เป็น 66.67"
+    },
+    {
+      "id": "EX-mrr-085",
+      "kind": "boundary",
+      "status": "draft",
+      "has_ui": true,
+      "proves": [
+        "BR-mrr-006@v1"
+      ],
+      "given": "ห้อง C ใน ต.ค. 2569 มีการจองที่ใช้ได้จริงเพียง 2 รายการ: ศ. 30/10 17:00–19:00 และ ส. 31/10 10:00–12:00",
+      "when": "Room Administrator เปิดรายงานการใช้ห้องเดือน ต.ค. 2569",
+      "then": "ห้อง C แสดง '0.45%' — นับเฉพาะ 17:00–18:00 ของวันศุกร์ (60 นาที) ส่วนหลัง 18:00 และวันเสาร์ไม่นับ · 60 ÷ 13,200 × 100 = 0.4545… ปัดเป็น 0.45"
+    },
+    {
+      "id": "EX-mrr-086",
+      "kind": "alternate",
+      "status": "draft",
+      "has_ui": true,
+      "proves": [
+        "BR-mrr-006@v1"
+      ],
+      "given": "ห้อง D ปิดปรับปรุงเต็มวัน 19/10–23/10 (จ.–ศ. 5 วัน = 3,000 นาทีในเวลาทำการ) · มีการจองที่คงอยู่ระหว่างปิดปรับปรุง 21/10 10:00–11:00 · วัน จ.–ศ. อื่นอีก 17 วันมีการจองที่ใช้ได้จริง 08:00–13:00 ทุกวัน รวม 5,100 นาที",
+      "when": "Room Administrator เปิดรายงานการใช้ห้องเดือน ต.ค. 2569",
+      "then": "ห้อง D แสดง '50.00%' — ตัวหารเหลือ 13,200 − 3,000 = 10,200 นาที และการจอง 21/10 ที่อยู่ในช่วงปิดปรับปรุงไม่นับในตัวตั้ง"
+    },
+    {
+      "id": "EX-mrr-087",
+      "kind": "exception",
+      "status": "draft",
+      "has_ui": true,
+      "proves": [
+        "BR-mrr-006@v1"
+      ],
+      "given": "ห้อง E ปิดปรับปรุงทุกวัน จ.–ศ. ตลอด ต.ค. 2569 · มีการจองที่คงอยู่ 5/10 10:00–11:00",
+      "when": "Room Administrator เปิดรายงานการใช้ห้องเดือน ต.ค. 2569",
+      "then": "ห้อง E แสดง '—' ไม่มีเลขอันดับ และไม่อยู่ในอันดับห้องที่มีอัตราการใช้งานสูงสุด — ชั่วโมงทำการเหลือ 0 จึงไม่คำนวณ"
+    }
+  ],
+  "calculations": [
+    {
+      "id": "CALC-mrr-001@v1",
+      "base_id": "CALC-mrr-001",
+      "version": 1,
+      "is_current": true,
+      "constrains": "BR-mrr-006@v1",
+      "effective_from": null,
+      "formula": "utilization_pct = booked_minutes ÷ operating_minutes × 100",
+      "inputs": [
+        {
+          "name": "booked_minutes",
+          "type": "int",
+          "description": "ผลรวมนาทีของการจองที่ใช้ได้จริง (ไม่ต้องอนุมัติ หรืออนุมัติแล้ว) ของห้องในช่วงรายงาน — นับเฉพาะส่วนที่อยู่ใน จ.–ศ. 08:00–18:00 และไม่ทับช่วงที่ห้องปิดปรับปรุง"
+        },
+        {
+          "name": "operating_minutes",
+          "type": "int",
+          "description": "600 นาที × จำนวนวัน จ.–ศ. ในช่วงรายงาน (วันหยุดนักขัตฤกษ์นับตามปกติ) − นาทีในเวลาทำการที่ห้องปิดปรับปรุง"
+        }
+      ],
+      "numeric_type": "decimal",
+      "rounding_mode": "HALF_UP",
+      "rounding_points": "ตัวตั้งและตัวหารเป็นนาทีจำนวนเต็ม ไม่มีการปัดก่อนหาร · ปัดจุดเดียวที่ผลเปอร์เซ็นต์ เหลือทศนิยม 2 ตำแหน่ง (เช่น 62.50) — ไม่ปัดสัดส่วนก่อนคูณ 100 · สอดคล้อง DQ-mrr-009 (ปัดทุกจุดที่เกิดค่า) และ DQ-mrr-008",
+      "residual_policy": null,
+      "boundary_behavior": [
+        "การจองที่เลยนอกเวลาทำการ (เช่น 17:00–19:00) → นับเฉพาะส่วนใน 08:00–18:00 จ.–ศ. — อัตราจึงไม่เกิน 100%",
+        "นับเฉพาะการจองที่ใช้ได้จริง — ไม่นับที่ยกเลิก / ปฏิเสธ / รออนุมัติ (BR-mrr-006@v1)",
+        "ช่วงที่ห้องปิดปรับปรุง → หักออกจากตัวหาร และการจองที่คงอยู่ในช่วงนั้น (BR-mrr-012@v1) ไม่นับในตัวตั้ง",
+        "operating_minutes = 0 (ห้องปิดปรับปรุงทั้งช่วงรายงาน) → ไม่คำนวณ แสดง \"—\" และไม่เข้าอันดับ",
+        "วันหยุดนักขัตฤกษ์ที่ตรงกับ จ.–ศ. → นับเป็นเวลาทำการตามปกติ (ระบบไม่ต้องมีปฏิทินวันหยุด)"
+      ],
+      "status": "draft",
+      "questions": [],
+      "deferred_questions": [
+        "DQ-mrr-008",
+        "DQ-mrr-009",
+        "DQ-mrr-010"
+      ],
+      "provenance": [
+        {
+          "source": "SRC-014",
+          "locator": {
+            "line": 1
+          },
+          "quote": "formula: ผลเก็บเป็นเปอร์เซ็นต์ — ชั่วโมงที่ถูกจอง ÷ ชั่วโมงทำการของห้อง × 100",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-014",
+          "locator": {
+            "line": 2
+          },
+          "quote": "inputs: นับเป็นนาที (int) ทั้งตัวตั้งและตัวหาร",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-014",
+          "locator": {
+            "line": 3
+          },
+          "quote": "inputs: ชั่วโมงทำการเป็นค่าเดียวทั้งองค์กร คือ จ.–ศ. 08:00–18:00",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-014",
+          "locator": {
+            "line": 4
+          },
+          "quote": "numeric_type / rounding: decimal ปัด 2 ตำแหน่ง (ตอบ DQ-mrr-008) วิธีปัด HALF_UP ตาม DQ-mrr-009",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-014",
+          "locator": {
+            "line": 5
+          },
+          "quote": "boundary: การจองที่เลยนอกชั่วโมงทำการ นับเฉพาะส่วนที่อยู่ในเวลาทำการ",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-014",
+          "locator": {
+            "line": 6
+          },
+          "quote": "boundary: ช่วงที่ห้องปิดปรับปรุง หักออกจากตัวหาร",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-014",
+          "locator": {
+            "line": 7
+          },
+          "quote": "boundary: ถ้าตัวหารเหลือ 0 (ห้องปิดทั้งช่วงรายงาน) แสดง \"—\" ไม่คำนวณ",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-014",
+          "locator": {
+            "line": 8
+          },
+          "quote": "boundary: วันหยุดนักขัตฤกษ์ที่ตรงกับ จ.–ศ. นับเป็นเวลาทำการตามปกติ",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-014",
+          "locator": {
+            "line": 9
+          },
+          "quote": "boundary: การจองที่คงอยู่ในช่วงปิดปรับปรุง (BR-mrr-012) ไม่นับในตัวตั้ง — ตัวตั้งและตัวหารใช้ช่วงเวลาเดียวกัน",
+          "confidence": 1
+        }
+      ],
+      "notes": "ชั่วโมงทำการ จ.–ศ. 08:00–18:00 มาจากคำตอบของเจ้าของ ตัวเลขที่ยกเป็นตัวอย่างระหว่างถามไม่ได้ถูกใช้แทนคำตอบ · decimal(p,s) ใน DB ยังรอ DQ-mrr-010 (Phase 2)",
+      "supersedes": null,
+      "superseded_by": null,
+      "superseded_at": null,
+      "change_reason": null
+    }
+  ],
+  "golden_datasets": [
+    {
+      "id": "GD-mrr-001",
+      "proves": [
+        "BR-mrr-006@v1",
+        "CALC-mrr-001@v1"
+      ],
+      "rows": [
+        {
+          "input": {
+            "year": 2026,
+            "month": 10,
+            "bookings": [
+              {
+                "day": 1,
+                "start": "08:00",
+                "end": "18:00",
+                "status": "approved"
+              }
+            ]
+          },
+          "expected": {
+            "booked_minutes": 600,
+            "operating_minutes": 13200,
+            "utilization_pct": "4.55",
+            "display": "4.55%",
+            "ranked": true
+          },
+          "note": "ปกติ — อนุมัติแล้วนับ · 600 ÷ 13,200 = 4.5454… ปัดขึ้น"
+        },
+        {
+          "input": {
+            "year": 2026,
+            "month": 10,
+            "bookings": [
+              {
+                "day": 1,
+                "start": "08:00",
+                "end": "18:00",
+                "status": "no_approval"
+              }
+            ]
+          },
+          "expected": {
+            "booked_minutes": 600,
+            "operating_minutes": 13200,
+            "utilization_pct": "4.55",
+            "display": "4.55%",
+            "ranked": true
+          },
+          "note": "ปกติ — ห้องไม่ต้องอนุมัตินับเหมือนกัน"
+        },
+        {
+          "input": {
+            "year": 2026,
+            "month": 10,
+            "bookings": [
+              {
+                "day": 1,
+                "start": "08:00",
+                "end": "18:00",
+                "status": "cancelled"
+              }
+            ]
+          },
+          "expected": {
+            "booked_minutes": 0,
+            "operating_minutes": 13200,
+            "utilization_pct": "0.00",
+            "display": "0.00%",
+            "ranked": true
+          },
+          "note": "boundary 2 — ยกเลิกไม่นับ"
+        },
+        {
+          "input": {
+            "year": 2026,
+            "month": 10,
+            "bookings": [
+              {
+                "day": 1,
+                "start": "08:00",
+                "end": "18:00",
+                "status": "rejected"
+              }
+            ]
+          },
+          "expected": {
+            "booked_minutes": 0,
+            "operating_minutes": 13200,
+            "utilization_pct": "0.00",
+            "display": "0.00%",
+            "ranked": true
+          },
+          "note": "boundary 2 — ปฏิเสธไม่นับ"
+        },
+        {
+          "input": {
+            "year": 2026,
+            "month": 10,
+            "bookings": [
+              {
+                "day": 1,
+                "start": "08:00",
+                "end": "18:00",
+                "status": "pending"
+              }
+            ]
+          },
+          "expected": {
+            "booked_minutes": 0,
+            "operating_minutes": 13200,
+            "utilization_pct": "0.00",
+            "display": "0.00%",
+            "ranked": true
+          },
+          "note": "boundary 2 — รออนุมัติไม่นับ"
+        },
+        {
+          "input": {
+            "year": 2026,
+            "month": 10,
+            "bookings": [
+              {
+                "day": 30,
+                "start": "17:00",
+                "end": "19:00",
+                "status": "no_approval"
+              }
+            ]
+          },
+          "expected": {
+            "booked_minutes": 60,
+            "operating_minutes": 13200,
+            "utilization_pct": "0.45",
+            "display": "0.45%",
+            "ranked": true
+          },
+          "note": "boundary 1 — คร่อม 18:00 นับแค่ 17:00–18:00"
+        },
+        {
+          "input": {
+            "year": 2026,
+            "month": 10,
+            "bookings": [
+              {
+                "day": 5,
+                "start": "07:00",
+                "end": "09:00",
+                "status": "no_approval"
+              }
+            ]
+          },
+          "expected": {
+            "booked_minutes": 60,
+            "operating_minutes": 13200,
+            "utilization_pct": "0.45",
+            "display": "0.45%",
+            "ranked": true
+          },
+          "note": "boundary 1 — คร่อม 08:00 นับแค่ 08:00–09:00"
+        },
+        {
+          "input": {
+            "year": 2026,
+            "month": 10,
+            "bookings": [
+              {
+                "day": 31,
+                "start": "10:00",
+                "end": "12:00",
+                "status": "no_approval"
+              }
+            ]
+          },
+          "expected": {
+            "booked_minutes": 0,
+            "operating_minutes": 13200,
+            "utilization_pct": "0.00",
+            "display": "0.00%",
+            "ranked": true
+          },
+          "note": "boundary 1 — วันเสาร์ไม่นับ"
+        },
+        {
+          "input": {
+            "year": 2026,
+            "month": 10,
+            "bookings": [
+              {
+                "day": 1,
+                "start": "07:00",
+                "end": "19:00",
+                "status": "approved"
+              },
+              {
+                "day": 2,
+                "start": "07:00",
+                "end": "19:00",
+                "status": "approved"
+              },
+              {
+                "day": 5,
+                "start": "07:00",
+                "end": "19:00",
+                "status": "approved"
+              },
+              {
+                "day": 6,
+                "start": "07:00",
+                "end": "19:00",
+                "status": "approved"
+              },
+              {
+                "day": 7,
+                "start": "07:00",
+                "end": "19:00",
+                "status": "approved"
+              },
+              {
+                "day": 8,
+                "start": "07:00",
+                "end": "19:00",
+                "status": "approved"
+              },
+              {
+                "day": 9,
+                "start": "07:00",
+                "end": "19:00",
+                "status": "approved"
+              },
+              {
+                "day": 12,
+                "start": "07:00",
+                "end": "19:00",
+                "status": "approved"
+              },
+              {
+                "day": 13,
+                "start": "07:00",
+                "end": "19:00",
+                "status": "approved"
+              },
+              {
+                "day": 14,
+                "start": "07:00",
+                "end": "19:00",
+                "status": "approved"
+              },
+              {
+                "day": 15,
+                "start": "07:00",
+                "end": "19:00",
+                "status": "approved"
+              },
+              {
+                "day": 16,
+                "start": "07:00",
+                "end": "19:00",
+                "status": "approved"
+              },
+              {
+                "day": 19,
+                "start": "07:00",
+                "end": "19:00",
+                "status": "approved"
+              },
+              {
+                "day": 20,
+                "start": "07:00",
+                "end": "19:00",
+                "status": "approved"
+              },
+              {
+                "day": 21,
+                "start": "07:00",
+                "end": "19:00",
+                "status": "approved"
+              },
+              {
+                "day": 22,
+                "start": "07:00",
+                "end": "19:00",
+                "status": "approved"
+              },
+              {
+                "day": 23,
+                "start": "07:00",
+                "end": "19:00",
+                "status": "approved"
+              },
+              {
+                "day": 26,
+                "start": "07:00",
+                "end": "19:00",
+                "status": "approved"
+              },
+              {
+                "day": 27,
+                "start": "07:00",
+                "end": "19:00",
+                "status": "approved"
+              },
+              {
+                "day": 28,
+                "start": "07:00",
+                "end": "19:00",
+                "status": "approved"
+              },
+              {
+                "day": 29,
+                "start": "07:00",
+                "end": "19:00",
+                "status": "approved"
+              },
+              {
+                "day": 30,
+                "start": "07:00",
+                "end": "19:00",
+                "status": "approved"
+              }
+            ]
+          },
+          "expected": {
+            "booked_minutes": 13200,
+            "operating_minutes": 13200,
+            "utilization_pct": "100.00",
+            "display": "100.00%",
+            "ranked": true
+          },
+          "note": "boundary 1 — จองเต็มทุกวันและเลยเวลาทำการ อัตราไม่เกิน 100%"
+        },
+        {
+          "input": {
+            "year": 2026,
+            "month": 10,
+            "bookings": [
+              {
+                "day": 23,
+                "start": "10:00",
+                "end": "11:00",
+                "status": "no_approval"
+              }
+            ]
+          },
+          "expected": {
+            "booked_minutes": 60,
+            "operating_minutes": 13200,
+            "utilization_pct": "0.45",
+            "display": "0.45%",
+            "ranked": true
+          },
+          "note": "boundary 5 — 23/10 วันปิยมหาราช (ศ.) นับเป็นเวลาทำการปกติ"
+        },
+        {
+          "input": {
+            "year": 2026,
+            "month": 10,
+            "maintenance": [
+              {
+                "day": 19,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 20,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 21,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 22,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 23,
+                "start": "08:00",
+                "end": "18:00"
+              }
+            ],
+            "bookings": [
+              {
+                "day": 21,
+                "start": "10:00",
+                "end": "11:00",
+                "status": "no_approval"
+              },
+              {
+                "day": 5,
+                "start": "10:00",
+                "end": "11:00",
+                "status": "no_approval"
+              }
+            ]
+          },
+          "expected": {
+            "booked_minutes": 60,
+            "operating_minutes": 10200,
+            "utilization_pct": "0.59",
+            "display": "0.59%",
+            "ranked": true
+          },
+          "note": "boundary 3 — ปิดปรับปรุง 19–23/10 หักจากตัวหาร · การจอง 21/10 ที่คงอยู่ไม่นับ · การจอง 5/10 นับ"
+        },
+        {
+          "input": {
+            "year": 2026,
+            "month": 10,
+            "maintenance": [
+              {
+                "day": 5,
+                "start": "10:00",
+                "end": "12:00"
+              }
+            ],
+            "bookings": [
+              {
+                "day": 5,
+                "start": "09:00",
+                "end": "11:00",
+                "status": "no_approval"
+              }
+            ]
+          },
+          "expected": {
+            "booked_minutes": 60,
+            "operating_minutes": 13080,
+            "utilization_pct": "0.46",
+            "display": "0.46%",
+            "ranked": true
+          },
+          "note": "boundary 3 — การจองคร่อมช่วงปิดปรับปรุงบางส่วน นับแค่ 09:00–10:00"
+        },
+        {
+          "input": {
+            "year": 2026,
+            "month": 10,
+            "maintenance": [
+              {
+                "day": 1,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 2,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 5,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 6,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 7,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 8,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 9,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 12,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 13,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 14,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 15,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 16,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 19,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 20,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 21,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 22,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 23,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 26,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 27,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 28,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 29,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 30,
+                "start": "08:00",
+                "end": "18:00"
+              }
+            ],
+            "bookings": [
+              {
+                "day": 5,
+                "start": "10:00",
+                "end": "11:00",
+                "status": "no_approval"
+              }
+            ]
+          },
+          "expected": {
+            "booked_minutes": 0,
+            "operating_minutes": 0,
+            "utilization_pct": null,
+            "display": "—",
+            "ranked": false
+          },
+          "note": "boundary 4 — ปิดปรับปรุงทั้งเดือน ตัวหาร = 0 แสดง — ไม่เข้าอันดับ"
+        },
+        {
+          "input": {
+            "year": 2026,
+            "month": 10,
+            "maintenance": [
+              {
+                "day": 1,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 2,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 5,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 6,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 7,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 8,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 9,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 12,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 13,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 14,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 15,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 16,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 19,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 20,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 21,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 22,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 23,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 26,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 27,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 28,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 29,
+                "start": "08:00",
+                "end": "14:40"
+              }
+            ],
+            "bookings": [
+              {
+                "day": 30,
+                "start": "08:00",
+                "end": "14:41",
+                "status": "approved"
+              }
+            ]
+          },
+          "expected": {
+            "booked_minutes": 401,
+            "operating_minutes": 800,
+            "utilization_pct": "50.13",
+            "display": "50.13%",
+            "ranked": true
+          },
+          "note": "HALF_UP — ตัวหาร 800 ตัวตั้ง 401 = 50.125 พอดี · HALF_UP ได้ 50.13 (half-even จะได้ 50.12)"
+        }
+      ],
+      "computed_by": "golden/CALC-mrr-001@v1.mjs",
+      "computed_at": "2026-10-19T12:00+07:00",
+      "status": "validated",
+      "verified_by": "Adisorn",
+      "verified_at": "2026-10-19T12:10+07:00",
+      "source": null,
+      "mismatches": [],
+      "notes": "ไม่มี sample_data ในโปรเจกต์ จึงไม่มีเลขของลูกค้าให้ทาบ — ทุกแถวเป็นขอบตาม boundary_behavior ทั้ง 5 ข้อ สถานะการจองทุกแบบ และแถว HALF_UP ที่ลงตัว .xx5 พอดี · สถานการณ์ของ EX-mrr-084…087 รันผ่านสคริปต์นี้แล้วตรงกันทุกค่า · ยังไม่ครอบคลุมการจัดอันดับเมื่ออัตราเท่ากัน (ยังไม่มีกฎ)"
+    }
+  ],
+  "changes": [
+    {
+      "id": "CHG-mrr-001",
+      "at": "2026-10-19T10:00+07:00",
+      "requested_by": "ลูกค้า (คุณ Somchai) ในการประชุมล่าสุด",
+      "approved_by": "Adisorn",
+      "triggered_by": [
+        "SRC-023"
+      ],
+      "reason": "ลูกค้าขอให้เปลี่ยน — การแก้ค่าตั้งของห้องต้องมีผลกับการจองที่ยังไม่ถึงเวลาเริ่มด้วย ไม่ใช่เฉพาะการจองใหม่",
+      "affects": [
+        "BR-mrr-010@v2"
+      ],
+      "invalidates": [],
+      "effective_from": "2026-10-19",
+      "notes": "EX-mrr-031 และ EX-mrr-032 ขัดกับ @v2 จึงคงไว้ที่ @v1 อย่างเดียว · ยังไม่มีตัวอย่างที่พิสูจน์พฤติกรรมใหม่ (การจองเดิมกลับไปรออนุมัติ / การจองที่รออนุมัติใช้ได้ทันที) — ต้อง /req:example · ไม่มี CALC/GD ผูกกับกฎนี้"
+    }
+  ],
+  "questions": [
+    {
+      "id": "Q-mrr-001",
+      "question": "§3.1 ระบุ หัวข้อการประชุม / รายชื่อผู้เข้าร่วม / อุปกรณ์เสริม — ช่องไหนบังคับ",
+      "raised_by": "BR-mrr-002@v1",
+      "state": "answered",
+      "answer": "หัวข้อการประชุมและรายชื่อผู้เข้าร่วมบังคับ อุปกรณ์เสริมไม่บังคับ",
+      "answered_at": "2026-10-16T11:40+07:00"
+    },
+    {
+      "id": "Q-mrr-002",
+      "question": "§2 บอกว่า Room Administrator จัดการข้อมูลห้อง — เป็นคนเดียวที่ทำได้หรือไม่",
+      "raised_by": "BR-mrr-005@v1",
+      "state": "answered",
+      "answer": "ใช่ เฉพาะ Room Administrator",
+      "answered_at": "2026-10-16T11:40+07:00"
+    },
+    {
+      "id": "Q-mrr-003",
+      "question": "§3.3 \"Reminders เช่น ก่อนเริ่ม 15 นาที\" — 15 นาทีเป็นกฎหรือแค่ตัวอย่าง",
+      "raised_by": "BR-mrr-008@v1",
+      "state": "answered",
+      "answer": "เป็นกฎ 15 นาทีตายตัว",
+      "answered_at": "2026-10-16T11:40+07:00"
+    },
+    {
+      "id": "Q-mrr-004",
+      "question": "§4 \"รองรับผู้ใช้งานพร้อมกันได้อย่างน้อย 100-200 คน\" — เป้าที่ใช้ทดสอบคือเท่าไร",
+      "raised_by": "SRC-001",
+      "state": "answered",
+      "answer": "200 คน",
+      "answered_at": "2026-10-16T11:40+07:00"
+    }
+  ],
+  "deferred_questions": [
+    {
+      "id": "DQ-mrr-001",
+      "question": "การจองเก่าเก็บค่าตั้งของห้อง ณ ตอนจองไว้ยังไง",
+      "blocked_until": "entity:MeetingRoom",
+      "answer_phase": "domain",
+      "state": "answered",
+      "answer": "เก็บ id เวอร์ชันของห้อง — ข้อมูลห้องมี version ห้ามลบ",
+      "answered_at": "2026-10-16T12:28+07:00",
+      "resulted_in": [],
+      "raised_by": "BR-mrr-010@v1",
+      "category": "temporal"
+    },
+    {
+      "id": "DQ-mrr-002",
+      "question": "แก้ข้อมูลห้องแล้ว แก้เวอร์ชันเดิมได้ไหม หรือต้องสร้างเวอร์ชันใหม่เสมอ",
+      "blocked_until": "entity:MeetingRoom",
+      "answer_phase": "domain",
+      "state": "open",
+      "answer": null,
+      "answered_at": null,
+      "raised_by": "BR-mrr-010@v1",
+      "category": "temporal"
+    },
+    {
+      "id": "DQ-mrr-003",
+      "question": "ข้อมูลห้องต้อง soft-delete / archive ไหม — §3.2 เขียนว่า \"ลบข้อมูลห้องประชุม\" แต่ DQ-mrr-001 ตอบว่าห้ามลบ ต้องตกลงว่า \"ลบ\" หมายถึงอะไร",
+      "blocked_until": "entity:MeetingRoom",
+      "answer_phase": "domain",
+      "state": "open",
+      "answer": null,
+      "answered_at": null,
+      "raised_by": "BR-mrr-010@v1",
+      "category": "temporal"
+    },
+    {
+      "id": "DQ-mrr-004",
+      "question": "หน้าจอจัดการห้องต้องแสดงประวัติเวอร์ชันของห้องไหม",
+      "blocked_until": "entity:MeetingRoom",
+      "answer_phase": "screen",
+      "state": "open",
+      "answer": null,
+      "answered_at": null,
+      "raised_by": "BR-mrr-010@v1",
+      "category": "temporal"
+    },
+    {
+      "id": "DQ-mrr-005",
+      "question": "ข้อมูลที่เขียนไปแล้วก่อนส่ง Email (เช่น บันทึกการจอง) — rollback หรือค้างครึ่งทาง เมื่อส่ง Email ไม่สำเร็จ (transaction boundary)",
+      "raised_by": "BR-mrr-019@v1",
+      "category": "integration",
+      "blocked_until": "entity:Booking",
+      "answer_phase": "plan",
+      "state": "open",
+      "answer": null,
+      "answered_at": null
+    },
+    {
+      "id": "DQ-mrr-006",
+      "question": "natural key ของการจองคือฟิลด์อะไร (ห้อง + ช่วงเวลา?) ที่ DB ใช้กันการจองซ้ำ",
+      "blocked_until": "entity:Booking",
+      "answer_phase": "domain",
+      "raised_by": "BR-mrr-001@v1",
+      "category": "idempotency",
+      "state": "open",
+      "answer": null,
+      "answered_at": null
+    },
+    {
+      "id": "DQ-mrr-007",
+      "question": "ข้อความ error ภาษาไทยตรงตัวที่ผู้ใช้เห็นเมื่อจองซ้ำหรือช่วงเวลาไม่ว่าง",
+      "blocked_until": "screen:booking-form",
+      "answer_phase": "screen",
+      "raised_by": "BR-mrr-001@v1",
+      "category": "idempotency",
+      "state": "answered",
+      "answer": "\"ห้องนี้ไม่ว่างในช่วงเวลาที่เลือก กรุณาเลือกเวลาอื่น\" — ใช้ทั้งกรณีจองซ้ำ (กดซ้ำ) และช่วงเวลาไม่ว่าง (SRC-015)",
+      "answered_at": "2026-10-16T14:45+07:00",
+      "resulted_in": [
+        "EX-mrr-002",
+        "EX-mrr-003"
+      ]
+    },
+    {
+      "id": "DQ-mrr-008",
+      "question": "อัตราการใช้งานปัดที่ทศนิยมกี่ตำแหน่ง (แสดงเป็นเปอร์เซ็นต์กี่ตำแหน่ง)",
+      "state": "answered",
+      "answer": "ปัด 2 ตำแหน่งที่ผลเปอร์เซ็นต์ (เช่น 62.50) แบบ HALF_UP (SRC-014)",
+      "answered_at": "2026-10-16T14:30+07:00",
+      "raised_by": "BR-mrr-006@v1",
+      "category": "calculation",
+      "blocked_until": "entity:RoomUtilization",
+      "answer_phase": "domain",
+      "resulted_in": [
+        "CALC-mrr-001@v1"
+      ]
+    },
+    {
+      "id": "DQ-mrr-009",
+      "question": "ปัดทีละขั้นหรือปัดตอนท้าย",
+      "state": "answered",
+      "answer": "ปัดทุกจุดที่เกิดค่า แบบ round half up (SRC-012)",
+      "answered_at": "2026-10-16T13:58+07:00",
+      "resulted_in": [
+        "CALC-mrr-001@v1"
+      ],
+      "raised_by": "BR-mrr-006@v1",
+      "category": "calculation",
+      "blocked_until": "entity:RoomUtilization",
+      "answer_phase": "domain"
+    },
+    {
+      "id": "DQ-mrr-010",
+      "question": "decimal(p,s) ของค่าอัตราการใช้งานใน DB เท่าไหร่",
+      "state": "open",
+      "answer": null,
+      "answered_at": null,
+      "raised_by": "BR-mrr-006@v1",
+      "category": "calculation",
+      "blocked_until": "entity:RoomUtilization",
+      "answer_phase": "domain"
+    },
+    {
+      "id": "DQ-mrr-011",
+      "question": "หัวหน้าเห็นรายละเอียดการจองของลูกน้องไหม",
+      "blocked_until": "entity:User (สายบังคับบัญชา)",
+      "answer_phase": "domain",
+      "state": "open",
+      "answer": null,
+      "answered_at": null,
+      "raised_by": "BR-mrr-021@v1",
+      "category": "data_scope"
+    },
+    {
+      "id": "DQ-mrr-012",
+      "question": "โอนการจองให้คนอื่นได้ไหม — ถ้าได้ ผู้จองเดิมยังเห็นรายละเอียดไหม",
+      "blocked_until": "entity:Booking",
+      "answer_phase": "domain",
+      "state": "open",
+      "answer": null,
+      "answered_at": null,
+      "raised_by": "BR-mrr-021@v1",
+      "category": "data_scope"
+    },
+    {
+      "id": "DQ-mrr-013",
+      "question": "รายงาน / ยอดรวม / export ใช้ขอบเขตข้อมูลเดียวกันไหม",
+      "blocked_until": "screen:reports",
+      "answer_phase": "screen",
+      "state": "answered",
+      "answer": "รายงานและสถิติดูได้เฉพาะ Room Administrator ซึ่งเห็นข้อมูลทั้งหมด (BR-mrr-022, SRC-013)",
+      "answered_at": "2026-10-16T14:10+07:00",
+      "resulted_in": [
+        "BR-mrr-022@v1"
+      ],
+      "raised_by": "BR-mrr-021@v1",
+      "category": "data_scope"
+    }
+  ],
+  "rollup": {
+    "rules_total": 23,
+    "rules_with_example": 23,
+    "rules_with_green_test": 0,
+    "open_questions": 0,
+    "open_deferred": 8,
+    "rule_coverage": 1,
+    "ready_for_next_step": true
+  }
+}

@@ -1,0 +1,150 @@
+{
+  "schemaVersion": "1.0",
+  "phase": "design",
+  "project": "mrr",
+  "steps": [
+    {
+      "id": "init",
+      "command": "/design:init",
+      "status": "done",
+      "requires": [],
+      "artifacts": [
+        "design.state.json"
+      ],
+      "attempts": 1,
+      "updatedAt": "2026-10-19T04:24:56Z"
+    },
+    {
+      "id": "overview",
+      "command": "/design:overview",
+      "status": "done",
+      "requires": [
+        "init"
+      ],
+      "artifacts": [
+        "context.json"
+      ],
+      "attempts": 1,
+      "updatedAt": "2026-10-19T04:40:25Z"
+    },
+    {
+      "id": "function",
+      "command": "/design:function",
+      "status": "done",
+      "requires": [
+        "overview"
+      ],
+      "artifacts": [
+        "modules/<module>/functions.json",
+        "trace.design.json"
+      ],
+      "attempts": 1,
+      "updatedAt": "2026-10-19T04:47:43Z"
+    },
+    {
+      "id": "datamodel",
+      "command": "/design:datamodel",
+      "status": "done",
+      "requires": [
+        "function"
+      ],
+      "artifacts": [
+        "datamodel.json",
+        "modules/<module>/statemachines.json"
+      ],
+      "attempts": 1,
+      "updatedAt": "2026-10-19T04:58:41Z"
+    },
+    {
+      "id": "scenario",
+      "command": "/design:scenario",
+      "status": "done",
+      "requires": [
+        "function",
+        "datamodel"
+      ],
+      "artifacts": [
+        "modules/<module>/scenarios.json"
+      ],
+      "attempts": 1,
+      "updatedAt": "2026-10-19T05:05:03Z"
+    },
+    {
+      "id": "rbac",
+      "command": "/design:rbac",
+      "status": "done",
+      "requires": [
+        "function",
+        "datamodel"
+      ],
+      "artifacts": [
+        "rbac.json"
+      ],
+      "attempts": 1,
+      "updatedAt": "2026-10-19T05:09:39Z"
+    },
+    {
+      "id": "nfr",
+      "command": "/design:nfr",
+      "status": "done",
+      "requires": [
+        "overview"
+      ],
+      "artifacts": [
+        "nfr.json"
+      ],
+      "attempts": 1,
+      "updatedAt": "2026-10-19T05:24:09Z"
+    },
+    {
+      "id": "sitemap",
+      "command": "/design:sitemap",
+      "status": "done",
+      "requires": [
+        "function",
+        "rbac"
+      ],
+      "artifacts": [
+        "sitemap.json",
+        "modules/<module>/screens.json"
+      ],
+      "attempts": 1,
+      "updatedAt": "2026-10-19T09:02:27Z"
+    },
+    {
+      "id": "interface",
+      "command": "/design:interface",
+      "status": "done",
+      "requires": [
+        "function",
+        "datamodel"
+      ],
+      "artifacts": [
+        "interfaces.json"
+      ],
+      "attempts": 1,
+      "updatedAt": "2026-10-19T06:21:54Z"
+    },
+    {
+      "id": "export",
+      "command": "/design:export",
+      "status": "done",
+      "requires": [
+        "overview",
+        "function",
+        "datamodel",
+        "scenario",
+        "rbac",
+        "nfr",
+        "sitemap",
+        "interface"
+      ],
+      "artifacts": [
+        "../export/design-document.md"
+      ],
+      "attempts": 1,
+      "updatedAt": "2026-10-19T08:07:27Z"
+    }
+  ],
+  "openQuestions": []
+}

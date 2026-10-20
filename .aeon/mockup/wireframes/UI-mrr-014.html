@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="th">
+<head><meta charset="utf-8"><title>สิ่งอำนวยความสะดวก — UI-mrr-014 · wireframe L1</title></head>
+<body>
+<main data-screen="UI-mrr-014" data-mockup="MCK-mrr-013" data-layout="rows">
+<header><h1>สิ่งอำนวยความสะดวก</h1><p>Room Administrator เพิ่ม แก้ชื่อ หรือปิดใช้รายการสิ่งอำนวยความสะดวกที่ใช้กรองและเลือกตอนจอง</p><p><small>visible to: ROLE-002 (ผู้ดูแลระบบห้องประชุม (Room Administrator))</small></p></header>
+<form data-zone="list" data-source="design"><p><label>ชื่อ <abbr title="required">*</abbr> <input type="text" data-testid="ui-mrr-014-ent-004-name" name="ชื่อ" placeholder="ไม่ซ้ำ ไม่เกิน 100 ตัวอักษร"></label></p><p><label>ใช้งาน <abbr title="required">*</abbr> <input type="text" data-testid="ui-mrr-014-ent-004-active" name="ใช้งาน" placeholder="ปิดแล้วไม่แสดงเป็นตัวเลือกใหม่ ข้อมูลเดิมคงไว้"></label></p><button type="button" data-testid="ui-mrr-014-add" data-key="add" data-kind="create" data-presentation="text" data-placement="list" data-container="inline">เพิ่ม</button><button type="button" data-testid="ui-mrr-014-save" data-key="save" data-kind="edit" data-presentation="text" data-placement="first-column" data-container="inline">บันทึก</button><button type="button" data-testid="ui-mrr-014-back" data-key="back" data-kind="navigate" data-presentation="text" data-placement="list" data-container="navigate">กลับ</button></form>
+<section aria-label="states"><h2>states</h2><dl><dt>empty</dt><dd>ยังไม่มีรายการ — แสดง 'ยังไม่มีสิ่งอำนวยความสะดวก' พร้อมปุ่มเพิ่ม</dd><dt>loading</dt><dd>แสดงตัวบอกกำลังโหลดแทนรายการ</dd><dt>error</dt><dd>ชื่อซ้ำหรือบันทึกไม่สำเร็จ — แจ้งที่แถวนั้น</dd><dt>unauthorized</dt><dd>ไม่ใช่ Room Administrator — 'คุณไม่มีสิทธิ์เข้าหน้านี้'</dd><dt>overflow</dt><dd>มากกว่า 50 รายการ — แบ่งหน้า</dd></dl></section>
+<footer><small>MCK-mrr-013 · wireframe L1 of UI-mrr-014 · structure only, no style — a theme is applied at L2 (/mock:html)</small></footer>
+</main>
+</body>
+</html>

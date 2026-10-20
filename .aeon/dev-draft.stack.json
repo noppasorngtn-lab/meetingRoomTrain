@@ -1,0 +1,47 @@
+{
+  "module": "mrr",
+  "apps": [
+    { "name": "frontend-web", "framework": "react", "path": "apps/web", "skill": "frontend-design",
+      "dockerfile": "apps/web/Dockerfile", "source": "asked", "dec_ref": "DEC-002" },
+    { "name": "api", "framework": "nestjs", "path": "apps/api", "skill": "mattpocock-skills:tdd",
+      "dockerfile": "apps/api/Dockerfile", "source": "asked", "dec_ref": "DEC-002" }
+  ],
+  "server":   { "name": "On-premise ขององค์กร", "source": "design-decision", "dec_ref": "DEC-004" },
+  "database": { "kind": "postgresql", "source": "design-decision", "dec_ref": "DEC-003" },
+  "tools": [
+    { "name": "smtp", "purpose_th": "ส่ง Email รหัสเข้าสู่ระบบและการแจ้งเตือนตาม INT-001 · ไม่มีคิวส่งซ้ำ (BR-mrr-019) · DEC-005 ยังไม่ได้ตัดสินว่า SMTP ขององค์กรหรือบริการภายนอก", "required": true, "source": "asked" },
+    { "name": "mailpit", "purpose_th": "mail server จำลองใน docker-compose ไว้ดู Email ตอนพัฒนาเท่านั้น", "required": false, "source": "asked" }
+  ],
+  "structure": {
+    "apps": [
+      { "app_ref": "api", "root": "apps/api",
+        "layers": [
+          { "name": "common",  "path": "src/common",  "depends": [] },
+          { "name": "modules", "path": "src/modules", "depends": ["common"] },
+          { "name": "bootstrap-main",       "path": "src/main.ts",        "depends": ["bootstrap-app-module"] },
+          { "name": "bootstrap-app-module", "path": "src/app.module.ts",  "depends": ["modules", "common"] },
+          { "name": "config-package",       "path": "package.json",       "depends": [] },
+          { "name": "config-tsconfig",      "path": "tsconfig.json",      "depends": [] },
+          { "name": "config-tsconfig-build","path": "tsconfig.build.json","depends": [] },
+          { "name": "config-nest-cli",      "path": "nest-cli.json",      "depends": [] },
+          { "name": "config-jest",          "path": "jest.config.js",     "depends": [] }
+        ],
+        "tests": "test" },
+      { "app_ref": "frontend-web", "root": "apps/web",
+        "layers": [
+          { "name": "shared",   "path": "src/shared",   "depends": [] },
+          { "name": "features", "path": "src/features", "depends": ["shared"] },
+          { "name": "bootstrap-main",  "path": "src/main.tsx",     "depends": ["bootstrap-app"] },
+          { "name": "bootstrap-app",   "path": "src/App.tsx",      "depends": ["features", "shared"] },
+          { "name": "config-index",    "path": "index.html",       "depends": [] },
+          { "name": "config-package",  "path": "package.json",     "depends": [] },
+          { "name": "config-tsconfig", "path": "tsconfig.json",    "depends": [] },
+          { "name": "config-vite",     "path": "vite.config.ts",   "depends": [] }
+        ],
+        "tests": "src/__tests__" }
+    ],
+    "shared":  "packages/shared",
+    "docker":  { "compose": "docker/docker-compose.yml", "reason_th": null },
+    "scripts": { "init": "scripts/dev-init.ps1", "test": "scripts/dev-test.ps1", "build": "scripts/dev-build.ps1" }
+  }
+}

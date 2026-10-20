@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="th">
+<head><meta charset="utf-8"><title>คำขอแก้ไขการจอง — UI-mrr-011 · wireframe L1</title></head>
+<body>
+<main data-screen="UI-mrr-011" data-mockup="MCK-mrr-010" data-layout="rows">
+<header><h1>คำขอแก้ไขการจอง</h1><p>Room Administrator อนุมัติหรือปฏิเสธคำขอแก้ไขการจองที่ประชุมจบแล้ว ซึ่ง Room Administrator คนอื่นสร้าง</p><p><small>visible to: ROLE-002 (ผู้ดูแลระบบห้องประชุม (Room Administrator))</small></p></header>
+<table data-zone="requests" data-source="design"><caption>rows — sample row shows the bound column, not data</caption><thead><tr><th>actions</th><th>การจอง</th><th>ผู้สร้างคำขอ</th><th>ค่าที่ขอเปลี่ยน</th><th>เหตุผล</th><th>สถานะ</th></tr></thead><tbody><tr><td><button type="button" data-testid="ui-mrr-011-approve" data-key="approve" data-kind="command" data-presentation="text" data-placement="first-column" data-container="inline">อนุมัติคำขอ</button> <button type="button" data-testid="ui-mrr-011-reject" data-key="reject" data-kind="command" data-presentation="text" data-placement="first-column" data-container="inline">ปฏิเสธคำขอ</button></td><td data-testid="ui-mrr-011-ent-011-booking">ENT-011.booking</td><td data-testid="ui-mrr-011-ent-011-requested-by">ENT-011.requestedBy</td><td data-testid="ui-mrr-011-ent-011-proposed-changes">ENT-011.proposedChanges</td><td data-testid="ui-mrr-011-ent-011-reason">ENT-011.reason</td><td data-testid="ui-mrr-011-ent-011-status">ENT-011.status</td></tr></tbody></table>
+<section aria-label="states"><h2>states</h2><dl><dt>empty</dt><dd>ไม่มีคำขอรออนุมัติ — แสดง 'ไม่มีคำขอแก้ไข'</dd><dt>loading</dt><dd>แสดงตัวบอกกำลังโหลดแทนรายการ</dd><dt>error</dt><dd>อนุมัติไม่สำเร็จ — แจ้งเหตุ สถานะคำขอไม่เปลี่ยน</dd><dt>unauthorized</dt><dd>ไม่ใช่ Room Administrator — 'คุณไม่มีสิทธิ์เข้าหน้านี้' · คำขอที่ตนสร้าง — ปุ่มอนุมัติถูกปิดและ API ปฏิเสธ</dd><dt>overflow</dt><dd>มากกว่า 20 รายการ — แบ่งหน้า · ค่าที่ขอเปลี่ยนจำนวนมากพับและกดขยายได้</dd></dl></section>
+<footer><small>MCK-mrr-010 · wireframe L1 of UI-mrr-011 · structure only, no style — a theme is applied at L2 (/mock:html)</small></footer>
+</main>
+</body>
+</html>

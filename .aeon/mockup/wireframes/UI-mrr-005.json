@@ -1,0 +1,221 @@
+{
+  "schemaVersion": "1.4",
+  "producedBy": "mock · scripts/wireframes.mjs",
+  "project": "mrr",
+  "id": "MCK-mrr-004",
+  "screen": "UI-mrr-005",
+  "title": "ปฏิทินห้อง",
+  "purpose": "ดูตารางการใช้ห้องรายวัน รายสัปดาห์ หรือรายเดือน เพื่อหาช่วงที่ว่าง",
+  "level": "L1",
+  "layout": "form",
+  "kind": "detail",
+  "visibleTo": [
+    "ROLE-001",
+    "ROLE-002",
+    "ROLE-003"
+  ],
+  "zones": [
+    {
+      "name": "header",
+      "kind": "header",
+      "kindSource": "derived",
+      "source": "mock",
+      "items": [
+        {
+          "type": "title",
+          "text": "ปฏิทินห้อง"
+        }
+      ]
+    },
+    {
+      "name": "toolbar",
+      "kind": "form",
+      "kindSource": "derived",
+      "source": "design",
+      "items": [
+        {
+          "type": "field",
+          "name": "มุมมอง",
+          "required": true,
+          "entity": null,
+          "attribute": null,
+          "validation": "รายวัน · รายสัปดาห์ · รายเดือน",
+          "rules": [],
+          "visibleTo": [
+            "ROLE-001",
+            "ROLE-002",
+            "ROLE-003"
+          ],
+          "input": true
+        },
+        {
+          "type": "action",
+          "key": "switch-view",
+          "name": "เปลี่ยนมุมมอง",
+          "kind": "filter",
+          "presentation": "text",
+          "placement": "toolbar",
+          "container": "inline",
+          "accessibleName": "เปลี่ยนมุมมอง",
+          "conventions": [],
+          "destination": "อยู่ที่หน้าเดิม",
+          "rules": []
+        }
+      ]
+    },
+    {
+      "name": "calendar",
+      "kind": "form",
+      "kindSource": "derived",
+      "source": "design",
+      "items": [
+        {
+          "type": "field",
+          "name": "ช่วงเวลาที่ถูกจอง",
+          "required": true,
+          "entity": "ENT-007",
+          "attribute": "startAt",
+          "validation": "[เริ่ม, จบ) ของการจองที่ไม่ใช่ CANCELLED/REJECTED",
+          "rules": [
+            "BR-mrr-001@v1"
+          ],
+          "visibleTo": [
+            "ROLE-001",
+            "ROLE-002",
+            "ROLE-003"
+          ],
+          "input": false
+        },
+        {
+          "type": "field",
+          "name": "หัวข้อ",
+          "required": false,
+          "entity": "ENT-007",
+          "attribute": "title",
+          "validation": "แสดงเฉพาะการจองที่ผู้ดูเป็นผู้จองหรือผู้เข้าร่วม ไม่งั้นแสดง 'ไม่ว่าง'",
+          "rules": [
+            "BR-mrr-021@v1"
+          ],
+          "visibleTo": [
+            "ROLE-001",
+            "ROLE-002",
+            "ROLE-003"
+          ],
+          "input": false
+        },
+        {
+          "type": "field",
+          "name": "ผู้จอง",
+          "required": false,
+          "entity": "ENT-007",
+          "attribute": "bookedBy",
+          "validation": "แสดงเฉพาะการจองที่ผู้ดูเป็นผู้จองหรือผู้เข้าร่วม",
+          "rules": [
+            "BR-mrr-021@v1"
+          ],
+          "visibleTo": [
+            "ROLE-001",
+            "ROLE-002",
+            "ROLE-003"
+          ],
+          "input": false
+        },
+        {
+          "type": "field",
+          "name": "ผู้เข้าร่วม",
+          "required": false,
+          "entity": "ENT-008",
+          "attribute": "user",
+          "validation": "แสดงเฉพาะการจองที่ผู้ดูเป็นผู้จองหรือผู้เข้าร่วม",
+          "rules": [
+            "BR-mrr-021@v1"
+          ],
+          "visibleTo": [
+            "ROLE-001",
+            "ROLE-002",
+            "ROLE-003"
+          ],
+          "input": false
+        },
+        {
+          "type": "action",
+          "key": "book-slot",
+          "name": "จองช่วงที่ว่าง",
+          "kind": "navigate",
+          "presentation": "text",
+          "placement": "calendar",
+          "container": "navigate",
+          "accessibleName": "จองช่วงที่ว่าง",
+          "conventions": [],
+          "destination": "หน้าจองห้องประชุม",
+          "rules": []
+        }
+      ]
+    }
+  ],
+  "controls": [
+    {
+      "id": "ui-mrr-005-calendar-view",
+      "type": "field",
+      "key": "calendar-view",
+      "name": "มุมมอง"
+    },
+    {
+      "id": "ui-mrr-005-switch-view",
+      "type": "action",
+      "key": "switch-view"
+    },
+    {
+      "id": "ui-mrr-005-ent-007-start-at",
+      "type": "field",
+      "key": "ent-007-start-at",
+      "name": "ช่วงเวลาที่ถูกจอง"
+    },
+    {
+      "id": "ui-mrr-005-ent-007-title",
+      "type": "field",
+      "key": "ent-007-title",
+      "name": "หัวข้อ"
+    },
+    {
+      "id": "ui-mrr-005-ent-007-booked-by",
+      "type": "field",
+      "key": "ent-007-booked-by",
+      "name": "ผู้จอง"
+    },
+    {
+      "id": "ui-mrr-005-ent-008-user",
+      "type": "field",
+      "key": "ent-008-user",
+      "name": "ผู้เข้าร่วม"
+    },
+    {
+      "id": "ui-mrr-005-book-slot",
+      "type": "action",
+      "key": "book-slot"
+    }
+  ],
+  "states": {
+    "empty": {
+      "occurs": true,
+      "text": "ช่วงที่ดูไม่มีการจอง — ปฏิทินแสดงว่างทั้งหมดและเลือกช่วงเพื่อจองได้"
+    },
+    "loading": {
+      "occurs": true,
+      "text": "แสดงโครงปฏิทินพร้อมตัวบอกกำลังโหลด · เป้าโหลดเสร็จ ≤ 2 วินาที (NFR-mrr-002)"
+    },
+    "error": {
+      "occurs": true,
+      "text": "โหลดไม่สำเร็จ — แจ้งข้อผิดพลาดและปุ่มโหลดใหม่"
+    },
+    "unauthorized": {
+      "occurs": true,
+      "text": "การจองของคนอื่นแสดงเพียง 'ไม่ว่าง' ไม่มีรายละเอียด · ผู้ที่ยังไม่เข้าสู่ระบบถูกพาไปหน้าขอรหัสเข้าสู่ระบบ"
+    },
+    "overflow": {
+      "occurs": true,
+      "text": "หลายการจองในช่องเดียวของมุมมองรายเดือน — แสดง 3 รายการแรกและ '+N' ที่กดดูทั้งหมดได้"
+    }
+  },
+  "extensions": {}
+}

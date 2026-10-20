@@ -1,0 +1,2 @@
+# Generated artifacts are byte-compared by --validate; never convert line endings.
+* -text

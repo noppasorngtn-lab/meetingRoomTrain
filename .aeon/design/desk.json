@@ -1,0 +1,65 @@
+{
+  "schemaVersion": "1.0",
+  "producedBy": "design · scripts/desk.mjs",
+  "project": "mrr",
+  "resolves": [
+    {
+      "dq": "DQ-mrr-001",
+      "answer": "เก็บ id เวอร์ชันของห้อง — ข้อมูลห้องมี version ห้ามลบ (Booking.roomVersion อ้าง MeetingRoomVersion)",
+      "by": "Noppasorn",
+      "at": "2026-10-19T13:30:00+07:00",
+      "answeredByNode": "ENT-003",
+      "extensions": {}
+    },
+    {
+      "dq": "DQ-mrr-002",
+      "answer": "สร้างเวอร์ชันใหม่เสมอ — MeetingRoomVersion ที่บันทึกแล้วแก้ไม่ได้ MeetingRoom.currentVersion ชี้เวอร์ชันล่าสุด",
+      "by": "Noppasorn",
+      "at": "2026-10-19T13:30:00+07:00",
+      "answeredByNode": "ENT-003",
+      "extensions": {}
+    },
+    {
+      "dq": "DQ-mrr-003",
+      "answer": "ลบ = archive — ห้องเข้าสถานะ ARCHIVED (เลิกใช้งาน) ถาวร ไม่แสดงให้ค้นหาหรือจอง ข้อมูลและการจองเดิมคงไว้ เปิดกลับไม่ได้",
+      "by": "Noppasorn",
+      "at": "2026-10-19T13:30:00+07:00",
+      "answeredByNode": "STM-mrr-003",
+      "extensions": {}
+    },
+    {
+      "dq": "DQ-mrr-006",
+      "answer": "ห้อง + ช่วงเวลา [เริ่ม, จบ) — exclusion constraint บน (room, ช่วงเวลา) เฉพาะสถานะ PENDING_APPROVAL · CONFIRMED · APPROVED",
+      "by": "Noppasorn",
+      "at": "2026-10-19T13:30:00+07:00",
+      "answeredByNode": "ENT-007",
+      "extensions": {}
+    },
+    {
+      "dq": "DQ-mrr-010",
+      "answer": "decimal(5,2) ช่วง 0.00–100.00",
+      "by": "Noppasorn",
+      "at": "2026-10-19T13:30:00+07:00",
+      "answeredByNode": "ENT-013",
+      "extensions": {}
+    },
+    {
+      "dq": "DQ-mrr-011",
+      "answer": "ไม่เห็น — ระบบไม่เก็บสายบังคับบัญชา การเห็นรายละเอียดเป็นไปตาม BR-mrr-021@v1 เท่านั้น",
+      "by": "Noppasorn",
+      "at": "2026-10-19T13:30:00+07:00",
+      "answeredByNode": "ENT-001",
+      "extensions": {}
+    },
+    {
+      "dq": "DQ-mrr-012",
+      "answer": "โอนไม่ได้ — Booking.bookedBy ตั้งตอนสร้างและเปลี่ยนไม่ได้",
+      "by": "Noppasorn",
+      "at": "2026-10-19T13:30:00+07:00",
+      "answeredByNode": "ENT-007",
+      "extensions": {}
+    }
+  ],
+  "gaps": [],
+  "extensions": {}
+}

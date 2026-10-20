@@ -1,0 +1,255 @@
+{
+  "schemaVersion": "1.4",
+  "producedBy": "mock · scripts/wireframes.mjs",
+  "project": "mrr",
+  "id": "MCK-mrr-011",
+  "screen": "UI-mrr-012",
+  "title": "ห้องประชุม",
+  "purpose": "Room Administrator ดูรายการห้องทั้งหมด แล้วเพิ่ม แก้ไข ปิดปรับปรุง เปิดใช้งาน หรือลบห้อง",
+  "level": "L1",
+  "layout": "rows",
+  "kind": "manage",
+  "visibleTo": [
+    "ROLE-002"
+  ],
+  "zones": [
+    {
+      "name": "header",
+      "kind": "header",
+      "kindSource": "derived",
+      "source": "mock",
+      "items": [
+        {
+          "type": "title",
+          "text": "ห้องประชุม"
+        }
+      ]
+    },
+    {
+      "name": "toolbar",
+      "kind": "toolbar",
+      "kindSource": "derived",
+      "source": "design",
+      "items": [
+        {
+          "type": "action",
+          "key": "add-room",
+          "name": "เพิ่มห้อง",
+          "kind": "create",
+          "presentation": "text",
+          "placement": "toolbar",
+          "container": "navigate",
+          "accessibleName": "เพิ่มห้อง",
+          "conventions": [],
+          "destination": "หน้าข้อมูลห้อง",
+          "rules": [
+            "BR-mrr-005@v1"
+          ]
+        },
+        {
+          "type": "action",
+          "key": "facilities",
+          "name": "สิ่งอำนวยความสะดวก",
+          "kind": "navigate",
+          "presentation": "text",
+          "placement": "toolbar",
+          "container": "navigate",
+          "accessibleName": "สิ่งอำนวยความสะดวก",
+          "conventions": [],
+          "destination": "หน้าสิ่งอำนวยความสะดวก",
+          "rules": []
+        }
+      ]
+    },
+    {
+      "name": "rooms",
+      "kind": "columns",
+      "kindSource": "derived",
+      "source": "design",
+      "items": [
+        {
+          "type": "field",
+          "name": "รหัสห้อง",
+          "required": true,
+          "entity": "ENT-002",
+          "attribute": "code",
+          "validation": "รหัสไม่ซ้ำ",
+          "rules": [],
+          "visibleTo": [
+            "ROLE-002"
+          ],
+          "input": false
+        },
+        {
+          "type": "field",
+          "name": "ชื่อห้อง",
+          "required": true,
+          "entity": "ENT-003",
+          "attribute": "name",
+          "validation": "จากเวอร์ชันปัจจุบัน",
+          "rules": [],
+          "visibleTo": [
+            "ROLE-002"
+          ],
+          "input": false
+        },
+        {
+          "type": "field",
+          "name": "ความจุ",
+          "required": true,
+          "entity": "ENT-003",
+          "attribute": "capacity",
+          "validation": "จำนวนคน",
+          "rules": [],
+          "visibleTo": [
+            "ROLE-002"
+          ],
+          "input": false
+        },
+        {
+          "type": "field",
+          "name": "สถานะห้อง",
+          "required": true,
+          "entity": "ENT-002",
+          "attribute": "status",
+          "validation": "ป้ายตามสถานะใน STM-mrr-003",
+          "rules": [],
+          "visibleTo": [
+            "ROLE-002"
+          ],
+          "input": false
+        },
+        {
+          "type": "action",
+          "key": "edit-room",
+          "name": "แก้ไขห้อง",
+          "kind": "edit",
+          "presentation": "text",
+          "placement": "first-column",
+          "container": "navigate",
+          "accessibleName": "แก้ไขห้อง",
+          "conventions": [
+            "UIC-001",
+            "UIC-002"
+          ],
+          "destination": "หน้าข้อมูลห้อง",
+          "rules": [
+            "BR-mrr-005@v1",
+            "BR-mrr-010@v2"
+          ]
+        },
+        {
+          "type": "action",
+          "key": "archive",
+          "name": "ลบห้อง",
+          "kind": "delete",
+          "presentation": "text",
+          "placement": "first-column",
+          "container": "inline",
+          "accessibleName": "ลบห้อง",
+          "conventions": [
+            "UIC-001",
+            "UIC-002"
+          ],
+          "destination": "อยู่ที่หน้าเดิม",
+          "rules": [
+            "BR-mrr-005@v1"
+          ]
+        },
+        {
+          "type": "action",
+          "key": "toggle-maintenance",
+          "name": "ปิดปรับปรุง / เปิดใช้งาน",
+          "kind": "command",
+          "presentation": "text",
+          "placement": "first-column",
+          "container": "inline",
+          "accessibleName": "ปิดปรับปรุง / เปิดใช้งาน",
+          "conventions": [
+            "UIC-001",
+            "UIC-002"
+          ],
+          "destination": "อยู่ที่หน้าเดิม",
+          "rules": [
+            "BR-mrr-005@v1",
+            "BR-mrr-012@v1"
+          ]
+        }
+      ]
+    }
+  ],
+  "controls": [
+    {
+      "id": "ui-mrr-012-add-room",
+      "type": "action",
+      "key": "add-room"
+    },
+    {
+      "id": "ui-mrr-012-facilities",
+      "type": "action",
+      "key": "facilities"
+    },
+    {
+      "id": "ui-mrr-012-ent-002-code",
+      "type": "field",
+      "key": "ent-002-code",
+      "name": "รหัสห้อง"
+    },
+    {
+      "id": "ui-mrr-012-ent-003-name",
+      "type": "field",
+      "key": "ent-003-name",
+      "name": "ชื่อห้อง"
+    },
+    {
+      "id": "ui-mrr-012-ent-003-capacity",
+      "type": "field",
+      "key": "ent-003-capacity",
+      "name": "ความจุ"
+    },
+    {
+      "id": "ui-mrr-012-ent-002-status",
+      "type": "field",
+      "key": "ent-002-status",
+      "name": "สถานะห้อง"
+    },
+    {
+      "id": "ui-mrr-012-edit-room",
+      "type": "action",
+      "key": "edit-room"
+    },
+    {
+      "id": "ui-mrr-012-archive",
+      "type": "action",
+      "key": "archive"
+    },
+    {
+      "id": "ui-mrr-012-toggle-maintenance",
+      "type": "action",
+      "key": "toggle-maintenance"
+    }
+  ],
+  "states": {
+    "empty": {
+      "occurs": true,
+      "text": "ยังไม่มีห้อง — แสดง 'ยังไม่มีห้องประชุม' พร้อมปุ่มเพิ่มห้อง"
+    },
+    "loading": {
+      "occurs": true,
+      "text": "แสดงตัวบอกกำลังโหลดแทนรายการ"
+    },
+    "error": {
+      "occurs": true,
+      "text": "โหลดหรือเปลี่ยนสถานะไม่สำเร็จ — แจ้งเหตุ สถานะห้องไม่เปลี่ยน"
+    },
+    "unauthorized": {
+      "occurs": true,
+      "text": "ไม่ใช่ Room Administrator (รวม System Administrator) — 'คุณไม่มีสิทธิ์เข้าหน้านี้'"
+    },
+    "overflow": {
+      "occurs": true,
+      "text": "มากกว่า 20 ห้อง — แบ่งหน้าและค้นหาตามชื่อหรือรหัส · ห้อง ARCHIVED ซ่อนไว้โดยเปิดดูได้ด้วยตัวกรอง"
+    }
+  },
+  "extensions": {}
+}

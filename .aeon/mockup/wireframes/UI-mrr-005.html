@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="th">
+<head><meta charset="utf-8"><title>ปฏิทินห้อง — UI-mrr-005 · wireframe L1</title></head>
+<body>
+<main data-screen="UI-mrr-005" data-mockup="MCK-mrr-004" data-layout="form">
+<header><h1>ปฏิทินห้อง</h1><p>ดูตารางการใช้ห้องรายวัน รายสัปดาห์ หรือรายเดือน เพื่อหาช่วงที่ว่าง</p><p><small>visible to: ROLE-001 (ผู้ใช้งานทั่วไป (General User)), ROLE-002 (ผู้ดูแลระบบห้องประชุม (Room Administrator)), ROLE-003 (ผู้ดูแลระบบไอที (System Administrator))</small></p></header>
+<form data-zone="toolbar" data-source="design"><p><label>มุมมอง <abbr title="required">*</abbr> <input type="text" data-testid="ui-mrr-005-calendar-view" name="มุมมอง" placeholder="รายวัน · รายสัปดาห์ · รายเดือน"></label></p><button type="button" data-testid="ui-mrr-005-switch-view" data-key="switch-view" data-kind="filter" data-presentation="text" data-placement="toolbar" data-container="inline">เปลี่ยนมุมมอง</button></form>
+<form data-zone="calendar" data-source="design"><dt>ช่วงเวลาที่ถูกจอง *</dt><dd data-testid="ui-mrr-005-ent-007-start-at">[เริ่ม, จบ) ของการจองที่ไม่ใช่ CANCELLED/REJECTED <small>(ENT-007.startAt)</small></dd><dt>หัวข้อ</dt><dd data-testid="ui-mrr-005-ent-007-title">แสดงเฉพาะการจองที่ผู้ดูเป็นผู้จองหรือผู้เข้าร่วม ไม่งั้นแสดง 'ไม่ว่าง' <small>(ENT-007.title)</small></dd><dt>ผู้จอง</dt><dd data-testid="ui-mrr-005-ent-007-booked-by">แสดงเฉพาะการจองที่ผู้ดูเป็นผู้จองหรือผู้เข้าร่วม <small>(ENT-007.bookedBy)</small></dd><dt>ผู้เข้าร่วม</dt><dd data-testid="ui-mrr-005-ent-008-user">แสดงเฉพาะการจองที่ผู้ดูเป็นผู้จองหรือผู้เข้าร่วม <small>(ENT-008.user)</small></dd><button type="button" data-testid="ui-mrr-005-book-slot" data-key="book-slot" data-kind="navigate" data-presentation="text" data-placement="calendar" data-container="navigate">จองช่วงที่ว่าง</button></form>
+<section aria-label="states"><h2>states</h2><dl><dt>empty</dt><dd>ช่วงที่ดูไม่มีการจอง — ปฏิทินแสดงว่างทั้งหมดและเลือกช่วงเพื่อจองได้</dd><dt>loading</dt><dd>แสดงโครงปฏิทินพร้อมตัวบอกกำลังโหลด · เป้าโหลดเสร็จ ≤ 2 วินาที (NFR-mrr-002)</dd><dt>error</dt><dd>โหลดไม่สำเร็จ — แจ้งข้อผิดพลาดและปุ่มโหลดใหม่</dd><dt>unauthorized</dt><dd>การจองของคนอื่นแสดงเพียง 'ไม่ว่าง' ไม่มีรายละเอียด · ผู้ที่ยังไม่เข้าสู่ระบบถูกพาไปหน้าขอรหัสเข้าสู่ระบบ</dd><dt>overflow</dt><dd>หลายการจองในช่องเดียวของมุมมองรายเดือน — แสดง 3 รายการแรกและ '+N' ที่กดดูทั้งหมดได้</dd></dl></section>
+<footer><small>MCK-mrr-004 · wireframe L1 of UI-mrr-005 · structure only, no style — a theme is applied at L2 (/mock:html)</small></footer>
+</main>
+</body>
+</html>

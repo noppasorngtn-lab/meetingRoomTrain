@@ -1,0 +1,103 @@
+{
+  "schemaVersion": "1.4",
+  "producedBy": "mock · scripts/wireframes.mjs",
+  "project": "mrr",
+  "id": "MCK-mrr-001",
+  "screen": "UI-mrr-001",
+  "title": "ขอรหัสเข้าสู่ระบบ",
+  "purpose": "ผู้ใช้กรอก Email องค์กรเพื่อรับรหัส OTP / magic link สำหรับเข้าสู่ระบบ",
+  "level": "L1",
+  "layout": "form",
+  "kind": "auth",
+  "visibleTo": [
+    "ROLE-001",
+    "ROLE-002",
+    "ROLE-003"
+  ],
+  "zones": [
+    {
+      "name": "header",
+      "kind": "header",
+      "kindSource": "derived",
+      "source": "mock",
+      "items": [
+        {
+          "type": "title",
+          "text": "ขอรหัสเข้าสู่ระบบ"
+        }
+      ]
+    },
+    {
+      "name": "request-form",
+      "kind": "form",
+      "kindSource": "derived",
+      "source": "design",
+      "items": [
+        {
+          "type": "field",
+          "name": "Email องค์กร",
+          "required": true,
+          "entity": null,
+          "attribute": null,
+          "validation": "รูปแบบ Email และอยู่ในโดเมนองค์กร · ระบบไม่บอกว่า Email มีในรายชื่อหรือไม่ (ตอบข้อความเดียวกันทุกกรณี)",
+          "rules": [],
+          "visibleTo": [
+            "ROLE-001",
+            "ROLE-002",
+            "ROLE-003"
+          ],
+          "input": true
+        },
+        {
+          "type": "action",
+          "key": "request-code",
+          "name": "ขอรหัสเข้าสู่ระบบ",
+          "kind": "command",
+          "presentation": "text",
+          "placement": "request-form",
+          "container": "navigate",
+          "accessibleName": "ขอรหัสเข้าสู่ระบบ",
+          "conventions": [],
+          "destination": "หน้ายืนยันรหัส OTP",
+          "rules": []
+        }
+      ]
+    }
+  ],
+  "controls": [
+    {
+      "id": "ui-mrr-001-org-email",
+      "type": "field",
+      "key": "org-email",
+      "name": "Email องค์กร"
+    },
+    {
+      "id": "ui-mrr-001-request-code",
+      "type": "action",
+      "key": "request-code"
+    }
+  ],
+  "states": {
+    "empty": {
+      "occurs": true,
+      "text": "แสดงช่อง Email ว่างพร้อมคำอธิบายว่าระบบจะส่งรหัสไปที่ Email องค์กร"
+    },
+    "loading": {
+      "occurs": true,
+      "text": "ปุ่มขอรหัสถูกปิดและแสดงว่ากำลังส่ง จนกว่าระบบตอบ"
+    },
+    "error": {
+      "occurs": true,
+      "text": "ส่ง Email ไม่สำเร็จ — แจ้ง 'ส่งรหัสไม่สำเร็จ กรุณาลองใหม่อีกครั้ง' และให้กดใหม่"
+    },
+    "unauthorized": {
+      "occurs": false,
+      "text": "ไม่เกิด — หน้านี้เปิดได้ก่อนยืนยันตัวตน · ผู้ที่เข้าสู่ระบบอยู่แล้วถูกพาไปหน้าค้นหาห้องว่าง"
+    },
+    "overflow": {
+      "occurs": true,
+      "text": "Email ยาวเกิน 254 ตัวอักษร — ไม่รับและแจ้งที่ช่อง"
+    }
+  },
+  "extensions": {}
+}

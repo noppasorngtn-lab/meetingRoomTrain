@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="th">
+<head><meta charset="utf-8"><title>การจองของฉัน — UI-mrr-007 · wireframe L1</title></head>
+<body>
+<main data-screen="UI-mrr-007" data-mockup="MCK-mrr-006" data-layout="rows">
+<header><h1>การจองของฉัน</h1><p>ดูรายการและประวัติการจองที่ตนเป็นผู้จอง แล้วเลือกแก้ไขหรือยกเลิก</p><p><small>visible to: ROLE-001 (ผู้ใช้งานทั่วไป (General User)), ROLE-002 (ผู้ดูแลระบบห้องประชุม (Room Administrator)), ROLE-003 (ผู้ดูแลระบบไอที (System Administrator))</small></p></header>
+<table data-zone="list" data-source="design"><caption>rows — sample row shows the bound column, not data</caption><thead><tr><th>actions</th><th>ห้อง</th><th>ช่วงเวลา</th><th>หัวข้อ</th><th>สถานะ</th></tr></thead><tbody><tr><td><button type="button" data-testid="ui-mrr-007-open" data-key="open" data-kind="edit" data-presentation="text" data-placement="first-column" data-container="navigate">แก้ไข</button> <button type="button" data-testid="ui-mrr-007-cancel" data-key="cancel" data-kind="command" data-presentation="text" data-placement="first-column" data-container="inline">ยกเลิกการจอง</button></td><td data-testid="ui-mrr-007-ent-007-room">ENT-007.room</td><td data-testid="ui-mrr-007-ent-007-start-at">ENT-007.startAt</td><td data-testid="ui-mrr-007-ent-007-title">ENT-007.title</td><td data-testid="ui-mrr-007-ent-007-status">ENT-007.status</td></tr></tbody></table>
+<section aria-label="states"><h2>states</h2><dl><dt>empty</dt><dd>ยังไม่มีการจอง — แสดง 'คุณยังไม่มีการจอง' พร้อมทางไปหน้าค้นหาห้องว่าง</dd><dt>loading</dt><dd>แสดงตัวบอกกำลังโหลดแทนรายการ</dd><dt>error</dt><dd>โหลดไม่สำเร็จ — แจ้งข้อผิดพลาดและปุ่มโหลดใหม่ · ยกเลิกไม่สำเร็จเพราะ Email — แจ้งให้กดใหม่ สถานะไม่เปลี่ยน</dd><dt>unauthorized</dt><dd>แสดงเฉพาะการจองของผู้ใช้เอง · ผู้ที่ยังไม่เข้าสู่ระบบถูกพาไปหน้าขอรหัสเข้าสู่ระบบ</dd><dt>overflow</dt><dd>มากกว่า 20 รายการ — แบ่งหน้า เรียงจากเวลาเริ่มล่าสุด · หัวข้อยาวตัดด้วย …</dd></dl></section>
+<footer><small>MCK-mrr-006 · wireframe L1 of UI-mrr-007 · structure only, no style — a theme is applied at L2 (/mock:html)</small></footer>
+</main>
+</body>
+</html>

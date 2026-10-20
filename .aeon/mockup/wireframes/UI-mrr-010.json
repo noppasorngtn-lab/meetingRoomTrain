@@ -1,0 +1,322 @@
+{
+  "schemaVersion": "1.4",
+  "producedBy": "mock · scripts/wireframes.mjs",
+  "project": "mrr",
+  "id": "MCK-mrr-009",
+  "screen": "UI-mrr-010",
+  "title": "จัดการการจอง (ผู้ดูแล)",
+  "purpose": "Room Administrator เปลี่ยนผลการอนุมัติ แก้หรือยกเลิกแทนผู้จอง และดูร่องรอยของการจองหนึ่ง",
+  "level": "L1",
+  "layout": "rows",
+  "kind": "manage",
+  "visibleTo": [
+    "ROLE-002",
+    "ROLE-003"
+  ],
+  "zones": [
+    {
+      "name": "header",
+      "kind": "header",
+      "kindSource": "derived",
+      "source": "mock",
+      "items": [
+        {
+          "type": "title",
+          "text": "จัดการการจอง (ผู้ดูแล)"
+        }
+      ]
+    },
+    {
+      "name": "booking-summary",
+      "kind": "columns",
+      "kindSource": "derived",
+      "source": "design",
+      "items": [
+        {
+          "type": "field",
+          "name": "หัวข้อ",
+          "required": true,
+          "entity": "ENT-007",
+          "attribute": "title",
+          "validation": "หัวข้อการประชุม",
+          "rules": [],
+          "visibleTo": [
+            "ROLE-002",
+            "ROLE-003"
+          ],
+          "input": false
+        },
+        {
+          "type": "field",
+          "name": "ช่วงเวลา",
+          "required": true,
+          "entity": "ENT-007",
+          "attribute": "startAt",
+          "validation": "วันและเวลาเริ่ม–จบ",
+          "rules": [],
+          "visibleTo": [
+            "ROLE-002",
+            "ROLE-003"
+          ],
+          "input": false
+        },
+        {
+          "type": "field",
+          "name": "สถานะ",
+          "required": true,
+          "entity": "ENT-007",
+          "attribute": "status",
+          "validation": "สถานะปัจจุบัน",
+          "rules": [],
+          "visibleTo": [
+            "ROLE-002",
+            "ROLE-003"
+          ],
+          "input": false
+        }
+      ]
+    },
+    {
+      "name": "admin-actions",
+      "kind": "form",
+      "kindSource": "derived",
+      "source": "design",
+      "items": [
+        {
+          "type": "field",
+          "name": "เหตุผล",
+          "required": true,
+          "entity": "ENT-010",
+          "attribute": "reason",
+          "validation": "ห้ามว่าง เมื่อเปลี่ยนผล แก้ หรือยกเลิกแทนผู้จอง",
+          "rules": [
+            "BR-mrr-009@v1",
+            "BR-mrr-011@v1",
+            "BR-mrr-017@v1"
+          ],
+          "visibleTo": [
+            "ROLE-002",
+            "ROLE-003"
+          ],
+          "input": true
+        },
+        {
+          "type": "action",
+          "key": "edit-on-behalf",
+          "name": "แก้แทนผู้จอง",
+          "kind": "edit",
+          "presentation": "text",
+          "placement": "first-column",
+          "container": "inline",
+          "accessibleName": "แก้แทนผู้จอง",
+          "conventions": [
+            "UIC-001",
+            "UIC-002"
+          ],
+          "destination": "อยู่ที่หน้าเดิม",
+          "rules": [
+            "BR-mrr-009@v1",
+            "BR-mrr-014@v1",
+            "BR-mrr-017@v1"
+          ]
+        },
+        {
+          "type": "action",
+          "key": "change-decision",
+          "name": "เปลี่ยนผลการอนุมัติ",
+          "kind": "command",
+          "presentation": "text",
+          "placement": "first-column",
+          "container": "inline",
+          "accessibleName": "เปลี่ยนผลการอนุมัติ",
+          "conventions": [
+            "UIC-001",
+            "UIC-002"
+          ],
+          "destination": "อยู่ที่หน้าเดิม",
+          "rules": [
+            "BR-mrr-011@v1",
+            "BR-mrr-017@v1"
+          ]
+        },
+        {
+          "type": "action",
+          "key": "cancel-on-behalf",
+          "name": "ยกเลิกแทนผู้จอง",
+          "kind": "command",
+          "presentation": "text",
+          "placement": "first-column",
+          "container": "inline",
+          "accessibleName": "ยกเลิกแทนผู้จอง",
+          "conventions": [
+            "UIC-001",
+            "UIC-002"
+          ],
+          "destination": "อยู่ที่หน้าเดิม",
+          "rules": [
+            "BR-mrr-009@v1",
+            "BR-mrr-017@v1",
+            "BR-mrr-007@v1",
+            "BR-mrr-019@v1"
+          ]
+        },
+        {
+          "type": "action",
+          "key": "back",
+          "name": "กลับ",
+          "kind": "navigate",
+          "presentation": "text",
+          "placement": "admin-actions",
+          "container": "navigate",
+          "accessibleName": "กลับ",
+          "conventions": [],
+          "destination": "หน้ารายการรออนุมัติ",
+          "rules": []
+        }
+      ]
+    },
+    {
+      "name": "audit-trail",
+      "kind": "columns",
+      "kindSource": "derived",
+      "source": "design",
+      "items": [
+        {
+          "type": "field",
+          "name": "ร่องรอย: ผู้กระทำ",
+          "required": true,
+          "entity": "ENT-010",
+          "attribute": "actor",
+          "validation": "Room Administrator ผู้กระทำ",
+          "rules": [
+            "BR-mrr-018@v1"
+          ],
+          "visibleTo": [
+            "ROLE-002",
+            "ROLE-003"
+          ],
+          "input": false
+        },
+        {
+          "type": "field",
+          "name": "ร่องรอย: การกระทำ",
+          "required": true,
+          "entity": "ENT-010",
+          "attribute": "action",
+          "validation": "การกระทำ",
+          "rules": [
+            "BR-mrr-018@v1"
+          ],
+          "visibleTo": [
+            "ROLE-002",
+            "ROLE-003"
+          ],
+          "input": false
+        },
+        {
+          "type": "field",
+          "name": "ร่องรอย: เวลา",
+          "required": true,
+          "entity": "ENT-010",
+          "attribute": "at",
+          "validation": "เวลาที่กระทำ",
+          "rules": [
+            "BR-mrr-018@v1"
+          ],
+          "visibleTo": [
+            "ROLE-002",
+            "ROLE-003"
+          ],
+          "input": false
+        }
+      ]
+    }
+  ],
+  "controls": [
+    {
+      "id": "ui-mrr-010-ent-007-title",
+      "type": "field",
+      "key": "ent-007-title",
+      "name": "หัวข้อ"
+    },
+    {
+      "id": "ui-mrr-010-ent-007-start-at",
+      "type": "field",
+      "key": "ent-007-start-at",
+      "name": "ช่วงเวลา"
+    },
+    {
+      "id": "ui-mrr-010-ent-007-status",
+      "type": "field",
+      "key": "ent-007-status",
+      "name": "สถานะ"
+    },
+    {
+      "id": "ui-mrr-010-ent-010-reason",
+      "type": "field",
+      "key": "ent-010-reason",
+      "name": "เหตุผล"
+    },
+    {
+      "id": "ui-mrr-010-edit-on-behalf",
+      "type": "action",
+      "key": "edit-on-behalf"
+    },
+    {
+      "id": "ui-mrr-010-change-decision",
+      "type": "action",
+      "key": "change-decision"
+    },
+    {
+      "id": "ui-mrr-010-cancel-on-behalf",
+      "type": "action",
+      "key": "cancel-on-behalf"
+    },
+    {
+      "id": "ui-mrr-010-back",
+      "type": "action",
+      "key": "back"
+    },
+    {
+      "id": "ui-mrr-010-ent-010-actor",
+      "type": "field",
+      "key": "ent-010-actor",
+      "name": "ร่องรอย: ผู้กระทำ"
+    },
+    {
+      "id": "ui-mrr-010-ent-010-action",
+      "type": "field",
+      "key": "ent-010-action",
+      "name": "ร่องรอย: การกระทำ"
+    },
+    {
+      "id": "ui-mrr-010-ent-010-at",
+      "type": "field",
+      "key": "ent-010-at",
+      "name": "ร่องรอย: เวลา"
+    }
+  ],
+  "states": {
+    "empty": {
+      "occurs": true,
+      "text": "การจองนี้ยังไม่มีร่องรอย — ส่วนร่องรอยแสดง 'ยังไม่มีการกระทำของผู้ดูแล'"
+    },
+    "loading": {
+      "occurs": true,
+      "text": "แสดงตัวบอกกำลังโหลด · ปุ่มคำสั่งถูกปิดระหว่างบันทึก"
+    },
+    "error": {
+      "occurs": true,
+      "text": "ไม่ระบุเหตุผล ถึงเวลาเริ่มแล้ว หรือส่ง Email ไม่สำเร็จ — แจ้งเหตุ สถานะไม่เปลี่ยน"
+    },
+    "unauthorized": {
+      "occurs": true,
+      "text": "General User — แสดง 'คุณไม่มีสิทธิ์เข้าหน้านี้' · System Administrator เห็นเฉพาะร่องรอย ปุ่มคำสั่งไม่แสดงและ API ปฏิเสธ"
+    },
+    "overflow": {
+      "occurs": true,
+      "text": "ร่องรอยมากกว่า 50 รายการ — แบ่งหน้า เรียงล่าสุดก่อน · เหตุผลยาวพับและกดขยายได้"
+    }
+  },
+  "extensions": {}
+}

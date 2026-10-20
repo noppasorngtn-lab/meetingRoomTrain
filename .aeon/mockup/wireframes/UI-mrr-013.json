@@ -1,0 +1,277 @@
+{
+  "schemaVersion": "1.4",
+  "producedBy": "mock · scripts/wireframes.mjs",
+  "project": "mrr",
+  "id": "MCK-mrr-012",
+  "screen": "UI-mrr-013",
+  "title": "ข้อมูลห้อง",
+  "purpose": "Room Administrator กรอกหรือแก้ข้อมูลห้อง — ทุกการบันทึกสร้างเวอร์ชันใหม่",
+  "level": "L1",
+  "layout": "form",
+  "kind": "edit",
+  "visibleTo": [
+    "ROLE-002"
+  ],
+  "zones": [
+    {
+      "name": "header",
+      "kind": "header",
+      "kindSource": "derived",
+      "source": "mock",
+      "items": [
+        {
+          "type": "title",
+          "text": "ข้อมูลห้อง"
+        }
+      ]
+    },
+    {
+      "name": "basic",
+      "kind": "form",
+      "kindSource": "derived",
+      "source": "design",
+      "items": [
+        {
+          "type": "field",
+          "name": "รหัสห้อง",
+          "required": true,
+          "entity": "ENT-002",
+          "attribute": "code",
+          "validation": "ไม่ซ้ำ · กรอกได้ตอนสร้าง แก้ไม่ได้ภายหลัง",
+          "rules": [],
+          "visibleTo": [
+            "ROLE-002"
+          ],
+          "input": true
+        },
+        {
+          "type": "field",
+          "name": "ชื่อห้อง",
+          "required": true,
+          "entity": "ENT-003",
+          "attribute": "name",
+          "validation": "ไม่เกิน 100 ตัวอักษร",
+          "rules": [],
+          "visibleTo": [
+            "ROLE-002"
+          ],
+          "input": true
+        },
+        {
+          "type": "field",
+          "name": "ความจุ",
+          "required": true,
+          "entity": "ENT-003",
+          "attribute": "capacity",
+          "validation": "จำนวนเต็ม ≥ 1",
+          "rules": [
+            "BR-mrr-010@v2"
+          ],
+          "visibleTo": [
+            "ROLE-002"
+          ],
+          "input": true
+        },
+        {
+          "type": "field",
+          "name": "รูปภาพ",
+          "required": false,
+          "entity": "ENT-003",
+          "attribute": "photos",
+          "validation": "ไฟล์ภาพ ไม่บังคับ",
+          "rules": [],
+          "visibleTo": [
+            "ROLE-002"
+          ],
+          "input": true
+        },
+        {
+          "type": "field",
+          "name": "สิ่งอำนวยความสะดวก",
+          "required": false,
+          "entity": "ENT-005",
+          "attribute": "facility",
+          "validation": "เลือกจาก Facility ที่ active",
+          "rules": [],
+          "visibleTo": [
+            "ROLE-002"
+          ],
+          "input": true
+        },
+        {
+          "type": "field",
+          "name": "เวอร์ชัน",
+          "required": true,
+          "entity": "ENT-003",
+          "attribute": "versionNo",
+          "validation": "เลขเวอร์ชันปัจจุบัน",
+          "rules": [],
+          "visibleTo": [
+            "ROLE-002"
+          ],
+          "input": false
+        }
+      ]
+    },
+    {
+      "name": "approval",
+      "kind": "form",
+      "kindSource": "derived",
+      "source": "design",
+      "items": [
+        {
+          "type": "field",
+          "name": "ต้องอนุมัติ",
+          "required": true,
+          "entity": "ENT-003",
+          "attribute": "requiresApproval",
+          "validation": "เปิด/ปิด · มีผลกับการจองที่ยังไม่ถึงเวลาเริ่ม",
+          "rules": [
+            "BR-mrr-004@v1",
+            "BR-mrr-010@v2"
+          ],
+          "visibleTo": [
+            "ROLE-002"
+          ],
+          "input": true
+        },
+        {
+          "type": "field",
+          "name": "ผู้อนุมัติประจำห้อง",
+          "required": false,
+          "entity": "ENT-003",
+          "attribute": "approver",
+          "validation": "เลือกจากผู้ใช้บทบาท Room Administrator · ว่างได้",
+          "rules": [
+            "BR-mrr-013@v1"
+          ],
+          "visibleTo": [
+            "ROLE-002"
+          ],
+          "input": true
+        }
+      ]
+    },
+    {
+      "name": "submit",
+      "kind": "toolbar",
+      "kindSource": "derived",
+      "source": "design",
+      "items": [
+        {
+          "type": "action",
+          "key": "save",
+          "name": "บันทึก",
+          "kind": "edit",
+          "presentation": "text",
+          "placement": "submit",
+          "container": "navigate",
+          "accessibleName": "บันทึก",
+          "conventions": [],
+          "destination": "หน้าห้องประชุม",
+          "rules": [
+            "BR-mrr-005@v1",
+            "BR-mrr-010@v2",
+            "BR-mrr-013@v1"
+          ]
+        },
+        {
+          "type": "action",
+          "key": "back",
+          "name": "กลับ",
+          "kind": "navigate",
+          "presentation": "text",
+          "placement": "submit",
+          "container": "navigate",
+          "accessibleName": "กลับ",
+          "conventions": [],
+          "destination": "หน้าห้องประชุม",
+          "rules": []
+        }
+      ]
+    }
+  ],
+  "controls": [
+    {
+      "id": "ui-mrr-013-ent-002-code",
+      "type": "field",
+      "key": "ent-002-code",
+      "name": "รหัสห้อง"
+    },
+    {
+      "id": "ui-mrr-013-ent-003-name",
+      "type": "field",
+      "key": "ent-003-name",
+      "name": "ชื่อห้อง"
+    },
+    {
+      "id": "ui-mrr-013-ent-003-capacity",
+      "type": "field",
+      "key": "ent-003-capacity",
+      "name": "ความจุ"
+    },
+    {
+      "id": "ui-mrr-013-ent-003-photos",
+      "type": "field",
+      "key": "ent-003-photos",
+      "name": "รูปภาพ"
+    },
+    {
+      "id": "ui-mrr-013-ent-005-facility",
+      "type": "field",
+      "key": "ent-005-facility",
+      "name": "สิ่งอำนวยความสะดวก"
+    },
+    {
+      "id": "ui-mrr-013-ent-003-version-no",
+      "type": "field",
+      "key": "ent-003-version-no",
+      "name": "เวอร์ชัน"
+    },
+    {
+      "id": "ui-mrr-013-ent-003-requires-approval",
+      "type": "field",
+      "key": "ent-003-requires-approval",
+      "name": "ต้องอนุมัติ"
+    },
+    {
+      "id": "ui-mrr-013-ent-003-approver",
+      "type": "field",
+      "key": "ent-003-approver",
+      "name": "ผู้อนุมัติประจำห้อง"
+    },
+    {
+      "id": "ui-mrr-013-save",
+      "type": "action",
+      "key": "save"
+    },
+    {
+      "id": "ui-mrr-013-back",
+      "type": "action",
+      "key": "back"
+    }
+  ],
+  "states": {
+    "empty": {
+      "occurs": true,
+      "text": "ฟอร์มเพิ่มห้องใหม่ — ทุกช่องว่าง ต้องอนุมัติเริ่มที่ปิด"
+    },
+    "loading": {
+      "occurs": true,
+      "text": "ปุ่มบันทึกถูกปิดระหว่างบันทึก"
+    },
+    "error": {
+      "occurs": true,
+      "text": "ข้อมูลไม่ครบหรือรหัสซ้ำ — ชี้ช่องที่ผิด ไม่สร้างเวอร์ชันใหม่"
+    },
+    "unauthorized": {
+      "occurs": true,
+      "text": "ไม่ใช่ Room Administrator — 'คุณไม่มีสิทธิ์เข้าหน้านี้' และ API ปฏิเสธ"
+    },
+    "overflow": {
+      "occurs": true,
+      "text": "ชื่อเกิน 100 ตัวอักษรไม่รับ · รูปภาพเกินขนาดที่กำหนดไม่รับและแจ้งที่ช่อง"
+    }
+  },
+  "extensions": {}
+}

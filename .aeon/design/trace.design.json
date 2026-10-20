@@ -1,0 +1,3053 @@
+{
+  "schemaVersion": "1.0",
+  "producedBy": "design · scripts/trace.mjs",
+  "owner": "design",
+  "project": "mrr",
+  "edges": [
+    {
+      "from": "REQ-mrr-001",
+      "rel": "satisfiedBy",
+      "to": "FUN-mrr-001"
+    },
+    {
+      "from": "FUN-mrr-001",
+      "rel": "realizedBy",
+      "to": "UC-mrr-001"
+    },
+    {
+      "from": "FUN-mrr-001",
+      "rel": "governedBy",
+      "to": "BR-mrr-001@v1"
+    },
+    {
+      "from": "FUN-mrr-001",
+      "rel": "governedBy",
+      "to": "BR-mrr-012@v1"
+    },
+    {
+      "from": "REQ-mrr-001",
+      "rel": "satisfiedBy",
+      "to": "FUN-mrr-002"
+    },
+    {
+      "from": "FUN-mrr-002",
+      "rel": "realizedBy",
+      "to": "UC-mrr-002"
+    },
+    {
+      "from": "FUN-mrr-002",
+      "rel": "governedBy",
+      "to": "BR-mrr-021@v1"
+    },
+    {
+      "from": "FUN-mrr-002",
+      "rel": "governedBy",
+      "to": "BR-mrr-001@v1"
+    },
+    {
+      "from": "REQ-mrr-001",
+      "rel": "satisfiedBy",
+      "to": "FUN-mrr-003"
+    },
+    {
+      "from": "REQ-mrr-002",
+      "rel": "satisfiedBy",
+      "to": "FUN-mrr-003"
+    },
+    {
+      "from": "REQ-mrr-005",
+      "rel": "satisfiedBy",
+      "to": "FUN-mrr-003"
+    },
+    {
+      "from": "FUN-mrr-003",
+      "rel": "realizedBy",
+      "to": "UC-mrr-003"
+    },
+    {
+      "from": "FUN-mrr-003",
+      "rel": "governedBy",
+      "to": "BR-mrr-001@v1"
+    },
+    {
+      "from": "FUN-mrr-003",
+      "rel": "governedBy",
+      "to": "BR-mrr-002@v1"
+    },
+    {
+      "from": "FUN-mrr-003",
+      "rel": "governedBy",
+      "to": "BR-mrr-004@v1"
+    },
+    {
+      "from": "FUN-mrr-003",
+      "rel": "governedBy",
+      "to": "BR-mrr-012@v1"
+    },
+    {
+      "from": "FUN-mrr-003",
+      "rel": "governedBy",
+      "to": "BR-mrr-010@v2"
+    },
+    {
+      "from": "FUN-mrr-003",
+      "rel": "governedBy",
+      "to": "BR-mrr-007@v1"
+    },
+    {
+      "from": "FUN-mrr-003",
+      "rel": "governedBy",
+      "to": "BR-mrr-008@v1"
+    },
+    {
+      "from": "FUN-mrr-003",
+      "rel": "governedBy",
+      "to": "BR-mrr-019@v1"
+    },
+    {
+      "from": "REQ-mrr-001",
+      "rel": "satisfiedBy",
+      "to": "FUN-mrr-004"
+    },
+    {
+      "from": "REQ-mrr-005",
+      "rel": "satisfiedBy",
+      "to": "FUN-mrr-004"
+    },
+    {
+      "from": "FUN-mrr-004",
+      "rel": "realizedBy",
+      "to": "UC-mrr-004"
+    },
+    {
+      "from": "FUN-mrr-004",
+      "rel": "realizedBy",
+      "to": "UC-mrr-005"
+    },
+    {
+      "from": "FUN-mrr-004",
+      "rel": "realizedBy",
+      "to": "UC-mrr-006"
+    },
+    {
+      "from": "FUN-mrr-004",
+      "rel": "governedBy",
+      "to": "BR-mrr-003@v1"
+    },
+    {
+      "from": "FUN-mrr-004",
+      "rel": "governedBy",
+      "to": "BR-mrr-009@v1"
+    },
+    {
+      "from": "FUN-mrr-004",
+      "rel": "governedBy",
+      "to": "BR-mrr-001@v1"
+    },
+    {
+      "from": "FUN-mrr-004",
+      "rel": "governedBy",
+      "to": "BR-mrr-012@v1"
+    },
+    {
+      "from": "FUN-mrr-004",
+      "rel": "governedBy",
+      "to": "BR-mrr-007@v1"
+    },
+    {
+      "from": "FUN-mrr-004",
+      "rel": "governedBy",
+      "to": "BR-mrr-019@v1"
+    },
+    {
+      "from": "REQ-mrr-002",
+      "rel": "satisfiedBy",
+      "to": "FUN-mrr-005"
+    },
+    {
+      "from": "REQ-mrr-005",
+      "rel": "satisfiedBy",
+      "to": "FUN-mrr-005"
+    },
+    {
+      "from": "FUN-mrr-005",
+      "rel": "realizedBy",
+      "to": "UC-mrr-007"
+    },
+    {
+      "from": "FUN-mrr-005",
+      "rel": "realizedBy",
+      "to": "UC-mrr-008"
+    },
+    {
+      "from": "FUN-mrr-005",
+      "rel": "governedBy",
+      "to": "BR-mrr-004@v1"
+    },
+    {
+      "from": "FUN-mrr-005",
+      "rel": "governedBy",
+      "to": "BR-mrr-011@v1"
+    },
+    {
+      "from": "FUN-mrr-005",
+      "rel": "governedBy",
+      "to": "BR-mrr-013@v1"
+    },
+    {
+      "from": "FUN-mrr-005",
+      "rel": "governedBy",
+      "to": "BR-mrr-016@v1"
+    },
+    {
+      "from": "FUN-mrr-005",
+      "rel": "governedBy",
+      "to": "BR-mrr-017@v1"
+    },
+    {
+      "from": "FUN-mrr-005",
+      "rel": "governedBy",
+      "to": "BR-mrr-019@v1"
+    },
+    {
+      "from": "FUN-mrr-005",
+      "rel": "governedBy",
+      "to": "BR-mrr-007@v1"
+    },
+    {
+      "from": "REQ-mrr-001",
+      "rel": "satisfiedBy",
+      "to": "FUN-mrr-006"
+    },
+    {
+      "from": "REQ-mrr-002",
+      "rel": "satisfiedBy",
+      "to": "FUN-mrr-006"
+    },
+    {
+      "from": "FUN-mrr-006",
+      "rel": "realizedBy",
+      "to": "UC-mrr-009"
+    },
+    {
+      "from": "FUN-mrr-006",
+      "rel": "governedBy",
+      "to": "BR-mrr-009@v1"
+    },
+    {
+      "from": "FUN-mrr-006",
+      "rel": "governedBy",
+      "to": "BR-mrr-017@v1"
+    },
+    {
+      "from": "FUN-mrr-006",
+      "rel": "governedBy",
+      "to": "BR-mrr-014@v1"
+    },
+    {
+      "from": "FUN-mrr-006",
+      "rel": "governedBy",
+      "to": "BR-mrr-007@v1"
+    },
+    {
+      "from": "FUN-mrr-006",
+      "rel": "governedBy",
+      "to": "BR-mrr-019@v1"
+    },
+    {
+      "from": "REQ-mrr-001",
+      "rel": "satisfiedBy",
+      "to": "FUN-mrr-007"
+    },
+    {
+      "from": "FUN-mrr-007",
+      "rel": "realizedBy",
+      "to": "UC-mrr-010"
+    },
+    {
+      "from": "FUN-mrr-007",
+      "rel": "realizedBy",
+      "to": "UC-mrr-011"
+    },
+    {
+      "from": "FUN-mrr-007",
+      "rel": "governedBy",
+      "to": "BR-mrr-014@v1"
+    },
+    {
+      "from": "FUN-mrr-007",
+      "rel": "governedBy",
+      "to": "BR-mrr-017@v1"
+    },
+    {
+      "from": "REQ-mrr-002",
+      "rel": "satisfiedBy",
+      "to": "FUN-mrr-008"
+    },
+    {
+      "from": "FUN-mrr-008",
+      "rel": "realizedBy",
+      "to": "UC-mrr-012"
+    },
+    {
+      "from": "FUN-mrr-008",
+      "rel": "governedBy",
+      "to": "BR-mrr-017@v1"
+    },
+    {
+      "from": "FUN-mrr-008",
+      "rel": "governedBy",
+      "to": "BR-mrr-018@v1"
+    },
+    {
+      "from": "REQ-mrr-003",
+      "rel": "satisfiedBy",
+      "to": "FUN-mrr-009"
+    },
+    {
+      "from": "REQ-mrr-002",
+      "rel": "satisfiedBy",
+      "to": "FUN-mrr-009"
+    },
+    {
+      "from": "FUN-mrr-009",
+      "rel": "realizedBy",
+      "to": "UC-mrr-013"
+    },
+    {
+      "from": "FUN-mrr-009",
+      "rel": "realizedBy",
+      "to": "UC-mrr-014"
+    },
+    {
+      "from": "FUN-mrr-009",
+      "rel": "realizedBy",
+      "to": "UC-mrr-015"
+    },
+    {
+      "from": "FUN-mrr-009",
+      "rel": "governedBy",
+      "to": "BR-mrr-005@v1"
+    },
+    {
+      "from": "FUN-mrr-009",
+      "rel": "governedBy",
+      "to": "BR-mrr-010@v2"
+    },
+    {
+      "from": "FUN-mrr-009",
+      "rel": "governedBy",
+      "to": "BR-mrr-012@v1"
+    },
+    {
+      "from": "FUN-mrr-009",
+      "rel": "governedBy",
+      "to": "BR-mrr-013@v1"
+    },
+    {
+      "from": "REQ-mrr-004",
+      "rel": "satisfiedBy",
+      "to": "FUN-mrr-010"
+    },
+    {
+      "from": "FUN-mrr-010",
+      "rel": "realizedBy",
+      "to": "UC-mrr-016"
+    },
+    {
+      "from": "FUN-mrr-010",
+      "rel": "governedBy",
+      "to": "BR-mrr-006@v1"
+    },
+    {
+      "from": "FUN-mrr-010",
+      "rel": "governedBy",
+      "to": "CALC-mrr-001@v1"
+    },
+    {
+      "from": "FUN-mrr-010",
+      "rel": "governedBy",
+      "to": "BR-mrr-015@v1"
+    },
+    {
+      "from": "FUN-mrr-010",
+      "rel": "governedBy",
+      "to": "BR-mrr-022@v1"
+    },
+    {
+      "from": "REQ-mrr-005",
+      "rel": "satisfiedBy",
+      "to": "FUN-mrr-011"
+    },
+    {
+      "from": "FUN-mrr-011",
+      "rel": "realizedBy",
+      "to": "UC-mrr-017"
+    },
+    {
+      "from": "FUN-mrr-011",
+      "rel": "governedBy",
+      "to": "BR-mrr-007@v1"
+    },
+    {
+      "from": "FUN-mrr-011",
+      "rel": "governedBy",
+      "to": "BR-mrr-019@v1"
+    },
+    {
+      "from": "REQ-mrr-005",
+      "rel": "satisfiedBy",
+      "to": "FUN-mrr-012"
+    },
+    {
+      "from": "FUN-mrr-012",
+      "rel": "realizedBy",
+      "to": "UC-mrr-018"
+    },
+    {
+      "from": "FUN-mrr-012",
+      "rel": "governedBy",
+      "to": "BR-mrr-008@v1"
+    },
+    {
+      "from": "FUN-mrr-012",
+      "rel": "governedBy",
+      "to": "BR-mrr-020@v1"
+    },
+    {
+      "from": "FUN-mrr-012",
+      "rel": "governedBy",
+      "to": "BR-mrr-023@v1"
+    },
+    {
+      "from": "FUN-mrr-012",
+      "rel": "governedBy",
+      "to": "BR-mrr-007@v1"
+    },
+    {
+      "from": "REQ-mrr-002",
+      "rel": "satisfiedBy",
+      "to": "FUN-mrr-013"
+    },
+    {
+      "from": "FUN-mrr-013",
+      "rel": "realizedBy",
+      "to": "UC-mrr-019"
+    },
+    {
+      "from": "FUN-mrr-013",
+      "rel": "governedBy",
+      "to": "BR-mrr-016@v1"
+    },
+    {
+      "from": "FUN-mrr-013",
+      "rel": "governedBy",
+      "to": "BR-mrr-007@v1"
+    },
+    {
+      "from": "AC-mrr-001",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-001"
+    },
+    {
+      "from": "AC-mrr-001",
+      "rel": "governedBy",
+      "to": "BR-mrr-001@v1"
+    },
+    {
+      "from": "AC-mrr-001",
+      "rel": "governedBy",
+      "to": "BR-mrr-004@v1"
+    },
+    {
+      "from": "AC-mrr-002",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-002"
+    },
+    {
+      "from": "AC-mrr-002",
+      "rel": "governedBy",
+      "to": "BR-mrr-001@v1"
+    },
+    {
+      "from": "AC-mrr-003",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-003"
+    },
+    {
+      "from": "AC-mrr-003",
+      "rel": "governedBy",
+      "to": "BR-mrr-001@v1"
+    },
+    {
+      "from": "AC-mrr-004",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-004"
+    },
+    {
+      "from": "AC-mrr-004",
+      "rel": "governedBy",
+      "to": "BR-mrr-001@v1"
+    },
+    {
+      "from": "AC-mrr-005",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-005"
+    },
+    {
+      "from": "AC-mrr-005",
+      "rel": "governedBy",
+      "to": "BR-mrr-002@v1"
+    },
+    {
+      "from": "AC-mrr-006",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-006"
+    },
+    {
+      "from": "AC-mrr-006",
+      "rel": "governedBy",
+      "to": "BR-mrr-002@v1"
+    },
+    {
+      "from": "AC-mrr-007",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-007"
+    },
+    {
+      "from": "AC-mrr-007",
+      "rel": "governedBy",
+      "to": "BR-mrr-002@v1"
+    },
+    {
+      "from": "AC-mrr-008",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-008"
+    },
+    {
+      "from": "AC-mrr-008",
+      "rel": "governedBy",
+      "to": "BR-mrr-003@v1"
+    },
+    {
+      "from": "AC-mrr-009",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-009"
+    },
+    {
+      "from": "AC-mrr-009",
+      "rel": "governedBy",
+      "to": "BR-mrr-003@v1"
+    },
+    {
+      "from": "AC-mrr-010",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-010"
+    },
+    {
+      "from": "AC-mrr-010",
+      "rel": "governedBy",
+      "to": "BR-mrr-003@v1"
+    },
+    {
+      "from": "AC-mrr-011",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-011"
+    },
+    {
+      "from": "AC-mrr-011",
+      "rel": "governedBy",
+      "to": "BR-mrr-003@v1"
+    },
+    {
+      "from": "AC-mrr-012",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-012"
+    },
+    {
+      "from": "AC-mrr-012",
+      "rel": "governedBy",
+      "to": "BR-mrr-004@v1"
+    },
+    {
+      "from": "AC-mrr-013",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-013"
+    },
+    {
+      "from": "AC-mrr-013",
+      "rel": "governedBy",
+      "to": "BR-mrr-004@v1"
+    },
+    {
+      "from": "AC-mrr-014",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-014"
+    },
+    {
+      "from": "AC-mrr-014",
+      "rel": "governedBy",
+      "to": "BR-mrr-004@v1"
+    },
+    {
+      "from": "AC-mrr-015",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-015"
+    },
+    {
+      "from": "AC-mrr-015",
+      "rel": "governedBy",
+      "to": "BR-mrr-005@v1"
+    },
+    {
+      "from": "AC-mrr-016",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-016"
+    },
+    {
+      "from": "AC-mrr-016",
+      "rel": "governedBy",
+      "to": "BR-mrr-005@v1"
+    },
+    {
+      "from": "AC-mrr-016",
+      "rel": "governedBy",
+      "to": "BR-mrr-012@v1"
+    },
+    {
+      "from": "AC-mrr-017",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-017"
+    },
+    {
+      "from": "AC-mrr-017",
+      "rel": "governedBy",
+      "to": "BR-mrr-005@v1"
+    },
+    {
+      "from": "AC-mrr-018",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-018"
+    },
+    {
+      "from": "AC-mrr-018",
+      "rel": "governedBy",
+      "to": "BR-mrr-005@v1"
+    },
+    {
+      "from": "AC-mrr-019",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-019"
+    },
+    {
+      "from": "AC-mrr-019",
+      "rel": "governedBy",
+      "to": "BR-mrr-007@v1"
+    },
+    {
+      "from": "AC-mrr-020",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-020"
+    },
+    {
+      "from": "AC-mrr-020",
+      "rel": "governedBy",
+      "to": "BR-mrr-007@v1"
+    },
+    {
+      "from": "AC-mrr-020",
+      "rel": "governedBy",
+      "to": "BR-mrr-008@v1"
+    },
+    {
+      "from": "AC-mrr-021",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-021"
+    },
+    {
+      "from": "AC-mrr-021",
+      "rel": "governedBy",
+      "to": "BR-mrr-007@v1"
+    },
+    {
+      "from": "AC-mrr-022",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-022"
+    },
+    {
+      "from": "AC-mrr-022",
+      "rel": "governedBy",
+      "to": "BR-mrr-007@v1"
+    },
+    {
+      "from": "AC-mrr-023",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-023"
+    },
+    {
+      "from": "AC-mrr-023",
+      "rel": "governedBy",
+      "to": "BR-mrr-008@v1"
+    },
+    {
+      "from": "AC-mrr-024",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-024"
+    },
+    {
+      "from": "AC-mrr-024",
+      "rel": "governedBy",
+      "to": "BR-mrr-008@v1"
+    },
+    {
+      "from": "AC-mrr-025",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-025"
+    },
+    {
+      "from": "AC-mrr-025",
+      "rel": "governedBy",
+      "to": "BR-mrr-008@v1"
+    },
+    {
+      "from": "AC-mrr-026",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-026"
+    },
+    {
+      "from": "AC-mrr-026",
+      "rel": "governedBy",
+      "to": "BR-mrr-009@v1"
+    },
+    {
+      "from": "AC-mrr-027",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-027"
+    },
+    {
+      "from": "AC-mrr-027",
+      "rel": "governedBy",
+      "to": "BR-mrr-009@v1"
+    },
+    {
+      "from": "AC-mrr-028",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-028"
+    },
+    {
+      "from": "AC-mrr-028",
+      "rel": "governedBy",
+      "to": "BR-mrr-009@v1"
+    },
+    {
+      "from": "AC-mrr-029",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-029"
+    },
+    {
+      "from": "AC-mrr-029",
+      "rel": "governedBy",
+      "to": "BR-mrr-009@v1"
+    },
+    {
+      "from": "AC-mrr-030",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-030"
+    },
+    {
+      "from": "AC-mrr-030",
+      "rel": "governedBy",
+      "to": "BR-mrr-010@v2"
+    },
+    {
+      "from": "AC-mrr-031",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-033"
+    },
+    {
+      "from": "AC-mrr-031",
+      "rel": "governedBy",
+      "to": "BR-mrr-010@v2"
+    },
+    {
+      "from": "AC-mrr-032",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-034"
+    },
+    {
+      "from": "AC-mrr-032",
+      "rel": "governedBy",
+      "to": "BR-mrr-010@v2"
+    },
+    {
+      "from": "AC-mrr-033",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-035"
+    },
+    {
+      "from": "AC-mrr-033",
+      "rel": "governedBy",
+      "to": "BR-mrr-011@v1"
+    },
+    {
+      "from": "AC-mrr-034",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-036"
+    },
+    {
+      "from": "AC-mrr-034",
+      "rel": "governedBy",
+      "to": "BR-mrr-011@v1"
+    },
+    {
+      "from": "AC-mrr-035",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-037"
+    },
+    {
+      "from": "AC-mrr-035",
+      "rel": "governedBy",
+      "to": "BR-mrr-011@v1"
+    },
+    {
+      "from": "AC-mrr-036",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-038"
+    },
+    {
+      "from": "AC-mrr-036",
+      "rel": "governedBy",
+      "to": "BR-mrr-011@v1"
+    },
+    {
+      "from": "AC-mrr-037",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-039"
+    },
+    {
+      "from": "AC-mrr-037",
+      "rel": "governedBy",
+      "to": "BR-mrr-013@v1"
+    },
+    {
+      "from": "AC-mrr-038",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-040"
+    },
+    {
+      "from": "AC-mrr-038",
+      "rel": "governedBy",
+      "to": "BR-mrr-013@v1"
+    },
+    {
+      "from": "AC-mrr-039",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-041"
+    },
+    {
+      "from": "AC-mrr-039",
+      "rel": "governedBy",
+      "to": "BR-mrr-013@v1"
+    },
+    {
+      "from": "AC-mrr-040",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-042"
+    },
+    {
+      "from": "AC-mrr-040",
+      "rel": "governedBy",
+      "to": "BR-mrr-013@v1"
+    },
+    {
+      "from": "AC-mrr-041",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-043"
+    },
+    {
+      "from": "AC-mrr-041",
+      "rel": "governedBy",
+      "to": "BR-mrr-014@v1"
+    },
+    {
+      "from": "AC-mrr-042",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-044"
+    },
+    {
+      "from": "AC-mrr-042",
+      "rel": "governedBy",
+      "to": "BR-mrr-014@v1"
+    },
+    {
+      "from": "AC-mrr-043",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-045"
+    },
+    {
+      "from": "AC-mrr-043",
+      "rel": "governedBy",
+      "to": "BR-mrr-014@v1"
+    },
+    {
+      "from": "AC-mrr-044",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-046"
+    },
+    {
+      "from": "AC-mrr-044",
+      "rel": "governedBy",
+      "to": "BR-mrr-014@v1"
+    },
+    {
+      "from": "AC-mrr-045",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-047"
+    },
+    {
+      "from": "AC-mrr-045",
+      "rel": "governedBy",
+      "to": "BR-mrr-015@v1"
+    },
+    {
+      "from": "AC-mrr-046",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-048"
+    },
+    {
+      "from": "AC-mrr-046",
+      "rel": "governedBy",
+      "to": "BR-mrr-015@v1"
+    },
+    {
+      "from": "AC-mrr-047",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-049"
+    },
+    {
+      "from": "AC-mrr-047",
+      "rel": "governedBy",
+      "to": "BR-mrr-015@v1"
+    },
+    {
+      "from": "AC-mrr-048",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-050"
+    },
+    {
+      "from": "AC-mrr-048",
+      "rel": "governedBy",
+      "to": "BR-mrr-016@v1"
+    },
+    {
+      "from": "AC-mrr-049",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-051"
+    },
+    {
+      "from": "AC-mrr-049",
+      "rel": "governedBy",
+      "to": "BR-mrr-016@v1"
+    },
+    {
+      "from": "AC-mrr-050",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-052"
+    },
+    {
+      "from": "AC-mrr-050",
+      "rel": "governedBy",
+      "to": "BR-mrr-016@v1"
+    },
+    {
+      "from": "AC-mrr-051",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-053"
+    },
+    {
+      "from": "AC-mrr-051",
+      "rel": "governedBy",
+      "to": "BR-mrr-016@v1"
+    },
+    {
+      "from": "AC-mrr-052",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-054"
+    },
+    {
+      "from": "AC-mrr-052",
+      "rel": "governedBy",
+      "to": "BR-mrr-017@v1"
+    },
+    {
+      "from": "AC-mrr-053",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-055"
+    },
+    {
+      "from": "AC-mrr-053",
+      "rel": "governedBy",
+      "to": "BR-mrr-017@v1"
+    },
+    {
+      "from": "AC-mrr-054",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-056"
+    },
+    {
+      "from": "AC-mrr-054",
+      "rel": "governedBy",
+      "to": "BR-mrr-017@v1"
+    },
+    {
+      "from": "AC-mrr-055",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-057"
+    },
+    {
+      "from": "AC-mrr-055",
+      "rel": "governedBy",
+      "to": "BR-mrr-017@v1"
+    },
+    {
+      "from": "AC-mrr-056",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-058"
+    },
+    {
+      "from": "AC-mrr-056",
+      "rel": "governedBy",
+      "to": "BR-mrr-018@v1"
+    },
+    {
+      "from": "AC-mrr-057",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-059"
+    },
+    {
+      "from": "AC-mrr-057",
+      "rel": "governedBy",
+      "to": "BR-mrr-018@v1"
+    },
+    {
+      "from": "AC-mrr-058",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-060"
+    },
+    {
+      "from": "AC-mrr-058",
+      "rel": "governedBy",
+      "to": "BR-mrr-018@v1"
+    },
+    {
+      "from": "AC-mrr-059",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-061"
+    },
+    {
+      "from": "AC-mrr-059",
+      "rel": "governedBy",
+      "to": "BR-mrr-018@v1"
+    },
+    {
+      "from": "AC-mrr-060",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-062"
+    },
+    {
+      "from": "AC-mrr-060",
+      "rel": "governedBy",
+      "to": "BR-mrr-019@v1"
+    },
+    {
+      "from": "AC-mrr-061",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-063"
+    },
+    {
+      "from": "AC-mrr-061",
+      "rel": "governedBy",
+      "to": "BR-mrr-019@v1"
+    },
+    {
+      "from": "AC-mrr-062",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-064"
+    },
+    {
+      "from": "AC-mrr-062",
+      "rel": "governedBy",
+      "to": "BR-mrr-019@v1"
+    },
+    {
+      "from": "AC-mrr-063",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-065"
+    },
+    {
+      "from": "AC-mrr-063",
+      "rel": "governedBy",
+      "to": "BR-mrr-019@v1"
+    },
+    {
+      "from": "AC-mrr-064",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-066"
+    },
+    {
+      "from": "AC-mrr-064",
+      "rel": "governedBy",
+      "to": "BR-mrr-020@v1"
+    },
+    {
+      "from": "AC-mrr-065",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-067"
+    },
+    {
+      "from": "AC-mrr-065",
+      "rel": "governedBy",
+      "to": "BR-mrr-020@v1"
+    },
+    {
+      "from": "AC-mrr-066",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-068"
+    },
+    {
+      "from": "AC-mrr-066",
+      "rel": "governedBy",
+      "to": "BR-mrr-021@v1"
+    },
+    {
+      "from": "AC-mrr-067",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-069"
+    },
+    {
+      "from": "AC-mrr-067",
+      "rel": "governedBy",
+      "to": "BR-mrr-021@v1"
+    },
+    {
+      "from": "AC-mrr-068",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-070"
+    },
+    {
+      "from": "AC-mrr-068",
+      "rel": "governedBy",
+      "to": "BR-mrr-021@v1"
+    },
+    {
+      "from": "AC-mrr-069",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-071"
+    },
+    {
+      "from": "AC-mrr-069",
+      "rel": "governedBy",
+      "to": "BR-mrr-021@v1"
+    },
+    {
+      "from": "AC-mrr-070",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-072"
+    },
+    {
+      "from": "AC-mrr-070",
+      "rel": "governedBy",
+      "to": "BR-mrr-022@v1"
+    },
+    {
+      "from": "AC-mrr-071",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-073"
+    },
+    {
+      "from": "AC-mrr-071",
+      "rel": "governedBy",
+      "to": "BR-mrr-022@v1"
+    },
+    {
+      "from": "AC-mrr-072",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-074"
+    },
+    {
+      "from": "AC-mrr-072",
+      "rel": "governedBy",
+      "to": "BR-mrr-022@v1"
+    },
+    {
+      "from": "AC-mrr-073",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-075"
+    },
+    {
+      "from": "AC-mrr-073",
+      "rel": "governedBy",
+      "to": "BR-mrr-023@v1"
+    },
+    {
+      "from": "AC-mrr-074",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-076"
+    },
+    {
+      "from": "AC-mrr-074",
+      "rel": "governedBy",
+      "to": "BR-mrr-023@v1"
+    },
+    {
+      "from": "AC-mrr-075",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-077"
+    },
+    {
+      "from": "AC-mrr-075",
+      "rel": "governedBy",
+      "to": "BR-mrr-023@v1"
+    },
+    {
+      "from": "AC-mrr-076",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-078"
+    },
+    {
+      "from": "AC-mrr-076",
+      "rel": "governedBy",
+      "to": "BR-mrr-010@v2"
+    },
+    {
+      "from": "AC-mrr-077",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-079"
+    },
+    {
+      "from": "AC-mrr-077",
+      "rel": "governedBy",
+      "to": "BR-mrr-010@v2"
+    },
+    {
+      "from": "AC-mrr-078",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-080"
+    },
+    {
+      "from": "AC-mrr-078",
+      "rel": "governedBy",
+      "to": "BR-mrr-010@v2"
+    },
+    {
+      "from": "AC-mrr-079",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-081"
+    },
+    {
+      "from": "AC-mrr-079",
+      "rel": "governedBy",
+      "to": "BR-mrr-012@v1"
+    },
+    {
+      "from": "AC-mrr-080",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-082"
+    },
+    {
+      "from": "AC-mrr-080",
+      "rel": "governedBy",
+      "to": "BR-mrr-012@v1"
+    },
+    {
+      "from": "AC-mrr-081",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-083"
+    },
+    {
+      "from": "AC-mrr-081",
+      "rel": "governedBy",
+      "to": "BR-mrr-012@v1"
+    },
+    {
+      "from": "AC-mrr-082",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-084"
+    },
+    {
+      "from": "AC-mrr-082",
+      "rel": "governedBy",
+      "to": "BR-mrr-006@v1"
+    },
+    {
+      "from": "AC-mrr-083",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-085"
+    },
+    {
+      "from": "AC-mrr-083",
+      "rel": "governedBy",
+      "to": "BR-mrr-006@v1"
+    },
+    {
+      "from": "AC-mrr-084",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-086"
+    },
+    {
+      "from": "AC-mrr-084",
+      "rel": "governedBy",
+      "to": "BR-mrr-006@v1"
+    },
+    {
+      "from": "AC-mrr-085",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-087"
+    },
+    {
+      "from": "AC-mrr-085",
+      "rel": "governedBy",
+      "to": "BR-mrr-006@v1"
+    },
+    {
+      "from": "FUN-mrr-001",
+      "rel": "operatesOn",
+      "to": "ENT-002"
+    },
+    {
+      "from": "FUN-mrr-001",
+      "rel": "operatesOn",
+      "to": "ENT-003"
+    },
+    {
+      "from": "FUN-mrr-001",
+      "rel": "operatesOn",
+      "to": "ENT-004"
+    },
+    {
+      "from": "FUN-mrr-001",
+      "rel": "operatesOn",
+      "to": "ENT-005"
+    },
+    {
+      "from": "FUN-mrr-001",
+      "rel": "operatesOn",
+      "to": "ENT-006"
+    },
+    {
+      "from": "FUN-mrr-001",
+      "rel": "operatesOn",
+      "to": "ENT-007"
+    },
+    {
+      "from": "FUN-mrr-002",
+      "rel": "operatesOn",
+      "to": "ENT-007"
+    },
+    {
+      "from": "FUN-mrr-002",
+      "rel": "operatesOn",
+      "to": "ENT-008"
+    },
+    {
+      "from": "FUN-mrr-002",
+      "rel": "operatesOn",
+      "to": "ENT-002"
+    },
+    {
+      "from": "FUN-mrr-003",
+      "rel": "operatesOn",
+      "to": "ENT-007"
+    },
+    {
+      "from": "FUN-mrr-003",
+      "rel": "operatesOn",
+      "to": "ENT-008"
+    },
+    {
+      "from": "FUN-mrr-003",
+      "rel": "operatesOn",
+      "to": "ENT-009"
+    },
+    {
+      "from": "FUN-mrr-003",
+      "rel": "operatesOn",
+      "to": "ENT-002"
+    },
+    {
+      "from": "FUN-mrr-003",
+      "rel": "operatesOn",
+      "to": "ENT-003"
+    },
+    {
+      "from": "FUN-mrr-003",
+      "rel": "operatesOn",
+      "to": "ENT-006"
+    },
+    {
+      "from": "FUN-mrr-003",
+      "rel": "operatesOn",
+      "to": "ENT-001"
+    },
+    {
+      "from": "FUN-mrr-004",
+      "rel": "operatesOn",
+      "to": "ENT-007"
+    },
+    {
+      "from": "FUN-mrr-004",
+      "rel": "operatesOn",
+      "to": "ENT-008"
+    },
+    {
+      "from": "FUN-mrr-004",
+      "rel": "operatesOn",
+      "to": "ENT-009"
+    },
+    {
+      "from": "FUN-mrr-005",
+      "rel": "operatesOn",
+      "to": "ENT-007"
+    },
+    {
+      "from": "FUN-mrr-005",
+      "rel": "operatesOn",
+      "to": "ENT-010"
+    },
+    {
+      "from": "FUN-mrr-005",
+      "rel": "operatesOn",
+      "to": "ENT-003"
+    },
+    {
+      "from": "FUN-mrr-006",
+      "rel": "operatesOn",
+      "to": "ENT-007"
+    },
+    {
+      "from": "FUN-mrr-006",
+      "rel": "operatesOn",
+      "to": "ENT-010"
+    },
+    {
+      "from": "FUN-mrr-007",
+      "rel": "operatesOn",
+      "to": "ENT-011"
+    },
+    {
+      "from": "FUN-mrr-007",
+      "rel": "operatesOn",
+      "to": "ENT-007"
+    },
+    {
+      "from": "FUN-mrr-007",
+      "rel": "operatesOn",
+      "to": "ENT-010"
+    },
+    {
+      "from": "FUN-mrr-008",
+      "rel": "operatesOn",
+      "to": "ENT-010"
+    },
+    {
+      "from": "FUN-mrr-009",
+      "rel": "operatesOn",
+      "to": "ENT-002"
+    },
+    {
+      "from": "FUN-mrr-009",
+      "rel": "operatesOn",
+      "to": "ENT-003"
+    },
+    {
+      "from": "FUN-mrr-009",
+      "rel": "operatesOn",
+      "to": "ENT-004"
+    },
+    {
+      "from": "FUN-mrr-009",
+      "rel": "operatesOn",
+      "to": "ENT-005"
+    },
+    {
+      "from": "FUN-mrr-009",
+      "rel": "operatesOn",
+      "to": "ENT-006"
+    },
+    {
+      "from": "FUN-mrr-009",
+      "rel": "operatesOn",
+      "to": "ENT-007"
+    },
+    {
+      "from": "FUN-mrr-010",
+      "rel": "operatesOn",
+      "to": "ENT-012"
+    },
+    {
+      "from": "FUN-mrr-010",
+      "rel": "operatesOn",
+      "to": "ENT-013"
+    },
+    {
+      "from": "FUN-mrr-010",
+      "rel": "operatesOn",
+      "to": "ENT-007"
+    },
+    {
+      "from": "FUN-mrr-010",
+      "rel": "operatesOn",
+      "to": "ENT-006"
+    },
+    {
+      "from": "FUN-mrr-010",
+      "rel": "operatesOn",
+      "to": "ENT-002"
+    },
+    {
+      "from": "FUN-mrr-011",
+      "rel": "operatesOn",
+      "to": "ENT-007"
+    },
+    {
+      "from": "FUN-mrr-011",
+      "rel": "operatesOn",
+      "to": "ENT-008"
+    },
+    {
+      "from": "FUN-mrr-011",
+      "rel": "operatesOn",
+      "to": "ENT-001"
+    },
+    {
+      "from": "FUN-mrr-012",
+      "rel": "operatesOn",
+      "to": "ENT-007"
+    },
+    {
+      "from": "FUN-mrr-012",
+      "rel": "operatesOn",
+      "to": "ENT-008"
+    },
+    {
+      "from": "FUN-mrr-013",
+      "rel": "operatesOn",
+      "to": "ENT-007"
+    },
+    {
+      "from": "ENT-007",
+      "rel": "hasState",
+      "to": "STM-mrr-001"
+    },
+    {
+      "from": "ENT-011",
+      "rel": "hasState",
+      "to": "STM-mrr-002"
+    },
+    {
+      "from": "ENT-002",
+      "rel": "hasState",
+      "to": "STM-mrr-003"
+    },
+    {
+      "from": "FUN-mrr-001",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-001"
+    },
+    {
+      "from": "FUN-mrr-001",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-002"
+    },
+    {
+      "from": "FUN-mrr-001",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-003"
+    },
+    {
+      "from": "FUN-mrr-001",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-004"
+    },
+    {
+      "from": "FUN-mrr-001",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-005"
+    },
+    {
+      "from": "FUN-mrr-002",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-006"
+    },
+    {
+      "from": "FUN-mrr-002",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-007"
+    },
+    {
+      "from": "FUN-mrr-002",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-008"
+    },
+    {
+      "from": "FUN-mrr-003",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-009"
+    },
+    {
+      "from": "FUN-mrr-011",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-009"
+    },
+    {
+      "from": "FUN-mrr-003",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-010"
+    },
+    {
+      "from": "FUN-mrr-003",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-011"
+    },
+    {
+      "from": "FUN-mrr-003",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-012"
+    },
+    {
+      "from": "FUN-mrr-003",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-013"
+    },
+    {
+      "from": "FUN-mrr-003",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-014"
+    },
+    {
+      "from": "FUN-mrr-003",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-015"
+    },
+    {
+      "from": "FUN-mrr-003",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-016"
+    },
+    {
+      "from": "FUN-mrr-003",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-017"
+    },
+    {
+      "from": "FUN-mrr-003",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-018"
+    },
+    {
+      "from": "FUN-mrr-011",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-018"
+    },
+    {
+      "from": "FUN-mrr-003",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-019"
+    },
+    {
+      "from": "FUN-mrr-011",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-019"
+    },
+    {
+      "from": "FUN-mrr-012",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-019"
+    },
+    {
+      "from": "FUN-mrr-003",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-020"
+    },
+    {
+      "from": "FUN-mrr-009",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-020"
+    },
+    {
+      "from": "FUN-mrr-004",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-021"
+    },
+    {
+      "from": "FUN-mrr-011",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-021"
+    },
+    {
+      "from": "FUN-mrr-004",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-022"
+    },
+    {
+      "from": "FUN-mrr-011",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-022"
+    },
+    {
+      "from": "FUN-mrr-004",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-023"
+    },
+    {
+      "from": "FUN-mrr-011",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-023"
+    },
+    {
+      "from": "FUN-mrr-004",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-024"
+    },
+    {
+      "from": "FUN-mrr-004",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-025"
+    },
+    {
+      "from": "FUN-mrr-004",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-026"
+    },
+    {
+      "from": "FUN-mrr-004",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-027"
+    },
+    {
+      "from": "FUN-mrr-004",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-028"
+    },
+    {
+      "from": "FUN-mrr-004",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-029"
+    },
+    {
+      "from": "FUN-mrr-004",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-030"
+    },
+    {
+      "from": "FUN-mrr-011",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-030"
+    },
+    {
+      "from": "FUN-mrr-004",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-031"
+    },
+    {
+      "from": "FUN-mrr-011",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-031"
+    },
+    {
+      "from": "FUN-mrr-005",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-032"
+    },
+    {
+      "from": "FUN-mrr-011",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-032"
+    },
+    {
+      "from": "FUN-mrr-005",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-033"
+    },
+    {
+      "from": "FUN-mrr-005",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-034"
+    },
+    {
+      "from": "FUN-mrr-005",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-035"
+    },
+    {
+      "from": "FUN-mrr-005",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-036"
+    },
+    {
+      "from": "FUN-mrr-005",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-037"
+    },
+    {
+      "from": "FUN-mrr-005",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-038"
+    },
+    {
+      "from": "FUN-mrr-005",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-039"
+    },
+    {
+      "from": "FUN-mrr-005",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-040"
+    },
+    {
+      "from": "FUN-mrr-005",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-041"
+    },
+    {
+      "from": "FUN-mrr-011",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-041"
+    },
+    {
+      "from": "FUN-mrr-006",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-042"
+    },
+    {
+      "from": "FUN-mrr-011",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-042"
+    },
+    {
+      "from": "FUN-mrr-006",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-043"
+    },
+    {
+      "from": "FUN-mrr-006",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-044"
+    },
+    {
+      "from": "FUN-mrr-007",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-045"
+    },
+    {
+      "from": "FUN-mrr-007",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-046"
+    },
+    {
+      "from": "FUN-mrr-007",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-047"
+    },
+    {
+      "from": "FUN-mrr-008",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-048"
+    },
+    {
+      "from": "FUN-mrr-008",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-049"
+    },
+    {
+      "from": "FUN-mrr-009",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-050"
+    },
+    {
+      "from": "FUN-mrr-009",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-051"
+    },
+    {
+      "from": "FUN-mrr-009",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-052"
+    },
+    {
+      "from": "FUN-mrr-009",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-053"
+    },
+    {
+      "from": "FUN-mrr-009",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-054"
+    },
+    {
+      "from": "FUN-mrr-003",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-054"
+    },
+    {
+      "from": "FUN-mrr-009",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-055"
+    },
+    {
+      "from": "FUN-mrr-009",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-056"
+    },
+    {
+      "from": "FUN-mrr-009",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-057"
+    },
+    {
+      "from": "FUN-mrr-009",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-058"
+    },
+    {
+      "from": "FUN-mrr-009",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-059"
+    },
+    {
+      "from": "FUN-mrr-001",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-059"
+    },
+    {
+      "from": "FUN-mrr-010",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-059"
+    },
+    {
+      "from": "FUN-mrr-010",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-060"
+    },
+    {
+      "from": "FUN-mrr-010",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-061"
+    },
+    {
+      "from": "FUN-mrr-010",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-062"
+    },
+    {
+      "from": "FUN-mrr-010",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-063"
+    },
+    {
+      "from": "FUN-mrr-010",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-064"
+    },
+    {
+      "from": "FUN-mrr-010",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-065"
+    },
+    {
+      "from": "FUN-mrr-010",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-066"
+    },
+    {
+      "from": "FUN-mrr-012",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-067"
+    },
+    {
+      "from": "FUN-mrr-012",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-068"
+    },
+    {
+      "from": "FUN-mrr-012",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-069"
+    },
+    {
+      "from": "FUN-mrr-012",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-070"
+    },
+    {
+      "from": "FUN-mrr-012",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-071"
+    },
+    {
+      "from": "FUN-mrr-013",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-072"
+    },
+    {
+      "from": "FUN-mrr-013",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-073"
+    },
+    {
+      "from": "FUN-mrr-011",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-073"
+    },
+    {
+      "from": "FUN-mrr-013",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-074"
+    },
+    {
+      "from": "FUN-mrr-013",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-075"
+    },
+    {
+      "from": "FUN-mrr-005",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-075"
+    },
+    {
+      "from": "ROLE-001",
+      "rel": "actsAs",
+      "to": "STK-mrr-001"
+    },
+    {
+      "from": "ROLE-002",
+      "rel": "actsAs",
+      "to": "STK-mrr-002"
+    },
+    {
+      "from": "ROLE-003",
+      "rel": "actsAs",
+      "to": "STK-mrr-003"
+    },
+    {
+      "from": "UC-mrr-001",
+      "rel": "governedByAcl",
+      "to": "ACL-001"
+    },
+    {
+      "from": "UC-mrr-002",
+      "rel": "governedByAcl",
+      "to": "ACL-002"
+    },
+    {
+      "from": "UC-mrr-002",
+      "rel": "governedByAcl",
+      "to": "ACL-003"
+    },
+    {
+      "from": "UC-mrr-003",
+      "rel": "governedByAcl",
+      "to": "ACL-004"
+    },
+    {
+      "from": "UC-mrr-004",
+      "rel": "governedByAcl",
+      "to": "ACL-005"
+    },
+    {
+      "from": "UC-mrr-005",
+      "rel": "governedByAcl",
+      "to": "ACL-006"
+    },
+    {
+      "from": "UC-mrr-006",
+      "rel": "governedByAcl",
+      "to": "ACL-007"
+    },
+    {
+      "from": "UC-mrr-007",
+      "rel": "governedByAcl",
+      "to": "ACL-008"
+    },
+    {
+      "from": "UC-mrr-008",
+      "rel": "governedByAcl",
+      "to": "ACL-009"
+    },
+    {
+      "from": "UC-mrr-009",
+      "rel": "governedByAcl",
+      "to": "ACL-010"
+    },
+    {
+      "from": "UC-mrr-010",
+      "rel": "governedByAcl",
+      "to": "ACL-011"
+    },
+    {
+      "from": "UC-mrr-011",
+      "rel": "governedByAcl",
+      "to": "ACL-012"
+    },
+    {
+      "from": "UC-mrr-012",
+      "rel": "governedByAcl",
+      "to": "ACL-013"
+    },
+    {
+      "from": "UC-mrr-013",
+      "rel": "governedByAcl",
+      "to": "ACL-014"
+    },
+    {
+      "from": "UC-mrr-014",
+      "rel": "governedByAcl",
+      "to": "ACL-015"
+    },
+    {
+      "from": "UC-mrr-015",
+      "rel": "governedByAcl",
+      "to": "ACL-016"
+    },
+    {
+      "from": "UC-mrr-016",
+      "rel": "governedByAcl",
+      "to": "ACL-017"
+    },
+    {
+      "from": "UC-mrr-012",
+      "rel": "governedByAcl",
+      "to": "ACL-018"
+    },
+    {
+      "from": "NFR-mrr-001",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-076"
+    },
+    {
+      "from": "NFR-mrr-002",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-077"
+    },
+    {
+      "from": "FUN-mrr-002",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-077"
+    },
+    {
+      "from": "NFR-mrr-003",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-078"
+    },
+    {
+      "from": "NFR-mrr-004",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-079"
+    },
+    {
+      "from": "NFR-mrr-005",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-080"
+    },
+    {
+      "from": "FUN-mrr-001",
+      "rel": "displayedOn",
+      "to": "UI-mrr-004"
+    },
+    {
+      "from": "FUN-mrr-002",
+      "rel": "displayedOn",
+      "to": "UI-mrr-005"
+    },
+    {
+      "from": "FUN-mrr-003",
+      "rel": "displayedOn",
+      "to": "UI-mrr-006"
+    },
+    {
+      "from": "FUN-mrr-004",
+      "rel": "displayedOn",
+      "to": "UI-mrr-007"
+    },
+    {
+      "from": "FUN-mrr-004",
+      "rel": "displayedOn",
+      "to": "UI-mrr-008"
+    },
+    {
+      "from": "FUN-mrr-005",
+      "rel": "displayedOn",
+      "to": "UI-mrr-009"
+    },
+    {
+      "from": "FUN-mrr-005",
+      "rel": "displayedOn",
+      "to": "UI-mrr-010"
+    },
+    {
+      "from": "FUN-mrr-006",
+      "rel": "displayedOn",
+      "to": "UI-mrr-010"
+    },
+    {
+      "from": "FUN-mrr-007",
+      "rel": "displayedOn",
+      "to": "UI-mrr-010"
+    },
+    {
+      "from": "FUN-mrr-008",
+      "rel": "displayedOn",
+      "to": "UI-mrr-010"
+    },
+    {
+      "from": "FUN-mrr-007",
+      "rel": "displayedOn",
+      "to": "UI-mrr-011"
+    },
+    {
+      "from": "FUN-mrr-009",
+      "rel": "displayedOn",
+      "to": "UI-mrr-012"
+    },
+    {
+      "from": "FUN-mrr-009",
+      "rel": "displayedOn",
+      "to": "UI-mrr-013"
+    },
+    {
+      "from": "FUN-mrr-009",
+      "rel": "displayedOn",
+      "to": "UI-mrr-014"
+    },
+    {
+      "from": "FUN-mrr-010",
+      "rel": "displayedOn",
+      "to": "RPT-mrr-001"
+    },
+    {
+      "from": "UI-mrr-003",
+      "rel": "governedByAcl",
+      "to": "ACL-019"
+    },
+    {
+      "from": "UI-mrr-004",
+      "rel": "governedByAcl",
+      "to": "ACL-020"
+    },
+    {
+      "from": "UI-mrr-005",
+      "rel": "governedByAcl",
+      "to": "ACL-021"
+    },
+    {
+      "from": "UI-mrr-006",
+      "rel": "governedByAcl",
+      "to": "ACL-022"
+    },
+    {
+      "from": "UI-mrr-007",
+      "rel": "governedByAcl",
+      "to": "ACL-023"
+    },
+    {
+      "from": "UI-mrr-008",
+      "rel": "governedByAcl",
+      "to": "ACL-024"
+    },
+    {
+      "from": "UI-mrr-009",
+      "rel": "governedByAcl",
+      "to": "ACL-025"
+    },
+    {
+      "from": "UI-mrr-010",
+      "rel": "governedByAcl",
+      "to": "ACL-026"
+    },
+    {
+      "from": "UI-mrr-010",
+      "rel": "governedByAcl",
+      "to": "ACL-027"
+    },
+    {
+      "from": "UI-mrr-011",
+      "rel": "governedByAcl",
+      "to": "ACL-028"
+    },
+    {
+      "from": "UI-mrr-012",
+      "rel": "governedByAcl",
+      "to": "ACL-029"
+    },
+    {
+      "from": "UI-mrr-013",
+      "rel": "governedByAcl",
+      "to": "ACL-030"
+    },
+    {
+      "from": "UI-mrr-014",
+      "rel": "governedByAcl",
+      "to": "ACL-031"
+    },
+    {
+      "from": "RPT-mrr-001",
+      "rel": "governedByAcl",
+      "to": "ACL-032"
+    },
+    {
+      "from": "FUN-mrr-001",
+      "rel": "exposedAs",
+      "to": "API-001"
+    },
+    {
+      "from": "UI-mrr-004",
+      "rel": "calls",
+      "to": "API-001"
+    },
+    {
+      "from": "FUN-mrr-009",
+      "rel": "exposedAs",
+      "to": "API-002"
+    },
+    {
+      "from": "UI-mrr-004",
+      "rel": "calls",
+      "to": "API-002"
+    },
+    {
+      "from": "UI-mrr-006",
+      "rel": "calls",
+      "to": "API-002"
+    },
+    {
+      "from": "UI-mrr-008",
+      "rel": "calls",
+      "to": "API-002"
+    },
+    {
+      "from": "UI-mrr-013",
+      "rel": "calls",
+      "to": "API-002"
+    },
+    {
+      "from": "UI-mrr-014",
+      "rel": "calls",
+      "to": "API-002"
+    },
+    {
+      "from": "FUN-mrr-002",
+      "rel": "exposedAs",
+      "to": "API-003"
+    },
+    {
+      "from": "UI-mrr-005",
+      "rel": "calls",
+      "to": "API-003"
+    },
+    {
+      "from": "FUN-mrr-003",
+      "rel": "exposedAs",
+      "to": "API-004"
+    },
+    {
+      "from": "UI-mrr-006",
+      "rel": "calls",
+      "to": "API-004"
+    },
+    {
+      "from": "API-004",
+      "rel": "integratesWith",
+      "to": "INT-001"
+    },
+    {
+      "from": "FUN-mrr-003",
+      "rel": "exposedAs",
+      "to": "API-005"
+    },
+    {
+      "from": "UI-mrr-006",
+      "rel": "calls",
+      "to": "API-005"
+    },
+    {
+      "from": "UI-mrr-008",
+      "rel": "calls",
+      "to": "API-005"
+    },
+    {
+      "from": "UI-mrr-013",
+      "rel": "calls",
+      "to": "API-005"
+    },
+    {
+      "from": "FUN-mrr-004",
+      "rel": "exposedAs",
+      "to": "API-006"
+    },
+    {
+      "from": "UI-mrr-007",
+      "rel": "calls",
+      "to": "API-006"
+    },
+    {
+      "from": "FUN-mrr-004",
+      "rel": "exposedAs",
+      "to": "API-007"
+    },
+    {
+      "from": "FUN-mrr-006",
+      "rel": "exposedAs",
+      "to": "API-007"
+    },
+    {
+      "from": "UI-mrr-008",
+      "rel": "calls",
+      "to": "API-007"
+    },
+    {
+      "from": "UI-mrr-010",
+      "rel": "calls",
+      "to": "API-007"
+    },
+    {
+      "from": "FUN-mrr-004",
+      "rel": "exposedAs",
+      "to": "API-008"
+    },
+    {
+      "from": "UI-mrr-008",
+      "rel": "calls",
+      "to": "API-008"
+    },
+    {
+      "from": "API-008",
+      "rel": "integratesWith",
+      "to": "INT-001"
+    },
+    {
+      "from": "FUN-mrr-004",
+      "rel": "exposedAs",
+      "to": "API-009"
+    },
+    {
+      "from": "UI-mrr-007",
+      "rel": "calls",
+      "to": "API-009"
+    },
+    {
+      "from": "API-009",
+      "rel": "integratesWith",
+      "to": "INT-001"
+    },
+    {
+      "from": "FUN-mrr-005",
+      "rel": "exposedAs",
+      "to": "API-010"
+    },
+    {
+      "from": "UI-mrr-009",
+      "rel": "calls",
+      "to": "API-010"
+    },
+    {
+      "from": "FUN-mrr-005",
+      "rel": "exposedAs",
+      "to": "API-011"
+    },
+    {
+      "from": "UI-mrr-009",
+      "rel": "calls",
+      "to": "API-011"
+    },
+    {
+      "from": "API-011",
+      "rel": "integratesWith",
+      "to": "INT-001"
+    },
+    {
+      "from": "FUN-mrr-005",
+      "rel": "exposedAs",
+      "to": "API-012"
+    },
+    {
+      "from": "UI-mrr-009",
+      "rel": "calls",
+      "to": "API-012"
+    },
+    {
+      "from": "FUN-mrr-005",
+      "rel": "exposedAs",
+      "to": "API-013"
+    },
+    {
+      "from": "UI-mrr-010",
+      "rel": "calls",
+      "to": "API-013"
+    },
+    {
+      "from": "FUN-mrr-006",
+      "rel": "exposedAs",
+      "to": "API-014"
+    },
+    {
+      "from": "FUN-mrr-007",
+      "rel": "exposedAs",
+      "to": "API-014"
+    },
+    {
+      "from": "UI-mrr-010",
+      "rel": "calls",
+      "to": "API-014"
+    },
+    {
+      "from": "API-014",
+      "rel": "integratesWith",
+      "to": "INT-001"
+    },
+    {
+      "from": "FUN-mrr-006",
+      "rel": "exposedAs",
+      "to": "API-015"
+    },
+    {
+      "from": "UI-mrr-010",
+      "rel": "calls",
+      "to": "API-015"
+    },
+    {
+      "from": "API-015",
+      "rel": "integratesWith",
+      "to": "INT-001"
+    },
+    {
+      "from": "FUN-mrr-008",
+      "rel": "exposedAs",
+      "to": "API-016"
+    },
+    {
+      "from": "UI-mrr-010",
+      "rel": "calls",
+      "to": "API-016"
+    },
+    {
+      "from": "FUN-mrr-007",
+      "rel": "exposedAs",
+      "to": "API-017"
+    },
+    {
+      "from": "UI-mrr-011",
+      "rel": "calls",
+      "to": "API-017"
+    },
+    {
+      "from": "FUN-mrr-007",
+      "rel": "exposedAs",
+      "to": "API-018"
+    },
+    {
+      "from": "UI-mrr-011",
+      "rel": "calls",
+      "to": "API-018"
+    },
+    {
+      "from": "FUN-mrr-007",
+      "rel": "exposedAs",
+      "to": "API-019"
+    },
+    {
+      "from": "UI-mrr-011",
+      "rel": "calls",
+      "to": "API-019"
+    },
+    {
+      "from": "FUN-mrr-009",
+      "rel": "exposedAs",
+      "to": "API-020"
+    },
+    {
+      "from": "UI-mrr-012",
+      "rel": "calls",
+      "to": "API-020"
+    },
+    {
+      "from": "FUN-mrr-009",
+      "rel": "exposedAs",
+      "to": "API-021"
+    },
+    {
+      "from": "UI-mrr-013",
+      "rel": "calls",
+      "to": "API-021"
+    },
+    {
+      "from": "FUN-mrr-009",
+      "rel": "exposedAs",
+      "to": "API-022"
+    },
+    {
+      "from": "UI-mrr-013",
+      "rel": "calls",
+      "to": "API-022"
+    },
+    {
+      "from": "FUN-mrr-009",
+      "rel": "exposedAs",
+      "to": "API-023"
+    },
+    {
+      "from": "UI-mrr-013",
+      "rel": "calls",
+      "to": "API-023"
+    },
+    {
+      "from": "FUN-mrr-009",
+      "rel": "exposedAs",
+      "to": "API-024"
+    },
+    {
+      "from": "UI-mrr-012",
+      "rel": "calls",
+      "to": "API-024"
+    },
+    {
+      "from": "FUN-mrr-009",
+      "rel": "exposedAs",
+      "to": "API-025"
+    },
+    {
+      "from": "UI-mrr-012",
+      "rel": "calls",
+      "to": "API-025"
+    },
+    {
+      "from": "FUN-mrr-009",
+      "rel": "exposedAs",
+      "to": "API-026"
+    },
+    {
+      "from": "UI-mrr-014",
+      "rel": "calls",
+      "to": "API-026"
+    },
+    {
+      "from": "FUN-mrr-009",
+      "rel": "exposedAs",
+      "to": "API-027"
+    },
+    {
+      "from": "UI-mrr-014",
+      "rel": "calls",
+      "to": "API-027"
+    },
+    {
+      "from": "FUN-mrr-010",
+      "rel": "exposedAs",
+      "to": "API-028"
+    },
+    {
+      "from": "RPT-mrr-001",
+      "rel": "calls",
+      "to": "API-028"
+    },
+    {
+      "from": "FUN-mrr-010",
+      "rel": "exposedAs",
+      "to": "API-029"
+    },
+    {
+      "from": "RPT-mrr-001",
+      "rel": "calls",
+      "to": "API-029"
+    },
+    {
+      "from": "FUN-mrr-010",
+      "rel": "exposedAs",
+      "to": "API-030"
+    },
+    {
+      "from": "RPT-mrr-001",
+      "rel": "calls",
+      "to": "API-030"
+    },
+    {
+      "from": "FUN-mrr-011",
+      "rel": "integratesWith",
+      "to": "INT-001"
+    },
+    {
+      "from": "FUN-mrr-012",
+      "rel": "integratesWith",
+      "to": "INT-001"
+    },
+    {
+      "from": "FUN-mrr-013",
+      "rel": "integratesWith",
+      "to": "INT-001"
+    },
+    {
+      "from": "REQ-mrr-001",
+      "rel": "satisfiedBy",
+      "to": "FUN-mrr-014"
+    },
+    {
+      "from": "FUN-mrr-014",
+      "rel": "realizedBy",
+      "to": "UC-mrr-020"
+    },
+    {
+      "from": "FUN-mrr-014",
+      "rel": "realizedBy",
+      "to": "UC-mrr-021"
+    },
+    {
+      "from": "FUN-mrr-014",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-076"
+    },
+    {
+      "from": "FUN-mrr-014",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-081"
+    },
+    {
+      "from": "FUN-mrr-014",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-082"
+    },
+    {
+      "from": "FUN-mrr-014",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-083"
+    },
+    {
+      "from": "FUN-mrr-014",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-084"
+    },
+    {
+      "from": "FUN-mrr-014",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-085"
+    },
+    {
+      "from": "FUN-mrr-014",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-086"
+    },
+    {
+      "from": "FUN-mrr-014",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-087"
+    },
+    {
+      "from": "FUN-mrr-014",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-088"
+    },
+    {
+      "from": "FUN-mrr-014",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-089"
+    },
+    {
+      "from": "FUN-mrr-014",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-090"
+    },
+    {
+      "from": "UI-mrr-001",
+      "rel": "governedByAcl",
+      "to": "ACL-033"
+    },
+    {
+      "from": "UI-mrr-002",
+      "rel": "governedByAcl",
+      "to": "ACL-034"
+    },
+    {
+      "from": "UC-mrr-020",
+      "rel": "governedByAcl",
+      "to": "ACL-035"
+    },
+    {
+      "from": "UC-mrr-021",
+      "rel": "governedByAcl",
+      "to": "ACL-036"
+    },
+    {
+      "from": "FUN-mrr-014",
+      "rel": "displayedOn",
+      "to": "UI-mrr-001"
+    },
+    {
+      "from": "FUN-mrr-014",
+      "rel": "displayedOn",
+      "to": "UI-mrr-002"
+    },
+    {
+      "from": "FUN-mrr-014",
+      "rel": "displayedOn",
+      "to": "UI-mrr-003"
+    },
+    {
+      "from": "FUN-mrr-014",
+      "rel": "exposedAs",
+      "to": "API-031"
+    },
+    {
+      "from": "FUN-mrr-014",
+      "rel": "exposedAs",
+      "to": "API-032"
+    },
+    {
+      "from": "FUN-mrr-014",
+      "rel": "exposedAs",
+      "to": "API-033"
+    },
+    {
+      "from": "FUN-mrr-014",
+      "rel": "exposedAs",
+      "to": "API-034"
+    },
+    {
+      "from": "UI-mrr-001",
+      "rel": "calls",
+      "to": "API-031"
+    },
+    {
+      "from": "UI-mrr-002",
+      "rel": "calls",
+      "to": "API-032"
+    },
+    {
+      "from": "UI-mrr-002",
+      "rel": "calls",
+      "to": "API-031"
+    },
+    {
+      "from": "UI-mrr-003",
+      "rel": "calls",
+      "to": "API-034"
+    },
+    {
+      "from": "API-031",
+      "rel": "integratesWith",
+      "to": "INT-001"
+    },
+    {
+      "from": "API-001",
+      "rel": "governedByAcl",
+      "to": "ACL-001"
+    },
+    {
+      "from": "API-002",
+      "rel": "governedByAcl",
+      "to": "ACL-001"
+    },
+    {
+      "from": "API-003",
+      "rel": "governedByAcl",
+      "to": "ACL-002"
+    },
+    {
+      "from": "API-003",
+      "rel": "governedByAcl",
+      "to": "ACL-003"
+    },
+    {
+      "from": "API-004",
+      "rel": "governedByAcl",
+      "to": "ACL-004"
+    },
+    {
+      "from": "API-005",
+      "rel": "governedByAcl",
+      "to": "ACL-004"
+    },
+    {
+      "from": "API-005",
+      "rel": "governedByAcl",
+      "to": "ACL-005"
+    },
+    {
+      "from": "API-005",
+      "rel": "governedByAcl",
+      "to": "ACL-014"
+    },
+    {
+      "from": "API-006",
+      "rel": "governedByAcl",
+      "to": "ACL-007"
+    },
+    {
+      "from": "API-007",
+      "rel": "governedByAcl",
+      "to": "ACL-007"
+    },
+    {
+      "from": "API-007",
+      "rel": "governedByAcl",
+      "to": "ACL-013"
+    },
+    {
+      "from": "API-007",
+      "rel": "governedByAcl",
+      "to": "ACL-018"
+    },
+    {
+      "from": "API-008",
+      "rel": "governedByAcl",
+      "to": "ACL-005"
+    },
+    {
+      "from": "API-009",
+      "rel": "governedByAcl",
+      "to": "ACL-006"
+    },
+    {
+      "from": "API-010",
+      "rel": "governedByAcl",
+      "to": "ACL-008"
+    },
+    {
+      "from": "API-011",
+      "rel": "governedByAcl",
+      "to": "ACL-008"
+    },
+    {
+      "from": "API-012",
+      "rel": "governedByAcl",
+      "to": "ACL-008"
+    },
+    {
+      "from": "API-013",
+      "rel": "governedByAcl",
+      "to": "ACL-009"
+    },
+    {
+      "from": "API-014",
+      "rel": "governedByAcl",
+      "to": "ACL-010"
+    },
+    {
+      "from": "API-014",
+      "rel": "governedByAcl",
+      "to": "ACL-011"
+    },
+    {
+      "from": "API-015",
+      "rel": "governedByAcl",
+      "to": "ACL-010"
+    },
+    {
+      "from": "API-016",
+      "rel": "governedByAcl",
+      "to": "ACL-013"
+    },
+    {
+      "from": "API-016",
+      "rel": "governedByAcl",
+      "to": "ACL-018"
+    },
+    {
+      "from": "API-017",
+      "rel": "governedByAcl",
+      "to": "ACL-012"
+    },
+    {
+      "from": "API-018",
+      "rel": "governedByAcl",
+      "to": "ACL-012"
+    },
+    {
+      "from": "API-019",
+      "rel": "governedByAcl",
+      "to": "ACL-012"
+    },
+    {
+      "from": "API-020",
+      "rel": "governedByAcl",
+      "to": "ACL-014"
+    },
+    {
+      "from": "API-021",
+      "rel": "governedByAcl",
+      "to": "ACL-014"
+    },
+    {
+      "from": "API-022",
+      "rel": "governedByAcl",
+      "to": "ACL-014"
+    },
+    {
+      "from": "API-023",
+      "rel": "governedByAcl",
+      "to": "ACL-014"
+    },
+    {
+      "from": "API-024",
+      "rel": "governedByAcl",
+      "to": "ACL-015"
+    },
+    {
+      "from": "API-025",
+      "rel": "governedByAcl",
+      "to": "ACL-016"
+    },
+    {
+      "from": "API-026",
+      "rel": "governedByAcl",
+      "to": "ACL-031"
+    },
+    {
+      "from": "API-027",
+      "rel": "governedByAcl",
+      "to": "ACL-031"
+    },
+    {
+      "from": "API-028",
+      "rel": "governedByAcl",
+      "to": "ACL-017"
+    },
+    {
+      "from": "API-029",
+      "rel": "governedByAcl",
+      "to": "ACL-017"
+    },
+    {
+      "from": "API-030",
+      "rel": "governedByAcl",
+      "to": "ACL-017"
+    },
+    {
+      "from": "API-031",
+      "rel": "governedByAcl",
+      "to": "ACL-033"
+    },
+    {
+      "from": "API-031",
+      "rel": "governedByAcl",
+      "to": "ACL-035"
+    },
+    {
+      "from": "API-032",
+      "rel": "governedByAcl",
+      "to": "ACL-034"
+    },
+    {
+      "from": "API-032",
+      "rel": "governedByAcl",
+      "to": "ACL-035"
+    },
+    {
+      "from": "API-033",
+      "rel": "governedByAcl",
+      "to": "ACL-035"
+    },
+    {
+      "from": "API-034",
+      "rel": "governedByAcl",
+      "to": "ACL-036"
+    }
+  ]
+}

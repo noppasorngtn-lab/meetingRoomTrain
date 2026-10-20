@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "1.1",
+  "producedBy": "mock · scripts/theme.mjs",
+  "project": "mrr",
+  "decisions": [
+    {
+      "question": "source",
+      "answer": "prompt",
+      "decidedBy": "Noppasorn",
+      "decidedAt": "2026-10-19T09:31:31Z"
+    },
+    {
+      "question": "source",
+      "answer": "handoff",
+      "ref": ".aeon/mockup/handoff/mrr-ds",
+      "decidedBy": "Noppasorn",
+      "decidedAt": "2026-10-19T11:00:18Z",
+      "because": "export จาก Design System artifact mrr (https://claude.ai/artifact/1h2MhsFVaXM81AKTsnrYXW) ที่สร้างจาก theme brief ของโปรเจกต์นี้ · components.json เขียนโดย Noppasorn"
+    }
+  ],
+  "extensions": {}
+}

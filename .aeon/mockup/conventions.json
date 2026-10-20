@@ -1,0 +1,191 @@
+{
+  "schemaVersion": "1.4",
+  "producedBy": "mock · scripts/conventions.mjs",
+  "project": "mrr",
+  "kinds": [
+    "view",
+    "create",
+    "edit",
+    "delete",
+    "manage",
+    "filter",
+    "command",
+    "navigate",
+    "export",
+    "other"
+  ],
+  "catalogue": [
+    {
+      "id": "UIC-001",
+      "appliesTo": {
+        "kinds": [
+          "view",
+          "edit",
+          "delete",
+          "manage",
+          "command"
+        ],
+        "screens": "every",
+        "text": "ทุกหน้าที่แสดงเป็นรายการแถว — ปุ่มประจำแถวทุกปุ่ม (ชนิด view · edit · delete · manage · command — ชนิดเป็นของ design ตั้งแต่ประตู 35)"
+      },
+      "rule": "ปุ่มประจำแถวอยู่คอลัมน์แรกของแถว เรียงลำดับตายตัว: view · edit · delete · manage · command",
+      "readsField": "actions[] of screens.json, through the kind map (specification 7.4)",
+      "prevents": "the same row actions landing in a different column on every screen, so a user re-learns each list",
+      "decides": {
+        "placement": "first-column",
+        "order": [
+          "view",
+          "edit",
+          "delete",
+          "manage",
+          "command"
+        ]
+      },
+      "confirmedBy": "Noppasorn",
+      "confirmedAt": "2026-10-19T08:38:27Z",
+      "supersededBy": null,
+      "origin": {
+        "kind": "template",
+        "ref": "plugins/mock/assets/conventions.seed.json",
+        "pluginVersion": "0.3.0",
+        "importedAt": "2026-10-19T08:30:16Z"
+      }
+    },
+    {
+      "id": "UIC-002",
+      "appliesTo": {
+        "kinds": [
+          "view",
+          "edit",
+          "delete",
+          "manage",
+          "command"
+        ],
+        "screens": "every",
+        "text": "ปุ่มประจำแถวทุกปุ่ม"
+      },
+      "rule": "แสดงเป็นปุ่มตัวหนังสือ ไม่ใช่ไอคอน ใช้ชื่อ action ที่ design ประกาศไว้ใน actions[].name เป็นข้อความบนปุ่มและเป็นชื่อสำหรับ screen reader — ตาม design system mrr ที่กำหนดว่าปุ่มทุกปุ่มต้องมีข้อความ ไม่มีปุ่มไอคอนอย่างเดียว",
+      "readsField": "actions[].name",
+      "prevents": "an icon with no accessible name (MV15), and a label invented by the renderer that disagrees with the declared name",
+      "decides": {
+        "presentation": "text",
+        "accessibleName": "declared-name"
+      },
+      "confirmedBy": "Noppasorn",
+      "confirmedAt": "2026-10-19T11:10:00Z",
+      "supersededBy": null,
+      "boundary": "WHAT affordance appears is structure and may sit in a wireframe (an icon button, first column); HOW it looks — which glyph, which colour, how many pixels — is theme and may not (specification 7.3, the MV1 line)",
+      "origin": {
+        "kind": "template",
+        "ref": "plugins/mock/assets/conventions.seed.json",
+        "pluginVersion": "0.3.0",
+        "importedAt": "2026-10-19T08:30:16Z"
+      }
+    },
+    {
+      "id": "UIC-003",
+      "appliesTo": {
+        "kinds": [
+          "view"
+        ],
+        "screens": "every",
+        "text": "ปุ่มประจำแถวชนิด view"
+      },
+      "rule": "เปิดเป็น modal ทับรายการ ไม่พาไปหน้ารายละเอียดแยก",
+      "readsField": "actions[].destination",
+      "prevents": "losing the list position on every detail view",
+      "decides": {
+        "container": "modal"
+      },
+      "confirmedBy": "Noppasorn",
+      "confirmedAt": "2026-10-19T08:38:27Z",
+      "supersededBy": null,
+      "conflictsWith": "a declared destination of the form UI-/RPT- — reported, never applied silently; the kind-map row records the convention under notApplied and the route stays (MV14 · specification 7.5 item 1)",
+      "origin": {
+        "kind": "template",
+        "ref": "plugins/mock/assets/conventions.seed.json",
+        "pluginVersion": "0.3.0",
+        "importedAt": "2026-10-19T08:30:16Z"
+      }
+    }
+  ],
+  "kindMap": [],
+  "fieldMap": [
+    {
+      "screen": "UI-mrr-001",
+      "name": "Email องค์กร",
+      "slug": "org-email",
+      "confirmedBy": "Noppasorn",
+      "confirmedAt": "2026-10-19T08:38:27Z"
+    },
+    {
+      "screen": "UI-mrr-002",
+      "name": "Email ที่ขอรหัส",
+      "slug": "requested-email",
+      "confirmedBy": "Noppasorn",
+      "confirmedAt": "2026-10-19T08:38:27Z"
+    },
+    {
+      "screen": "UI-mrr-002",
+      "name": "รหัส OTP",
+      "slug": "otp-code",
+      "confirmedBy": "Noppasorn",
+      "confirmedAt": "2026-10-19T08:38:27Z"
+    },
+    {
+      "screen": "UI-mrr-003",
+      "name": "ข้อความยืนยัน",
+      "slug": "confirmation-message",
+      "confirmedBy": "Noppasorn",
+      "confirmedAt": "2026-10-19T08:38:27Z"
+    },
+    {
+      "screen": "UI-mrr-004",
+      "name": "วันที่",
+      "slug": "search-date",
+      "confirmedBy": "Noppasorn",
+      "confirmedAt": "2026-10-19T08:38:27Z"
+    },
+    {
+      "screen": "UI-mrr-004",
+      "name": "เวลาเริ่ม",
+      "slug": "search-start-time",
+      "confirmedBy": "Noppasorn",
+      "confirmedAt": "2026-10-19T08:38:27Z"
+    },
+    {
+      "screen": "UI-mrr-004",
+      "name": "เวลาสิ้นสุด",
+      "slug": "search-end-time",
+      "confirmedBy": "Noppasorn",
+      "confirmedAt": "2026-10-19T08:38:27Z"
+    },
+    {
+      "screen": "UI-mrr-004",
+      "name": "จำนวนผู้เข้าร่วม",
+      "slug": "attendee-count",
+      "confirmedBy": "Noppasorn",
+      "confirmedAt": "2026-10-19T08:38:27Z"
+    },
+    {
+      "screen": "UI-mrr-005",
+      "name": "มุมมอง",
+      "slug": "calendar-view",
+      "confirmedBy": "Noppasorn",
+      "confirmedAt": "2026-10-19T08:38:27Z"
+    }
+  ],
+  "screenOptions": [],
+  "extensions": {},
+  "shell": {
+    "productName": "ระบบจองห้องประชุม",
+    "confirmedBy": "Noppasorn",
+    "confirmedAt": "2026-10-19T08:38:27Z",
+    "apps": {
+      "frontend-web": {
+        "form": "web",
+        "confirmedBy": "Noppasorn"
+      }
+    }
+  }
+}

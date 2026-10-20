@@ -1,0 +1,2274 @@
+{
+  "meta": {
+    "module": "mrr",
+    "schema_version": "0.3.0"
+  },
+  "stack": {
+    "apps": [
+      {
+        "name": "frontend-web",
+        "framework": "react",
+        "path": "apps/web",
+        "skill": "frontend-design",
+        "dockerfile": "apps/web/Dockerfile",
+        "source": "asked",
+        "dec_ref": "DEC-002",
+        "decided_by": "Noppasorn",
+        "decided_at": "2026-10-20"
+      },
+      {
+        "name": "api",
+        "framework": "nestjs",
+        "path": "apps/api",
+        "skill": "mattpocock-skills:tdd",
+        "dockerfile": "apps/api/Dockerfile",
+        "source": "asked",
+        "dec_ref": "DEC-002",
+        "decided_by": "Noppasorn",
+        "decided_at": "2026-10-20"
+      }
+    ],
+    "tools": [
+      {
+        "name": "smtp",
+        "purpose_th": "ส่ง Email รหัสเข้าสู่ระบบและการแจ้งเตือนตาม INT-001 · ไม่มีคิวส่งซ้ำ (BR-mrr-019) · DEC-005 ยังไม่ได้ตัดสินว่า SMTP ขององค์กรหรือบริการภายนอก",
+        "required": true,
+        "source": "asked",
+        "decided_by": "Noppasorn",
+        "decided_at": "2026-10-20"
+      },
+      {
+        "name": "mailpit",
+        "purpose_th": "mail server จำลองใน docker-compose ไว้ดู Email ตอนพัฒนาเท่านั้น",
+        "required": false,
+        "source": "asked",
+        "decided_by": "Noppasorn",
+        "decided_at": "2026-10-20"
+      }
+    ],
+    "server": {
+      "name": "On-premise ขององค์กร",
+      "source": "design-decision",
+      "dec_ref": "DEC-004",
+      "decided_by": null,
+      "decided_at": null
+    },
+    "database": {
+      "kind": "postgresql",
+      "source": "design-decision",
+      "dec_ref": "DEC-003",
+      "decided_by": null,
+      "decided_at": null
+    }
+  },
+  "structure": {
+    "apps": [
+      {
+        "app_ref": "api",
+        "root": "apps/api",
+        "layers": [
+          {
+            "name": "common",
+            "path": "src/common",
+            "depends": []
+          },
+          {
+            "name": "modules",
+            "path": "src/modules",
+            "depends": [
+              "common"
+            ]
+          },
+          {
+            "name": "bootstrap-main",
+            "path": "src/main.ts",
+            "depends": [
+              "bootstrap-app-module"
+            ]
+          },
+          {
+            "name": "bootstrap-app-module",
+            "path": "src/app.module.ts",
+            "depends": [
+              "modules",
+              "common"
+            ]
+          },
+          {
+            "name": "config-package",
+            "path": "package.json",
+            "depends": []
+          },
+          {
+            "name": "config-tsconfig",
+            "path": "tsconfig.json",
+            "depends": []
+          },
+          {
+            "name": "config-tsconfig-build",
+            "path": "tsconfig.build.json",
+            "depends": []
+          },
+          {
+            "name": "config-nest-cli",
+            "path": "nest-cli.json",
+            "depends": []
+          },
+          {
+            "name": "config-jest",
+            "path": "jest.config.js",
+            "depends": []
+          }
+        ],
+        "tests": "test"
+      },
+      {
+        "app_ref": "frontend-web",
+        "root": "apps/web",
+        "layers": [
+          {
+            "name": "shared",
+            "path": "src/shared",
+            "depends": []
+          },
+          {
+            "name": "features",
+            "path": "src/features",
+            "depends": [
+              "shared"
+            ]
+          },
+          {
+            "name": "bootstrap-main",
+            "path": "src/main.tsx",
+            "depends": [
+              "bootstrap-app"
+            ]
+          },
+          {
+            "name": "bootstrap-app",
+            "path": "src/App.tsx",
+            "depends": [
+              "features",
+              "shared"
+            ]
+          },
+          {
+            "name": "config-index",
+            "path": "index.html",
+            "depends": []
+          },
+          {
+            "name": "config-package",
+            "path": "package.json",
+            "depends": []
+          },
+          {
+            "name": "config-tsconfig",
+            "path": "tsconfig.json",
+            "depends": []
+          },
+          {
+            "name": "config-vite",
+            "path": "vite.config.ts",
+            "depends": []
+          }
+        ],
+        "tests": "src/__tests__"
+      }
+    ],
+    "scripts": {
+      "init": "scripts/dev-init.ps1",
+      "test": "scripts/dev-test.ps1",
+      "build": "scripts/dev-build.ps1"
+    },
+    "docker": {
+      "compose": "docker/docker-compose.yml",
+      "reason_th": null
+    },
+    "shared": "packages/shared"
+  },
+  "features": [
+    {
+      "id": "FE-mrr-022",
+      "title_th": "เปลือกของแอป frontend-web — แถบบน เมนู และกรอบที่ทุกหน้าถูกวาดข้างใน",
+      "app_ref": "frontend-web",
+      "type": "shell",
+      "origin": "new",
+      "files_planned": [],
+      "depends_on": [],
+      "acceptance_refs": [],
+      "traces_up": [
+        {
+          "ref": "RPT-mrr-001",
+          "hash": "sha256:181579287c32cd6a9de1be174d7eb980b3ea0281aa264db75cad1b3ae3037c13"
+        },
+        {
+          "ref": "UI-mrr-001",
+          "hash": "sha256:771ebf5f42150129e807602f3cbb12445693d915a056b3789b8b11ac8178fc63"
+        },
+        {
+          "ref": "UI-mrr-002",
+          "hash": "sha256:4fd92c33bcb1f80bbc1a268a52fc004e5811e0868ff259098a64a6f84b673ec5"
+        },
+        {
+          "ref": "UI-mrr-003",
+          "hash": "sha256:deae537ce8a634291fb56e034f19cc54719826f96ae53812dae81c35c1fd1514"
+        },
+        {
+          "ref": "UI-mrr-004",
+          "hash": "sha256:24b467f9af188528283c60f28ebdfe01977e3c07df7a6cc70bbb23f78f4dd5e3"
+        },
+        {
+          "ref": "UI-mrr-005",
+          "hash": "sha256:6e375cb534e19e35445f100b283d9f450b47a0c9b9ef661fa38e9c2a5b445f64"
+        },
+        {
+          "ref": "UI-mrr-006",
+          "hash": "sha256:666080555c819182a9aa333a938293235b1547c32df616c837963f4576c713b3"
+        },
+        {
+          "ref": "UI-mrr-007",
+          "hash": "sha256:f51d2d53df35887e09c6bff19de0c1d0e556745ff44c4000991661a21e9fb1ed"
+        },
+        {
+          "ref": "UI-mrr-008",
+          "hash": "sha256:20d13d45f2f748b151ef791f21938437f90735adaa76ac0f71f0c050c938aef2"
+        },
+        {
+          "ref": "UI-mrr-009",
+          "hash": "sha256:6446f319b837c86604116b51ad046409f8a7b921566cbc2b2d3a027a5d105545"
+        },
+        {
+          "ref": "UI-mrr-010",
+          "hash": "sha256:5b8247cfc668ae8b94235f1ac30b9e6a1e28134765c25ad40b9672d89aa859a0"
+        },
+        {
+          "ref": "UI-mrr-011",
+          "hash": "sha256:b35f3143833f2b04d2d4383de9cd4a86dfb56d3426990834378b721a6dfdfe2f"
+        },
+        {
+          "ref": "UI-mrr-012",
+          "hash": "sha256:1aa4200e6ea7d449401b576f15fa3064fdf11b22cb58fe1d3c135ee328141366"
+        },
+        {
+          "ref": "UI-mrr-013",
+          "hash": "sha256:f48e0d2d4552aba34378b3c0375b96257ef7c1ff31c4c16dc6f599343f715793"
+        },
+        {
+          "ref": "UI-mrr-014",
+          "hash": "sha256:e354510bf33050a0f8234a81049c10d3793fb20c859d085de473c38d10c262cc"
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "FE-mrr-023",
+      "title_th": "ดูปฏิทินการใช้ห้อง — ฝั่ง API",
+      "app_ref": "api",
+      "type": "command",
+      "origin": "new",
+      "files_planned": [],
+      "depends_on": [],
+      "acceptance_refs": [
+        "AC-mrr-066",
+        "AC-mrr-067",
+        "AC-mrr-068",
+        "AC-mrr-069"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-002",
+          "hash": "sha256:34c9a994c42c2d36a2f2bfa7e4e3f76dbd16ca95c23b358dffbab2c5fe60fa10"
+        },
+        {
+          "ref": "AC-mrr-066",
+          "hash": "sha256:ccc839258de03da2f4076f15cfbf18672df168c87964aafd30fe1dc533fe71d5"
+        },
+        {
+          "ref": "AC-mrr-067",
+          "hash": "sha256:2a7b0735001ffc08d141233c3cbe025edca08723c66d05da83d6df26d10a09ec"
+        },
+        {
+          "ref": "AC-mrr-068",
+          "hash": "sha256:f1b8a816f415bdf935695aaad57133bde34db0dbfc858de6d96f049241920dff"
+        },
+        {
+          "ref": "AC-mrr-069",
+          "hash": "sha256:9f1021fe42fc46de5cf29882701a655eafe68540f002dde62d673c6d75580a89"
+        },
+        {
+          "ref": "API-003",
+          "hash": "sha256:05a438870ea3467068e8c95c04ea47fe56e0e5b8f7f90deb6b59f3d8a066ca9c"
+        },
+        {
+          "ref": "ENT-002",
+          "hash": "sha256:e70f20e6913f4a75f3388af299050d129f93fe894875b5a287874cf578477dfd"
+        },
+        {
+          "ref": "ENT-007",
+          "hash": "sha256:70b3048818d8c6af914931bd01d0fd6ee3282caa12fe7ae99691ab7addcfd0d8"
+        },
+        {
+          "ref": "ENT-008",
+          "hash": "sha256:1737121b862ffa8d357e0a875f395845189f339686edb666884fe6df716b7626"
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "FE-mrr-002",
+      "title_th": "ดูปฏิทินการใช้ห้อง — หน้าจอ",
+      "app_ref": "frontend-web",
+      "type": "command",
+      "origin": "new",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-022",
+        "FE-mrr-023"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-066",
+        "AC-mrr-067",
+        "AC-mrr-068",
+        "AC-mrr-069"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-002",
+          "hash": "sha256:34c9a994c42c2d36a2f2bfa7e4e3f76dbd16ca95c23b358dffbab2c5fe60fa10"
+        },
+        {
+          "ref": "AC-mrr-066",
+          "hash": "sha256:ccc839258de03da2f4076f15cfbf18672df168c87964aafd30fe1dc533fe71d5"
+        },
+        {
+          "ref": "AC-mrr-067",
+          "hash": "sha256:2a7b0735001ffc08d141233c3cbe025edca08723c66d05da83d6df26d10a09ec"
+        },
+        {
+          "ref": "AC-mrr-068",
+          "hash": "sha256:f1b8a816f415bdf935695aaad57133bde34db0dbfc858de6d96f049241920dff"
+        },
+        {
+          "ref": "AC-mrr-069",
+          "hash": "sha256:9f1021fe42fc46de5cf29882701a655eafe68540f002dde62d673c6d75580a89"
+        },
+        {
+          "ref": "UI-mrr-005",
+          "hash": "sha256:6e375cb534e19e35445f100b283d9f450b47a0c9b9ef661fa38e9c2a5b445f64"
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "FE-mrr-024",
+      "title_th": "จองห้องประชุม — ฝั่ง API",
+      "app_ref": "api",
+      "type": "command",
+      "origin": "new",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-017"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-001",
+        "AC-mrr-002",
+        "AC-mrr-003",
+        "AC-mrr-004",
+        "AC-mrr-005",
+        "AC-mrr-006",
+        "AC-mrr-007",
+        "AC-mrr-012",
+        "AC-mrr-019",
+        "AC-mrr-024",
+        "AC-mrr-030",
+        "AC-mrr-031",
+        "AC-mrr-032",
+        "AC-mrr-060",
+        "AC-mrr-079",
+        "AC-mrr-081"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-003",
+          "hash": "sha256:203d58ad3e1cad8cbb63d9506407770cc48965ea3577fd2e51e4b818183a17c5"
+        },
+        {
+          "ref": "AC-mrr-001",
+          "hash": "sha256:5c74c65c0c77dfa50beddf627d2cce5e1921ff82173df3bb7d535d1607650d42"
+        },
+        {
+          "ref": "AC-mrr-002",
+          "hash": "sha256:257f201ca9ae7aa2c267bfe83ee24768e766bcc1f81f169ee3a6281a8d5da10a"
+        },
+        {
+          "ref": "AC-mrr-003",
+          "hash": "sha256:c3a98bcc62f2e7850742a71a8b3cf15824469cdac15fbc1ac6786a5a23278c96"
+        },
+        {
+          "ref": "AC-mrr-004",
+          "hash": "sha256:24a10350bb939827e3835c093c579ebd0cb7e7ef54fa494683671bd09facb183"
+        },
+        {
+          "ref": "AC-mrr-005",
+          "hash": "sha256:520d772f18de2545143571da27940b7aad698b6b58614b1cd6ee80fe814dc5eb"
+        },
+        {
+          "ref": "AC-mrr-006",
+          "hash": "sha256:e70239633cf8bdbd36f53ef33fd599d1803453b215ae51395ce8fbc22a83a902"
+        },
+        {
+          "ref": "AC-mrr-007",
+          "hash": "sha256:ce62acdcf8261d506a0d4ce24c98bf449d5f0504ba63c823c5efeb60556d0213"
+        },
+        {
+          "ref": "AC-mrr-012",
+          "hash": "sha256:98cd948578fed433e291b47ab8ffae2626c8a9a66ede0375e5f4af77b7d7563e"
+        },
+        {
+          "ref": "AC-mrr-019",
+          "hash": "sha256:a4f1199ac980be8d6c50d9f1068603b446298483a1dc983ab88504bb51c9d4d5"
+        },
+        {
+          "ref": "AC-mrr-024",
+          "hash": "sha256:323bebbc606673745783a5aa681cea30fcc56ce3f7b03b2aae7a5081b472eb09"
+        },
+        {
+          "ref": "AC-mrr-030",
+          "hash": "sha256:af86452b443cc3b7972fb301ddaaff458be55e5ac063bbb5492dea4e1c2eb9dd"
+        },
+        {
+          "ref": "AC-mrr-031",
+          "hash": "sha256:0fc21c0a6cf13f3d6b83807b815f33479ef42354243a93b0e6bf2a9a8eece787"
+        },
+        {
+          "ref": "AC-mrr-032",
+          "hash": "sha256:9a65993ff07e39661ed55c4b5f9d3ceae9aae93c9a32bce807f28886c87f846c"
+        },
+        {
+          "ref": "AC-mrr-060",
+          "hash": "sha256:2cc93640a52c5ad7a89e1fd5b00d8662d866e8e5be668a4e5c0bceac3ebb6b69"
+        },
+        {
+          "ref": "AC-mrr-079",
+          "hash": "sha256:847220b52dd390c025d408d7d9cd037dfb25d86d3f76103d1f54622576a832b0"
+        },
+        {
+          "ref": "AC-mrr-081",
+          "hash": "sha256:12179a186c57d8539bd3545aa8a3230f6e55d0e985ede1cc10c12e5d4d27deb4"
+        },
+        {
+          "ref": "API-004",
+          "hash": "sha256:e290d3141042b83e947d5d920724c255deb47da5b5d43d5f7fe9431938e34f3b"
+        },
+        {
+          "ref": "API-005",
+          "hash": "sha256:20c1bc6c68f26b5fdd43cbc1c16cf3d7123149a4fcbefa67781481ed9af08acd"
+        },
+        {
+          "ref": "ENT-001",
+          "hash": "sha256:2af3a4598600d7da810914e67bbc95292b60dec51e87fa1f16eebcef683dfa50"
+        },
+        {
+          "ref": "ENT-002",
+          "hash": "sha256:e70f20e6913f4a75f3388af299050d129f93fe894875b5a287874cf578477dfd"
+        },
+        {
+          "ref": "ENT-003",
+          "hash": "sha256:ea397c049aa7a429f1387b49238767b1607ffe0d499a16663a9d9d9c58d199e0"
+        },
+        {
+          "ref": "ENT-007",
+          "hash": "sha256:70b3048818d8c6af914931bd01d0fd6ee3282caa12fe7ae99691ab7addcfd0d8"
+        },
+        {
+          "ref": "ENT-008",
+          "hash": "sha256:1737121b862ffa8d357e0a875f395845189f339686edb666884fe6df716b7626"
+        },
+        {
+          "ref": "ENT-009",
+          "hash": "sha256:e4c2b782191387811667cd63d97ed3263b975adc687ef4d19c307ac59ec6be01"
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "FE-mrr-003",
+      "title_th": "จองห้องประชุม — หน้าจอ",
+      "app_ref": "frontend-web",
+      "type": "command",
+      "origin": "new",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-022",
+        "FE-mrr-024"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-001",
+        "AC-mrr-002",
+        "AC-mrr-003",
+        "AC-mrr-004",
+        "AC-mrr-005",
+        "AC-mrr-006",
+        "AC-mrr-007",
+        "AC-mrr-012",
+        "AC-mrr-019",
+        "AC-mrr-024",
+        "AC-mrr-030",
+        "AC-mrr-031",
+        "AC-mrr-032",
+        "AC-mrr-060",
+        "AC-mrr-079",
+        "AC-mrr-081"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-003",
+          "hash": "sha256:203d58ad3e1cad8cbb63d9506407770cc48965ea3577fd2e51e4b818183a17c5"
+        },
+        {
+          "ref": "AC-mrr-001",
+          "hash": "sha256:5c74c65c0c77dfa50beddf627d2cce5e1921ff82173df3bb7d535d1607650d42"
+        },
+        {
+          "ref": "AC-mrr-002",
+          "hash": "sha256:257f201ca9ae7aa2c267bfe83ee24768e766bcc1f81f169ee3a6281a8d5da10a"
+        },
+        {
+          "ref": "AC-mrr-003",
+          "hash": "sha256:c3a98bcc62f2e7850742a71a8b3cf15824469cdac15fbc1ac6786a5a23278c96"
+        },
+        {
+          "ref": "AC-mrr-004",
+          "hash": "sha256:24a10350bb939827e3835c093c579ebd0cb7e7ef54fa494683671bd09facb183"
+        },
+        {
+          "ref": "AC-mrr-005",
+          "hash": "sha256:520d772f18de2545143571da27940b7aad698b6b58614b1cd6ee80fe814dc5eb"
+        },
+        {
+          "ref": "AC-mrr-006",
+          "hash": "sha256:e70239633cf8bdbd36f53ef33fd599d1803453b215ae51395ce8fbc22a83a902"
+        },
+        {
+          "ref": "AC-mrr-007",
+          "hash": "sha256:ce62acdcf8261d506a0d4ce24c98bf449d5f0504ba63c823c5efeb60556d0213"
+        },
+        {
+          "ref": "AC-mrr-012",
+          "hash": "sha256:98cd948578fed433e291b47ab8ffae2626c8a9a66ede0375e5f4af77b7d7563e"
+        },
+        {
+          "ref": "AC-mrr-019",
+          "hash": "sha256:a4f1199ac980be8d6c50d9f1068603b446298483a1dc983ab88504bb51c9d4d5"
+        },
+        {
+          "ref": "AC-mrr-024",
+          "hash": "sha256:323bebbc606673745783a5aa681cea30fcc56ce3f7b03b2aae7a5081b472eb09"
+        },
+        {
+          "ref": "AC-mrr-030",
+          "hash": "sha256:af86452b443cc3b7972fb301ddaaff458be55e5ac063bbb5492dea4e1c2eb9dd"
+        },
+        {
+          "ref": "AC-mrr-031",
+          "hash": "sha256:0fc21c0a6cf13f3d6b83807b815f33479ef42354243a93b0e6bf2a9a8eece787"
+        },
+        {
+          "ref": "AC-mrr-032",
+          "hash": "sha256:9a65993ff07e39661ed55c4b5f9d3ceae9aae93c9a32bce807f28886c87f846c"
+        },
+        {
+          "ref": "AC-mrr-060",
+          "hash": "sha256:2cc93640a52c5ad7a89e1fd5b00d8662d866e8e5be668a4e5c0bceac3ebb6b69"
+        },
+        {
+          "ref": "AC-mrr-079",
+          "hash": "sha256:847220b52dd390c025d408d7d9cd037dfb25d86d3f76103d1f54622576a832b0"
+        },
+        {
+          "ref": "AC-mrr-081",
+          "hash": "sha256:12179a186c57d8539bd3545aa8a3230f6e55d0e985ede1cc10c12e5d4d27deb4"
+        },
+        {
+          "ref": "UI-mrr-006",
+          "hash": "sha256:666080555c819182a9aa333a938293235b1547c32df616c837963f4576c713b3"
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "FE-mrr-025",
+      "title_th": "แก้ไขการจองของตนเอง — ฝั่ง API",
+      "app_ref": "api",
+      "type": "command",
+      "origin": "new",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-017"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-008",
+        "AC-mrr-021",
+        "AC-mrr-022",
+        "AC-mrr-061",
+        "AC-mrr-063",
+        "AC-mrr-080"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-004",
+          "hash": "sha256:1e77e95f4c99de2278dc388ddebc3f8a05c8a4a8920d710626f47202ed2204f0"
+        },
+        {
+          "ref": "AC-mrr-008",
+          "hash": "sha256:40338b3ca6ed86f32163567bbf164ceff3660f0b04716633fafd9d7b0ef38eb1"
+        },
+        {
+          "ref": "AC-mrr-021",
+          "hash": "sha256:ecc1f3687efce668a9c2ba4794e26f3f7023d274c064dc845ce877cb41fe2e13"
+        },
+        {
+          "ref": "AC-mrr-022",
+          "hash": "sha256:f881013eef4cfd5baf9849f03a32cccf62fff94382ba3ef602d64da46cf16940"
+        },
+        {
+          "ref": "AC-mrr-061",
+          "hash": "sha256:bdc64fb0b5de062fb0414c64f681ad4486594c169c6a9fc21f6d905b3bc9d912"
+        },
+        {
+          "ref": "AC-mrr-063",
+          "hash": "sha256:f404d68e09c37ab7c53e109af5702505146a89c2e6fa795508317f2ab066091a"
+        },
+        {
+          "ref": "AC-mrr-080",
+          "hash": "sha256:521edf84588bdf652ab6148241fe0dfdc506ec8ef2e2c2c6b7236a4a3a2955bf"
+        },
+        {
+          "ref": "API-007",
+          "hash": "sha256:b12131b8440e0ca52069b0c46a1ffcddce2d8e4ee0c7b86a519ffbce79a15725"
+        },
+        {
+          "ref": "API-008",
+          "hash": "sha256:b074b987b1b2f8c2d8ce7d8e6916b2daa283c6189a27c924fc89aa2deb1c3763"
+        },
+        {
+          "ref": "ENT-007",
+          "hash": "sha256:70b3048818d8c6af914931bd01d0fd6ee3282caa12fe7ae99691ab7addcfd0d8"
+        },
+        {
+          "ref": "ENT-008",
+          "hash": "sha256:1737121b862ffa8d357e0a875f395845189f339686edb666884fe6df716b7626"
+        },
+        {
+          "ref": "ENT-009",
+          "hash": "sha256:e4c2b782191387811667cd63d97ed3263b975adc687ef4d19c307ac59ec6be01"
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "FE-mrr-004",
+      "title_th": "แก้ไขการจองของตนเอง — หน้าจอ",
+      "app_ref": "frontend-web",
+      "type": "command",
+      "origin": "new",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-022",
+        "FE-mrr-025"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-008",
+        "AC-mrr-021",
+        "AC-mrr-022",
+        "AC-mrr-061",
+        "AC-mrr-063",
+        "AC-mrr-080"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-004",
+          "hash": "sha256:1e77e95f4c99de2278dc388ddebc3f8a05c8a4a8920d710626f47202ed2204f0"
+        },
+        {
+          "ref": "AC-mrr-008",
+          "hash": "sha256:40338b3ca6ed86f32163567bbf164ceff3660f0b04716633fafd9d7b0ef38eb1"
+        },
+        {
+          "ref": "AC-mrr-021",
+          "hash": "sha256:ecc1f3687efce668a9c2ba4794e26f3f7023d274c064dc845ce877cb41fe2e13"
+        },
+        {
+          "ref": "AC-mrr-022",
+          "hash": "sha256:f881013eef4cfd5baf9849f03a32cccf62fff94382ba3ef602d64da46cf16940"
+        },
+        {
+          "ref": "AC-mrr-061",
+          "hash": "sha256:bdc64fb0b5de062fb0414c64f681ad4486594c169c6a9fc21f6d905b3bc9d912"
+        },
+        {
+          "ref": "AC-mrr-063",
+          "hash": "sha256:f404d68e09c37ab7c53e109af5702505146a89c2e6fa795508317f2ab066091a"
+        },
+        {
+          "ref": "AC-mrr-080",
+          "hash": "sha256:521edf84588bdf652ab6148241fe0dfdc506ec8ef2e2c2c6b7236a4a3a2955bf"
+        },
+        {
+          "ref": "UI-mrr-008",
+          "hash": "sha256:20d13d45f2f748b151ef791f21938437f90735adaa76ac0f71f0c050c938aef2"
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "FE-mrr-026",
+      "title_th": "ยกเลิกการจองของตนเอง — ฝั่ง API",
+      "app_ref": "api",
+      "type": "command",
+      "origin": "new",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-017"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-009",
+        "AC-mrr-010",
+        "AC-mrr-026",
+        "AC-mrr-027",
+        "AC-mrr-054"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-005",
+          "hash": "sha256:c296d8abe200095375ddfe5a0753ba02177c20b187e6bfec9dd3b815a88d4f41"
+        },
+        {
+          "ref": "AC-mrr-009",
+          "hash": "sha256:29b1b35f8a9b1dc0a521eaca202e936ee8793827e5f11aa0a70b8be772cb091b"
+        },
+        {
+          "ref": "AC-mrr-010",
+          "hash": "sha256:07d062b2d214b876349105616e2bd5074261e9f7cd7ff702b65752d7fb12a421"
+        },
+        {
+          "ref": "AC-mrr-026",
+          "hash": "sha256:7ae929d804b3c11fe7875c7adf4fdce2fce3e5b023dd379f37b6db6066714d1a"
+        },
+        {
+          "ref": "AC-mrr-027",
+          "hash": "sha256:a37c28117dcb2a1dfe1219e0d85cc4ee755dda7ac4f20d7a93954b22e1e85824"
+        },
+        {
+          "ref": "AC-mrr-054",
+          "hash": "sha256:4783571d101b49b35b959f71c32fca93aa5ccd38fddb5122173736cf0ce44d65"
+        },
+        {
+          "ref": "API-009",
+          "hash": "sha256:b99161f30a56c815ebb0e3885d2e2cb60c869c1b16803d816cfe1052b9090ea5"
+        },
+        {
+          "ref": "ENT-007",
+          "hash": "sha256:70b3048818d8c6af914931bd01d0fd6ee3282caa12fe7ae99691ab7addcfd0d8"
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "FE-mrr-005",
+      "title_th": "ยกเลิกการจองของตนเอง — หน้าจอ",
+      "app_ref": "frontend-web",
+      "type": "command",
+      "origin": "new",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-022",
+        "FE-mrr-026"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-009",
+        "AC-mrr-010",
+        "AC-mrr-026",
+        "AC-mrr-027",
+        "AC-mrr-054"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-005",
+          "hash": "sha256:c296d8abe200095375ddfe5a0753ba02177c20b187e6bfec9dd3b815a88d4f41"
+        },
+        {
+          "ref": "AC-mrr-009",
+          "hash": "sha256:29b1b35f8a9b1dc0a521eaca202e936ee8793827e5f11aa0a70b8be772cb091b"
+        },
+        {
+          "ref": "AC-mrr-010",
+          "hash": "sha256:07d062b2d214b876349105616e2bd5074261e9f7cd7ff702b65752d7fb12a421"
+        },
+        {
+          "ref": "AC-mrr-026",
+          "hash": "sha256:7ae929d804b3c11fe7875c7adf4fdce2fce3e5b023dd379f37b6db6066714d1a"
+        },
+        {
+          "ref": "AC-mrr-027",
+          "hash": "sha256:a37c28117dcb2a1dfe1219e0d85cc4ee755dda7ac4f20d7a93954b22e1e85824"
+        },
+        {
+          "ref": "AC-mrr-054",
+          "hash": "sha256:4783571d101b49b35b959f71c32fca93aa5ccd38fddb5122173736cf0ce44d65"
+        },
+        {
+          "ref": "UI-mrr-007",
+          "hash": "sha256:f51d2d53df35887e09c6bff19de0c1d0e556745ff44c4000991661a21e9fb1ed"
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "FE-mrr-027",
+      "title_th": "ดูการจองของฉัน — ฝั่ง API",
+      "app_ref": "api",
+      "type": "command",
+      "origin": "new",
+      "files_planned": [],
+      "depends_on": [],
+      "acceptance_refs": [
+        "AC-mrr-011"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-006",
+          "hash": "sha256:7aee593e5507dd03688cb06927fc035ee087edde56c1996b967d34df4e866b3b"
+        },
+        {
+          "ref": "AC-mrr-011",
+          "hash": "sha256:20c3b4a387aac3898ea7b84e79b9bc889734a3aadbe8a3f2efe1b000d2d31ab4"
+        },
+        {
+          "ref": "API-006",
+          "hash": "sha256:3864fe2111c09cdc609669a3c6a31e518a87b8a4e06d2f721cb3c48e28f7ac63"
+        },
+        {
+          "ref": "API-007",
+          "hash": "sha256:b12131b8440e0ca52069b0c46a1ffcddce2d8e4ee0c7b86a519ffbce79a15725"
+        },
+        {
+          "ref": "ENT-007",
+          "hash": "sha256:70b3048818d8c6af914931bd01d0fd6ee3282caa12fe7ae99691ab7addcfd0d8"
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "FE-mrr-006",
+      "title_th": "ดูการจองของฉัน — หน้าจอ",
+      "app_ref": "frontend-web",
+      "type": "command",
+      "origin": "new",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-022",
+        "FE-mrr-027"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-011"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-006",
+          "hash": "sha256:7aee593e5507dd03688cb06927fc035ee087edde56c1996b967d34df4e866b3b"
+        },
+        {
+          "ref": "AC-mrr-011",
+          "hash": "sha256:20c3b4a387aac3898ea7b84e79b9bc889734a3aadbe8a3f2efe1b000d2d31ab4"
+        },
+        {
+          "ref": "UI-mrr-007",
+          "hash": "sha256:f51d2d53df35887e09c6bff19de0c1d0e556745ff44c4000991661a21e9fb1ed"
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "FE-mrr-028",
+      "title_th": "อนุมัติหรือปฏิเสธการจอง — ฝั่ง API",
+      "app_ref": "api",
+      "type": "command",
+      "origin": "new",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-017"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-013",
+        "AC-mrr-014",
+        "AC-mrr-037",
+        "AC-mrr-038",
+        "AC-mrr-039",
+        "AC-mrr-051",
+        "AC-mrr-052",
+        "AC-mrr-062"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-007",
+          "hash": "sha256:8cb2dfb740525b09c84c4cf0a92a910b6d94d09256a35e6b110baf74b1bfd439"
+        },
+        {
+          "ref": "AC-mrr-013",
+          "hash": "sha256:eb3a4f7353c166d328611ee755db38b76501ba28178933adef86312f3e740b4e"
+        },
+        {
+          "ref": "AC-mrr-014",
+          "hash": "sha256:dec16b91f3bd6806b9705eb38a9cc7770a09913f8504b679e9a63f5a2c047b1a"
+        },
+        {
+          "ref": "AC-mrr-037",
+          "hash": "sha256:007a5032577d1703a0bdf3834b8b7e5b6472977bbb1b0e3f84b8317056f82f06"
+        },
+        {
+          "ref": "AC-mrr-038",
+          "hash": "sha256:9f8bb995a643388d7d49ad8773641026bc3455b0f73da23b94206144e326c6bd"
+        },
+        {
+          "ref": "AC-mrr-039",
+          "hash": "sha256:073961aab41ffa2912dfb095765687d72117b06cd8c44365a3639d4dd878deb8"
+        },
+        {
+          "ref": "AC-mrr-051",
+          "hash": "sha256:c43a838e237397ac66b3a36df7ea012979c2030b538918f3c01cc15a4c6ff382"
+        },
+        {
+          "ref": "AC-mrr-052",
+          "hash": "sha256:b2496ef3c55c3ef7fcc06b35b850adbfc047c9334af5d934716df95d4ee9b5d5"
+        },
+        {
+          "ref": "AC-mrr-062",
+          "hash": "sha256:82c7637ccff37073e9787ccdd9c83eabd7d706580dc83e575ac177fd13d06f07"
+        },
+        {
+          "ref": "API-010",
+          "hash": "sha256:1da186bad437bc62bd895c49ede8755746fcf84d8636160744a49a60983d8017"
+        },
+        {
+          "ref": "API-011",
+          "hash": "sha256:8866a4b143cedcdfe0acabdbfe3840851c0412887dc1954e16c53378741cff82"
+        },
+        {
+          "ref": "API-012",
+          "hash": "sha256:01edc3169fa14ea052d2ebb1a8a1183ea1d8d10f6c77ad0391abe929cab2780d"
+        },
+        {
+          "ref": "ENT-007",
+          "hash": "sha256:70b3048818d8c6af914931bd01d0fd6ee3282caa12fe7ae99691ab7addcfd0d8"
+        },
+        {
+          "ref": "ENT-010",
+          "hash": "sha256:fb41b9378eaf8f1f19c7e0cb570aad7582f05713eab16d4c5f2f9d57de03f3fc"
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "FE-mrr-007",
+      "title_th": "อนุมัติหรือปฏิเสธการจอง — หน้าจอ",
+      "app_ref": "frontend-web",
+      "type": "command",
+      "origin": "new",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-022",
+        "FE-mrr-028"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-013",
+        "AC-mrr-014",
+        "AC-mrr-037",
+        "AC-mrr-038",
+        "AC-mrr-039",
+        "AC-mrr-051",
+        "AC-mrr-052",
+        "AC-mrr-062"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-007",
+          "hash": "sha256:8cb2dfb740525b09c84c4cf0a92a910b6d94d09256a35e6b110baf74b1bfd439"
+        },
+        {
+          "ref": "AC-mrr-013",
+          "hash": "sha256:eb3a4f7353c166d328611ee755db38b76501ba28178933adef86312f3e740b4e"
+        },
+        {
+          "ref": "AC-mrr-014",
+          "hash": "sha256:dec16b91f3bd6806b9705eb38a9cc7770a09913f8504b679e9a63f5a2c047b1a"
+        },
+        {
+          "ref": "AC-mrr-037",
+          "hash": "sha256:007a5032577d1703a0bdf3834b8b7e5b6472977bbb1b0e3f84b8317056f82f06"
+        },
+        {
+          "ref": "AC-mrr-038",
+          "hash": "sha256:9f8bb995a643388d7d49ad8773641026bc3455b0f73da23b94206144e326c6bd"
+        },
+        {
+          "ref": "AC-mrr-039",
+          "hash": "sha256:073961aab41ffa2912dfb095765687d72117b06cd8c44365a3639d4dd878deb8"
+        },
+        {
+          "ref": "AC-mrr-051",
+          "hash": "sha256:c43a838e237397ac66b3a36df7ea012979c2030b538918f3c01cc15a4c6ff382"
+        },
+        {
+          "ref": "AC-mrr-052",
+          "hash": "sha256:b2496ef3c55c3ef7fcc06b35b850adbfc047c9334af5d934716df95d4ee9b5d5"
+        },
+        {
+          "ref": "AC-mrr-062",
+          "hash": "sha256:82c7637ccff37073e9787ccdd9c83eabd7d706580dc83e575ac177fd13d06f07"
+        },
+        {
+          "ref": "UI-mrr-009",
+          "hash": "sha256:6446f319b837c86604116b51ad046409f8a7b921566cbc2b2d3a027a5d105545"
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "FE-mrr-029",
+      "title_th": "เปลี่ยนผลการอนุมัติ — ฝั่ง API",
+      "app_ref": "api",
+      "type": "command",
+      "origin": "new",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-017"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-033",
+        "AC-mrr-034",
+        "AC-mrr-035",
+        "AC-mrr-036"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-008",
+          "hash": "sha256:f18b0c7ac87d4172e4c1d5622eba14e456734745dc984eea11816533ddd54f7a"
+        },
+        {
+          "ref": "AC-mrr-033",
+          "hash": "sha256:d0dde76a15084a1a1ec39643c7e0eb3014c87b42ecda12082ee9c32dd44ac120"
+        },
+        {
+          "ref": "AC-mrr-034",
+          "hash": "sha256:46c6c0fbdc530cb174a2c1e3de56f5f012165dbd72770077c009656448997e3e"
+        },
+        {
+          "ref": "AC-mrr-035",
+          "hash": "sha256:23b64242c60df6df480e506f561dd8cc34ac39c55a54353c66add687c280c83e"
+        },
+        {
+          "ref": "AC-mrr-036",
+          "hash": "sha256:3d14801823aff4eed8e81e2ce001ff522ea281ba2ce78e1bce7dfe9d9799eb78"
+        },
+        {
+          "ref": "API-013",
+          "hash": "sha256:283a67d90c73e64880b2ef6fbe1c66a43060c594f5a0c22bb5a176a652e7e59b"
+        },
+        {
+          "ref": "ENT-007",
+          "hash": "sha256:70b3048818d8c6af914931bd01d0fd6ee3282caa12fe7ae99691ab7addcfd0d8"
+        },
+        {
+          "ref": "ENT-010",
+          "hash": "sha256:fb41b9378eaf8f1f19c7e0cb570aad7582f05713eab16d4c5f2f9d57de03f3fc"
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "FE-mrr-008",
+      "title_th": "เปลี่ยนผลการอนุมัติ — หน้าจอ",
+      "app_ref": "frontend-web",
+      "type": "command",
+      "origin": "new",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-022",
+        "FE-mrr-029"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-033",
+        "AC-mrr-034",
+        "AC-mrr-035",
+        "AC-mrr-036"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-008",
+          "hash": "sha256:f18b0c7ac87d4172e4c1d5622eba14e456734745dc984eea11816533ddd54f7a"
+        },
+        {
+          "ref": "AC-mrr-033",
+          "hash": "sha256:d0dde76a15084a1a1ec39643c7e0eb3014c87b42ecda12082ee9c32dd44ac120"
+        },
+        {
+          "ref": "AC-mrr-034",
+          "hash": "sha256:46c6c0fbdc530cb174a2c1e3de56f5f012165dbd72770077c009656448997e3e"
+        },
+        {
+          "ref": "AC-mrr-035",
+          "hash": "sha256:23b64242c60df6df480e506f561dd8cc34ac39c55a54353c66add687c280c83e"
+        },
+        {
+          "ref": "AC-mrr-036",
+          "hash": "sha256:3d14801823aff4eed8e81e2ce001ff522ea281ba2ce78e1bce7dfe9d9799eb78"
+        },
+        {
+          "ref": "UI-mrr-010",
+          "hash": "sha256:5b8247cfc668ae8b94235f1ac30b9e6a1e28134765c25ad40b9672d89aa859a0"
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "FE-mrr-030",
+      "title_th": "แก้ไขหรือยกเลิกการจองแทนผู้จอง — ฝั่ง API",
+      "app_ref": "api",
+      "type": "command",
+      "origin": "new",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-017"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-028",
+        "AC-mrr-029",
+        "AC-mrr-042",
+        "AC-mrr-053",
+        "AC-mrr-055"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-009",
+          "hash": "sha256:9a3547bee386bfa99cb77dea2bb56fc3a46fd77297c5bd10708abf516ee994f0"
+        },
+        {
+          "ref": "AC-mrr-028",
+          "hash": "sha256:ed9a5e7a94a1109020cd02199b1eedae3e9b82bb2e2c53832fb9bfb34437754f"
+        },
+        {
+          "ref": "AC-mrr-029",
+          "hash": "sha256:42a9bcc04b2e162adde8acbd055abb1ed1eed1f867ad4e213c512949662ca9a5"
+        },
+        {
+          "ref": "AC-mrr-042",
+          "hash": "sha256:788ad165c22a0b30d28963967eeeb5fe3a5fe5d462cb74d42998c2aba57ba056"
+        },
+        {
+          "ref": "AC-mrr-053",
+          "hash": "sha256:aaa19b2087d9e507a469048cf6cd45a2173f4b243a314f250aab285c1476f98d"
+        },
+        {
+          "ref": "AC-mrr-055",
+          "hash": "sha256:c9bc509cb6a666dff9d38bd0daf0b174adb929232974af5081f48473058cb99f"
+        },
+        {
+          "ref": "API-007",
+          "hash": "sha256:b12131b8440e0ca52069b0c46a1ffcddce2d8e4ee0c7b86a519ffbce79a15725"
+        },
+        {
+          "ref": "API-014",
+          "hash": "sha256:c6d4e333228dc23281511c9d2d57ab4eae8d129967e1424626f147eb3eea88b7"
+        },
+        {
+          "ref": "API-015",
+          "hash": "sha256:80b318877d5f22f0bd1664b8ebdc188875c93fe9cf159ba28abf42b105957eca"
+        },
+        {
+          "ref": "ENT-007",
+          "hash": "sha256:70b3048818d8c6af914931bd01d0fd6ee3282caa12fe7ae99691ab7addcfd0d8"
+        },
+        {
+          "ref": "ENT-010",
+          "hash": "sha256:fb41b9378eaf8f1f19c7e0cb570aad7582f05713eab16d4c5f2f9d57de03f3fc"
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "FE-mrr-009",
+      "title_th": "แก้ไขหรือยกเลิกการจองแทนผู้จอง — หน้าจอ",
+      "app_ref": "frontend-web",
+      "type": "command",
+      "origin": "new",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-022",
+        "FE-mrr-030"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-028",
+        "AC-mrr-029",
+        "AC-mrr-042",
+        "AC-mrr-053",
+        "AC-mrr-055"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-009",
+          "hash": "sha256:9a3547bee386bfa99cb77dea2bb56fc3a46fd77297c5bd10708abf516ee994f0"
+        },
+        {
+          "ref": "AC-mrr-028",
+          "hash": "sha256:ed9a5e7a94a1109020cd02199b1eedae3e9b82bb2e2c53832fb9bfb34437754f"
+        },
+        {
+          "ref": "AC-mrr-029",
+          "hash": "sha256:42a9bcc04b2e162adde8acbd055abb1ed1eed1f867ad4e213c512949662ca9a5"
+        },
+        {
+          "ref": "AC-mrr-042",
+          "hash": "sha256:788ad165c22a0b30d28963967eeeb5fe3a5fe5d462cb74d42998c2aba57ba056"
+        },
+        {
+          "ref": "AC-mrr-053",
+          "hash": "sha256:aaa19b2087d9e507a469048cf6cd45a2173f4b243a314f250aab285c1476f98d"
+        },
+        {
+          "ref": "AC-mrr-055",
+          "hash": "sha256:c9bc509cb6a666dff9d38bd0daf0b174adb929232974af5081f48473058cb99f"
+        },
+        {
+          "ref": "UI-mrr-010",
+          "hash": "sha256:5b8247cfc668ae8b94235f1ac30b9e6a1e28134765c25ad40b9672d89aa859a0"
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "FE-mrr-031",
+      "title_th": "สร้างคำขอแก้ไขการจองหลังจบประชุม — ฝั่ง API",
+      "app_ref": "api",
+      "type": "command",
+      "origin": "new",
+      "files_planned": [],
+      "depends_on": [],
+      "acceptance_refs": [
+        "AC-mrr-041"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-010",
+          "hash": "sha256:d874ef2e51f6b078565ed62d5305ad8348945bdf6cef83146d0e632a17075bba"
+        },
+        {
+          "ref": "AC-mrr-041",
+          "hash": "sha256:6de61260df39ef389265b3005b8ff3dd788bbf4353c6f011aa97f6d7df7e13cf"
+        },
+        {
+          "ref": "API-014",
+          "hash": "sha256:c6d4e333228dc23281511c9d2d57ab4eae8d129967e1424626f147eb3eea88b7"
+        },
+        {
+          "ref": "ENT-007",
+          "hash": "sha256:70b3048818d8c6af914931bd01d0fd6ee3282caa12fe7ae99691ab7addcfd0d8"
+        },
+        {
+          "ref": "ENT-011",
+          "hash": "sha256:f4f7461f1560c969a8d444010e6a9e2ab99be0b7c5e25a43bbf9f18934e717f4"
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "FE-mrr-010",
+      "title_th": "สร้างคำขอแก้ไขการจองหลังจบประชุม — หน้าจอ",
+      "app_ref": "frontend-web",
+      "type": "command",
+      "origin": "new",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-022",
+        "FE-mrr-031"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-041"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-010",
+          "hash": "sha256:d874ef2e51f6b078565ed62d5305ad8348945bdf6cef83146d0e632a17075bba"
+        },
+        {
+          "ref": "AC-mrr-041",
+          "hash": "sha256:6de61260df39ef389265b3005b8ff3dd788bbf4353c6f011aa97f6d7df7e13cf"
+        },
+        {
+          "ref": "UI-mrr-010",
+          "hash": "sha256:5b8247cfc668ae8b94235f1ac30b9e6a1e28134765c25ad40b9672d89aa859a0"
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "FE-mrr-032",
+      "title_th": "อนุมัติคำขอแก้ไขการจอง — ฝั่ง API",
+      "app_ref": "api",
+      "type": "command",
+      "origin": "new",
+      "files_planned": [],
+      "depends_on": [],
+      "acceptance_refs": [
+        "AC-mrr-043",
+        "AC-mrr-044"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-011",
+          "hash": "sha256:3d60471de54dea8252ccdd26d2931fba3a96384289928f732e004e8c0a310097"
+        },
+        {
+          "ref": "AC-mrr-043",
+          "hash": "sha256:f6a9c2cec4c911a8f6877a226421955ab4e3ec7ed826ef9ed7e1a753541607b2"
+        },
+        {
+          "ref": "AC-mrr-044",
+          "hash": "sha256:5dd1d913405978e0950abaaac11c8985e8705ffd5b300e26e278de1c0ed2c9e1"
+        },
+        {
+          "ref": "API-017",
+          "hash": "sha256:0c219e62c41b712850c794d6ff42a58f03040d9cf683e989bb24bb50501c158c"
+        },
+        {
+          "ref": "API-018",
+          "hash": "sha256:755a52c5013e2a3725022313744e2c40b210167bbaa75c3501483145faf0916b"
+        },
+        {
+          "ref": "API-019",
+          "hash": "sha256:4e860e21928e1865e9cd47f7810b171cf1b173f8eb73b1b171d2bfd97b56f18f"
+        },
+        {
+          "ref": "ENT-007",
+          "hash": "sha256:70b3048818d8c6af914931bd01d0fd6ee3282caa12fe7ae99691ab7addcfd0d8"
+        },
+        {
+          "ref": "ENT-010",
+          "hash": "sha256:fb41b9378eaf8f1f19c7e0cb570aad7582f05713eab16d4c5f2f9d57de03f3fc"
+        },
+        {
+          "ref": "ENT-011",
+          "hash": "sha256:f4f7461f1560c969a8d444010e6a9e2ab99be0b7c5e25a43bbf9f18934e717f4"
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "FE-mrr-011",
+      "title_th": "อนุมัติคำขอแก้ไขการจอง — หน้าจอ",
+      "app_ref": "frontend-web",
+      "type": "command",
+      "origin": "new",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-022",
+        "FE-mrr-032"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-043",
+        "AC-mrr-044"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-011",
+          "hash": "sha256:3d60471de54dea8252ccdd26d2931fba3a96384289928f732e004e8c0a310097"
+        },
+        {
+          "ref": "AC-mrr-043",
+          "hash": "sha256:f6a9c2cec4c911a8f6877a226421955ab4e3ec7ed826ef9ed7e1a753541607b2"
+        },
+        {
+          "ref": "AC-mrr-044",
+          "hash": "sha256:5dd1d913405978e0950abaaac11c8985e8705ffd5b300e26e278de1c0ed2c9e1"
+        },
+        {
+          "ref": "UI-mrr-011",
+          "hash": "sha256:b35f3143833f2b04d2d4383de9cd4a86dfb56d3426990834378b721a6dfdfe2f"
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "FE-mrr-033",
+      "title_th": "ดูร่องรอยการกระทำต่อการจอง — ฝั่ง API",
+      "app_ref": "api",
+      "type": "command",
+      "origin": "new",
+      "files_planned": [],
+      "depends_on": [],
+      "acceptance_refs": [
+        "AC-mrr-052",
+        "AC-mrr-053",
+        "AC-mrr-054",
+        "AC-mrr-055",
+        "AC-mrr-056",
+        "AC-mrr-057",
+        "AC-mrr-058",
+        "AC-mrr-059"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-012",
+          "hash": "sha256:37d7fb2fe0303f7e67d940961f3da9202fef5f3ba5a37674c3ef2f8b44adede2"
+        },
+        {
+          "ref": "AC-mrr-052",
+          "hash": "sha256:b2496ef3c55c3ef7fcc06b35b850adbfc047c9334af5d934716df95d4ee9b5d5"
+        },
+        {
+          "ref": "AC-mrr-053",
+          "hash": "sha256:aaa19b2087d9e507a469048cf6cd45a2173f4b243a314f250aab285c1476f98d"
+        },
+        {
+          "ref": "AC-mrr-054",
+          "hash": "sha256:4783571d101b49b35b959f71c32fca93aa5ccd38fddb5122173736cf0ce44d65"
+        },
+        {
+          "ref": "AC-mrr-055",
+          "hash": "sha256:c9bc509cb6a666dff9d38bd0daf0b174adb929232974af5081f48473058cb99f"
+        },
+        {
+          "ref": "AC-mrr-056",
+          "hash": "sha256:4d47f0513b62918c1f5af5a504720cb883340c54e4327cfeed135e64c874c12b"
+        },
+        {
+          "ref": "AC-mrr-057",
+          "hash": "sha256:6c7b2517aa7ba14ab1743f2d1338c2c187c2d01a7d7a609315696bd81f550b57"
+        },
+        {
+          "ref": "AC-mrr-058",
+          "hash": "sha256:53278749e2d40ba24e839e65cd30d29bb9adc80397be5179c81a232ebb4f498d"
+        },
+        {
+          "ref": "AC-mrr-059",
+          "hash": "sha256:12b55036d10bad99a5d3f271de0257361fdb610bf2c2cf58ef570b5bc2e8c3e2"
+        },
+        {
+          "ref": "API-016",
+          "hash": "sha256:35cc7ae07ce48343a02fe2581430b66e692c63898787ed6171efc7e5303a3672"
+        },
+        {
+          "ref": "ENT-010",
+          "hash": "sha256:fb41b9378eaf8f1f19c7e0cb570aad7582f05713eab16d4c5f2f9d57de03f3fc"
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "FE-mrr-012",
+      "title_th": "ดูร่องรอยการกระทำต่อการจอง — หน้าจอ",
+      "app_ref": "frontend-web",
+      "type": "command",
+      "origin": "new",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-022",
+        "FE-mrr-033"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-052",
+        "AC-mrr-053",
+        "AC-mrr-054",
+        "AC-mrr-055",
+        "AC-mrr-056",
+        "AC-mrr-057",
+        "AC-mrr-058",
+        "AC-mrr-059"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-012",
+          "hash": "sha256:37d7fb2fe0303f7e67d940961f3da9202fef5f3ba5a37674c3ef2f8b44adede2"
+        },
+        {
+          "ref": "AC-mrr-052",
+          "hash": "sha256:b2496ef3c55c3ef7fcc06b35b850adbfc047c9334af5d934716df95d4ee9b5d5"
+        },
+        {
+          "ref": "AC-mrr-053",
+          "hash": "sha256:aaa19b2087d9e507a469048cf6cd45a2173f4b243a314f250aab285c1476f98d"
+        },
+        {
+          "ref": "AC-mrr-054",
+          "hash": "sha256:4783571d101b49b35b959f71c32fca93aa5ccd38fddb5122173736cf0ce44d65"
+        },
+        {
+          "ref": "AC-mrr-055",
+          "hash": "sha256:c9bc509cb6a666dff9d38bd0daf0b174adb929232974af5081f48473058cb99f"
+        },
+        {
+          "ref": "AC-mrr-056",
+          "hash": "sha256:4d47f0513b62918c1f5af5a504720cb883340c54e4327cfeed135e64c874c12b"
+        },
+        {
+          "ref": "AC-mrr-057",
+          "hash": "sha256:6c7b2517aa7ba14ab1743f2d1338c2c187c2d01a7d7a609315696bd81f550b57"
+        },
+        {
+          "ref": "AC-mrr-058",
+          "hash": "sha256:53278749e2d40ba24e839e65cd30d29bb9adc80397be5179c81a232ebb4f498d"
+        },
+        {
+          "ref": "AC-mrr-059",
+          "hash": "sha256:12b55036d10bad99a5d3f271de0257361fdb610bf2c2cf58ef570b5bc2e8c3e2"
+        },
+        {
+          "ref": "UI-mrr-010",
+          "hash": "sha256:5b8247cfc668ae8b94235f1ac30b9e6a1e28134765c25ad40b9672d89aa859a0"
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "FE-mrr-034",
+      "title_th": "เพิ่มหรือแก้ไขข้อมูลห้อง — ฝั่ง API",
+      "app_ref": "api",
+      "type": "crud",
+      "origin": "new",
+      "files_planned": [],
+      "depends_on": [],
+      "acceptance_refs": [
+        "AC-mrr-015",
+        "AC-mrr-017",
+        "AC-mrr-018",
+        "AC-mrr-030",
+        "AC-mrr-031",
+        "AC-mrr-032",
+        "AC-mrr-040",
+        "AC-mrr-076",
+        "AC-mrr-077",
+        "AC-mrr-078"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-013",
+          "hash": "sha256:649fbe47f864795783f2f3f8a494ea4ca41b64f55da33eaab0770379e6b53140"
+        },
+        {
+          "ref": "AC-mrr-015",
+          "hash": "sha256:4806db868a80aef80f4ec3c9e86d83332b7d7b892cf1d769f89f5f6e081b62dc"
+        },
+        {
+          "ref": "AC-mrr-017",
+          "hash": "sha256:7b1c783ed66e299c6d3c42f7d9d5d897be38b190f5eb5090671d8188f4c959b9"
+        },
+        {
+          "ref": "AC-mrr-018",
+          "hash": "sha256:209717cfe60eec361f4496c55a0a5e05730ade4e89319059f85aed089dbe9c57"
+        },
+        {
+          "ref": "AC-mrr-030",
+          "hash": "sha256:af86452b443cc3b7972fb301ddaaff458be55e5ac063bbb5492dea4e1c2eb9dd"
+        },
+        {
+          "ref": "AC-mrr-031",
+          "hash": "sha256:0fc21c0a6cf13f3d6b83807b815f33479ef42354243a93b0e6bf2a9a8eece787"
+        },
+        {
+          "ref": "AC-mrr-032",
+          "hash": "sha256:9a65993ff07e39661ed55c4b5f9d3ceae9aae93c9a32bce807f28886c87f846c"
+        },
+        {
+          "ref": "AC-mrr-040",
+          "hash": "sha256:d77e114fde3f9d10f3f5a16c48ec37f09fe0b6de3bc2bee3770c1d870329d98e"
+        },
+        {
+          "ref": "AC-mrr-076",
+          "hash": "sha256:804f0204332224c884fc55c6838ca23c1e02c4114f5a449cdb39bfbd9780ad6b"
+        },
+        {
+          "ref": "AC-mrr-077",
+          "hash": "sha256:5ce80475536a4766e53361c176634e07f5a88f8a351dc8f4a07dd21e16551cbe"
+        },
+        {
+          "ref": "AC-mrr-078",
+          "hash": "sha256:f308a7455dbfa5375cab633af8c1320135c08bc449320382edc03e7cd599d8ca"
+        },
+        {
+          "ref": "API-002",
+          "hash": "sha256:2fca112faaa0daad58cd0d3444a02e1b502b84e61f2312402d4e4bc2a1fa4ac9"
+        },
+        {
+          "ref": "API-020",
+          "hash": "sha256:6188da60a1093edcb2a0c6a30c449e131388baff2a3081ccc554913f00a2791d"
+        },
+        {
+          "ref": "API-021",
+          "hash": "sha256:a325f329c18769b5bb581260f6f724389d266d8fb87c5a6eaadc71bef4685d29"
+        },
+        {
+          "ref": "API-022",
+          "hash": "sha256:dfae0c6df3056ac08f1b859e7e46f223a67ca02d4d503a4356bd94f7e71cc645"
+        },
+        {
+          "ref": "API-023",
+          "hash": "sha256:deb94500fdbfb82a091559e0cb6da642c4e6f6bf28ba7428fdd95b7df8096a3b"
+        },
+        {
+          "ref": "API-026",
+          "hash": "sha256:3befc9d6a4f26908cc085d6d840587c75d1f533874b02d5b41b53f824df51bd2"
+        },
+        {
+          "ref": "API-027",
+          "hash": "sha256:39a367fb0aa7a918a4869f0cb78b78907dac73c4248b91c0b0659e55385baa77"
+        },
+        {
+          "ref": "ENT-002",
+          "hash": "sha256:e70f20e6913f4a75f3388af299050d129f93fe894875b5a287874cf578477dfd"
+        },
+        {
+          "ref": "ENT-003",
+          "hash": "sha256:ea397c049aa7a429f1387b49238767b1607ffe0d499a16663a9d9d9c58d199e0"
+        },
+        {
+          "ref": "ENT-004",
+          "hash": "sha256:89882498e217530849d0da02a37af7b9f3c3589d31e1b7c7aae27635dcb22036"
+        },
+        {
+          "ref": "ENT-005",
+          "hash": "sha256:a989012d2d7146e7d736917097cb99095ec1607ec1a2d61fc7cf4ee1e0f10a80"
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "FE-mrr-013",
+      "title_th": "เพิ่มหรือแก้ไขข้อมูลห้อง — หน้าจอ",
+      "app_ref": "frontend-web",
+      "type": "crud",
+      "origin": "new",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-022",
+        "FE-mrr-034"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-015",
+        "AC-mrr-017",
+        "AC-mrr-018",
+        "AC-mrr-030",
+        "AC-mrr-031",
+        "AC-mrr-032",
+        "AC-mrr-040",
+        "AC-mrr-076",
+        "AC-mrr-077",
+        "AC-mrr-078"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-013",
+          "hash": "sha256:649fbe47f864795783f2f3f8a494ea4ca41b64f55da33eaab0770379e6b53140"
+        },
+        {
+          "ref": "AC-mrr-015",
+          "hash": "sha256:4806db868a80aef80f4ec3c9e86d83332b7d7b892cf1d769f89f5f6e081b62dc"
+        },
+        {
+          "ref": "AC-mrr-017",
+          "hash": "sha256:7b1c783ed66e299c6d3c42f7d9d5d897be38b190f5eb5090671d8188f4c959b9"
+        },
+        {
+          "ref": "AC-mrr-018",
+          "hash": "sha256:209717cfe60eec361f4496c55a0a5e05730ade4e89319059f85aed089dbe9c57"
+        },
+        {
+          "ref": "AC-mrr-030",
+          "hash": "sha256:af86452b443cc3b7972fb301ddaaff458be55e5ac063bbb5492dea4e1c2eb9dd"
+        },
+        {
+          "ref": "AC-mrr-031",
+          "hash": "sha256:0fc21c0a6cf13f3d6b83807b815f33479ef42354243a93b0e6bf2a9a8eece787"
+        },
+        {
+          "ref": "AC-mrr-032",
+          "hash": "sha256:9a65993ff07e39661ed55c4b5f9d3ceae9aae93c9a32bce807f28886c87f846c"
+        },
+        {
+          "ref": "AC-mrr-040",
+          "hash": "sha256:d77e114fde3f9d10f3f5a16c48ec37f09fe0b6de3bc2bee3770c1d870329d98e"
+        },
+        {
+          "ref": "AC-mrr-076",
+          "hash": "sha256:804f0204332224c884fc55c6838ca23c1e02c4114f5a449cdb39bfbd9780ad6b"
+        },
+        {
+          "ref": "AC-mrr-077",
+          "hash": "sha256:5ce80475536a4766e53361c176634e07f5a88f8a351dc8f4a07dd21e16551cbe"
+        },
+        {
+          "ref": "AC-mrr-078",
+          "hash": "sha256:f308a7455dbfa5375cab633af8c1320135c08bc449320382edc03e7cd599d8ca"
+        },
+        {
+          "ref": "UI-mrr-012",
+          "hash": "sha256:1aa4200e6ea7d449401b576f15fa3064fdf11b22cb58fe1d3c135ee328141366"
+        },
+        {
+          "ref": "UI-mrr-013",
+          "hash": "sha256:f48e0d2d4552aba34378b3c0375b96257ef7c1ff31c4c16dc6f599343f715793"
+        },
+        {
+          "ref": "UI-mrr-014",
+          "hash": "sha256:e354510bf33050a0f8234a81049c10d3793fb20c859d085de473c38d10c262cc"
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "FE-mrr-035",
+      "title_th": "ปิดปรับปรุงหรือเปิดใช้งานห้อง — ฝั่ง API",
+      "app_ref": "api",
+      "type": "command",
+      "origin": "new",
+      "files_planned": [],
+      "depends_on": [],
+      "acceptance_refs": [
+        "AC-mrr-016",
+        "AC-mrr-081"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-014",
+          "hash": "sha256:59452c19b3c93449ee437d353f1c010577268aa82598f4ed5fb634db7b3f5d00"
+        },
+        {
+          "ref": "AC-mrr-016",
+          "hash": "sha256:218310da7b2e25525e75c6ac7badabcf57fdbfca20f73005789e8f59e735610e"
+        },
+        {
+          "ref": "AC-mrr-081",
+          "hash": "sha256:12179a186c57d8539bd3545aa8a3230f6e55d0e985ede1cc10c12e5d4d27deb4"
+        },
+        {
+          "ref": "API-024",
+          "hash": "sha256:9220b5d913f142123c2a8aa98ce6cfe94769927675923a8e909664b1b97a124a"
+        },
+        {
+          "ref": "ENT-002",
+          "hash": "sha256:e70f20e6913f4a75f3388af299050d129f93fe894875b5a287874cf578477dfd"
+        },
+        {
+          "ref": "ENT-006",
+          "hash": "sha256:b16987f2f64f0070089ddf6f535953f2dcd544a7704c51efd0f5f9f71db33d18"
+        },
+        {
+          "ref": "ENT-007",
+          "hash": "sha256:70b3048818d8c6af914931bd01d0fd6ee3282caa12fe7ae99691ab7addcfd0d8"
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "FE-mrr-014",
+      "title_th": "ปิดปรับปรุงหรือเปิดใช้งานห้อง — หน้าจอ",
+      "app_ref": "frontend-web",
+      "type": "command",
+      "origin": "new",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-022",
+        "FE-mrr-035"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-016",
+        "AC-mrr-081"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-014",
+          "hash": "sha256:59452c19b3c93449ee437d353f1c010577268aa82598f4ed5fb634db7b3f5d00"
+        },
+        {
+          "ref": "AC-mrr-016",
+          "hash": "sha256:218310da7b2e25525e75c6ac7badabcf57fdbfca20f73005789e8f59e735610e"
+        },
+        {
+          "ref": "AC-mrr-081",
+          "hash": "sha256:12179a186c57d8539bd3545aa8a3230f6e55d0e985ede1cc10c12e5d4d27deb4"
+        },
+        {
+          "ref": "UI-mrr-012",
+          "hash": "sha256:1aa4200e6ea7d449401b576f15fa3064fdf11b22cb58fe1d3c135ee328141366"
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "FE-mrr-036",
+      "title_th": "ออกและดูรายงานการใช้ห้อง — ฝั่ง API",
+      "app_ref": "api",
+      "type": "report",
+      "origin": "new",
+      "files_planned": [],
+      "depends_on": [],
+      "acceptance_refs": [
+        "AC-mrr-045",
+        "AC-mrr-046",
+        "AC-mrr-047",
+        "AC-mrr-070",
+        "AC-mrr-071",
+        "AC-mrr-072",
+        "AC-mrr-082",
+        "AC-mrr-083",
+        "AC-mrr-084",
+        "AC-mrr-085"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-016",
+          "hash": "sha256:8cd5a6ce0b8a264d5f6c3ea925eaa4fc0444a53aa78276820b25695506901e7c"
+        },
+        {
+          "ref": "AC-mrr-045",
+          "hash": "sha256:b6350dce0fbccc911ced58173b8b15756fc648f3d046574b42963500d6a540e6"
+        },
+        {
+          "ref": "AC-mrr-046",
+          "hash": "sha256:07473fc35bcab08866eba043409c9dada3585f279e5ba1bed3a9539500b11439"
+        },
+        {
+          "ref": "AC-mrr-047",
+          "hash": "sha256:5f615ae14c44940942c89327a3b8f8efa9810836771d6fe623f2c14453001915"
+        },
+        {
+          "ref": "AC-mrr-070",
+          "hash": "sha256:f0eb58e711d4b932903cc10f168448bd2e91f5519e53be8468dc83a1c1f0f30b"
+        },
+        {
+          "ref": "AC-mrr-071",
+          "hash": "sha256:2ee9aafcd243e15c4bb70c005c3e0d881bf70f626c7413432692a8500604f1b6"
+        },
+        {
+          "ref": "AC-mrr-072",
+          "hash": "sha256:5aa5f760e37a9db60af0a91e094a484fc5629a40339c0d2870dc8e1e976de6ca"
+        },
+        {
+          "ref": "AC-mrr-082",
+          "hash": "sha256:91c45baa23f5b5691ede874a1d37779a5df29d41a84f4415f2ea00b15fa4793c"
+        },
+        {
+          "ref": "AC-mrr-083",
+          "hash": "sha256:2399c708b837549b6eea94087de50010ccf76f879c94888a66364f1fe020f2a1"
+        },
+        {
+          "ref": "AC-mrr-084",
+          "hash": "sha256:703fea5949a2bcea77b12a87046603072f4decdba4eb3178bc919bc13f446589"
+        },
+        {
+          "ref": "AC-mrr-085",
+          "hash": "sha256:81b1990c11667fe408eb0aafb8f31b8fdf70d4b7977ba6381501832509da5189"
+        },
+        {
+          "ref": "API-028",
+          "hash": "sha256:c61e9564f3f1d5a90a3742c708a04595c3b17e787993c8de16a9db32f1b4c9e2"
+        },
+        {
+          "ref": "API-029",
+          "hash": "sha256:1e99b58af4279467a4185b7f2d9ba34e748ac297d7506f377109d0448e2d45f5"
+        },
+        {
+          "ref": "API-030",
+          "hash": "sha256:d144d1b1880d026fc6fcbed5cc3dd9795e7376d9240cc5c7184c77d02af0d0b9"
+        },
+        {
+          "ref": "ENT-002",
+          "hash": "sha256:e70f20e6913f4a75f3388af299050d129f93fe894875b5a287874cf578477dfd"
+        },
+        {
+          "ref": "ENT-006",
+          "hash": "sha256:b16987f2f64f0070089ddf6f535953f2dcd544a7704c51efd0f5f9f71db33d18"
+        },
+        {
+          "ref": "ENT-007",
+          "hash": "sha256:70b3048818d8c6af914931bd01d0fd6ee3282caa12fe7ae99691ab7addcfd0d8"
+        },
+        {
+          "ref": "ENT-012",
+          "hash": "sha256:d0e092ece6ec3aedfdc7cf40e63e593dd473a39f0e64dbdb3ca15b00ae808b0d"
+        },
+        {
+          "ref": "ENT-013",
+          "hash": "sha256:2770e83042df11c4de196cb518f6f727c5194dd9c50a9a8d7c0d7471fe4cf6b3"
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "FE-mrr-016",
+      "title_th": "ออกและดูรายงานการใช้ห้อง — หน้าจอ",
+      "app_ref": "frontend-web",
+      "type": "report",
+      "origin": "new",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-022",
+        "FE-mrr-036"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-045",
+        "AC-mrr-046",
+        "AC-mrr-047",
+        "AC-mrr-070",
+        "AC-mrr-071",
+        "AC-mrr-072",
+        "AC-mrr-082",
+        "AC-mrr-083",
+        "AC-mrr-084",
+        "AC-mrr-085"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-016",
+          "hash": "sha256:8cd5a6ce0b8a264d5f6c3ea925eaa4fc0444a53aa78276820b25695506901e7c"
+        },
+        {
+          "ref": "AC-mrr-045",
+          "hash": "sha256:b6350dce0fbccc911ced58173b8b15756fc648f3d046574b42963500d6a540e6"
+        },
+        {
+          "ref": "AC-mrr-046",
+          "hash": "sha256:07473fc35bcab08866eba043409c9dada3585f279e5ba1bed3a9539500b11439"
+        },
+        {
+          "ref": "AC-mrr-047",
+          "hash": "sha256:5f615ae14c44940942c89327a3b8f8efa9810836771d6fe623f2c14453001915"
+        },
+        {
+          "ref": "AC-mrr-070",
+          "hash": "sha256:f0eb58e711d4b932903cc10f168448bd2e91f5519e53be8468dc83a1c1f0f30b"
+        },
+        {
+          "ref": "AC-mrr-071",
+          "hash": "sha256:2ee9aafcd243e15c4bb70c005c3e0d881bf70f626c7413432692a8500604f1b6"
+        },
+        {
+          "ref": "AC-mrr-072",
+          "hash": "sha256:5aa5f760e37a9db60af0a91e094a484fc5629a40339c0d2870dc8e1e976de6ca"
+        },
+        {
+          "ref": "AC-mrr-082",
+          "hash": "sha256:91c45baa23f5b5691ede874a1d37779a5df29d41a84f4415f2ea00b15fa4793c"
+        },
+        {
+          "ref": "AC-mrr-083",
+          "hash": "sha256:2399c708b837549b6eea94087de50010ccf76f879c94888a66364f1fe020f2a1"
+        },
+        {
+          "ref": "AC-mrr-084",
+          "hash": "sha256:703fea5949a2bcea77b12a87046603072f4decdba4eb3178bc919bc13f446589"
+        },
+        {
+          "ref": "AC-mrr-085",
+          "hash": "sha256:81b1990c11667fe408eb0aafb8f31b8fdf70d4b7977ba6381501832509da5189"
+        },
+        {
+          "ref": "RPT-mrr-001",
+          "hash": "sha256:181579287c32cd6a9de1be174d7eb980b3ea0281aa264db75cad1b3ae3037c13"
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "FE-mrr-017",
+      "title_th": "ส่ง Email แจ้งเหตุการณ์การจอง",
+      "app_ref": "api",
+      "type": "command",
+      "origin": "new",
+      "files_planned": [],
+      "depends_on": [],
+      "acceptance_refs": [
+        "AC-mrr-019",
+        "AC-mrr-021",
+        "AC-mrr-022",
+        "AC-mrr-024",
+        "AC-mrr-060",
+        "AC-mrr-061",
+        "AC-mrr-062",
+        "AC-mrr-063"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-017",
+          "hash": "sha256:768adb20b0ff7eaf568ee737643d47ceab94b63fd48ec50df7d5cc7f61a0ee61"
+        },
+        {
+          "ref": "AC-mrr-019",
+          "hash": "sha256:a4f1199ac980be8d6c50d9f1068603b446298483a1dc983ab88504bb51c9d4d5"
+        },
+        {
+          "ref": "AC-mrr-021",
+          "hash": "sha256:ecc1f3687efce668a9c2ba4794e26f3f7023d274c064dc845ce877cb41fe2e13"
+        },
+        {
+          "ref": "AC-mrr-022",
+          "hash": "sha256:f881013eef4cfd5baf9849f03a32cccf62fff94382ba3ef602d64da46cf16940"
+        },
+        {
+          "ref": "AC-mrr-024",
+          "hash": "sha256:323bebbc606673745783a5aa681cea30fcc56ce3f7b03b2aae7a5081b472eb09"
+        },
+        {
+          "ref": "AC-mrr-060",
+          "hash": "sha256:2cc93640a52c5ad7a89e1fd5b00d8662d866e8e5be668a4e5c0bceac3ebb6b69"
+        },
+        {
+          "ref": "AC-mrr-061",
+          "hash": "sha256:bdc64fb0b5de062fb0414c64f681ad4486594c169c6a9fc21f6d905b3bc9d912"
+        },
+        {
+          "ref": "AC-mrr-062",
+          "hash": "sha256:82c7637ccff37073e9787ccdd9c83eabd7d706580dc83e575ac177fd13d06f07"
+        },
+        {
+          "ref": "AC-mrr-063",
+          "hash": "sha256:f404d68e09c37ab7c53e109af5702505146a89c2e6fa795508317f2ab066091a"
+        },
+        {
+          "ref": "ENT-001",
+          "hash": "sha256:2af3a4598600d7da810914e67bbc95292b60dec51e87fa1f16eebcef683dfa50"
+        },
+        {
+          "ref": "ENT-007",
+          "hash": "sha256:70b3048818d8c6af914931bd01d0fd6ee3282caa12fe7ae99691ab7addcfd0d8"
+        },
+        {
+          "ref": "ENT-008",
+          "hash": "sha256:1737121b862ffa8d357e0a875f395845189f339686edb666884fe6df716b7626"
+        }
+      ],
+      "status": "validated",
+      "build": {
+        "iterations": 0,
+        "proof": [
+          {
+            "cmd": "powershell -File scripts/dev-build.ps1 -App api",
+            "result": "tsc -p tsconfig.build.json · exit 0 · dist/main.js, dist/app.module.js, dist/modules emitted",
+            "at": "2026-10-20"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App api -Filter FE-mrr-017",
+            "result": "Test Suites: 1 passed, 1 total · Tests: 7 passed, 7 total · exit 0",
+            "at": "2026-10-20"
+          }
+        ],
+        "last_error": null,
+        "recorded_by": "Noppasorn",
+        "recorded_at": "2026-10-20"
+      },
+      "manifest": {
+        "files": [
+          "apps/api/package.json",
+          "apps/api/tsconfig.json",
+          "apps/api/tsconfig.build.json",
+          "apps/api/nest-cli.json",
+          "apps/api/jest.config.js",
+          "apps/api/src/main.ts",
+          "apps/api/src/app.module.ts",
+          "apps/api/src/modules/notification/mail-transport.ts",
+          "apps/api/src/modules/notification/booking-notifier.ts",
+          "apps/api/src/modules/notification/smtp-mail-transport.ts",
+          "apps/api/src/modules/notification/notification.module.ts",
+          "apps/api/test/notification/booking-notifier.spec.ts"
+        ],
+        "unit_tests": [
+          {
+            "file": "apps/api/test/notification/booking-notifier.spec.ts",
+            "calc_ref": null,
+            "gd_ref": null
+          }
+        ],
+        "ui_controls": [],
+        "apis": []
+      }
+    },
+    {
+      "id": "FE-mrr-018",
+      "title_th": "เตือนก่อนเริ่มประชุม 15 นาที",
+      "app_ref": "api",
+      "type": "batch",
+      "origin": "new",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-017"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-020",
+        "AC-mrr-023",
+        "AC-mrr-025",
+        "AC-mrr-064",
+        "AC-mrr-065",
+        "AC-mrr-073",
+        "AC-mrr-074",
+        "AC-mrr-075"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-018",
+          "hash": "sha256:4085e8b175985f376948536afef1943d4c01adad39a300f03042a581f79bf5cb"
+        },
+        {
+          "ref": "AC-mrr-020",
+          "hash": "sha256:9bdfdac9cfd758b85c8672a14cd25605ab932eac0678dc53ddf0f10fba99f7c1"
+        },
+        {
+          "ref": "AC-mrr-023",
+          "hash": "sha256:4aae91114123e7dab8dd8f7533749ac2db414c4ff2dcf99c5f2ce4fd1e7f58c6"
+        },
+        {
+          "ref": "AC-mrr-025",
+          "hash": "sha256:750e6823b42b098e025e2e64c277caea60d2162441e0e54d4d7ed72645a0ac72"
+        },
+        {
+          "ref": "AC-mrr-064",
+          "hash": "sha256:2bb59a5d0ad98ded73bbe86c4c4810e50737db21b220cad8766d5d7ed9550e32"
+        },
+        {
+          "ref": "AC-mrr-065",
+          "hash": "sha256:2fe0257752fdb0fe4f196a69ab70e10193231ec60c2aefe838e9957e375a4d7a"
+        },
+        {
+          "ref": "AC-mrr-073",
+          "hash": "sha256:05988b39dd4bec586ef40f73a1e80860d776bab7cd07d8015e604ae955385e8f"
+        },
+        {
+          "ref": "AC-mrr-074",
+          "hash": "sha256:4e0581b4a7b8d65fac710b8eed443674e520023f14ed08d8f94d17dd44fc2430"
+        },
+        {
+          "ref": "AC-mrr-075",
+          "hash": "sha256:cd05ad23e0302068c878f28a3ccbfc05432deac20154013a5af9e58ee82e8f3a"
+        },
+        {
+          "ref": "ENT-007",
+          "hash": "sha256:70b3048818d8c6af914931bd01d0fd6ee3282caa12fe7ae99691ab7addcfd0d8"
+        },
+        {
+          "ref": "ENT-008",
+          "hash": "sha256:1737121b862ffa8d357e0a875f395845189f339686edb666884fe6df716b7626"
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "FE-mrr-019",
+      "title_th": "ยกเลิกการจองที่ค้างรออนุมัติเมื่อถึงเวลาเริ่ม",
+      "app_ref": "api",
+      "type": "batch",
+      "origin": "new",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-017"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-048",
+        "AC-mrr-049",
+        "AC-mrr-050"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-019",
+          "hash": "sha256:5eb06a5cf4827ef26c2ddb92ae69bce0edd9f74b6a9a4e0cab6be85bda8aad3a"
+        },
+        {
+          "ref": "AC-mrr-048",
+          "hash": "sha256:346569e78a5423060b664429c549c03c560245a9d827db4753f0b8384ad97e55"
+        },
+        {
+          "ref": "AC-mrr-049",
+          "hash": "sha256:bc28b9c3affe629412d1cffc739082938dc0e48416553c6565a418cc11acfdcb"
+        },
+        {
+          "ref": "AC-mrr-050",
+          "hash": "sha256:fef7628fd4402d018e8e7c64844f466ae507e73eb3c67c69f195aca0b74e2531"
+        },
+        {
+          "ref": "ENT-007",
+          "hash": "sha256:70b3048818d8c6af914931bd01d0fd6ee3282caa12fe7ae99691ab7addcfd0d8"
+        }
+      ],
+      "status": "draft"
+    }
+  ],
+  "gaps": [
+    {
+      "id": "GAP-mrr-001",
+      "to": "design",
+      "about": "UC-mrr-001",
+      "question_th": "UC-mrr-001 (ค้นหาห้องว่าง · UI-mrr-004 · API-001) ไม่มีเกณฑ์รับ (AC-) ข้อไหนผูกไว้ใน functions.json acceptance[].useCases — dev สร้างหน่วยที่ไม่มีใครพิสูจน์ว่าเสร็จไม่ได้ · ขอให้ design เขียนเกณฑ์รับของ use case นี้ (given/when/then) หรือบอกว่าเกณฑ์รับข้อไหนที่มีอยู่แล้วครอบคลุมมัน",
+      "found_at": "2026-10-20",
+      "found_by": "/dev:plan",
+      "status": "open",
+      "answer_th": null,
+      "answered_in": null,
+      "closed_by": null,
+      "blocks": []
+    },
+    {
+      "id": "GAP-mrr-002",
+      "to": "design",
+      "about": "UC-mrr-015",
+      "question_th": "UC-mrr-015 (ลบข้อมูลห้อง · API-025) ไม่มีเกณฑ์รับ (AC-) ข้อไหนผูกไว้ใน functions.json acceptance[].useCases — dev สร้างหน่วยที่ไม่มีใครพิสูจน์ว่าเสร็จไม่ได้ · ขอให้ design เขียนเกณฑ์รับของ use case นี้ (given/when/then) หรือบอกว่าเกณฑ์รับข้อไหนที่มีอยู่แล้วครอบคลุมมัน",
+      "found_at": "2026-10-20",
+      "found_by": "/dev:plan",
+      "status": "open",
+      "answer_th": null,
+      "answered_in": null,
+      "closed_by": null,
+      "blocks": []
+    },
+    {
+      "id": "GAP-mrr-003",
+      "to": "design",
+      "about": "UC-mrr-020",
+      "question_th": "UC-mrr-020 (เข้าสู่ระบบด้วยรหัส OTP · UI-mrr-001/002 · API-031/032/033 — ทุก endpoint บังคับสิทธิ์ที่ api จึงอยู่บนเส้นทางวิกฤต · scenario SCN-mrr-076.. มีอยู่ผ่าน FUN-mrr-014 แต่ไม่มี AC) ไม่มีเกณฑ์รับ (AC-) ข้อไหนผูกไว้ใน functions.json acceptance[].useCases — dev สร้างหน่วยที่ไม่มีใครพิสูจน์ว่าเสร็จไม่ได้ · ขอให้ design เขียนเกณฑ์รับของ use case นี้ (given/when/then) หรือบอกว่าเกณฑ์รับข้อไหนที่มีอยู่แล้วครอบคลุมมัน",
+      "found_at": "2026-10-20",
+      "found_by": "/dev:plan",
+      "status": "open",
+      "answer_th": null,
+      "answered_in": null,
+      "closed_by": null,
+      "blocks": []
+    },
+    {
+      "id": "GAP-mrr-004",
+      "to": "design",
+      "about": "UC-mrr-021",
+      "question_th": "UC-mrr-021 (ออกจากระบบ · UI-mrr-003 · API-034) ไม่มีเกณฑ์รับ (AC-) ข้อไหนผูกไว้ใน functions.json acceptance[].useCases — dev สร้างหน่วยที่ไม่มีใครพิสูจน์ว่าเสร็จไม่ได้ · ขอให้ design เขียนเกณฑ์รับของ use case นี้ (given/when/then) หรือบอกว่าเกณฑ์รับข้อไหนที่มีอยู่แล้วครอบคลุมมัน",
+      "found_at": "2026-10-20",
+      "found_by": "/dev:plan",
+      "status": "open",
+      "answer_th": null,
+      "answered_in": null,
+      "closed_by": null,
+      "blocks": []
+    }
+  ],
+  "rollup": {
+    "features_total": 32,
+    "by_status": {
+      "draft": 31,
+      "validated": 1
+    },
+    "by_origin": {
+      "new": 32
+    },
+    "by_app": {
+      "frontend-web": 15,
+      "api": 17
+    },
+    "gaps_open": 4,
+    "ready_for_phase5": false
+  }
+}

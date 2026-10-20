@@ -1,0 +1,227 @@
+{
+  "schemaVersion": "1.4",
+  "producedBy": "mock · scripts/wireframes.mjs",
+  "project": "mrr",
+  "id": "MCK-mrr-008",
+  "screen": "UI-mrr-009",
+  "title": "รายการรออนุมัติ",
+  "purpose": "Room Administrator ดูการจองที่รออนุมัติแล้วอนุมัติหรือปฏิเสธ",
+  "level": "L1",
+  "layout": "rows",
+  "kind": "workflow",
+  "visibleTo": [
+    "ROLE-002"
+  ],
+  "zones": [
+    {
+      "name": "header",
+      "kind": "header",
+      "kindSource": "derived",
+      "source": "mock",
+      "items": [
+        {
+          "type": "title",
+          "text": "รายการรออนุมัติ"
+        }
+      ]
+    },
+    {
+      "name": "queue",
+      "kind": "columns",
+      "kindSource": "derived",
+      "source": "design",
+      "items": [
+        {
+          "type": "field",
+          "name": "ห้อง",
+          "required": true,
+          "entity": "ENT-007",
+          "attribute": "room",
+          "validation": "ห้องที่ต้องอนุมัติ",
+          "rules": [],
+          "visibleTo": [
+            "ROLE-002"
+          ],
+          "input": false
+        },
+        {
+          "type": "field",
+          "name": "ช่วงเวลา",
+          "required": true,
+          "entity": "ENT-007",
+          "attribute": "startAt",
+          "validation": "วันและเวลาเริ่ม–จบ",
+          "rules": [],
+          "visibleTo": [
+            "ROLE-002"
+          ],
+          "input": false
+        },
+        {
+          "type": "field",
+          "name": "หัวข้อ",
+          "required": true,
+          "entity": "ENT-007",
+          "attribute": "title",
+          "validation": "หัวข้อการประชุม",
+          "rules": [],
+          "visibleTo": [
+            "ROLE-002"
+          ],
+          "input": false
+        },
+        {
+          "type": "field",
+          "name": "ผู้จอง",
+          "required": true,
+          "entity": "ENT-007",
+          "attribute": "bookedBy",
+          "validation": "ผู้จอง",
+          "rules": [],
+          "visibleTo": [
+            "ROLE-002"
+          ],
+          "input": false
+        },
+        {
+          "type": "field",
+          "name": "ผู้อนุมัติประจำห้อง",
+          "required": false,
+          "entity": "ENT-003",
+          "attribute": "approver",
+          "validation": "ว่าง = ใครก็อนุมัติได้",
+          "rules": [
+            "BR-mrr-013@v1"
+          ],
+          "visibleTo": [
+            "ROLE-002"
+          ],
+          "input": false
+        },
+        {
+          "type": "action",
+          "key": "approve",
+          "name": "อนุมัติ",
+          "kind": "command",
+          "presentation": "text",
+          "placement": "first-column",
+          "container": "inline",
+          "accessibleName": "อนุมัติ",
+          "conventions": [
+            "UIC-001",
+            "UIC-002"
+          ],
+          "destination": "อยู่ที่หน้าเดิม",
+          "rules": [
+            "BR-mrr-004@v1",
+            "BR-mrr-013@v1",
+            "BR-mrr-017@v1",
+            "BR-mrr-019@v1"
+          ]
+        },
+        {
+          "type": "action",
+          "key": "reject",
+          "name": "ปฏิเสธ",
+          "kind": "command",
+          "presentation": "text",
+          "placement": "first-column",
+          "container": "inline",
+          "accessibleName": "ปฏิเสธ",
+          "conventions": [
+            "UIC-001",
+            "UIC-002"
+          ],
+          "destination": "อยู่ที่หน้าเดิม",
+          "rules": [
+            "BR-mrr-004@v1",
+            "BR-mrr-017@v1"
+          ]
+        },
+        {
+          "type": "action",
+          "key": "manage",
+          "name": "จัดการการจอง",
+          "kind": "navigate",
+          "presentation": "text",
+          "placement": "queue",
+          "container": "navigate",
+          "accessibleName": "จัดการการจอง",
+          "conventions": [],
+          "destination": "หน้าจัดการการจอง (ผู้ดูแล)",
+          "rules": []
+        }
+      ]
+    }
+  ],
+  "controls": [
+    {
+      "id": "ui-mrr-009-ent-007-room",
+      "type": "field",
+      "key": "ent-007-room",
+      "name": "ห้อง"
+    },
+    {
+      "id": "ui-mrr-009-ent-007-start-at",
+      "type": "field",
+      "key": "ent-007-start-at",
+      "name": "ช่วงเวลา"
+    },
+    {
+      "id": "ui-mrr-009-ent-007-title",
+      "type": "field",
+      "key": "ent-007-title",
+      "name": "หัวข้อ"
+    },
+    {
+      "id": "ui-mrr-009-ent-007-booked-by",
+      "type": "field",
+      "key": "ent-007-booked-by",
+      "name": "ผู้จอง"
+    },
+    {
+      "id": "ui-mrr-009-ent-003-approver",
+      "type": "field",
+      "key": "ent-003-approver",
+      "name": "ผู้อนุมัติประจำห้อง"
+    },
+    {
+      "id": "ui-mrr-009-approve",
+      "type": "action",
+      "key": "approve"
+    },
+    {
+      "id": "ui-mrr-009-reject",
+      "type": "action",
+      "key": "reject"
+    },
+    {
+      "id": "ui-mrr-009-manage",
+      "type": "action",
+      "key": "manage"
+    }
+  ],
+  "states": {
+    "empty": {
+      "occurs": true,
+      "text": "ไม่มีการจองรออนุมัติ — แสดง 'ไม่มีรายการรออนุมัติ'"
+    },
+    "loading": {
+      "occurs": true,
+      "text": "แสดงตัวบอกกำลังโหลดแทนรายการ"
+    },
+    "error": {
+      "occurs": true,
+      "text": "โหลดไม่สำเร็จ — ปุ่มโหลดใหม่ · อนุมัติไม่สำเร็จเพราะ Email — 'ส่ง Email แจ้งเตือนไม่สำเร็จ กรุณากดใหม่อีกครั้ง'"
+    },
+    "unauthorized": {
+      "occurs": true,
+      "text": "ไม่ใช่ Room Administrator — แสดง 'คุณไม่มีสิทธิ์เข้าหน้านี้' · ห้องที่มีผู้อนุมัติประจำห้องเป็นคนอื่น — ปุ่มอนุมัติ/ปฏิเสธถูกปิดและ API ปฏิเสธ"
+    },
+    "overflow": {
+      "occurs": true,
+      "text": "มากกว่า 20 รายการ — แบ่งหน้า เรียงตามเวลาเริ่มที่ใกล้ที่สุดก่อน"
+    }
+  },
+  "extensions": {}
+}

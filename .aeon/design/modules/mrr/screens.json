@@ -1,0 +1,1814 @@
+{
+  "schemaVersion": "1.4",
+  "producedBy": "design · scripts/screens.mjs",
+  "project": "mrr",
+  "module": "mrr",
+  "status": "approved",
+  "approvedAt": "2026-10-19T09:13:24Z",
+  "approvedBy": "Noppasorn",
+  "screens": [
+    {
+      "id": "UI-mrr-001",
+      "title": "ขอรหัสเข้าสู่ระบบ",
+      "purpose": "ผู้ใช้กรอก Email องค์กรเพื่อรับรหัส OTP / magic link สำหรับเข้าสู่ระบบ",
+      "dataBearing": false,
+      "kind": "auth",
+      "roles": [
+        "ROLE-001",
+        "ROLE-002",
+        "ROLE-003"
+      ],
+      "fields": [
+        {
+          "key": "email",
+          "name": "Email องค์กร",
+          "io": "capture",
+          "required": true,
+          "validation": "รูปแบบ Email และอยู่ในโดเมนองค์กร · ระบบไม่บอกว่า Email มีในรายชื่อหรือไม่ (ตอบข้อความเดียวกันทุกกรณี)",
+          "rules": []
+        }
+      ],
+      "actions": [
+        {
+          "key": "request-code",
+          "name": "ขอรหัสเข้าสู่ระบบ",
+          "kind": "command",
+          "effect": "ถ้า Email อยู่ในรายชื่อและ active ระบบส่ง OTP / magic link อายุ 10 นาที",
+          "destination": "หน้ายืนยันรหัส OTP",
+          "destinationRef": "UI-mrr-002",
+          "rules": []
+        }
+      ],
+      "states": {
+        "empty": "แสดงช่อง Email ว่างพร้อมคำอธิบายว่าระบบจะส่งรหัสไปที่ Email องค์กร",
+        "loading": "ปุ่มขอรหัสถูกปิดและแสดงว่ากำลังส่ง จนกว่าระบบตอบ",
+        "error": "ส่ง Email ไม่สำเร็จ — แจ้ง 'ส่งรหัสไม่สำเร็จ กรุณาลองใหม่อีกครั้ง' และให้กดใหม่",
+        "unauthorized": "ไม่เกิด — หน้านี้เปิดได้ก่อนยืนยันตัวตน · ผู้ที่เข้าสู่ระบบอยู่แล้วถูกพาไปหน้าค้นหาห้องว่าง",
+        "overflow": "Email ยาวเกิน 254 ตัวอักษร — ไม่รับและแจ้งที่ช่อง"
+      },
+      "zones": [
+        {
+          "name": "request-form",
+          "fields": [
+            "email"
+          ],
+          "actions": [
+            "request-code"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UI-mrr-002",
+      "title": "ยืนยันรหัส OTP",
+      "purpose": "ผู้ใช้กรอกรหัสที่ได้รับ (หรือเปิด magic link) เพื่อเข้าสู่ระบบ",
+      "dataBearing": false,
+      "kind": "auth",
+      "roles": [
+        "ROLE-001",
+        "ROLE-002",
+        "ROLE-003"
+      ],
+      "fields": [
+        {
+          "key": "email",
+          "name": "Email ที่ขอรหัส",
+          "io": "display",
+          "required": true,
+          "validation": "แสดง Email ที่ขอรหัสไว้ แก้ไม่ได้",
+          "rules": []
+        },
+        {
+          "key": "otp",
+          "name": "รหัส OTP",
+          "io": "capture",
+          "required": true,
+          "validation": "ตัวเลข 6 หลัก · หมดอายุ 10 นาทีนับจากเวลาส่ง · ใช้ได้ครั้งเดียว",
+          "rules": []
+        }
+      ],
+      "actions": [
+        {
+          "key": "verify",
+          "name": "เข้าสู่ระบบ",
+          "kind": "command",
+          "effect": "ตรวจรหัส ถ้าถูกต้องและยังไม่หมดอายุ สร้าง session ของผู้ใช้",
+          "destination": "หน้าค้นหาห้องว่าง",
+          "destinationRef": "UI-mrr-004",
+          "rules": []
+        },
+        {
+          "key": "resend",
+          "name": "ขอรหัสใหม่",
+          "kind": "command",
+          "effect": "ส่งรหัสใหม่ รหัสเดิมใช้ไม่ได้อีก",
+          "destination": "อยู่ที่หน้าเดิม",
+          "destinationRef": "self",
+          "rules": []
+        }
+      ],
+      "states": {
+        "empty": "ช่องรหัสว่าง พร้อมบอกว่ารหัสถูกส่งไปที่ Email ใด",
+        "loading": "ปุ่มเข้าสู่ระบบถูกปิดระหว่างตรวจรหัส",
+        "error": "รหัสผิด หมดอายุ หรือใช้ไปแล้ว — แจ้งเหตุและให้ขอรหัสใหม่",
+        "unauthorized": "ไม่เกิด — หน้านี้เปิดได้ก่อนยืนยันตัวตน",
+        "overflow": "ไม่เกิด — รหัสรับได้ 6 หลักเท่านั้น"
+      },
+      "zones": [
+        {
+          "name": "verify-form",
+          "fields": [
+            "email",
+            "otp"
+          ],
+          "actions": [
+            "verify",
+            "resend"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UI-mrr-003",
+      "title": "ออกจากระบบ",
+      "purpose": "ยืนยันกับผู้ใช้ว่าออกจากระบบแล้ว และ session ถูกยกเลิก",
+      "dataBearing": false,
+      "kind": "auth",
+      "roles": [
+        "ROLE-001",
+        "ROLE-002",
+        "ROLE-003"
+      ],
+      "fields": [
+        {
+          "key": "message",
+          "name": "ข้อความยืนยัน",
+          "io": "display",
+          "required": true,
+          "validation": "ข้อความคงที่ 'ออกจากระบบแล้ว'",
+          "rules": []
+        }
+      ],
+      "actions": [
+        {
+          "key": "sign-in-again",
+          "name": "เข้าสู่ระบบอีกครั้ง",
+          "kind": "navigate",
+          "effect": "พาไปหน้าขอรหัสเข้าสู่ระบบ",
+          "destination": "หน้าขอรหัสเข้าสู่ระบบ",
+          "destinationRef": "UI-mrr-001",
+          "rules": []
+        }
+      ],
+      "states": {
+        "empty": "ไม่เกิด — หน้านี้แสดงข้อความคงที่เสมอ",
+        "loading": "แสดงว่ากำลังออกจากระบบจนกว่า session ถูกยกเลิก",
+        "error": "ยกเลิก session ไม่สำเร็จ — แจ้งให้ลองใหม่ และไม่แสดงว่าออกจากระบบแล้ว",
+        "unauthorized": "ไม่เกิด — ผู้ที่ไม่ได้เข้าสู่ระบบเห็นข้อความเดียวกัน",
+        "overflow": "ไม่เกิด — ไม่มีข้อมูลรายการ"
+      },
+      "zones": [
+        {
+          "name": "message",
+          "fields": [
+            "message"
+          ],
+          "actions": [
+            "sign-in-again"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UI-mrr-004",
+      "title": "ค้นหาห้องว่าง",
+      "purpose": "หาห้องที่ว่างและรองรับจำนวนคนในช่วงเวลาที่ต้องการ แล้วเลือกไปจอง",
+      "dataBearing": true,
+      "kind": "list",
+      "roles": [
+        "ROLE-001",
+        "ROLE-002",
+        "ROLE-003"
+      ],
+      "fields": [
+        {
+          "key": "date",
+          "name": "วันที่",
+          "io": "capture",
+          "required": true,
+          "validation": "วันที่วันนี้หรืออนาคต",
+          "rules": []
+        },
+        {
+          "key": "start",
+          "name": "เวลาเริ่ม",
+          "io": "capture",
+          "required": true,
+          "validation": "รูปแบบ HH:MM",
+          "rules": []
+        },
+        {
+          "key": "end",
+          "name": "เวลาสิ้นสุด",
+          "io": "capture",
+          "required": true,
+          "validation": "ต้องหลังเวลาเริ่ม",
+          "rules": []
+        },
+        {
+          "key": "attendees",
+          "name": "จำนวนผู้เข้าร่วม",
+          "io": "capture",
+          "required": true,
+          "validation": "จำนวนเต็ม ≥ 1",
+          "rules": []
+        },
+        {
+          "key": "facility-filter",
+          "name": "สิ่งอำนวยความสะดวก",
+          "io": "capture",
+          "required": false,
+          "validation": "เลือกได้หลายรายการจาก Facility ที่ active",
+          "entity": "ENT-004",
+          "attribute": "name",
+          "rules": []
+        },
+        {
+          "key": "room-name",
+          "name": "ชื่อห้อง",
+          "io": "display",
+          "required": true,
+          "validation": "จากเวอร์ชันปัจจุบันของห้อง",
+          "entity": "ENT-003",
+          "attribute": "name",
+          "rules": []
+        },
+        {
+          "key": "capacity",
+          "name": "ความจุ",
+          "io": "display",
+          "required": true,
+          "validation": "จำนวนคน",
+          "entity": "ENT-003",
+          "attribute": "capacity",
+          "rules": []
+        },
+        {
+          "key": "requires-approval",
+          "name": "ต้องอนุมัติ",
+          "io": "display",
+          "required": true,
+          "validation": "แสดงว่าห้องนี้ต้องรออนุมัติหรือไม่",
+          "entity": "ENT-003",
+          "attribute": "requiresApproval",
+          "rules": [
+            "BR-mrr-004@v1"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "key": "search",
+          "name": "ค้นหา",
+          "kind": "filter",
+          "effect": "แสดงห้อง ACTIVE ที่ความจุพอและไม่มีการจองทับช่วงเวลา (รวมรออนุมัติ)",
+          "destination": "อยู่ที่หน้าเดิม",
+          "destinationRef": "self",
+          "rules": [
+            "BR-mrr-001@v1",
+            "BR-mrr-012@v1"
+          ]
+        },
+        {
+          "key": "view-calendar",
+          "name": "ดูปฏิทินห้อง",
+          "kind": "navigate",
+          "effect": "เปิดปฏิทินของห้องที่เลือก",
+          "destination": "หน้าปฏิทินห้อง",
+          "destinationRef": "UI-mrr-005",
+          "rules": []
+        },
+        {
+          "key": "book",
+          "name": "จองห้องนี้",
+          "kind": "navigate",
+          "effect": "เปิดฟอร์มจองพร้อมห้องและช่วงเวลาที่ค้นหา",
+          "destination": "หน้าจองห้องประชุม",
+          "destinationRef": "UI-mrr-006",
+          "rules": []
+        }
+      ],
+      "states": {
+        "empty": "ไม่พบห้องว่างตามเงื่อนไข — แสดง 'ไม่พบห้องว่าง' และแนะนำให้เปลี่ยนเวลา จำนวนคน หรือตัวกรอง",
+        "loading": "แสดงตัวบอกกำลังค้นหาแทนรายการ เงื่อนไขค้นหายังแก้ได้",
+        "error": "ค้นหาไม่สำเร็จ — แจ้งข้อผิดพลาดและให้กดค้นหาอีกครั้ง",
+        "unauthorized": "ผู้ที่ยังไม่เข้าสู่ระบบถูกพาไปหน้าขอรหัสเข้าสู่ระบบ",
+        "overflow": "ผลมากกว่า 20 ห้อง — แบ่งหน้า 20 ห้องต่อหน้า · ชื่อห้องยาวเกิน 1 บรรทัดตัดด้วย … และแสดงเต็มเมื่อชี้"
+      },
+      "zones": [
+        {
+          "name": "search-form",
+          "fields": [
+            "date",
+            "start",
+            "end",
+            "attendees",
+            "facility-filter"
+          ],
+          "actions": [
+            "search"
+          ]
+        },
+        {
+          "name": "results",
+          "fields": [
+            "room-name",
+            "capacity",
+            "requires-approval"
+          ],
+          "actions": [
+            "view-calendar",
+            "book"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UI-mrr-005",
+      "title": "ปฏิทินห้อง",
+      "purpose": "ดูตารางการใช้ห้องรายวัน รายสัปดาห์ หรือรายเดือน เพื่อหาช่วงที่ว่าง",
+      "dataBearing": true,
+      "kind": "detail",
+      "roles": [
+        "ROLE-001",
+        "ROLE-002",
+        "ROLE-003"
+      ],
+      "fields": [
+        {
+          "key": "view",
+          "name": "มุมมอง",
+          "io": "capture",
+          "required": true,
+          "validation": "รายวัน · รายสัปดาห์ · รายเดือน",
+          "rules": []
+        },
+        {
+          "key": "slot-time",
+          "name": "ช่วงเวลาที่ถูกจอง",
+          "io": "display",
+          "required": true,
+          "validation": "[เริ่ม, จบ) ของการจองที่ไม่ใช่ CANCELLED/REJECTED",
+          "entity": "ENT-007",
+          "attribute": "startAt",
+          "rules": [
+            "BR-mrr-001@v1"
+          ]
+        },
+        {
+          "key": "slot-title",
+          "name": "หัวข้อ",
+          "io": "display",
+          "required": false,
+          "validation": "แสดงเฉพาะการจองที่ผู้ดูเป็นผู้จองหรือผู้เข้าร่วม ไม่งั้นแสดง 'ไม่ว่าง'",
+          "entity": "ENT-007",
+          "attribute": "title",
+          "rules": [
+            "BR-mrr-021@v1"
+          ]
+        },
+        {
+          "key": "slot-booker",
+          "name": "ผู้จอง",
+          "io": "display",
+          "required": false,
+          "validation": "แสดงเฉพาะการจองที่ผู้ดูเป็นผู้จองหรือผู้เข้าร่วม",
+          "entity": "ENT-007",
+          "attribute": "bookedBy",
+          "rules": [
+            "BR-mrr-021@v1"
+          ]
+        },
+        {
+          "key": "slot-attendees",
+          "name": "ผู้เข้าร่วม",
+          "io": "display",
+          "required": false,
+          "validation": "แสดงเฉพาะการจองที่ผู้ดูเป็นผู้จองหรือผู้เข้าร่วม",
+          "entity": "ENT-008",
+          "attribute": "user",
+          "rules": [
+            "BR-mrr-021@v1"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "key": "switch-view",
+          "name": "เปลี่ยนมุมมอง",
+          "kind": "filter",
+          "effect": "สลับรายวัน/รายสัปดาห์/รายเดือน",
+          "destination": "อยู่ที่หน้าเดิม",
+          "destinationRef": "self",
+          "rules": []
+        },
+        {
+          "key": "book-slot",
+          "name": "จองช่วงที่ว่าง",
+          "kind": "navigate",
+          "effect": "เปิดฟอร์มจองพร้อมช่วงเวลาที่เลือก",
+          "destination": "หน้าจองห้องประชุม",
+          "destinationRef": "UI-mrr-006",
+          "rules": []
+        }
+      ],
+      "states": {
+        "empty": "ช่วงที่ดูไม่มีการจอง — ปฏิทินแสดงว่างทั้งหมดและเลือกช่วงเพื่อจองได้",
+        "loading": "แสดงโครงปฏิทินพร้อมตัวบอกกำลังโหลด · เป้าโหลดเสร็จ ≤ 2 วินาที (NFR-mrr-002)",
+        "error": "โหลดไม่สำเร็จ — แจ้งข้อผิดพลาดและปุ่มโหลดใหม่",
+        "unauthorized": "การจองของคนอื่นแสดงเพียง 'ไม่ว่าง' ไม่มีรายละเอียด · ผู้ที่ยังไม่เข้าสู่ระบบถูกพาไปหน้าขอรหัสเข้าสู่ระบบ",
+        "overflow": "หลายการจองในช่องเดียวของมุมมองรายเดือน — แสดง 3 รายการแรกและ '+N' ที่กดดูทั้งหมดได้"
+      },
+      "zones": [
+        {
+          "name": "toolbar",
+          "fields": [
+            "view"
+          ],
+          "actions": [
+            "switch-view"
+          ]
+        },
+        {
+          "name": "calendar",
+          "fields": [
+            "slot-time",
+            "slot-title",
+            "slot-booker",
+            "slot-attendees"
+          ],
+          "actions": [
+            "book-slot"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UI-mrr-006",
+      "title": "จองห้องประชุม",
+      "purpose": "สร้างการจองห้องพร้อมหัวข้อ ผู้เข้าร่วม และอุปกรณ์เสริม",
+      "dataBearing": true,
+      "kind": "create",
+      "roles": [
+        "ROLE-001",
+        "ROLE-002",
+        "ROLE-003"
+      ],
+      "fields": [
+        {
+          "key": "room",
+          "name": "ห้อง",
+          "io": "display",
+          "required": true,
+          "validation": "ห้องที่เลือกมา ต้อง ACTIVE",
+          "entity": "ENT-007",
+          "attribute": "room",
+          "rules": [
+            "BR-mrr-012@v1"
+          ]
+        },
+        {
+          "key": "start",
+          "name": "เวลาเริ่ม",
+          "io": "capture",
+          "required": true,
+          "validation": "วันเวลาในอนาคต",
+          "entity": "ENT-007",
+          "attribute": "startAt",
+          "rules": [
+            "BR-mrr-001@v1"
+          ]
+        },
+        {
+          "key": "end",
+          "name": "เวลาสิ้นสุด",
+          "io": "capture",
+          "required": true,
+          "validation": "ต้องหลังเวลาเริ่ม · ไม่ทับการจองอื่นของห้อง",
+          "entity": "ENT-007",
+          "attribute": "endAt",
+          "rules": [
+            "BR-mrr-001@v1"
+          ]
+        },
+        {
+          "key": "title",
+          "name": "หัวข้อการประชุม",
+          "io": "capture",
+          "required": true,
+          "validation": "ห้ามว่าง ไม่เกิน 200 ตัวอักษร",
+          "entity": "ENT-007",
+          "attribute": "title",
+          "rules": [
+            "BR-mrr-002@v1"
+          ]
+        },
+        {
+          "key": "attendees",
+          "name": "ผู้เข้าร่วม",
+          "io": "capture",
+          "required": true,
+          "validation": "เลือกจากรายชื่อผู้ใช้อย่างน้อย 1 คน · ผู้จองไม่ถูกนับอัตโนมัติ",
+          "entity": "ENT-008",
+          "attribute": "user",
+          "rules": [
+            "BR-mrr-002@v1"
+          ]
+        },
+        {
+          "key": "equipment",
+          "name": "อุปกรณ์เสริม",
+          "io": "capture",
+          "required": false,
+          "validation": "เลือกได้หลายรายการ ไม่บังคับ",
+          "entity": "ENT-009",
+          "attribute": "facility",
+          "rules": [
+            "BR-mrr-002@v1"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "key": "confirm",
+          "name": "ยืนยันการจอง",
+          "kind": "create",
+          "effect": "ตรวจการจองทับ บันทึกการจอง (CONFIRMED หรือ PENDING_APPROVAL ตามห้อง) และส่ง Email — ถ้าส่ง Email ไม่สำเร็จไม่บันทึก",
+          "destination": "หน้าการจองของฉัน",
+          "destinationRef": "UI-mrr-007",
+          "rules": [
+            "BR-mrr-001@v1",
+            "BR-mrr-002@v1",
+            "BR-mrr-004@v1",
+            "BR-mrr-007@v1",
+            "BR-mrr-008@v1",
+            "BR-mrr-019@v1"
+          ]
+        },
+        {
+          "key": "cancel-form",
+          "name": "ยกเลิก",
+          "kind": "navigate",
+          "effect": "ปิดฟอร์มโดยไม่บันทึก",
+          "destination": "หน้าค้นหาห้องว่าง",
+          "destinationRef": "UI-mrr-004",
+          "rules": []
+        }
+      ],
+      "states": {
+        "empty": "ฟอร์มเปิดพร้อมห้องและช่วงเวลาที่เลือกมา ช่องอื่นว่าง",
+        "loading": "ปุ่มยืนยันถูกปิดระหว่างบันทึกและส่ง Email",
+        "error": "ช่วงเวลาไม่ว่าง — แสดง 'ห้องนี้ไม่ว่างในช่วงเวลาที่เลือก กรุณาเลือกเวลาอื่น' · ห้องปิดปรับปรุง — แสดง 'ห้องนี้ปิดปรับปรุง ไม่สามารถจองได้' · ส่ง Email ไม่สำเร็จ — แจ้งให้กดใหม่ ข้อมูลในฟอร์มคงไว้",
+        "unauthorized": "ผู้ที่ยังไม่เข้าสู่ระบบถูกพาไปหน้าขอรหัสเข้าสู่ระบบ",
+        "overflow": "หัวข้อเกิน 200 ตัวอักษรไม่รับ · ผู้เข้าร่วมเกินความจุห้อง — แสดงคำเตือนแต่ยังบันทึกได้ (req ไม่มีกฎห้าม)"
+      },
+      "zones": [
+        {
+          "name": "when-where",
+          "fields": [
+            "room",
+            "start",
+            "end"
+          ],
+          "actions": []
+        },
+        {
+          "name": "details",
+          "fields": [
+            "title",
+            "attendees",
+            "equipment"
+          ],
+          "actions": []
+        },
+        {
+          "name": "submit",
+          "fields": [],
+          "actions": [
+            "confirm",
+            "cancel-form"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UI-mrr-007",
+      "title": "การจองของฉัน",
+      "purpose": "ดูรายการและประวัติการจองที่ตนเป็นผู้จอง แล้วเลือกแก้ไขหรือยกเลิก",
+      "dataBearing": true,
+      "kind": "list",
+      "roles": [
+        "ROLE-001",
+        "ROLE-002",
+        "ROLE-003"
+      ],
+      "fields": [
+        {
+          "key": "room",
+          "name": "ห้อง",
+          "io": "display",
+          "required": true,
+          "validation": "ห้องของการจอง",
+          "entity": "ENT-007",
+          "attribute": "room",
+          "rules": []
+        },
+        {
+          "key": "time",
+          "name": "ช่วงเวลา",
+          "io": "display",
+          "required": true,
+          "validation": "วันและเวลาเริ่ม–จบ",
+          "entity": "ENT-007",
+          "attribute": "startAt",
+          "rules": []
+        },
+        {
+          "key": "title",
+          "name": "หัวข้อ",
+          "io": "display",
+          "required": true,
+          "validation": "หัวข้อการประชุม",
+          "entity": "ENT-007",
+          "attribute": "title",
+          "rules": []
+        },
+        {
+          "key": "status",
+          "name": "สถานะ",
+          "io": "display",
+          "required": true,
+          "validation": "ป้ายตามสถานะใน STM-mrr-001",
+          "entity": "ENT-007",
+          "attribute": "status",
+          "rules": []
+        }
+      ],
+      "actions": [
+        {
+          "key": "open",
+          "name": "แก้ไข",
+          "kind": "edit",
+          "effect": "เปิดการจองเพื่อแก้ไข เฉพาะที่ยังไม่ถึงเวลาเริ่ม",
+          "destination": "หน้าแก้ไขการจอง",
+          "destinationRef": "UI-mrr-008",
+          "rules": [
+            "BR-mrr-003@v1",
+            "BR-mrr-009@v1"
+          ]
+        },
+        {
+          "key": "cancel",
+          "name": "ยกเลิกการจอง",
+          "kind": "command",
+          "effect": "ยกเลิกการจองที่ยังไม่ถึงเวลาเริ่ม ปล่อยช่วงเวลาคืน และส่ง Email ถึงผู้จองและผู้เข้าร่วม",
+          "destination": "อยู่ที่หน้าเดิม",
+          "destinationRef": "self",
+          "rules": [
+            "BR-mrr-003@v1",
+            "BR-mrr-009@v1",
+            "BR-mrr-007@v1",
+            "BR-mrr-019@v1"
+          ]
+        }
+      ],
+      "states": {
+        "empty": "ยังไม่มีการจอง — แสดง 'คุณยังไม่มีการจอง' พร้อมทางไปหน้าค้นหาห้องว่าง",
+        "loading": "แสดงตัวบอกกำลังโหลดแทนรายการ",
+        "error": "โหลดไม่สำเร็จ — แจ้งข้อผิดพลาดและปุ่มโหลดใหม่ · ยกเลิกไม่สำเร็จเพราะ Email — แจ้งให้กดใหม่ สถานะไม่เปลี่ยน",
+        "unauthorized": "แสดงเฉพาะการจองของผู้ใช้เอง · ผู้ที่ยังไม่เข้าสู่ระบบถูกพาไปหน้าขอรหัสเข้าสู่ระบบ",
+        "overflow": "มากกว่า 20 รายการ — แบ่งหน้า เรียงจากเวลาเริ่มล่าสุด · หัวข้อยาวตัดด้วย …"
+      },
+      "zones": [
+        {
+          "name": "list",
+          "fields": [
+            "room",
+            "time",
+            "title",
+            "status"
+          ],
+          "actions": [
+            "open",
+            "cancel"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UI-mrr-008",
+      "title": "แก้ไขการจอง",
+      "purpose": "ผู้จองแก้เวลา หัวข้อ ผู้เข้าร่วม หรืออุปกรณ์เสริมของการจองตนเองก่อนเวลาเริ่ม",
+      "dataBearing": true,
+      "kind": "edit",
+      "roles": [
+        "ROLE-001",
+        "ROLE-002",
+        "ROLE-003"
+      ],
+      "fields": [
+        {
+          "key": "start",
+          "name": "เวลาเริ่ม",
+          "io": "capture",
+          "required": true,
+          "validation": "ไม่ทับการจองอื่น และห้องต้องไม่ปิดปรับปรุงเมื่อเปลี่ยนเวลา",
+          "entity": "ENT-007",
+          "attribute": "startAt",
+          "rules": [
+            "BR-mrr-001@v1",
+            "BR-mrr-012@v1"
+          ]
+        },
+        {
+          "key": "end",
+          "name": "เวลาสิ้นสุด",
+          "io": "capture",
+          "required": true,
+          "validation": "ต้องหลังเวลาเริ่ม",
+          "entity": "ENT-007",
+          "attribute": "endAt",
+          "rules": [
+            "BR-mrr-001@v1"
+          ]
+        },
+        {
+          "key": "title",
+          "name": "หัวข้อการประชุม",
+          "io": "capture",
+          "required": true,
+          "validation": "ห้ามว่าง ไม่เกิน 200 ตัวอักษร",
+          "entity": "ENT-007",
+          "attribute": "title",
+          "rules": [
+            "BR-mrr-002@v1"
+          ]
+        },
+        {
+          "key": "attendees",
+          "name": "ผู้เข้าร่วม",
+          "io": "capture",
+          "required": true,
+          "validation": "อย่างน้อย 1 คน",
+          "entity": "ENT-008",
+          "attribute": "user",
+          "rules": [
+            "BR-mrr-002@v1"
+          ]
+        },
+        {
+          "key": "equipment",
+          "name": "อุปกรณ์เสริม",
+          "io": "capture",
+          "required": false,
+          "validation": "ไม่บังคับ",
+          "entity": "ENT-009",
+          "attribute": "facility",
+          "rules": []
+        },
+        {
+          "key": "status",
+          "name": "สถานะ",
+          "io": "display",
+          "required": true,
+          "validation": "สถานะปัจจุบันของการจอง",
+          "entity": "ENT-007",
+          "attribute": "status",
+          "rules": []
+        }
+      ],
+      "actions": [
+        {
+          "key": "save",
+          "name": "บันทึก",
+          "kind": "edit",
+          "effect": "บันทึกการแก้ไข · เปลี่ยนเวลาส่ง Email ถึงผู้จองและผู้เข้าร่วม · แก้หัวข้อหรือผู้เข้าร่วมไม่ส่ง Email",
+          "destination": "หน้าการจองของฉัน",
+          "destinationRef": "UI-mrr-007",
+          "rules": [
+            "BR-mrr-003@v1",
+            "BR-mrr-009@v1",
+            "BR-mrr-007@v1",
+            "BR-mrr-019@v1"
+          ]
+        },
+        {
+          "key": "back",
+          "name": "กลับ",
+          "kind": "navigate",
+          "effect": "กลับโดยไม่บันทึก",
+          "destination": "หน้าการจองของฉัน",
+          "destinationRef": "UI-mrr-007",
+          "rules": []
+        }
+      ],
+      "states": {
+        "empty": "ไม่เกิด — หน้านี้เปิดจากการจองที่มีอยู่เสมอ",
+        "loading": "ปุ่มบันทึกถูกปิดระหว่างบันทึกและส่ง Email",
+        "error": "เวลาใหม่ไม่ว่าง ห้องปิดปรับปรุง หรือส่ง Email ไม่สำเร็จ — แจ้งเหตุ การจองคงค่าเดิม",
+        "unauthorized": "ไม่ใช่ผู้จอง หรือถึงเวลาเริ่มแล้ว — แสดง 'แก้ไขการจองนี้ไม่ได้' และไม่แสดงฟอร์ม",
+        "overflow": "หัวข้อเกิน 200 ตัวอักษรไม่รับ"
+      },
+      "zones": [
+        {
+          "name": "form",
+          "fields": [
+            "start",
+            "end",
+            "title",
+            "attendees",
+            "equipment",
+            "status"
+          ],
+          "actions": [
+            "save",
+            "back"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UI-mrr-009",
+      "title": "รายการรออนุมัติ",
+      "purpose": "Room Administrator ดูการจองที่รออนุมัติแล้วอนุมัติหรือปฏิเสธ",
+      "dataBearing": true,
+      "kind": "workflow",
+      "roles": [
+        "ROLE-002"
+      ],
+      "fields": [
+        {
+          "key": "room",
+          "name": "ห้อง",
+          "io": "display",
+          "required": true,
+          "validation": "ห้องที่ต้องอนุมัติ",
+          "entity": "ENT-007",
+          "attribute": "room",
+          "rules": []
+        },
+        {
+          "key": "time",
+          "name": "ช่วงเวลา",
+          "io": "display",
+          "required": true,
+          "validation": "วันและเวลาเริ่ม–จบ",
+          "entity": "ENT-007",
+          "attribute": "startAt",
+          "rules": []
+        },
+        {
+          "key": "title",
+          "name": "หัวข้อ",
+          "io": "display",
+          "required": true,
+          "validation": "หัวข้อการประชุม",
+          "entity": "ENT-007",
+          "attribute": "title",
+          "rules": []
+        },
+        {
+          "key": "booker",
+          "name": "ผู้จอง",
+          "io": "display",
+          "required": true,
+          "validation": "ผู้จอง",
+          "entity": "ENT-007",
+          "attribute": "bookedBy",
+          "rules": []
+        },
+        {
+          "key": "approver",
+          "name": "ผู้อนุมัติประจำห้อง",
+          "io": "display",
+          "required": false,
+          "validation": "ว่าง = ใครก็อนุมัติได้",
+          "entity": "ENT-003",
+          "attribute": "approver",
+          "rules": [
+            "BR-mrr-013@v1"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "key": "approve",
+          "name": "อนุมัติ",
+          "kind": "command",
+          "effect": "เปลี่ยนเป็น APPROVED บันทึกร่องรอย และส่ง Email ถึงผู้จอง — ส่งไม่สำเร็จไม่เปลี่ยนสถานะ",
+          "destination": "อยู่ที่หน้าเดิม",
+          "destinationRef": "self",
+          "rules": [
+            "BR-mrr-004@v1",
+            "BR-mrr-013@v1",
+            "BR-mrr-017@v1",
+            "BR-mrr-019@v1"
+          ]
+        },
+        {
+          "key": "reject",
+          "name": "ปฏิเสธ",
+          "kind": "command",
+          "effect": "เปลี่ยนเป็น REJECTED บันทึกร่องรอย และปล่อยช่วงเวลาคืน",
+          "destination": "อยู่ที่หน้าเดิม",
+          "destinationRef": "self",
+          "rules": [
+            "BR-mrr-004@v1",
+            "BR-mrr-017@v1"
+          ]
+        },
+        {
+          "key": "manage",
+          "name": "จัดการการจอง",
+          "kind": "navigate",
+          "effect": "เปิดหน้าจัดการการจองของรายการนี้",
+          "destination": "หน้าจัดการการจอง (ผู้ดูแล)",
+          "destinationRef": "UI-mrr-010",
+          "rules": []
+        }
+      ],
+      "states": {
+        "empty": "ไม่มีการจองรออนุมัติ — แสดง 'ไม่มีรายการรออนุมัติ'",
+        "loading": "แสดงตัวบอกกำลังโหลดแทนรายการ",
+        "error": "โหลดไม่สำเร็จ — ปุ่มโหลดใหม่ · อนุมัติไม่สำเร็จเพราะ Email — 'ส่ง Email แจ้งเตือนไม่สำเร็จ กรุณากดใหม่อีกครั้ง'",
+        "unauthorized": "ไม่ใช่ Room Administrator — แสดง 'คุณไม่มีสิทธิ์เข้าหน้านี้' · ห้องที่มีผู้อนุมัติประจำห้องเป็นคนอื่น — ปุ่มอนุมัติ/ปฏิเสธถูกปิดและ API ปฏิเสธ",
+        "overflow": "มากกว่า 20 รายการ — แบ่งหน้า เรียงตามเวลาเริ่มที่ใกล้ที่สุดก่อน"
+      },
+      "zones": [
+        {
+          "name": "queue",
+          "fields": [
+            "room",
+            "time",
+            "title",
+            "booker",
+            "approver"
+          ],
+          "actions": [
+            "approve",
+            "reject",
+            "manage"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UI-mrr-010",
+      "title": "จัดการการจอง (ผู้ดูแล)",
+      "purpose": "Room Administrator เปลี่ยนผลการอนุมัติ แก้หรือยกเลิกแทนผู้จอง และดูร่องรอยของการจองหนึ่ง",
+      "dataBearing": true,
+      "kind": "manage",
+      "roles": [
+        "ROLE-002",
+        "ROLE-003"
+      ],
+      "fields": [
+        {
+          "key": "title",
+          "name": "หัวข้อ",
+          "io": "display",
+          "required": true,
+          "validation": "หัวข้อการประชุม",
+          "entity": "ENT-007",
+          "attribute": "title",
+          "rules": []
+        },
+        {
+          "key": "time",
+          "name": "ช่วงเวลา",
+          "io": "display",
+          "required": true,
+          "validation": "วันและเวลาเริ่ม–จบ",
+          "entity": "ENT-007",
+          "attribute": "startAt",
+          "rules": []
+        },
+        {
+          "key": "status",
+          "name": "สถานะ",
+          "io": "display",
+          "required": true,
+          "validation": "สถานะปัจจุบัน",
+          "entity": "ENT-007",
+          "attribute": "status",
+          "rules": []
+        },
+        {
+          "key": "reason",
+          "name": "เหตุผล",
+          "io": "capture",
+          "required": true,
+          "validation": "ห้ามว่าง เมื่อเปลี่ยนผล แก้ หรือยกเลิกแทนผู้จอง",
+          "entity": "ENT-010",
+          "attribute": "reason",
+          "rules": [
+            "BR-mrr-009@v1",
+            "BR-mrr-011@v1",
+            "BR-mrr-017@v1"
+          ]
+        },
+        {
+          "key": "audit-actor",
+          "name": "ร่องรอย: ผู้กระทำ",
+          "io": "display",
+          "required": true,
+          "validation": "Room Administrator ผู้กระทำ",
+          "entity": "ENT-010",
+          "attribute": "actor",
+          "rules": [
+            "BR-mrr-018@v1"
+          ]
+        },
+        {
+          "key": "audit-action",
+          "name": "ร่องรอย: การกระทำ",
+          "io": "display",
+          "required": true,
+          "validation": "การกระทำ",
+          "entity": "ENT-010",
+          "attribute": "action",
+          "rules": [
+            "BR-mrr-018@v1"
+          ]
+        },
+        {
+          "key": "audit-at",
+          "name": "ร่องรอย: เวลา",
+          "io": "display",
+          "required": true,
+          "validation": "เวลาที่กระทำ",
+          "entity": "ENT-010",
+          "attribute": "at",
+          "rules": [
+            "BR-mrr-018@v1"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "key": "change-decision",
+          "name": "เปลี่ยนผลการอนุมัติ",
+          "kind": "command",
+          "effect": "อนุมัติ ↔ ปฏิเสธ พร้อมเหตุผล ก่อนเวลาเริ่ม และบันทึกร่องรอย",
+          "destination": "อยู่ที่หน้าเดิม",
+          "destinationRef": "self",
+          "rules": [
+            "BR-mrr-011@v1",
+            "BR-mrr-017@v1"
+          ]
+        },
+        {
+          "key": "edit-on-behalf",
+          "name": "แก้แทนผู้จอง",
+          "kind": "edit",
+          "effect": "หลังเวลาเริ่มก่อนเวลาจบ แก้ตรงพร้อมเหตุผล · หลังเวลาจบสร้างคำขอแก้ไข",
+          "destination": "อยู่ที่หน้าเดิม",
+          "destinationRef": "self",
+          "rules": [
+            "BR-mrr-009@v1",
+            "BR-mrr-014@v1",
+            "BR-mrr-017@v1"
+          ]
+        },
+        {
+          "key": "cancel-on-behalf",
+          "name": "ยกเลิกแทนผู้จอง",
+          "kind": "command",
+          "effect": "ยกเลิกพร้อมเหตุผล บันทึกร่องรอย และส่ง Email ถึงผู้จองและผู้เข้าร่วม",
+          "destination": "อยู่ที่หน้าเดิม",
+          "destinationRef": "self",
+          "rules": [
+            "BR-mrr-009@v1",
+            "BR-mrr-017@v1",
+            "BR-mrr-007@v1",
+            "BR-mrr-019@v1"
+          ]
+        },
+        {
+          "key": "back",
+          "name": "กลับ",
+          "kind": "navigate",
+          "effect": "กลับไปรายการรออนุมัติ",
+          "destination": "หน้ารายการรออนุมัติ",
+          "destinationRef": "UI-mrr-009",
+          "rules": []
+        }
+      ],
+      "states": {
+        "empty": "การจองนี้ยังไม่มีร่องรอย — ส่วนร่องรอยแสดง 'ยังไม่มีการกระทำของผู้ดูแล'",
+        "loading": "แสดงตัวบอกกำลังโหลด · ปุ่มคำสั่งถูกปิดระหว่างบันทึก",
+        "error": "ไม่ระบุเหตุผล ถึงเวลาเริ่มแล้ว หรือส่ง Email ไม่สำเร็จ — แจ้งเหตุ สถานะไม่เปลี่ยน",
+        "unauthorized": "General User — แสดง 'คุณไม่มีสิทธิ์เข้าหน้านี้' · System Administrator เห็นเฉพาะร่องรอย ปุ่มคำสั่งไม่แสดงและ API ปฏิเสธ",
+        "overflow": "ร่องรอยมากกว่า 50 รายการ — แบ่งหน้า เรียงล่าสุดก่อน · เหตุผลยาวพับและกดขยายได้"
+      },
+      "zones": [
+        {
+          "name": "booking-summary",
+          "fields": [
+            "title",
+            "time",
+            "status"
+          ],
+          "actions": []
+        },
+        {
+          "name": "admin-actions",
+          "fields": [
+            "reason"
+          ],
+          "actions": [
+            "edit-on-behalf",
+            "change-decision",
+            "cancel-on-behalf",
+            "back"
+          ]
+        },
+        {
+          "name": "audit-trail",
+          "fields": [
+            "audit-actor",
+            "audit-action",
+            "audit-at"
+          ],
+          "actions": []
+        }
+      ]
+    },
+    {
+      "id": "UI-mrr-011",
+      "title": "คำขอแก้ไขการจอง",
+      "purpose": "Room Administrator อนุมัติหรือปฏิเสธคำขอแก้ไขการจองที่ประชุมจบแล้ว ซึ่ง Room Administrator คนอื่นสร้าง",
+      "dataBearing": true,
+      "kind": "workflow",
+      "roles": [
+        "ROLE-002"
+      ],
+      "fields": [
+        {
+          "key": "booking",
+          "name": "การจอง",
+          "io": "display",
+          "required": true,
+          "validation": "การจองที่ขอแก้",
+          "entity": "ENT-011",
+          "attribute": "booking",
+          "rules": []
+        },
+        {
+          "key": "requested-by",
+          "name": "ผู้สร้างคำขอ",
+          "io": "display",
+          "required": true,
+          "validation": "Room Administrator ที่สร้าง",
+          "entity": "ENT-011",
+          "attribute": "requestedBy",
+          "rules": []
+        },
+        {
+          "key": "changes",
+          "name": "ค่าที่ขอเปลี่ยน",
+          "io": "display",
+          "required": true,
+          "validation": "ฟิลด์และค่าใหม่",
+          "entity": "ENT-011",
+          "attribute": "proposedChanges",
+          "rules": []
+        },
+        {
+          "key": "reason",
+          "name": "เหตุผล",
+          "io": "display",
+          "required": true,
+          "validation": "เหตุผลของคำขอ",
+          "entity": "ENT-011",
+          "attribute": "reason",
+          "rules": []
+        },
+        {
+          "key": "status",
+          "name": "สถานะ",
+          "io": "display",
+          "required": true,
+          "validation": "สถานะของคำขอ",
+          "entity": "ENT-011",
+          "attribute": "status",
+          "rules": []
+        }
+      ],
+      "actions": [
+        {
+          "key": "approve",
+          "name": "อนุมัติคำขอ",
+          "kind": "command",
+          "effect": "ค่าใหม่มีผลกับการจอง และบันทึกร่องรอย — ผู้สร้างคำขออนุมัติเองไม่ได้",
+          "destination": "อยู่ที่หน้าเดิม",
+          "destinationRef": "self",
+          "rules": [
+            "BR-mrr-014@v1",
+            "BR-mrr-017@v1"
+          ]
+        },
+        {
+          "key": "reject",
+          "name": "ปฏิเสธคำขอ",
+          "kind": "command",
+          "effect": "ค่าเดิมคงไว้ และบันทึกร่องรอย",
+          "destination": "อยู่ที่หน้าเดิม",
+          "destinationRef": "self",
+          "rules": [
+            "BR-mrr-014@v1",
+            "BR-mrr-017@v1"
+          ]
+        }
+      ],
+      "states": {
+        "empty": "ไม่มีคำขอรออนุมัติ — แสดง 'ไม่มีคำขอแก้ไข'",
+        "loading": "แสดงตัวบอกกำลังโหลดแทนรายการ",
+        "error": "อนุมัติไม่สำเร็จ — แจ้งเหตุ สถานะคำขอไม่เปลี่ยน",
+        "unauthorized": "ไม่ใช่ Room Administrator — 'คุณไม่มีสิทธิ์เข้าหน้านี้' · คำขอที่ตนสร้าง — ปุ่มอนุมัติถูกปิดและ API ปฏิเสธ",
+        "overflow": "มากกว่า 20 รายการ — แบ่งหน้า · ค่าที่ขอเปลี่ยนจำนวนมากพับและกดขยายได้"
+      },
+      "zones": [
+        {
+          "name": "requests",
+          "fields": [
+            "booking",
+            "requested-by",
+            "changes",
+            "reason",
+            "status"
+          ],
+          "actions": [
+            "approve",
+            "reject"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UI-mrr-012",
+      "title": "ห้องประชุม",
+      "purpose": "Room Administrator ดูรายการห้องทั้งหมด แล้วเพิ่ม แก้ไข ปิดปรับปรุง เปิดใช้งาน หรือลบห้อง",
+      "dataBearing": true,
+      "kind": "manage",
+      "roles": [
+        "ROLE-002"
+      ],
+      "fields": [
+        {
+          "key": "code",
+          "name": "รหัสห้อง",
+          "io": "display",
+          "required": true,
+          "validation": "รหัสไม่ซ้ำ",
+          "entity": "ENT-002",
+          "attribute": "code",
+          "rules": []
+        },
+        {
+          "key": "name",
+          "name": "ชื่อห้อง",
+          "io": "display",
+          "required": true,
+          "validation": "จากเวอร์ชันปัจจุบัน",
+          "entity": "ENT-003",
+          "attribute": "name",
+          "rules": []
+        },
+        {
+          "key": "capacity",
+          "name": "ความจุ",
+          "io": "display",
+          "required": true,
+          "validation": "จำนวนคน",
+          "entity": "ENT-003",
+          "attribute": "capacity",
+          "rules": []
+        },
+        {
+          "key": "status",
+          "name": "สถานะห้อง",
+          "io": "display",
+          "required": true,
+          "validation": "ป้ายตามสถานะใน STM-mrr-003",
+          "entity": "ENT-002",
+          "attribute": "status",
+          "rules": []
+        }
+      ],
+      "actions": [
+        {
+          "key": "add-room",
+          "name": "เพิ่มห้อง",
+          "kind": "create",
+          "effect": "เปิดฟอร์มเพิ่มห้องใหม่",
+          "destination": "หน้าข้อมูลห้อง",
+          "destinationRef": "UI-mrr-013",
+          "rules": [
+            "BR-mrr-005@v1"
+          ]
+        },
+        {
+          "key": "edit-room",
+          "name": "แก้ไขห้อง",
+          "kind": "edit",
+          "effect": "เปิดฟอร์มแก้ข้อมูลห้องที่เลือก",
+          "destination": "หน้าข้อมูลห้อง",
+          "destinationRef": "UI-mrr-013",
+          "rules": [
+            "BR-mrr-005@v1",
+            "BR-mrr-010@v2"
+          ]
+        },
+        {
+          "key": "toggle-maintenance",
+          "name": "ปิดปรับปรุง / เปิดใช้งาน",
+          "kind": "command",
+          "effect": "สลับสถานะระหว่าง ACTIVE กับ UNDER_MAINTENANCE · การจองที่มีอยู่คงไว้",
+          "destination": "อยู่ที่หน้าเดิม",
+          "destinationRef": "self",
+          "rules": [
+            "BR-mrr-005@v1",
+            "BR-mrr-012@v1"
+          ]
+        },
+        {
+          "key": "archive",
+          "name": "ลบห้อง",
+          "kind": "delete",
+          "effect": "เปลี่ยนห้องเป็น ARCHIVED ถาวร ห้องไม่แสดงให้ค้นหาหรือจอง ข้อมูลเดิมคงไว้",
+          "destination": "อยู่ที่หน้าเดิม",
+          "destinationRef": "self",
+          "rules": [
+            "BR-mrr-005@v1"
+          ]
+        },
+        {
+          "key": "facilities",
+          "name": "สิ่งอำนวยความสะดวก",
+          "kind": "navigate",
+          "effect": "เปิดหน้าจัดการรายการสิ่งอำนวยความสะดวก",
+          "destination": "หน้าสิ่งอำนวยความสะดวก",
+          "destinationRef": "UI-mrr-014",
+          "rules": []
+        }
+      ],
+      "states": {
+        "empty": "ยังไม่มีห้อง — แสดง 'ยังไม่มีห้องประชุม' พร้อมปุ่มเพิ่มห้อง",
+        "loading": "แสดงตัวบอกกำลังโหลดแทนรายการ",
+        "error": "โหลดหรือเปลี่ยนสถานะไม่สำเร็จ — แจ้งเหตุ สถานะห้องไม่เปลี่ยน",
+        "unauthorized": "ไม่ใช่ Room Administrator (รวม System Administrator) — 'คุณไม่มีสิทธิ์เข้าหน้านี้'",
+        "overflow": "มากกว่า 20 ห้อง — แบ่งหน้าและค้นหาตามชื่อหรือรหัส · ห้อง ARCHIVED ซ่อนไว้โดยเปิดดูได้ด้วยตัวกรอง"
+      },
+      "zones": [
+        {
+          "name": "toolbar",
+          "fields": [],
+          "actions": [
+            "add-room",
+            "facilities"
+          ]
+        },
+        {
+          "name": "rooms",
+          "fields": [
+            "code",
+            "name",
+            "capacity",
+            "status"
+          ],
+          "actions": [
+            "edit-room",
+            "archive",
+            "toggle-maintenance"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UI-mrr-013",
+      "title": "ข้อมูลห้อง",
+      "purpose": "Room Administrator กรอกหรือแก้ข้อมูลห้อง — ทุกการบันทึกสร้างเวอร์ชันใหม่",
+      "dataBearing": true,
+      "kind": "edit",
+      "roles": [
+        "ROLE-002"
+      ],
+      "fields": [
+        {
+          "key": "code",
+          "name": "รหัสห้อง",
+          "io": "capture",
+          "required": true,
+          "validation": "ไม่ซ้ำ · กรอกได้ตอนสร้าง แก้ไม่ได้ภายหลัง",
+          "entity": "ENT-002",
+          "attribute": "code",
+          "rules": []
+        },
+        {
+          "key": "name",
+          "name": "ชื่อห้อง",
+          "io": "capture",
+          "required": true,
+          "validation": "ไม่เกิน 100 ตัวอักษร",
+          "entity": "ENT-003",
+          "attribute": "name",
+          "rules": []
+        },
+        {
+          "key": "capacity",
+          "name": "ความจุ",
+          "io": "capture",
+          "required": true,
+          "validation": "จำนวนเต็ม ≥ 1",
+          "entity": "ENT-003",
+          "attribute": "capacity",
+          "rules": [
+            "BR-mrr-010@v2"
+          ]
+        },
+        {
+          "key": "photos",
+          "name": "รูปภาพ",
+          "io": "capture",
+          "required": false,
+          "validation": "ไฟล์ภาพ ไม่บังคับ",
+          "entity": "ENT-003",
+          "attribute": "photos",
+          "rules": []
+        },
+        {
+          "key": "facilities",
+          "name": "สิ่งอำนวยความสะดวก",
+          "io": "capture",
+          "required": false,
+          "validation": "เลือกจาก Facility ที่ active",
+          "entity": "ENT-005",
+          "attribute": "facility",
+          "rules": []
+        },
+        {
+          "key": "requires-approval",
+          "name": "ต้องอนุมัติ",
+          "io": "capture",
+          "required": true,
+          "validation": "เปิด/ปิด · มีผลกับการจองที่ยังไม่ถึงเวลาเริ่ม",
+          "entity": "ENT-003",
+          "attribute": "requiresApproval",
+          "rules": [
+            "BR-mrr-004@v1",
+            "BR-mrr-010@v2"
+          ]
+        },
+        {
+          "key": "approver",
+          "name": "ผู้อนุมัติประจำห้อง",
+          "io": "capture",
+          "required": false,
+          "validation": "เลือกจากผู้ใช้บทบาท Room Administrator · ว่างได้",
+          "entity": "ENT-003",
+          "attribute": "approver",
+          "rules": [
+            "BR-mrr-013@v1"
+          ]
+        },
+        {
+          "key": "version",
+          "name": "เวอร์ชัน",
+          "io": "display",
+          "required": true,
+          "validation": "เลขเวอร์ชันปัจจุบัน",
+          "entity": "ENT-003",
+          "attribute": "versionNo",
+          "rules": []
+        }
+      ],
+      "actions": [
+        {
+          "key": "save",
+          "name": "บันทึก",
+          "kind": "edit",
+          "effect": "สร้างเวอร์ชันใหม่ของห้อง และปรับสถานะการจองที่ยังไม่ถึงเวลาเริ่มตามค่าตั้งการอนุมัติ",
+          "destination": "หน้าห้องประชุม",
+          "destinationRef": "UI-mrr-012",
+          "rules": [
+            "BR-mrr-005@v1",
+            "BR-mrr-010@v2",
+            "BR-mrr-013@v1"
+          ]
+        },
+        {
+          "key": "back",
+          "name": "กลับ",
+          "kind": "navigate",
+          "effect": "กลับโดยไม่บันทึก",
+          "destination": "หน้าห้องประชุม",
+          "destinationRef": "UI-mrr-012",
+          "rules": []
+        }
+      ],
+      "states": {
+        "empty": "ฟอร์มเพิ่มห้องใหม่ — ทุกช่องว่าง ต้องอนุมัติเริ่มที่ปิด",
+        "loading": "ปุ่มบันทึกถูกปิดระหว่างบันทึก",
+        "error": "ข้อมูลไม่ครบหรือรหัสซ้ำ — ชี้ช่องที่ผิด ไม่สร้างเวอร์ชันใหม่",
+        "unauthorized": "ไม่ใช่ Room Administrator — 'คุณไม่มีสิทธิ์เข้าหน้านี้' และ API ปฏิเสธ",
+        "overflow": "ชื่อเกิน 100 ตัวอักษรไม่รับ · รูปภาพเกินขนาดที่กำหนดไม่รับและแจ้งที่ช่อง"
+      },
+      "zones": [
+        {
+          "name": "basic",
+          "fields": [
+            "code",
+            "name",
+            "capacity",
+            "photos",
+            "facilities",
+            "version"
+          ],
+          "actions": []
+        },
+        {
+          "name": "approval",
+          "fields": [
+            "requires-approval",
+            "approver"
+          ],
+          "actions": []
+        },
+        {
+          "name": "submit",
+          "fields": [],
+          "actions": [
+            "save",
+            "back"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UI-mrr-014",
+      "title": "สิ่งอำนวยความสะดวก",
+      "purpose": "Room Administrator เพิ่ม แก้ชื่อ หรือปิดใช้รายการสิ่งอำนวยความสะดวกที่ใช้กรองและเลือกตอนจอง",
+      "dataBearing": true,
+      "kind": "master",
+      "roles": [
+        "ROLE-002"
+      ],
+      "fields": [
+        {
+          "key": "name",
+          "name": "ชื่อ",
+          "io": "capture",
+          "required": true,
+          "validation": "ไม่ซ้ำ ไม่เกิน 100 ตัวอักษร",
+          "entity": "ENT-004",
+          "attribute": "name",
+          "rules": []
+        },
+        {
+          "key": "active",
+          "name": "ใช้งาน",
+          "io": "capture",
+          "required": true,
+          "validation": "ปิดแล้วไม่แสดงเป็นตัวเลือกใหม่ ข้อมูลเดิมคงไว้",
+          "entity": "ENT-004",
+          "attribute": "active",
+          "rules": []
+        }
+      ],
+      "actions": [
+        {
+          "key": "add",
+          "name": "เพิ่ม",
+          "kind": "create",
+          "effect": "เพิ่มรายการใหม่",
+          "destination": "อยู่ที่หน้าเดิม",
+          "destinationRef": "self",
+          "rules": []
+        },
+        {
+          "key": "save",
+          "name": "บันทึก",
+          "kind": "edit",
+          "effect": "บันทึกชื่อหรือสถานะใช้งาน",
+          "destination": "อยู่ที่หน้าเดิม",
+          "destinationRef": "self",
+          "rules": []
+        },
+        {
+          "key": "back",
+          "name": "กลับ",
+          "kind": "navigate",
+          "effect": "กลับไปหน้าห้องประชุม",
+          "destination": "หน้าห้องประชุม",
+          "destinationRef": "UI-mrr-012",
+          "rules": []
+        }
+      ],
+      "states": {
+        "empty": "ยังไม่มีรายการ — แสดง 'ยังไม่มีสิ่งอำนวยความสะดวก' พร้อมปุ่มเพิ่ม",
+        "loading": "แสดงตัวบอกกำลังโหลดแทนรายการ",
+        "error": "ชื่อซ้ำหรือบันทึกไม่สำเร็จ — แจ้งที่แถวนั้น",
+        "unauthorized": "ไม่ใช่ Room Administrator — 'คุณไม่มีสิทธิ์เข้าหน้านี้'",
+        "overflow": "มากกว่า 50 รายการ — แบ่งหน้า"
+      },
+      "zones": [
+        {
+          "name": "list",
+          "fields": [
+            "name",
+            "active"
+          ],
+          "actions": [
+            "add",
+            "save",
+            "back"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "RPT-mrr-001",
+      "title": "รายงานการใช้ห้อง",
+      "purpose": "Room Administrator ออกและดูรายงานอัตราการใช้งานรายห้องรายเดือน/รายปี พร้อมอันดับ",
+      "dataBearing": true,
+      "kind": "report",
+      "roles": [
+        "ROLE-002"
+      ],
+      "fields": [
+        {
+          "key": "period-type",
+          "name": "ช่วงรายงาน",
+          "io": "capture",
+          "required": true,
+          "validation": "รายเดือน หรือ รายปี",
+          "entity": "ENT-012",
+          "attribute": "periodType",
+          "rules": []
+        },
+        {
+          "key": "period-start",
+          "name": "เริ่มช่วง",
+          "io": "capture",
+          "required": true,
+          "validation": "วันแรกของเดือนหรือปี",
+          "entity": "ENT-012",
+          "attribute": "periodStart",
+          "rules": []
+        },
+        {
+          "key": "issue-no",
+          "name": "ฉบับที่",
+          "io": "display",
+          "required": true,
+          "validation": "เลขฉบับของช่วงนั้น",
+          "entity": "ENT-012",
+          "attribute": "issueNo",
+          "rules": [
+            "BR-mrr-015@v1"
+          ]
+        },
+        {
+          "key": "room",
+          "name": "ห้อง",
+          "io": "display",
+          "required": true,
+          "validation": "ห้อง",
+          "entity": "ENT-013",
+          "attribute": "room",
+          "rules": []
+        },
+        {
+          "key": "booked",
+          "name": "นาทีที่ใช้จริง",
+          "io": "display",
+          "required": true,
+          "validation": "จำนวนเต็ม",
+          "entity": "ENT-013",
+          "attribute": "bookedMinutes",
+          "rules": [
+            "CALC-mrr-001@v1"
+          ]
+        },
+        {
+          "key": "operating",
+          "name": "นาทีทำการ",
+          "io": "display",
+          "required": true,
+          "validation": "จำนวนเต็ม หักช่วงปิดปรับปรุง",
+          "entity": "ENT-013",
+          "attribute": "operatingMinutes",
+          "rules": [
+            "CALC-mrr-001@v1"
+          ]
+        },
+        {
+          "key": "pct",
+          "name": "อัตราการใช้งาน",
+          "io": "display",
+          "required": false,
+          "validation": "ทศนิยม 2 ตำแหน่ง + % · ว่างแสดง '—'",
+          "entity": "ENT-013",
+          "attribute": "utilizationPct",
+          "rules": [
+            "CALC-mrr-001@v1",
+            "BR-mrr-006@v1"
+          ]
+        },
+        {
+          "key": "rank",
+          "name": "อันดับ",
+          "io": "display",
+          "required": false,
+          "validation": "ว่างเมื่อไม่ได้คำนวณ",
+          "entity": "ENT-013",
+          "attribute": "rank",
+          "rules": [
+            "BR-mrr-006@v1"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "key": "issue",
+          "name": "ออกรายงานฉบับใหม่",
+          "kind": "create",
+          "effect": "คำนวณจากข้อมูลล่าสุดและบันทึกเป็นฉบับใหม่ ฉบับเดิมคงไว้",
+          "destination": "อยู่ที่หน้าเดิม",
+          "destinationRef": "self",
+          "rules": [
+            "BR-mrr-006@v1",
+            "BR-mrr-015@v1",
+            "CALC-mrr-001@v1"
+          ]
+        },
+        {
+          "key": "open-issue",
+          "name": "เปิดฉบับที่ออกแล้ว",
+          "kind": "view",
+          "effect": "แสดงฉบับที่เลือกตามค่าที่ออกไว้ แก้ไม่ได้",
+          "destination": "อยู่ที่หน้าเดิม",
+          "destinationRef": "self",
+          "rules": [
+            "BR-mrr-015@v1"
+          ]
+        },
+        {
+          "key": "export",
+          "name": "ส่งออก",
+          "kind": "export",
+          "effect": "ดาวน์โหลดฉบับที่เปิดอยู่เป็นไฟล์",
+          "destination": "อยู่ที่หน้าเดิม",
+          "destinationRef": "self",
+          "rules": [
+            "BR-mrr-022@v1"
+          ]
+        }
+      ],
+      "states": {
+        "empty": "ช่วงนี้ยังไม่เคยออกรายงาน — แสดง 'ยังไม่มีรายงานของช่วงนี้' พร้อมปุ่มออกรายงาน",
+        "loading": "แสดงตัวบอกกำลังคำนวณ ปุ่มออกรายงานถูกปิด",
+        "error": "คำนวณหรือบันทึกไม่สำเร็จ — แจ้งเหตุ ไม่สร้างฉบับใหม่ · คำสั่งแก้ตัวเลข — 'รายงานที่ออกแล้วแก้ไขไม่ได้ กรุณาออกฉบับใหม่'",
+        "unauthorized": "ไม่ใช่ Room Administrator (รวม System Administrator) — 'คุณไม่มีสิทธิ์เข้าหน้านี้' และ API ปฏิเสธ",
+        "overflow": "มากกว่า 50 ห้อง — แบ่งหน้าบนจอ ไฟล์ส่งออกมีครบทุกห้อง"
+      },
+      "zones": [
+        {
+          "name": "period",
+          "fields": [
+            "period-type",
+            "period-start",
+            "issue-no"
+          ],
+          "actions": [
+            "issue",
+            "open-issue",
+            "export"
+          ]
+        },
+        {
+          "name": "table",
+          "fields": [
+            "room",
+            "booked",
+            "operating",
+            "pct",
+            "rank"
+          ],
+          "actions": []
+        }
+      ]
+    }
+  ]
+}

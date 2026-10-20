@@ -1,0 +1,347 @@
+{
+  "schemaVersion": "1.0",
+  "producedBy": "design · scripts/context.mjs",
+  "project": "mrr",
+  "status": "approved",
+  "approvedAt": "2026-10-19T07:59:59Z",
+  "approvedBy": "Noppasorn",
+  "scope": {
+    "inScope": [
+      {
+        "key": "booking",
+        "text": "ค้นหาและกรองห้องว่าง ดูปฏิทินการใช้ห้องรายวัน/รายสัปดาห์/รายเดือน จองห้องพร้อมตรวจสอบการจองทับอัตโนมัติ และจัดการการจองของตนเอง (ดูประวัติ แก้ไข ยกเลิก)",
+        "sources": [
+          "REQ-mrr-001"
+        ]
+      },
+      {
+        "key": "approval",
+        "text": "กำหนดห้องที่ต้องอนุมัติ กำหนดผู้อนุมัติประจำห้อง อนุมัติ/ปฏิเสธ/ถอยผลการจอง และบันทึกร่องรอยการกระทำของ Room Administrator",
+        "sources": [
+          "REQ-mrr-002"
+        ]
+      },
+      {
+        "key": "room-management",
+        "text": "เพิ่ม แก้ไข ปิดปรับปรุง หรือลบข้อมูลห้องประชุม พร้อมความจุ รูปภาพ และสิ่งอำนวยความสะดวก",
+        "sources": [
+          "REQ-mrr-003"
+        ]
+      },
+      {
+        "key": "reports",
+        "text": "รายงานการใช้ห้องรายเดือน/รายปี และสถิติอัตราการใช้งานรายห้องสำหรับวางแผนทรัพยากร",
+        "sources": [
+          "REQ-mrr-004"
+        ]
+      },
+      {
+        "key": "email-notification",
+        "text": "แจ้งเตือนทาง Email เมื่อจองสำเร็จ/ได้รับอนุมัติ ใกล้ถึงเวลาประชุม และเมื่อเปลี่ยนเวลาหรือยกเลิกการจอง รวมงานตามเวลาที่ส่งเตือนก่อนเริ่มประชุม",
+        "sources": [
+          "REQ-mrr-005"
+        ]
+      },
+      {
+        "key": "access-control",
+        "text": "เข้าสู่ระบบด้วย Email ขององค์กร และจำกัดสิทธิ์ตามบทบาท (General User · Room Administrator · System Administrator)",
+        "sources": [
+          "REQ-mrr-001"
+        ]
+      }
+    ],
+    "outOfScope": [
+      {
+        "key": "sso-active-directory",
+        "text": "การเชื่อม Active Directory / SSO — ไม่ทำในรอบนี้",
+        "sources": [
+          "REQ-mrr-001"
+        ]
+      },
+      {
+        "key": "chat-notification",
+        "text": "การแจ้งเตือนผ่านแอปแชทขององค์กร (Line, Microsoft Teams, Slack) — รอบนี้แจ้งเตือนทาง Email อย่างเดียว",
+        "sources": [
+          "REQ-mrr-005"
+        ]
+      },
+      {
+        "key": "native-mobile-app",
+        "text": "แอปมือถือแบบ native (iOS/Android) — รองรับมือถือผ่านเว็บแบบ Responsive เท่านั้น",
+        "sources": [
+          "REQ-mrr-001"
+        ]
+      },
+      {
+        "key": "external-calendar-sync",
+        "text": "การซิงก์การจองกับปฏิทินภายนอก (Outlook / Google Calendar)",
+        "sources": []
+      },
+      {
+        "key": "recurring-booking",
+        "text": "การจองแบบประจำ (ซ้ำทุกสัปดาห์/ทุกเดือน) — หนึ่งการจองคือหนึ่งช่วงเวลา",
+        "sources": []
+      }
+    ]
+  },
+  "assumptions": [
+    {
+      "key": "single-timezone",
+      "text": "ทุกห้องและผู้ใช้อยู่ในเขตเวลาเดียว คือ Asia/Bangkok",
+      "sources": []
+    },
+    {
+      "key": "single-organization",
+      "text": "ห้องทั้งหมดอยู่ในองค์กรเดียว ไม่ต้องแยกหรือจัดกลุ่มตามอาคาร/สาขา",
+      "sources": []
+    },
+    {
+      "key": "user-import-from-hr",
+      "text": "บัญชีผู้ใช้ (Email องค์กร) นำเข้าจากรายชื่อพนักงานของ HR เป็นระยะ ผู้ใช้ไม่สมัครเอง",
+      "sources": []
+    }
+  ],
+  "constraints": [
+    {
+      "key": "login-org-email-only",
+      "text": "เข้าสู่ระบบด้วย Email ขององค์กรอย่างเดียว ไม่เชื่อม Active Directory",
+      "sources": [
+        "REQ-mrr-001"
+      ]
+    },
+    {
+      "key": "performance-target",
+      "text": "รองรับผู้ใช้งานพร้อมกัน 200 คน และหน้าจอตารางห้องประชุมโหลดเสร็จภายใน 2 วินาที",
+      "sources": [
+        "REQ-mrr-001"
+      ]
+    },
+    {
+      "key": "https-rbac",
+      "text": "เข้ารหัสการใช้งานผ่าน HTTPS และจำกัดสิทธิ์ตามระดับผู้ใช้งาน (Role-Based Access Control)",
+      "sources": [
+        "REQ-mrr-001"
+      ]
+    },
+    {
+      "key": "uptime",
+      "text": "เปิดให้บริการตลอด 24 ชั่วโมง (Uptime 99.9%)",
+      "sources": [
+        "REQ-mrr-001"
+      ]
+    },
+    {
+      "key": "browser-responsive",
+      "text": "รองรับ Chrome, Safari, Edge, Firefox และแสดงผลได้ดีบนอุปกรณ์เคลื่อนที่ (Responsive Design)",
+      "sources": [
+        "REQ-mrr-001"
+      ]
+    },
+    {
+      "key": "email-only-channel",
+      "text": "ช่องทางแจ้งเตือนมี Email ช่องทางเดียว",
+      "sources": [
+        "REQ-mrr-005"
+      ]
+    },
+    {
+      "key": "org-wide-working-hours",
+      "text": "ชั่วโมงทำการของห้องเป็นค่าเดียวทั้งองค์กร (ตามคำนิยามใน glossary) ใช้เป็นตัวหารของอัตราการใช้งาน",
+      "sources": [
+        "REQ-mrr-004"
+      ]
+    }
+  ],
+  "actors": [
+    {
+      "key": "general-user",
+      "text": "พนักงานทั่วไป — ค้นหาห้อง ดูตารางว่าง จองและจัดการการจองของตนเอง",
+      "stakeholder": "STK-mrr-001"
+    },
+    {
+      "key": "room-administrator",
+      "text": "เจ้าหน้าที่ดูแลอาคาร/สถานที่ — อนุมัติการจอง จัดการข้อมูลห้อง ดูรายงาน",
+      "stakeholder": "STK-mrr-002"
+    },
+    {
+      "key": "system-administrator",
+      "text": "ผู้ดูแลระบบไอที — จัดการสิทธิ์ผู้ใช้ ตั้งค่าระบบหลังบ้าน ดูแลความปลอดภัย",
+      "stakeholder": "STK-mrr-003"
+    },
+    {
+      "key": "reminder-scheduler",
+      "text": "งานตามเวลาของระบบ — ส่ง Email เตือนก่อนเริ่มประชุม และยกเลิกการจองที่ค้างรออนุมัติเมื่อถึงเวลาเริ่ม",
+      "stakeholder": "STK-mrr-004"
+    }
+  ],
+  "externalSystems": [
+    {
+      "key": "mail-server",
+      "text": "ระบบส่ง Email — ใช้ส่งแจ้งเตือนการจองและรหัสเข้าสู่ระบบ (OTP / magic link)",
+      "sources": [
+        "REQ-mrr-005",
+        "REQ-mrr-001"
+      ]
+    },
+    {
+      "key": "hr-employee-list",
+      "text": "รายชื่อพนักงานจาก HR — แหล่งนำเข้าบัญชีผู้ใช้",
+      "sources": []
+    }
+  ],
+  "glossaryTerms": [
+    "UL-mrr-001",
+    "UL-mrr-002",
+    "UL-mrr-003",
+    "UL-mrr-005",
+    "UL-mrr-006",
+    "UL-mrr-007",
+    "UL-mrr-008",
+    "UL-mrr-009",
+    "UL-mrr-010",
+    "UL-mrr-011",
+    "UL-mrr-012"
+  ],
+  "decisions": [
+    {
+      "id": "DEC-001",
+      "topic": "security",
+      "question": "ผู้ใช้เข้าสู่ระบบด้วย Email ขององค์กรด้วยวิธีใด (ไม่ใช้ Active Directory / SSO ในรอบนี้)",
+      "options": [
+        {
+          "option": "OTP / magic link ทาง Email",
+          "star": true,
+          "evidence": "ยืนยันได้ว่าผู้ใช้เป็นเจ้าของ Email องค์กรจริง ระบบไม่ต้องเก็บรหัสผ่าน และไม่ต้องมีหน้าลืมรหัสผ่าน",
+          "note": "เข้าสู่ระบบไม่ได้ถ้าระบบส่ง Email ล่ม"
+        },
+        {
+          "option": "Email + รหัสผ่านในระบบ",
+          "star": false,
+          "note": "ระบบต้องเก็บ hash รหัสผ่าน และมีขั้นตอนตั้ง/รีเซ็ตรหัสผ่าน"
+        }
+      ],
+      "chosen": "OTP / magic link ทาง Email",
+      "rationale": "เจ้าของโปรเจกต์เลือกเพื่อยืนยันความเป็นเจ้าของ Email องค์กรโดยไม่ต้องดูแลรหัสผ่าน",
+      "decidedBy": "Noppasorn",
+      "decidedAt": "2026-10-19T12:40:00+07:00",
+      "traces": [
+        "NFR-mrr-001",
+        "NFR-mrr-003"
+      ],
+      "approvedBy": null,
+      "approvedAt": null
+    },
+    {
+      "id": "DEC-002",
+      "topic": "framework",
+      "question": "ใช้ framework ใดพัฒนาระบบ",
+      "options": [
+        {
+          "option": "Next.js (TypeScript)",
+          "star": false,
+          "note": "เว็บและ API อยู่ในโปรเจกต์เดียว"
+        },
+        {
+          "option": "React + NestJS",
+          "star": false,
+          "note": "แยก frontend กับ backend"
+        },
+        {
+          "option": "Laravel (PHP)",
+          "star": false,
+          "note": "server-rendered มี scheduler ในตัว"
+        }
+      ],
+      "chosen": "React + NestJS",
+      "rationale": "เจ้าของโปรเจกต์เลือกแยก frontend (React) กับ backend (NestJS)",
+      "decidedBy": "Noppasorn",
+      "decidedAt": "2026-10-19T12:40:00+07:00",
+      "traces": [],
+      "approvedBy": null,
+      "approvedAt": null
+    },
+    {
+      "id": "DEC-003",
+      "topic": "database",
+      "question": "ใช้ฐานข้อมูลใดเก็บข้อมูลห้องและการจอง",
+      "options": [
+        {
+          "option": "PostgreSQL",
+          "star": true,
+          "evidence": "มี exclusion constraint บนช่วงเวลา (tstzrange แบบ [เริ่ม, จบ)) กันการจองทับกันได้ที่ระดับฐานข้อมูล ตรงกับกฎห้ามจองทับของห้องเดียวกัน",
+          "note": ""
+        },
+        {
+          "option": "MySQL",
+          "star": false,
+          "note": "ไม่มี range exclusion ต้องกันการจองทับด้วยการ lock ในแอป"
+        },
+        {
+          "option": "SQL Server",
+          "star": false,
+          "note": "เหมาะถ้าองค์กรใช้ Microsoft stack อยู่แล้ว"
+        }
+      ],
+      "chosen": "PostgreSQL",
+      "rationale": "เจ้าของโปรเจกต์เลือกตามคำแนะนำ — กันการจองทับได้ที่ระดับฐานข้อมูล",
+      "decidedBy": "Noppasorn",
+      "decidedAt": "2026-10-19T12:40:00+07:00",
+      "traces": [
+        "NFR-mrr-002"
+      ],
+      "approvedBy": null,
+      "approvedAt": null
+    },
+    {
+      "id": "DEC-004",
+      "topic": "hosting",
+      "question": "ติดตั้งระบบไว้ที่ใด โดยต้องได้ Uptime 99.9%",
+      "options": [
+        {
+          "option": "Cloud (AWS/Azure/GCP)",
+          "star": false,
+          "note": "มี managed DB และหลาย zone ช่วยให้ถึง 99.9% ได้ง่ายกว่า"
+        },
+        {
+          "option": "On-premise ขององค์กร",
+          "star": false,
+          "note": "ทีมต้องจัด redundancy และการสำรองข้อมูลเองเพื่อให้ถึง 99.9%"
+        }
+      ],
+      "chosen": "On-premise ขององค์กร",
+      "rationale": "เจ้าของโปรเจกต์เลือกติดตั้งใน data center ขององค์กร — การออกแบบต้องรองรับ redundancy เองเพื่อให้ถึง Uptime 99.9%",
+      "decidedBy": "Noppasorn",
+      "decidedAt": "2026-10-19T12:40:00+07:00",
+      "traces": [
+        "NFR-mrr-004"
+      ],
+      "approvedBy": null,
+      "approvedAt": null
+    },
+    {
+      "id": "DEC-005",
+      "topic": "integration",
+      "question": "ระบบส่ง Email (แจ้งเตือนและรหัสเข้าสู่ระบบ) ผ่านบริการใด",
+      "options": [
+        {
+          "option": "SMTP server ขององค์กร",
+          "star": false,
+          "note": "ต้องยืนยันว่าองค์กรมีและเปิดให้ระบบใช้ได้"
+        },
+        {
+          "option": "บริการส่ง Email ภายนอก (เช่น Amazon SES, SendGrid)",
+          "star": false,
+          "note": "ต้องออกอินเทอร์เน็ตจาก on-premise ได้"
+        }
+      ],
+      "chosen": null,
+      "rationale": null,
+      "decidedBy": null,
+      "decidedAt": null,
+      "traces": [],
+      "approvedBy": null,
+      "approvedAt": null
+    }
+  ],
+  "extensions": {}
+}

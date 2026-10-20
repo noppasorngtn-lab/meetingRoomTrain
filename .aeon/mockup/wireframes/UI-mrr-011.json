@@ -1,0 +1,205 @@
+{
+  "schemaVersion": "1.4",
+  "producedBy": "mock · scripts/wireframes.mjs",
+  "project": "mrr",
+  "id": "MCK-mrr-010",
+  "screen": "UI-mrr-011",
+  "title": "คำขอแก้ไขการจอง",
+  "purpose": "Room Administrator อนุมัติหรือปฏิเสธคำขอแก้ไขการจองที่ประชุมจบแล้ว ซึ่ง Room Administrator คนอื่นสร้าง",
+  "level": "L1",
+  "layout": "rows",
+  "kind": "workflow",
+  "visibleTo": [
+    "ROLE-002"
+  ],
+  "zones": [
+    {
+      "name": "header",
+      "kind": "header",
+      "kindSource": "derived",
+      "source": "mock",
+      "items": [
+        {
+          "type": "title",
+          "text": "คำขอแก้ไขการจอง"
+        }
+      ]
+    },
+    {
+      "name": "requests",
+      "kind": "columns",
+      "kindSource": "derived",
+      "source": "design",
+      "items": [
+        {
+          "type": "field",
+          "name": "การจอง",
+          "required": true,
+          "entity": "ENT-011",
+          "attribute": "booking",
+          "validation": "การจองที่ขอแก้",
+          "rules": [],
+          "visibleTo": [
+            "ROLE-002"
+          ],
+          "input": false
+        },
+        {
+          "type": "field",
+          "name": "ผู้สร้างคำขอ",
+          "required": true,
+          "entity": "ENT-011",
+          "attribute": "requestedBy",
+          "validation": "Room Administrator ที่สร้าง",
+          "rules": [],
+          "visibleTo": [
+            "ROLE-002"
+          ],
+          "input": false
+        },
+        {
+          "type": "field",
+          "name": "ค่าที่ขอเปลี่ยน",
+          "required": true,
+          "entity": "ENT-011",
+          "attribute": "proposedChanges",
+          "validation": "ฟิลด์และค่าใหม่",
+          "rules": [],
+          "visibleTo": [
+            "ROLE-002"
+          ],
+          "input": false
+        },
+        {
+          "type": "field",
+          "name": "เหตุผล",
+          "required": true,
+          "entity": "ENT-011",
+          "attribute": "reason",
+          "validation": "เหตุผลของคำขอ",
+          "rules": [],
+          "visibleTo": [
+            "ROLE-002"
+          ],
+          "input": false
+        },
+        {
+          "type": "field",
+          "name": "สถานะ",
+          "required": true,
+          "entity": "ENT-011",
+          "attribute": "status",
+          "validation": "สถานะของคำขอ",
+          "rules": [],
+          "visibleTo": [
+            "ROLE-002"
+          ],
+          "input": false
+        },
+        {
+          "type": "action",
+          "key": "approve",
+          "name": "อนุมัติคำขอ",
+          "kind": "command",
+          "presentation": "text",
+          "placement": "first-column",
+          "container": "inline",
+          "accessibleName": "อนุมัติคำขอ",
+          "conventions": [
+            "UIC-001",
+            "UIC-002"
+          ],
+          "destination": "อยู่ที่หน้าเดิม",
+          "rules": [
+            "BR-mrr-014@v1",
+            "BR-mrr-017@v1"
+          ]
+        },
+        {
+          "type": "action",
+          "key": "reject",
+          "name": "ปฏิเสธคำขอ",
+          "kind": "command",
+          "presentation": "text",
+          "placement": "first-column",
+          "container": "inline",
+          "accessibleName": "ปฏิเสธคำขอ",
+          "conventions": [
+            "UIC-001",
+            "UIC-002"
+          ],
+          "destination": "อยู่ที่หน้าเดิม",
+          "rules": [
+            "BR-mrr-014@v1",
+            "BR-mrr-017@v1"
+          ]
+        }
+      ]
+    }
+  ],
+  "controls": [
+    {
+      "id": "ui-mrr-011-ent-011-booking",
+      "type": "field",
+      "key": "ent-011-booking",
+      "name": "การจอง"
+    },
+    {
+      "id": "ui-mrr-011-ent-011-requested-by",
+      "type": "field",
+      "key": "ent-011-requested-by",
+      "name": "ผู้สร้างคำขอ"
+    },
+    {
+      "id": "ui-mrr-011-ent-011-proposed-changes",
+      "type": "field",
+      "key": "ent-011-proposed-changes",
+      "name": "ค่าที่ขอเปลี่ยน"
+    },
+    {
+      "id": "ui-mrr-011-ent-011-reason",
+      "type": "field",
+      "key": "ent-011-reason",
+      "name": "เหตุผล"
+    },
+    {
+      "id": "ui-mrr-011-ent-011-status",
+      "type": "field",
+      "key": "ent-011-status",
+      "name": "สถานะ"
+    },
+    {
+      "id": "ui-mrr-011-approve",
+      "type": "action",
+      "key": "approve"
+    },
+    {
+      "id": "ui-mrr-011-reject",
+      "type": "action",
+      "key": "reject"
+    }
+  ],
+  "states": {
+    "empty": {
+      "occurs": true,
+      "text": "ไม่มีคำขอรออนุมัติ — แสดง 'ไม่มีคำขอแก้ไข'"
+    },
+    "loading": {
+      "occurs": true,
+      "text": "แสดงตัวบอกกำลังโหลดแทนรายการ"
+    },
+    "error": {
+      "occurs": true,
+      "text": "อนุมัติไม่สำเร็จ — แจ้งเหตุ สถานะคำขอไม่เปลี่ยน"
+    },
+    "unauthorized": {
+      "occurs": true,
+      "text": "ไม่ใช่ Room Administrator — 'คุณไม่มีสิทธิ์เข้าหน้านี้' · คำขอที่ตนสร้าง — ปุ่มอนุมัติถูกปิดและ API ปฏิเสธ"
+    },
+    "overflow": {
+      "occurs": true,
+      "text": "มากกว่า 20 รายการ — แบ่งหน้า · ค่าที่ขอเปลี่ยนจำนวนมากพับและกดขยายได้"
+    }
+  },
+  "extensions": {}
+}

@@ -1,0 +1,103 @@
+{
+  "schemaVersion": "1.4",
+  "producedBy": "mock · scripts/wireframes.mjs",
+  "project": "mrr",
+  "id": "MCK-mrr-015",
+  "screen": "UI-mrr-003",
+  "title": "ออกจากระบบ",
+  "purpose": "ยืนยันกับผู้ใช้ว่าออกจากระบบแล้ว และ session ถูกยกเลิก",
+  "level": "L1",
+  "layout": "form",
+  "kind": "auth",
+  "visibleTo": [
+    "ROLE-001",
+    "ROLE-002",
+    "ROLE-003"
+  ],
+  "zones": [
+    {
+      "name": "header",
+      "kind": "header",
+      "kindSource": "derived",
+      "source": "mock",
+      "items": [
+        {
+          "type": "title",
+          "text": "ออกจากระบบ"
+        }
+      ]
+    },
+    {
+      "name": "message",
+      "kind": "form",
+      "kindSource": "derived",
+      "source": "design",
+      "items": [
+        {
+          "type": "field",
+          "name": "ข้อความยืนยัน",
+          "required": true,
+          "entity": null,
+          "attribute": null,
+          "validation": "ข้อความคงที่ 'ออกจากระบบแล้ว'",
+          "rules": [],
+          "visibleTo": [
+            "ROLE-001",
+            "ROLE-002",
+            "ROLE-003"
+          ],
+          "input": false
+        },
+        {
+          "type": "action",
+          "key": "sign-in-again",
+          "name": "เข้าสู่ระบบอีกครั้ง",
+          "kind": "navigate",
+          "presentation": "text",
+          "placement": "message",
+          "container": "navigate",
+          "accessibleName": "เข้าสู่ระบบอีกครั้ง",
+          "conventions": [],
+          "destination": "หน้าขอรหัสเข้าสู่ระบบ",
+          "rules": []
+        }
+      ]
+    }
+  ],
+  "controls": [
+    {
+      "id": "ui-mrr-003-confirmation-message",
+      "type": "field",
+      "key": "confirmation-message",
+      "name": "ข้อความยืนยัน"
+    },
+    {
+      "id": "ui-mrr-003-sign-in-again",
+      "type": "action",
+      "key": "sign-in-again"
+    }
+  ],
+  "states": {
+    "empty": {
+      "occurs": false,
+      "text": "ไม่เกิด — หน้านี้แสดงข้อความคงที่เสมอ"
+    },
+    "loading": {
+      "occurs": true,
+      "text": "แสดงว่ากำลังออกจากระบบจนกว่า session ถูกยกเลิก"
+    },
+    "error": {
+      "occurs": true,
+      "text": "ยกเลิก session ไม่สำเร็จ — แจ้งให้ลองใหม่ และไม่แสดงว่าออกจากระบบแล้ว"
+    },
+    "unauthorized": {
+      "occurs": false,
+      "text": "ไม่เกิด — ผู้ที่ไม่ได้เข้าสู่ระบบเห็นข้อความเดียวกัน"
+    },
+    "overflow": {
+      "occurs": false,
+      "text": "ไม่เกิด — ไม่มีข้อมูลรายการ"
+    }
+  },
+  "extensions": {}
+}

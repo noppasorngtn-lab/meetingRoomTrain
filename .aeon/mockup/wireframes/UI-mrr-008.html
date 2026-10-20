@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="th">
+<head><meta charset="utf-8"><title>แก้ไขการจอง — UI-mrr-008 · wireframe L1</title></head>
+<body>
+<main data-screen="UI-mrr-008" data-mockup="MCK-mrr-007" data-layout="form">
+<header><h1>แก้ไขการจอง</h1><p>ผู้จองแก้เวลา หัวข้อ ผู้เข้าร่วม หรืออุปกรณ์เสริมของการจองตนเองก่อนเวลาเริ่ม</p><p><small>visible to: ROLE-001 (ผู้ใช้งานทั่วไป (General User)), ROLE-002 (ผู้ดูแลระบบห้องประชุม (Room Administrator)), ROLE-003 (ผู้ดูแลระบบไอที (System Administrator))</small></p></header>
+<form data-zone="form" data-source="design"><p><label>เวลาเริ่ม <abbr title="required">*</abbr> <input type="text" data-testid="ui-mrr-008-ent-007-start-at" name="เวลาเริ่ม" placeholder="ไม่ทับการจองอื่น และห้องต้องไม่ปิดปรับปรุงเมื่อเปลี่ยนเวลา"></label></p><p><label>เวลาสิ้นสุด <abbr title="required">*</abbr> <input type="text" data-testid="ui-mrr-008-ent-007-end-at" name="เวลาสิ้นสุด" placeholder="ต้องหลังเวลาเริ่ม"></label></p><p><label>หัวข้อการประชุม <abbr title="required">*</abbr> <input type="text" data-testid="ui-mrr-008-ent-007-title" name="หัวข้อการประชุม" placeholder="ห้ามว่าง ไม่เกิน 200 ตัวอักษร"></label></p><p><label>ผู้เข้าร่วม <abbr title="required">*</abbr> <input type="text" data-testid="ui-mrr-008-ent-008-user" name="ผู้เข้าร่วม" placeholder="อย่างน้อย 1 คน"></label></p><p><label>อุปกรณ์เสริม <input type="text" data-testid="ui-mrr-008-ent-009-facility" name="อุปกรณ์เสริม" placeholder="ไม่บังคับ"></label></p><dt>สถานะ *</dt><dd data-testid="ui-mrr-008-ent-007-status">สถานะปัจจุบันของการจอง <small>(ENT-007.status)</small></dd><button type="button" data-testid="ui-mrr-008-save" data-key="save" data-kind="edit" data-presentation="text" data-placement="form" data-container="navigate">บันทึก</button><button type="button" data-testid="ui-mrr-008-back" data-key="back" data-kind="navigate" data-presentation="text" data-placement="form" data-container="navigate">กลับ</button></form>
+<section aria-label="states"><h2>states</h2><dl><dt>empty (does not occur)</dt><dd>ไม่เกิด — หน้านี้เปิดจากการจองที่มีอยู่เสมอ</dd><dt>loading</dt><dd>ปุ่มบันทึกถูกปิดระหว่างบันทึกและส่ง Email</dd><dt>error</dt><dd>เวลาใหม่ไม่ว่าง ห้องปิดปรับปรุง หรือส่ง Email ไม่สำเร็จ — แจ้งเหตุ การจองคงค่าเดิม</dd><dt>unauthorized</dt><dd>ไม่ใช่ผู้จอง หรือถึงเวลาเริ่มแล้ว — แสดง 'แก้ไขการจองนี้ไม่ได้' และไม่แสดงฟอร์ม</dd><dt>overflow</dt><dd>หัวข้อเกิน 200 ตัวอักษรไม่รับ</dd></dl></section>
+<footer><small>MCK-mrr-007 · wireframe L1 of UI-mrr-008 · structure only, no style — a theme is applied at L2 (/mock:html)</small></footer>
+</main>
+</body>
+</html>

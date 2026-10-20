@@ -1,0 +1,310 @@
+{
+  "schemaVersion": "1.2",
+  "producedBy": "mock · scripts/state.mjs",
+  "phase": "mockup",
+  "project": "mrr",
+  "prompts": [
+    {
+      "screen": "RPT-mrr-001",
+      "file": ".aeon/mockup/prompts/RPT-mrr-001.md",
+      "imported": false,
+      "testids": [
+        "rpt-mrr-001-ent-012-issue-no",
+        "rpt-mrr-001-ent-012-period-start",
+        "rpt-mrr-001-ent-012-period-type",
+        "rpt-mrr-001-ent-013-booked-minutes",
+        "rpt-mrr-001-ent-013-operating-minutes",
+        "rpt-mrr-001-ent-013-rank",
+        "rpt-mrr-001-ent-013-room",
+        "rpt-mrr-001-ent-013-utilization-pct",
+        "rpt-mrr-001-export",
+        "rpt-mrr-001-issue",
+        "rpt-mrr-001-open-issue"
+      ]
+    },
+    {
+      "screen": "UI-mrr-001",
+      "file": ".aeon/mockup/prompts/UI-mrr-001.md",
+      "imported": false,
+      "testids": [
+        "ui-mrr-001-org-email",
+        "ui-mrr-001-request-code"
+      ]
+    },
+    {
+      "screen": "UI-mrr-002",
+      "file": ".aeon/mockup/prompts/UI-mrr-002.md",
+      "imported": false,
+      "testids": [
+        "ui-mrr-002-otp-code",
+        "ui-mrr-002-requested-email",
+        "ui-mrr-002-resend",
+        "ui-mrr-002-verify"
+      ]
+    },
+    {
+      "screen": "UI-mrr-003",
+      "file": ".aeon/mockup/prompts/UI-mrr-003.md",
+      "imported": false,
+      "testids": [
+        "ui-mrr-003-confirmation-message",
+        "ui-mrr-003-sign-in-again"
+      ]
+    },
+    {
+      "screen": "UI-mrr-004",
+      "file": ".aeon/mockup/prompts/UI-mrr-004.md",
+      "imported": false,
+      "testids": [
+        "ui-mrr-004-attendee-count",
+        "ui-mrr-004-book",
+        "ui-mrr-004-ent-003-capacity",
+        "ui-mrr-004-ent-003-name",
+        "ui-mrr-004-ent-003-requires-approval",
+        "ui-mrr-004-ent-004-name",
+        "ui-mrr-004-search",
+        "ui-mrr-004-search-date",
+        "ui-mrr-004-search-end-time",
+        "ui-mrr-004-search-start-time",
+        "ui-mrr-004-view-calendar"
+      ]
+    },
+    {
+      "screen": "UI-mrr-005",
+      "file": ".aeon/mockup/prompts/UI-mrr-005.md",
+      "imported": false,
+      "testids": [
+        "ui-mrr-005-book-slot",
+        "ui-mrr-005-calendar-view",
+        "ui-mrr-005-ent-007-booked-by",
+        "ui-mrr-005-ent-007-start-at",
+        "ui-mrr-005-ent-007-title",
+        "ui-mrr-005-ent-008-user",
+        "ui-mrr-005-switch-view"
+      ]
+    },
+    {
+      "screen": "UI-mrr-006",
+      "file": ".aeon/mockup/prompts/UI-mrr-006.md",
+      "imported": false,
+      "testids": [
+        "ui-mrr-006-cancel-form",
+        "ui-mrr-006-confirm",
+        "ui-mrr-006-ent-007-end-at",
+        "ui-mrr-006-ent-007-room",
+        "ui-mrr-006-ent-007-start-at",
+        "ui-mrr-006-ent-007-title",
+        "ui-mrr-006-ent-008-user",
+        "ui-mrr-006-ent-009-facility"
+      ]
+    },
+    {
+      "screen": "UI-mrr-007",
+      "file": ".aeon/mockup/prompts/UI-mrr-007.md",
+      "imported": false,
+      "testids": [
+        "ui-mrr-007-cancel",
+        "ui-mrr-007-ent-007-room",
+        "ui-mrr-007-ent-007-start-at",
+        "ui-mrr-007-ent-007-status",
+        "ui-mrr-007-ent-007-title",
+        "ui-mrr-007-open"
+      ]
+    },
+    {
+      "screen": "UI-mrr-008",
+      "file": ".aeon/mockup/prompts/UI-mrr-008.md",
+      "imported": false,
+      "testids": [
+        "ui-mrr-008-back",
+        "ui-mrr-008-ent-007-end-at",
+        "ui-mrr-008-ent-007-start-at",
+        "ui-mrr-008-ent-007-status",
+        "ui-mrr-008-ent-007-title",
+        "ui-mrr-008-ent-008-user",
+        "ui-mrr-008-ent-009-facility",
+        "ui-mrr-008-save"
+      ]
+    },
+    {
+      "screen": "UI-mrr-009",
+      "file": ".aeon/mockup/prompts/UI-mrr-009.md",
+      "imported": false,
+      "testids": [
+        "ui-mrr-009-approve",
+        "ui-mrr-009-ent-003-approver",
+        "ui-mrr-009-ent-007-booked-by",
+        "ui-mrr-009-ent-007-room",
+        "ui-mrr-009-ent-007-start-at",
+        "ui-mrr-009-ent-007-title",
+        "ui-mrr-009-manage",
+        "ui-mrr-009-reject"
+      ]
+    },
+    {
+      "screen": "UI-mrr-010",
+      "file": ".aeon/mockup/prompts/UI-mrr-010.md",
+      "imported": false,
+      "testids": [
+        "ui-mrr-010-back",
+        "ui-mrr-010-cancel-on-behalf",
+        "ui-mrr-010-change-decision",
+        "ui-mrr-010-edit-on-behalf",
+        "ui-mrr-010-ent-007-start-at",
+        "ui-mrr-010-ent-007-status",
+        "ui-mrr-010-ent-007-title",
+        "ui-mrr-010-ent-010-action",
+        "ui-mrr-010-ent-010-actor",
+        "ui-mrr-010-ent-010-at",
+        "ui-mrr-010-ent-010-reason"
+      ]
+    },
+    {
+      "screen": "UI-mrr-011",
+      "file": ".aeon/mockup/prompts/UI-mrr-011.md",
+      "imported": false,
+      "testids": [
+        "ui-mrr-011-approve",
+        "ui-mrr-011-ent-011-booking",
+        "ui-mrr-011-ent-011-proposed-changes",
+        "ui-mrr-011-ent-011-reason",
+        "ui-mrr-011-ent-011-requested-by",
+        "ui-mrr-011-ent-011-status",
+        "ui-mrr-011-reject"
+      ]
+    },
+    {
+      "screen": "UI-mrr-012",
+      "file": ".aeon/mockup/prompts/UI-mrr-012.md",
+      "imported": false,
+      "testids": [
+        "ui-mrr-012-add-room",
+        "ui-mrr-012-archive",
+        "ui-mrr-012-edit-room",
+        "ui-mrr-012-ent-002-code",
+        "ui-mrr-012-ent-002-status",
+        "ui-mrr-012-ent-003-capacity",
+        "ui-mrr-012-ent-003-name",
+        "ui-mrr-012-facilities",
+        "ui-mrr-012-toggle-maintenance"
+      ]
+    },
+    {
+      "screen": "UI-mrr-013",
+      "file": ".aeon/mockup/prompts/UI-mrr-013.md",
+      "imported": false,
+      "testids": [
+        "ui-mrr-013-back",
+        "ui-mrr-013-ent-002-code",
+        "ui-mrr-013-ent-003-approver",
+        "ui-mrr-013-ent-003-capacity",
+        "ui-mrr-013-ent-003-name",
+        "ui-mrr-013-ent-003-photos",
+        "ui-mrr-013-ent-003-requires-approval",
+        "ui-mrr-013-ent-003-version-no",
+        "ui-mrr-013-ent-005-facility",
+        "ui-mrr-013-save"
+      ]
+    },
+    {
+      "screen": "UI-mrr-014",
+      "file": ".aeon/mockup/prompts/UI-mrr-014.md",
+      "imported": false,
+      "testids": [
+        "ui-mrr-014-add",
+        "ui-mrr-014-back",
+        "ui-mrr-014-ent-004-active",
+        "ui-mrr-014-ent-004-name",
+        "ui-mrr-014-save"
+      ]
+    }
+  ],
+  "handoffs": [],
+  "steps": [
+    {
+      "id": "init",
+      "command": "/mock:init",
+      "status": "done",
+      "requires": [],
+      "artifacts": [
+        "mockup.state.json",
+        "coverage.json"
+      ],
+      "attempts": 1,
+      "updatedAt": "2026-10-19T08:25:23Z"
+    },
+    {
+      "id": "convention",
+      "command": "/mock:convention",
+      "status": "done",
+      "requires": [
+        "init"
+      ],
+      "artifacts": [
+        "conventions.json"
+      ],
+      "attempts": 1,
+      "updatedAt": "2026-10-19T08:38:35Z"
+    },
+    {
+      "id": "wireframe",
+      "command": "/mock:wireframe",
+      "status": "done",
+      "requires": [
+        "convention"
+      ],
+      "artifacts": [
+        "wireframes/<UI-id>.json",
+        "wireframes/<UI-id>.html",
+        "wireframes/<UI-id>.md",
+        "mockup-map.json",
+        "trace.mockup.json"
+      ],
+      "attempts": 1,
+      "updatedAt": "2026-10-19T11:17:43Z"
+    },
+    {
+      "id": "theme",
+      "command": "/mock:theme",
+      "status": "done",
+      "requires": [
+        "init"
+      ],
+      "artifacts": [
+        "theme.json",
+        "theme-decisions.json"
+      ],
+      "attempts": 2,
+      "updatedAt": "2026-10-19T11:00:31Z"
+    },
+    {
+      "id": "html",
+      "command": "/mock:html",
+      "status": "done",
+      "requires": [
+        "wireframe",
+        "theme"
+      ],
+      "artifacts": [
+        "../../mockups/<UI-id>/<state>.html"
+      ],
+      "attempts": 1,
+      "updatedAt": "2026-10-19T11:33:17Z"
+    },
+    {
+      "id": "handoff",
+      "command": "/mock:deliver",
+      "status": "done",
+      "requires": [
+        "theme",
+        "wireframe"
+      ],
+      "artifacts": [
+        "../export/mockup-handoff.json"
+      ],
+      "attempts": 1,
+      "updatedAt": "2026-10-20T00:00:00+07:00"
+    }
+  ],
+  "extensions": {}
+}

@@ -1,0 +1,8 @@
+{
+  "name": "mrr",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ]
+}

@@ -1,0 +1,538 @@
+{
+  "schemaVersion": "1.0",
+  "producedBy": "design · scripts/rbac.mjs",
+  "project": "mrr",
+  "status": "approved",
+  "approvedAt": "2026-10-19T07:59:59Z",
+  "approvedBy": "Noppasorn",
+  "defaultEffect": "deny",
+  "roles": [
+    {
+      "id": "ROLE-001",
+      "label": "ผู้ใช้งานทั่วไป (General User)",
+      "stakeholder": "STK-mrr-001",
+      "inherits": []
+    },
+    {
+      "id": "ROLE-002",
+      "label": "ผู้ดูแลระบบห้องประชุม (Room Administrator)",
+      "stakeholder": "STK-mrr-002",
+      "inherits": [
+        "ROLE-001"
+      ]
+    },
+    {
+      "id": "ROLE-003",
+      "label": "ผู้ดูแลระบบไอที (System Administrator)",
+      "stakeholder": "STK-mrr-003",
+      "inherits": [
+        "ROLE-001"
+      ]
+    }
+  ],
+  "entries": [
+    {
+      "id": "ACL-001",
+      "role": "ROLE-001",
+      "resource": "UC-mrr-001",
+      "action": "ค้นหาห้องว่างและกรองตามสิ่งอำนวยความสะดวก — เห็นทุกห้องที่ไม่ได้ปิดปรับปรุงหรือเลิกใช้งาน",
+      "scope": "all",
+      "enforceAt": [
+        "api",
+        "domain"
+      ],
+      "condition": {
+        "stateMachine": "STM-mrr-003",
+        "state": [
+          "ACTIVE"
+        ]
+      }
+    },
+    {
+      "id": "ACL-002",
+      "role": "ROLE-001",
+      "resource": "UC-mrr-002",
+      "action": "ดูปฏิทินของทุกห้อง เห็นช่วงเวลาที่ถูกจองเป็น 'ไม่ว่าง' โดยไม่มีผู้จอง หัวข้อ หรือผู้เข้าร่วม",
+      "scope": "all",
+      "enforceAt": [
+        "api",
+        "domain"
+      ]
+    },
+    {
+      "id": "ACL-003",
+      "role": "ROLE-001",
+      "resource": "UC-mrr-002",
+      "action": "ดูรายละเอียดการจอง (ผู้จอง · หัวข้อ · ผู้เข้าร่วม) ในปฏิทิน เฉพาะการจองที่ตนเป็นผู้จองหรือผู้เข้าร่วม",
+      "scope": "own",
+      "enforceAt": [
+        "api",
+        "domain"
+      ]
+    },
+    {
+      "id": "ACL-004",
+      "role": "ROLE-001",
+      "resource": "UC-mrr-003",
+      "action": "สร้างการจองโดยตนเป็นผู้จอง ในห้องที่เปิดใช้งาน",
+      "scope": "own",
+      "enforceAt": [
+        "ui",
+        "api",
+        "domain"
+      ],
+      "condition": {
+        "stateMachine": "STM-mrr-003",
+        "state": [
+          "ACTIVE"
+        ]
+      }
+    },
+    {
+      "id": "ACL-005",
+      "role": "ROLE-001",
+      "resource": "UC-mrr-004",
+      "action": "แก้ไขการจองที่ตนเป็นผู้จอง ก่อนเวลาเริ่มประชุม",
+      "scope": "own",
+      "enforceAt": [
+        "ui",
+        "api",
+        "domain"
+      ],
+      "condition": {
+        "stateMachine": "STM-mrr-001",
+        "state": [
+          "PENDING_APPROVAL",
+          "CONFIRMED",
+          "APPROVED"
+        ]
+      }
+    },
+    {
+      "id": "ACL-006",
+      "role": "ROLE-001",
+      "resource": "UC-mrr-005",
+      "action": "ยกเลิกการจองที่ตนเป็นผู้จอง ก่อนเวลาเริ่มประชุม",
+      "scope": "own",
+      "enforceAt": [
+        "ui",
+        "api",
+        "domain"
+      ],
+      "condition": {
+        "stateMachine": "STM-mrr-001",
+        "state": [
+          "PENDING_APPROVAL",
+          "CONFIRMED",
+          "APPROVED"
+        ]
+      }
+    },
+    {
+      "id": "ACL-007",
+      "role": "ROLE-001",
+      "resource": "UC-mrr-006",
+      "action": "ดูรายการและประวัติการจองที่ตนเป็นผู้จอง",
+      "scope": "own",
+      "enforceAt": [
+        "api",
+        "domain"
+      ]
+    },
+    {
+      "id": "ACL-008",
+      "role": "ROLE-002",
+      "resource": "UC-mrr-007",
+      "action": "อนุมัติหรือปฏิเสธการจองที่รออนุมัติ — เฉพาะห้องที่ตนเป็นผู้อนุมัติประจำห้อง หรือห้องที่ยังไม่กำหนดผู้อนุมัติ (ตรวจที่ domain)",
+      "scope": "all",
+      "enforceAt": [
+        "ui",
+        "api",
+        "domain"
+      ],
+      "condition": {
+        "stateMachine": "STM-mrr-001",
+        "state": [
+          "PENDING_APPROVAL"
+        ]
+      }
+    },
+    {
+      "id": "ACL-009",
+      "role": "ROLE-002",
+      "resource": "UC-mrr-008",
+      "action": "เปลี่ยนผลการอนุมัติ (อนุมัติ ↔ ปฏิเสธ) พร้อมเหตุผล ก่อนเวลาเริ่มประชุม",
+      "scope": "all",
+      "enforceAt": [
+        "ui",
+        "api",
+        "domain"
+      ],
+      "condition": {
+        "stateMachine": "STM-mrr-001",
+        "state": [
+          "APPROVED",
+          "REJECTED"
+        ]
+      }
+    },
+    {
+      "id": "ACL-010",
+      "role": "ROLE-002",
+      "resource": "UC-mrr-009",
+      "action": "แก้ไขหรือยกเลิกการจองของผู้อื่นแทนผู้จอง พร้อมเหตุผล หลังเวลาเริ่มและก่อนเวลาจบ",
+      "scope": "all",
+      "enforceAt": [
+        "ui",
+        "api",
+        "domain"
+      ],
+      "condition": {
+        "stateMachine": "STM-mrr-001",
+        "state": [
+          "CONFIRMED",
+          "APPROVED"
+        ]
+      }
+    },
+    {
+      "id": "ACL-011",
+      "role": "ROLE-002",
+      "resource": "UC-mrr-010",
+      "action": "สร้างคำขอแก้ไขการจองที่ประชุมจบแล้ว พร้อมเหตุผล",
+      "scope": "all",
+      "enforceAt": [
+        "ui",
+        "api",
+        "domain"
+      ],
+      "condition": {
+        "stateMachine": "STM-mrr-001",
+        "state": [
+          "CONFIRMED",
+          "APPROVED"
+        ]
+      }
+    },
+    {
+      "id": "ACL-012",
+      "role": "ROLE-002",
+      "resource": "UC-mrr-011",
+      "action": "อนุมัติหรือปฏิเสธคำขอแก้ไขการจอง — ต้องไม่ใช่ผู้สร้างคำขอ (ตรวจที่ domain)",
+      "scope": "all",
+      "enforceAt": [
+        "ui",
+        "api",
+        "domain"
+      ],
+      "condition": {
+        "stateMachine": "STM-mrr-002",
+        "state": [
+          "PENDING"
+        ]
+      }
+    },
+    {
+      "id": "ACL-013",
+      "role": "ROLE-002",
+      "resource": "UC-mrr-012",
+      "action": "ดูร่องรอยการกระทำต่อการจองทุกการจอง",
+      "scope": "all",
+      "enforceAt": [
+        "api",
+        "domain"
+      ]
+    },
+    {
+      "id": "ACL-014",
+      "role": "ROLE-002",
+      "resource": "UC-mrr-013",
+      "action": "เพิ่มห้องใหม่ หรือแก้ข้อมูลห้อง (ความจุ รูปภาพ สิ่งอำนวยความสะดวก ค่าตั้งการอนุมัติ ผู้อนุมัติประจำห้อง)",
+      "scope": "all",
+      "enforceAt": [
+        "ui",
+        "api",
+        "domain"
+      ],
+      "condition": {
+        "stateMachine": "STM-mrr-003",
+        "state": [
+          "ACTIVE",
+          "UNDER_MAINTENANCE"
+        ]
+      }
+    },
+    {
+      "id": "ACL-015",
+      "role": "ROLE-002",
+      "resource": "UC-mrr-014",
+      "action": "ตั้งห้องเป็นปิดปรับปรุง หรือเปิดห้องกลับมาใช้งาน",
+      "scope": "all",
+      "enforceAt": [
+        "ui",
+        "api",
+        "domain"
+      ],
+      "condition": {
+        "stateMachine": "STM-mrr-003",
+        "state": [
+          "ACTIVE",
+          "UNDER_MAINTENANCE"
+        ]
+      }
+    },
+    {
+      "id": "ACL-016",
+      "role": "ROLE-002",
+      "resource": "UC-mrr-015",
+      "action": "ลบห้อง (เปลี่ยนเป็นเลิกใช้งาน)",
+      "scope": "all",
+      "enforceAt": [
+        "ui",
+        "api",
+        "domain"
+      ],
+      "condition": {
+        "stateMachine": "STM-mrr-003",
+        "state": [
+          "ACTIVE",
+          "UNDER_MAINTENANCE"
+        ]
+      }
+    },
+    {
+      "id": "ACL-017",
+      "role": "ROLE-002",
+      "resource": "UC-mrr-016",
+      "action": "ออกรายงานการใช้ห้องฉบับใหม่ และเปิดดูทุกฉบับที่ออกแล้ว",
+      "scope": "all",
+      "enforceAt": [
+        "ui",
+        "api",
+        "domain"
+      ]
+    },
+    {
+      "id": "ACL-018",
+      "role": "ROLE-003",
+      "resource": "UC-mrr-012",
+      "action": "ดูร่องรอยการกระทำต่อการจองทุกการจอง",
+      "scope": "all",
+      "enforceAt": [
+        "api",
+        "domain"
+      ]
+    },
+    {
+      "id": "ACL-019",
+      "role": "ROLE-001",
+      "resource": "UI-mrr-003",
+      "action": "ออกจากระบบของตนเอง",
+      "scope": "own",
+      "enforceAt": [
+        "api",
+        "domain"
+      ]
+    },
+    {
+      "id": "ACL-020",
+      "role": "ROLE-001",
+      "resource": "UI-mrr-004",
+      "action": "เปิดหน้าค้นหาห้องว่าง",
+      "scope": "all",
+      "enforceAt": [
+        "api",
+        "domain"
+      ]
+    },
+    {
+      "id": "ACL-021",
+      "role": "ROLE-001",
+      "resource": "UI-mrr-005",
+      "action": "เปิดปฏิทินห้อง — รายละเอียดการจองตาม ACL-003",
+      "scope": "all",
+      "enforceAt": [
+        "api",
+        "domain"
+      ]
+    },
+    {
+      "id": "ACL-022",
+      "role": "ROLE-001",
+      "resource": "UI-mrr-006",
+      "action": "เปิดหน้าจองห้อง",
+      "scope": "own",
+      "enforceAt": [
+        "api",
+        "domain"
+      ]
+    },
+    {
+      "id": "ACL-023",
+      "role": "ROLE-001",
+      "resource": "UI-mrr-007",
+      "action": "เปิดหน้าการจองของฉัน",
+      "scope": "own",
+      "enforceAt": [
+        "api",
+        "domain"
+      ]
+    },
+    {
+      "id": "ACL-024",
+      "role": "ROLE-001",
+      "resource": "UI-mrr-008",
+      "action": "เปิดหน้าแก้ไขการจองที่ตนเป็นผู้จอง",
+      "scope": "own",
+      "enforceAt": [
+        "api",
+        "domain"
+      ],
+      "condition": {
+        "stateMachine": "STM-mrr-001",
+        "state": [
+          "PENDING_APPROVAL",
+          "CONFIRMED",
+          "APPROVED"
+        ]
+      }
+    },
+    {
+      "id": "ACL-025",
+      "role": "ROLE-002",
+      "resource": "UI-mrr-009",
+      "action": "เปิดหน้ารายการรออนุมัติ",
+      "scope": "all",
+      "enforceAt": [
+        "api",
+        "domain"
+      ]
+    },
+    {
+      "id": "ACL-026",
+      "role": "ROLE-002",
+      "resource": "UI-mrr-010",
+      "action": "เปิดหน้าจัดการการจองพร้อมคำสั่งของผู้ดูแล",
+      "scope": "all",
+      "enforceAt": [
+        "api",
+        "domain"
+      ]
+    },
+    {
+      "id": "ACL-027",
+      "role": "ROLE-003",
+      "resource": "UI-mrr-010",
+      "action": "เปิดหน้าจัดการการจองเพื่อดูร่องรอยอย่างเดียว ไม่มีคำสั่ง",
+      "scope": "all",
+      "enforceAt": [
+        "api",
+        "domain"
+      ]
+    },
+    {
+      "id": "ACL-028",
+      "role": "ROLE-002",
+      "resource": "UI-mrr-011",
+      "action": "เปิดหน้าคำขอแก้ไขการจอง",
+      "scope": "all",
+      "enforceAt": [
+        "api",
+        "domain"
+      ]
+    },
+    {
+      "id": "ACL-029",
+      "role": "ROLE-002",
+      "resource": "UI-mrr-012",
+      "action": "เปิดหน้าห้องประชุม",
+      "scope": "all",
+      "enforceAt": [
+        "api",
+        "domain"
+      ]
+    },
+    {
+      "id": "ACL-030",
+      "role": "ROLE-002",
+      "resource": "UI-mrr-013",
+      "action": "เปิดหน้าข้อมูลห้อง",
+      "scope": "all",
+      "enforceAt": [
+        "api",
+        "domain"
+      ]
+    },
+    {
+      "id": "ACL-031",
+      "role": "ROLE-002",
+      "resource": "UI-mrr-014",
+      "action": "เปิดหน้าสิ่งอำนวยความสะดวก",
+      "scope": "all",
+      "enforceAt": [
+        "api",
+        "domain"
+      ]
+    },
+    {
+      "id": "ACL-032",
+      "role": "ROLE-002",
+      "resource": "RPT-mrr-001",
+      "action": "เปิด ออก และส่งออกรายงานการใช้ห้อง",
+      "scope": "all",
+      "enforceAt": [
+        "api",
+        "domain"
+      ]
+    },
+    {
+      "id": "ACL-033",
+      "role": "ROLE-001",
+      "resource": "UI-mrr-001",
+      "action": "เปิดหน้าขอรหัสเข้าสู่ระบบ และขอรหัสด้วย Email ของตนเอง — ระบบส่งรหัสเฉพาะ Email ของ User ที่ active = true",
+      "scope": "own",
+      "enforceAt": [
+        "api",
+        "domain"
+      ]
+    },
+    {
+      "id": "ACL-034",
+      "role": "ROLE-001",
+      "resource": "UI-mrr-002",
+      "action": "เปิดหน้ายืนยันรหัส OTP และยืนยันรหัสที่ส่งถึง Email ของตนเอง",
+      "scope": "own",
+      "enforceAt": [
+        "api",
+        "domain"
+      ]
+    },
+    {
+      "id": "ACL-035",
+      "role": "ROLE-001",
+      "resource": "UC-mrr-020",
+      "action": "เข้าสู่ระบบด้วยบัญชีของตนเอง (User.active = true) — session ได้บทบาทของ User นั้น",
+      "scope": "own",
+      "enforceAt": [
+        "api",
+        "domain"
+      ]
+    },
+    {
+      "id": "ACL-036",
+      "role": "ROLE-001",
+      "resource": "UC-mrr-021",
+      "action": "ออกจากระบบของตนเอง — ยกเลิกได้เฉพาะ session ของตน",
+      "scope": "own",
+      "enforceAt": [
+        "api",
+        "domain"
+      ]
+    }
+  ],
+  "fieldRules": [],
+  "delegation": {
+    "enabled": false,
+    "scopeInheritance": null
+  }
+}

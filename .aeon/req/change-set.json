@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "1.0",
+  "producedBy": "req/scripts/export-contract.mjs",
+  "source": {
+    "plugin": "req",
+    "specSchemaVersion": "0.6.0",
+    "module": "mrr",
+    "specStatus": "validated",
+    "specApprovedBy": "Noppasorn",
+    "specApprovedAt": "2026-10-19T03:53:17.093Z",
+    "specUpdatedAt": "2026-10-19T12:10+07:00"
+  },
+  "changes": [
+    {
+      "id": "CHG-mrr-001",
+      "at": "2026-10-19T10:00+07:00",
+      "reason": "ลูกค้าขอให้เปลี่ยน — การแก้ค่าตั้งของห้องต้องมีผลกับการจองที่ยังไม่ถึงเวลาเริ่มด้วย ไม่ใช่เฉพาะการจองใหม่",
+      "requestedBy": "ลูกค้า (คุณ Somchai) ในการประชุมล่าสุด",
+      "approvedBy": "Adisorn",
+      "triggeredBy": [
+        "SRC-023"
+      ],
+      "effectiveFrom": "2026-10-19",
+      "affects": [
+        "BR-mrr-010@v2"
+      ],
+      "invalidates": [],
+      "notes": "EX-mrr-031 และ EX-mrr-032 ขัดกับ @v2 จึงคงไว้ที่ @v1 อย่างเดียว · ยังไม่มีตัวอย่างที่พิสูจน์พฤติกรรมใหม่ (การจองเดิมกลับไปรออนุมัติ / การจองที่รออนุมัติใช้ได้ทันที) — ต้อง /req:example · ไม่มี CALC/GD ผูกกับกฎนี้",
+      "extensions": {}
+    }
+  ],
+  "extensions": {}
+}

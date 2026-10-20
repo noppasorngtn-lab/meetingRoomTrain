@@ -1,0 +1,475 @@
+{
+  "schemaVersion": "1.1",
+  "producedBy": "mock · scripts/theme.mjs",
+  "project": "mrr",
+  "origin": {
+    "kind": "handoff",
+    "ref": ".aeon/mockup/handoff/mrr-ds",
+    "importedAt": "2026-10-19T11:00:18Z",
+    "importedBy": "Noppasorn",
+    "layout": "plain",
+    "files": [
+      {
+        "path": "theme.css",
+        "sha256": "sha256:4447a8d2841d3a9eb51a4811f452de4c9a38e49a52750734b239351b3a8a5dac"
+      },
+      {
+        "path": "components.json",
+        "sha256": "sha256:7d184bac66da7737d49409ddf8f4d33fa41d3df5a9bbcf56867b4e3b56c61fbc"
+      }
+    ]
+  },
+  "tokens": {
+    "light": {
+      "--surface": {
+        "value": "#f6f5f1",
+        "source": "handoff"
+      },
+      "--surface-raised": {
+        "value": "#ffffff",
+        "source": "handoff"
+      },
+      "--surface-sunken": {
+        "value": "#ecebe5",
+        "source": "handoff"
+      },
+      "--surface-hover": {
+        "value": "#efeee8",
+        "source": "handoff"
+      },
+      "--surface-pressed": {
+        "value": "#e4e3dc",
+        "source": "handoff"
+      },
+      "--ink": {
+        "value": "#1b2420",
+        "source": "handoff"
+      },
+      "--ink-muted": {
+        "value": "#56605b",
+        "source": "handoff"
+      },
+      "--border": {
+        "value": "#dcdad2",
+        "source": "handoff"
+      },
+      "--border-strong": {
+        "value": "#858c87",
+        "source": "handoff"
+      },
+      "--primary": {
+        "value": "#1f5c4d",
+        "source": "handoff"
+      },
+      "--primary-hover": {
+        "value": "#184a3e",
+        "source": "handoff"
+      },
+      "--primary-active": {
+        "value": "#123a31",
+        "source": "handoff"
+      },
+      "--on-primary": {
+        "value": "#ffffff",
+        "source": "handoff"
+      },
+      "--primary-tint": {
+        "value": "#dfece7",
+        "source": "handoff"
+      },
+      "--on-primary-tint": {
+        "value": "#174a3d",
+        "source": "handoff"
+      },
+      "--success": {
+        "value": "#1d5aa0",
+        "source": "handoff"
+      },
+      "--success-tint": {
+        "value": "#e4edf8",
+        "source": "handoff"
+      },
+      "--warning": {
+        "value": "#7f5200",
+        "source": "handoff"
+      },
+      "--warning-tint": {
+        "value": "#fcf0d6",
+        "source": "handoff"
+      },
+      "--danger": {
+        "value": "#b42318",
+        "source": "handoff"
+      },
+      "--danger-hover": {
+        "value": "#951c13",
+        "source": "handoff"
+      },
+      "--on-danger": {
+        "value": "#ffffff",
+        "source": "handoff"
+      },
+      "--danger-tint": {
+        "value": "#fbeae8",
+        "source": "handoff"
+      },
+      "--focus-ring": {
+        "value": "#1d5aa0",
+        "source": "handoff"
+      },
+      "--disabled-fill": {
+        "value": "#e3e2dc",
+        "source": "handoff"
+      },
+      "--disabled-ink": {
+        "value": "#5f6662",
+        "source": "handoff"
+      },
+      "--shadow-raised": {
+        "value": "0 1px 2px rgba(27,36,32,0.08)",
+        "source": "handoff"
+      },
+      "--shadow-overlay": {
+        "value": "0 8px 24px rgba(27,36,32,0.16)",
+        "source": "handoff"
+      },
+      "--font-sans": {
+        "value": "\"IBM Plex Sans Thai\", \"Noto Sans Thai\", Tahoma, system-ui, sans-serif",
+        "source": "handoff"
+      },
+      "--font-mono": {
+        "value": "\"IBM Plex Mono\", ui-monospace, Menlo, monospace",
+        "source": "handoff"
+      },
+      "--space-1": {
+        "value": "4px",
+        "source": "handoff"
+      },
+      "--space-2": {
+        "value": "8px",
+        "source": "handoff"
+      },
+      "--space-3": {
+        "value": "12px",
+        "source": "handoff"
+      },
+      "--space-4": {
+        "value": "16px",
+        "source": "handoff"
+      },
+      "--space-6": {
+        "value": "24px",
+        "source": "handoff"
+      },
+      "--space-8": {
+        "value": "32px",
+        "source": "handoff"
+      },
+      "--space-12": {
+        "value": "48px",
+        "source": "handoff"
+      },
+      "--radius-sm": {
+        "value": "4px",
+        "source": "handoff"
+      },
+      "--radius-md": {
+        "value": "6px",
+        "source": "handoff"
+      },
+      "--radius-lg": {
+        "value": "10px",
+        "source": "handoff"
+      },
+      "--radius-pill": {
+        "value": "999px",
+        "source": "handoff"
+      },
+      "--control-height": {
+        "value": "44px",
+        "source": "handoff"
+      },
+      "--control-height-sm": {
+        "value": "36px",
+        "source": "handoff"
+      },
+      "--page-min": {
+        "value": "360px",
+        "source": "handoff"
+      },
+      "--content-max": {
+        "value": "1200px",
+        "source": "handoff"
+      },
+      "--text-display": {
+        "value": "600 28px/42px var(--font-sans)",
+        "source": "handoff"
+      },
+      "--text-title": {
+        "value": "600 22px/34px var(--font-sans)",
+        "source": "handoff"
+      },
+      "--text-heading": {
+        "value": "600 18px/28px var(--font-sans)",
+        "source": "handoff"
+      },
+      "--text-body": {
+        "value": "400 15px/26px var(--font-sans)",
+        "source": "handoff"
+      },
+      "--text-body-strong": {
+        "value": "600 15px/26px var(--font-sans)",
+        "source": "handoff"
+      },
+      "--text-label": {
+        "value": "500 14px/22px var(--font-sans)",
+        "source": "handoff"
+      },
+      "--text-caption": {
+        "value": "400 13px/20px var(--font-sans)",
+        "source": "handoff"
+      },
+      "--text-time": {
+        "value": "500 14px/22px var(--font-mono)",
+        "source": "handoff"
+      }
+    },
+    "dark": {
+      "--surface": {
+        "value": "#121815",
+        "source": "handoff"
+      },
+      "--surface-raised": {
+        "value": "#1a221e",
+        "source": "handoff"
+      },
+      "--surface-sunken": {
+        "value": "#0d1210",
+        "source": "handoff"
+      },
+      "--surface-hover": {
+        "value": "#212a26",
+        "source": "handoff"
+      },
+      "--surface-pressed": {
+        "value": "#28322d",
+        "source": "handoff"
+      },
+      "--ink": {
+        "value": "#e9ede8",
+        "source": "handoff"
+      },
+      "--ink-muted": {
+        "value": "#a5afa9",
+        "source": "handoff"
+      },
+      "--border": {
+        "value": "#2b3530",
+        "source": "handoff"
+      },
+      "--border-strong": {
+        "value": "#6f7a74",
+        "source": "handoff"
+      },
+      "--primary": {
+        "value": "#73c3a9",
+        "source": "handoff"
+      },
+      "--primary-hover": {
+        "value": "#8dd1bb",
+        "source": "handoff"
+      },
+      "--primary-active": {
+        "value": "#5fae94",
+        "source": "handoff"
+      },
+      "--on-primary": {
+        "value": "#0c201a",
+        "source": "handoff"
+      },
+      "--primary-tint": {
+        "value": "#1d3a31",
+        "source": "handoff"
+      },
+      "--on-primary-tint": {
+        "value": "#a9dcc9",
+        "source": "handoff"
+      },
+      "--success": {
+        "value": "#8cb8ee",
+        "source": "handoff"
+      },
+      "--success-tint": {
+        "value": "#182a40",
+        "source": "handoff"
+      },
+      "--warning": {
+        "value": "#f0b64a",
+        "source": "handoff"
+      },
+      "--warning-tint": {
+        "value": "#33270f",
+        "source": "handoff"
+      },
+      "--danger": {
+        "value": "#ff8e80",
+        "source": "handoff"
+      },
+      "--danger-hover": {
+        "value": "#ffa99e",
+        "source": "handoff"
+      },
+      "--on-danger": {
+        "value": "#2a0d0a",
+        "source": "handoff"
+      },
+      "--danger-tint": {
+        "value": "#3a1b18",
+        "source": "handoff"
+      },
+      "--focus-ring": {
+        "value": "#8cb8ee",
+        "source": "handoff"
+      },
+      "--disabled-fill": {
+        "value": "#252d29",
+        "source": "handoff"
+      },
+      "--disabled-ink": {
+        "value": "#8a948e",
+        "source": "handoff"
+      },
+      "--shadow-raised": {
+        "value": "0 1px 2px rgba(0,0,0,0.5)",
+        "source": "handoff"
+      },
+      "--shadow-overlay": {
+        "value": "0 8px 24px rgba(0,0,0,0.6)",
+        "source": "handoff"
+      }
+    },
+    "kinds": {
+      "--surface": "color",
+      "--surface-raised": "color",
+      "--surface-sunken": "color",
+      "--surface-hover": "color",
+      "--surface-pressed": "color",
+      "--ink": "color",
+      "--ink-muted": "color",
+      "--border": "color",
+      "--border-strong": "color",
+      "--primary": "color",
+      "--primary-hover": "color",
+      "--primary-active": "color",
+      "--on-primary": "color",
+      "--primary-tint": "color",
+      "--on-primary-tint": "color",
+      "--success": "color",
+      "--success-tint": "color",
+      "--warning": "color",
+      "--warning-tint": "color",
+      "--danger": "color",
+      "--danger-hover": "color",
+      "--on-danger": "color",
+      "--danger-tint": "color",
+      "--focus-ring": "color",
+      "--disabled-fill": "color",
+      "--disabled-ink": "color",
+      "--shadow-raised": "shadow",
+      "--shadow-overlay": "shadow",
+      "--font-sans": "font-family",
+      "--font-mono": "font-family",
+      "--space-1": "length",
+      "--space-2": "length",
+      "--space-3": "length",
+      "--space-4": "length",
+      "--space-6": "length",
+      "--space-8": "length",
+      "--space-12": "length",
+      "--radius-sm": "radius",
+      "--radius-md": "radius",
+      "--radius-lg": "radius",
+      "--radius-pill": "radius",
+      "--control-height": "length",
+      "--control-height-sm": "length",
+      "--page-min": "length",
+      "--content-max": "length",
+      "--text-display": "font-family",
+      "--text-title": "font-family",
+      "--text-heading": "font-family",
+      "--text-body": "font-family",
+      "--text-body-strong": "font-family",
+      "--text-label": "font-family",
+      "--text-caption": "font-family",
+      "--text-time": "font-family"
+    }
+  },
+  "components": [
+    {
+      "name": "Button",
+      "source": null
+    },
+    {
+      "name": "TextField",
+      "source": null
+    },
+    {
+      "name": "Table",
+      "source": null
+    },
+    {
+      "name": "Alert",
+      "source": null
+    }
+  ],
+  "layout": {
+    "breakpoints": [],
+    "maxWidth": [],
+    "grid": []
+  },
+  "states": {
+    "normal": {
+      "hasToken": true,
+      "tokens": []
+    },
+    "hover": {
+      "hasToken": true,
+      "tokens": [
+        "--surface-hover",
+        "--primary-hover",
+        "--danger-hover"
+      ]
+    },
+    "active": {
+      "hasToken": true,
+      "tokens": [
+        "--surface-pressed",
+        "--primary-active"
+      ]
+    },
+    "focus": {
+      "hasToken": true,
+      "tokens": [
+        "--focus-ring"
+      ]
+    },
+    "disabled": {
+      "hasToken": true,
+      "tokens": [
+        "--disabled-fill",
+        "--disabled-ink"
+      ]
+    },
+    "error": {
+      "hasToken": true,
+      "tokens": [
+        "--danger",
+        "--danger-hover",
+        "--on-danger",
+        "--danger-tint"
+      ]
+    }
+  },
+  "externalRefs": [],
+  "extensions": {}
+}

@@ -1,0 +1,2106 @@
+{
+  "schemaVersion": "1.0",
+  "producedBy": "design · scripts/scenarios.mjs",
+  "project": "mrr",
+  "module": "mrr",
+  "status": "approved",
+  "approvedAt": "2026-10-19T07:59:59Z",
+  "approvedBy": "Noppasorn",
+  "scenarios": [
+    {
+      "id": "SCN-mrr-001",
+      "title": "ค้นหาห้องว่างตามช่วงเวลาและจำนวนผู้เข้าร่วม",
+      "kind": "happy",
+      "verifies": [
+        "FUN-mrr-001"
+      ],
+      "rules": [
+        "BR-mrr-001@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง A: MeetingRoom.status = ACTIVE · requiresApproval = false · capacity = 8 · มีโปรเจคเตอร์",
+        "ห้อง C: ACTIVE · requiresApproval = false · capacity = 4",
+        "ห้อง B: MeetingRoom.status = ACTIVE · requiresApproval = true · approver = RA1 · capacity = 10 · มีการจอง status = APPROVED วันที่ 20/10 10:00–11:00"
+      ],
+      "when": [
+        "U1 ค้นหาวันที่ 20/10 เวลา 10:00–11:00 ผู้เข้าร่วม 6 คน"
+      ],
+      "expected": [
+        "ผลการค้นหามีห้อง A เพียงห้องเดียว",
+        "ห้อง C ไม่อยู่ในผล (capacity 4 < 6)",
+        "ห้อง B ไม่อยู่ในผล (มีการจองทับช่วงเวลา)",
+        "ไม่มี Booking ถูกสร้าง"
+      ]
+    },
+    {
+      "id": "SCN-mrr-002",
+      "title": "กรองห้องตามสิ่งอำนวยความสะดวก",
+      "kind": "alternate",
+      "verifies": [
+        "FUN-mrr-001"
+      ],
+      "rules": [],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง A: MeetingRoom.status = ACTIVE · requiresApproval = false · capacity = 8 · มีโปรเจคเตอร์",
+        "ห้อง C: ACTIVE · capacity = 4 · ไม่มีโปรเจคเตอร์ · ว่างทั้งวัน 20/10"
+      ],
+      "when": [
+        "U1 ค้นหาวันที่ 20/10 เวลา 13:00–14:00 ผู้เข้าร่วม 2 คน และเลือกตัวกรอง 'โปรเจคเตอร์'"
+      ],
+      "expected": [
+        "ผลการค้นหามีห้อง A เท่านั้น",
+        "ห้อง C ไม่อยู่ในผลเพราะไม่มีโปรเจคเตอร์"
+      ]
+    },
+    {
+      "id": "SCN-mrr-003",
+      "title": "ห้องปิดปรับปรุงและช่วงเวลาที่มีการจองรออนุมัติไม่ปรากฏในผลค้นหา",
+      "kind": "exception",
+      "verifies": [
+        "FUN-mrr-001"
+      ],
+      "rules": [
+        "BR-mrr-012@v1",
+        "BR-mrr-001@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง A: MeetingRoom.status = UNDER_MAINTENANCE · capacity = 8",
+        "ห้อง B: MeetingRoom.status = ACTIVE · requiresApproval = true · approver = RA1 · capacity = 10 · มีการจอง status = PENDING_APPROVAL วันที่ 20/10 10:00–11:00"
+      ],
+      "when": [
+        "U1 ค้นหาวันที่ 20/10 เวลา 10:00–11:00 ผู้เข้าร่วม 2 คน"
+      ],
+      "expected": [
+        "ผลการค้นหาว่าง และหน้าจอแสดงสถานะ 'ไม่พบห้องว่าง' พร้อมคำแนะนำให้เปลี่ยนเงื่อนไข",
+        "ห้อง A และห้อง B ไม่อยู่ในผล"
+      ]
+    },
+    {
+      "id": "SCN-mrr-004",
+      "title": "ช่วงเวลาที่เริ่มตรงกับเวลาจบของการจองเดิมถือว่าว่าง",
+      "kind": "boundary",
+      "verifies": [
+        "FUN-mrr-001"
+      ],
+      "rules": [
+        "BR-mrr-001@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง A: MeetingRoom.status = ACTIVE · requiresApproval = false · capacity = 8 · มีโปรเจคเตอร์ · มีการจอง status = CONFIRMED วันที่ 20/10 10:00–11:00"
+      ],
+      "when": [
+        "U1 ค้นหาวันที่ 20/10 เวลา 11:00–12:00 ผู้เข้าร่วม 2 คน"
+      ],
+      "expected": [
+        "ห้อง A อยู่ในผลการค้นหา (ช่วง [10:00, 11:00) ไม่ทับ [11:00, 12:00))"
+      ]
+    },
+    {
+      "id": "SCN-mrr-005",
+      "title": "ค้นหาด้วยเวลาสิ้นสุดที่ไม่หลังเวลาเริ่ม",
+      "kind": "exception",
+      "verifies": [
+        "FUN-mrr-001"
+      ],
+      "rules": [],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง A: MeetingRoom.status = ACTIVE · requiresApproval = false · capacity = 8 · มีโปรเจคเตอร์"
+      ],
+      "when": [
+        "U1 ค้นหาวันที่ 20/10 เวลาเริ่ม 14:00 เวลาสิ้นสุด 13:00"
+      ],
+      "expected": [
+        "ระบบไม่ค้นหา และแสดงข้อความให้แก้ช่วงเวลาที่ช่องเวลาสิ้นสุด",
+        "ไม่มีรายการห้องแสดง"
+      ]
+    },
+    {
+      "id": "SCN-mrr-006",
+      "title": "ผู้จองและผู้เข้าร่วมเห็นรายละเอียดการจองในปฏิทิน",
+      "kind": "happy",
+      "verifies": [
+        "FUN-mrr-002"
+      ],
+      "rules": [
+        "BR-mrr-021@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง A: MeetingRoom.status = ACTIVE · requiresApproval = false · capacity = 8 · มีโปรเจคเตอร์ · มีการจอง status = CONFIRMED 17/10 10:00–11:00 หัวข้อ 'ประชุมทีม' bookedBy = U1 ผู้เข้าร่วม U2, U3"
+      ],
+      "when": [
+        "U1 เปิดปฏิทินรายวันของห้อง A วันที่ 17/10 แล้ว U2 เปิดปฏิทินเดียวกัน"
+      ],
+      "expected": [
+        "ทั้ง U1 และ U2 เห็นช่อง 10:00–11:00 แสดงผู้จอง U1 หัวข้อ 'ประชุมทีม' และผู้เข้าร่วม U2, U3"
+      ]
+    },
+    {
+      "id": "SCN-mrr-007",
+      "title": "ผู้ใช้ที่ไม่เกี่ยวข้องเห็นแค่ว่าไม่ว่าง และข้อมูลไม่หลุดผ่าน API",
+      "kind": "exception",
+      "verifies": [
+        "FUN-mrr-002"
+      ],
+      "rules": [
+        "BR-mrr-021@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง B: MeetingRoom.status = ACTIVE · requiresApproval = true · approver = RA1 · capacity = 10 · มีการจอง status = PENDING_APPROVAL 17/10 10:00–11:00 หัวข้อ 'ประชุมลูกค้า' bookedBy = U1 ผู้เข้าร่วม U2"
+      ],
+      "when": [
+        "U4 เปิดปฏิทินรายวันของห้อง B วันที่ 17/10"
+      ],
+      "expected": [
+        "ช่อง 10:00–11:00 แสดงแค่คำว่า 'ไม่ว่าง'",
+        "ข้อมูลที่ API ส่งให้หน้าจอของ U4 ไม่มีฟิลด์ผู้จอง หัวข้อ หรือผู้เข้าร่วมของการจองนี้"
+      ]
+    },
+    {
+      "id": "SCN-mrr-008",
+      "title": "ดูปฏิทินแบบรายสัปดาห์และรายเดือน",
+      "kind": "alternate",
+      "verifies": [
+        "FUN-mrr-002"
+      ],
+      "rules": [
+        "BR-mrr-021@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง A: MeetingRoom.status = ACTIVE · requiresApproval = false · capacity = 8 · มีโปรเจคเตอร์ · มีการจอง CONFIRMED 19/10 09:00–10:00 ของ U1 และ 23/10 14:00–15:00 ของ U4"
+      ],
+      "when": [
+        "U1 เปิดปฏิทินห้อง A มุมมองรายสัปดาห์ (19–25/10) แล้วสลับเป็นรายเดือน ต.ค. 2569"
+      ],
+      "expected": [
+        "ทั้งสองมุมมองแสดงช่วงที่ถูกจองสองช่วงเดียวกัน",
+        "ช่วง 19/10 แสดงหัวข้อของ U1 · ช่วง 23/10 แสดงแค่ 'ไม่ว่าง'"
+      ]
+    },
+    {
+      "id": "SCN-mrr-009",
+      "title": "จองห้องที่ไม่ต้องอนุมัติสำเร็จ",
+      "kind": "happy",
+      "verifies": [
+        "FUN-mrr-003",
+        "FUN-mrr-011"
+      ],
+      "rules": [
+        "BR-mrr-001@v1",
+        "BR-mrr-002@v1",
+        "BR-mrr-004@v1",
+        "BR-mrr-007@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง A: MeetingRoom.status = ACTIVE · requiresApproval = false · capacity = 8 · มีโปรเจคเตอร์ · ว่างวันที่ 17/10 10:00–11:00",
+        "ระบบส่ง Email ทำงานปกติ"
+      ],
+      "when": [
+        "U1 จองห้อง A 17/10 10:00–11:00 หัวข้อ 'ประชุมทีม' ผู้เข้าร่วม U2, U3 ไม่เลือกอุปกรณ์เสริม"
+      ],
+      "expected": [
+        "หน้าจอแสดงข้อความ 'จองห้องสำเร็จ'",
+        "มี Booking ใหม่ status = CONFIRMED · bookedBy = U1 · roomVersion = เวอร์ชันปัจจุบันของห้อง A · reminderStatus = NOT_SENT",
+        "มี BookingAttendee 2 แถว (U2, U3) และไม่มีแถวของ U1",
+        "U1 ได้รับ Email หัวเรื่อง '[จองห้องประชุม] จองสำเร็จ: ประชุมทีม · ห้อง A 17/10 10:00–11:00'"
+      ]
+    },
+    {
+      "id": "SCN-mrr-010",
+      "title": "จองห้องที่ต้องอนุมัติ ได้สถานะรออนุมัติและกันช่วงเวลาไว้",
+      "kind": "alternate",
+      "verifies": [
+        "FUN-mrr-003"
+      ],
+      "rules": [
+        "BR-mrr-004@v1",
+        "BR-mrr-001@v1",
+        "BR-mrr-008@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง B: MeetingRoom.status = ACTIVE · requiresApproval = true · approver = RA1 · capacity = 10 · ว่างวันที่ 18/10 10:00–11:00",
+        "ระบบส่ง Email ทำงานปกติ"
+      ],
+      "when": [
+        "U1 จองห้อง B 18/10 10:00–11:00 หัวข้อ 'ประชุมลูกค้า' ผู้เข้าร่วม U2"
+      ],
+      "expected": [
+        "มี Booking ใหม่ status = PENDING_APPROVAL",
+        "เมื่อ U4 ค้นหาห้องช่วง 18/10 10:00–11:00 ห้อง B ไม่อยู่ในผล",
+        "ไม่มี Email เตือนใกล้ถึงเวลาประชุมถูกส่งสำหรับการจองนี้ · reminderStatus = NOT_SENT"
+      ]
+    },
+    {
+      "id": "SCN-mrr-011",
+      "title": "จองทับช่วงเวลาของการจองที่รออนุมัติ",
+      "kind": "exception",
+      "verifies": [
+        "FUN-mrr-003"
+      ],
+      "rules": [
+        "BR-mrr-001@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง B: MeetingRoom.status = ACTIVE · requiresApproval = true · approver = RA1 · capacity = 10 · มีการจอง status = PENDING_APPROVAL 18/10 09:00–10:00 ของ U1"
+      ],
+      "when": [
+        "U4 จองห้อง B 18/10 09:30–10:30 หัวข้อ 'ประชุมย่อย' ผู้เข้าร่วม U2"
+      ],
+      "expected": [
+        "หน้าจอแสดงข้อความ 'ห้องนี้ไม่ว่างในช่วงเวลาที่เลือก กรุณาเลือกเวลาอื่น'",
+        "ไม่มี Booking ใหม่ถูกสร้าง",
+        "ไม่มี Email ถูกส่ง"
+      ]
+    },
+    {
+      "id": "SCN-mrr-012",
+      "title": "จองต่อจากการจองเดิมพอดี (เริ่ม = เวลาจบเดิม)",
+      "kind": "boundary",
+      "verifies": [
+        "FUN-mrr-003"
+      ],
+      "rules": [
+        "BR-mrr-001@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง A: MeetingRoom.status = ACTIVE · requiresApproval = false · capacity = 8 · มีโปรเจคเตอร์ · มีการจอง CONFIRMED 17/10 09:00–10:00",
+        "ระบบส่ง Email ทำงานปกติ"
+      ],
+      "when": [
+        "U1 จองห้อง A 17/10 10:00–11:00 หัวข้อ 'ประชุมทีม' ผู้เข้าร่วม U2"
+      ],
+      "expected": [
+        "Booking ใหม่ถูกสร้าง status = CONFIRMED และหน้าจอแสดง 'จองห้องสำเร็จ'"
+      ]
+    },
+    {
+      "id": "SCN-mrr-013",
+      "title": "จองทับการจองเดิมหนึ่งนาที",
+      "kind": "boundary",
+      "verifies": [
+        "FUN-mrr-003"
+      ],
+      "rules": [
+        "BR-mrr-001@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง A: MeetingRoom.status = ACTIVE · requiresApproval = false · capacity = 8 · มีโปรเจคเตอร์ · มีการจอง CONFIRMED 17/10 09:00–10:00"
+      ],
+      "when": [
+        "U1 จองห้อง A 17/10 09:59–11:00 หัวข้อ 'ประชุมทีม' ผู้เข้าร่วม U2"
+      ],
+      "expected": [
+        "หน้าจอแสดงข้อความ 'ห้องนี้ไม่ว่างในช่วงเวลาที่เลือก กรุณาเลือกเวลาอื่น'",
+        "ไม่มี Booking ใหม่ถูกสร้าง"
+      ]
+    },
+    {
+      "id": "SCN-mrr-014",
+      "title": "สองคนกดจองช่วงเดียวกันพร้อมกัน",
+      "kind": "exception",
+      "verifies": [
+        "FUN-mrr-003"
+      ],
+      "rules": [
+        "BR-mrr-001@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง A: MeetingRoom.status = ACTIVE · requiresApproval = false · capacity = 8 · มีโปรเจคเตอร์ · ว่างวันที่ 17/10 13:00–14:00",
+        "ระบบส่ง Email ทำงานปกติ"
+      ],
+      "when": [
+        "U1 และ U4 ส่งคำสั่งจองห้อง A 17/10 13:00–14:00 ในวินาทีเดียวกัน"
+      ],
+      "expected": [
+        "ในฐานข้อมูลมี Booking ของห้อง A ช่วง 13:00–14:00 ที่ status ไม่ใช่ CANCELLED/REJECTED เพียง 1 รายการ",
+        "อีกคนหนึ่งเห็นข้อความ 'ห้องนี้ไม่ว่างในช่วงเวลาที่เลือก กรุณาเลือกเวลาอื่น'"
+      ]
+    },
+    {
+      "id": "SCN-mrr-015",
+      "title": "จองโดยไม่ระบุหัวข้อการประชุม",
+      "kind": "exception",
+      "verifies": [
+        "FUN-mrr-003"
+      ],
+      "rules": [
+        "BR-mrr-002@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง A: MeetingRoom.status = ACTIVE · requiresApproval = false · capacity = 8 · มีโปรเจคเตอร์ · ว่างวันที่ 17/10 13:00–14:00"
+      ],
+      "when": [
+        "U1 จองห้อง A 17/10 13:00–14:00 เว้นหัวข้อว่าง ผู้เข้าร่วม U2, U3"
+      ],
+      "expected": [
+        "ระบบไม่รับการจอง และแสดงข้อผิดพลาดที่ช่องหัวข้อการประชุม",
+        "ไม่มี Booking ใหม่ถูกสร้าง"
+      ]
+    },
+    {
+      "id": "SCN-mrr-016",
+      "title": "จองโดยไม่ระบุผู้เข้าร่วม",
+      "kind": "exception",
+      "verifies": [
+        "FUN-mrr-003"
+      ],
+      "rules": [
+        "BR-mrr-002@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง A: MeetingRoom.status = ACTIVE · requiresApproval = false · capacity = 8 · มีโปรเจคเตอร์ · ว่างวันที่ 17/10 13:00–14:00"
+      ],
+      "when": [
+        "U1 จองห้อง A 17/10 13:00–14:00 หัวข้อ 'ประชุมทีม' ไม่ใส่ผู้เข้าร่วม"
+      ],
+      "expected": [
+        "ระบบไม่รับการจอง และแสดงข้อผิดพลาดที่ช่องผู้เข้าร่วม (ผู้จองไม่ถูกนับเป็นผู้เข้าร่วมอัตโนมัติ)",
+        "ไม่มี Booking ใหม่ถูกสร้าง"
+      ]
+    },
+    {
+      "id": "SCN-mrr-017",
+      "title": "จองห้องที่ปิดปรับปรุง",
+      "kind": "exception",
+      "verifies": [
+        "FUN-mrr-003"
+      ],
+      "rules": [
+        "BR-mrr-012@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง A: MeetingRoom.status = UNDER_MAINTENANCE · requiresApproval = false"
+      ],
+      "when": [
+        "U2 ส่งคำสั่งจองห้อง A 18/10 13:00–14:00 หัวข้อ 'ประชุมทีม' ผู้เข้าร่วม U3"
+      ],
+      "expected": [
+        "ระบบไม่รับการจอง และแสดงข้อความ 'ห้องนี้ปิดปรับปรุง ไม่สามารถจองได้'",
+        "ไม่มี Booking ใหม่ถูกสร้าง"
+      ]
+    },
+    {
+      "id": "SCN-mrr-018",
+      "title": "จองสำเร็จแต่ส่ง Email ไม่ได้ การจองล้มทั้งรายการ",
+      "kind": "exception",
+      "verifies": [
+        "FUN-mrr-003",
+        "FUN-mrr-011"
+      ],
+      "rules": [
+        "BR-mrr-019@v1",
+        "BR-mrr-007@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง A: MeetingRoom.status = ACTIVE · requiresApproval = false · capacity = 8 · มีโปรเจคเตอร์ · ว่างวันที่ 17/10 13:00–14:00",
+        "ระบบส่ง Email ส่งไม่สำเร็จ (mail server ล่ม)"
+      ],
+      "when": [
+        "U1 จองห้อง A 17/10 13:00–14:00 หัวข้อ 'ประชุมทีม' ผู้เข้าร่วม U2"
+      ],
+      "expected": [
+        "หน้าจอแจ้งว่าส่ง Email ไม่สำเร็จและให้กดใหม่",
+        "ไม่มี Booking และ BookingAttendee ของคำสั่งนี้ในฐานข้อมูล",
+        "ช่วง 17/10 13:00–14:00 ของห้อง A ยังว่างเมื่อค้นหา"
+      ]
+    },
+    {
+      "id": "SCN-mrr-019",
+      "title": "จองเมื่อเหลือน้อยกว่า 15 นาทีก่อนเริ่ม ส่ง Email เตือนทันที",
+      "kind": "boundary",
+      "verifies": [
+        "FUN-mrr-003",
+        "FUN-mrr-011",
+        "FUN-mrr-012"
+      ],
+      "rules": [
+        "BR-mrr-008@v1",
+        "BR-mrr-007@v1",
+        "BR-mrr-023@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง A: MeetingRoom.status = ACTIVE · requiresApproval = false · capacity = 8 · มีโปรเจคเตอร์ · ว่างวันที่ 17/10 10:00–11:00",
+        "เวลาปัจจุบัน 17/10 09:50",
+        "ระบบส่ง Email ทำงานปกติ"
+      ],
+      "when": [
+        "U1 จองห้อง A 17/10 10:00–11:00 หัวข้อ 'ประชุมด่วน' ผู้เข้าร่วม U2"
+      ],
+      "expected": [
+        "U1 ได้รับ Email '[จองห้องประชุม] จองสำเร็จ: ประชุมด่วน · ห้อง A 17/10 10:00–11:00'",
+        "U1 และ U2 ได้รับ Email '[จองห้องประชุม] ใกล้ถึงเวลาประชุม: ประชุมด่วน · ห้อง A 17/10 10:00–11:00' ทันที",
+        "Booking.reminderStatus = SENT"
+      ]
+    },
+    {
+      "id": "SCN-mrr-020",
+      "title": "จองหลังห้องถูกแก้เป็นต้องอนุมัติ",
+      "kind": "happy",
+      "verifies": [
+        "FUN-mrr-003",
+        "FUN-mrr-009"
+      ],
+      "rules": [
+        "BR-mrr-010@v2",
+        "BR-mrr-004@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง A ถูก RA1 แก้เป็น requiresApproval = true เมื่อ 16/10 10:00 (MeetingRoomVersion ใหม่)",
+        "ห้อง A ว่าง 18/10 13:00–14:00"
+      ],
+      "when": [
+        "16/10 11:00 U2 จองห้อง A 18/10 13:00–14:00 หัวข้อ 'ประชุมทีม' ผู้เข้าร่วม U3"
+      ],
+      "expected": [
+        "Booking ใหม่ status = PENDING_APPROVAL",
+        "Booking.roomVersion ชี้เวอร์ชันที่ requiresApproval = true"
+      ]
+    },
+    {
+      "id": "SCN-mrr-021",
+      "title": "ผู้จองแก้หัวข้อการประชุม ไม่ส่ง Email",
+      "kind": "happy",
+      "verifies": [
+        "FUN-mrr-004",
+        "FUN-mrr-011"
+      ],
+      "rules": [
+        "BR-mrr-003@v1",
+        "BR-mrr-007@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง A: MeetingRoom.status = ACTIVE · requiresApproval = false · capacity = 8 · มีโปรเจคเตอร์ · การจอง CONFIRMED 18/10 10:00–11:00 หัวข้อ 'ประชุมทีม' bookedBy = U1 ผู้เข้าร่วม U2",
+        "เวลาปัจจุบัน 17/10 09:00",
+        "ระบบส่ง Email ทำงานปกติ"
+      ],
+      "when": [
+        "U1 แก้หัวข้อเป็น 'ประชุมวางแผน' แล้วกดบันทึก"
+      ],
+      "expected": [
+        "Booking.title = 'ประชุมวางแผน' · status ยังเป็น CONFIRMED",
+        "ไม่มี Email ถูกส่งถึง U1 หรือ U2"
+      ]
+    },
+    {
+      "id": "SCN-mrr-022",
+      "title": "ผู้จองเปลี่ยนเวลา ส่ง Email ถึงทุกคน",
+      "kind": "happy",
+      "verifies": [
+        "FUN-mrr-004",
+        "FUN-mrr-011"
+      ],
+      "rules": [
+        "BR-mrr-003@v1",
+        "BR-mrr-001@v1",
+        "BR-mrr-007@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง A: MeetingRoom.status = ACTIVE · requiresApproval = false · capacity = 8 · มีโปรเจคเตอร์ · การจอง CONFIRMED 17/10 10:00–11:00 หัวข้อ 'ประชุมทีม' bookedBy = U1 ผู้เข้าร่วม U2, U3 · ว่าง 14:00–15:00",
+        "เวลาปัจจุบัน 16/10 15:00",
+        "ระบบส่ง Email ทำงานปกติ"
+      ],
+      "when": [
+        "U1 เปลี่ยนเวลาเป็น 17/10 14:00–15:00"
+      ],
+      "expected": [
+        "Booking.startAt = 17/10 14:00 · endAt = 15:00",
+        "U1, U2 และ U3 ได้รับ Email '[จองห้องประชุม] เปลี่ยนเวลา: ประชุมทีม · ห้อง A 17/10 14:00–15:00'",
+        "ช่วง 10:00–11:00 ของห้อง A ว่างให้จองได้"
+      ]
+    },
+    {
+      "id": "SCN-mrr-023",
+      "title": "ผู้จองยกเลิกก่อนเวลาเริ่ม",
+      "kind": "happy",
+      "verifies": [
+        "FUN-mrr-004",
+        "FUN-mrr-011"
+      ],
+      "rules": [
+        "BR-mrr-003@v1",
+        "BR-mrr-009@v1",
+        "BR-mrr-007@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง A: MeetingRoom.status = ACTIVE · requiresApproval = false · capacity = 8 · มีโปรเจคเตอร์ · การจอง CONFIRMED 18/10 10:00–11:00 หัวข้อ 'ประชุมทีม' bookedBy = U1 ผู้เข้าร่วม U2",
+        "เวลาปัจจุบัน 17/10 09:00",
+        "ระบบส่ง Email ทำงานปกติ"
+      ],
+      "when": [
+        "U1 กดยกเลิกการจองนี้"
+      ],
+      "expected": [
+        "Booking.status = CANCELLED และหน้าจอแสดง 'ยกเลิกการจองสำเร็จ'",
+        "U1 และ U2 ได้รับ Email แจ้งยกเลิก",
+        "ไม่มี BookingAuditEntry ใหม่ (การกระทำของผู้จองเองไม่บันทึกร่องรอย)",
+        "ช่วง 18/10 10:00–11:00 ของห้อง A ว่างให้จองได้"
+      ]
+    },
+    {
+      "id": "SCN-mrr-024",
+      "title": "ผู้เข้าร่วมส่งคำสั่งยกเลิกการจองของคนอื่นผ่าน API",
+      "kind": "exception",
+      "verifies": [
+        "FUN-mrr-004"
+      ],
+      "rules": [
+        "BR-mrr-003@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง A: MeetingRoom.status = ACTIVE · requiresApproval = false · capacity = 8 · มีโปรเจคเตอร์ · การจอง CONFIRMED 18/10 10:00–11:00 bookedBy = U1 ผู้เข้าร่วม U2"
+      ],
+      "when": [
+        "U2 ส่งคำสั่งยกเลิกการจองนี้ตรงไปที่ API (หน้าจอไม่มีปุ่มให้ U2)"
+      ],
+      "expected": [
+        "API ตอบปฏิเสธด้วยสถานะไม่มีสิทธิ์",
+        "Booking.status ยังเป็น CONFIRMED",
+        "ไม่มี Email ถูกส่ง"
+      ]
+    },
+    {
+      "id": "SCN-mrr-025",
+      "title": "ผู้จองยกเลิกหนึ่งนาทีก่อนเริ่ม",
+      "kind": "boundary",
+      "verifies": [
+        "FUN-mrr-004"
+      ],
+      "rules": [
+        "BR-mrr-009@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง A: MeetingRoom.status = ACTIVE · requiresApproval = false · capacity = 8 · มีโปรเจคเตอร์ · การจอง CONFIRMED วันนี้ 10:00–11:00 bookedBy = U1",
+        "เวลาปัจจุบัน 09:59",
+        "ระบบส่ง Email ทำงานปกติ"
+      ],
+      "when": [
+        "U1 กดยกเลิกการจองนี้"
+      ],
+      "expected": [
+        "Booking.status = CANCELLED"
+      ]
+    },
+    {
+      "id": "SCN-mrr-026",
+      "title": "ผู้จองยกเลิกตรงเวลาเริ่มพอดี",
+      "kind": "boundary",
+      "verifies": [
+        "FUN-mrr-004"
+      ],
+      "rules": [
+        "BR-mrr-009@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง A: MeetingRoom.status = ACTIVE · requiresApproval = false · capacity = 8 · มีโปรเจคเตอร์ · การจอง CONFIRMED วันนี้ 10:00–11:00 bookedBy = U1",
+        "เวลาปัจจุบัน 10:00"
+      ],
+      "when": [
+        "U1 กดยกเลิกการจองนี้"
+      ],
+      "expected": [
+        "ระบบไม่ให้ยกเลิก และแจ้งว่าต้องให้ Room Administrator ดำเนินการ",
+        "Booking.status ยังเป็น CONFIRMED"
+      ]
+    },
+    {
+      "id": "SCN-mrr-027",
+      "title": "ผู้จองเปลี่ยนเวลาไปช่วงที่มีคนจองแล้ว",
+      "kind": "exception",
+      "verifies": [
+        "FUN-mrr-004"
+      ],
+      "rules": [
+        "BR-mrr-001@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง A: MeetingRoom.status = ACTIVE · requiresApproval = false · capacity = 8 · มีโปรเจคเตอร์ · การจอง CONFIRMED 18/10 10:00–11:00 ของ U1 และ 18/10 14:00–15:00 ของ U4"
+      ],
+      "when": [
+        "U1 เปลี่ยนเวลาการจองของตนเป็น 18/10 14:30–15:30"
+      ],
+      "expected": [
+        "หน้าจอแสดงข้อความ 'ห้องนี้ไม่ว่างในช่วงเวลาที่เลือก กรุณาเลือกเวลาอื่น'",
+        "Booking ของ U1 ยังเป็น 18/10 10:00–11:00"
+      ]
+    },
+    {
+      "id": "SCN-mrr-028",
+      "title": "ผู้จองเปลี่ยนเวลาในห้องที่ปิดปรับปรุงแล้ว",
+      "kind": "exception",
+      "verifies": [
+        "FUN-mrr-004"
+      ],
+      "rules": [
+        "BR-mrr-012@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง A: status = UNDER_MAINTENANCE · การจอง CONFIRMED 18/10 10:00–11:00 ของ U1 ซึ่งมีก่อนปิดปรับปรุง · ว่าง 14:00–15:00"
+      ],
+      "when": [
+        "U1 แก้เวลาการจองเป็น 18/10 14:00–15:00 แล้วกดบันทึก"
+      ],
+      "expected": [
+        "ระบบไม่บันทึก และแสดงข้อความ 'ห้องนี้ปิดปรับปรุง ไม่สามารถจองได้'",
+        "Booking ของ U1 ยังเป็น 18/10 10:00–11:00 · status = CONFIRMED"
+      ]
+    },
+    {
+      "id": "SCN-mrr-029",
+      "title": "หน้าการจองของฉันแสดงเฉพาะการจองที่ตนเป็นผู้จอง",
+      "kind": "alternate",
+      "verifies": [
+        "FUN-mrr-004"
+      ],
+      "rules": [
+        "BR-mrr-003@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "U1 เป็นผู้จองห้อง A 18/10 10:00–11:00 และเป็นผู้เข้าร่วมในการจองห้อง B 18/10 13:00–14:00 ของ U2"
+      ],
+      "when": [
+        "U1 เปิดหน้า My Bookings"
+      ],
+      "expected": [
+        "รายการแสดงการจองห้อง A 10:00–11:00 เพียงรายการเดียว",
+        "ไม่แสดงการจองห้อง B ของ U2"
+      ]
+    },
+    {
+      "id": "SCN-mrr-030",
+      "title": "แก้หัวข้อได้แม้ระบบ Email ล่ม",
+      "kind": "alternate",
+      "verifies": [
+        "FUN-mrr-004",
+        "FUN-mrr-011"
+      ],
+      "rules": [
+        "BR-mrr-019@v1",
+        "BR-mrr-007@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง A: MeetingRoom.status = ACTIVE · requiresApproval = false · capacity = 8 · มีโปรเจคเตอร์ · การจอง CONFIRMED 17/10 10:00–11:00 หัวข้อ 'ประชุมทีม' ของ U1",
+        "เวลาปัจจุบัน 16/10 15:00",
+        "ระบบส่ง Email ส่งไม่สำเร็จ (mail server ล่ม)"
+      ],
+      "when": [
+        "U1 แก้หัวข้อเป็น 'ประชุมวางแผน' โดยไม่เปลี่ยนเวลา"
+      ],
+      "expected": [
+        "Booking.title = 'ประชุมวางแผน' ถูกบันทึก",
+        "ไม่มีข้อความแจ้ง Email ล้มเหลว (การแก้หัวข้อไม่ส่ง Email)"
+      ]
+    },
+    {
+      "id": "SCN-mrr-031",
+      "title": "เปลี่ยนเวลาขณะระบบ Email ล่ม การแก้ไขล้มทั้งรายการ",
+      "kind": "exception",
+      "verifies": [
+        "FUN-mrr-004",
+        "FUN-mrr-011"
+      ],
+      "rules": [
+        "BR-mrr-019@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง A: MeetingRoom.status = ACTIVE · requiresApproval = false · capacity = 8 · มีโปรเจคเตอร์ · การจอง CONFIRMED 17/10 10:00–11:00 ของ U1 ผู้เข้าร่วม U2 · ว่าง 14:00–15:00",
+        "เวลาปัจจุบัน 16/10 15:00",
+        "ระบบส่ง Email ส่งไม่สำเร็จ (mail server ล่ม)"
+      ],
+      "when": [
+        "U1 เปลี่ยนเวลาเป็น 17/10 14:00–15:00"
+      ],
+      "expected": [
+        "หน้าจอแจ้งว่าส่ง Email ไม่สำเร็จและให้กดใหม่",
+        "Booking ยังเป็น 17/10 10:00–11:00"
+      ]
+    },
+    {
+      "id": "SCN-mrr-032",
+      "title": "ผู้อนุมัติประจำห้องอนุมัติการจอง",
+      "kind": "happy",
+      "verifies": [
+        "FUN-mrr-005",
+        "FUN-mrr-011"
+      ],
+      "rules": [
+        "BR-mrr-004@v1",
+        "BR-mrr-013@v1",
+        "BR-mrr-017@v1",
+        "BR-mrr-007@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง B: MeetingRoom.status = ACTIVE · requiresApproval = true · approver = RA1 · capacity = 10 · การจอง PENDING_APPROVAL 18/10 10:00–11:00 หัวข้อ 'ประชุมลูกค้า' ของ U1",
+        "ระบบส่ง Email ทำงานปกติ"
+      ],
+      "when": [
+        "16/10 14:05 RA1 กดอนุมัติการจองนี้"
+      ],
+      "expected": [
+        "Booking.status = APPROVED และ RA1 เห็นข้อความ 'อนุมัติการจองสำเร็จ'",
+        "มี BookingAuditEntry action = APPROVE · actor = RA1 · at = 16/10 14:05",
+        "U1 ได้รับ Email แจ้งได้รับการอนุมัติ"
+      ]
+    },
+    {
+      "id": "SCN-mrr-033",
+      "title": "Room Administrator ปฏิเสธการจอง ช่วงเวลาว่างคืน",
+      "kind": "alternate",
+      "verifies": [
+        "FUN-mrr-005"
+      ],
+      "rules": [
+        "BR-mrr-004@v1",
+        "BR-mrr-017@v1",
+        "BR-mrr-001@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง B: MeetingRoom.status = ACTIVE · requiresApproval = true · approver = RA1 · capacity = 10 · การจอง PENDING_APPROVAL 18/10 10:00–11:00 ของ U1"
+      ],
+      "when": [
+        "RA1 กดปฏิเสธการจองนี้ แล้ว U4 จองห้อง B 18/10 10:00–11:00"
+      ],
+      "expected": [
+        "การจองของ U1 status = REJECTED",
+        "มี BookingAuditEntry action = REJECT · actor = RA1",
+        "การจองของ U4 ถูกสร้าง status = PENDING_APPROVAL"
+      ]
+    },
+    {
+      "id": "SCN-mrr-034",
+      "title": "Room Administrator ที่ไม่ใช่ผู้อนุมัติประจำห้องกดอนุมัติ",
+      "kind": "exception",
+      "verifies": [
+        "FUN-mrr-005"
+      ],
+      "rules": [
+        "BR-mrr-013@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง B: MeetingRoom.status = ACTIVE · requiresApproval = true · approver = RA1 · capacity = 10 · การจอง PENDING_APPROVAL 18/10 10:00–11:00 ของ U1"
+      ],
+      "when": [
+        "RA2 กดอนุมัติการจองนี้"
+      ],
+      "expected": [
+        "ระบบปฏิเสธคำสั่ง",
+        "Booking.status ยังเป็น PENDING_APPROVAL",
+        "ไม่มี BookingAuditEntry ใหม่"
+      ]
+    },
+    {
+      "id": "SCN-mrr-035",
+      "title": "ห้องที่ยังไม่กำหนดผู้อนุมัติ Room Administrator คนใดก็อนุมัติได้",
+      "kind": "alternate",
+      "verifies": [
+        "FUN-mrr-005"
+      ],
+      "rules": [
+        "BR-mrr-013@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง B: requiresApproval = true · approver = ว่าง · การจอง PENDING_APPROVAL 18/10 10:00–11:00 ของ U1",
+        "ระบบส่ง Email ทำงานปกติ"
+      ],
+      "when": [
+        "RA2 กดอนุมัติการจองนี้"
+      ],
+      "expected": [
+        "Booking.status = APPROVED",
+        "มี BookingAuditEntry action = APPROVE · actor = RA2"
+      ]
+    },
+    {
+      "id": "SCN-mrr-036",
+      "title": "General User ส่งคำสั่งอนุมัติการจองของตัวเอง",
+      "kind": "exception",
+      "verifies": [
+        "FUN-mrr-005"
+      ],
+      "rules": [
+        "BR-mrr-004@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง B: MeetingRoom.status = ACTIVE · requiresApproval = true · approver = RA1 · capacity = 10 · การจอง PENDING_APPROVAL 18/10 10:00–11:00 ของ U1"
+      ],
+      "when": [
+        "U1 ส่งคำสั่งอนุมัติการจองนี้ตรงไปที่ API"
+      ],
+      "expected": [
+        "API ตอบปฏิเสธด้วยสถานะไม่มีสิทธิ์",
+        "Booking.status ยังเป็น PENDING_APPROVAL"
+      ]
+    },
+    {
+      "id": "SCN-mrr-037",
+      "title": "เปลี่ยนผลจากอนุมัติเป็นปฏิเสธพร้อมเหตุผล",
+      "kind": "happy",
+      "verifies": [
+        "FUN-mrr-005"
+      ],
+      "rules": [
+        "BR-mrr-011@v1",
+        "BR-mrr-017@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง B: MeetingRoom.status = ACTIVE · requiresApproval = true · approver = RA1 · capacity = 10 · การจอง APPROVED 18/10 10:00–11:00 ของ U1",
+        "เวลาปัจจุบัน 16/10 15:00"
+      ],
+      "when": [
+        "RA1 เปลี่ยนผลเป็นปฏิเสธ พร้อมเหตุผล 'อนุมัติผิดห้อง'"
+      ],
+      "expected": [
+        "Booking.status = REJECTED และ RA1 เห็นข้อความ 'เปลี่ยนผลการอนุมัติสำเร็จ'",
+        "มี BookingAuditEntry action = CHANGE_DECISION · reason = 'อนุมัติผิดห้อง'"
+      ]
+    },
+    {
+      "id": "SCN-mrr-038",
+      "title": "เปลี่ยนผลการอนุมัติโดยไม่ระบุเหตุผล",
+      "kind": "exception",
+      "verifies": [
+        "FUN-mrr-005"
+      ],
+      "rules": [
+        "BR-mrr-011@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง B: MeetingRoom.status = ACTIVE · requiresApproval = true · approver = RA1 · capacity = 10 · การจอง APPROVED 18/10 10:00–11:00 ของ U1",
+        "เวลาปัจจุบัน 16/10 15:00"
+      ],
+      "when": [
+        "RA1 เปลี่ยนผลเป็นปฏิเสธโดยเว้นช่องเหตุผลว่าง"
+      ],
+      "expected": [
+        "ระบบไม่รับคำสั่ง และแสดงข้อผิดพลาดที่ช่องเหตุผล",
+        "Booking.status ยังเป็น APPROVED",
+        "ไม่มี BookingAuditEntry ใหม่"
+      ]
+    },
+    {
+      "id": "SCN-mrr-039",
+      "title": "เปลี่ยนผลหนึ่งนาทีก่อนเริ่มประชุม",
+      "kind": "boundary",
+      "verifies": [
+        "FUN-mrr-005"
+      ],
+      "rules": [
+        "BR-mrr-011@v1",
+        "BR-mrr-001@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง B: MeetingRoom.status = ACTIVE · requiresApproval = true · approver = RA1 · capacity = 10 · การจอง REJECTED 18/10 10:00–11:00 ของ U1 · ช่วงนั้นไม่มีการจองอื่น",
+        "เวลาปัจจุบัน 18/10 09:59"
+      ],
+      "when": [
+        "RA1 เปลี่ยนผลเป็นอนุมัติ พร้อมเหตุผล 'ปฏิเสธผิดคน'"
+      ],
+      "expected": [
+        "Booking.status = APPROVED",
+        "มี BookingAuditEntry action = CHANGE_DECISION"
+      ]
+    },
+    {
+      "id": "SCN-mrr-040",
+      "title": "เปลี่ยนผลตรงเวลาเริ่มประชุมพอดี",
+      "kind": "boundary",
+      "verifies": [
+        "FUN-mrr-005"
+      ],
+      "rules": [
+        "BR-mrr-011@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง B: MeetingRoom.status = ACTIVE · requiresApproval = true · approver = RA1 · capacity = 10 · การจอง APPROVED 18/10 10:00–11:00 ของ U1",
+        "เวลาปัจจุบัน 18/10 10:00"
+      ],
+      "when": [
+        "RA1 เปลี่ยนผลเป็นปฏิเสธ พร้อมเหตุผล 'อนุมัติผิดห้อง'"
+      ],
+      "expected": [
+        "ระบบไม่รับคำสั่ง",
+        "Booking.status ยังเป็น APPROVED"
+      ]
+    },
+    {
+      "id": "SCN-mrr-041",
+      "title": "อนุมัติขณะระบบ Email ล่ม การอนุมัติไม่เกิดขึ้น",
+      "kind": "exception",
+      "verifies": [
+        "FUN-mrr-005",
+        "FUN-mrr-011"
+      ],
+      "rules": [
+        "BR-mrr-019@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง B: MeetingRoom.status = ACTIVE · requiresApproval = true · approver = RA1 · capacity = 10 · การจอง PENDING_APPROVAL 17/10 10:00–11:00 ของ U1",
+        "ระบบส่ง Email ส่งไม่สำเร็จ (mail server ล่ม)"
+      ],
+      "when": [
+        "RA1 กดอนุมัติการจองนี้"
+      ],
+      "expected": [
+        "Booking.status ยังเป็น PENDING_APPROVAL",
+        "RA1 เห็นข้อความ 'ส่ง Email แจ้งเตือนไม่สำเร็จ กรุณากดใหม่อีกครั้ง'",
+        "ไม่มี BookingAuditEntry ใหม่"
+      ]
+    },
+    {
+      "id": "SCN-mrr-042",
+      "title": "Room Administrator ยกเลิกแทนผู้จองหลังเวลาเริ่มพร้อมเหตุผล",
+      "kind": "happy",
+      "verifies": [
+        "FUN-mrr-006",
+        "FUN-mrr-011"
+      ],
+      "rules": [
+        "BR-mrr-009@v1",
+        "BR-mrr-017@v1",
+        "BR-mrr-007@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง A: MeetingRoom.status = ACTIVE · requiresApproval = false · capacity = 8 · มีโปรเจคเตอร์ · การจอง CONFIRMED 18/10 10:00–11:00 ของ U1 ผู้เข้าร่วม U2",
+        "เวลาปัจจุบัน 18/10 10:30",
+        "ระบบส่ง Email ทำงานปกติ"
+      ],
+      "when": [
+        "RA1 ยกเลิกการจองนี้แทน U1 พร้อมเหตุผล 'ห้องต้องใช้จัดงานด่วน'"
+      ],
+      "expected": [
+        "Booking.status = CANCELLED · cancelReason = 'ห้องต้องใช้จัดงานด่วน'",
+        "มี BookingAuditEntry action = CANCEL_ON_BEHALF · actor = RA1 · at = 18/10 10:30 · reason = 'ห้องต้องใช้จัดงานด่วน'",
+        "U1 และ U2 ได้รับ Email แจ้งยกเลิก"
+      ]
+    },
+    {
+      "id": "SCN-mrr-043",
+      "title": "ยกเลิกแทนผู้จองโดยไม่ระบุเหตุผล",
+      "kind": "exception",
+      "verifies": [
+        "FUN-mrr-006"
+      ],
+      "rules": [
+        "BR-mrr-009@v1",
+        "BR-mrr-017@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง A: MeetingRoom.status = ACTIVE · requiresApproval = false · capacity = 8 · มีโปรเจคเตอร์ · การจอง CONFIRMED 18/10 10:00–11:00 ของ U1",
+        "เวลาปัจจุบัน 18/10 10:30"
+      ],
+      "when": [
+        "RA1 ยกเลิกการจองนี้แทน U1 โดยเว้นช่องเหตุผลว่าง"
+      ],
+      "expected": [
+        "ระบบไม่รับคำสั่ง",
+        "Booking.status ยังเป็น CONFIRMED",
+        "ไม่มี BookingAuditEntry ใหม่"
+      ]
+    },
+    {
+      "id": "SCN-mrr-044",
+      "title": "แก้การจองแทนผู้จองหนึ่งนาทีก่อนจบ แก้ตรงได้",
+      "kind": "boundary",
+      "verifies": [
+        "FUN-mrr-006"
+      ],
+      "rules": [
+        "BR-mrr-014@v1",
+        "BR-mrr-009@v1",
+        "BR-mrr-017@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง A: MeetingRoom.status = ACTIVE · requiresApproval = false · capacity = 8 · มีโปรเจคเตอร์ · การจอง CONFIRMED 18/10 10:00–11:00 หัวข้อ 'ประชุมทีม' ของ U1",
+        "เวลาปัจจุบัน 18/10 10:59"
+      ],
+      "when": [
+        "RA1 แก้หัวข้อเป็น 'ประชุมวางแผน' พร้อมเหตุผล 'ผู้จองพิมพ์หัวข้อผิด' แล้วกดบันทึก"
+      ],
+      "expected": [
+        "Booking.title = 'ประชุมวางแผน' ทันที",
+        "ไม่มี BookingAdjustmentRequest ถูกสร้าง",
+        "มี BookingAuditEntry action = EDIT_ON_BEHALF"
+      ]
+    },
+    {
+      "id": "SCN-mrr-045",
+      "title": "แก้การจองตรงเวลาจบประชุม กลายเป็นคำขอแก้ไข",
+      "kind": "boundary",
+      "verifies": [
+        "FUN-mrr-007"
+      ],
+      "rules": [
+        "BR-mrr-014@v1",
+        "BR-mrr-017@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง A: MeetingRoom.status = ACTIVE · requiresApproval = false · capacity = 8 · มีโปรเจคเตอร์ · การจอง CONFIRMED 18/10 10:00–11:00 หัวข้อ 'ประชุมทีม' ของ U1",
+        "เวลาปัจจุบัน 18/10 11:00"
+      ],
+      "when": [
+        "RA1 แก้หัวข้อเป็น 'ประชุมวางแผน' พร้อมเหตุผล 'ผู้จองพิมพ์หัวข้อผิด' แล้วกดบันทึก"
+      ],
+      "expected": [
+        "มี BookingAdjustmentRequest status = PENDING · requestedBy = RA1",
+        "Booking.title ยังเป็น 'ประชุมทีม'",
+        "มี BookingAuditEntry action = CREATE_ADJUSTMENT"
+      ]
+    },
+    {
+      "id": "SCN-mrr-046",
+      "title": "Room Administrator อีกคนอนุมัติคำขอแก้ไข",
+      "kind": "happy",
+      "verifies": [
+        "FUN-mrr-007"
+      ],
+      "rules": [
+        "BR-mrr-014@v1",
+        "BR-mrr-017@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "การจองห้อง A 18/10 10:00–11:00 หัวข้อ 'ประชุมทีม' ของ U1 ประชุมจบแล้ว · BookingAdjustmentRequest status = PENDING ที่ RA1 สร้าง ขอเปลี่ยนหัวข้อเป็น 'ประชุมวางแผน'"
+      ],
+      "when": [
+        "RA2 กดอนุมัติคำขอแก้ไขนี้"
+      ],
+      "expected": [
+        "BookingAdjustmentRequest.status = APPROVED · decidedBy = RA2",
+        "Booking.title = 'ประชุมวางแผน'",
+        "มี BookingAuditEntry action = APPROVE_ADJUSTMENT · actor = RA2"
+      ]
+    },
+    {
+      "id": "SCN-mrr-047",
+      "title": "ผู้สร้างคำขอแก้ไขอนุมัติคำขอของตัวเอง",
+      "kind": "exception",
+      "verifies": [
+        "FUN-mrr-007"
+      ],
+      "rules": [
+        "BR-mrr-014@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "BookingAdjustmentRequest status = PENDING ที่ RA1 สร้าง ขอเปลี่ยนหัวข้อการจองห้อง A 18/10 เป็น 'ประชุมวางแผน'"
+      ],
+      "when": [
+        "RA1 กดอนุมัติคำขอแก้ไขของตัวเอง"
+      ],
+      "expected": [
+        "ระบบปฏิเสธคำสั่ง",
+        "BookingAdjustmentRequest.status ยังเป็น PENDING",
+        "Booking.title ยังเป็น 'ประชุมทีม'"
+      ]
+    },
+    {
+      "id": "SCN-mrr-048",
+      "title": "Room Administrator คนอื่นและ System Administrator ดูร่องรอยได้",
+      "kind": "happy",
+      "verifies": [
+        "FUN-mrr-008"
+      ],
+      "rules": [
+        "BR-mrr-018@v1",
+        "BR-mrr-017@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "การจองห้อง A 18/10 10:00–11:00 ของ U1 ถูก RA1 ยกเลิกแทนผู้จองเมื่อ 18/10 10:30 พร้อมเหตุผล 'ห้องต้องใช้จัดงานด่วน'"
+      ],
+      "when": [
+        "RA2 เปิดดูร่องรอยของการจองนี้ แล้ว SA1 เปิดดูเช่นเดียวกัน"
+      ],
+      "expected": [
+        "ทั้ง RA2 และ SA1 เห็นรายการ: RA1 · 18/10 10:30 · ยกเลิกแทนผู้จอง · 'ห้องต้องใช้จัดงานด่วน'"
+      ]
+    },
+    {
+      "id": "SCN-mrr-049",
+      "title": "ผู้จองและผู้เข้าร่วมขอดูร่องรอย",
+      "kind": "exception",
+      "verifies": [
+        "FUN-mrr-008"
+      ],
+      "rules": [
+        "BR-mrr-018@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "การจองห้อง A 18/10 10:00–11:00 ของ U1 ผู้เข้าร่วม U2 ถูก RA1 ยกเลิกแทนผู้จองเมื่อ 18/10 10:30"
+      ],
+      "when": [
+        "U1 ส่งคำขอดูร่องรอยของการจองนี้ แล้ว U2 ส่งคำขอเดียวกัน"
+      ],
+      "expected": [
+        "API ปฏิเสธคำขอของทั้ง U1 และ U2 ด้วยสถานะไม่มีสิทธิ์",
+        "ไม่มีข้อมูลร่องรอยใดถูกส่งกลับ"
+      ]
+    },
+    {
+      "id": "SCN-mrr-050",
+      "title": "เพิ่มห้องใหม่",
+      "kind": "happy",
+      "verifies": [
+        "FUN-mrr-009"
+      ],
+      "rules": [
+        "BR-mrr-005@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ยังไม่มีห้อง C ในระบบ"
+      ],
+      "when": [
+        "RA1 เพิ่มห้อง C ความจุ 10 คน ไม่ต้องอนุมัติ แล้วกดบันทึก"
+      ],
+      "expected": [
+        "มี MeetingRoom ห้อง C status = ACTIVE",
+        "มี MeetingRoomVersion versionNo = 1 · capacity = 10 · createdBy = RA1",
+        "หน้าจอแสดง 'บันทึกข้อมูลห้องสำเร็จ'"
+      ]
+    },
+    {
+      "id": "SCN-mrr-051",
+      "title": "แก้ความจุห้อง สร้างเวอร์ชันใหม่ เวอร์ชันเดิมคงไว้",
+      "kind": "happy",
+      "verifies": [
+        "FUN-mrr-009"
+      ],
+      "rules": [
+        "BR-mrr-005@v1",
+        "BR-mrr-010@v2"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง A: currentVersion = versionNo 1 · capacity = 8"
+      ],
+      "when": [
+        "RA1 แก้ความจุห้อง A เป็น 12 แล้วกดบันทึก"
+      ],
+      "expected": [
+        "มี MeetingRoomVersion versionNo = 2 · capacity = 12 และ MeetingRoom.currentVersion ชี้ versionNo 2",
+        "MeetingRoomVersion versionNo 1 ยังมี capacity = 8"
+      ]
+    },
+    {
+      "id": "SCN-mrr-052",
+      "title": "General User และ System Administrator แก้ข้อมูลห้อง",
+      "kind": "exception",
+      "verifies": [
+        "FUN-mrr-009"
+      ],
+      "rules": [
+        "BR-mrr-005@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง A: capacity = 8"
+      ],
+      "when": [
+        "U1 ส่งคำสั่งแก้ความจุห้อง A เป็น 12 แล้ว SA1 ส่งคำสั่งเดียวกัน"
+      ],
+      "expected": [
+        "API ปฏิเสธทั้งสองคำสั่งด้วยสถานะไม่มีสิทธิ์",
+        "ไม่มี MeetingRoomVersion ใหม่ · capacity ยังเป็น 8"
+      ]
+    },
+    {
+      "id": "SCN-mrr-053",
+      "title": "ตั้งห้องเป็นปิดปรับปรุง การจองที่มีอยู่คงไว้",
+      "kind": "happy",
+      "verifies": [
+        "FUN-mrr-009"
+      ],
+      "rules": [
+        "BR-mrr-005@v1",
+        "BR-mrr-012@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง A: MeetingRoom.status = ACTIVE · requiresApproval = false · capacity = 8 · มีโปรเจคเตอร์ · มีการจอง CONFIRMED 18/10 10:00–11:00"
+      ],
+      "when": [
+        "RA1 ตั้งห้อง A เป็นปิดปรับปรุง"
+      ],
+      "expected": [
+        "MeetingRoom.status = UNDER_MAINTENANCE",
+        "มี RoomMaintenancePeriod ใหม่ startAt = เวลาที่ตั้ง · endAt = ว่าง",
+        "การจอง 18/10 10:00–11:00 ยังเป็น CONFIRMED",
+        "หน้าจอแสดง 'ตั้งห้องเป็นปิดปรับปรุงแล้ว การจองที่มีอยู่คงเดิม'"
+      ]
+    },
+    {
+      "id": "SCN-mrr-054",
+      "title": "เปิดห้องกลับมาใช้งานแล้วรับการจองใหม่ได้",
+      "kind": "alternate",
+      "verifies": [
+        "FUN-mrr-009",
+        "FUN-mrr-003"
+      ],
+      "rules": [
+        "BR-mrr-012@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง A: status = UNDER_MAINTENANCE · requiresApproval = false · ว่าง 18/10 13:00–14:00",
+        "ระบบส่ง Email ทำงานปกติ"
+      ],
+      "when": [
+        "RA1 เปิดห้อง A กลับมาใช้งาน จากนั้น U2 จองห้อง A 18/10 13:00–14:00 หัวข้อ 'ประชุมทีม' ผู้เข้าร่วม U3"
+      ],
+      "expected": [
+        "MeetingRoom.status = ACTIVE และ RoomMaintenancePeriod ที่เปิดอยู่มี endAt",
+        "RA1 เห็นข้อความ 'เปิดห้องใช้งานแล้ว'",
+        "การจองของ U2 status = CONFIRMED และแสดง 'จองห้องสำเร็จ'"
+      ]
+    },
+    {
+      "id": "SCN-mrr-055",
+      "title": "แก้ห้องเป็นต้องอนุมัติ การจองที่ยังไม่เริ่มกลับไปรออนุมัติ",
+      "kind": "happy",
+      "verifies": [
+        "FUN-mrr-009"
+      ],
+      "rules": [
+        "BR-mrr-010@v2"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง A: requiresApproval = false · การจอง CONFIRMED 18/10 10:00–11:00 หัวข้อ 'ประชุมทีม' ของ U1",
+        "เวลาปัจจุบัน 16/10 10:00"
+      ],
+      "when": [
+        "RA1 แก้ห้อง A เป็นต้องอนุมัติ แล้วเปิดรายการการจองที่รออนุมัติ"
+      ],
+      "expected": [
+        "RA1 เห็นข้อความ 'บันทึกข้อมูลห้องสำเร็จ'",
+        "การจองของ U1 status = PENDING_APPROVAL และอยู่ในรายการรออนุมัติ",
+        "U1 ไม่ได้รับ Email"
+      ]
+    },
+    {
+      "id": "SCN-mrr-056",
+      "title": "แก้ห้องเป็นไม่ต้องอนุมัติ การจองที่รออนุมัติใช้ได้ทันที",
+      "kind": "alternate",
+      "verifies": [
+        "FUN-mrr-009"
+      ],
+      "rules": [
+        "BR-mrr-010@v2"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง B: MeetingRoom.status = ACTIVE · requiresApproval = true · approver = RA1 · capacity = 10 · การจอง PENDING_APPROVAL 18/10 10:00–11:00 หัวข้อ 'ประชุมทีม' ของ U1",
+        "เวลาปัจจุบัน 16/10 10:00"
+      ],
+      "when": [
+        "RA1 แก้ห้อง B เป็นไม่ต้องอนุมัติ แล้วเปิดรายการการจองที่รออนุมัติ"
+      ],
+      "expected": [
+        "การจองของ U1 status = CONFIRMED และไม่อยู่ในรายการรออนุมัติ"
+      ]
+    },
+    {
+      "id": "SCN-mrr-057",
+      "title": "แก้ค่าตั้งตรงเวลาเริ่มของการจองหนึ่งพอดี",
+      "kind": "boundary",
+      "verifies": [
+        "FUN-mrr-009"
+      ],
+      "rules": [
+        "BR-mrr-010@v2"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง A: requiresApproval = false · การจอง CONFIRMED วันที่ 16/10 ของ U1 10:00–11:00 และของ U2 11:00–12:00",
+        "เวลาปัจจุบัน 16/10 10:00"
+      ],
+      "when": [
+        "RA1 แก้ห้อง A เป็นต้องอนุมัติ แล้วเปิดรายการการจองที่รออนุมัติ"
+      ],
+      "expected": [
+        "การจองของ U1 ยังเป็น CONFIRMED และไม่อยู่ในรายการรออนุมัติ (เริ่มพอดีนับว่าถึงเวลาเริ่มแล้ว)",
+        "การจองของ U2 status = PENDING_APPROVAL และอยู่ในรายการรออนุมัติ"
+      ]
+    },
+    {
+      "id": "SCN-mrr-058",
+      "title": "กำหนดผู้อนุมัติประจำห้องภายหลัง",
+      "kind": "happy",
+      "verifies": [
+        "FUN-mrr-009"
+      ],
+      "rules": [
+        "BR-mrr-013@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง B: requiresApproval = true · approver = ว่าง"
+      ],
+      "when": [
+        "RA1 แก้ข้อมูลห้อง B กำหนดผู้อนุมัติประจำห้องเป็น RA1 แล้วกดบันทึก"
+      ],
+      "expected": [
+        "MeetingRoomVersion ใหม่ของห้อง B มี approver = RA1",
+        "หลังจากนี้ RA2 กดอนุมัติการจองห้อง B ไม่ได้"
+      ]
+    },
+    {
+      "id": "SCN-mrr-059",
+      "title": "ลบห้อง = เลิกใช้งาน ข้อมูลเดิมยังอยู่",
+      "kind": "happy",
+      "verifies": [
+        "FUN-mrr-009",
+        "FUN-mrr-001",
+        "FUN-mrr-010"
+      ],
+      "rules": [
+        "BR-mrr-005@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง A: MeetingRoom.status = ACTIVE · requiresApproval = false · capacity = 8 · มีโปรเจคเตอร์ · มีการจองที่ใช้ได้จริงใน ต.ค. 2569"
+      ],
+      "when": [
+        "RA1 ลบห้อง A แล้ว U1 ค้นหาห้องว่าง และ RA1 ออกรายงานเดือน ต.ค. 2569"
+      ],
+      "expected": [
+        "MeetingRoom.status = ARCHIVED และไม่มีปุ่มเปิดกลับมาใช้งาน",
+        "ห้อง A ไม่อยู่ในผลค้นหาของ U1",
+        "การจองเดิมของห้อง A ยังอยู่ในฐานข้อมูล และห้อง A ยังมีบรรทัดในรายงาน ต.ค. 2569"
+      ]
+    },
+    {
+      "id": "SCN-mrr-060",
+      "title": "รายงานรายเดือนคำนวณอัตราการใช้งานและจัดอันดับ",
+      "kind": "happy",
+      "verifies": [
+        "FUN-mrr-010"
+      ],
+      "rules": [
+        "BR-mrr-006@v1",
+        "CALC-mrr-001@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ต.ค. 2569 มีวัน จ.–ศ. 22 วัน (13,200 นาทีทำการต่อห้อง)",
+        "ห้อง A มีการจองที่ใช้ได้จริงรวม 4,400 นาที และมีการจอง CANCELLED · PENDING_APPROVAL · REJECTED อย่างละหนึ่งรายการ",
+        "ห้อง B มีการจองที่ใช้ได้จริงรวม 8,800 นาที"
+      ],
+      "when": [
+        "RA1 ออกรายงานการใช้ห้องเดือน ต.ค. 2569"
+      ],
+      "expected": [
+        "UtilizationReport ใหม่ issueNo = 1",
+        "บรรทัดห้อง B: bookedMinutes = 8800 · utilizationPct = 66.67 · rank = 1",
+        "บรรทัดห้อง A: bookedMinutes = 4400 · utilizationPct = 33.33 · rank = 2"
+      ]
+    },
+    {
+      "id": "SCN-mrr-061",
+      "title": "การจองที่เลยเวลาทำการนับเฉพาะส่วนในเวลาทำการ",
+      "kind": "boundary",
+      "verifies": [
+        "FUN-mrr-010"
+      ],
+      "rules": [
+        "BR-mrr-006@v1",
+        "CALC-mrr-001@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง C ใน ต.ค. 2569 มีการจองที่ใช้ได้จริง 2 รายการ: ศ. 30/10 17:00–19:00 และ ส. 31/10 10:00–12:00"
+      ],
+      "when": [
+        "RA1 ออกรายงานการใช้ห้องเดือน ต.ค. 2569"
+      ],
+      "expected": [
+        "บรรทัดห้อง C: bookedMinutes = 60 · operatingMinutes = 13200 · utilizationPct = 0.45"
+      ]
+    },
+    {
+      "id": "SCN-mrr-062",
+      "title": "ช่วงปิดปรับปรุงหักออกจากตัวหาร",
+      "kind": "alternate",
+      "verifies": [
+        "FUN-mrr-010"
+      ],
+      "rules": [
+        "BR-mrr-006@v1",
+        "BR-mrr-012@v1",
+        "CALC-mrr-001@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง D ปิดปรับปรุงเต็มวัน 19/10–23/10 (3,000 นาทีในเวลาทำการ) · มีการจองที่คงอยู่ 21/10 10:00–11:00 · อีก 17 วันทำการมีการจอง 08:00–13:00 รวม 5,100 นาที"
+      ],
+      "when": [
+        "RA1 ออกรายงานการใช้ห้องเดือน ต.ค. 2569"
+      ],
+      "expected": [
+        "บรรทัดห้อง D: bookedMinutes = 5100 · operatingMinutes = 10200 · utilizationPct = 50.00"
+      ]
+    },
+    {
+      "id": "SCN-mrr-063",
+      "title": "ห้องที่ปิดปรับปรุงทั้งเดือนไม่ถูกจัดอันดับ",
+      "kind": "exception",
+      "verifies": [
+        "FUN-mrr-010"
+      ],
+      "rules": [
+        "BR-mrr-006@v1",
+        "CALC-mrr-001@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง E ปิดปรับปรุงทุกวัน จ.–ศ. ตลอด ต.ค. 2569 · มีการจองที่คงอยู่ 5/10 10:00–11:00"
+      ],
+      "when": [
+        "RA1 ออกรายงานการใช้ห้องเดือน ต.ค. 2569"
+      ],
+      "expected": [
+        "บรรทัดห้อง E: operatingMinutes = 0 · utilizationPct = ว่าง · rank = ว่าง",
+        "หน้าจอแสดงอัตราของห้อง E เป็น '—' และห้อง E ไม่อยู่ในอันดับ"
+      ]
+    },
+    {
+      "id": "SCN-mrr-064",
+      "title": "ออกรายงานใหม่หลังข้อมูลเปลี่ยน ฉบับเดิมคงไว้",
+      "kind": "happy",
+      "verifies": [
+        "FUN-mrr-010"
+      ],
+      "rules": [
+        "BR-mrr-015@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "รายงาน ต.ค. 2569 issueNo = 1 ออกเมื่อ 1/11 · วันที่ 3/11 การจองห้อง A 15/10 ถูกแก้เวลาผ่านคำขอแก้ไขที่อนุมัติแล้ว"
+      ],
+      "when": [
+        "RA1 สั่งออกรายงานเดือน ต.ค. 2569 อีกครั้ง แล้วเปิดดูฉบับที่ 1"
+      ],
+      "expected": [
+        "มี UtilizationReport issueNo = 2 ที่คิดจากข้อมูลล่าสุด",
+        "หน้าจอแสดง 'ออกรายงานฉบับใหม่แล้ว ฉบับเดิมยังเก็บไว้'",
+        "ฉบับที่ 1 แสดงตัวเลขเท่ากับตอนออกเมื่อ 1/11 ทุกค่า"
+      ]
+    },
+    {
+      "id": "SCN-mrr-065",
+      "title": "แก้ตัวเลขในรายงานที่ออกแล้ว",
+      "kind": "exception",
+      "verifies": [
+        "FUN-mrr-010"
+      ],
+      "rules": [
+        "BR-mrr-015@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "รายงาน ต.ค. 2569 issueNo = 1 ออกแล้ว"
+      ],
+      "when": [
+        "RA1 ส่งคำสั่งแก้ bookedMinutes ของห้อง A ในฉบับที่ 1"
+      ],
+      "expected": [
+        "ระบบปฏิเสธ และแสดง 'รายงานที่ออกแล้วแก้ไขไม่ได้ กรุณาออกฉบับใหม่'",
+        "UtilizationReportLine ของฉบับที่ 1 ไม่เปลี่ยน"
+      ]
+    },
+    {
+      "id": "SCN-mrr-066",
+      "title": "System Administrator และ General User เปิดรายงาน",
+      "kind": "exception",
+      "verifies": [
+        "FUN-mrr-010"
+      ],
+      "rules": [
+        "BR-mrr-022@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "รายงาน ต.ค. 2569 ออกแล้ว"
+      ],
+      "when": [
+        "SA1 ส่งคำขอเปิดรายงาน ต.ค. 2569 แล้ว U1 ส่งคำขอเดียวกัน"
+      ],
+      "expected": [
+        "API ปฏิเสธทั้งสองคำขอด้วยสถานะไม่มีสิทธิ์",
+        "ไม่มีตัวเลขรายงานถูกส่งกลับ"
+      ]
+    },
+    {
+      "id": "SCN-mrr-067",
+      "title": "งานตามเวลาส่ง Email เตือน 15 นาทีก่อนเริ่ม",
+      "kind": "happy",
+      "verifies": [
+        "FUN-mrr-012"
+      ],
+      "rules": [
+        "BR-mrr-008@v1",
+        "BR-mrr-007@v1",
+        "BR-mrr-023@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง A: MeetingRoom.status = ACTIVE · requiresApproval = false · capacity = 8 · มีโปรเจคเตอร์ · การจอง CONFIRMED 17/10 10:00–11:00 หัวข้อ 'ประชุมทีม' ของ U1 ผู้เข้าร่วม U2, U3 · reminderStatus = NOT_SENT",
+        "ระบบส่ง Email ทำงานปกติ"
+      ],
+      "when": [
+        "งานตามเวลารันตอน 17/10 09:45"
+      ],
+      "expected": [
+        "U1, U2 และ U3 ได้รับ Email '[จองห้องประชุม] ใกล้ถึงเวลาประชุม: ประชุมทีม · ห้อง A 17/10 10:00–11:00'",
+        "Booking.reminderStatus = SENT · reminderAt = 17/10 09:45"
+      ]
+    },
+    {
+      "id": "SCN-mrr-068",
+      "title": "ก่อน 15 นาทีหนึ่งนาที ยังไม่ส่งเตือน",
+      "kind": "boundary",
+      "verifies": [
+        "FUN-mrr-012"
+      ],
+      "rules": [
+        "BR-mrr-008@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง A: MeetingRoom.status = ACTIVE · requiresApproval = false · capacity = 8 · มีโปรเจคเตอร์ · การจอง CONFIRMED 17/10 10:00–11:00 ของ U1 · reminderStatus = NOT_SENT"
+      ],
+      "when": [
+        "งานตามเวลารันตอน 17/10 09:44"
+      ],
+      "expected": [
+        "ไม่มี Email เตือนถูกส่ง",
+        "Booking.reminderStatus ยังเป็น NOT_SENT"
+      ]
+    },
+    {
+      "id": "SCN-mrr-069",
+      "title": "การจองที่ยังรออนุมัติไม่ได้รับ Email เตือน",
+      "kind": "exception",
+      "verifies": [
+        "FUN-mrr-012"
+      ],
+      "rules": [
+        "BR-mrr-008@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง B: MeetingRoom.status = ACTIVE · requiresApproval = true · approver = RA1 · capacity = 10 · การจอง PENDING_APPROVAL 17/10 10:00–11:00 ของ U1 ผู้เข้าร่วม U2"
+      ],
+      "when": [
+        "งานตามเวลารันตอน 17/10 09:45"
+      ],
+      "expected": [
+        "ไม่มี Email เตือนถูกส่งถึง U1 หรือ U2",
+        "Booking.reminderStatus ยังเป็น NOT_SENT"
+      ]
+    },
+    {
+      "id": "SCN-mrr-070",
+      "title": "ส่ง Email เตือนไม่สำเร็จ บันทึกแล้วไม่ส่งซ้ำ",
+      "kind": "exception",
+      "verifies": [
+        "FUN-mrr-012"
+      ],
+      "rules": [
+        "BR-mrr-020@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง A: MeetingRoom.status = ACTIVE · requiresApproval = false · capacity = 8 · มีโปรเจคเตอร์ · การจอง CONFIRMED 17/10 10:00–11:00 ของ U1 ผู้เข้าร่วม U2, U3 · reminderStatus = NOT_SENT",
+        "ระบบส่ง Email ส่งไม่สำเร็จ (mail server ล่ม)"
+      ],
+      "when": [
+        "งานตามเวลารันตอน 17/10 09:45 จากนั้นระบบ Email กลับมาใช้ได้ และงานรันรอบถัดไปตอน 09:50"
+      ],
+      "expected": [
+        "หลังรอบ 09:45 Booking.reminderStatus = FAILED",
+        "หลังรอบ 09:50 ไม่มีใครได้รับ Email เตือนของการจองนี้ และ reminderStatus ยังเป็น FAILED"
+      ]
+    },
+    {
+      "id": "SCN-mrr-071",
+      "title": "งานตามเวลารันซ้ำ ไม่ส่ง Email เตือนครั้งที่สอง",
+      "kind": "alternate",
+      "verifies": [
+        "FUN-mrr-012"
+      ],
+      "rules": [
+        "BR-mrr-023@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง A: MeetingRoom.status = ACTIVE · requiresApproval = false · capacity = 8 · มีโปรเจคเตอร์ · การจอง CONFIRMED 17/10 10:00–11:00 ของ U1 · reminderStatus = SENT จากรอบ 09:45",
+        "ระบบส่ง Email ทำงานปกติ"
+      ],
+      "when": [
+        "งานตามเวลารันซ้ำตอน 17/10 09:50"
+      ],
+      "expected": [
+        "ไม่มี Email เตือนของการจองนี้ถูกส่งเพิ่ม",
+        "reminderAt ยังเป็น 17/10 09:45"
+      ]
+    },
+    {
+      "id": "SCN-mrr-072",
+      "title": "หนึ่งนาทีก่อนเวลาเริ่ม งานยังไม่ยกเลิกการจองที่รออนุมัติ",
+      "kind": "boundary",
+      "verifies": [
+        "FUN-mrr-013"
+      ],
+      "rules": [
+        "BR-mrr-016@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง B: MeetingRoom.status = ACTIVE · requiresApproval = true · approver = RA1 · capacity = 10 · การจอง PENDING_APPROVAL 18/10 10:00–11:00 ของ U1"
+      ],
+      "when": [
+        "งานตามเวลารันตอน 18/10 09:59"
+      ],
+      "expected": [
+        "Booking.status ยังเป็น PENDING_APPROVAL",
+        "ไม่มี Email ถูกส่ง"
+      ]
+    },
+    {
+      "id": "SCN-mrr-073",
+      "title": "ถึงเวลาเริ่ม งานยกเลิกการจองที่รออนุมัติและแจ้งผู้จอง",
+      "kind": "happy",
+      "verifies": [
+        "FUN-mrr-013",
+        "FUN-mrr-011"
+      ],
+      "rules": [
+        "BR-mrr-016@v1",
+        "BR-mrr-007@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง B: MeetingRoom.status = ACTIVE · requiresApproval = true · approver = RA1 · capacity = 10 · การจอง PENDING_APPROVAL 18/10 10:00–11:00 หัวข้อ 'ประชุมลูกค้า' ของ U1",
+        "ระบบส่ง Email ทำงานปกติ"
+      ],
+      "when": [
+        "งานตามเวลารันตอน 18/10 10:00"
+      ],
+      "expected": [
+        "Booking.status = CANCELLED",
+        "U1 ได้รับ Email '[จองห้องประชุม] ยกเลิกอัตโนมัติ: ประชุมลูกค้า · ห้อง B 18/10 10:00–11:00'",
+        "ช่วง 10:00–11:00 ของห้อง B ว่างให้จองได้"
+      ]
+    },
+    {
+      "id": "SCN-mrr-074",
+      "title": "ส่ง Email แจ้งยกเลิกอัตโนมัติไม่สำเร็จ ยังไม่ยกเลิก",
+      "kind": "exception",
+      "verifies": [
+        "FUN-mrr-013"
+      ],
+      "rules": [
+        "BR-mrr-016@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง B: MeetingRoom.status = ACTIVE · requiresApproval = true · approver = RA1 · capacity = 10 · การจอง PENDING_APPROVAL 18/10 10:00–11:00 ของ U1",
+        "ระบบส่ง Email ส่งไม่สำเร็จ (mail server ล่ม)"
+      ],
+      "when": [
+        "งานตามเวลารันตอน 18/10 10:00"
+      ],
+      "expected": [
+        "Booking.status ยังเป็น PENDING_APPROVAL และช่วงเวลายังถูกกันไว้",
+        "งานรอบถัดไปพยายามยกเลิกและส่ง Email ใหม่"
+      ]
+    },
+    {
+      "id": "SCN-mrr-075",
+      "title": "Room Administrator อนุมัติระหว่างที่งานยกเลิกค้างอยู่",
+      "kind": "alternate",
+      "verifies": [
+        "FUN-mrr-013",
+        "FUN-mrr-005"
+      ],
+      "rules": [
+        "BR-mrr-016@v1",
+        "BR-mrr-004@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง B: MeetingRoom.status = ACTIVE · requiresApproval = true · approver = RA1 · capacity = 10 · การจอง PENDING_APPROVAL 18/10 10:00–11:00 ของ U1 · งานรอบ 10:00 ส่ง Email ไม่สำเร็จ",
+        "เวลาปัจจุบัน 18/10 10:03",
+        "ระบบส่ง Email ทำงานปกติ"
+      ],
+      "when": [
+        "RA1 กดอนุมัติการจองนี้ แล้วงานตามเวลารันรอบถัดไป"
+      ],
+      "expected": [
+        "Booking.status = APPROVED",
+        "งานรอบถัดไปไม่ยกเลิกการจองนี้ และ U1 ไม่ได้รับ Email ยกเลิกอัตโนมัติ"
+      ]
+    },
+    {
+      "id": "SCN-mrr-076",
+      "title": "รหัสเข้าสู่ระบบหมดอายุที่ 10 นาทีและใช้ได้ครั้งเดียว",
+      "kind": "boundary",
+      "verifies": [
+        "NFR-mrr-001",
+        "FUN-mrr-014"
+      ],
+      "rules": [],
+      "given": [
+        "U1 (GENERAL_USER · active = true) ขอรหัสเข้าสู่ระบบเวลา 09:00:00",
+        "U5 (Email องค์กร แต่ไม่อยู่ในรายชื่อนำเข้า)"
+      ],
+      "when": [
+        "U1 ใช้รหัสเวลา 09:09:59 แล้วใช้รหัสเดิมซ้ำ",
+        "U1 ขอรหัสใหม่เวลา 10:00:00 แล้วใช้เวลา 10:10:01",
+        "U5 ขอรหัสเข้าสู่ระบบ"
+      ],
+      "expected": [
+        "การใช้รหัสเวลา 09:09:59 เข้าสู่ระบบสำเร็จ",
+        "การใช้รหัสเดิมซ้ำถูกปฏิเสธ",
+        "การใช้รหัสเวลา 10:10:01 ถูกปฏิเสธเพราะหมดอายุ",
+        "ไม่มี Email รหัสถูกส่งถึง U5 และ U5 เข้าสู่ระบบไม่ได้"
+      ]
+    },
+    {
+      "id": "SCN-mrr-077",
+      "title": "ปฏิทินรายสัปดาห์โหลดภายใน 2 วินาทีที่ผู้ใช้ 200 คนพร้อมกัน",
+      "kind": "boundary",
+      "verifies": [
+        "NFR-mrr-002",
+        "FUN-mrr-002"
+      ],
+      "rules": [],
+      "given": [
+        "ฐานข้อมูลมีห้อง 50 ห้อง และการจองสะสม 2 ปี ประมาณ 50,000 รายการ",
+        "สภาพแวดล้อม on-premise ที่ใช้งานจริงหรือเทียบเท่า"
+      ],
+      "when": [
+        "load test จำลองผู้ใช้ 200 คนเปิดปฏิทินห้องรายสัปดาห์ต่อเนื่อง 30 นาที"
+      ],
+      "expected": [
+        "ค่า p95 ของเวลาโหลดปฏิทินรายสัปดาห์ ≤ 2.00 วินาที",
+        "อัตราคำขอที่ตอบผิดพลาด (HTTP 5xx) = 0",
+        "ถ้า p95 = 2.01 วินาทีขึ้นไป ถือว่าไม่ผ่าน"
+      ]
+    },
+    {
+      "id": "SCN-mrr-078",
+      "title": "ไม่มีคำขอข้ามสิทธิ์หรือผ่าน HTTP ที่สำเร็จ",
+      "kind": "exception",
+      "verifies": [
+        "NFR-mrr-003"
+      ],
+      "rules": [],
+      "given": [
+        "บัญชีทดสอบของทั้ง 3 บทบาท (ROLE-001 · ROLE-002 · ROLE-003)",
+        "การจองของ U1 ที่ผู้ทดสอบคนอื่นไม่ได้เป็นเจ้าของ"
+      ],
+      "when": [
+        "ชุดทดสอบเรียกทุก endpoint ผ่าน http://",
+        "ชุดทดสอบเรียกทุก endpoint ด้วยบทบาทที่ตารางสิทธิ์ไม่อนุญาต และกับการจองของ U1 ด้วยบัญชี U2"
+      ],
+      "expected": [
+        "ทุกคำขอผ่าน http:// ถูกบังคับไป https:// หรือถูกปฏิเสธ — ไม่มีคำขอใดได้ข้อมูลกลับผ่าน http",
+        "ทุกคำขอข้ามบทบาทหรือข้ามเจ้าของได้คำตอบไม่มีสิทธิ์ · จำนวนคำขอที่สำเร็จ = 0",
+        "ไม่มีข้อมูลในฐานข้อมูลเปลี่ยนจากคำขอเหล่านี้"
+      ]
+    },
+    {
+      "id": "SCN-mrr-079",
+      "title": "uptime รายเดือนไม่ต่ำกว่า 99.9%",
+      "kind": "boundary",
+      "verifies": [
+        "NFR-mrr-004"
+      ],
+      "rules": [],
+      "given": [
+        "ระบบ monitoring เรียก health check ทุก 1 นาที ตลอดเดือน ต.ค. 2569 (44,640 นาที)",
+        "มีการปิดปรับปรุงที่แจ้งล่วงหน้า 3 วันทำการ 60 นาที"
+      ],
+      "when": [
+        "สรุปรายงาน uptime ประจำเดือน ต.ค. 2569"
+      ],
+      "expected": [
+        "ช่วงปิดปรับปรุงที่แจ้งล่วงหน้า 60 นาทีไม่นับเป็นเวลาหยุด",
+        "ถ้าเวลาหยุดที่นับ ≤ 44 นาที (uptime ≥ 99.90%) ถือว่าผ่าน",
+        "ถ้าเวลาหยุดที่นับ ≥ 45 นาที (uptime < 99.90%) ถือว่าไม่ผ่าน"
+      ]
+    },
+    {
+      "id": "SCN-mrr-080",
+      "title": "scenario รับมอบผ่านทุกเบราว์เซอร์ที่จอกว้าง 360px",
+      "kind": "boundary",
+      "verifies": [
+        "NFR-mrr-005"
+      ],
+      "rules": [],
+      "given": [
+        "Chrome, Safari, Edge และ Firefox 2 รุ่นหลักล่าสุด ณ วันทดสอบรับมอบ",
+        "ชุด scenario รับมอบ SCN-mrr-001 ถึง SCN-mrr-075"
+      ],
+      "when": [
+        "รันชุด scenario ด้วย Playwright บนทั้ง 4 เบราว์เซอร์ ที่ความกว้าง 360px และ 1280px"
+      ],
+      "expected": [
+        "จำนวน scenario ที่ล้มเหลว = 0 ในทุกคู่เบราว์เซอร์และความกว้าง",
+        "ที่ความกว้าง 360px ไม่มีหน้าใดมีการเลื่อนแนวนอน (document scrollWidth ≤ 360)"
+      ]
+    },
+    {
+      "id": "SCN-mrr-081",
+      "title": "เข้าสู่ระบบด้วยรหัส OTP ที่ได้รับทาง Email",
+      "kind": "happy",
+      "verifies": [
+        "FUN-mrr-014"
+      ],
+      "rules": [],
+      "given": [
+        "U1 (User.role = GENERAL_USER · active = true) ยังไม่ได้เข้าสู่ระบบ"
+      ],
+      "when": [
+        "U1 เปิดหน้าขอรหัสเข้าสู่ระบบ กรอก Email องค์กรของ U1 และกดขอรหัสเข้าสู่ระบบเวลา 09:00:00",
+        "U1 กรอกรหัส 6 หลักจาก Email ที่ได้รับ และกดเข้าสู่ระบบเวลา 09:02:00"
+      ],
+      "expected": [
+        "U1 ได้รับ Email รหัสเข้าสู่ระบบ 1 ฉบับ รหัสเป็นตัวเลข 6 หลัก",
+        "หลังขอรหัส หน้าจอเปลี่ยนเป็นหน้ายืนยันรหัส OTP และแสดง Email ของ U1 ที่แก้ไม่ได้",
+        "หลังกดเข้าสู่ระบบ หน้าจอเปลี่ยนเป็นหน้าค้นหาห้องว่าง",
+        "U1 เปิดหน้าที่ต้องเป็น ROOM_ADMINISTRATOR ไม่ได้ — session มีบทบาท GENERAL_USER"
+      ]
+    },
+    {
+      "id": "SCN-mrr-082",
+      "title": "ขอรหัสใหม่แล้วรหัสเดิมใช้ไม่ได้อีก",
+      "kind": "alternate",
+      "verifies": [
+        "FUN-mrr-014"
+      ],
+      "rules": [],
+      "given": [
+        "U1 (GENERAL_USER · active = true) ขอรหัสเข้าสู่ระบบเวลา 09:00:00 ได้รหัส A และอยู่ที่หน้ายืนยันรหัส OTP"
+      ],
+      "when": [
+        "U1 กดขอรหัสใหม่เวลา 09:01:00 ได้รหัส B",
+        "U1 กรอกรหัส A เวลา 09:02:00",
+        "U1 กรอกรหัส B เวลา 09:03:00"
+      ],
+      "expected": [
+        "U1 ได้รับ Email รหัสเข้าสู่ระบบรวม 2 ฉบับ",
+        "การใช้รหัส A ถูกปฏิเสธ U1 ยังอยู่ที่หน้ายืนยันรหัส OTP และยังไม่ได้เข้าสู่ระบบ",
+        "การใช้รหัส B เข้าสู่ระบบสำเร็จ และหน้าจอเปลี่ยนเป็นหน้าค้นหาห้องว่าง"
+      ]
+    },
+    {
+      "id": "SCN-mrr-083",
+      "title": "เข้าสู่ระบบด้วย magic link แทนการกรอกรหัส",
+      "kind": "alternate",
+      "verifies": [
+        "FUN-mrr-014"
+      ],
+      "rules": [],
+      "given": [
+        "U1 (GENERAL_USER · active = true) ขอรหัสเข้าสู่ระบบเวลา 09:00:00"
+      ],
+      "when": [
+        "U1 เปิด magic link ใน Email เวลา 09:03:00",
+        "U1 เปิด magic link เดิมอีกครั้งในเบราว์เซอร์อื่นเวลา 09:04:00"
+      ],
+      "expected": [
+        "การเปิดครั้งแรกเข้าสู่ระบบสำเร็จโดยไม่ต้องกรอกรหัส และหน้าจอแสดงหน้าค้นหาห้องว่าง",
+        "การเปิดครั้งที่สองถูกปฏิเสธ — เบราว์เซอร์นั้นไม่ได้เข้าสู่ระบบ และแจ้งให้ขอรหัสใหม่"
+      ]
+    },
+    {
+      "id": "SCN-mrr-084",
+      "title": "ผู้ที่เข้าสู่ระบบอยู่แล้วเปิดหน้าขอรหัส",
+      "kind": "alternate",
+      "verifies": [
+        "FUN-mrr-014"
+      ],
+      "rules": [],
+      "given": [
+        "U1 (GENERAL_USER · active = true) เข้าสู่ระบบอยู่"
+      ],
+      "when": [
+        "U1 เปิดหน้าขอรหัสเข้าสู่ระบบ"
+      ],
+      "expected": [
+        "หน้าจอเปลี่ยนเป็นหน้าค้นหาห้องว่างทันที โดยไม่แสดงช่องกรอก Email",
+        "ไม่มี Email รหัสเข้าสู่ระบบถูกส่ง"
+      ]
+    },
+    {
+      "id": "SCN-mrr-085",
+      "title": "บัญชีที่ไม่ active ขอรหัสแล้วได้คำตอบเดียวกับบัญชีปกติ",
+      "kind": "exception",
+      "verifies": [
+        "FUN-mrr-014"
+      ],
+      "rules": [],
+      "given": [
+        "U1 (GENERAL_USER · active = true)",
+        "U6 (GENERAL_USER · active = false — ไม่อยู่ในรายชื่อนำเข้ารอบล่าสุด แต่มีประวัติการจองเดิม)"
+      ],
+      "when": [
+        "U1 ขอรหัสเข้าสู่ระบบด้วย Email ของ U1",
+        "U6 ขอรหัสเข้าสู่ระบบด้วย Email ของ U6"
+      ],
+      "expected": [
+        "ข้อความบนหน้าจอหลังกดขอรหัสของ U1 และ U6 ตรงกันทุกตัวอักษร — ไม่บอกว่า Email มีในรายชื่อหรือไม่",
+        "ไม่มี Email รหัสถูกส่งถึง U6",
+        "U6 เข้าสู่ระบบไม่ได้ด้วยรหัสใด ๆ",
+        "User ของ U6 และ Booking เดิมของ U6 ไม่ถูกแก้หรือลบ"
+      ]
+    },
+    {
+      "id": "SCN-mrr-086",
+      "title": "ส่ง Email รหัสเข้าสู่ระบบไม่สำเร็จ",
+      "kind": "exception",
+      "verifies": [
+        "FUN-mrr-014"
+      ],
+      "rules": [],
+      "given": [
+        "U1 (GENERAL_USER · active = true) ยังไม่ได้เข้าสู่ระบบ",
+        "ระบบส่ง Email ไม่ตอบรับการส่ง"
+      ],
+      "when": [
+        "U1 กรอก Email องค์กรของ U1 และกดขอรหัสเข้าสู่ระบบ"
+      ],
+      "expected": [
+        "หน้าจอแสดงข้อความ 'ส่งรหัสไม่สำเร็จ กรุณาลองใหม่อีกครั้ง'",
+        "U1 ยังอยู่ที่หน้าขอรหัสเข้าสู่ระบบ ไม่ถูกพาไปหน้ายืนยันรหัส OTP",
+        "ปุ่มขอรหัสเข้าสู่ระบบกดใหม่ได้"
+      ]
+    },
+    {
+      "id": "SCN-mrr-087",
+      "title": "กรอกรหัสผิด",
+      "kind": "exception",
+      "verifies": [
+        "FUN-mrr-014"
+      ],
+      "rules": [],
+      "given": [
+        "U1 (GENERAL_USER · active = true) ขอรหัสเข้าสู่ระบบเวลา 09:00:00 และอยู่ที่หน้ายืนยันรหัส OTP"
+      ],
+      "when": [
+        "U1 กรอกตัวเลข 6 หลักที่ไม่ใช่รหัสที่ได้รับ และกดเข้าสู่ระบบเวลา 09:01:00"
+      ],
+      "expected": [
+        "หน้าจอแจ้งว่ารหัสไม่ถูกต้อง และให้ขอรหัสใหม่ได้",
+        "U1 ยังอยู่ที่หน้ายืนยันรหัส OTP และยังไม่ได้เข้าสู่ระบบ — เปิดหน้าค้นหาห้องว่างไม่ได้"
+      ]
+    },
+    {
+      "id": "SCN-mrr-088",
+      "title": "ออกจากระบบ",
+      "kind": "happy",
+      "verifies": [
+        "FUN-mrr-014"
+      ],
+      "rules": [],
+      "given": [
+        "U1 (GENERAL_USER · active = true) เข้าสู่ระบบอยู่ และเปิดหน้าค้นหาห้องว่างอยู่"
+      ],
+      "when": [
+        "U1 กดออกจากระบบ",
+        "U1 เปิดหน้าค้นหาห้องว่างอีกครั้งในเบราว์เซอร์เดิม"
+      ],
+      "expected": [
+        "หน้าจอแสดงข้อความ 'ออกจากระบบแล้ว' พร้อมทางเข้าสู่ระบบอีกครั้ง",
+        "การเปิดหน้าค้นหาห้องว่างอีกครั้งไม่แสดงข้อมูลห้อง — U1 ต้องเข้าสู่ระบบใหม่"
+      ]
+    },
+    {
+      "id": "SCN-mrr-089",
+      "title": "เปิดหน้าออกจากระบบโดยไม่ได้เข้าสู่ระบบ",
+      "kind": "alternate",
+      "verifies": [
+        "FUN-mrr-014"
+      ],
+      "rules": [],
+      "given": [
+        "เบราว์เซอร์ที่ไม่มี session ของผู้ใช้ใด"
+      ],
+      "when": [
+        "เปิดหน้าออกจากระบบ"
+      ],
+      "expected": [
+        "หน้าจอแสดงข้อความ 'ออกจากระบบแล้ว' เหมือนกรณีออกจากระบบปกติ",
+        "ไม่มีข้อความ error"
+      ]
+    },
+    {
+      "id": "SCN-mrr-090",
+      "title": "ยกเลิก session ไม่สำเร็จ",
+      "kind": "exception",
+      "verifies": [
+        "FUN-mrr-014"
+      ],
+      "rules": [],
+      "given": [
+        "U1 (GENERAL_USER · active = true) เข้าสู่ระบบอยู่",
+        "ที่เก็บ session ไม่ตอบขณะยกเลิก session"
+      ],
+      "when": [
+        "U1 กดออกจากระบบ"
+      ],
+      "expected": [
+        "หน้าจอแจ้งให้ลองใหม่ และไม่แสดงข้อความ 'ออกจากระบบแล้ว'",
+        "session ของ U1 ยังอยู่ — U1 ยังเปิดหน้าค้นหาห้องว่างได้"
+      ]
+    }
+  ]
+}

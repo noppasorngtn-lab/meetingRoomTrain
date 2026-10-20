@@ -1,0 +1,198 @@
+{
+  "schemaVersion": "1.4",
+  "producedBy": "mock · scripts/wireframes.mjs",
+  "project": "mrr",
+  "id": "MCK-mrr-006",
+  "screen": "UI-mrr-007",
+  "title": "การจองของฉัน",
+  "purpose": "ดูรายการและประวัติการจองที่ตนเป็นผู้จอง แล้วเลือกแก้ไขหรือยกเลิก",
+  "level": "L1",
+  "layout": "rows",
+  "kind": "list",
+  "visibleTo": [
+    "ROLE-001",
+    "ROLE-002",
+    "ROLE-003"
+  ],
+  "zones": [
+    {
+      "name": "header",
+      "kind": "header",
+      "kindSource": "derived",
+      "source": "mock",
+      "items": [
+        {
+          "type": "title",
+          "text": "การจองของฉัน"
+        }
+      ]
+    },
+    {
+      "name": "list",
+      "kind": "columns",
+      "kindSource": "derived",
+      "source": "design",
+      "items": [
+        {
+          "type": "field",
+          "name": "ห้อง",
+          "required": true,
+          "entity": "ENT-007",
+          "attribute": "room",
+          "validation": "ห้องของการจอง",
+          "rules": [],
+          "visibleTo": [
+            "ROLE-001",
+            "ROLE-002",
+            "ROLE-003"
+          ],
+          "input": false
+        },
+        {
+          "type": "field",
+          "name": "ช่วงเวลา",
+          "required": true,
+          "entity": "ENT-007",
+          "attribute": "startAt",
+          "validation": "วันและเวลาเริ่ม–จบ",
+          "rules": [],
+          "visibleTo": [
+            "ROLE-001",
+            "ROLE-002",
+            "ROLE-003"
+          ],
+          "input": false
+        },
+        {
+          "type": "field",
+          "name": "หัวข้อ",
+          "required": true,
+          "entity": "ENT-007",
+          "attribute": "title",
+          "validation": "หัวข้อการประชุม",
+          "rules": [],
+          "visibleTo": [
+            "ROLE-001",
+            "ROLE-002",
+            "ROLE-003"
+          ],
+          "input": false
+        },
+        {
+          "type": "field",
+          "name": "สถานะ",
+          "required": true,
+          "entity": "ENT-007",
+          "attribute": "status",
+          "validation": "ป้ายตามสถานะใน STM-mrr-001",
+          "rules": [],
+          "visibleTo": [
+            "ROLE-001",
+            "ROLE-002",
+            "ROLE-003"
+          ],
+          "input": false
+        },
+        {
+          "type": "action",
+          "key": "open",
+          "name": "แก้ไข",
+          "kind": "edit",
+          "presentation": "text",
+          "placement": "first-column",
+          "container": "navigate",
+          "accessibleName": "แก้ไข",
+          "conventions": [
+            "UIC-001",
+            "UIC-002"
+          ],
+          "destination": "หน้าแก้ไขการจอง",
+          "rules": [
+            "BR-mrr-003@v1",
+            "BR-mrr-009@v1"
+          ]
+        },
+        {
+          "type": "action",
+          "key": "cancel",
+          "name": "ยกเลิกการจอง",
+          "kind": "command",
+          "presentation": "text",
+          "placement": "first-column",
+          "container": "inline",
+          "accessibleName": "ยกเลิกการจอง",
+          "conventions": [
+            "UIC-001",
+            "UIC-002"
+          ],
+          "destination": "อยู่ที่หน้าเดิม",
+          "rules": [
+            "BR-mrr-003@v1",
+            "BR-mrr-009@v1",
+            "BR-mrr-007@v1",
+            "BR-mrr-019@v1"
+          ]
+        }
+      ]
+    }
+  ],
+  "controls": [
+    {
+      "id": "ui-mrr-007-ent-007-room",
+      "type": "field",
+      "key": "ent-007-room",
+      "name": "ห้อง"
+    },
+    {
+      "id": "ui-mrr-007-ent-007-start-at",
+      "type": "field",
+      "key": "ent-007-start-at",
+      "name": "ช่วงเวลา"
+    },
+    {
+      "id": "ui-mrr-007-ent-007-title",
+      "type": "field",
+      "key": "ent-007-title",
+      "name": "หัวข้อ"
+    },
+    {
+      "id": "ui-mrr-007-ent-007-status",
+      "type": "field",
+      "key": "ent-007-status",
+      "name": "สถานะ"
+    },
+    {
+      "id": "ui-mrr-007-open",
+      "type": "action",
+      "key": "open"
+    },
+    {
+      "id": "ui-mrr-007-cancel",
+      "type": "action",
+      "key": "cancel"
+    }
+  ],
+  "states": {
+    "empty": {
+      "occurs": true,
+      "text": "ยังไม่มีการจอง — แสดง 'คุณยังไม่มีการจอง' พร้อมทางไปหน้าค้นหาห้องว่าง"
+    },
+    "loading": {
+      "occurs": true,
+      "text": "แสดงตัวบอกกำลังโหลดแทนรายการ"
+    },
+    "error": {
+      "occurs": true,
+      "text": "โหลดไม่สำเร็จ — แจ้งข้อผิดพลาดและปุ่มโหลดใหม่ · ยกเลิกไม่สำเร็จเพราะ Email — แจ้งให้กดใหม่ สถานะไม่เปลี่ยน"
+    },
+    "unauthorized": {
+      "occurs": true,
+      "text": "แสดงเฉพาะการจองของผู้ใช้เอง · ผู้ที่ยังไม่เข้าสู่ระบบถูกพาไปหน้าขอรหัสเข้าสู่ระบบ"
+    },
+    "overflow": {
+      "occurs": true,
+      "text": "มากกว่า 20 รายการ — แบ่งหน้า เรียงจากเวลาเริ่มล่าสุด · หัวข้อยาวตัดด้วย …"
+    }
+  },
+  "extensions": {}
+}

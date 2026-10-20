@@ -1,0 +1,84 @@
+{
+  "schemaVersion": "1.0",
+  "producedBy": "mock · scripts/wireframes.mjs",
+  "owner": "mockup",
+  "project": "mrr",
+  "edges": [
+    {
+      "from": "UI-mrr-001",
+      "rel": "mockedBy",
+      "to": "MCK-mrr-001"
+    },
+    {
+      "from": "UI-mrr-002",
+      "rel": "mockedBy",
+      "to": "MCK-mrr-002"
+    },
+    {
+      "from": "UI-mrr-004",
+      "rel": "mockedBy",
+      "to": "MCK-mrr-003"
+    },
+    {
+      "from": "UI-mrr-005",
+      "rel": "mockedBy",
+      "to": "MCK-mrr-004"
+    },
+    {
+      "from": "UI-mrr-006",
+      "rel": "mockedBy",
+      "to": "MCK-mrr-005"
+    },
+    {
+      "from": "UI-mrr-007",
+      "rel": "mockedBy",
+      "to": "MCK-mrr-006"
+    },
+    {
+      "from": "UI-mrr-008",
+      "rel": "mockedBy",
+      "to": "MCK-mrr-007"
+    },
+    {
+      "from": "UI-mrr-009",
+      "rel": "mockedBy",
+      "to": "MCK-mrr-008"
+    },
+    {
+      "from": "UI-mrr-010",
+      "rel": "mockedBy",
+      "to": "MCK-mrr-009"
+    },
+    {
+      "from": "UI-mrr-011",
+      "rel": "mockedBy",
+      "to": "MCK-mrr-010"
+    },
+    {
+      "from": "UI-mrr-012",
+      "rel": "mockedBy",
+      "to": "MCK-mrr-011"
+    },
+    {
+      "from": "UI-mrr-013",
+      "rel": "mockedBy",
+      "to": "MCK-mrr-012"
+    },
+    {
+      "from": "UI-mrr-014",
+      "rel": "mockedBy",
+      "to": "MCK-mrr-013"
+    },
+    {
+      "from": "RPT-mrr-001",
+      "rel": "mockedBy",
+      "to": "MCK-mrr-014"
+    },
+    {
+      "from": "UI-mrr-003",
+      "rel": "mockedBy",
+      "to": "MCK-mrr-015"
+    }
+  ],
+  "extensions": {}
+}

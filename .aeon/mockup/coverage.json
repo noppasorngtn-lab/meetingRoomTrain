@@ -1,0 +1,119 @@
+{
+  "schemaVersion": "1.1",
+  "producedBy": "mock · scripts/state.mjs",
+  "project": "mrr",
+  "levels": [
+    "L0",
+    "L1",
+    "L2"
+  ],
+  "screens": [
+    {
+      "screen": "UI-mrr-001",
+      "level": "L2",
+      "decision": "build",
+      "decidedBy": "Noppasorn",
+      "decidedAt": "2026-10-19T11:28:32Z"
+    },
+    {
+      "screen": "UI-mrr-002",
+      "level": "L1",
+      "decision": "build",
+      "decidedBy": "Noppasorn",
+      "decidedAt": "2026-10-19T11:28:32Z"
+    },
+    {
+      "screen": "UI-mrr-004",
+      "level": "L2",
+      "decision": "build",
+      "decidedBy": "Noppasorn",
+      "decidedAt": "2026-10-19T11:28:32Z"
+    },
+    {
+      "screen": "UI-mrr-005",
+      "level": "L2",
+      "decision": "build",
+      "decidedBy": "Noppasorn",
+      "decidedAt": "2026-10-19T11:28:32Z"
+    },
+    {
+      "screen": "UI-mrr-006",
+      "level": "L2",
+      "decision": "build",
+      "decidedBy": "Noppasorn",
+      "decidedAt": "2026-10-19T11:28:32Z"
+    },
+    {
+      "screen": "UI-mrr-007",
+      "level": "L1",
+      "decision": "build",
+      "decidedBy": "Noppasorn",
+      "decidedAt": "2026-10-19T11:28:32Z"
+    },
+    {
+      "screen": "UI-mrr-008",
+      "level": "L1",
+      "decision": "build",
+      "decidedBy": "Noppasorn",
+      "decidedAt": "2026-10-19T11:28:32Z"
+    },
+    {
+      "screen": "UI-mrr-009",
+      "level": "L1",
+      "decision": "build",
+      "decidedBy": "Noppasorn",
+      "decidedAt": "2026-10-19T11:28:32Z"
+    },
+    {
+      "screen": "UI-mrr-010",
+      "level": "L1",
+      "decision": "build",
+      "decidedBy": "Noppasorn",
+      "decidedAt": "2026-10-19T11:28:32Z"
+    },
+    {
+      "screen": "UI-mrr-011",
+      "level": "L1",
+      "decision": "build",
+      "decidedBy": "Noppasorn",
+      "decidedAt": "2026-10-19T11:28:32Z"
+    },
+    {
+      "screen": "UI-mrr-012",
+      "level": "L1",
+      "decision": "build",
+      "decidedBy": "Noppasorn",
+      "decidedAt": "2026-10-19T11:28:32Z"
+    },
+    {
+      "screen": "UI-mrr-013",
+      "level": "L1",
+      "decision": "build",
+      "decidedBy": "Noppasorn",
+      "decidedAt": "2026-10-19T11:28:32Z"
+    },
+    {
+      "screen": "UI-mrr-014",
+      "level": "L1",
+      "decision": "build",
+      "decidedBy": "Noppasorn",
+      "decidedAt": "2026-10-19T11:28:32Z"
+    },
+    {
+      "screen": "RPT-mrr-001",
+      "level": "L2",
+      "decision": "build",
+      "decidedBy": "Noppasorn",
+      "decidedAt": "2026-10-19T11:28:32Z"
+    },
+    {
+      "screen": "UI-mrr-003",
+      "level": "L1",
+      "decision": "build",
+      "decidedBy": "Noppasorn",
+      "decidedAt": "2026-10-19T11:28:32Z"
+    }
+  ],
+  "exceptions": [],
+  "extensions": {}
+}

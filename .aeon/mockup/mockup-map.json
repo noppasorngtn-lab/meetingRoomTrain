@@ -1,0 +1,324 @@
+{
+  "schemaVersion": "1.1",
+  "producedBy": "mock · scripts/wireframes.mjs",
+  "project": "mrr",
+  "mockups": [
+    {
+      "id": "MCK-mrr-001",
+      "screen": "UI-mrr-001",
+      "level": "L2",
+      "file": "wireframes/UI-mrr-001.json",
+      "layout": "form",
+      "rendersState": [
+        "empty",
+        "loading",
+        "error",
+        "overflow"
+      ],
+      "followsConvention": [],
+      "usesComponent": [
+        "Alert",
+        "Button",
+        "TextField"
+      ],
+      "deliveredPages": {
+        "default": "sha256:49d06416df2abc288946b81b422a25d45b7743bb80e850240155c3338eb26034",
+        "empty": "sha256:ab0887bc9a5e177c745bbed50f5822c558578a5ab5711f7c50c860623b482715",
+        "error": "sha256:df5eb9db604e594a35b80f833350287303a98c3ef066292861a18d8fbb5cec3e",
+        "loading": "sha256:56fe04bd90d0c2a6e4df4783dae27679f2bae34960ce9230d7e4457aff5ec9d4",
+        "overflow": "sha256:d96fb0170bf8c8ee02f29acb934b5a3de19d2e41f025e9aa16716e114eb3f02f"
+      }
+    },
+    {
+      "id": "MCK-mrr-002",
+      "screen": "UI-mrr-002",
+      "level": "L1",
+      "file": "wireframes/UI-mrr-002.json",
+      "layout": "form",
+      "rendersState": [
+        "empty",
+        "loading",
+        "error"
+      ],
+      "followsConvention": [],
+      "usesComponent": []
+    },
+    {
+      "id": "MCK-mrr-003",
+      "screen": "UI-mrr-004",
+      "level": "L2",
+      "file": "wireframes/UI-mrr-004.json",
+      "layout": "rows",
+      "rendersState": [
+        "empty",
+        "loading",
+        "error",
+        "unauthorized",
+        "overflow"
+      ],
+      "followsConvention": [],
+      "usesComponent": [
+        "Alert",
+        "Button",
+        "Table",
+        "TextField"
+      ],
+      "deliveredPages": {
+        "default": "sha256:0ceb831e508b3978cbe1460cbb3bdc972661a6fba423e19ef96b68ef73ce3558",
+        "empty": "sha256:af5b4843a0499f823049d0717beb457e766f9e2e945ee39de2d30ea0d35a7cbb",
+        "error": "sha256:9f076d326e03054b99808919e6e6314d149de4c1b7c8f3d40ff213015dc787d3",
+        "loading": "sha256:cc69dfd742290f8fd5ad1ee58a44b5f0d3a3577d5ad3d42d9fc4292941d53b81",
+        "overflow": "sha256:3a59916e09c6980f60df8e4867dd6d598185d26e1086b9a45a423df36f44b419",
+        "unauthorized": "sha256:7e3ef6ba2274cd4af36efa61438aa588debc20d986d6cb553997db3ab5ccaf68"
+      }
+    },
+    {
+      "id": "MCK-mrr-004",
+      "screen": "UI-mrr-005",
+      "level": "L2",
+      "file": "wireframes/UI-mrr-005.json",
+      "layout": "form",
+      "rendersState": [
+        "empty",
+        "loading",
+        "error",
+        "unauthorized",
+        "overflow"
+      ],
+      "followsConvention": [],
+      "usesComponent": [
+        "Alert",
+        "Button",
+        "TextField"
+      ],
+      "deliveredPages": {
+        "default": "sha256:38fb1eb5e97d418f66db0bd8bc5b42105ff326bc37041112fb49d259214f7838",
+        "empty": "sha256:2acbd63bf6bff7b82cadaea3040a114fecbe55d346081d7389f531169fed6316",
+        "error": "sha256:01ec56894905d2eb77ff0b9265d7b35906092c14dd95c3af8b5a05a09dbed2b9",
+        "loading": "sha256:480cbbe17789a98c662a26a243eb3a4735f3b2105dbcd9ccac0ab8c2253ee705",
+        "overflow": "sha256:6ab43f9e848e542e2079a47367cbb72a236fe64f0396d33af760c3bdcad5bc94",
+        "unauthorized": "sha256:e351f7418edc74e9e0b3594ff6dcf40fe3b543b9a50e3e74d93e6f1407843872"
+      }
+    },
+    {
+      "id": "MCK-mrr-005",
+      "screen": "UI-mrr-006",
+      "level": "L2",
+      "file": "wireframes/UI-mrr-006.json",
+      "layout": "form",
+      "rendersState": [
+        "empty",
+        "loading",
+        "error",
+        "unauthorized",
+        "overflow"
+      ],
+      "followsConvention": [],
+      "usesComponent": [
+        "Alert",
+        "Button",
+        "TextField"
+      ],
+      "deliveredPages": {
+        "default": "sha256:26cf2ee7812eaf6dbc82df9488301ba2ead7c51e46a4e0790c180e1d4a542a47",
+        "empty": "sha256:415cb2f9327b9cd4164c3a9ef86ba0e9928d61dc211f32669ec29da4aa4981ad",
+        "error": "sha256:f363004acf196602a22f589ade1980d38db68d0d2a6ea45ef410a414a08b455a",
+        "loading": "sha256:139363920bebdb7a2bd6198a5d78a200c8a373117277a070650215e607f4bcbe",
+        "overflow": "sha256:01f3849083073816ec12e4486bc0a4e314d72830b7f21387c3fd683e088812cc",
+        "unauthorized": "sha256:127e750ae41abe225b24605ad216163d1f5dbcc9077cd9a49bae8a11b7937f7f"
+      }
+    },
+    {
+      "id": "MCK-mrr-006",
+      "screen": "UI-mrr-007",
+      "level": "L1",
+      "file": "wireframes/UI-mrr-007.json",
+      "layout": "rows",
+      "rendersState": [
+        "empty",
+        "loading",
+        "error",
+        "unauthorized",
+        "overflow"
+      ],
+      "followsConvention": [
+        "UIC-001",
+        "UIC-002"
+      ],
+      "usesComponent": []
+    },
+    {
+      "id": "MCK-mrr-007",
+      "screen": "UI-mrr-008",
+      "level": "L1",
+      "file": "wireframes/UI-mrr-008.json",
+      "layout": "form",
+      "rendersState": [
+        "loading",
+        "error",
+        "unauthorized",
+        "overflow"
+      ],
+      "followsConvention": [],
+      "usesComponent": []
+    },
+    {
+      "id": "MCK-mrr-008",
+      "screen": "UI-mrr-009",
+      "level": "L1",
+      "file": "wireframes/UI-mrr-009.json",
+      "layout": "rows",
+      "rendersState": [
+        "empty",
+        "loading",
+        "error",
+        "unauthorized",
+        "overflow"
+      ],
+      "followsConvention": [
+        "UIC-001",
+        "UIC-002"
+      ],
+      "usesComponent": []
+    },
+    {
+      "id": "MCK-mrr-009",
+      "screen": "UI-mrr-010",
+      "level": "L1",
+      "file": "wireframes/UI-mrr-010.json",
+      "layout": "rows",
+      "rendersState": [
+        "empty",
+        "loading",
+        "error",
+        "unauthorized",
+        "overflow"
+      ],
+      "followsConvention": [
+        "UIC-001",
+        "UIC-002"
+      ],
+      "usesComponent": []
+    },
+    {
+      "id": "MCK-mrr-010",
+      "screen": "UI-mrr-011",
+      "level": "L1",
+      "file": "wireframes/UI-mrr-011.json",
+      "layout": "rows",
+      "rendersState": [
+        "empty",
+        "loading",
+        "error",
+        "unauthorized",
+        "overflow"
+      ],
+      "followsConvention": [
+        "UIC-001",
+        "UIC-002"
+      ],
+      "usesComponent": []
+    },
+    {
+      "id": "MCK-mrr-011",
+      "screen": "UI-mrr-012",
+      "level": "L1",
+      "file": "wireframes/UI-mrr-012.json",
+      "layout": "rows",
+      "rendersState": [
+        "empty",
+        "loading",
+        "error",
+        "unauthorized",
+        "overflow"
+      ],
+      "followsConvention": [
+        "UIC-001",
+        "UIC-002"
+      ],
+      "usesComponent": []
+    },
+    {
+      "id": "MCK-mrr-012",
+      "screen": "UI-mrr-013",
+      "level": "L1",
+      "file": "wireframes/UI-mrr-013.json",
+      "layout": "form",
+      "rendersState": [
+        "empty",
+        "loading",
+        "error",
+        "unauthorized",
+        "overflow"
+      ],
+      "followsConvention": [],
+      "usesComponent": []
+    },
+    {
+      "id": "MCK-mrr-013",
+      "screen": "UI-mrr-014",
+      "level": "L1",
+      "file": "wireframes/UI-mrr-014.json",
+      "layout": "rows",
+      "rendersState": [
+        "empty",
+        "loading",
+        "error",
+        "unauthorized",
+        "overflow"
+      ],
+      "followsConvention": [
+        "UIC-001",
+        "UIC-002"
+      ],
+      "usesComponent": []
+    },
+    {
+      "id": "MCK-mrr-014",
+      "screen": "RPT-mrr-001",
+      "level": "L2",
+      "file": "wireframes/RPT-mrr-001.json",
+      "layout": "report",
+      "rendersState": [
+        "empty",
+        "loading",
+        "error",
+        "unauthorized",
+        "overflow"
+      ],
+      "followsConvention": [
+        "UIC-001",
+        "UIC-002",
+        "UIC-003"
+      ],
+      "usesComponent": [
+        "Alert",
+        "Button",
+        "Table",
+        "TextField"
+      ],
+      "deliveredPages": {
+        "default": "sha256:a02f40fee78f479c23d4ed2d7ab08de9f2b5c0377278c1ed77d30d6ec69030da",
+        "empty": "sha256:4991b05107dfe0ed3ae5f21a437e6a42e9c2f973ba28253ea27a41f163da646f",
+        "error": "sha256:f7b3b1ff364fa7875b440a0f598ddc64f1bf2453c3bc4ea3ac54eb0987ba0b6f",
+        "loading": "sha256:55e09543c83f46c67abe59489b1e3d397481e8a6dddc4c54ee98f5dd26bb6599",
+        "overflow": "sha256:f057104c1dcc36599e99f09f244d8ddbe1b424ef06677b80c464df74c267fe2d",
+        "unauthorized": "sha256:2327931d396167ad10a6c5d02965908d5fbca85b1796205ec4ab072889805380"
+      }
+    },
+    {
+      "id": "MCK-mrr-015",
+      "screen": "UI-mrr-003",
+      "level": "L1",
+      "file": "wireframes/UI-mrr-003.json",
+      "layout": "form",
+      "rendersState": [
+        "loading",
+        "error"
+      ],
+      "followsConvention": [],
+      "usesComponent": []
+    }
+  ],
+  "extensions": {}
+}

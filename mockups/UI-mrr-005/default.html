@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="th">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>ปฏิทินห้อง — default · UI-mrr-005 · mockup L2</title>
+<style>
+:root{
+  --surface: #f6f5f1;
+  --surface-raised: #ffffff;
+  --surface-sunken: #ecebe5;
+  --surface-hover: #efeee8;
+  --surface-pressed: #e4e3dc;
+  --ink: #1b2420;
+  --ink-muted: #56605b;
+  --border: #dcdad2;
+  --border-strong: #858c87;
+  --primary: #1f5c4d;
+  --primary-hover: #184a3e;
+  --primary-active: #123a31;
+  --on-primary: #ffffff;
+  --primary-tint: #dfece7;
+  --on-primary-tint: #174a3d;
+  --success: #1d5aa0;
+  --success-tint: #e4edf8;
+  --warning: #7f5200;
+  --warning-tint: #fcf0d6;
+  --danger: #b42318;
+  --danger-hover: #951c13;
+  --on-danger: #ffffff;
+  --danger-tint: #fbeae8;
+  --focus-ring: #1d5aa0;
+  --disabled-fill: #e3e2dc;
+  --disabled-ink: #5f6662;
+  --shadow-raised: 0 1px 2px rgba(27,36,32,0.08);
+  --shadow-overlay: 0 8px 24px rgba(27,36,32,0.16);
+  --font-sans: "IBM Plex Sans Thai", "Noto Sans Thai", Tahoma, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+  --radius-pill: 999px;
+  --control-height: 44px;
+  --control-height-sm: 36px;
+  --page-min: 360px;
+  --content-max: 1200px;
+  --text-display: 600 28px/42px var(--font-sans);
+  --text-title: 600 22px/34px var(--font-sans);
+  --text-heading: 600 18px/28px var(--font-sans);
+  --text-body: 400 15px/26px var(--font-sans);
+  --text-body-strong: 600 15px/26px var(--font-sans);
+  --text-label: 500 14px/22px var(--font-sans);
+  --text-caption: 400 13px/20px var(--font-sans);
+  --text-time: 500 14px/22px var(--font-mono);
+}
+[data-theme="dark"]{
+  --surface: #121815;
+  --surface-raised: #1a221e;
+  --surface-sunken: #0d1210;
+  --surface-hover: #212a26;
+  --surface-pressed: #28322d;
+  --ink: #e9ede8;
+  --ink-muted: #a5afa9;
+  --border: #2b3530;
+  --border-strong: #6f7a74;
+  --primary: #73c3a9;
+  --primary-hover: #8dd1bb;
+  --primary-active: #5fae94;
+  --on-primary: #0c201a;
+  --primary-tint: #1d3a31;
+  --on-primary-tint: #a9dcc9;
+  --success: #8cb8ee;
+  --success-tint: #182a40;
+  --warning: #f0b64a;
+  --warning-tint: #33270f;
+  --danger: #ff8e80;
+  --danger-hover: #ffa99e;
+  --on-danger: #2a0d0a;
+  --danger-tint: #3a1b18;
+  --focus-ring: #8cb8ee;
+  --disabled-fill: #252d29;
+  --disabled-ink: #8a948e;
+  --shadow-raised: 0 1px 2px rgba(0,0,0,0.5);
+  --shadow-overlay: 0 8px 24px rgba(0,0,0,0.6);
+}
+
+*{box-sizing:border-box}
+body{margin:0;font:var(--text-body);background:var(--surface);color:var(--ink)}
+.appbar{display:flex;align-items:center;flex-wrap:wrap;gap:var(--space-4);padding:var(--space-3) var(--space-8);background:var(--surface-raised);border-bottom:thin solid var(--border)}
+.wordmark{font:var(--text-heading);color:var(--ink)}
+.wordmark .mark{display:inline-block;padding:var(--space-1) var(--space-2);margin-right:var(--space-2);border-radius:var(--radius-sm);background:var(--primary);color:var(--on-primary)}
+.spacer{flex:1}
+.fake{font:var(--text-caption);color:var(--warning);background:var(--warning-tint);padding:var(--space-1) var(--space-2);border-radius:var(--radius-pill)}
+.appbar a{color:var(--primary);font:var(--text-label);text-decoration:none}
+.appnav{display:flex;flex-wrap:wrap;gap:var(--space-1);padding:0 var(--space-8);background:var(--surface-raised);border-bottom:thin solid var(--border)}
+.appnav a{text-decoration:none;color:var(--ink-muted);font:var(--text-label);padding:var(--space-3);border-bottom:medium solid transparent}
+.appnav a:hover{color:var(--ink);background:var(--surface-hover)}
+.appnav a[aria-current="page"]{color:var(--primary);border-bottom-color:var(--primary)}
+main{max-width:var(--content-max);margin:0 auto;padding:var(--space-8)}
+h1{font:var(--text-display);margin:0 0 var(--space-2)}
+h2{font:var(--text-heading);margin:0 0 var(--space-3)}
+.purpose{color:var(--ink-muted);margin:0 0 var(--space-6)}
+.card{background:var(--surface-raised);border:thin solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow-raised);padding:var(--space-6);margin-bottom:var(--space-6)}
+.grid{display:flex;flex-wrap:wrap;gap:var(--space-6)}
+.grid>.field{flex:1 1 30%;min-width:0}
+.field{display:flex;flex-direction:column;gap:var(--space-2);margin-bottom:var(--space-6)}
+.field label,.label{font:var(--text-label);color:var(--ink)}
+.req{color:var(--danger);margin-left:var(--space-1)}
+.input{width:100%;min-height:var(--control-height);padding:var(--space-2) var(--space-3);font:var(--text-body);color:var(--ink);background:var(--surface-raised);border:thin solid var(--border-strong);border-radius:var(--radius-md)}
+.input:hover{border-color:var(--ink-muted)}
+.input:focus-visible{outline:medium solid var(--focus-ring);outline-offset:var(--space-1)}
+.input:disabled{background:var(--disabled-fill);color:var(--disabled-ink);border-color:transparent}
+.field.err .input{border:medium solid var(--danger)}
+.help{font:var(--text-caption);color:var(--ink-muted)}
+.errtext{font:var(--text-caption);color:var(--danger)}
+.value{font:var(--text-body);padding:var(--space-2) 0}
+.actions{display:flex;flex-wrap:wrap;gap:var(--space-2);align-items:center}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--space-2);min-height:var(--control-height);padding:0 var(--space-4);border-radius:var(--radius-md);font:var(--text-body-strong);border:thin solid transparent;cursor:pointer;white-space:nowrap}
+.btn-sm{min-height:var(--control-height-sm);padding:0 var(--space-3);font:var(--text-label)}
+.btn-primary{background:var(--primary);color:var(--on-primary)}
+.btn-primary:hover{background:var(--primary-hover)}
+.btn-primary:active{background:var(--primary-active)}
+.btn-secondary{background:var(--surface-raised);color:var(--ink);border-color:var(--border-strong)}
+.btn-secondary:hover{background:var(--surface-hover)}
+.btn-secondary:active{background:var(--surface-pressed)}
+.btn-quiet{background:transparent;color:var(--primary)}
+.btn-quiet:hover{background:var(--surface-hover)}
+.btn:focus-visible{outline:medium solid var(--focus-ring);outline-offset:var(--space-1)}
+.btn:disabled{background:var(--disabled-fill);color:var(--disabled-ink);border-color:transparent;cursor:not-allowed}
+.table-wrap{background:var(--surface-raised);border:thin solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow-raised);overflow:hidden;margin-bottom:var(--space-6)}
+.table-scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;table-layout:fixed}
+th{background:var(--surface-sunken);font:var(--text-label);color:var(--ink-muted);text-align:left;padding:var(--space-2) var(--space-3)}
+td{padding:var(--space-3);border-top:thin solid var(--border);vertical-align:top}
+tbody tr:hover td{background:var(--surface-hover)}
+.num{text-align:right;font:var(--text-time)}
+.trunc{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tablebar{display:flex;flex-wrap:wrap;gap:var(--space-2);align-items:center;justify-content:space-between;padding:var(--space-3) var(--space-4);border-bottom:thin solid var(--border)}
+.pager{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--space-2);padding:var(--space-2) var(--space-4);border-top:thin solid var(--border);font:var(--text-caption);color:var(--ink-muted)}
+.state{padding:var(--space-12) var(--space-4);text-align:center;color:var(--ink-muted);display:flex;flex-direction:column;align-items:center;gap:var(--space-3)}
+.skel{min-height:var(--space-4);border-radius:var(--radius-sm);background:var(--surface-sunken);margin:var(--space-2) 0}
+.alert{display:flex;flex-direction:column;gap:var(--space-1);padding:var(--space-3) var(--space-4);border-radius:var(--radius-md);border:thin solid var(--border);margin-bottom:var(--space-6)}
+.alert-title{font:var(--text-body-strong)}
+.alert-danger{background:var(--danger-tint)}.alert-danger .alert-title{color:var(--danger)}
+.alert-warning{background:var(--warning-tint)}.alert-warning .alert-title{color:var(--warning)}
+.alert-info{background:var(--primary-tint)}.alert-info .alert-title{color:var(--on-primary-tint)}
+.slots{display:flex;flex-direction:column;gap:var(--space-2)}
+.slot{display:flex;flex-wrap:wrap;gap:var(--space-2) var(--space-6);padding:var(--space-3);border-radius:var(--radius-sm);border:thin solid var(--border);background:var(--surface-raised)}
+.slot-mine{background:var(--primary);color:var(--on-primary);border-color:var(--primary)}
+.slot-other{background:var(--primary-tint);color:var(--on-primary-tint);border-color:var(--primary-tint)}
+.slot-busy{background:var(--surface-sunken);color:var(--ink-muted)}
+.slot .k{font:var(--text-caption)}
+.time{font:var(--text-time)}
+.more{font:var(--text-label);color:var(--primary)}
+.auth{max-width:var(--content-max);margin:0 auto;padding:var(--space-12) var(--space-4);display:flex;flex-direction:column;align-items:center}
+.auth .card{width:100%;max-width:var(--content-max)}
+.auth .product{font:var(--text-title);margin-bottom:var(--space-6)}
+.appfoot{text-align:center;padding:var(--space-4);color:var(--ink-muted);font:var(--text-caption);border-top:thin solid var(--border)}
+</style></head>
+<body class="shell-app">
+<header class="appbar"><span class="wordmark"><span class="mark">ระบบจองห้องประชุม</span></span><span class="spacer"></span><span class="fake">⚠ ข้อมูลสมมติ</span><a href="../UI-mrr-003/default.html" data-testid="nav-ui-mrr-003">ออกจากระบบ</a></header>
+<nav class="appnav" aria-label="เมนูหลัก"><a href="../UI-mrr-004/default.html" data-testid="nav-ui-mrr-004" aria-current="page">ค้นหาห้องว่าง</a><a href="../UI-mrr-007/default.html" data-testid="nav-ui-mrr-007">การจองของฉัน</a><a href="../UI-mrr-009/default.html" data-testid="nav-ui-mrr-009">รออนุมัติ</a><a href="../UI-mrr-012/default.html" data-testid="nav-ui-mrr-012">ห้องประชุม</a><a href="../RPT-mrr-001/default.html" data-testid="nav-rpt-mrr-001">รายงานการใช้ห้อง</a></nav>
+<main data-screen="UI-mrr-005" data-mockup="MCK-mrr-004" data-state="default">
+<h1>ปฏิทินห้อง</h1><p class="purpose">ดูตารางการใช้ห้องรายวัน รายสัปดาห์ หรือรายเดือน เพื่อหาช่วงที่ว่าง</p><div class="card"><div class="grid"><div class="field"><label for="ui-mrr-005-calendar-view">มุมมอง<span class="req" aria-hidden="true">*</span></label><select class="input" id="ui-mrr-005-calendar-view" name="มุมมอง" data-testid="ui-mrr-005-calendar-view" data-component="TextField"><option>รายวัน</option><option selected>รายสัปดาห์</option><option>รายเดือน</option></select></div></div><div class="actions"><button type="button" class="btn btn-secondary" data-testid="ui-mrr-005-switch-view" data-component="Button">เปลี่ยนมุมมอง</button><button type="button" class="btn btn-primary" data-testid="ui-mrr-005-book-slot" data-component="Button">จองช่วงที่ว่าง</button></div></div><div class="card"><h2>ปฏิทิน</h2><div class="slots"><div class="slot slot-mine"><span><span class="k">ช่วงเวลาที่ถูกจอง: </span><span class="time" data-testid="ui-mrr-005-ent-007-start-at">ตัวอย่าง 1</span></span><span><span class="k">หัวข้อ: </span><span data-testid="ui-mrr-005-ent-007-title">ตัวอย่าง 1</span></span><span><span class="k">ผู้จอง: </span><span data-testid="ui-mrr-005-ent-007-booked-by">นาย ตัวอย่าง ทดสอบ</span></span><span><span class="k">ผู้เข้าร่วม: </span><span data-testid="ui-mrr-005-ent-008-user">ตัวอย่าง 1</span></span></div><div class="slot slot-other"><span><span class="k">ช่วงเวลาที่ถูกจอง: </span><span class="time" data-testid="ui-mrr-005-ent-007-start-at">ตัวอย่าง 2</span></span><span><span class="k">หัวข้อ: </span><span data-testid="ui-mrr-005-ent-007-title">ตัวอย่าง 2</span></span><span><span class="k">ผู้จอง: </span><span data-testid="ui-mrr-005-ent-007-booked-by">นาย ตัวอย่าง ทดสอบ</span></span><span><span class="k">ผู้เข้าร่วม: </span><span data-testid="ui-mrr-005-ent-008-user">ตัวอย่าง 2</span></span></div><div class="slot slot-other"><span><span class="k">ช่วงเวลาที่ถูกจอง: </span><span class="time" data-testid="ui-mrr-005-ent-007-start-at">ตัวอย่าง 3</span></span><span><span class="k">หัวข้อ: </span><span data-testid="ui-mrr-005-ent-007-title">ตัวอย่าง 3</span></span><span><span class="k">ผู้จอง: </span><span data-testid="ui-mrr-005-ent-007-booked-by">นาย ตัวอย่าง ทดสอบ</span></span><span><span class="k">ผู้เข้าร่วม: </span><span data-testid="ui-mrr-005-ent-008-user">ตัวอย่าง 3</span></span></div></div></div>
+</main>
+<footer class="appfoot">ระบบจองห้องประชุม · MCK-mrr-004 · UI-mrr-005 · mockup L2 · ⚠ ข้อมูลสมมติ — ทุกค่าบนหน้านี้เป็นข้อมูลสมมติ</footer>
+</body>
+</html>

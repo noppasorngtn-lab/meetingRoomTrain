@@ -1,0 +1,103 @@
+{
+  "schemaVersion": "1.0",
+  "producedBy": "req/scripts/export-contract.mjs",
+  "source": {
+    "plugin": "req",
+    "specSchemaVersion": "0.6.0",
+    "module": "mrr",
+    "specStatus": "validated",
+    "specApprovedBy": "Noppasorn",
+    "specApprovedAt": "2026-10-19T03:53:17.093Z",
+    "specUpdatedAt": "2026-10-19T12:10+07:00"
+  },
+  "stakeholders": [
+    {
+      "id": "STK-mrr-001",
+      "name": "General User (ผู้ใช้งานทั่วไป)",
+      "kind": "internal",
+      "description": "พนักงานทั่วไปที่ค้นหาห้อง ตรวจสอบตารางว่าง และจองห้องประชุม",
+      "aka": [
+        "ผู้ใช้งานทั่วไป",
+        "พนักงาน"
+      ],
+      "status": "draft",
+      "becomesRole": null,
+      "provenance": [
+        {
+          "source": "SRC-001",
+          "locator": {
+            "section": "2"
+          },
+          "quote": "General User (ผู้ใช้งานทั่วไป): พนักงานทั่วไปที่มีสิทธิ์ค้นหาห้อง ตรวจสอบตารางว่าง และจองห้องประชุม",
+          "confidence": 0.95
+        }
+      ],
+      "extensions": {}
+    },
+    {
+      "id": "STK-mrr-002",
+      "name": "Room Administrator (ผู้ดูแลระบบห้องประชุม)",
+      "kind": "internal",
+      "description": "เจ้าหน้าที่ดูแลอาคาร/สถานที่ ที่อนุมัติการจอง จัดการข้อมูลห้อง และกำหนดสิ่งอำนวยความสะดวก",
+      "aka": [
+        "ผู้ดูแลระบบห้องประชุม"
+      ],
+      "status": "draft",
+      "becomesRole": null,
+      "provenance": [
+        {
+          "source": "SRC-001",
+          "locator": {
+            "section": "2"
+          },
+          "quote": "Room Administrator (ผู้ดูแลระบบห้องประชุม): เจ้าหน้าที่ดูแลอาคาร/สถานที่ ที่มีสิทธิ์อนุมัติ จัดการข้อมูลห้อง และกำหนดสิ่งอำนวยความสะดวก",
+          "confidence": 0.95
+        }
+      ],
+      "extensions": {}
+    },
+    {
+      "id": "STK-mrr-003",
+      "name": "System Administrator (ผู้ดูแลระบบไอที)",
+      "kind": "internal",
+      "description": "จัดการสิทธิ์การใช้งานของระบบ ตั้งค่าระบบหลังบ้าน และดูแลความปลอดภัย",
+      "aka": [
+        "ผู้ดูแลระบบไอที"
+      ],
+      "status": "draft",
+      "becomesRole": null,
+      "provenance": [
+        {
+          "source": "SRC-001",
+          "locator": {
+            "section": "2"
+          },
+          "quote": "System Administrator (ผู้ดูแลระบบไอที): จัดการสิทธิ์การใช้งานของระบบ ตั้งค่าระบบหลังบ้าน และดูแลความปลอดภัย",
+          "confidence": 0.95
+        }
+      ],
+      "extensions": {}
+    },
+    {
+      "id": "STK-mrr-004",
+      "name": "งานแจ้งเตือนตามเวลา (ระบบ)",
+      "kind": "system",
+      "description": "งานตามเวลาที่อ่านข้อมูลการจองแล้วส่งแจ้งเตือนก่อนเริ่มประชุม โดยไม่มีคนกด",
+      "aka": [],
+      "status": "draft",
+      "becomesRole": null,
+      "provenance": [
+        {
+          "source": "SRC-003",
+          "locator": {
+            "line": 1
+          },
+          "quote": "มีงานอัตโนมัติ / งานตามเวลาที่ไม่มีคนกด แตะข้อมูลการจองด้วย (เช่น ตัวส่งแจ้งเตือนก่อนเริ่มประชุม)",
+          "confidence": 1
+        }
+      ],
+      "extensions": {}
+    }
+  ],
+  "extensions": {}
+}

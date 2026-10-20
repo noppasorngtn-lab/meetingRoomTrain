@@ -1,0 +1,299 @@
+{
+  "schemaVersion": "1.4",
+  "producedBy": "mock · scripts/wireframes.mjs",
+  "project": "mrr",
+  "id": "MCK-mrr-014",
+  "screen": "RPT-mrr-001",
+  "title": "รายงานการใช้ห้อง",
+  "purpose": "Room Administrator ออกและดูรายงานอัตราการใช้งานรายห้องรายเดือน/รายปี พร้อมอันดับ",
+  "level": "L1",
+  "layout": "report",
+  "kind": "report",
+  "visibleTo": [
+    "ROLE-002"
+  ],
+  "zones": [
+    {
+      "name": "header",
+      "kind": "header",
+      "kindSource": "derived",
+      "source": "mock",
+      "items": [
+        {
+          "type": "title",
+          "text": "รายงานการใช้ห้อง"
+        }
+      ]
+    },
+    {
+      "name": "period",
+      "kind": "filters",
+      "kindSource": "derived",
+      "source": "design",
+      "items": [
+        {
+          "type": "field",
+          "name": "ช่วงรายงาน",
+          "required": true,
+          "entity": "ENT-012",
+          "attribute": "periodType",
+          "validation": "รายเดือน หรือ รายปี",
+          "rules": [],
+          "visibleTo": [
+            "ROLE-002"
+          ],
+          "input": true
+        },
+        {
+          "type": "field",
+          "name": "เริ่มช่วง",
+          "required": true,
+          "entity": "ENT-012",
+          "attribute": "periodStart",
+          "validation": "วันแรกของเดือนหรือปี",
+          "rules": [],
+          "visibleTo": [
+            "ROLE-002"
+          ],
+          "input": true
+        },
+        {
+          "type": "field",
+          "name": "ฉบับที่",
+          "required": true,
+          "entity": "ENT-012",
+          "attribute": "issueNo",
+          "validation": "เลขฉบับของช่วงนั้น",
+          "rules": [
+            "BR-mrr-015@v1"
+          ],
+          "visibleTo": [
+            "ROLE-002"
+          ],
+          "input": false
+        },
+        {
+          "type": "action",
+          "key": "issue",
+          "name": "ออกรายงานฉบับใหม่",
+          "kind": "create",
+          "presentation": "text",
+          "placement": "period",
+          "container": "inline",
+          "accessibleName": "ออกรายงานฉบับใหม่",
+          "conventions": [],
+          "destination": "อยู่ที่หน้าเดิม",
+          "rules": [
+            "BR-mrr-006@v1",
+            "BR-mrr-015@v1",
+            "CALC-mrr-001@v1"
+          ]
+        },
+        {
+          "type": "action",
+          "key": "open-issue",
+          "name": "เปิดฉบับที่ออกแล้ว",
+          "kind": "view",
+          "presentation": "text",
+          "placement": "first-column",
+          "container": "modal",
+          "accessibleName": "เปิดฉบับที่ออกแล้ว",
+          "conventions": [
+            "UIC-001",
+            "UIC-002",
+            "UIC-003"
+          ],
+          "destination": "อยู่ที่หน้าเดิม",
+          "rules": [
+            "BR-mrr-015@v1"
+          ]
+        },
+        {
+          "type": "action",
+          "key": "export",
+          "name": "ส่งออก",
+          "kind": "export",
+          "presentation": "text",
+          "placement": "period",
+          "container": "inline",
+          "accessibleName": "ส่งออก",
+          "conventions": [],
+          "destination": "อยู่ที่หน้าเดิม",
+          "rules": [
+            "BR-mrr-022@v1"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "table",
+      "kind": "columns",
+      "kindSource": "derived",
+      "source": "design",
+      "items": [
+        {
+          "type": "field",
+          "name": "ห้อง",
+          "required": true,
+          "entity": "ENT-013",
+          "attribute": "room",
+          "validation": "ห้อง",
+          "rules": [],
+          "visibleTo": [
+            "ROLE-002"
+          ],
+          "input": false
+        },
+        {
+          "type": "field",
+          "name": "นาทีที่ใช้จริง",
+          "required": true,
+          "entity": "ENT-013",
+          "attribute": "bookedMinutes",
+          "validation": "จำนวนเต็ม",
+          "rules": [
+            "CALC-mrr-001@v1"
+          ],
+          "visibleTo": [
+            "ROLE-002"
+          ],
+          "input": false
+        },
+        {
+          "type": "field",
+          "name": "นาทีทำการ",
+          "required": true,
+          "entity": "ENT-013",
+          "attribute": "operatingMinutes",
+          "validation": "จำนวนเต็ม หักช่วงปิดปรับปรุง",
+          "rules": [
+            "CALC-mrr-001@v1"
+          ],
+          "visibleTo": [
+            "ROLE-002"
+          ],
+          "input": false
+        },
+        {
+          "type": "field",
+          "name": "อัตราการใช้งาน",
+          "required": false,
+          "entity": "ENT-013",
+          "attribute": "utilizationPct",
+          "validation": "ทศนิยม 2 ตำแหน่ง + % · ว่างแสดง '—'",
+          "rules": [
+            "CALC-mrr-001@v1",
+            "BR-mrr-006@v1"
+          ],
+          "visibleTo": [
+            "ROLE-002"
+          ],
+          "input": false
+        },
+        {
+          "type": "field",
+          "name": "อันดับ",
+          "required": false,
+          "entity": "ENT-013",
+          "attribute": "rank",
+          "validation": "ว่างเมื่อไม่ได้คำนวณ",
+          "rules": [
+            "BR-mrr-006@v1"
+          ],
+          "visibleTo": [
+            "ROLE-002"
+          ],
+          "input": false
+        }
+      ]
+    }
+  ],
+  "controls": [
+    {
+      "id": "rpt-mrr-001-ent-012-period-type",
+      "type": "field",
+      "key": "ent-012-period-type",
+      "name": "ช่วงรายงาน"
+    },
+    {
+      "id": "rpt-mrr-001-ent-012-period-start",
+      "type": "field",
+      "key": "ent-012-period-start",
+      "name": "เริ่มช่วง"
+    },
+    {
+      "id": "rpt-mrr-001-ent-012-issue-no",
+      "type": "field",
+      "key": "ent-012-issue-no",
+      "name": "ฉบับที่"
+    },
+    {
+      "id": "rpt-mrr-001-issue",
+      "type": "action",
+      "key": "issue"
+    },
+    {
+      "id": "rpt-mrr-001-open-issue",
+      "type": "action",
+      "key": "open-issue"
+    },
+    {
+      "id": "rpt-mrr-001-export",
+      "type": "action",
+      "key": "export"
+    },
+    {
+      "id": "rpt-mrr-001-ent-013-room",
+      "type": "field",
+      "key": "ent-013-room",
+      "name": "ห้อง"
+    },
+    {
+      "id": "rpt-mrr-001-ent-013-booked-minutes",
+      "type": "field",
+      "key": "ent-013-booked-minutes",
+      "name": "นาทีที่ใช้จริง"
+    },
+    {
+      "id": "rpt-mrr-001-ent-013-operating-minutes",
+      "type": "field",
+      "key": "ent-013-operating-minutes",
+      "name": "นาทีทำการ"
+    },
+    {
+      "id": "rpt-mrr-001-ent-013-utilization-pct",
+      "type": "field",
+      "key": "ent-013-utilization-pct",
+      "name": "อัตราการใช้งาน"
+    },
+    {
+      "id": "rpt-mrr-001-ent-013-rank",
+      "type": "field",
+      "key": "ent-013-rank",
+      "name": "อันดับ"
+    }
+  ],
+  "states": {
+    "empty": {
+      "occurs": true,
+      "text": "ช่วงนี้ยังไม่เคยออกรายงาน — แสดง 'ยังไม่มีรายงานของช่วงนี้' พร้อมปุ่มออกรายงาน"
+    },
+    "loading": {
+      "occurs": true,
+      "text": "แสดงตัวบอกกำลังคำนวณ ปุ่มออกรายงานถูกปิด"
+    },
+    "error": {
+      "occurs": true,
+      "text": "คำนวณหรือบันทึกไม่สำเร็จ — แจ้งเหตุ ไม่สร้างฉบับใหม่ · คำสั่งแก้ตัวเลข — 'รายงานที่ออกแล้วแก้ไขไม่ได้ กรุณาออกฉบับใหม่'"
+    },
+    "unauthorized": {
+      "occurs": true,
+      "text": "ไม่ใช่ Room Administrator (รวม System Administrator) — 'คุณไม่มีสิทธิ์เข้าหน้านี้' และ API ปฏิเสธ"
+    },
+    "overflow": {
+      "occurs": true,
+      "text": "มากกว่า 50 ห้อง — แบ่งหน้าบนจอ ไฟล์ส่งออกมีครบทุกห้อง"
+    }
+  },
+  "extensions": {}
+}

@@ -1,0 +1,238 @@
+{
+  "schemaVersion": "1.0",
+  "producedBy": "design · scripts/statemachines.mjs",
+  "project": "mrr",
+  "module": "mrr",
+  "status": "approved",
+  "approvedAt": "2026-10-19T07:59:59Z",
+  "approvedBy": "Noppasorn",
+  "stateMachines": [
+    {
+      "id": "STM-mrr-001",
+      "entity": "ENT-007",
+      "title": "วงจรชีวิตของการจอง",
+      "initial": "PENDING_APPROVAL",
+      "states": [
+        {
+          "name": "PENDING_APPROVAL",
+          "label": "รออนุมัติ",
+          "final": false
+        },
+        {
+          "name": "CONFIRMED",
+          "label": "จองสำเร็จ (ห้องไม่ต้องอนุมัติ)",
+          "final": false
+        },
+        {
+          "name": "APPROVED",
+          "label": "อนุมัติแล้ว",
+          "final": false
+        },
+        {
+          "name": "REJECTED",
+          "label": "ปฏิเสธแล้ว",
+          "final": false
+        },
+        {
+          "name": "CANCELLED",
+          "label": "ยกเลิกแล้ว",
+          "final": true
+        }
+      ],
+      "transitions": [
+        {
+          "from": "PENDING_APPROVAL",
+          "to": "CONFIRMED",
+          "trigger": "บันทึกการจองของห้องที่ไม่ต้องอนุมัติ — ยืนยันในคำสั่งจองเดียวกัน · หรือ Room Administrator แก้ห้องเป็นไม่ต้องอนุมัติ ก่อนเวลาเริ่มประชุม",
+          "rules": [
+            "BR-mrr-004@v1",
+            "BR-mrr-001@v1",
+            "BR-mrr-010@v2"
+          ]
+        },
+        {
+          "from": "PENDING_APPROVAL",
+          "to": "APPROVED",
+          "trigger": "Room Administrator (ผู้อนุมัติประจำห้อง หรือคนใดก็ได้ถ้าห้องไม่กำหนด) กดอนุมัติ และส่ง Email แจ้งผู้จองสำเร็จ",
+          "rules": [
+            "BR-mrr-004@v1",
+            "BR-mrr-013@v1",
+            "BR-mrr-017@v1",
+            "BR-mrr-019@v1"
+          ]
+        },
+        {
+          "from": "PENDING_APPROVAL",
+          "to": "REJECTED",
+          "trigger": "Room Administrator กดปฏิเสธ",
+          "rules": [
+            "BR-mrr-004@v1",
+            "BR-mrr-017@v1"
+          ]
+        },
+        {
+          "from": "PENDING_APPROVAL",
+          "to": "CANCELLED",
+          "trigger": "ผู้จองยกเลิกก่อนเวลาเริ่มประชุม และส่ง Email สำเร็จ · หรือ งานตามเวลาพบว่าถึงเวลาเริ่มแล้วยังรออนุมัติ และส่ง Email แจ้งผู้จองสำเร็จ",
+          "rules": [
+            "BR-mrr-003@v1",
+            "BR-mrr-009@v1",
+            "BR-mrr-019@v1",
+            "BR-mrr-016@v1"
+          ]
+        },
+        {
+          "from": "CONFIRMED",
+          "to": "PENDING_APPROVAL",
+          "trigger": "Room Administrator แก้ห้องเป็นต้องอนุมัติ ก่อนเวลาเริ่มประชุม",
+          "rules": [
+            "BR-mrr-010@v2"
+          ]
+        },
+        {
+          "from": "CONFIRMED",
+          "to": "CANCELLED",
+          "trigger": "ผู้จองยกเลิกก่อนเวลาเริ่ม หรือ Room Administrator ยกเลิกแทนหลังเวลาเริ่มพร้อมเหตุผล และส่ง Email สำเร็จ",
+          "rules": [
+            "BR-mrr-003@v1",
+            "BR-mrr-009@v1",
+            "BR-mrr-017@v1",
+            "BR-mrr-019@v1"
+          ]
+        },
+        {
+          "from": "APPROVED",
+          "to": "REJECTED",
+          "trigger": "Room Administrator เปลี่ยนผลเป็นปฏิเสธพร้อมเหตุผล ก่อนเวลาเริ่มประชุม",
+          "rules": [
+            "BR-mrr-011@v1",
+            "BR-mrr-017@v1"
+          ]
+        },
+        {
+          "from": "APPROVED",
+          "to": "CANCELLED",
+          "trigger": "ผู้จองยกเลิกก่อนเวลาเริ่ม หรือ Room Administrator ยกเลิกแทนหลังเวลาเริ่มพร้อมเหตุผล และส่ง Email สำเร็จ",
+          "rules": [
+            "BR-mrr-003@v1",
+            "BR-mrr-009@v1",
+            "BR-mrr-017@v1",
+            "BR-mrr-019@v1"
+          ]
+        },
+        {
+          "from": "REJECTED",
+          "to": "APPROVED",
+          "trigger": "Room Administrator เปลี่ยนผลเป็นอนุมัติพร้อมเหตุผล ก่อนเวลาเริ่มประชุม และช่วงเวลายังไม่ถูกจอง",
+          "rules": [
+            "BR-mrr-011@v1",
+            "BR-mrr-001@v1",
+            "BR-mrr-017@v1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "STM-mrr-002",
+      "entity": "ENT-011",
+      "title": "วงจรชีวิตของคำขอแก้ไขการจอง",
+      "initial": "PENDING",
+      "states": [
+        {
+          "name": "PENDING",
+          "label": "รออนุมัติ",
+          "final": false
+        },
+        {
+          "name": "APPROVED",
+          "label": "อนุมัติแล้ว — ค่าใหม่มีผล",
+          "final": true
+        },
+        {
+          "name": "REJECTED",
+          "label": "ปฏิเสธแล้ว — ค่าเดิมคงไว้",
+          "final": true
+        }
+      ],
+      "transitions": [
+        {
+          "from": "PENDING",
+          "to": "APPROVED",
+          "trigger": "Room Administrator ที่ไม่ใช่ผู้สร้างคำขอกดอนุมัติ",
+          "rules": [
+            "BR-mrr-014@v1",
+            "BR-mrr-017@v1"
+          ]
+        },
+        {
+          "from": "PENDING",
+          "to": "REJECTED",
+          "trigger": "Room Administrator ที่ไม่ใช่ผู้สร้างคำขอกดปฏิเสธ",
+          "rules": [
+            "BR-mrr-014@v1",
+            "BR-mrr-017@v1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "STM-mrr-003",
+      "entity": "ENT-002",
+      "title": "วงจรชีวิตของห้องประชุม",
+      "initial": "ACTIVE",
+      "states": [
+        {
+          "name": "ACTIVE",
+          "label": "เปิดใช้งาน",
+          "final": false
+        },
+        {
+          "name": "UNDER_MAINTENANCE",
+          "label": "ปิดปรับปรุง",
+          "final": false
+        },
+        {
+          "name": "ARCHIVED",
+          "label": "เลิกใช้งาน (ลบ)",
+          "final": true
+        }
+      ],
+      "transitions": [
+        {
+          "from": "ACTIVE",
+          "to": "UNDER_MAINTENANCE",
+          "trigger": "Room Administrator ตั้งห้องเป็นปิดปรับปรุง — การจองที่มีอยู่คงไว้",
+          "rules": [
+            "BR-mrr-005@v1",
+            "BR-mrr-012@v1"
+          ]
+        },
+        {
+          "from": "UNDER_MAINTENANCE",
+          "to": "ACTIVE",
+          "trigger": "Room Administrator เปิดห้องกลับมาใช้งาน",
+          "rules": [
+            "BR-mrr-005@v1",
+            "BR-mrr-012@v1"
+          ]
+        },
+        {
+          "from": "ACTIVE",
+          "to": "ARCHIVED",
+          "trigger": "Room Administrator ลบห้อง — ห้องไม่แสดงให้ค้นหาหรือจอง ข้อมูลและการจองเดิมคงไว้ (DQ-mrr-003)",
+          "rules": [
+            "BR-mrr-005@v1"
+          ]
+        },
+        {
+          "from": "UNDER_MAINTENANCE",
+          "to": "ARCHIVED",
+          "trigger": "Room Administrator ลบห้องที่ปิดปรับปรุงอยู่ (DQ-mrr-003)",
+          "rules": [
+            "BR-mrr-005@v1"
+          ]
+        }
+      ]
+    }
+  ]
+}

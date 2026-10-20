@@ -1,0 +1,387 @@
+{
+  "schemaVersion": "1.0",
+  "producedBy": "mock · scripts/deliver.mjs",
+  "project": "mrr",
+  "items": [
+    {
+      "key": "design-token",
+      "label": "normative",
+      "owner": "mock",
+      "what": "the design tokens the whole UI is built from",
+      "means": "ห้ามตั้งค่าสีหรือระยะห่างเอง ต้องอ้าง token",
+      "ref": [
+        "../mockup/theme.json#/tokens"
+      ],
+      "tokens": {
+        "light": 53,
+        "dark": 28
+      },
+      "origin": {
+        "kind": "handoff",
+        "ref": ".aeon/mockup/handoff/mrr-ds",
+        "remote": null
+      },
+      "assets": [],
+      "note": "a token this theme does not name is a gap that travels to dev as a fact, not a value to invent (gate 24) · assets[] lists what the stylesheets point at and the pictures do not carry — images, icon fonts, imported sheets — and null there means nobody has scanned this theme yet, which is not the same as none"
+    },
+    {
+      "key": "component-inventory",
+      "label": "normative",
+      "owner": "mock",
+      "what": "the components the theme declares, by name and by source path",
+      "means": "ส่วนประกอบเดียวกันต้องใช้ตัวเดียวกันทุกหน้า",
+      "ref": [
+        "../mockup/theme.json#/components"
+      ],
+      "components": [
+        {
+          "name": "Alert",
+          "source": null
+        },
+        {
+          "name": "Button",
+          "source": null
+        },
+        {
+          "name": "Table",
+          "source": null
+        },
+        {
+          "name": "TextField",
+          "source": null
+        }
+      ],
+      "note": "which component each picture actually used is on the screen-map row it belongs to (usesComponent, measured from the page — MV5)"
+    },
+    {
+      "key": "screen-states",
+      "label": "normative",
+      "owner": "design",
+      "what": "the states each screen must support — design's list, referenced and never copied (W3)",
+      "means": "เป็นรายการงาน ไม่ใช่ของเสริม · ตัวรายการเป็นของ design (§8.2) · สิ่งที่ชุดส่งมอบเติมให้คือสถานะไหนมีภาพ L2 ให้ดู",
+      "ref": [
+        "../design/modules/mrr/screens.json"
+      ],
+      "note": "design owns this list and mock does not copy it (W3 · §11 row 3). What the package adds is statesWithPicture on each screen-map row: which of the declared states has an L2 picture to look at"
+    },
+    {
+      "key": "screen-map",
+      "label": "normative",
+      "owner": "mock",
+      "what": "UI ↔ MCK ↔ REQ — mock owns the first arrow, design answers the second",
+      "means": "ใช้ผูก trace ต่อ ไม่ต้องมาไล่จับคู่เอง",
+      "ref": [
+        "../mockup/mockup-map.json",
+        "../mockup/trace.mockup.json",
+        "../design/trace.design.json"
+      ],
+      "screens": [
+        {
+          "screen": "UI-mrr-001",
+          "mockup": "MCK-mrr-001",
+          "level": "L2",
+          "wireframe": "../mockup/wireframes/UI-mrr-001.json",
+          "statesWithPicture": [
+            "default",
+            "empty",
+            "error",
+            "loading",
+            "overflow"
+          ],
+          "pages": [
+            "../../mockups/UI-mrr-001/default.html",
+            "../../mockups/UI-mrr-001/empty.html",
+            "../../mockups/UI-mrr-001/error.html",
+            "../../mockups/UI-mrr-001/loading.html",
+            "../../mockups/UI-mrr-001/overflow.html"
+          ],
+          "usesComponent": [
+            "Alert",
+            "Button",
+            "TextField"
+          ]
+        },
+        {
+          "screen": "UI-mrr-002",
+          "mockup": "MCK-mrr-002",
+          "level": "L1",
+          "wireframe": "../mockup/wireframes/UI-mrr-002.json",
+          "statesWithPicture": [],
+          "pages": [],
+          "usesComponent": []
+        },
+        {
+          "screen": "UI-mrr-004",
+          "mockup": "MCK-mrr-003",
+          "level": "L2",
+          "wireframe": "../mockup/wireframes/UI-mrr-004.json",
+          "statesWithPicture": [
+            "default",
+            "empty",
+            "error",
+            "loading",
+            "overflow",
+            "unauthorized"
+          ],
+          "pages": [
+            "../../mockups/UI-mrr-004/default.html",
+            "../../mockups/UI-mrr-004/empty.html",
+            "../../mockups/UI-mrr-004/error.html",
+            "../../mockups/UI-mrr-004/loading.html",
+            "../../mockups/UI-mrr-004/overflow.html",
+            "../../mockups/UI-mrr-004/unauthorized.html"
+          ],
+          "usesComponent": [
+            "Alert",
+            "Button",
+            "Table",
+            "TextField"
+          ]
+        },
+        {
+          "screen": "UI-mrr-005",
+          "mockup": "MCK-mrr-004",
+          "level": "L2",
+          "wireframe": "../mockup/wireframes/UI-mrr-005.json",
+          "statesWithPicture": [
+            "default",
+            "empty",
+            "error",
+            "loading",
+            "overflow",
+            "unauthorized"
+          ],
+          "pages": [
+            "../../mockups/UI-mrr-005/default.html",
+            "../../mockups/UI-mrr-005/empty.html",
+            "../../mockups/UI-mrr-005/error.html",
+            "../../mockups/UI-mrr-005/loading.html",
+            "../../mockups/UI-mrr-005/overflow.html",
+            "../../mockups/UI-mrr-005/unauthorized.html"
+          ],
+          "usesComponent": [
+            "Alert",
+            "Button",
+            "TextField"
+          ]
+        },
+        {
+          "screen": "UI-mrr-006",
+          "mockup": "MCK-mrr-005",
+          "level": "L2",
+          "wireframe": "../mockup/wireframes/UI-mrr-006.json",
+          "statesWithPicture": [
+            "default",
+            "empty",
+            "error",
+            "loading",
+            "overflow",
+            "unauthorized"
+          ],
+          "pages": [
+            "../../mockups/UI-mrr-006/default.html",
+            "../../mockups/UI-mrr-006/empty.html",
+            "../../mockups/UI-mrr-006/error.html",
+            "../../mockups/UI-mrr-006/loading.html",
+            "../../mockups/UI-mrr-006/overflow.html",
+            "../../mockups/UI-mrr-006/unauthorized.html"
+          ],
+          "usesComponent": [
+            "Alert",
+            "Button",
+            "TextField"
+          ]
+        },
+        {
+          "screen": "UI-mrr-007",
+          "mockup": "MCK-mrr-006",
+          "level": "L1",
+          "wireframe": "../mockup/wireframes/UI-mrr-007.json",
+          "statesWithPicture": [],
+          "pages": [],
+          "usesComponent": []
+        },
+        {
+          "screen": "UI-mrr-008",
+          "mockup": "MCK-mrr-007",
+          "level": "L1",
+          "wireframe": "../mockup/wireframes/UI-mrr-008.json",
+          "statesWithPicture": [],
+          "pages": [],
+          "usesComponent": []
+        },
+        {
+          "screen": "UI-mrr-009",
+          "mockup": "MCK-mrr-008",
+          "level": "L1",
+          "wireframe": "../mockup/wireframes/UI-mrr-009.json",
+          "statesWithPicture": [],
+          "pages": [],
+          "usesComponent": []
+        },
+        {
+          "screen": "UI-mrr-010",
+          "mockup": "MCK-mrr-009",
+          "level": "L1",
+          "wireframe": "../mockup/wireframes/UI-mrr-010.json",
+          "statesWithPicture": [],
+          "pages": [],
+          "usesComponent": []
+        },
+        {
+          "screen": "UI-mrr-011",
+          "mockup": "MCK-mrr-010",
+          "level": "L1",
+          "wireframe": "../mockup/wireframes/UI-mrr-011.json",
+          "statesWithPicture": [],
+          "pages": [],
+          "usesComponent": []
+        },
+        {
+          "screen": "UI-mrr-012",
+          "mockup": "MCK-mrr-011",
+          "level": "L1",
+          "wireframe": "../mockup/wireframes/UI-mrr-012.json",
+          "statesWithPicture": [],
+          "pages": [],
+          "usesComponent": []
+        },
+        {
+          "screen": "UI-mrr-013",
+          "mockup": "MCK-mrr-012",
+          "level": "L1",
+          "wireframe": "../mockup/wireframes/UI-mrr-013.json",
+          "statesWithPicture": [],
+          "pages": [],
+          "usesComponent": []
+        },
+        {
+          "screen": "UI-mrr-014",
+          "mockup": "MCK-mrr-013",
+          "level": "L1",
+          "wireframe": "../mockup/wireframes/UI-mrr-014.json",
+          "statesWithPicture": [],
+          "pages": [],
+          "usesComponent": []
+        },
+        {
+          "screen": "RPT-mrr-001",
+          "mockup": "MCK-mrr-014",
+          "level": "L2",
+          "wireframe": "../mockup/wireframes/RPT-mrr-001.json",
+          "statesWithPicture": [
+            "default",
+            "empty",
+            "error",
+            "loading",
+            "overflow",
+            "unauthorized"
+          ],
+          "pages": [
+            "../../mockups/RPT-mrr-001/default.html",
+            "../../mockups/RPT-mrr-001/empty.html",
+            "../../mockups/RPT-mrr-001/error.html",
+            "../../mockups/RPT-mrr-001/loading.html",
+            "../../mockups/RPT-mrr-001/overflow.html",
+            "../../mockups/RPT-mrr-001/unauthorized.html"
+          ],
+          "usesComponent": [
+            "Alert",
+            "Button",
+            "Table",
+            "TextField"
+          ]
+        },
+        {
+          "screen": "UI-mrr-003",
+          "mockup": "MCK-mrr-015",
+          "level": "L1",
+          "wireframe": "../mockup/wireframes/UI-mrr-003.json",
+          "statesWithPicture": [],
+          "pages": [],
+          "usesComponent": []
+        }
+      ],
+      "requirement": "the MCK -> REQ half is design's to answer, never walked here (§10.1): ask /mock:trace --screen <UI-id>, which asks design's queries.mjs, or read ../design/trace.design.json",
+      "note": "mock owns one relation and one only: UI mockedBy MCK (gate 25)"
+    },
+    {
+      "key": "ui-conventions",
+      "label": "normative",
+      "owner": "mock",
+      "what": "the house convention catalogue and the action kind map",
+      "means": "affordance เดียวกันต้องแสดงเหมือนกันทุกหน้าที่ dev สร้าง · dev ห้ามตัดสินใหม่เป็นรายหน้า",
+      "ref": [
+        "../mockup/conventions.json"
+      ],
+      "catalogue": [
+        "UIC-001",
+        "UIC-002",
+        "UIC-003"
+      ],
+      "confirmed": {
+        "catalogue": 3,
+        "kindMap": 0
+      },
+      "note": "an unconfirmed entry is not in this list — nobody chose it, so dev may not be told to follow it (MP10). confirmed.kindMap counts only the kinds a PERSON answered here, which since gate 35 is the leftover case: the kind of an action is declared by design in screens.json, so zero is the normal reading and says nothing about coverage"
+    },
+    {
+      "key": "wireframe",
+      "label": "normative",
+      "owner": "mock",
+      "what": "the L1 wireframe of every screen — the structure the L2 picture is one drawing of",
+      "means": "โครงของหน้าเป็นข้อผูกพัน — id ของ control · โซนและลำดับ · สถานะที่ต้องมี · convention ที่ยืนยันแล้ว · ตรงไหนที่ภาพ L2 พูดเกินใบนี้ ให้ถือใบนี้",
+      "ref": [
+        "../mockup/wireframes/"
+      ],
+      "files": 15,
+      "note": "the per-screen file is on each screen-map row · the ids on it are the ones dev stores and qa searches by and they never change once minted (gate 37 · 45), the zones and their order are design's arrangement (gate 47), and the states are design's list · the L2 page is ONE drawing of this file, which is why it is labelled reference: whatever a picture adds beyond this is a choice, not a fact"
+    },
+    {
+      "key": "mockup-html",
+      "label": "reference",
+      "owner": "mock",
+      "what": "the L2 pages — structure to read, not source to paste (gate 72: a model wrote them, so what binds is the wireframe row above)",
+      "means": "ใช้ดูลำดับและการจัดวาง ไม่ต้องก๊อปมาตรง ๆ · สิ่งที่ผูกพันคือแถว wireframe ไม่ใช่แถวนี้",
+      "ref": [
+        "../../mockups/"
+      ],
+      "files": 29,
+      "note": "the per-page list is on each screen-map row · a model drew these from the wireframe and the theme (gate 72), so they carry choices nobody upstream made — every fact they must obey is on the wireframe row, and that is the row labelled normative"
+    },
+    {
+      "key": "sample-data",
+      "label": "reference",
+      "owner": "mock",
+      "what": "the placeholder text and rows every picture is filled with",
+      "means": "เป็นของสมมติ ห้ามนำไปใช้เป็นค่าเริ่มต้นจริง",
+      "ref": [
+        "plugins/mock/assets/sample-data/records.json"
+      ],
+      "note": "travels with the mock plugin, not with the project · the values are visibly fake on purpose (MD8) and every picture is filled from this one file so a re-render is byte-identical"
+    }
+  ],
+  "notInThePackage": [
+    {
+      "what": "รายการฟิลด์ของแต่ละหน้าจอ",
+      "who": "design",
+      "where": "modules/<module>/screens.json"
+    },
+    {
+      "what": "กฎตรวจสอบ (validation)",
+      "who": "design",
+      "where": "modules/<module>/screens.json · the rules behind them are req's"
+    },
+    {
+      "what": "สิทธิ์ของแต่ละ role",
+      "who": "design",
+      "where": "rbac.json"
+    },
+    {
+      "what": "รายการสถานะที่หน้าต้องรองรับ",
+      "who": "design",
+      "where": "modules/<module>/screens.json — item screen-states points at it (W3)"
+    }
+  ],
+  "extensions": {}
+}

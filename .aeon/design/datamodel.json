@@ -1,0 +1,724 @@
+{
+  "schemaVersion": "1.0",
+  "producedBy": "design · scripts/datamodel.mjs",
+  "project": "mrr",
+  "status": "approved",
+  "approvedAt": "2026-10-19T07:59:59Z",
+  "approvedBy": "Noppasorn",
+  "entities": [
+    {
+      "id": "ENT-001",
+      "name": "User",
+      "label": "ผู้ใช้งาน",
+      "glossaryTerms": [],
+      "stateful": false,
+      "invariants": [],
+      "attributes": [
+        {
+          "name": "email",
+          "type": "string",
+          "required": true,
+          "validation": "Email ขององค์กร ไม่ซ้ำกันทั้งระบบ ใช้เข้าสู่ระบบด้วย OTP / magic link"
+        },
+        {
+          "name": "fullName",
+          "type": "string",
+          "required": true,
+          "validation": "ชื่อ-นามสกุลตามรายชื่อพนักงานที่นำเข้าจาก HR ไม่เกิน 200 ตัวอักษร"
+        },
+        {
+          "name": "role",
+          "type": "enum",
+          "required": true,
+          "validation": "บทบาทเดียวต่อผู้ใช้ ตารางสิทธิ์รายละเอียดอยู่ที่ /design:rbac",
+          "values": [
+            "GENERAL_USER",
+            "ROOM_ADMINISTRATOR",
+            "SYSTEM_ADMINISTRATOR"
+          ]
+        },
+        {
+          "name": "active",
+          "type": "boolean",
+          "required": true,
+          "validation": "false เมื่อพนักงานไม่อยู่ในรายชื่อนำเข้ารอบล่าสุด — เข้าสู่ระบบไม่ได้ แต่ประวัติการจองยังอ้างถึงได้"
+        }
+      ]
+    },
+    {
+      "id": "ENT-002",
+      "name": "MeetingRoom",
+      "label": "ห้องประชุม",
+      "glossaryTerms": [
+        "UL-mrr-001",
+        "UL-mrr-007"
+      ],
+      "stateful": true,
+      "invariants": [],
+      "attributes": [
+        {
+          "name": "code",
+          "type": "string",
+          "required": true,
+          "validation": "รหัสห้อง ไม่ซ้ำกัน กำหนดตอนสร้างและแก้ไม่ได้"
+        },
+        {
+          "name": "currentVersion",
+          "type": "reference",
+          "required": true,
+          "validation": "ชี้ไปที่เวอร์ชันล่าสุดของข้อมูลห้อง ทุกการแก้สร้างเวอร์ชันใหม่ (DQ-mrr-002)",
+          "references": "ENT-003",
+          "rules": [
+            "BR-mrr-010@v2"
+          ]
+        },
+        {
+          "name": "status",
+          "type": "enum",
+          "required": true,
+          "validation": "สถานะตามวงจรชีวิตของห้อง ห้องที่ไม่ใช่ ACTIVE รับการจองใหม่ไม่ได้",
+          "valuesFrom": "STM-mrr-003",
+          "rules": [
+            "BR-mrr-012@v1",
+            "BR-mrr-005@v1"
+          ]
+        },
+        {
+          "name": "createdAt",
+          "type": "datetime",
+          "required": true,
+          "validation": "เวลาที่สร้างห้อง ตั้งโดยระบบ"
+        }
+      ]
+    },
+    {
+      "id": "ENT-003",
+      "name": "MeetingRoomVersion",
+      "label": "เวอร์ชันข้อมูลห้องประชุม",
+      "glossaryTerms": [
+        "UL-mrr-001",
+        "UL-mrr-010"
+      ],
+      "stateful": false,
+      "invariants": [],
+      "attributes": [
+        {
+          "name": "room",
+          "type": "reference",
+          "required": true,
+          "validation": "ห้องที่เวอร์ชันนี้เป็นของ",
+          "references": "ENT-002"
+        },
+        {
+          "name": "versionNo",
+          "type": "integer",
+          "required": true,
+          "validation": "เริ่มที่ 1 เพิ่มทีละ 1 ต่อห้อง ไม่ซ้ำภายในห้องเดียวกัน · เวอร์ชันที่บันทึกแล้วแก้ไม่ได้ (DQ-mrr-001, DQ-mrr-002)"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "validation": "ชื่อห้องที่แสดงให้ผู้ใช้ ไม่เกิน 100 ตัวอักษร"
+        },
+        {
+          "name": "capacity",
+          "type": "integer",
+          "required": true,
+          "validation": "จำนวนคนที่ห้องรองรับ ≥ 1 ใช้กรองตอนค้นหา",
+          "rules": [
+            "BR-mrr-010@v2"
+          ]
+        },
+        {
+          "name": "photos",
+          "type": "json",
+          "required": false,
+          "validation": "รายการไฟล์รูปภาพของห้อง (อาร์เรย์ของ file id) ว่างได้"
+        },
+        {
+          "name": "requiresApproval",
+          "type": "boolean",
+          "required": true,
+          "validation": "true = การจองห้องนี้ต้องให้ Room Administrator อนุมัติก่อนใช้ได้จริง · การเปลี่ยนค่ามีผลกับการจองที่ยังไม่ถึงเวลาเริ่ม",
+          "rules": [
+            "BR-mrr-004@v1",
+            "BR-mrr-010@v2"
+          ]
+        },
+        {
+          "name": "approver",
+          "type": "reference",
+          "required": false,
+          "validation": "ผู้อนุมัติประจำห้อง ต้องเป็นผู้ใช้บทบาท ROOM_ADMINISTRATOR · ว่าง = Room Administrator ทุกคนอนุมัติได้",
+          "references": "ENT-001",
+          "rules": [
+            "BR-mrr-013@v1"
+          ]
+        },
+        {
+          "name": "createdBy",
+          "type": "reference",
+          "required": true,
+          "validation": "Room Administrator ที่บันทึกเวอร์ชันนี้",
+          "references": "ENT-001",
+          "rules": [
+            "BR-mrr-005@v1"
+          ]
+        },
+        {
+          "name": "createdAt",
+          "type": "datetime",
+          "required": true,
+          "validation": "เวลาที่บันทึกเวอร์ชัน ตั้งโดยระบบ"
+        }
+      ]
+    },
+    {
+      "id": "ENT-004",
+      "name": "Facility",
+      "label": "สิ่งอำนวยความสะดวก",
+      "glossaryTerms": [
+        "UL-mrr-003"
+      ],
+      "stateful": false,
+      "invariants": [],
+      "attributes": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "validation": "ชื่อสิ่งอำนวยความสะดวก เช่น โปรเจคเตอร์ ไม่ซ้ำกัน ไม่เกิน 100 ตัวอักษร"
+        },
+        {
+          "name": "active",
+          "type": "boolean",
+          "required": true,
+          "validation": "false = ไม่แสดงเป็นตัวกรองหรือตัวเลือกใหม่ แต่ข้อมูลเดิมที่อ้างถึงยังอยู่"
+        }
+      ]
+    },
+    {
+      "id": "ENT-005",
+      "name": "RoomVersionFacility",
+      "label": "สิ่งอำนวยความสะดวกของห้อง",
+      "glossaryTerms": [
+        "UL-mrr-003"
+      ],
+      "stateful": false,
+      "invariants": [],
+      "attributes": [
+        {
+          "name": "roomVersion",
+          "type": "reference",
+          "required": true,
+          "validation": "เวอร์ชันข้อมูลห้อง",
+          "references": "ENT-003"
+        },
+        {
+          "name": "facility",
+          "type": "reference",
+          "required": true,
+          "validation": "สิ่งอำนวยความสะดวกที่ห้องมี · คู่ (roomVersion, facility) ไม่ซ้ำ",
+          "references": "ENT-004"
+        }
+      ]
+    },
+    {
+      "id": "ENT-006",
+      "name": "RoomMaintenancePeriod",
+      "label": "ช่วงปิดปรับปรุงห้อง",
+      "glossaryTerms": [
+        "UL-mrr-007"
+      ],
+      "stateful": false,
+      "invariants": [],
+      "attributes": [
+        {
+          "name": "room",
+          "type": "reference",
+          "required": true,
+          "validation": "ห้องที่ปิดปรับปรุง",
+          "references": "ENT-002"
+        },
+        {
+          "name": "startAt",
+          "type": "datetime",
+          "required": true,
+          "validation": "เวลาที่ตั้งห้องเป็นปิดปรับปรุง",
+          "rules": [
+            "BR-mrr-012@v1"
+          ]
+        },
+        {
+          "name": "endAt",
+          "type": "datetime",
+          "required": false,
+          "validation": "เวลาที่เปิดห้องกลับมาใช้งาน · ว่าง = ยังปิดปรับปรุงอยู่ · ต้องหลัง startAt · ช่วงของห้องเดียวกันห้ามทับกัน",
+          "rules": [
+            "CALC-mrr-001@v1"
+          ]
+        },
+        {
+          "name": "setBy",
+          "type": "reference",
+          "required": true,
+          "validation": "Room Administrator ที่ตั้งปิดปรับปรุง",
+          "references": "ENT-001",
+          "rules": [
+            "BR-mrr-005@v1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ENT-007",
+      "name": "Booking",
+      "label": "การจอง",
+      "glossaryTerms": [
+        "UL-mrr-002",
+        "UL-mrr-005",
+        "UL-mrr-006"
+      ],
+      "stateful": true,
+      "invariants": [
+        "BR-mrr-001@v1",
+        "BR-mrr-023@v1"
+      ],
+      "attributes": [
+        {
+          "name": "room",
+          "type": "reference",
+          "required": true,
+          "validation": "ห้องที่จอง ต้องอยู่ในสถานะ ACTIVE ตอนสร้าง",
+          "references": "ENT-002",
+          "rules": [
+            "BR-mrr-012@v1"
+          ]
+        },
+        {
+          "name": "roomVersion",
+          "type": "reference",
+          "required": true,
+          "validation": "เวอร์ชันข้อมูลห้อง ณ ตอนจอง (DQ-mrr-001)",
+          "references": "ENT-003"
+        },
+        {
+          "name": "bookedBy",
+          "type": "reference",
+          "required": true,
+          "validation": "ผู้จอง ตั้งตอนสร้างและเปลี่ยนไม่ได้ — โอนการจองไม่ได้ (DQ-mrr-012)",
+          "references": "ENT-001",
+          "rules": [
+            "BR-mrr-003@v1"
+          ]
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": true,
+          "validation": "หัวข้อการประชุม ห้ามว่าง ไม่เกิน 200 ตัวอักษร",
+          "rules": [
+            "BR-mrr-002@v1"
+          ]
+        },
+        {
+          "name": "startAt",
+          "type": "datetime",
+          "required": true,
+          "validation": "เวลาเริ่ม · ช่วง [startAt, endAt) ของห้องเดียวกันห้ามทับการจองที่สถานะ PENDING_APPROVAL · CONFIRMED · APPROVED — บังคับด้วย exclusion constraint บน (room, ช่วงเวลา) (DQ-mrr-006)",
+          "rules": [
+            "BR-mrr-001@v1"
+          ]
+        },
+        {
+          "name": "endAt",
+          "type": "datetime",
+          "required": true,
+          "validation": "เวลาจบ ต้องหลัง startAt",
+          "rules": [
+            "BR-mrr-001@v1"
+          ]
+        },
+        {
+          "name": "status",
+          "type": "enum",
+          "required": true,
+          "validation": "สถานะตามวงจรชีวิตของการจอง",
+          "valuesFrom": "STM-mrr-001",
+          "rules": [
+            "BR-mrr-004@v1",
+            "BR-mrr-010@v2",
+            "BR-mrr-011@v1",
+            "BR-mrr-016@v1"
+          ]
+        },
+        {
+          "name": "reminderStatus",
+          "type": "enum",
+          "required": true,
+          "validation": "สถานะ Email เตือนก่อนเริ่มประชุม เริ่มที่ NOT_SENT · เปลี่ยนจาก NOT_SENT ได้ครั้งเดียว — SENT หรือ FAILED แล้วไม่ส่งซ้ำ",
+          "values": [
+            "NOT_SENT",
+            "SENT",
+            "FAILED"
+          ],
+          "rules": [
+            "BR-mrr-008@v1",
+            "BR-mrr-020@v1",
+            "BR-mrr-023@v1"
+          ]
+        },
+        {
+          "name": "reminderAt",
+          "type": "datetime",
+          "required": false,
+          "validation": "เวลาที่ส่งหรือพยายามส่ง Email เตือน ว่างเมื่อยัง NOT_SENT"
+        },
+        {
+          "name": "cancelReason",
+          "type": "text",
+          "required": false,
+          "validation": "เหตุผลเมื่อ Room Administrator ยกเลิกแทนผู้จอง — บังคับในกรณีนั้น",
+          "rules": [
+            "BR-mrr-009@v1"
+          ]
+        },
+        {
+          "name": "createdAt",
+          "type": "datetime",
+          "required": true,
+          "validation": "เวลาที่สร้างการจอง ตั้งโดยระบบ"
+        }
+      ]
+    },
+    {
+      "id": "ENT-008",
+      "name": "BookingAttendee",
+      "label": "ผู้เข้าร่วมประชุม",
+      "glossaryTerms": [
+        "UL-mrr-002"
+      ],
+      "stateful": false,
+      "invariants": [],
+      "attributes": [
+        {
+          "name": "booking",
+          "type": "reference",
+          "required": true,
+          "validation": "การจองที่ผู้ใช้เข้าร่วม · ทุกการจองต้องมีผู้เข้าร่วมอย่างน้อย 1 คน และผู้จองไม่ถูกนับอัตโนมัติ",
+          "references": "ENT-007",
+          "rules": [
+            "BR-mrr-002@v1"
+          ]
+        },
+        {
+          "name": "user",
+          "type": "reference",
+          "required": true,
+          "validation": "ผู้เข้าร่วม · คู่ (booking, user) ไม่ซ้ำ · ผู้เข้าร่วมเห็นรายละเอียดการจองในปฏิทิน",
+          "references": "ENT-001",
+          "rules": [
+            "BR-mrr-021@v1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ENT-009",
+      "name": "BookingEquipmentRequest",
+      "label": "อุปกรณ์เสริมที่ขอใช้",
+      "glossaryTerms": [
+        "UL-mrr-003"
+      ],
+      "stateful": false,
+      "invariants": [],
+      "attributes": [
+        {
+          "name": "booking",
+          "type": "reference",
+          "required": true,
+          "validation": "การจองที่ขอ · ไม่บังคับให้มี (อุปกรณ์เสริมเลือกหรือไม่เลือกก็ได้)",
+          "references": "ENT-007",
+          "rules": [
+            "BR-mrr-002@v1"
+          ]
+        },
+        {
+          "name": "facility",
+          "type": "reference",
+          "required": true,
+          "validation": "อุปกรณ์ที่ขอใช้ · คู่ (booking, facility) ไม่ซ้ำ",
+          "references": "ENT-004"
+        }
+      ]
+    },
+    {
+      "id": "ENT-010",
+      "name": "BookingAuditEntry",
+      "label": "ร่องรอยการกระทำต่อการจอง",
+      "glossaryTerms": [],
+      "stateful": false,
+      "invariants": [
+        "BR-mrr-017@v1"
+      ],
+      "attributes": [
+        {
+          "name": "booking",
+          "type": "reference",
+          "required": true,
+          "validation": "การจองที่ถูกกระทำ",
+          "references": "ENT-007"
+        },
+        {
+          "name": "actor",
+          "type": "reference",
+          "required": true,
+          "validation": "Room Administrator ผู้กระทำ",
+          "references": "ENT-001"
+        },
+        {
+          "name": "action",
+          "type": "enum",
+          "required": true,
+          "validation": "สิ่งที่ทำ",
+          "values": [
+            "APPROVE",
+            "REJECT",
+            "CHANGE_DECISION",
+            "EDIT_ON_BEHALF",
+            "CANCEL_ON_BEHALF",
+            "CREATE_ADJUSTMENT",
+            "APPROVE_ADJUSTMENT",
+            "REJECT_ADJUSTMENT"
+          ]
+        },
+        {
+          "name": "reason",
+          "type": "text",
+          "required": false,
+          "validation": "เหตุผล · บังคับสำหรับ CHANGE_DECISION · EDIT_ON_BEHALF · CANCEL_ON_BEHALF · CREATE_ADJUSTMENT",
+          "rules": [
+            "BR-mrr-009@v1",
+            "BR-mrr-011@v1",
+            "BR-mrr-014@v1"
+          ]
+        },
+        {
+          "name": "detail",
+          "type": "json",
+          "required": false,
+          "validation": "ค่าก่อนและหลังของฟิลด์ที่เปลี่ยน"
+        },
+        {
+          "name": "at",
+          "type": "datetime",
+          "required": true,
+          "validation": "เวลาที่กระทำ ตั้งโดยระบบ · บันทึกแล้วแก้หรือลบไม่ได้ · ดูได้เฉพาะ Room Administrator และ System Administrator",
+          "rules": [
+            "BR-mrr-018@v1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ENT-011",
+      "name": "BookingAdjustmentRequest",
+      "label": "คำขอแก้ไขการจอง",
+      "glossaryTerms": [
+        "UL-mrr-011"
+      ],
+      "stateful": true,
+      "invariants": [],
+      "attributes": [
+        {
+          "name": "booking",
+          "type": "reference",
+          "required": true,
+          "validation": "การจองที่ประชุมจบแล้ว — ค่าเดิมของการจองคงไว้จนคำขอได้รับอนุมัติ",
+          "references": "ENT-007",
+          "rules": [
+            "BR-mrr-014@v1"
+          ]
+        },
+        {
+          "name": "requestedBy",
+          "type": "reference",
+          "required": true,
+          "validation": "Room Administrator ที่สร้างคำขอ",
+          "references": "ENT-001"
+        },
+        {
+          "name": "proposedChanges",
+          "type": "json",
+          "required": true,
+          "validation": "ฟิลด์และค่าใหม่ที่ขอเปลี่ยน ต้องมีอย่างน้อย 1 ฟิลด์"
+        },
+        {
+          "name": "reason",
+          "type": "text",
+          "required": true,
+          "validation": "เหตุผลของการแก้ ห้ามว่าง"
+        },
+        {
+          "name": "status",
+          "type": "enum",
+          "required": true,
+          "validation": "สถานะของคำขอ",
+          "valuesFrom": "STM-mrr-002"
+        },
+        {
+          "name": "decidedBy",
+          "type": "reference",
+          "required": false,
+          "validation": "Room Administrator ที่อนุมัติหรือปฏิเสธ ต้องไม่ใช่ requestedBy · ว่างระหว่างรออนุมัติ",
+          "references": "ENT-001",
+          "rules": [
+            "BR-mrr-014@v1"
+          ]
+        },
+        {
+          "name": "decidedAt",
+          "type": "datetime",
+          "required": false,
+          "validation": "เวลาที่ตัดสิน ว่างระหว่างรออนุมัติ"
+        },
+        {
+          "name": "createdAt",
+          "type": "datetime",
+          "required": true,
+          "validation": "เวลาที่สร้างคำขอ ตั้งโดยระบบ"
+        }
+      ]
+    },
+    {
+      "id": "ENT-012",
+      "name": "UtilizationReport",
+      "label": "รายงานการใช้ห้อง",
+      "glossaryTerms": [
+        "UL-mrr-008"
+      ],
+      "stateful": false,
+      "invariants": [
+        "BR-mrr-015@v1"
+      ],
+      "attributes": [
+        {
+          "name": "periodType",
+          "type": "enum",
+          "required": true,
+          "validation": "ช่วงรายงาน",
+          "values": [
+            "MONTH",
+            "YEAR"
+          ]
+        },
+        {
+          "name": "periodStart",
+          "type": "date",
+          "required": true,
+          "validation": "วันแรกของช่วงรายงาน"
+        },
+        {
+          "name": "periodEnd",
+          "type": "date",
+          "required": true,
+          "validation": "วันสุดท้ายของช่วงรายงาน ไม่ก่อน periodStart"
+        },
+        {
+          "name": "issueNo",
+          "type": "integer",
+          "required": true,
+          "validation": "ฉบับที่ เริ่มที่ 1 เพิ่มทีละ 1 ต่อช่วงรายงานเดียวกัน · ฉบับที่ออกแล้วแก้ไม่ได้ ต้องออกฉบับใหม่",
+          "rules": [
+            "BR-mrr-015@v1"
+          ]
+        },
+        {
+          "name": "issuedBy",
+          "type": "reference",
+          "required": true,
+          "validation": "Room Administrator ที่สั่งออกรายงาน",
+          "references": "ENT-001",
+          "rules": [
+            "BR-mrr-022@v1"
+          ]
+        },
+        {
+          "name": "issuedAt",
+          "type": "datetime",
+          "required": true,
+          "validation": "เวลาที่ออกรายงาน ตั้งโดยระบบ"
+        }
+      ]
+    },
+    {
+      "id": "ENT-013",
+      "name": "UtilizationReportLine",
+      "label": "อัตราการใช้งานรายห้องในรายงาน",
+      "glossaryTerms": [
+        "UL-mrr-008",
+        "UL-mrr-012"
+      ],
+      "stateful": false,
+      "invariants": [],
+      "attributes": [
+        {
+          "name": "report",
+          "type": "reference",
+          "required": true,
+          "validation": "รายงานฉบับที่บรรทัดนี้เป็นของ · แก้ไม่ได้เมื่อรายงานออกแล้ว",
+          "references": "ENT-012",
+          "rules": [
+            "BR-mrr-015@v1"
+          ]
+        },
+        {
+          "name": "room",
+          "type": "reference",
+          "required": true,
+          "validation": "ห้อง · คู่ (report, room) ไม่ซ้ำ",
+          "references": "ENT-002"
+        },
+        {
+          "name": "bookedMinutes",
+          "type": "integer",
+          "required": true,
+          "validation": "นาทีที่ถูกจองและใช้ได้จริงในเวลาทำการ ≥ 0",
+          "rules": [
+            "CALC-mrr-001@v1",
+            "BR-mrr-006@v1"
+          ]
+        },
+        {
+          "name": "operatingMinutes",
+          "type": "integer",
+          "required": true,
+          "validation": "นาทีทำการหักช่วงปิดปรับปรุง ≥ 0",
+          "rules": [
+            "CALC-mrr-001@v1"
+          ]
+        },
+        {
+          "name": "utilizationPct",
+          "type": "decimal",
+          "required": false,
+          "validation": "decimal(5,2) ช่วง 0.00–100.00 ปัด HALF_UP · ว่างเมื่อ operatingMinutes = 0 (แสดง \"—\") (DQ-mrr-010)",
+          "rules": [
+            "CALC-mrr-001@v1",
+            "BR-mrr-006@v1"
+          ]
+        },
+        {
+          "name": "rank",
+          "type": "integer",
+          "required": false,
+          "validation": "อันดับตาม utilizationPct จากมากไปน้อย เริ่มที่ 1 · ว่างเมื่อ utilizationPct ว่าง",
+          "rules": [
+            "BR-mrr-006@v1"
+          ]
+        }
+      ]
+    }
+  ]
+}

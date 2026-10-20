@@ -1,0 +1,310 @@
+{
+  "schemaVersion": "1.0",
+  "producedBy": "req/scripts/export-contract.mjs",
+  "source": {
+    "plugin": "req",
+    "specSchemaVersion": "0.6.0",
+    "module": "mrr",
+    "specStatus": "validated",
+    "specApprovedBy": "Noppasorn",
+    "specApprovedAt": "2026-10-19T03:53:17.093Z",
+    "specUpdatedAt": "2026-10-19T12:10+07:00"
+  },
+  "deferred": [
+    {
+      "id": "DQ-mrr-001",
+      "question": "การจองเก่าเก็บค่าตั้งของห้อง ณ ตอนจองไว้ยังไง",
+      "raisedBy": "BR-mrr-010@v1",
+      "category": "temporal",
+      "blockedUntil": "entity:MeetingRoom",
+      "answerPhase": "domain",
+      "answerBy": {
+        "phase": "domain",
+        "plugin": "design",
+        "command": "/design:datamodel",
+        "why": "the answer is an entity, a field, a type or a life cycle — design is the pen that writes those"
+      },
+      "state": "answered",
+      "answer": "เก็บ id เวอร์ชันของห้อง — ข้อมูลห้องมี version ห้ามลบ",
+      "answeredAt": "2026-10-16T12:28+07:00",
+      "resultedIn": [],
+      "extensions": {}
+    },
+    {
+      "id": "DQ-mrr-002",
+      "question": "แก้ข้อมูลห้องแล้ว แก้เวอร์ชันเดิมได้ไหม หรือต้องสร้างเวอร์ชันใหม่เสมอ",
+      "raisedBy": "BR-mrr-010@v1",
+      "category": "temporal",
+      "blockedUntil": "entity:MeetingRoom",
+      "answerPhase": "domain",
+      "answerBy": {
+        "phase": "domain",
+        "plugin": "design",
+        "command": "/design:datamodel",
+        "why": "the answer is an entity, a field, a type or a life cycle — design is the pen that writes those"
+      },
+      "state": "open",
+      "answer": null,
+      "answeredAt": null,
+      "resultedIn": [],
+      "extensions": {}
+    },
+    {
+      "id": "DQ-mrr-003",
+      "question": "ข้อมูลห้องต้อง soft-delete / archive ไหม — §3.2 เขียนว่า \"ลบข้อมูลห้องประชุม\" แต่ DQ-mrr-001 ตอบว่าห้ามลบ ต้องตกลงว่า \"ลบ\" หมายถึงอะไร",
+      "raisedBy": "BR-mrr-010@v1",
+      "category": "temporal",
+      "blockedUntil": "entity:MeetingRoom",
+      "answerPhase": "domain",
+      "answerBy": {
+        "phase": "domain",
+        "plugin": "design",
+        "command": "/design:datamodel",
+        "why": "the answer is an entity, a field, a type or a life cycle — design is the pen that writes those"
+      },
+      "state": "open",
+      "answer": null,
+      "answeredAt": null,
+      "resultedIn": [],
+      "extensions": {}
+    },
+    {
+      "id": "DQ-mrr-004",
+      "question": "หน้าจอจัดการห้องต้องแสดงประวัติเวอร์ชันของห้องไหม",
+      "raisedBy": "BR-mrr-010@v1",
+      "category": "temporal",
+      "blockedUntil": "entity:MeetingRoom",
+      "answerPhase": "screen",
+      "answerBy": {
+        "phase": "screen",
+        "plugin": "mock",
+        "command": "/mock:coverage",
+        "why": "the answer is about what a screen shows or how it behaves once the data model is settled"
+      },
+      "state": "open",
+      "answer": null,
+      "answeredAt": null,
+      "resultedIn": [],
+      "extensions": {}
+    },
+    {
+      "id": "DQ-mrr-005",
+      "question": "ข้อมูลที่เขียนไปแล้วก่อนส่ง Email (เช่น บันทึกการจอง) — rollback หรือค้างครึ่งทาง เมื่อส่ง Email ไม่สำเร็จ (transaction boundary)",
+      "raisedBy": "BR-mrr-019@v1",
+      "category": "integration",
+      "blockedUntil": "entity:Booking",
+      "answerPhase": "plan",
+      "answerBy": {
+        "phase": "plan",
+        "plugin": "dev",
+        "command": null,
+        "why": "the answer is a build decision — sequencing, migration, rollout"
+      },
+      "state": "open",
+      "answer": null,
+      "answeredAt": null,
+      "resultedIn": [],
+      "extensions": {}
+    },
+    {
+      "id": "DQ-mrr-006",
+      "question": "natural key ของการจองคือฟิลด์อะไร (ห้อง + ช่วงเวลา?) ที่ DB ใช้กันการจองซ้ำ",
+      "raisedBy": "BR-mrr-001@v1",
+      "category": "idempotency",
+      "blockedUntil": "entity:Booking",
+      "answerPhase": "domain",
+      "answerBy": {
+        "phase": "domain",
+        "plugin": "design",
+        "command": "/design:datamodel",
+        "why": "the answer is an entity, a field, a type or a life cycle — design is the pen that writes those"
+      },
+      "state": "open",
+      "answer": null,
+      "answeredAt": null,
+      "resultedIn": [],
+      "extensions": {}
+    },
+    {
+      "id": "DQ-mrr-007",
+      "question": "ข้อความ error ภาษาไทยตรงตัวที่ผู้ใช้เห็นเมื่อจองซ้ำหรือช่วงเวลาไม่ว่าง",
+      "raisedBy": "BR-mrr-001@v1",
+      "category": "idempotency",
+      "blockedUntil": "screen:booking-form",
+      "answerPhase": "screen",
+      "answerBy": {
+        "phase": "screen",
+        "plugin": "mock",
+        "command": "/mock:coverage",
+        "why": "the answer is about what a screen shows or how it behaves once the data model is settled"
+      },
+      "state": "answered",
+      "answer": "\"ห้องนี้ไม่ว่างในช่วงเวลาที่เลือก กรุณาเลือกเวลาอื่น\" — ใช้ทั้งกรณีจองซ้ำ (กดซ้ำ) และช่วงเวลาไม่ว่าง (SRC-015)",
+      "answeredAt": "2026-10-16T14:45+07:00",
+      "resultedIn": [
+        "EX-mrr-002",
+        "EX-mrr-003"
+      ],
+      "extensions": {}
+    },
+    {
+      "id": "DQ-mrr-008",
+      "question": "อัตราการใช้งานปัดที่ทศนิยมกี่ตำแหน่ง (แสดงเป็นเปอร์เซ็นต์กี่ตำแหน่ง)",
+      "raisedBy": "BR-mrr-006@v1",
+      "category": "calculation",
+      "blockedUntil": "entity:RoomUtilization",
+      "answerPhase": "domain",
+      "answerBy": {
+        "phase": "domain",
+        "plugin": "design",
+        "command": "/design:datamodel",
+        "why": "the answer is an entity, a field, a type or a life cycle — design is the pen that writes those"
+      },
+      "state": "answered",
+      "answer": "ปัด 2 ตำแหน่งที่ผลเปอร์เซ็นต์ (เช่น 62.50) แบบ HALF_UP (SRC-014)",
+      "answeredAt": "2026-10-16T14:30+07:00",
+      "resultedIn": [
+        "CALC-mrr-001@v1"
+      ],
+      "extensions": {}
+    },
+    {
+      "id": "DQ-mrr-009",
+      "question": "ปัดทีละขั้นหรือปัดตอนท้าย",
+      "raisedBy": "BR-mrr-006@v1",
+      "category": "calculation",
+      "blockedUntil": "entity:RoomUtilization",
+      "answerPhase": "domain",
+      "answerBy": {
+        "phase": "domain",
+        "plugin": "design",
+        "command": "/design:datamodel",
+        "why": "the answer is an entity, a field, a type or a life cycle — design is the pen that writes those"
+      },
+      "state": "answered",
+      "answer": "ปัดทุกจุดที่เกิดค่า แบบ round half up (SRC-012)",
+      "answeredAt": "2026-10-16T13:58+07:00",
+      "resultedIn": [
+        "CALC-mrr-001@v1"
+      ],
+      "extensions": {}
+    },
+    {
+      "id": "DQ-mrr-010",
+      "question": "decimal(p,s) ของค่าอัตราการใช้งานใน DB เท่าไหร่",
+      "raisedBy": "BR-mrr-006@v1",
+      "category": "calculation",
+      "blockedUntil": "entity:RoomUtilization",
+      "answerPhase": "domain",
+      "answerBy": {
+        "phase": "domain",
+        "plugin": "design",
+        "command": "/design:datamodel",
+        "why": "the answer is an entity, a field, a type or a life cycle — design is the pen that writes those"
+      },
+      "state": "open",
+      "answer": null,
+      "answeredAt": null,
+      "resultedIn": [],
+      "extensions": {}
+    },
+    {
+      "id": "DQ-mrr-011",
+      "question": "หัวหน้าเห็นรายละเอียดการจองของลูกน้องไหม",
+      "raisedBy": "BR-mrr-021@v1",
+      "category": "data_scope",
+      "blockedUntil": "entity:User (สายบังคับบัญชา)",
+      "answerPhase": "domain",
+      "answerBy": {
+        "phase": "domain",
+        "plugin": "design",
+        "command": "/design:datamodel",
+        "why": "the answer is an entity, a field, a type or a life cycle — design is the pen that writes those"
+      },
+      "state": "open",
+      "answer": null,
+      "answeredAt": null,
+      "resultedIn": [],
+      "extensions": {}
+    },
+    {
+      "id": "DQ-mrr-012",
+      "question": "โอนการจองให้คนอื่นได้ไหม — ถ้าได้ ผู้จองเดิมยังเห็นรายละเอียดไหม",
+      "raisedBy": "BR-mrr-021@v1",
+      "category": "data_scope",
+      "blockedUntil": "entity:Booking",
+      "answerPhase": "domain",
+      "answerBy": {
+        "phase": "domain",
+        "plugin": "design",
+        "command": "/design:datamodel",
+        "why": "the answer is an entity, a field, a type or a life cycle — design is the pen that writes those"
+      },
+      "state": "open",
+      "answer": null,
+      "answeredAt": null,
+      "resultedIn": [],
+      "extensions": {}
+    },
+    {
+      "id": "DQ-mrr-013",
+      "question": "รายงาน / ยอดรวม / export ใช้ขอบเขตข้อมูลเดียวกันไหม",
+      "raisedBy": "BR-mrr-021@v1",
+      "category": "data_scope",
+      "blockedUntil": "screen:reports",
+      "answerPhase": "screen",
+      "answerBy": {
+        "phase": "screen",
+        "plugin": "mock",
+        "command": "/mock:coverage",
+        "why": "the answer is about what a screen shows or how it behaves once the data model is settled"
+      },
+      "state": "answered",
+      "answer": "รายงานและสถิติดูได้เฉพาะ Room Administrator ซึ่งเห็นข้อมูลทั้งหมด (BR-mrr-022, SRC-013)",
+      "answeredAt": "2026-10-16T14:10+07:00",
+      "resultedIn": [
+        "BR-mrr-022@v1"
+      ],
+      "extensions": {}
+    }
+  ],
+  "open": [
+    {
+      "id": "Q-mrr-001",
+      "question": "§3.1 ระบุ หัวข้อการประชุม / รายชื่อผู้เข้าร่วม / อุปกรณ์เสริม — ช่องไหนบังคับ",
+      "raisedBy": "BR-mrr-002@v1",
+      "state": "answered",
+      "answer": "หัวข้อการประชุมและรายชื่อผู้เข้าร่วมบังคับ อุปกรณ์เสริมไม่บังคับ",
+      "answeredAt": "2026-10-16T11:40+07:00",
+      "extensions": {}
+    },
+    {
+      "id": "Q-mrr-002",
+      "question": "§2 บอกว่า Room Administrator จัดการข้อมูลห้อง — เป็นคนเดียวที่ทำได้หรือไม่",
+      "raisedBy": "BR-mrr-005@v1",
+      "state": "answered",
+      "answer": "ใช่ เฉพาะ Room Administrator",
+      "answeredAt": "2026-10-16T11:40+07:00",
+      "extensions": {}
+    },
+    {
+      "id": "Q-mrr-003",
+      "question": "§3.3 \"Reminders เช่น ก่อนเริ่ม 15 นาที\" — 15 นาทีเป็นกฎหรือแค่ตัวอย่าง",
+      "raisedBy": "BR-mrr-008@v1",
+      "state": "answered",
+      "answer": "เป็นกฎ 15 นาทีตายตัว",
+      "answeredAt": "2026-10-16T11:40+07:00",
+      "extensions": {}
+    },
+    {
+      "id": "Q-mrr-004",
+      "question": "§4 \"รองรับผู้ใช้งานพร้อมกันได้อย่างน้อย 100-200 คน\" — เป้าที่ใช้ทดสอบคือเท่าไร",
+      "raisedBy": "SRC-001",
+      "state": "answered",
+      "answer": "200 คน",
+      "answeredAt": "2026-10-16T11:40+07:00",
+      "extensions": {}
+    }
+  ],
+  "extensions": {}
+}

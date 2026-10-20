@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="th">
+<head><meta charset="utf-8"><title>ยืนยันรหัส OTP — UI-mrr-002 · wireframe L1</title></head>
+<body>
+<main data-screen="UI-mrr-002" data-mockup="MCK-mrr-002" data-layout="form">
+<header><h1>ยืนยันรหัส OTP</h1><p>ผู้ใช้กรอกรหัสที่ได้รับ (หรือเปิด magic link) เพื่อเข้าสู่ระบบ</p><p><small>visible to: ROLE-001 (ผู้ใช้งานทั่วไป (General User)), ROLE-002 (ผู้ดูแลระบบห้องประชุม (Room Administrator)), ROLE-003 (ผู้ดูแลระบบไอที (System Administrator))</small></p></header>
+<form data-zone="verify-form" data-source="design"><dt>Email ที่ขอรหัส *</dt><dd data-testid="ui-mrr-002-requested-email">แสดง Email ที่ขอรหัสไว้ แก้ไม่ได้</dd><p><label>รหัส OTP <abbr title="required">*</abbr> <input type="text" data-testid="ui-mrr-002-otp-code" name="รหัส OTP" placeholder="ตัวเลข 6 หลัก · หมดอายุ 10 นาทีนับจากเวลาส่ง · ใช้ได้ครั้งเดียว"></label></p><button type="button" data-testid="ui-mrr-002-verify" data-key="verify" data-kind="command" data-presentation="text" data-placement="verify-form" data-container="navigate">เข้าสู่ระบบ</button><button type="button" data-testid="ui-mrr-002-resend" data-key="resend" data-kind="command" data-presentation="text" data-placement="verify-form" data-container="inline">ขอรหัสใหม่</button></form>
+<section aria-label="states"><h2>states</h2><dl><dt>empty</dt><dd>ช่องรหัสว่าง พร้อมบอกว่ารหัสถูกส่งไปที่ Email ใด</dd><dt>loading</dt><dd>ปุ่มเข้าสู่ระบบถูกปิดระหว่างตรวจรหัส</dd><dt>error</dt><dd>รหัสผิด หมดอายุ หรือใช้ไปแล้ว — แจ้งเหตุและให้ขอรหัสใหม่</dd><dt>unauthorized (does not occur)</dt><dd>ไม่เกิด — หน้านี้เปิดได้ก่อนยืนยันตัวตน</dd><dt>overflow (does not occur)</dt><dd>ไม่เกิด — รหัสรับได้ 6 หลักเท่านั้น</dd></dl></section>
+<footer><small>MCK-mrr-002 · wireframe L1 of UI-mrr-002 · structure only, no style — a theme is applied at L2 (/mock:html)</small></footer>
+</main>
+</body>
+</html>

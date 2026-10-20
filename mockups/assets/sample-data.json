@@ -1,0 +1,395 @@
+{
+  "schemaVersion": "1.0",
+  "producedBy": "mock · scripts/data.mjs",
+  "project": null,
+  "marker": "ข้อมูลสมมติ",
+  "writtenBy": "Noppasorn",
+  "writtenAt": null,
+  "entities": {
+    "ENT-001": {
+      "labelTh": "User",
+      "stateAttribute": null,
+      "stateMachine": null,
+      "rows": [
+        {
+          "email": "ตัวอย่าง email 1",
+          "fullName": "ตัวอย่าง fullName 1",
+          "role": "GENERAL_USER",
+          "active": true
+        },
+        {
+          "email": "ตัวอย่าง email 2",
+          "fullName": "ตัวอย่าง fullName 2",
+          "role": "ROOM_ADMINISTRATOR",
+          "active": false
+        },
+        {
+          "email": "ตัวอย่าง email 3",
+          "fullName": "ตัวอย่าง fullName 3",
+          "role": "SYSTEM_ADMINISTRATOR",
+          "active": true
+        }
+      ]
+    },
+    "ENT-002": {
+      "labelTh": "MeetingRoom",
+      "stateAttribute": "status",
+      "stateMachine": "STM-mrr-003",
+      "rows": [
+        {
+          "code": "ตัวอย่าง code 1",
+          "currentVersion": "ENT-003-001",
+          "status": "ACTIVE",
+          "createdAt": "2026-01-01T09:00:00+07:00"
+        },
+        {
+          "code": "ตัวอย่าง code 2",
+          "currentVersion": "ENT-003-002",
+          "status": "UNDER_MAINTENANCE",
+          "createdAt": "2026-01-02T09:00:00+07:00"
+        },
+        {
+          "code": "ตัวอย่าง code 3",
+          "currentVersion": "ENT-003-003",
+          "status": "ARCHIVED",
+          "createdAt": "2026-01-03T09:00:00+07:00"
+        }
+      ]
+    },
+    "ENT-003": {
+      "labelTh": "MeetingRoomVersion",
+      "stateAttribute": null,
+      "stateMachine": null,
+      "rows": [
+        {
+          "room": "ENT-002-001",
+          "versionNo": 1,
+          "name": "ตัวอย่าง name 1",
+          "capacity": 1,
+          "photos": "ตัวอย่าง photos 1",
+          "requiresApproval": true,
+          "approver": "ENT-001-001",
+          "createdBy": "ENT-001-001",
+          "createdAt": "2026-01-01T09:00:00+07:00"
+        },
+        {
+          "room": "ENT-002-002",
+          "versionNo": 2,
+          "name": "ตัวอย่าง name 2",
+          "capacity": 2,
+          "photos": "ตัวอย่าง photos 2",
+          "requiresApproval": false,
+          "approver": "ENT-001-002",
+          "createdBy": "ENT-001-002",
+          "createdAt": "2026-01-02T09:00:00+07:00"
+        },
+        {
+          "room": "ENT-002-003",
+          "versionNo": 3,
+          "name": "ตัวอย่าง name 3",
+          "capacity": 3,
+          "photos": "ตัวอย่าง photos 3",
+          "requiresApproval": true,
+          "approver": "ENT-001-003",
+          "createdBy": "ENT-001-003",
+          "createdAt": "2026-01-03T09:00:00+07:00"
+        }
+      ]
+    },
+    "ENT-004": {
+      "labelTh": "Facility",
+      "stateAttribute": null,
+      "stateMachine": null,
+      "rows": [
+        {
+          "name": "ตัวอย่าง name 1",
+          "active": true
+        },
+        {
+          "name": "ตัวอย่าง name 2",
+          "active": false
+        },
+        {
+          "name": "ตัวอย่าง name 3",
+          "active": true
+        }
+      ]
+    },
+    "ENT-005": {
+      "labelTh": "RoomVersionFacility",
+      "stateAttribute": null,
+      "stateMachine": null,
+      "rows": [
+        {
+          "roomVersion": "ENT-003-001",
+          "facility": "ENT-004-001"
+        },
+        {
+          "roomVersion": "ENT-003-002",
+          "facility": "ENT-004-002"
+        },
+        {
+          "roomVersion": "ENT-003-003",
+          "facility": "ENT-004-003"
+        }
+      ]
+    },
+    "ENT-006": {
+      "labelTh": "RoomMaintenancePeriod",
+      "stateAttribute": null,
+      "stateMachine": null,
+      "rows": [
+        {
+          "room": "ENT-002-001",
+          "startAt": "2026-01-01T09:00:00+07:00",
+          "endAt": "2026-01-01T09:00:00+07:00",
+          "setBy": "ENT-001-001"
+        },
+        {
+          "room": "ENT-002-002",
+          "startAt": "2026-01-02T09:00:00+07:00",
+          "endAt": "2026-01-02T09:00:00+07:00",
+          "setBy": "ENT-001-002"
+        },
+        {
+          "room": "ENT-002-003",
+          "startAt": "2026-01-03T09:00:00+07:00",
+          "endAt": "2026-01-03T09:00:00+07:00",
+          "setBy": "ENT-001-003"
+        }
+      ]
+    },
+    "ENT-007": {
+      "labelTh": "Booking",
+      "stateAttribute": "status",
+      "stateMachine": "STM-mrr-001",
+      "rows": [
+        {
+          "room": "ENT-002-001",
+          "roomVersion": "ENT-003-001",
+          "bookedBy": "ENT-001-001",
+          "title": "ตัวอย่าง title 1",
+          "startAt": "2026-01-01T09:00:00+07:00",
+          "endAt": "2026-01-01T09:00:00+07:00",
+          "status": "PENDING_APPROVAL",
+          "reminderStatus": "NOT_SENT",
+          "reminderAt": "2026-01-01T09:00:00+07:00",
+          "cancelReason": "ตัวอย่าง cancelReason 1",
+          "createdAt": "2026-01-01T09:00:00+07:00"
+        },
+        {
+          "room": "ENT-002-002",
+          "roomVersion": "ENT-003-002",
+          "bookedBy": "ENT-001-002",
+          "title": "ตัวอย่าง title 2",
+          "startAt": "2026-01-02T09:00:00+07:00",
+          "endAt": "2026-01-02T09:00:00+07:00",
+          "status": "CONFIRMED",
+          "reminderStatus": "SENT",
+          "reminderAt": "2026-01-02T09:00:00+07:00",
+          "cancelReason": "ตัวอย่าง cancelReason 2",
+          "createdAt": "2026-01-02T09:00:00+07:00"
+        },
+        {
+          "room": "ENT-002-003",
+          "roomVersion": "ENT-003-003",
+          "bookedBy": "ENT-001-003",
+          "title": "ตัวอย่าง title 3",
+          "startAt": "2026-01-03T09:00:00+07:00",
+          "endAt": "2026-01-03T09:00:00+07:00",
+          "status": "APPROVED",
+          "reminderStatus": "FAILED",
+          "reminderAt": "2026-01-03T09:00:00+07:00",
+          "cancelReason": "ตัวอย่าง cancelReason 3",
+          "createdAt": "2026-01-03T09:00:00+07:00"
+        }
+      ]
+    },
+    "ENT-008": {
+      "labelTh": "BookingAttendee",
+      "stateAttribute": null,
+      "stateMachine": null,
+      "rows": [
+        {
+          "booking": "ENT-007-001",
+          "user": "ENT-001-001"
+        },
+        {
+          "booking": "ENT-007-002",
+          "user": "ENT-001-002"
+        },
+        {
+          "booking": "ENT-007-003",
+          "user": "ENT-001-003"
+        }
+      ]
+    },
+    "ENT-009": {
+      "labelTh": "BookingEquipmentRequest",
+      "stateAttribute": null,
+      "stateMachine": null,
+      "rows": [
+        {
+          "booking": "ENT-007-001",
+          "facility": "ENT-004-001"
+        },
+        {
+          "booking": "ENT-007-002",
+          "facility": "ENT-004-002"
+        },
+        {
+          "booking": "ENT-007-003",
+          "facility": "ENT-004-003"
+        }
+      ]
+    },
+    "ENT-010": {
+      "labelTh": "BookingAuditEntry",
+      "stateAttribute": null,
+      "stateMachine": null,
+      "rows": [
+        {
+          "booking": "ENT-007-001",
+          "actor": "ENT-001-001",
+          "action": "APPROVE",
+          "reason": "ตัวอย่าง reason 1",
+          "detail": "ตัวอย่าง detail 1",
+          "at": "2026-01-01T09:00:00+07:00"
+        },
+        {
+          "booking": "ENT-007-002",
+          "actor": "ENT-001-002",
+          "action": "REJECT",
+          "reason": "ตัวอย่าง reason 2",
+          "detail": "ตัวอย่าง detail 2",
+          "at": "2026-01-02T09:00:00+07:00"
+        },
+        {
+          "booking": "ENT-007-003",
+          "actor": "ENT-001-003",
+          "action": "CHANGE_DECISION",
+          "reason": "ตัวอย่าง reason 3",
+          "detail": "ตัวอย่าง detail 3",
+          "at": "2026-01-03T09:00:00+07:00"
+        }
+      ]
+    },
+    "ENT-011": {
+      "labelTh": "BookingAdjustmentRequest",
+      "stateAttribute": "status",
+      "stateMachine": "STM-mrr-002",
+      "rows": [
+        {
+          "booking": "ENT-007-001",
+          "requestedBy": "ENT-001-001",
+          "proposedChanges": "ตัวอย่าง proposedChanges 1",
+          "reason": "ตัวอย่าง reason 1",
+          "status": "PENDING",
+          "decidedBy": "ENT-001-001",
+          "decidedAt": "2026-01-01T09:00:00+07:00",
+          "createdAt": "2026-01-01T09:00:00+07:00"
+        },
+        {
+          "booking": "ENT-007-002",
+          "requestedBy": "ENT-001-002",
+          "proposedChanges": "ตัวอย่าง proposedChanges 2",
+          "reason": "ตัวอย่าง reason 2",
+          "status": "APPROVED",
+          "decidedBy": "ENT-001-002",
+          "decidedAt": "2026-01-02T09:00:00+07:00",
+          "createdAt": "2026-01-02T09:00:00+07:00"
+        },
+        {
+          "booking": "ENT-007-003",
+          "requestedBy": "ENT-001-003",
+          "proposedChanges": "ตัวอย่าง proposedChanges 3",
+          "reason": "ตัวอย่าง reason 3",
+          "status": "REJECTED",
+          "decidedBy": "ENT-001-003",
+          "decidedAt": "2026-01-03T09:00:00+07:00",
+          "createdAt": "2026-01-03T09:00:00+07:00"
+        }
+      ]
+    },
+    "ENT-012": {
+      "labelTh": "UtilizationReport",
+      "stateAttribute": null,
+      "stateMachine": null,
+      "rows": [
+        {
+          "periodType": "MONTH",
+          "periodStart": "2026-01-01T09:00:00+07:00",
+          "periodEnd": "2026-01-01T09:00:00+07:00",
+          "issueNo": 1,
+          "issuedBy": "ENT-001-001",
+          "issuedAt": "2026-01-01T09:00:00+07:00"
+        },
+        {
+          "periodType": "YEAR",
+          "periodStart": "2026-01-02T09:00:00+07:00",
+          "periodEnd": "2026-01-02T09:00:00+07:00",
+          "issueNo": 2,
+          "issuedBy": "ENT-001-002",
+          "issuedAt": "2026-01-02T09:00:00+07:00"
+        },
+        {
+          "periodType": "MONTH",
+          "periodStart": "2026-01-03T09:00:00+07:00",
+          "periodEnd": "2026-01-03T09:00:00+07:00",
+          "issueNo": 3,
+          "issuedBy": "ENT-001-003",
+          "issuedAt": "2026-01-03T09:00:00+07:00"
+        }
+      ]
+    },
+    "ENT-013": {
+      "labelTh": "UtilizationReportLine",
+      "stateAttribute": null,
+      "stateMachine": null,
+      "rows": [
+        {
+          "report": "ENT-012-001",
+          "room": "ENT-002-001",
+          "bookedMinutes": 1,
+          "operatingMinutes": 1,
+          "utilizationPct": 1,
+          "rank": 1
+        },
+        {
+          "report": "ENT-012-002",
+          "room": "ENT-002-002",
+          "bookedMinutes": 2,
+          "operatingMinutes": 2,
+          "utilizationPct": 2,
+          "rank": 2
+        },
+        {
+          "report": "ENT-012-003",
+          "room": "ENT-002-003",
+          "bookedMinutes": 3,
+          "operatingMinutes": 3,
+          "utilizationPct": 3,
+          "rank": 3
+        }
+      ]
+    }
+  },
+  "roles": [
+    {
+      "id": "ROLE-001",
+      "label": "ผู้ใช้งานทั่วไป (General User)"
+    },
+    {
+      "id": "ROLE-002",
+      "label": "ผู้ดูแลระบบห้องประชุม (Room Administrator)"
+    },
+    {
+      "id": "ROLE-003",
+      "label": "ผู้ดูแลระบบไอที (System Administrator)"
+    }
+  ],
+  "scenarios": {
+    "empty": {},
+    "overflow": {}
+  }
+}

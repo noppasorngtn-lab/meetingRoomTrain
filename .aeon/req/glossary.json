@@ -1,0 +1,325 @@
+{
+  "schemaVersion": "1.0",
+  "producedBy": "req/scripts/export-contract.mjs",
+  "source": {
+    "plugin": "req",
+    "specSchemaVersion": "0.6.0",
+    "module": "mrr",
+    "specStatus": "validated",
+    "specApprovedBy": "Noppasorn",
+    "specApprovedAt": "2026-10-19T03:53:17.093Z",
+    "specUpdatedAt": "2026-10-19T12:10+07:00"
+  },
+  "terms": [
+    {
+      "id": "UL-mrr-001",
+      "termTh": "ห้องประชุม",
+      "termEn": "MeetingRoom",
+      "definition": "ห้องที่เปิดให้จองใช้ได้ มีความจุ รูปภาพ และสิ่งอำนวยความสะดวกประจำห้อง จัดการข้อมูลโดย Room Administrator",
+      "aka": [],
+      "notToConfuseWith": [],
+      "status": "draft",
+      "becomesEntity": null,
+      "provenance": [
+        {
+          "source": "SRC-001",
+          "locator": {
+            "section": "3.2"
+          },
+          "quote": "เพิ่ม, แก้ไข, ปิดปรับปรุง หรือลบข้อมูลห้องประชุม พร้อมกำหนดความจุและรูปภาพ",
+          "confidence": 0.9
+        }
+      ],
+      "extensions": {}
+    },
+    {
+      "id": "UL-mrr-002",
+      "termTh": "การจอง",
+      "termEn": "Booking",
+      "definition": "การขอใช้ห้องประชุมหนึ่งห้องในช่วงเวลาหนึ่ง ระบุหัวข้อการประชุม รายชื่อผู้เข้าร่วม และอุปกรณ์เสริมที่ต้องการ",
+      "aka": [],
+      "notToConfuseWith": [],
+      "status": "draft",
+      "becomesEntity": null,
+      "provenance": [
+        {
+          "source": "SRC-001",
+          "locator": {
+            "section": "3.1"
+          },
+          "quote": "ระบุหัวข้อการประชุม, รายชื่อผู้เข้าร่วม, และเลือกอุปกรณ์เสริมที่ต้องการ",
+          "confidence": 0.85
+        }
+      ],
+      "extensions": {}
+    },
+    {
+      "id": "UL-mrr-003",
+      "termTh": "สิ่งอำนวยความสะดวก",
+      "termEn": "Facility",
+      "definition": "อุปกรณ์ที่ห้องมีอยู่ เช่น โปรเจคเตอร์ กระดานไวท์บอร์ด ระบบ Video Conference — ใช้กรองตอนค้นหาห้อง และเลือกระบุตอนจองว่าต้องการใช้ (เรียกอีกอย่างว่า อุปกรณ์เสริม)",
+      "aka": [
+        "อุปกรณ์เสริม"
+      ],
+      "notToConfuseWith": [],
+      "status": "draft",
+      "becomesEntity": null,
+      "provenance": [
+        {
+          "source": "SRC-001",
+          "locator": {
+            "section": "3.1"
+          },
+          "quote": "กรองตามสิ่งอำนวยความสะดวก เช่น โปรเจคเตอร์, กระดานไวท์บอร์ด, ระบบ Video Conference",
+          "confidence": 0.85
+        },
+        {
+          "source": "SRC-001",
+          "locator": {
+            "section": "3.1"
+          },
+          "quote": "เลือกอุปกรณ์เสริมที่ต้องการ",
+          "confidence": 0.6
+        },
+        {
+          "source": "SRC-003",
+          "locator": {
+            "line": 3
+          },
+          "quote": "\"สิ่งอำนวยความสะดวก\" กับ \"อุปกรณ์เสริม\" เป็นสิ่งเดียวกัน — ใช้คำเดียวทั้งเอกสาร โค้ด และ UI",
+          "confidence": 1
+        }
+      ],
+      "extensions": {}
+    },
+    {
+      "id": "UL-mrr-005",
+      "termTh": "การจองซ้ำ",
+      "termEn": "BookingConflict",
+      "definition": "การจองห้องเดียวกันในช่วงเวลาที่ทับกับการจองที่มีอยู่แล้ว ระบบต้องตรวจจับอัตโนมัติ (Conflict Check)",
+      "aka": [
+        "Conflict"
+      ],
+      "notToConfuseWith": [],
+      "status": "draft",
+      "becomesEntity": null,
+      "provenance": [
+        {
+          "source": "SRC-001",
+          "locator": {
+            "section": "3.1"
+          },
+          "quote": "ระบบตรวจสอบความพร้อมของห้องอัตโนมัติ (Conflict Check)",
+          "confidence": 0.8
+        }
+      ],
+      "extensions": {}
+    },
+    {
+      "id": "UL-mrr-006",
+      "termTh": "การอนุมัติการจอง",
+      "termEn": "BookingApproval",
+      "definition": "ขั้นที่ Room Administrator ต้องอนุมัติการจองก่อนจึงใช้ห้องได้จริง ใช้เฉพาะห้องที่ถูกตั้งไว้ว่าต้องอนุมัติ",
+      "aka": [],
+      "notToConfuseWith": [],
+      "status": "draft",
+      "becomesEntity": null,
+      "provenance": [
+        {
+          "source": "SRC-001",
+          "locator": {
+            "section": "3.2"
+          },
+          "quote": "กำหนดได้ว่าห้องใดต้องได้รับการอนุมัติจากแอดมินก่อนใช้งานจริง",
+          "confidence": 0.85
+        },
+        {
+          "source": "SRC-004",
+          "locator": {
+            "line": 4
+          },
+          "quote": "\"แอดมิน\" ที่อนุมัติการจองใน §3.2 คือ Room Administrator",
+          "confidence": 1
+        }
+      ],
+      "extensions": {}
+    },
+    {
+      "id": "UL-mrr-007",
+      "termTh": "ปิดปรับปรุง",
+      "termEn": "",
+      "definition": "สถานะของห้องที่ Room Administrator ตั้งให้ห้องรับการจองใหม่ไม่ได้ชั่วคราว โดยการจองที่มีอยู่แล้วคงไว้ และข้อมูลห้องยังไม่ถูกลบ",
+      "aka": [],
+      "notToConfuseWith": [],
+      "status": "draft",
+      "becomesEntity": null,
+      "provenance": [
+        {
+          "source": "SRC-001",
+          "locator": {
+            "section": "3.2"
+          },
+          "quote": "เพิ่ม, แก้ไข, ปิดปรับปรุง หรือลบข้อมูลห้องประชุม",
+          "confidence": 0.6
+        },
+        {
+          "source": "SRC-006",
+          "locator": {
+            "line": 3
+          },
+          "quote": "ห้องที่ตั้งเป็นปิดปรับปรุง ห้ามรับการจองใหม่ การจองที่มีอยู่แล้วคงไว้",
+          "confidence": 1
+        }
+      ],
+      "extensions": {}
+    },
+    {
+      "id": "UL-mrr-008",
+      "termTh": "อัตราการใช้งาน",
+      "termEn": "UtilizationRate",
+      "definition": "สัดส่วนชั่วโมงที่ห้องถูกจองและใช้ได้จริง ต่อชั่วโมงทำการของห้องในช่วงรายงาน ใช้จัดอันดับห้องเพื่อวางแผนทรัพยากร",
+      "aka": [],
+      "notToConfuseWith": [],
+      "status": "draft",
+      "becomesEntity": null,
+      "provenance": [
+        {
+          "source": "SRC-001",
+          "locator": {
+            "section": "3.2"
+          },
+          "quote": "สถิติห้องที่มีอัตราการใช้งานสูงสุด (Utilization Rate) เพื่อนำไปวางแผนทรัพยากร",
+          "confidence": 0.85
+        },
+        {
+          "source": "SRC-012",
+          "locator": {
+            "line": 1
+          },
+          "quote": "อัตราการใช้งานของห้อง = ชั่วโมงที่ถูกจอง ÷ ชั่วโมงทำการของห้อง",
+          "confidence": 1
+        }
+      ],
+      "extensions": {}
+    },
+    {
+      "id": "UL-mrr-009",
+      "termTh": "งานแจ้งเตือนตามเวลา",
+      "termEn": "ReminderJob",
+      "definition": "งานอัตโนมัติที่ระบบรันเองตามเวลา โดยไม่มีคนกด เช่น ส่งแจ้งเตือนก่อนเริ่มประชุม",
+      "aka": [],
+      "notToConfuseWith": [],
+      "status": "draft",
+      "becomesEntity": null,
+      "provenance": [
+        {
+          "source": "SRC-003",
+          "locator": {
+            "line": 1
+          },
+          "quote": "มีงานอัตโนมัติ / งานตามเวลาที่ไม่มีคนกด แตะข้อมูลการจองด้วย (เช่น ตัวส่งแจ้งเตือนก่อนเริ่มประชุม)",
+          "confidence": 1
+        }
+      ],
+      "extensions": {}
+    },
+    {
+      "id": "UL-mrr-010",
+      "termTh": "ผู้อนุมัติประจำห้อง",
+      "termEn": "RoomApprover",
+      "definition": "Room Administrator ที่ถูกกำหนดให้อนุมัติการจองของห้องหนึ่ง — ถ้าห้องยังไม่กำหนด Room Administrator ทุกคนอนุมัติได้",
+      "aka": [],
+      "notToConfuseWith": [],
+      "status": "draft",
+      "becomesEntity": null,
+      "provenance": [
+        {
+          "source": "SRC-007",
+          "locator": {
+            "line": 1
+          },
+          "quote": "QB-apr-01: แต่ละห้องกำหนด Room Administrator ที่เป็นผู้อนุมัติได้ — เป็นกฎคนละข้อกับ BR-mrr-004",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-007",
+          "locator": {
+            "line": 2
+          },
+          "quote": "QB-apr-02: ห้องที่ต้องอนุมัติแต่ยังไม่กำหนดผู้อนุมัติ ใช้ค่าเริ่มต้นคือ Room Administrator ทุกคนอนุมัติได้ และกำหนดทีหลังได้",
+          "confidence": 1
+        }
+      ],
+      "extensions": {}
+    },
+    {
+      "id": "UL-mrr-011",
+      "termTh": "คำขอแก้ไขการจอง",
+      "termEn": "BookingAdjustmentRequest",
+      "definition": "รายการแก้ไขการจองที่ประชุมจบไปแล้ว เก็บแยกจากค่าเดิม และมีผลต่อเมื่อ Room Administrator คนอื่นที่ไม่ใช่คนแก้อนุมัติ",
+      "aka": [
+        "คำขอแก้"
+      ],
+      "notToConfuseWith": [],
+      "status": "draft",
+      "becomesEntity": null,
+      "provenance": [
+        {
+          "source": "SRC-009",
+          "locator": {
+            "line": 1
+          },
+          "quote": "QB-aud-01: การแก้การจองหลังประชุมจบ เก็บเป็นคำขอแก้แยก ค่าเดิมคงไว้ — แก้ BR-mrr-014 ทับ @v1",
+          "confidence": 1
+        }
+      ],
+      "extensions": {}
+    },
+    {
+      "id": "UL-mrr-012",
+      "termTh": "ชั่วโมงทำการของห้อง",
+      "termEn": "RoomOperatingHours",
+      "definition": "ช่วงเวลาที่ห้องเปิดให้ใช้ ใช้เป็นตัวหารของอัตราการใช้งาน — ค่าเดียวทั้งองค์กร จ.–ศ. 08:00–18:00 (วันหยุดนักขัตฤกษ์นับตามปกติ) หักช่วงที่ห้องปิดปรับปรุง",
+      "aka": [],
+      "notToConfuseWith": [],
+      "status": "draft",
+      "becomesEntity": null,
+      "provenance": [
+        {
+          "source": "SRC-012",
+          "locator": {
+            "line": 1
+          },
+          "quote": "อัตราการใช้งานของห้อง = ชั่วโมงที่ถูกจอง ÷ ชั่วโมงทำการของห้อง",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-014",
+          "locator": {
+            "line": 3
+          },
+          "quote": "inputs: ชั่วโมงทำการเป็นค่าเดียวทั้งองค์กร คือ จ.–ศ. 08:00–18:00",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-014",
+          "locator": {
+            "line": 6
+          },
+          "quote": "boundary: ช่วงที่ห้องปิดปรับปรุง หักออกจากตัวหาร",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-014",
+          "locator": {
+            "line": 8
+          },
+          "quote": "boundary: วันหยุดนักขัตฤกษ์ที่ตรงกับ จ.–ศ. นับเป็นเวลาทำการตามปกติ",
+          "confidence": 1
+        }
+      ],
+      "extensions": {}
+    }
+  ],
+  "extensions": {}
+}

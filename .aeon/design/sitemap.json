@@ -1,0 +1,130 @@
+{
+  "schemaVersion": "1.1",
+  "producedBy": "design · scripts/sitemap.mjs",
+  "project": "mrr",
+  "status": "approved",
+  "approvedAt": "2026-10-19T09:13:24Z",
+  "approvedBy": "Noppasorn",
+  "nodes": [
+    {
+      "screen": "UI-mrr-001",
+      "parent": null,
+      "order": 1,
+      "label": "เข้าสู่ระบบ",
+      "entry": true,
+      "app": "frontend-web"
+    },
+    {
+      "screen": "UI-mrr-002",
+      "parent": "UI-mrr-001",
+      "order": 1,
+      "label": "ยืนยันรหัส",
+      "entry": false,
+      "app": "frontend-web"
+    },
+    {
+      "screen": "UI-mrr-004",
+      "parent": null,
+      "order": 2,
+      "label": "ค้นหาห้องว่าง",
+      "entry": true,
+      "app": "frontend-web"
+    },
+    {
+      "screen": "UI-mrr-005",
+      "parent": "UI-mrr-004",
+      "order": 1,
+      "label": "ปฏิทินห้อง",
+      "entry": false,
+      "app": "frontend-web"
+    },
+    {
+      "screen": "UI-mrr-006",
+      "parent": "UI-mrr-004",
+      "order": 2,
+      "label": "จองห้อง",
+      "entry": false,
+      "app": "frontend-web"
+    },
+    {
+      "screen": "UI-mrr-007",
+      "parent": null,
+      "order": 3,
+      "label": "การจองของฉัน",
+      "entry": false,
+      "app": "frontend-web"
+    },
+    {
+      "screen": "UI-mrr-008",
+      "parent": "UI-mrr-007",
+      "order": 1,
+      "label": "แก้ไขการจอง",
+      "entry": false,
+      "app": "frontend-web"
+    },
+    {
+      "screen": "UI-mrr-009",
+      "parent": null,
+      "order": 4,
+      "label": "รออนุมัติ",
+      "entry": false,
+      "app": "frontend-web"
+    },
+    {
+      "screen": "UI-mrr-010",
+      "parent": "UI-mrr-009",
+      "order": 1,
+      "label": "จัดการการจอง",
+      "entry": false,
+      "app": "frontend-web"
+    },
+    {
+      "screen": "UI-mrr-011",
+      "parent": "UI-mrr-009",
+      "order": 2,
+      "label": "คำขอแก้ไขการจอง",
+      "entry": false,
+      "app": "frontend-web"
+    },
+    {
+      "screen": "UI-mrr-012",
+      "parent": null,
+      "order": 5,
+      "label": "ห้องประชุม",
+      "entry": false,
+      "app": "frontend-web"
+    },
+    {
+      "screen": "UI-mrr-013",
+      "parent": "UI-mrr-012",
+      "order": 1,
+      "label": "ข้อมูลห้อง",
+      "entry": false,
+      "app": "frontend-web"
+    },
+    {
+      "screen": "UI-mrr-014",
+      "parent": "UI-mrr-012",
+      "order": 2,
+      "label": "สิ่งอำนวยความสะดวก",
+      "entry": false,
+      "app": "frontend-web"
+    },
+    {
+      "screen": "RPT-mrr-001",
+      "parent": null,
+      "order": 6,
+      "label": "รายงานการใช้ห้อง",
+      "entry": false,
+      "app": "frontend-web"
+    },
+    {
+      "screen": "UI-mrr-003",
+      "parent": null,
+      "order": 99,
+      "label": "ออกจากระบบ",
+      "entry": false,
+      "app": "frontend-web"
+    }
+  ]
+}

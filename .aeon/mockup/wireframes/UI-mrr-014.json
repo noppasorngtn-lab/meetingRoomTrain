@@ -1,0 +1,157 @@
+{
+  "schemaVersion": "1.4",
+  "producedBy": "mock · scripts/wireframes.mjs",
+  "project": "mrr",
+  "id": "MCK-mrr-013",
+  "screen": "UI-mrr-014",
+  "title": "สิ่งอำนวยความสะดวก",
+  "purpose": "Room Administrator เพิ่ม แก้ชื่อ หรือปิดใช้รายการสิ่งอำนวยความสะดวกที่ใช้กรองและเลือกตอนจอง",
+  "level": "L1",
+  "layout": "rows",
+  "kind": "master",
+  "visibleTo": [
+    "ROLE-002"
+  ],
+  "zones": [
+    {
+      "name": "header",
+      "kind": "header",
+      "kindSource": "derived",
+      "source": "mock",
+      "items": [
+        {
+          "type": "title",
+          "text": "สิ่งอำนวยความสะดวก"
+        }
+      ]
+    },
+    {
+      "name": "list",
+      "kind": "form",
+      "kindSource": "derived",
+      "source": "design",
+      "items": [
+        {
+          "type": "field",
+          "name": "ชื่อ",
+          "required": true,
+          "entity": "ENT-004",
+          "attribute": "name",
+          "validation": "ไม่ซ้ำ ไม่เกิน 100 ตัวอักษร",
+          "rules": [],
+          "visibleTo": [
+            "ROLE-002"
+          ],
+          "input": true
+        },
+        {
+          "type": "field",
+          "name": "ใช้งาน",
+          "required": true,
+          "entity": "ENT-004",
+          "attribute": "active",
+          "validation": "ปิดแล้วไม่แสดงเป็นตัวเลือกใหม่ ข้อมูลเดิมคงไว้",
+          "rules": [],
+          "visibleTo": [
+            "ROLE-002"
+          ],
+          "input": true
+        },
+        {
+          "type": "action",
+          "key": "add",
+          "name": "เพิ่ม",
+          "kind": "create",
+          "presentation": "text",
+          "placement": "list",
+          "container": "inline",
+          "accessibleName": "เพิ่ม",
+          "conventions": [],
+          "destination": "อยู่ที่หน้าเดิม",
+          "rules": []
+        },
+        {
+          "type": "action",
+          "key": "save",
+          "name": "บันทึก",
+          "kind": "edit",
+          "presentation": "text",
+          "placement": "first-column",
+          "container": "inline",
+          "accessibleName": "บันทึก",
+          "conventions": [
+            "UIC-001",
+            "UIC-002"
+          ],
+          "destination": "อยู่ที่หน้าเดิม",
+          "rules": []
+        },
+        {
+          "type": "action",
+          "key": "back",
+          "name": "กลับ",
+          "kind": "navigate",
+          "presentation": "text",
+          "placement": "list",
+          "container": "navigate",
+          "accessibleName": "กลับ",
+          "conventions": [],
+          "destination": "หน้าห้องประชุม",
+          "rules": []
+        }
+      ]
+    }
+  ],
+  "controls": [
+    {
+      "id": "ui-mrr-014-ent-004-name",
+      "type": "field",
+      "key": "ent-004-name",
+      "name": "ชื่อ"
+    },
+    {
+      "id": "ui-mrr-014-ent-004-active",
+      "type": "field",
+      "key": "ent-004-active",
+      "name": "ใช้งาน"
+    },
+    {
+      "id": "ui-mrr-014-add",
+      "type": "action",
+      "key": "add"
+    },
+    {
+      "id": "ui-mrr-014-save",
+      "type": "action",
+      "key": "save"
+    },
+    {
+      "id": "ui-mrr-014-back",
+      "type": "action",
+      "key": "back"
+    }
+  ],
+  "states": {
+    "empty": {
+      "occurs": true,
+      "text": "ยังไม่มีรายการ — แสดง 'ยังไม่มีสิ่งอำนวยความสะดวก' พร้อมปุ่มเพิ่ม"
+    },
+    "loading": {
+      "occurs": true,
+      "text": "แสดงตัวบอกกำลังโหลดแทนรายการ"
+    },
+    "error": {
+      "occurs": true,
+      "text": "ชื่อซ้ำหรือบันทึกไม่สำเร็จ — แจ้งที่แถวนั้น"
+    },
+    "unauthorized": {
+      "occurs": true,
+      "text": "ไม่ใช่ Room Administrator — 'คุณไม่มีสิทธิ์เข้าหน้านี้'"
+    },
+    "overflow": {
+      "occurs": true,
+      "text": "มากกว่า 50 รายการ — แบ่งหน้า"
+    }
+  },
+  "extensions": {}
+}

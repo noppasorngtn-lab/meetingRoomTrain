@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="th">
+<head><meta charset="utf-8"><title>ห้องประชุม — UI-mrr-012 · wireframe L1</title></head>
+<body>
+<main data-screen="UI-mrr-012" data-mockup="MCK-mrr-011" data-layout="rows">
+<header><h1>ห้องประชุม</h1><p>Room Administrator ดูรายการห้องทั้งหมด แล้วเพิ่ม แก้ไข ปิดปรับปรุง เปิดใช้งาน หรือลบห้อง</p><p><small>visible to: ROLE-002 (ผู้ดูแลระบบห้องประชุม (Room Administrator))</small></p></header>
+<p data-zone="toolbar" data-source="design" role="toolbar"><button type="button" data-testid="ui-mrr-012-add-room" data-key="add-room" data-kind="create" data-presentation="text" data-placement="toolbar" data-container="navigate">เพิ่มห้อง</button> <small>→ หน้าข้อมูลห้อง</small> <button type="button" data-testid="ui-mrr-012-facilities" data-key="facilities" data-kind="navigate" data-presentation="text" data-placement="toolbar" data-container="navigate">สิ่งอำนวยความสะดวก</button> <small>→ หน้าสิ่งอำนวยความสะดวก</small></p>
+<table data-zone="rooms" data-source="design"><caption>rows — sample row shows the bound column, not data</caption><thead><tr><th>actions</th><th>รหัสห้อง</th><th>ชื่อห้อง</th><th>ความจุ</th><th>สถานะห้อง</th></tr></thead><tbody><tr><td><button type="button" data-testid="ui-mrr-012-edit-room" data-key="edit-room" data-kind="edit" data-presentation="text" data-placement="first-column" data-container="navigate">แก้ไขห้อง</button> <button type="button" data-testid="ui-mrr-012-archive" data-key="archive" data-kind="delete" data-presentation="text" data-placement="first-column" data-container="inline">ลบห้อง</button> <button type="button" data-testid="ui-mrr-012-toggle-maintenance" data-key="toggle-maintenance" data-kind="command" data-presentation="text" data-placement="first-column" data-container="inline">ปิดปรับปรุง / เปิดใช้งาน</button></td><td data-testid="ui-mrr-012-ent-002-code">ENT-002.code</td><td data-testid="ui-mrr-012-ent-003-name">ENT-003.name</td><td data-testid="ui-mrr-012-ent-003-capacity">ENT-003.capacity</td><td data-testid="ui-mrr-012-ent-002-status">ENT-002.status</td></tr></tbody></table>
+<section aria-label="states"><h2>states</h2><dl><dt>empty</dt><dd>ยังไม่มีห้อง — แสดง 'ยังไม่มีห้องประชุม' พร้อมปุ่มเพิ่มห้อง</dd><dt>loading</dt><dd>แสดงตัวบอกกำลังโหลดแทนรายการ</dd><dt>error</dt><dd>โหลดหรือเปลี่ยนสถานะไม่สำเร็จ — แจ้งเหตุ สถานะห้องไม่เปลี่ยน</dd><dt>unauthorized</dt><dd>ไม่ใช่ Room Administrator (รวม System Administrator) — 'คุณไม่มีสิทธิ์เข้าหน้านี้'</dd><dt>overflow</dt><dd>มากกว่า 20 ห้อง — แบ่งหน้าและค้นหาตามชื่อหรือรหัส · ห้อง ARCHIVED ซ่อนไว้โดยเปิดดูได้ด้วยตัวกรอง</dd></dl></section>
+<footer><small>MCK-mrr-011 · wireframe L1 of UI-mrr-012 · structure only, no style — a theme is applied at L2 (/mock:html)</small></footer>
+</main>
+</body>
+</html>

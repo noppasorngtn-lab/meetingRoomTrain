@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "1.0",
+  "producedBy": "design · scripts/changes.mjs",
+  "project": "mrr",
+  "changes": [
+    {
+      "id": "CHG-mrr-001",
+      "origin": "req",
+      "kind": "revised",
+      "moved": [
+        "BR-mrr-010@v2"
+      ],
+      "reason": "ลูกค้า (คุณ Somchai) ขอให้การแก้ค่าตั้งของห้อง (ต้องอนุมัติ หรือความจุ) มีผลกับการจองที่ยังไม่ถึงเวลาเริ่มด้วย ไม่ใช่เฉพาะการจองใหม่ — อนุมัติโดย Adisorn มีผลตั้งแต่ 2026-10-19",
+      "recordedAt": "2026-10-19T14:30:00+07:00",
+      "absorbed": true,
+      "absorbedAt": "2026-10-19T06:30:33Z"
+    },
+    {
+      "id": "ADR-001",
+      "origin": "design",
+      "kind": "revised",
+      "moved": [
+        "UI-mrr-010",
+        "UI-mrr-012"
+      ],
+      "reason": "ลำดับปุ่มใน zone admin-actions ของหน้าจัดการการจอง (ผู้ดูแล) และ zone rooms ของหน้าห้องประชุม ไม่ตรงกับกติกาหน้าตาประจำโปรเจกต์ UIC-001 (ปุ่มประจำแถวเรียง ดู · แก้ไข · ลบ · จัดการ · คำสั่ง) ที่ Noppasorn ยืนยันไว้ — ขอเรียงปุ่มใหม่เท่านั้น ไม่เพิ่มหรือลบฟิลด์ ปุ่ม หรือปลายทางใด ๆ",
+      "recordedAt": "2026-10-19T08:55:00Z",
+      "absorbed": true,
+      "absorbedAt": "2026-10-19T09:09:12Z"
+    }
+  ]
+}

@@ -1,0 +1,261 @@
+{
+  "schemaVersion": "1.4",
+  "producedBy": "mock · scripts/wireframes.mjs",
+  "project": "mrr",
+  "id": "MCK-mrr-005",
+  "screen": "UI-mrr-006",
+  "title": "จองห้องประชุม",
+  "purpose": "สร้างการจองห้องพร้อมหัวข้อ ผู้เข้าร่วม และอุปกรณ์เสริม",
+  "level": "L1",
+  "layout": "form",
+  "kind": "create",
+  "visibleTo": [
+    "ROLE-001",
+    "ROLE-002",
+    "ROLE-003"
+  ],
+  "zones": [
+    {
+      "name": "header",
+      "kind": "header",
+      "kindSource": "derived",
+      "source": "mock",
+      "items": [
+        {
+          "type": "title",
+          "text": "จองห้องประชุม"
+        }
+      ]
+    },
+    {
+      "name": "when-where",
+      "kind": "form",
+      "kindSource": "derived",
+      "source": "design",
+      "items": [
+        {
+          "type": "field",
+          "name": "ห้อง",
+          "required": true,
+          "entity": "ENT-007",
+          "attribute": "room",
+          "validation": "ห้องที่เลือกมา ต้อง ACTIVE",
+          "rules": [
+            "BR-mrr-012@v1"
+          ],
+          "visibleTo": [
+            "ROLE-001",
+            "ROLE-002",
+            "ROLE-003"
+          ],
+          "input": false
+        },
+        {
+          "type": "field",
+          "name": "เวลาเริ่ม",
+          "required": true,
+          "entity": "ENT-007",
+          "attribute": "startAt",
+          "validation": "วันเวลาในอนาคต",
+          "rules": [
+            "BR-mrr-001@v1"
+          ],
+          "visibleTo": [
+            "ROLE-001",
+            "ROLE-002",
+            "ROLE-003"
+          ],
+          "input": true
+        },
+        {
+          "type": "field",
+          "name": "เวลาสิ้นสุด",
+          "required": true,
+          "entity": "ENT-007",
+          "attribute": "endAt",
+          "validation": "ต้องหลังเวลาเริ่ม · ไม่ทับการจองอื่นของห้อง",
+          "rules": [
+            "BR-mrr-001@v1"
+          ],
+          "visibleTo": [
+            "ROLE-001",
+            "ROLE-002",
+            "ROLE-003"
+          ],
+          "input": true
+        }
+      ]
+    },
+    {
+      "name": "details",
+      "kind": "form",
+      "kindSource": "derived",
+      "source": "design",
+      "items": [
+        {
+          "type": "field",
+          "name": "หัวข้อการประชุม",
+          "required": true,
+          "entity": "ENT-007",
+          "attribute": "title",
+          "validation": "ห้ามว่าง ไม่เกิน 200 ตัวอักษร",
+          "rules": [
+            "BR-mrr-002@v1"
+          ],
+          "visibleTo": [
+            "ROLE-001",
+            "ROLE-002",
+            "ROLE-003"
+          ],
+          "input": true
+        },
+        {
+          "type": "field",
+          "name": "ผู้เข้าร่วม",
+          "required": true,
+          "entity": "ENT-008",
+          "attribute": "user",
+          "validation": "เลือกจากรายชื่อผู้ใช้อย่างน้อย 1 คน · ผู้จองไม่ถูกนับอัตโนมัติ",
+          "rules": [
+            "BR-mrr-002@v1"
+          ],
+          "visibleTo": [
+            "ROLE-001",
+            "ROLE-002",
+            "ROLE-003"
+          ],
+          "input": true
+        },
+        {
+          "type": "field",
+          "name": "อุปกรณ์เสริม",
+          "required": false,
+          "entity": "ENT-009",
+          "attribute": "facility",
+          "validation": "เลือกได้หลายรายการ ไม่บังคับ",
+          "rules": [
+            "BR-mrr-002@v1"
+          ],
+          "visibleTo": [
+            "ROLE-001",
+            "ROLE-002",
+            "ROLE-003"
+          ],
+          "input": true
+        }
+      ]
+    },
+    {
+      "name": "submit",
+      "kind": "toolbar",
+      "kindSource": "derived",
+      "source": "design",
+      "items": [
+        {
+          "type": "action",
+          "key": "confirm",
+          "name": "ยืนยันการจอง",
+          "kind": "create",
+          "presentation": "text",
+          "placement": "submit",
+          "container": "navigate",
+          "accessibleName": "ยืนยันการจอง",
+          "conventions": [],
+          "destination": "หน้าการจองของฉัน",
+          "rules": [
+            "BR-mrr-001@v1",
+            "BR-mrr-002@v1",
+            "BR-mrr-004@v1",
+            "BR-mrr-007@v1",
+            "BR-mrr-008@v1",
+            "BR-mrr-019@v1"
+          ]
+        },
+        {
+          "type": "action",
+          "key": "cancel-form",
+          "name": "ยกเลิก",
+          "kind": "navigate",
+          "presentation": "text",
+          "placement": "submit",
+          "container": "navigate",
+          "accessibleName": "ยกเลิก",
+          "conventions": [],
+          "destination": "หน้าค้นหาห้องว่าง",
+          "rules": []
+        }
+      ]
+    }
+  ],
+  "controls": [
+    {
+      "id": "ui-mrr-006-ent-007-room",
+      "type": "field",
+      "key": "ent-007-room",
+      "name": "ห้อง"
+    },
+    {
+      "id": "ui-mrr-006-ent-007-start-at",
+      "type": "field",
+      "key": "ent-007-start-at",
+      "name": "เวลาเริ่ม"
+    },
+    {
+      "id": "ui-mrr-006-ent-007-end-at",
+      "type": "field",
+      "key": "ent-007-end-at",
+      "name": "เวลาสิ้นสุด"
+    },
+    {
+      "id": "ui-mrr-006-ent-007-title",
+      "type": "field",
+      "key": "ent-007-title",
+      "name": "หัวข้อการประชุม"
+    },
+    {
+      "id": "ui-mrr-006-ent-008-user",
+      "type": "field",
+      "key": "ent-008-user",
+      "name": "ผู้เข้าร่วม"
+    },
+    {
+      "id": "ui-mrr-006-ent-009-facility",
+      "type": "field",
+      "key": "ent-009-facility",
+      "name": "อุปกรณ์เสริม"
+    },
+    {
+      "id": "ui-mrr-006-confirm",
+      "type": "action",
+      "key": "confirm"
+    },
+    {
+      "id": "ui-mrr-006-cancel-form",
+      "type": "action",
+      "key": "cancel-form"
+    }
+  ],
+  "states": {
+    "empty": {
+      "occurs": true,
+      "text": "ฟอร์มเปิดพร้อมห้องและช่วงเวลาที่เลือกมา ช่องอื่นว่าง"
+    },
+    "loading": {
+      "occurs": true,
+      "text": "ปุ่มยืนยันถูกปิดระหว่างบันทึกและส่ง Email"
+    },
+    "error": {
+      "occurs": true,
+      "text": "ช่วงเวลาไม่ว่าง — แสดง 'ห้องนี้ไม่ว่างในช่วงเวลาที่เลือก กรุณาเลือกเวลาอื่น' · ห้องปิดปรับปรุง — แสดง 'ห้องนี้ปิดปรับปรุง ไม่สามารถจองได้' · ส่ง Email ไม่สำเร็จ — แจ้งให้กดใหม่ ข้อมูลในฟอร์มคงไว้"
+    },
+    "unauthorized": {
+      "occurs": true,
+      "text": "ผู้ที่ยังไม่เข้าสู่ระบบถูกพาไปหน้าขอรหัสเข้าสู่ระบบ"
+    },
+    "overflow": {
+      "occurs": true,
+      "text": "หัวข้อเกิน 200 ตัวอักษรไม่รับ · ผู้เข้าร่วมเกินความจุห้อง — แสดงคำเตือนแต่ยังบันทึกได้ (req ไม่มีกฎห้าม)"
+    }
+  },
+  "extensions": {}
+}

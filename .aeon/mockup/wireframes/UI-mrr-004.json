@@ -1,0 +1,299 @@
+{
+  "schemaVersion": "1.4",
+  "producedBy": "mock · scripts/wireframes.mjs",
+  "project": "mrr",
+  "id": "MCK-mrr-003",
+  "screen": "UI-mrr-004",
+  "title": "ค้นหาห้องว่าง",
+  "purpose": "หาห้องที่ว่างและรองรับจำนวนคนในช่วงเวลาที่ต้องการ แล้วเลือกไปจอง",
+  "level": "L1",
+  "layout": "rows",
+  "kind": "list",
+  "visibleTo": [
+    "ROLE-001",
+    "ROLE-002",
+    "ROLE-003"
+  ],
+  "zones": [
+    {
+      "name": "header",
+      "kind": "header",
+      "kindSource": "derived",
+      "source": "mock",
+      "items": [
+        {
+          "type": "title",
+          "text": "ค้นหาห้องว่าง"
+        }
+      ]
+    },
+    {
+      "name": "search-form",
+      "kind": "form",
+      "kindSource": "derived",
+      "source": "design",
+      "items": [
+        {
+          "type": "field",
+          "name": "วันที่",
+          "required": true,
+          "entity": null,
+          "attribute": null,
+          "validation": "วันที่วันนี้หรืออนาคต",
+          "rules": [],
+          "visibleTo": [
+            "ROLE-001",
+            "ROLE-002",
+            "ROLE-003"
+          ],
+          "input": true
+        },
+        {
+          "type": "field",
+          "name": "เวลาเริ่ม",
+          "required": true,
+          "entity": null,
+          "attribute": null,
+          "validation": "รูปแบบ HH:MM",
+          "rules": [],
+          "visibleTo": [
+            "ROLE-001",
+            "ROLE-002",
+            "ROLE-003"
+          ],
+          "input": true
+        },
+        {
+          "type": "field",
+          "name": "เวลาสิ้นสุด",
+          "required": true,
+          "entity": null,
+          "attribute": null,
+          "validation": "ต้องหลังเวลาเริ่ม",
+          "rules": [],
+          "visibleTo": [
+            "ROLE-001",
+            "ROLE-002",
+            "ROLE-003"
+          ],
+          "input": true
+        },
+        {
+          "type": "field",
+          "name": "จำนวนผู้เข้าร่วม",
+          "required": true,
+          "entity": null,
+          "attribute": null,
+          "validation": "จำนวนเต็ม ≥ 1",
+          "rules": [],
+          "visibleTo": [
+            "ROLE-001",
+            "ROLE-002",
+            "ROLE-003"
+          ],
+          "input": true
+        },
+        {
+          "type": "field",
+          "name": "สิ่งอำนวยความสะดวก",
+          "required": false,
+          "entity": "ENT-004",
+          "attribute": "name",
+          "validation": "เลือกได้หลายรายการจาก Facility ที่ active",
+          "rules": [],
+          "visibleTo": [
+            "ROLE-001",
+            "ROLE-002",
+            "ROLE-003"
+          ],
+          "input": true
+        },
+        {
+          "type": "action",
+          "key": "search",
+          "name": "ค้นหา",
+          "kind": "filter",
+          "presentation": "text",
+          "placement": "search-form",
+          "container": "inline",
+          "accessibleName": "ค้นหา",
+          "conventions": [],
+          "destination": "อยู่ที่หน้าเดิม",
+          "rules": [
+            "BR-mrr-001@v1",
+            "BR-mrr-012@v1"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "results",
+      "kind": "columns",
+      "kindSource": "derived",
+      "source": "design",
+      "items": [
+        {
+          "type": "field",
+          "name": "ชื่อห้อง",
+          "required": true,
+          "entity": "ENT-003",
+          "attribute": "name",
+          "validation": "จากเวอร์ชันปัจจุบันของห้อง",
+          "rules": [],
+          "visibleTo": [
+            "ROLE-001",
+            "ROLE-002",
+            "ROLE-003"
+          ],
+          "input": false
+        },
+        {
+          "type": "field",
+          "name": "ความจุ",
+          "required": true,
+          "entity": "ENT-003",
+          "attribute": "capacity",
+          "validation": "จำนวนคน",
+          "rules": [],
+          "visibleTo": [
+            "ROLE-001",
+            "ROLE-002",
+            "ROLE-003"
+          ],
+          "input": false
+        },
+        {
+          "type": "field",
+          "name": "ต้องอนุมัติ",
+          "required": true,
+          "entity": "ENT-003",
+          "attribute": "requiresApproval",
+          "validation": "แสดงว่าห้องนี้ต้องรออนุมัติหรือไม่",
+          "rules": [
+            "BR-mrr-004@v1"
+          ],
+          "visibleTo": [
+            "ROLE-001",
+            "ROLE-002",
+            "ROLE-003"
+          ],
+          "input": false
+        },
+        {
+          "type": "action",
+          "key": "view-calendar",
+          "name": "ดูปฏิทินห้อง",
+          "kind": "navigate",
+          "presentation": "text",
+          "placement": "results",
+          "container": "navigate",
+          "accessibleName": "ดูปฏิทินห้อง",
+          "conventions": [],
+          "destination": "หน้าปฏิทินห้อง",
+          "rules": []
+        },
+        {
+          "type": "action",
+          "key": "book",
+          "name": "จองห้องนี้",
+          "kind": "navigate",
+          "presentation": "text",
+          "placement": "results",
+          "container": "navigate",
+          "accessibleName": "จองห้องนี้",
+          "conventions": [],
+          "destination": "หน้าจองห้องประชุม",
+          "rules": []
+        }
+      ]
+    }
+  ],
+  "controls": [
+    {
+      "id": "ui-mrr-004-search-date",
+      "type": "field",
+      "key": "search-date",
+      "name": "วันที่"
+    },
+    {
+      "id": "ui-mrr-004-search-start-time",
+      "type": "field",
+      "key": "search-start-time",
+      "name": "เวลาเริ่ม"
+    },
+    {
+      "id": "ui-mrr-004-search-end-time",
+      "type": "field",
+      "key": "search-end-time",
+      "name": "เวลาสิ้นสุด"
+    },
+    {
+      "id": "ui-mrr-004-attendee-count",
+      "type": "field",
+      "key": "attendee-count",
+      "name": "จำนวนผู้เข้าร่วม"
+    },
+    {
+      "id": "ui-mrr-004-ent-004-name",
+      "type": "field",
+      "key": "ent-004-name",
+      "name": "สิ่งอำนวยความสะดวก"
+    },
+    {
+      "id": "ui-mrr-004-search",
+      "type": "action",
+      "key": "search"
+    },
+    {
+      "id": "ui-mrr-004-ent-003-name",
+      "type": "field",
+      "key": "ent-003-name",
+      "name": "ชื่อห้อง"
+    },
+    {
+      "id": "ui-mrr-004-ent-003-capacity",
+      "type": "field",
+      "key": "ent-003-capacity",
+      "name": "ความจุ"
+    },
+    {
+      "id": "ui-mrr-004-ent-003-requires-approval",
+      "type": "field",
+      "key": "ent-003-requires-approval",
+      "name": "ต้องอนุมัติ"
+    },
+    {
+      "id": "ui-mrr-004-view-calendar",
+      "type": "action",
+      "key": "view-calendar"
+    },
+    {
+      "id": "ui-mrr-004-book",
+      "type": "action",
+      "key": "book"
+    }
+  ],
+  "states": {
+    "empty": {
+      "occurs": true,
+      "text": "ไม่พบห้องว่างตามเงื่อนไข — แสดง 'ไม่พบห้องว่าง' และแนะนำให้เปลี่ยนเวลา จำนวนคน หรือตัวกรอง"
+    },
+    "loading": {
+      "occurs": true,
+      "text": "แสดงตัวบอกกำลังค้นหาแทนรายการ เงื่อนไขค้นหายังแก้ได้"
+    },
+    "error": {
+      "occurs": true,
+      "text": "ค้นหาไม่สำเร็จ — แจ้งข้อผิดพลาดและให้กดค้นหาอีกครั้ง"
+    },
+    "unauthorized": {
+      "occurs": true,
+      "text": "ผู้ที่ยังไม่เข้าสู่ระบบถูกพาไปหน้าขอรหัสเข้าสู่ระบบ"
+    },
+    "overflow": {
+      "occurs": true,
+      "text": "ผลมากกว่า 20 ห้อง — แบ่งหน้า 20 ห้องต่อหน้า · ชื่อห้องยาวเกิน 1 บรรทัดตัดด้วย … และแสดงเต็มเมื่อชี้"
+    }
+  },
+  "extensions": {}
+}

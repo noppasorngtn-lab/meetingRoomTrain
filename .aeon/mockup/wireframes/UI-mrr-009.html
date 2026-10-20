@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="th">
+<head><meta charset="utf-8"><title>รายการรออนุมัติ — UI-mrr-009 · wireframe L1</title></head>
+<body>
+<main data-screen="UI-mrr-009" data-mockup="MCK-mrr-008" data-layout="rows">
+<header><h1>รายการรออนุมัติ</h1><p>Room Administrator ดูการจองที่รออนุมัติแล้วอนุมัติหรือปฏิเสธ</p><p><small>visible to: ROLE-002 (ผู้ดูแลระบบห้องประชุม (Room Administrator))</small></p></header>
+<table data-zone="queue" data-source="design"><caption>rows — sample row shows the bound column, not data</caption><thead><tr><th>ห้อง</th><th>ช่วงเวลา</th><th>หัวข้อ</th><th>ผู้จอง</th><th>ผู้อนุมัติประจำห้อง</th><th>actions</th></tr></thead><tbody><tr><td data-testid="ui-mrr-009-ent-007-room">ENT-007.room</td><td data-testid="ui-mrr-009-ent-007-start-at">ENT-007.startAt</td><td data-testid="ui-mrr-009-ent-007-title">ENT-007.title</td><td data-testid="ui-mrr-009-ent-007-booked-by">ENT-007.bookedBy</td><td data-testid="ui-mrr-009-ent-003-approver">ENT-003.approver</td><td><button type="button" data-testid="ui-mrr-009-approve" data-key="approve" data-kind="command" data-presentation="text" data-placement="first-column" data-container="inline">อนุมัติ</button> <button type="button" data-testid="ui-mrr-009-reject" data-key="reject" data-kind="command" data-presentation="text" data-placement="first-column" data-container="inline">ปฏิเสธ</button> <button type="button" data-testid="ui-mrr-009-manage" data-key="manage" data-kind="navigate" data-presentation="text" data-placement="queue" data-container="navigate">จัดการการจอง</button></td></tr></tbody></table>
+<section aria-label="states"><h2>states</h2><dl><dt>empty</dt><dd>ไม่มีการจองรออนุมัติ — แสดง 'ไม่มีรายการรออนุมัติ'</dd><dt>loading</dt><dd>แสดงตัวบอกกำลังโหลดแทนรายการ</dd><dt>error</dt><dd>โหลดไม่สำเร็จ — ปุ่มโหลดใหม่ · อนุมัติไม่สำเร็จเพราะ Email — 'ส่ง Email แจ้งเตือนไม่สำเร็จ กรุณากดใหม่อีกครั้ง'</dd><dt>unauthorized</dt><dd>ไม่ใช่ Room Administrator — แสดง 'คุณไม่มีสิทธิ์เข้าหน้านี้' · ห้องที่มีผู้อนุมัติประจำห้องเป็นคนอื่น — ปุ่มอนุมัติ/ปฏิเสธถูกปิดและ API ปฏิเสธ</dd><dt>overflow</dt><dd>มากกว่า 20 รายการ — แบ่งหน้า เรียงตามเวลาเริ่มที่ใกล้ที่สุดก่อน</dd></dl></section>
+<footer><small>MCK-mrr-008 · wireframe L1 of UI-mrr-009 · structure only, no style — a theme is applied at L2 (/mock:html)</small></footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,419 @@
+{
+  "schemaVersion": "1.0",
+  "producedBy": "design · scripts/interfaces.mjs",
+  "project": "mrr",
+  "status": "approved",
+  "approvedAt": "2026-10-19T07:59:59Z",
+  "approvedBy": "Noppasorn",
+  "integrations": [
+    {
+      "id": "INT-001",
+      "name": "ระบบส่ง Email",
+      "party": "ฝ่ายไอทีขององค์กรผู้ดูแล mail server (หรือผู้ให้บริการส่ง Email ภายนอก ถ้า DEC-005 เลือกทางนั้น)",
+      "direction": "outbound",
+      "protocol": "SMTP ผ่าน TLS (STARTTLS พอร์ต 587) — ถ้า DEC-005 เลือกบริการภายนอกจะเปลี่ยนเป็น HTTPS API ของผู้ให้บริการ",
+      "auth": {
+        "required": true,
+        "method": "SMTP AUTH (บัญชีบริการของระบบ)",
+        "detail": "ชื่อผู้ใช้และรหัสผ่านของบัญชีบริการเก็บใน secret ของเซิร์ฟเวอร์ ไม่อยู่ในโค้ด"
+      },
+      "failure": {
+        "detect": "การเชื่อมต่อหรือคำสั่งส่งไม่สำเร็จภายใน 10 วินาที หรือ mail server ตอบรหัสผิดพลาด (4xx/5xx)",
+        "behaviour": "การกระทำของผู้ใช้ที่ต้องแจ้ง Email ล้มทั้งรายการและไม่บันทึกข้อมูล ไม่มีคิวส่งซ้ำ (BR-mrr-019@v1) · งานเตือนก่อนเริ่มบันทึก reminderStatus = FAILED และไม่ส่งซ้ำ (BR-mrr-020@v1) · งานยกเลิกการจองค้างอนุมัติยังไม่ยกเลิก รอรอบถัดไป (BR-mrr-016@v1) · ขอรหัสเข้าสู่ระบบไม่ได้",
+        "userVisible": "ผู้ใช้เห็น 'ส่ง Email แจ้งเตือนไม่สำเร็จ กรุณากดใหม่อีกครั้ง' และข้อมูลในฟอร์มคงไว้ให้กดใหม่ · หน้าขอรหัสแสดง 'ส่งรหัสไม่สำเร็จ กรุณาลองใหม่อีกครั้ง' · งานตามเวลาไม่มีผู้ใช้เห็นทันที",
+        "recovery": "ไม่มีรายการค้างส่งให้กู้ เพราะการกระทำที่ล้มไม่ถูกบันทึก ผู้ใช้กดใหม่เอง · Email เตือนที่ FAILED ไม่ถูกส่งย้อนหลังตามกฎ · การจองค้างอนุมัติถูกงานรอบถัดไปจัดการต่อเมื่อ mail server กลับมา"
+      }
+    }
+  ],
+  "endpoints": [
+    {
+      "id": "API-001",
+      "name": "ค้นหาห้องว่าง",
+      "operation": "GET /rooms/available?date={d}&start={t}&end={t}&attendees={n}&facilities={ids}",
+      "purpose": "รายการห้อง ACTIVE ที่ความจุพอและไม่มีการจองทับช่วงเวลา"
+    },
+    {
+      "id": "API-002",
+      "name": "รายการสิ่งอำนวยความสะดวก",
+      "operation": "GET /facilities?active=true",
+      "purpose": "ตัวเลือกสิ่งอำนวยความสะดวกสำหรับตัวกรองและฟอร์ม"
+    },
+    {
+      "id": "API-003",
+      "name": "ปฏิทินห้อง",
+      "operation": "GET /rooms/{id}/calendar?view={day|week|month}&date={d}",
+      "purpose": "ช่วงที่ถูกจองของห้อง พร้อมรายละเอียดเฉพาะการจองที่ผู้เรียกเป็นผู้จองหรือผู้เข้าร่วม"
+    },
+    {
+      "id": "API-004",
+      "name": "สร้างการจอง",
+      "operation": "POST /bookings",
+      "purpose": "สร้างการจองหลังตรวจการจองทับ และส่ง Email แจ้งผู้จอง"
+    },
+    {
+      "id": "API-005",
+      "name": "ค้นหาผู้ใช้",
+      "operation": "GET /users?query={text}",
+      "purpose": "รายชื่อผู้ใช้ active สำหรับเลือกผู้เข้าร่วมหรือผู้อนุมัติประจำห้อง"
+    },
+    {
+      "id": "API-006",
+      "name": "การจองของฉัน",
+      "operation": "GET /me/bookings?page={n}",
+      "purpose": "รายการการจองที่ผู้เรียกเป็นผู้จอง"
+    },
+    {
+      "id": "API-007",
+      "name": "รายละเอียดการจอง",
+      "operation": "GET /bookings/{id}",
+      "purpose": "ข้อมูลการจองหนึ่งรายการตามสิทธิ์ของผู้เรียก"
+    },
+    {
+      "id": "API-008",
+      "name": "แก้ไขการจองของตนเอง",
+      "operation": "PATCH /bookings/{id}",
+      "purpose": "บันทึกการแก้ไขของผู้จองก่อนเวลาเริ่ม และส่ง Email เมื่อเปลี่ยนเวลา"
+    },
+    {
+      "id": "API-009",
+      "name": "ยกเลิกการจองของตนเอง",
+      "operation": "POST /bookings/{id}/cancel",
+      "purpose": "ยกเลิกก่อนเวลาเริ่ม ปล่อยช่วงเวลาคืน และส่ง Email"
+    },
+    {
+      "id": "API-010",
+      "name": "รายการรออนุมัติ",
+      "operation": "GET /bookings?status=PENDING_APPROVAL&page={n}",
+      "purpose": "การจองที่รออนุมัติสำหรับ Room Administrator"
+    },
+    {
+      "id": "API-011",
+      "name": "อนุมัติการจอง",
+      "operation": "POST /bookings/{id}/approve",
+      "purpose": "เปลี่ยนเป็น APPROVED บันทึกร่องรอย และส่ง Email ถึงผู้จอง"
+    },
+    {
+      "id": "API-012",
+      "name": "ปฏิเสธการจอง",
+      "operation": "POST /bookings/{id}/reject",
+      "purpose": "เปลี่ยนเป็น REJECTED บันทึกร่องรอย และปล่อยช่วงเวลาคืน"
+    },
+    {
+      "id": "API-013",
+      "name": "เปลี่ยนผลการอนุมัติ",
+      "operation": "POST /bookings/{id}/decision",
+      "purpose": "อนุมัติ ↔ ปฏิเสธ พร้อมเหตุผล ก่อนเวลาเริ่ม"
+    },
+    {
+      "id": "API-014",
+      "name": "แก้แทนผู้จอง",
+      "operation": "POST /bookings/{id}/admin-edit",
+      "purpose": "หลังเวลาเริ่มแก้ตรงพร้อมเหตุผล · หลังเวลาจบสร้างคำขอแก้ไข"
+    },
+    {
+      "id": "API-015",
+      "name": "ยกเลิกแทนผู้จอง",
+      "operation": "POST /bookings/{id}/admin-cancel",
+      "purpose": "ยกเลิกพร้อมเหตุผล บันทึกร่องรอย และส่ง Email ถึงผู้จองและผู้เข้าร่วม"
+    },
+    {
+      "id": "API-016",
+      "name": "ร่องรอยการจอง",
+      "operation": "GET /bookings/{id}/audit",
+      "purpose": "รายการการกระทำของ Room Administrator ต่อการจอง"
+    },
+    {
+      "id": "API-017",
+      "name": "รายการคำขอแก้ไข",
+      "operation": "GET /adjustment-requests?status=PENDING&page={n}",
+      "purpose": "คำขอแก้ไขการจองที่รออนุมัติ"
+    },
+    {
+      "id": "API-018",
+      "name": "อนุมัติคำขอแก้ไข",
+      "operation": "POST /adjustment-requests/{id}/approve",
+      "purpose": "ค่าใหม่มีผลกับการจอง — ผู้สร้างคำขออนุมัติเองไม่ได้"
+    },
+    {
+      "id": "API-019",
+      "name": "ปฏิเสธคำขอแก้ไข",
+      "operation": "POST /adjustment-requests/{id}/reject",
+      "purpose": "ค่าเดิมคงไว้"
+    },
+    {
+      "id": "API-020",
+      "name": "รายการห้อง",
+      "operation": "GET /rooms?status={s}&query={text}&page={n}",
+      "purpose": "ห้องทั้งหมดพร้อมสถานะสำหรับ Room Administrator"
+    },
+    {
+      "id": "API-021",
+      "name": "เพิ่มห้อง",
+      "operation": "POST /rooms",
+      "purpose": "สร้างห้องใหม่พร้อมเวอร์ชันที่ 1"
+    },
+    {
+      "id": "API-022",
+      "name": "ข้อมูลห้อง",
+      "operation": "GET /rooms/{id}",
+      "purpose": "ข้อมูลห้องพร้อมเวอร์ชันปัจจุบัน"
+    },
+    {
+      "id": "API-023",
+      "name": "บันทึกเวอร์ชันใหม่ของห้อง",
+      "operation": "POST /rooms/{id}/versions",
+      "purpose": "สร้างเวอร์ชันใหม่ และปรับสถานะการจองที่ยังไม่ถึงเวลาเริ่มตามค่าตั้งการอนุมัติ"
+    },
+    {
+      "id": "API-024",
+      "name": "ปิดปรับปรุง / เปิดใช้งานห้อง",
+      "operation": "POST /rooms/{id}/maintenance",
+      "purpose": "สลับ ACTIVE ↔ UNDER_MAINTENANCE และบันทึกช่วงปิดปรับปรุง"
+    },
+    {
+      "id": "API-025",
+      "name": "ลบห้อง",
+      "operation": "POST /rooms/{id}/archive",
+      "purpose": "เปลี่ยนห้องเป็น ARCHIVED ถาวร"
+    },
+    {
+      "id": "API-026",
+      "name": "เพิ่มสิ่งอำนวยความสะดวก",
+      "operation": "POST /facilities",
+      "purpose": "สร้างรายการใหม่"
+    },
+    {
+      "id": "API-027",
+      "name": "แก้สิ่งอำนวยความสะดวก",
+      "operation": "PATCH /facilities/{id}",
+      "purpose": "แก้ชื่อหรือสถานะใช้งาน"
+    },
+    {
+      "id": "API-028",
+      "name": "ออกรายงานการใช้ห้อง",
+      "operation": "POST /reports/utilization",
+      "purpose": "คำนวณจากข้อมูลล่าสุดและบันทึกเป็นฉบับใหม่ของช่วงนั้น"
+    },
+    {
+      "id": "API-029",
+      "name": "ดูรายงานการใช้ห้อง",
+      "operation": "GET /reports/utilization?periodType={MONTH|YEAR}&periodStart={d}&issueNo={n}",
+      "purpose": "ฉบับที่ระบุพร้อมบรรทัดรายห้อง ตามค่าที่ออกไว้"
+    },
+    {
+      "id": "API-030",
+      "name": "ส่งออกรายงาน",
+      "operation": "GET /reports/utilization/{id}/export",
+      "purpose": "ไฟล์ของรายงานฉบับที่ระบุ"
+    },
+    {
+      "id": "API-031",
+      "name": "ขอรหัสเข้าสู่ระบบ",
+      "operation": "POST /auth/otp/request",
+      "purpose": "รับ Email องค์กร ถ้าเป็น User ที่ active ส่งรหัส OTP 6 หลักพร้อม magic link อายุ 10 นาทีทาง Email และยกเลิกรหัสเดิมที่ยังไม่ถูกใช้ · ตอบข้อความเดียวกันทุกกรณีไม่ว่า Email มีในรายชื่อหรือไม่"
+    },
+    {
+      "id": "API-032",
+      "name": "ยืนยันรหัสเข้าสู่ระบบ",
+      "operation": "POST /auth/otp/verify",
+      "purpose": "ตรวจรหัสกับ Email ที่ขอ ถ้าถูกต้อง ยังไม่หมดอายุ และยังไม่ถูกใช้ สร้าง session ตามบทบาทของ User และทำให้รหัสนั้นใช้ไม่ได้อีก"
+    },
+    {
+      "id": "API-033",
+      "name": "เข้าสู่ระบบด้วย magic link",
+      "operation": "GET /auth/magic-link?token={t}",
+      "purpose": "ตรวจ token จาก Email ด้วยเงื่อนไขเดียวกับรหัส OTP ถ้าผ่าน สร้าง session และพาไปหน้าค้นหาห้องว่าง · token ใช้ได้ครั้งเดียว"
+    },
+    {
+      "id": "API-034",
+      "name": "ออกจากระบบ",
+      "operation": "POST /auth/logout",
+      "purpose": "ยกเลิก session ของผู้เรียก · ผู้ที่ไม่มี session ได้คำตอบสำเร็จเหมือนกัน"
+    }
+  ],
+  "ruleEnforcement": [
+    {
+      "rule": "BR-mrr-001@v1",
+      "enforceAt": [
+        "db",
+        "domain",
+        "api"
+      ],
+      "note": "exclusion constraint บน (room, ช่วงเวลา [เริ่ม, จบ)) สำหรับสถานะที่กันช่วงเวลา (DQ-mrr-006) · domain ตรวจก่อนบันทึกเพื่อให้ข้อความถูกต้อง"
+    },
+    {
+      "rule": "BR-mrr-002@v1",
+      "enforceAt": [
+        "ui",
+        "api",
+        "domain"
+      ],
+      "note": "ui ชี้ช่องที่ขาดก่อนส่ง · api/domain ปฏิเสธเมื่อหัวข้อว่างหรือไม่มีผู้เข้าร่วม"
+    },
+    {
+      "rule": "BR-mrr-003@v1",
+      "enforceAt": [
+        "api",
+        "domain"
+      ],
+      "note": "ตรวจว่า bookedBy = ผู้เรียก ก่อนแก้ไข ยกเลิก หรือแสดงในการจองของฉัน"
+    },
+    {
+      "rule": "BR-mrr-004@v1",
+      "enforceAt": [
+        "domain"
+      ],
+      "note": "สถานะเริ่มต้นและการอนุมัติตาม requiresApproval ของเวอร์ชันห้อง"
+    },
+    {
+      "rule": "BR-mrr-005@v1",
+      "enforceAt": [
+        "api",
+        "domain"
+      ],
+      "note": "เฉพาะ ROLE-002 ตามตารางสิทธิ์"
+    },
+    {
+      "rule": "BR-mrr-006@v1",
+      "enforceAt": [
+        "domain"
+      ],
+      "note": "คำนวณตาม CALC-mrr-001@v1 นับเฉพาะ CONFIRMED และ APPROVED"
+    },
+    {
+      "rule": "BR-mrr-007@v1",
+      "enforceAt": [
+        "domain"
+      ],
+      "note": "domain ตัดสินว่าเหตุการณ์ใดส่ง Email ถึงใคร และใช้รูปแบบหัวเรื่องตามกฎ"
+    },
+    {
+      "rule": "BR-mrr-008@v1",
+      "enforceAt": [
+        "domain"
+      ],
+      "note": "งานตามเวลาเลือกการจองที่จะเริ่มใน 15 นาที · การจองใหม่ที่เหลือน้อยกว่า 15 นาทีส่งทันที"
+    },
+    {
+      "rule": "BR-mrr-009@v1",
+      "enforceAt": [
+        "api",
+        "domain"
+      ],
+      "note": "ปฏิเสธการแก้/ยกเลิกของผู้จองเมื่อเวลาปัจจุบัน ≥ startAt · การทำแทนต้องมีเหตุผล"
+    },
+    {
+      "rule": "BR-mrr-010@v2",
+      "enforceAt": [
+        "domain"
+      ],
+      "note": "เมื่อบันทึกเวอร์ชันห้องใหม่ ปรับสถานะการจองที่ startAt > เวลาปัจจุบัน ในธุรกรรมเดียวกัน"
+    },
+    {
+      "rule": "BR-mrr-011@v1",
+      "enforceAt": [
+        "api",
+        "domain"
+      ],
+      "note": "เปลี่ยนผลได้เฉพาะก่อน startAt และต้องมีเหตุผล"
+    },
+    {
+      "rule": "BR-mrr-012@v1",
+      "enforceAt": [
+        "domain",
+        "api"
+      ],
+      "note": "ไม่รับการจองใหม่หรือการเปลี่ยนเวลาเมื่อห้องไม่ ACTIVE"
+    },
+    {
+      "rule": "BR-mrr-013@v1",
+      "enforceAt": [
+        "domain"
+      ],
+      "note": "ถ้าห้องกำหนดผู้อนุมัติ ต้องเป็นผู้เรียกเท่านั้น"
+    },
+    {
+      "rule": "BR-mrr-014@v1",
+      "enforceAt": [
+        "domain"
+      ],
+      "note": "หลัง endAt การแก้สร้าง BookingAdjustmentRequest และผู้อนุมัติต้องไม่ใช่ requestedBy"
+    },
+    {
+      "rule": "BR-mrr-015@v1",
+      "enforceAt": [
+        "db",
+        "domain"
+      ],
+      "note": "UtilizationReport และบรรทัดเป็น insert-only (สิทธิ์ DB ไม่ให้ UPDATE) · ออกใหม่เป็น issueNo ถัดไป"
+    },
+    {
+      "rule": "BR-mrr-016@v1",
+      "enforceAt": [
+        "domain"
+      ],
+      "note": "งานตามเวลายกเลิกเมื่อถึง startAt และส่ง Email สำเร็จเท่านั้น"
+    },
+    {
+      "rule": "BR-mrr-017@v1",
+      "enforceAt": [
+        "domain",
+        "db"
+      ],
+      "note": "domain เขียน BookingAuditEntry ในธุรกรรมเดียวกับการกระทำ · ตารางเป็น insert-only"
+    },
+    {
+      "rule": "BR-mrr-018@v1",
+      "enforceAt": [
+        "api",
+        "domain"
+      ],
+      "note": "เฉพาะ ROLE-002 และ ROLE-003"
+    },
+    {
+      "rule": "BR-mrr-019@v1",
+      "enforceAt": [
+        "domain"
+      ],
+      "note": "ส่ง Email ก่อน commit ธุรกรรม — ส่งไม่สำเร็จ rollback ทั้งรายการ (ประเด็นขอบเขตธุรกรรมยังเปิดที่ DQ-mrr-005)"
+    },
+    {
+      "rule": "BR-mrr-020@v1",
+      "enforceAt": [
+        "domain"
+      ],
+      "note": "บันทึก reminderStatus = FAILED และงานรอบถัดไปข้ามสถานะนี้"
+    },
+    {
+      "rule": "BR-mrr-021@v1",
+      "enforceAt": [
+        "api",
+        "domain"
+      ],
+      "note": "API ปฏิทินตัดฟิลด์รายละเอียดออกจากการจองที่ผู้เรียกไม่ได้เป็นผู้จองหรือผู้เข้าร่วม — ไม่พึ่งการซ่อนที่หน้าจอ"
+    },
+    {
+      "rule": "BR-mrr-022@v1",
+      "enforceAt": [
+        "api",
+        "domain"
+      ],
+      "note": "เฉพาะ ROLE-002"
+    },
+    {
+      "rule": "BR-mrr-023@v1",
+      "enforceAt": [
+        "domain",
+        "db"
+      ],
+      "note": "เปลี่ยน reminderStatus จาก NOT_SENT แบบมีเงื่อนไข (update … where reminderStatus = NOT_SENT) กันงานที่รันซ้อนกัน"
+    },
+    {
+      "rule": "CALC-mrr-001@v1",
+      "enforceAt": [
+        "domain"
+      ],
+      "note": "คำนวณด้วย decimal ปัด HALF_UP 2 ตำแหน่ง เก็บ decimal(5,2)"
+    }
+  ]
+}

@@ -1,0 +1,240 @@
+{
+  "schemaVersion": "1.4",
+  "producedBy": "mock · scripts/wireframes.mjs",
+  "project": "mrr",
+  "id": "MCK-mrr-007",
+  "screen": "UI-mrr-008",
+  "title": "แก้ไขการจอง",
+  "purpose": "ผู้จองแก้เวลา หัวข้อ ผู้เข้าร่วม หรืออุปกรณ์เสริมของการจองตนเองก่อนเวลาเริ่ม",
+  "level": "L1",
+  "layout": "form",
+  "kind": "edit",
+  "visibleTo": [
+    "ROLE-001",
+    "ROLE-002",
+    "ROLE-003"
+  ],
+  "zones": [
+    {
+      "name": "header",
+      "kind": "header",
+      "kindSource": "derived",
+      "source": "mock",
+      "items": [
+        {
+          "type": "title",
+          "text": "แก้ไขการจอง"
+        }
+      ]
+    },
+    {
+      "name": "form",
+      "kind": "form",
+      "kindSource": "derived",
+      "source": "design",
+      "items": [
+        {
+          "type": "field",
+          "name": "เวลาเริ่ม",
+          "required": true,
+          "entity": "ENT-007",
+          "attribute": "startAt",
+          "validation": "ไม่ทับการจองอื่น และห้องต้องไม่ปิดปรับปรุงเมื่อเปลี่ยนเวลา",
+          "rules": [
+            "BR-mrr-001@v1",
+            "BR-mrr-012@v1"
+          ],
+          "visibleTo": [
+            "ROLE-001",
+            "ROLE-002",
+            "ROLE-003"
+          ],
+          "input": true
+        },
+        {
+          "type": "field",
+          "name": "เวลาสิ้นสุด",
+          "required": true,
+          "entity": "ENT-007",
+          "attribute": "endAt",
+          "validation": "ต้องหลังเวลาเริ่ม",
+          "rules": [
+            "BR-mrr-001@v1"
+          ],
+          "visibleTo": [
+            "ROLE-001",
+            "ROLE-002",
+            "ROLE-003"
+          ],
+          "input": true
+        },
+        {
+          "type": "field",
+          "name": "หัวข้อการประชุม",
+          "required": true,
+          "entity": "ENT-007",
+          "attribute": "title",
+          "validation": "ห้ามว่าง ไม่เกิน 200 ตัวอักษร",
+          "rules": [
+            "BR-mrr-002@v1"
+          ],
+          "visibleTo": [
+            "ROLE-001",
+            "ROLE-002",
+            "ROLE-003"
+          ],
+          "input": true
+        },
+        {
+          "type": "field",
+          "name": "ผู้เข้าร่วม",
+          "required": true,
+          "entity": "ENT-008",
+          "attribute": "user",
+          "validation": "อย่างน้อย 1 คน",
+          "rules": [
+            "BR-mrr-002@v1"
+          ],
+          "visibleTo": [
+            "ROLE-001",
+            "ROLE-002",
+            "ROLE-003"
+          ],
+          "input": true
+        },
+        {
+          "type": "field",
+          "name": "อุปกรณ์เสริม",
+          "required": false,
+          "entity": "ENT-009",
+          "attribute": "facility",
+          "validation": "ไม่บังคับ",
+          "rules": [],
+          "visibleTo": [
+            "ROLE-001",
+            "ROLE-002",
+            "ROLE-003"
+          ],
+          "input": true
+        },
+        {
+          "type": "field",
+          "name": "สถานะ",
+          "required": true,
+          "entity": "ENT-007",
+          "attribute": "status",
+          "validation": "สถานะปัจจุบันของการจอง",
+          "rules": [],
+          "visibleTo": [
+            "ROLE-001",
+            "ROLE-002",
+            "ROLE-003"
+          ],
+          "input": false
+        },
+        {
+          "type": "action",
+          "key": "save",
+          "name": "บันทึก",
+          "kind": "edit",
+          "presentation": "text",
+          "placement": "form",
+          "container": "navigate",
+          "accessibleName": "บันทึก",
+          "conventions": [],
+          "destination": "หน้าการจองของฉัน",
+          "rules": [
+            "BR-mrr-003@v1",
+            "BR-mrr-009@v1",
+            "BR-mrr-007@v1",
+            "BR-mrr-019@v1"
+          ]
+        },
+        {
+          "type": "action",
+          "key": "back",
+          "name": "กลับ",
+          "kind": "navigate",
+          "presentation": "text",
+          "placement": "form",
+          "container": "navigate",
+          "accessibleName": "กลับ",
+          "conventions": [],
+          "destination": "หน้าการจองของฉัน",
+          "rules": []
+        }
+      ]
+    }
+  ],
+  "controls": [
+    {
+      "id": "ui-mrr-008-ent-007-start-at",
+      "type": "field",
+      "key": "ent-007-start-at",
+      "name": "เวลาเริ่ม"
+    },
+    {
+      "id": "ui-mrr-008-ent-007-end-at",
+      "type": "field",
+      "key": "ent-007-end-at",
+      "name": "เวลาสิ้นสุด"
+    },
+    {
+      "id": "ui-mrr-008-ent-007-title",
+      "type": "field",
+      "key": "ent-007-title",
+      "name": "หัวข้อการประชุม"
+    },
+    {
+      "id": "ui-mrr-008-ent-008-user",
+      "type": "field",
+      "key": "ent-008-user",
+      "name": "ผู้เข้าร่วม"
+    },
+    {
+      "id": "ui-mrr-008-ent-009-facility",
+      "type": "field",
+      "key": "ent-009-facility",
+      "name": "อุปกรณ์เสริม"
+    },
+    {
+      "id": "ui-mrr-008-ent-007-status",
+      "type": "field",
+      "key": "ent-007-status",
+      "name": "สถานะ"
+    },
+    {
+      "id": "ui-mrr-008-save",
+      "type": "action",
+      "key": "save"
+    },
+    {
+      "id": "ui-mrr-008-back",
+      "type": "action",
+      "key": "back"
+    }
+  ],
+  "states": {
+    "empty": {
+      "occurs": false,
+      "text": "ไม่เกิด — หน้านี้เปิดจากการจองที่มีอยู่เสมอ"
+    },
+    "loading": {
+      "occurs": true,
+      "text": "ปุ่มบันทึกถูกปิดระหว่างบันทึกและส่ง Email"
+    },
+    "error": {
+      "occurs": true,
+      "text": "เวลาใหม่ไม่ว่าง ห้องปิดปรับปรุง หรือส่ง Email ไม่สำเร็จ — แจ้งเหตุ การจองคงค่าเดิม"
+    },
+    "unauthorized": {
+      "occurs": true,
+      "text": "ไม่ใช่ผู้จอง หรือถึงเวลาเริ่มแล้ว — แสดง 'แก้ไขการจองนี้ไม่ได้' และไม่แสดงฟอร์ม"
+    },
+    "overflow": {
+      "occurs": true,
+      "text": "หัวข้อเกิน 200 ตัวอักษรไม่รับ"
+    }
+  },
+  "extensions": {}
+}

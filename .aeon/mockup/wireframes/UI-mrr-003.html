@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="th">
+<head><meta charset="utf-8"><title>ออกจากระบบ — UI-mrr-003 · wireframe L1</title></head>
+<body>
+<main data-screen="UI-mrr-003" data-mockup="MCK-mrr-015" data-layout="form">
+<header><h1>ออกจากระบบ</h1><p>ยืนยันกับผู้ใช้ว่าออกจากระบบแล้ว และ session ถูกยกเลิก</p><p><small>visible to: ROLE-001 (ผู้ใช้งานทั่วไป (General User)), ROLE-002 (ผู้ดูแลระบบห้องประชุม (Room Administrator)), ROLE-003 (ผู้ดูแลระบบไอที (System Administrator))</small></p></header>
+<form data-zone="message" data-source="design"><dt>ข้อความยืนยัน *</dt><dd data-testid="ui-mrr-003-confirmation-message">ข้อความคงที่ 'ออกจากระบบแล้ว'</dd><button type="button" data-testid="ui-mrr-003-sign-in-again" data-key="sign-in-again" data-kind="navigate" data-presentation="text" data-placement="message" data-container="navigate">เข้าสู่ระบบอีกครั้ง</button></form>
+<section aria-label="states"><h2>states</h2><dl><dt>empty (does not occur)</dt><dd>ไม่เกิด — หน้านี้แสดงข้อความคงที่เสมอ</dd><dt>loading</dt><dd>แสดงว่ากำลังออกจากระบบจนกว่า session ถูกยกเลิก</dd><dt>error</dt><dd>ยกเลิก session ไม่สำเร็จ — แจ้งให้ลองใหม่ และไม่แสดงว่าออกจากระบบแล้ว</dd><dt>unauthorized (does not occur)</dt><dd>ไม่เกิด — ผู้ที่ไม่ได้เข้าสู่ระบบเห็นข้อความเดียวกัน</dd><dt>overflow (does not occur)</dt><dd>ไม่เกิด — ไม่มีข้อมูลรายการ</dd></dl></section>
+<footer><small>MCK-mrr-015 · wireframe L1 of UI-mrr-003 · structure only, no style — a theme is applied at L2 (/mock:html)</small></footer>
+</main>
+</body>
+</html>
