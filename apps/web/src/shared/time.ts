@@ -24,3 +24,10 @@ export function bangkokDate(d: Date): string {
 export function bangkokInstant(local: string): string {
   return `${local}:00+07:00`;
 }
+
+/** An instant as a `datetime-local` value (YYYY-MM-DDTHH:MM) in Bangkok time. */
+export function bangkokLocal(iso: string): string {
+  const d = new Date(iso);
+  const time = new Intl.DateTimeFormat('en-GB', { timeZone: TIME_ZONE, hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).format(d);
+  return `${bangkokDate(d)}T${time}`;
+}

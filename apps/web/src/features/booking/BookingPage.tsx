@@ -1,8 +1,11 @@
-import { FormEvent, useEffect, useRef, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import { Navigate, useNavigate, useSearchParams } from 'react-router-dom';
 import { ApiError, getJson, postJson } from '../../shared/api';
 import { routeOf } from '../../shared/sitemap';
 import { bangkokInstant } from '../../shared/time';
+import {
+  AttendeePicker, checkForm, EquipmentChecks, Errors, FIELD_OF, Option, Person, TimeField, TitleField,
+} from './fields';
 
 interface Room {
   id: string;
@@ -12,25 +15,11 @@ interface Room {
   status: 'ACTIVE' | 'UNDER_MAINTENANCE';
 }
 
-interface Option {
-  id: string;
-  name: string;
-}
-
-interface Person {
-  id: string;
-  fullName: string;
-  email: string;
-}
-
 interface Created {
   id: string;
   status: 'CONFIRMED' | 'PENDING_APPROVAL';
   message: string;
 }
-
-type Field = 'start' | 'end' | 'title' | 'attendees' | 'equipment';
-type Errors = Partial<Record<Field, string>>;
 
 const SIGN_IN = 'UI-mrr-001';
 /** confirm's destinationRef in screens.json. */
@@ -38,26 +27,7 @@ const MY_BOOKINGS = 'UI-mrr-007';
 /** cancel-form's destinationRef. */
 const SEARCH = 'UI-mrr-004';
 
-const TITLE_MAX = 200;
 const MAINTENANCE = 'ห้องนี้ปิดปรับปรุง ไม่สามารถจองได้';
-
-/** The api's field names (FE-mrr-024 BookingInvalid · request body) mapped to this form's fields. */
-const FIELD_OF: Record<string, Field> = {
-  title: 'title', attendees: 'attendees', attendeeIds: 'attendees', start: 'start', startAt: 'start',
-  end: 'end', endAt: 'end', equipment: 'equipment', equipmentIds: 'equipment',
-};
-
-/** The same checks the api makes first (BR-mrr-002 · UI-mrr-006 validation), with its words. */
-function check(start: string, end: string, title: string, attendees: Person[]): Errors {
-  const errors: Errors = {};
-  if (!start) errors.start = 'กรุณาระบุเวลาเริ่ม';
-  if (!end) errors.end = 'กรุณาระบุเวลาสิ้นสุด';
-  else if (start && end <= start) errors.end = 'เวลาสิ้นสุดต้องหลังเวลาเริ่ม';
-  if (!title.trim()) errors.title = 'กรุณาระบุหัวข้อการประชุม';
-  else if (title.trim().length > TITLE_MAX) errors.title = `หัวข้อการประชุมต้องไม่เกิน ${TITLE_MAX} ตัวอักษร`;
-  if (attendees.length === 0) errors.attendees = 'กรุณาระบุผู้เข้าร่วมอย่างน้อย 1 คน';
-  return errors;
-}
 
 /** `?date=2026-10-17&start=10:00` → `2026-10-17T10:00`, the value a datetime-local input takes. */
 const localOf = (date: string | null, time: string | null) =>
@@ -83,10 +53,6 @@ export function BookingPage() {
   const [attendees, setAttendees] = useState<Person[]>([]);
   const [equipment, setEquipment] = useState<string[]>([]);
 
-  const [query, setQuery] = useState('');
-  const [matches, setMatches] = useState<Person[]>([]);
-  const latestQuery = useRef('');
-
   const [errors, setErrors] = useState<Errors>({});
   const [failure, setFailure] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
@@ -104,29 +70,9 @@ export function BookingPage() {
     getJson<Option[]>('/facilities?active=true').then(setFacilities).catch(onFail);
   }, [roomId]);
 
-  const search = (text: string) => {
-    setQuery(text);
-    latestQuery.current = text;
-    if (!text.trim()) return setMatches([]);
-    getJson<Person[]>(`/users?query=${encodeURIComponent(text.trim())}`)
-      .then((people) => {
-        // An answer to an older keystroke never replaces a newer one.
-        if (latestQuery.current === text) setMatches(people.filter((p) => !attendees.some((a) => a.id === p.id)));
-      })
-      .catch((err) => err instanceof ApiError && err.status === 401 && setUnauthorized(true));
-  };
-
-  const pick = (p: Person) => {
-    setAttendees((list) => [...list, p]);
-    setErrors(({ attendees: _, ...rest }) => rest);
-    setQuery('');
-    setMatches([]);
-    latestQuery.current = '';
-  };
-
   const confirm = async (e: FormEvent) => {
     e.preventDefault();
-    const found = check(start, end, title, attendees);
+    const found = checkForm(start, end, title, attendees);
     setErrors(found);
     setFailure(null);
     if (Object.keys(found).length) return;
@@ -199,93 +145,24 @@ export function BookingPage() {
         </div>
         <div className="card">
           <h2>รายละเอียด</h2>
-          <div className={errors.title ? 'field err' : 'field'}>
-            <label htmlFor="ui-mrr-006-ent-007-title">
-              หัวข้อการประชุม<span className="req" aria-hidden="true">*</span>
-            </label>
-            <input
-              className="input"
-              id="ui-mrr-006-ent-007-title"
-              type="text"
-              name="หัวข้อการประชุม"
-              data-testid="ui-mrr-006-ent-007-title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              required
-              aria-invalid={errors.title ? true : undefined}
-              aria-describedby={errors.title ? 'title-error' : undefined}
-            />
-            {errors.title && <span className="errtext" id="title-error">{errors.title}</span>}
-          </div>
-          <div className={errors.attendees ? 'field err' : 'field'}>
-            <label htmlFor="ui-mrr-006-ent-008-user">
-              ผู้เข้าร่วม<span className="req" aria-hidden="true">*</span>
-            </label>
-            {attendees.length > 0 && (
-              <ul className="picked" aria-label="ผู้เข้าร่วมที่เลือก">
-                {attendees.map((a) => (
-                  <li key={a.id}>
-                    {a.fullName}
-                    <button
-                      type="button"
-                      aria-label={`เอา ${a.fullName} ออก`}
-                      onClick={() => setAttendees((list) => list.filter((x) => x.id !== a.id))}
-                    >
-                      ✕
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            )}
-            <input
-              className="input"
-              id="ui-mrr-006-ent-008-user"
-              type="search"
-              name="ผู้เข้าร่วม"
-              data-testid="ui-mrr-006-ent-008-user"
-              placeholder="พิมพ์ชื่อหรือ Email เพื่อค้นหา"
-              autoComplete="off"
-              value={query}
-              onChange={(e) => search(e.target.value)}
-              aria-invalid={errors.attendees ? true : undefined}
-              aria-describedby={errors.attendees ? 'attendees-error' : 'attendees-help'}
-            />
-            {matches.length > 0 && (
-              <ul className="options" aria-label="ผลการค้นหาผู้ใช้">
-                {matches.map((p) => (
-                  <li key={p.id}>
-                    <button type="button" onClick={() => pick(p)}>
-                      {p.fullName} ({p.email})
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            )}
-            {errors.attendees ? (
-              <span className="errtext" id="attendees-error">{errors.attendees}</span>
-            ) : (
-              <span className="help" id="attendees-help">ผู้จองไม่ถูกนับเป็นผู้เข้าร่วม ถ้าจะเข้าร่วมด้วยให้เลือกชื่อตัวเอง</span>
-            )}
-          </div>
-          <fieldset className="checks" data-testid="ui-mrr-006-ent-009-facility">
-            <legend>อุปกรณ์เสริม</legend>
-            {facilities.length === 0 && <span className="help">ไม่มีอุปกรณ์เสริมให้เลือก</span>}
-            {facilities.map((f) => (
-              <label key={f.id}>
-                <input
-                  type="checkbox"
-                  name="อุปกรณ์เสริม"
-                  value={f.id}
-                  checked={equipment.includes(f.id)}
-                  onChange={(e) =>
-                    setEquipment((list) => (e.target.checked ? [...list, f.id] : list.filter((x) => x !== f.id)))
-                  }
-                />
-                {f.name}
-              </label>
-            ))}
-            {errors.equipment && <span className="errtext">{errors.equipment}</span>}
-          </fieldset>
+          <TitleField id="ui-mrr-006-ent-007-title" value={title} onChange={setTitle} error={errors.title} />
+          <AttendeePicker
+            id="ui-mrr-006-ent-008-user"
+            value={attendees}
+            onChange={(people) => {
+              setAttendees(people);
+              setErrors(({ attendees: _, ...rest }) => rest);
+            }}
+            onUnauthorized={() => setUnauthorized(true)}
+            error={errors.attendees}
+          />
+          <EquipmentChecks
+            id="ui-mrr-006-ent-009-facility"
+            options={facilities}
+            value={equipment}
+            onChange={setEquipment}
+            error={errors.equipment}
+          />
         </div>
         <div className="actions">
           <button
@@ -309,29 +186,5 @@ export function BookingPage() {
         </div>
       </form>
     </>
-  );
-}
-
-function TimeField(props: { id: string; label: string; value: string; onChange: (v: string) => void; error?: string }) {
-  const { id, label, value, onChange, error } = props;
-  return (
-    <div className={error ? 'field err' : 'field'}>
-      <label htmlFor={id}>
-        {label}<span className="req" aria-hidden="true">*</span>
-      </label>
-      <input
-        className="input"
-        id={id}
-        type="datetime-local"
-        name={label}
-        data-testid={id}
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        required
-        aria-invalid={error ? true : undefined}
-        aria-describedby={error ? `${id}-error` : undefined}
-      />
-      {error && <span className="errtext" id={`${id}-error`}>{error}</span>}
-    </div>
   );
 }

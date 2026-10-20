@@ -21,10 +21,15 @@ export async function getJson<T>(path: string): Promise<T> {
 }
 
 /** POST a JSON body to the api, same origin, with the session cookie. */
-export async function postJson<T>(path: string, body: unknown): Promise<T> {
+export const postJson = <T>(path: string, body: unknown) => sendJson<T>('POST', path, body);
+
+/** PATCH a JSON body to the api — only the fields sent are changed. */
+export const patchJson = <T>(path: string, body: unknown) => sendJson<T>('PATCH', path, body);
+
+async function sendJson<T>(method: 'POST' | 'PATCH', path: string, body: unknown): Promise<T> {
   return readJson<T>(
     await fetch(path, {
-      method: 'POST',
+      method,
       credentials: 'include',
       headers: { accept: 'application/json', 'content-type': 'application/json' },
       body: JSON.stringify(body),

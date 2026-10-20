@@ -1,5 +1,6 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { BookingPage } from './features/booking/BookingPage';
+import { EditBookingPage } from './features/booking/EditBookingPage';
 import { CalendarPage } from './features/calendar/CalendarPage';
 import { AppShell } from './features/shell/AppShell';
 import { AuthLayout } from './features/shell/AuthLayout';
@@ -13,6 +14,7 @@ const ENTRY = 'UI-mrr-001';
 const BUILT: Record<string, JSX.Element> = {
   'UI-mrr-005': <CalendarPage />,
   'UI-mrr-006': <BookingPage />,
+  'UI-mrr-008': <EditBookingPage />,
 };
 
 const routesFor = (auth: boolean) =>
