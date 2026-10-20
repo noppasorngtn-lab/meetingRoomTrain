@@ -2,6 +2,7 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { BookingPage } from './features/booking/BookingPage';
 import { EditBookingPage } from './features/booking/EditBookingPage';
 import { MyBookingsPage } from './features/booking/MyBookingsPage';
+import { PendingApprovalsPage } from './features/booking/PendingApprovalsPage';
 import { CalendarPage } from './features/calendar/CalendarPage';
 import { AppShell } from './features/shell/AppShell';
 import { AuthLayout } from './features/shell/AuthLayout';
@@ -17,6 +18,7 @@ const BUILT: Record<string, JSX.Element> = {
   'UI-mrr-006': <BookingPage />,
   'UI-mrr-007': <MyBookingsPage />,
   'UI-mrr-008': <EditBookingPage />,
+  'UI-mrr-009': <PendingApprovalsPage />,
 };
 
 const routesFor = (auth: boolean) =>

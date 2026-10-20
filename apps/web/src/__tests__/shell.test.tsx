@@ -6,7 +6,7 @@ import { SCREENS } from '../shared/sitemap';
 const labelOf = (id: string) => SCREENS.find((s) => s.id === id)!.label;
 
 /** A built page carries its wireframe's title (screens.json `title`), which can differ from its menu label. */
-const BUILT_TITLE: Record<string, string> = { 'UI-mrr-006': 'จองห้องประชุม' };
+const BUILT_TITLE: Record<string, string> = { 'UI-mrr-006': 'จองห้องประชุม', 'UI-mrr-009': 'รายการรออนุมัติ' };
 const headingOf = (id: string) => BUILT_TITLE[id] ?? labelOf(id);
 
 const at = (path: string) =>

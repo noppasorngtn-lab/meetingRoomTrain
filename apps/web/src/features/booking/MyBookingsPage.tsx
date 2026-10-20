@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Link, Navigate, useNavigate, useSearchParams } from 'react-router-dom';
 import { ApiError, getJson, postJson } from '../../shared/api';
+import { Pager } from '../../shared/Pager';
 import { routeOf } from '../../shared/sitemap';
 import { slotLabel } from '../../shared/time';
 import { BookingStatus, canChange, STATUS_LABEL } from './status';
@@ -129,7 +130,6 @@ interface TableProps {
 }
 
 function BookingTable({ data, cancelling, onOpen, onCancel, onPage }: TableProps) {
-  const pages = Math.max(1, Math.ceil(data.total / data.pageSize));
   return (
     <div className="card">
       <div className="table-wrap">
@@ -175,17 +175,7 @@ function BookingTable({ data, cancelling, onOpen, onCancel, onPage }: TableProps
           </tbody>
         </table>
       </div>
-      {pages > 1 && (
-        <nav className="actions pager" aria-label="แบ่งหน้า">
-          <button type="button" className="btn btn-secondary" disabled={data.page <= 1} onClick={() => onPage(data.page - 1)}>
-            หน้าก่อน
-          </button>
-          <span className="help">หน้า {data.page} จาก {pages}</span>
-          <button type="button" className="btn btn-secondary" disabled={data.page >= pages} onClick={() => onPage(data.page + 1)}>
-            หน้าถัดไป
-          </button>
-        </nav>
-      )}
+      <Pager page={data.page} pageSize={data.pageSize} total={data.total} onPage={onPage} />
     </div>
   );
 }

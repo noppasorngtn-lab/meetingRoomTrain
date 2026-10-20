@@ -1975,7 +1975,10 @@
             "file": "apps/api/src/modules/booking/booking-approval.controller.ts"
           }
         ]
-      }
+      },
+      "commits": [
+        "59b68e6633cfb5c56324dfcc6f1b2305c506077a"
+      ]
     },
     {
       "id": "FE-mrr-007",
@@ -2040,7 +2043,130 @@
           "hash": "sha256:6446f319b837c86604116b51ad046409f8a7b921566cbc2b2d3a027a5d105545"
         }
       ],
-      "status": "draft"
+      "status": "validated",
+      "build": {
+        "iterations": 0,
+        "proof": [
+          {
+            "cmd": "powershell -File scripts/dev-build.ps1 -App frontend-web",
+            "result": "tsc --noEmit && vite build · built in 741ms · exit 0",
+            "at": "2026-10-20"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web -Filter FE-mrr-007",
+            "result": "Test Files 1 passed | 6 skipped (7) · Tests 18 passed | 86 skipped (104) · exit 0",
+            "at": "2026-10-20"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1",
+            "result": "api: Test Suites 14 passed, Tests 173 passed · web: Test Files 7 passed, Tests 104 passed · exit 0",
+            "at": "2026-10-20"
+          }
+        ],
+        "last_error": null,
+        "recorded_by": "Noppasorn",
+        "recorded_at": "2026-10-20"
+      },
+      "manifest": {
+        "files": [
+          "apps/web/src/App.tsx",
+          "apps/web/src/shared/Pager.tsx",
+          "apps/web/src/features/booking/MyBookingsPage.tsx",
+          "apps/web/src/features/booking/PendingApprovalsPage.tsx",
+          "apps/web/src/__tests__/shell.test.tsx",
+          "apps/web/src/__tests__/pending-approvals.test.tsx"
+        ],
+        "unit_tests": [
+          {
+            "file": "apps/web/src/__tests__/pending-approvals.test.tsx",
+            "calc_ref": null,
+            "gd_ref": null
+          }
+        ],
+        "ui_controls": [
+          {
+            "id": "roomName",
+            "kind": "field",
+            "dd_ref": null,
+            "testid": "ui-mrr-009-ent-007-room",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "startAt",
+            "kind": "field",
+            "dd_ref": null,
+            "testid": "ui-mrr-009-ent-007-start-at",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "title",
+            "kind": "field",
+            "dd_ref": null,
+            "testid": "ui-mrr-009-ent-007-title",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "bookedBy",
+            "kind": "field",
+            "dd_ref": null,
+            "testid": "ui-mrr-009-ent-007-booked-by",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "approver",
+            "kind": "field",
+            "dd_ref": null,
+            "testid": "ui-mrr-009-ent-003-approver",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "approve",
+            "kind": "command",
+            "dd_ref": null,
+            "testid": "ui-mrr-009-approve",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "reject",
+            "kind": "command",
+            "dd_ref": null,
+            "testid": "ui-mrr-009-reject",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "manage",
+            "kind": "navigate",
+            "dd_ref": null,
+            "testid": "ui-mrr-009-manage",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          }
+        ],
+        "apis": []
+      }
     },
     {
       "id": "FE-mrr-029",
@@ -3585,8 +3711,8 @@
   "rollup": {
     "features_total": 33,
     "by_status": {
-      "validated": 16,
-      "draft": 17
+      "validated": 17,
+      "draft": 16
     },
     "by_origin": {
       "new": 33
