@@ -184,7 +184,8 @@ describe('FE-mrr-007 pending approvals page (UI-mrr-009)', () => {
 
     fireEvent.click(await screen.findByTestId('ui-mrr-009-manage'));
 
-    expect(await screen.findByRole('heading', { level: 1, name: 'จัดการการจอง' })).toBeInTheDocument();
+    expect(await screen.findByRole('heading', { level: 1, name: 'จัดการการจอง (ผู้ดูแล)' })).toBeInTheDocument();
+    await waitFor(() => expect(calls).toContainEqual({ method: 'GET', url: `/bookings/${BOOKING}` }));
   });
 
   it('empty state — ไม่มีรายการรออนุมัติ', async () => {
