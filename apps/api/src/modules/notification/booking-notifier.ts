@@ -60,9 +60,14 @@ export class BookingNotifier {
     await this.transport.send({ to: [booking.bookerEmail], subject: s, text: s });
 
     if (booking.startAt.getTime() - now.getTime() >= REMINDER_LEAD_MS) return { reminderSent: false };
+    await this.reminderDue(booking);
+    return { reminderSent: true };
+  }
+
+  /** The 15-minute reminder, to the booker and every attendee (UC-mrr-018). */
+  async reminderDue(booking: BookingSnapshot): Promise<void> {
     const r = subject('ใกล้ถึงเวลาประชุม', booking);
     await this.transport.send({ to: [booking.bookerEmail, ...booking.attendeeEmails], subject: r, text: r });
-    return { reminderSent: true };
   }
 
   /** Only a change of time is announced; a title or attendee change saves silently (UC-mrr-017 alt flow). */

@@ -2091,7 +2091,10 @@
         ],
         "ui_controls": [],
         "apis": []
-      }
+      },
+      "commits": [
+        "13c497b25ee0e7d750b5513d6128d5df72dfce45"
+      ]
     },
     {
       "id": "FE-mrr-018",
@@ -2159,7 +2162,49 @@
           "hash": "sha256:1737121b862ffa8d357e0a875f395845189f339686edb666884fe6df716b7626"
         }
       ],
-      "status": "draft"
+      "status": "validated",
+      "build": {
+        "iterations": 0,
+        "proof": [
+          {
+            "cmd": "powershell -File scripts/dev-build.ps1 -App api",
+            "result": "tsc -p tsconfig.build.json · exit 0",
+            "at": "2026-10-20"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App api -Filter FE-mrr-018",
+            "result": "Test Suites: 1 skipped, 1 passed, 1 of 2 total · Tests: 7 skipped, 8 passed, 15 total · exit 0",
+            "at": "2026-10-20"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App api",
+            "result": "Test Suites: 2 passed, 2 total · Tests: 15 passed, 15 total · exit 0 (FE-mrr-017 regression after reminderDue was extracted)",
+            "at": "2026-10-20"
+          }
+        ],
+        "last_error": null,
+        "recorded_by": "Noppasorn",
+        "recorded_at": "2026-10-20"
+      },
+      "manifest": {
+        "files": [
+          "apps/api/src/modules/reminder/reminder-store.ts",
+          "apps/api/src/modules/reminder/reminder-job.ts",
+          "apps/api/src/modules/reminder/reminder-scheduler.ts",
+          "apps/api/src/modules/reminder/reminder.module.ts",
+          "apps/api/src/modules/notification/booking-notifier.ts",
+          "apps/api/test/reminder/reminder-job.spec.ts"
+        ],
+        "unit_tests": [
+          {
+            "file": "apps/api/test/reminder/reminder-job.spec.ts",
+            "calc_ref": null,
+            "gd_ref": null
+          }
+        ],
+        "ui_controls": [],
+        "apis": []
+      }
     },
     {
       "id": "FE-mrr-019",
@@ -2258,8 +2303,8 @@
   "rollup": {
     "features_total": 32,
     "by_status": {
-      "draft": 31,
-      "validated": 1
+      "draft": 30,
+      "validated": 2
     },
     "by_origin": {
       "new": 32
