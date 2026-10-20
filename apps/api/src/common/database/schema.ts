@@ -61,6 +61,18 @@ export interface BookingEquipmentRequestsTable {
   facility_id: string;
 }
 
+export interface BookingAuditEntriesTable {
+  id: Generated<string>;
+  booking_id: string;
+  actor_id: string;
+  action:
+    | 'APPROVE' | 'REJECT' | 'CHANGE_DECISION' | 'EDIT_ON_BEHALF' | 'CANCEL_ON_BEHALF'
+    | 'CREATE_ADJUSTMENT' | 'APPROVE_ADJUSTMENT' | 'REJECT_ADJUSTMENT';
+  reason: string | null;
+  detail: unknown | null;
+  at: Date;
+}
+
 export interface Database {
   users: UsersTable;
   meeting_rooms: MeetingRoomsTable;
@@ -69,4 +81,5 @@ export interface Database {
   booking_attendees: BookingAttendeesTable;
   facilities: FacilitiesTable;
   booking_equipment_requests: BookingEquipmentRequestsTable;
+  booking_audit_entries: BookingAuditEntriesTable;
 }

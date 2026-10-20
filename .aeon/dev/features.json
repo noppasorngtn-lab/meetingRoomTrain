@@ -1612,7 +1612,10 @@
           }
         ],
         "apis": []
-      }
+      },
+      "commits": [
+        "d49e502741d5e8e8f3d7421a632cc23a6b99475b"
+      ]
     },
     {
       "id": "FE-mrr-027",
@@ -1907,7 +1910,72 @@
           "hash": "sha256:fb41b9378eaf8f1f19c7e0cb570aad7582f05713eab16d4c5f2f9d57de03f3fc"
         }
       ],
-      "status": "draft"
+      "status": "validated",
+      "build": {
+        "iterations": 2,
+        "proof": [
+          {
+            "cmd": "powershell -File scripts/dev-build.ps1 -App api",
+            "result": "tsc -p tsconfig.build.json · exit 0",
+            "at": "2026-10-20"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App api -Filter FE-mrr-028",
+            "result": "Test Suites: 12 skipped, 2 passed, 2 of 14 total · Tests: 132 skipped, 41 passed, 173 total · exit 0",
+            "at": "2026-10-20"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1",
+            "result": "api: Test Suites 14 passed, Tests 173 passed · web: Test Files 6 passed, Tests 86 passed · exit 0",
+            "at": "2026-10-20"
+          }
+        ],
+        "last_error": null,
+        "recorded_by": "Noppasorn",
+        "recorded_at": "2026-10-20"
+      },
+      "manifest": {
+        "files": [
+          "apps/api/src/common/database/migrations/003_booking_audit.sql",
+          "apps/api/src/common/database/schema.ts",
+          "apps/api/src/modules/notification/booking-notifier.ts",
+          "apps/api/src/modules/booking/booking-approval.service.ts",
+          "apps/api/src/modules/booking/booking-approval.controller.ts",
+          "apps/api/src/modules/booking/booking.module.ts",
+          "apps/api/test/booking/booking-approval.spec.ts",
+          "apps/api/test/booking/booking-approval.http.spec.ts"
+        ],
+        "unit_tests": [
+          {
+            "file": "apps/api/test/booking/booking-approval.spec.ts",
+            "calc_ref": null,
+            "gd_ref": null
+          },
+          {
+            "file": "apps/api/test/booking/booking-approval.http.spec.ts",
+            "calc_ref": null,
+            "gd_ref": null
+          }
+        ],
+        "ui_controls": [],
+        "apis": [
+          {
+            "api_ref": "API-010",
+            "route": "GET /bookings?status=PENDING_APPROVAL&page={n}",
+            "file": "apps/api/src/modules/booking/booking-approval.controller.ts"
+          },
+          {
+            "api_ref": "API-011",
+            "route": "POST /bookings/:id/approve",
+            "file": "apps/api/src/modules/booking/booking-approval.controller.ts"
+          },
+          {
+            "api_ref": "API-012",
+            "route": "POST /bookings/:id/reject",
+            "file": "apps/api/src/modules/booking/booking-approval.controller.ts"
+          }
+        ]
+      }
     },
     {
       "id": "FE-mrr-007",
@@ -3517,8 +3585,8 @@
   "rollup": {
     "features_total": 33,
     "by_status": {
-      "validated": 15,
-      "draft": 18
+      "validated": 16,
+      "draft": 17
     },
     "by_origin": {
       "new": 33
