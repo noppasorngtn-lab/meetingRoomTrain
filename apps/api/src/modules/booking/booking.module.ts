@@ -2,6 +2,8 @@ import { Module } from '@nestjs/common';
 import { CLOCK, systemClock } from '../../common/clock';
 import { DatabaseModule } from '../../common/database/database.module';
 import { NotificationModule } from '../notification/notification.module';
+import { AdjustmentRequestController } from './adjustment-request.controller';
+import { AdjustmentRequestService } from './adjustment-request.service';
 import { BookingApprovalController } from './booking-approval.controller';
 import { BookingApprovalService } from './booking-approval.service';
 import { BookingEditService } from './booking-edit.service';
@@ -12,7 +14,10 @@ import { MyBookingsService } from './my-bookings.service';
 
 @Module({
   imports: [DatabaseModule, NotificationModule],
-  controllers: [BookingController, BookingApprovalController, MyBookingsController],
-  providers: [{ provide: CLOCK, useValue: systemClock }, BookingService, BookingEditService, BookingApprovalService, MyBookingsService],
+  controllers: [BookingController, BookingApprovalController, MyBookingsController, AdjustmentRequestController],
+  providers: [
+    { provide: CLOCK, useValue: systemClock }, BookingService, BookingEditService, BookingApprovalService, MyBookingsService,
+    AdjustmentRequestService,
+  ],
 })
 export class BookingModule {}

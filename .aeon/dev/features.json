@@ -2828,7 +2828,10 @@
           }
         ],
         "apis": []
-      }
+      },
+      "commits": [
+        "5c1c5f33a5cbd6da9f39024be91be76776141bf3"
+      ]
     },
     {
       "id": "FE-mrr-032",
@@ -2880,7 +2883,69 @@
           "hash": "sha256:f4f7461f1560c969a8d444010e6a9e2ab99be0b7c5e25a43bbf9f18934e717f4"
         }
       ],
-      "status": "draft"
+      "status": "validated",
+      "build": {
+        "iterations": 1,
+        "proof": [
+          {
+            "cmd": "powershell -File scripts/dev-build.ps1 -App api",
+            "result": "tsc -p tsconfig.build.json · exit 0",
+            "at": "2026-10-20"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App api -Filter FE-mrr-032",
+            "result": "Test Suites: 20 skipped, 2 passed, 2 of 22 total · Tests: 266 skipped, 20 passed, 286 total · exit 0",
+            "at": "2026-10-20"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1",
+            "result": "api: Test Suites 22 passed, Tests 286 passed · web: Test Files 9 passed, Tests 134 passed · exit 0",
+            "at": "2026-10-20"
+          }
+        ],
+        "last_error": null,
+        "recorded_by": "Noppasorn",
+        "recorded_at": "2026-10-20"
+      },
+      "manifest": {
+        "files": [
+          "apps/api/src/modules/booking/adjustment-request.service.ts",
+          "apps/api/src/modules/booking/adjustment-request.controller.ts",
+          "apps/api/src/modules/booking/booking.module.ts",
+          "apps/api/test/booking/adjustment-decision.spec.ts",
+          "apps/api/test/booking/adjustment-decision.http.spec.ts"
+        ],
+        "unit_tests": [
+          {
+            "file": "apps/api/test/booking/adjustment-decision.spec.ts",
+            "calc_ref": null,
+            "gd_ref": null
+          },
+          {
+            "file": "apps/api/test/booking/adjustment-decision.http.spec.ts",
+            "calc_ref": null,
+            "gd_ref": null
+          }
+        ],
+        "ui_controls": [],
+        "apis": [
+          {
+            "api_ref": "API-017",
+            "route": "GET /adjustment-requests?status=PENDING&page={n}",
+            "file": "apps/api/src/modules/booking/adjustment-request.controller.ts"
+          },
+          {
+            "api_ref": "API-018",
+            "route": "POST /adjustment-requests/:id/approve",
+            "file": "apps/api/src/modules/booking/adjustment-request.controller.ts"
+          },
+          {
+            "api_ref": "API-019",
+            "route": "POST /adjustment-requests/:id/reject",
+            "file": "apps/api/src/modules/booking/adjustment-request.controller.ts"
+          }
+        ]
+      }
     },
     {
       "id": "FE-mrr-011",
@@ -4096,8 +4161,8 @@
   "rollup": {
     "features_total": 33,
     "by_status": {
-      "validated": 22,
-      "draft": 11
+      "validated": 23,
+      "draft": 10
     },
     "by_origin": {
       "new": 33
