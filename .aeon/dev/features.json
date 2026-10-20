@@ -1595,7 +1595,58 @@
           "hash": "sha256:70b3048818d8c6af914931bd01d0fd6ee3282caa12fe7ae99691ab7addcfd0d8"
         }
       ],
-      "status": "draft"
+      "status": "validated",
+      "build": {
+        "iterations": 0,
+        "proof": [
+          {
+            "cmd": "powershell -File scripts/dev-build.ps1 -App api",
+            "result": "tsc -p tsconfig.build.json · exit 0",
+            "at": "2026-10-20"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App api -Filter FE-mrr-027",
+            "result": "Test Suites: 11 skipped, 1 passed, 1 of 12 total · Tests: 124 skipped, 8 passed, 132 total · exit 0 · against postgres:16-alpine via Testcontainers",
+            "at": "2026-10-20"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1",
+            "result": "api: Test Suites 12 passed, Tests 132 passed · web: Test Files 4 passed, Tests 65 passed · exit 0",
+            "at": "2026-10-20"
+          }
+        ],
+        "last_error": null,
+        "recorded_by": "Noppasorn",
+        "recorded_at": "2026-10-20"
+      },
+      "manifest": {
+        "files": [
+          "apps/api/src/modules/booking/my-bookings.service.ts",
+          "apps/api/src/modules/booking/my-bookings.controller.ts",
+          "apps/api/src/modules/booking/booking.module.ts",
+          "apps/api/test/booking/my-bookings.spec.ts"
+        ],
+        "unit_tests": [
+          {
+            "file": "apps/api/test/booking/my-bookings.spec.ts",
+            "calc_ref": null,
+            "gd_ref": null
+          }
+        ],
+        "ui_controls": [],
+        "apis": [
+          {
+            "api_ref": "API-006",
+            "route": "GET /me/bookings?page={n}",
+            "file": "apps/api/src/modules/booking/my-bookings.controller.ts"
+          },
+          {
+            "api_ref": "API-007",
+            "route": "GET /bookings/:id",
+            "file": "apps/api/src/modules/booking/booking.controller.ts"
+          }
+        ]
+      }
     },
     {
       "id": "FE-mrr-006",
@@ -3315,8 +3366,8 @@
   "rollup": {
     "features_total": 33,
     "by_status": {
-      "validated": 12,
-      "draft": 21
+      "validated": 13,
+      "draft": 20
     },
     "by_origin": {
       "new": 33
