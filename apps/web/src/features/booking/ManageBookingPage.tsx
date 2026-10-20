@@ -3,6 +3,7 @@ import { Navigate, useLocation, useNavigate, useSearchParams } from 'react-route
 import { ApiError, getJson, postJson } from '../../shared/api';
 import { routeOf } from '../../shared/sitemap';
 import { slotLabel } from '../../shared/time';
+import { checkTitle, TitleField } from './fields';
 import { BookingStatus, STATUS_LABEL } from './status';
 
 interface Booking {
@@ -32,11 +33,16 @@ const changeTo = (b: Booking): Decision | null => {
   return b.status === 'APPROVED' ? 'REJECTED' : b.status === 'REJECTED' ? 'APPROVED' : null;
 };
 
+/** ACL-011 condition — a booking that held its room, whose meeting has ended (the end itself counts). */
+const meetingEnded = (b: Booking): boolean =>
+  (b.status === 'CONFIRMED' || b.status === 'APPROVED') && new Date(b.endAt).getTime() <= Date.now();
+
 /**
  * UI-mrr-010 — a Room Administrator's page for one booking, opened with ?booking=<id> from the
  * pending queue. The booking is read through API-007, which shows any booking to an administrator.
- * This unit carries the change of decision (API-013 · UC-mrr-008); acting on behalf of the booker
- * and the trail arrive with their own units.
+ * It carries the change of decision (API-013 · UC-mrr-008) and, once the meeting has ended, the
+ * adjustment request (API-014 · UC-mrr-010) — the title only; acting on behalf of the booker while
+ * the meeting is under way, cancelling and the trail arrive with their own units.
  */
 export function ManageBookingPage() {
   const [params] = useSearchParams();
@@ -47,13 +53,18 @@ export function ManageBookingPage() {
   const [load, setLoad] = useState<Load>({ kind: 'loading' });
   const [reason, setReason] = useState('');
   const [reasonError, setReasonError] = useState<string | null>(null);
+  const [title, setTitle] = useState('');
+  const [titleError, setTitleError] = useState<string | null>(null);
   const [failure, setFailure] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
 
   const fetchBooking = useCallback(() => {
     setLoad({ kind: 'loading' });
     getJson<Booking>(`/bookings/${bookingId}`)
-      .then((booking) => setLoad({ kind: 'ready', booking }))
+      .then((booking) => {
+        setTitle(booking.title);
+        setLoad({ kind: 'ready', booking });
+      })
       .catch((err) => {
         if (err instanceof ApiError && err.status === 401) return setLoad({ kind: 'unauthorized' });
         if (err instanceof ApiError && err.status === 404) return setLoad({ kind: 'missing', message: err.message });
@@ -80,6 +91,35 @@ export function ManageBookingPage() {
       if (err instanceof ApiError && err.status === 401) return setLoad({ kind: 'unauthorized' });
       if (err instanceof ApiError && err.status === 400 && err.field === 'reason') return setReasonError(err.message);
       setFailure(err instanceof ApiError && err.status !== 500 ? err.message : 'เปลี่ยนผลการอนุมัติไม่สำเร็จ กรุณากดอีกครั้ง');
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  /**
+   * UC-mrr-010 — after the end the edit is kept as a request and the booking keeps its values until
+   * another Room Administrator approves (BR-mrr-014), so the page reads it again and shows the old title.
+   */
+  const requestAdjustment = async (e: FormEvent) => {
+    e.preventDefault();
+    setFailure(null);
+    const titleProblem = checkTitle(title);
+    const reasonProblem = reason.trim() ? null : 'กรุณาระบุเหตุผล';
+    setTitleError(titleProblem);
+    setReasonError(reasonProblem);
+    if (titleProblem || reasonProblem) return;
+    setSaving(true);
+    try {
+      const done = await postJson<{ message: string }>(`/bookings/${bookingId}/admin-edit`, { title: title.trim(), reason: reason.trim() });
+      setReason('');
+      navigate({ pathname: location.pathname, search: location.search }, { replace: true, state: { notice: done.message } });
+      fetchBooking();
+    } catch (err) {
+      // Nothing is requested; what was typed stays (UI-mrr-010 error state).
+      if (err instanceof ApiError && err.status === 401) return setLoad({ kind: 'unauthorized' });
+      if (err instanceof ApiError && err.status === 400 && err.field === 'reason') return setReasonError(err.message);
+      if (err instanceof ApiError && err.status === 400 && err.field === 'title') return setTitleError(err.message);
+      setFailure(err instanceof ApiError && err.status !== 500 ? err.message : 'ส่งคำขอแก้ไขไม่สำเร็จ กรุณากดอีกครั้ง');
     } finally {
       setSaving(false);
     }
@@ -125,15 +165,26 @@ export function ManageBookingPage() {
 
   const { booking } = load;
   const target = changeTo(booking);
+  // ACL-011 enforced at the ui too: the title opens for a request only once the meeting has ended.
+  const adjustable = meetingEnded(booking);
+  const onSubmit = (e: FormEvent) => {
+    if (target) return changeDecision(e, target);
+    if (adjustable) return requestAdjustment(e);
+    e.preventDefault();
+  };
   return (
     <>
       {heading}
       <div className="card">
         <div className="grid">
-          <div className="field">
-            <span className="label">หัวข้อ</span>
-            <span className="value" data-testid="ui-mrr-010-ent-007-title">{booking.title}</span>
-          </div>
+          {adjustable ? (
+            <TitleField id="ui-mrr-010-ent-007-title" value={title} onChange={setTitle} error={titleError ?? undefined} />
+          ) : (
+            <div className="field">
+              <span className="label">หัวข้อ</span>
+              <span className="value" data-testid="ui-mrr-010-ent-007-title">{booking.title}</span>
+            </div>
+          )}
           <div className="field">
             <span className="label">ช่วงเวลา</span>
             <span className="value time" data-testid="ui-mrr-010-ent-007-start-at">{slotLabel(booking.startAt, booking.endAt)}</span>
@@ -149,7 +200,7 @@ export function ManageBookingPage() {
           <span className="alert-title">{failure}</span>
         </div>
       )}
-      <form className="card" noValidate onSubmit={(e) => target && changeDecision(e, target)}>
+      <form className="card" noValidate onSubmit={onSubmit}>
         <div className={reasonError ? 'field err' : 'field'}>
           <label htmlFor="ui-mrr-010-ent-010-reason">
             เหตุผล<span className="req" aria-hidden="true">*</span>
@@ -181,7 +232,19 @@ export function ManageBookingPage() {
               เปลี่ยนผลการอนุมัติ
             </button>
           )}
+          {adjustable && (
+            <button
+              type="submit"
+              className="btn btn-primary"
+              data-testid="ui-mrr-010-edit-on-behalf"
+              disabled={saving}
+              aria-busy={saving || undefined}
+            >
+              แก้แทนผู้จอง
+            </button>
+          )}
           {back}
+          {adjustable && <span className="help">การประชุมจบแล้ว — การแก้ไขจะเป็นคำขอให้ผู้ดูแลห้องคนอื่นอนุมัติ</span>}
           {target && <span className="help">ผลใหม่จะเป็น '{STATUS_LABEL[target]}'</span>}
         </div>
       </form>

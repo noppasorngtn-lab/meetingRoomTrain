@@ -2695,7 +2695,10 @@
             "file": "apps/api/src/modules/booking/booking.controller.ts"
           }
         ]
-      }
+      },
+      "commits": [
+        "6a180f8972e1b34c898ea78e5424c16cb6ef5188"
+      ]
     },
     {
       "id": "FE-mrr-010",
@@ -2725,7 +2728,107 @@
           "hash": "sha256:5b8247cfc668ae8b94235f1ac30b9e6a1e28134765c25ad40b9672d89aa859a0"
         }
       ],
-      "status": "draft"
+      "status": "validated",
+      "build": {
+        "iterations": 1,
+        "proof": [
+          {
+            "cmd": "powershell -File scripts/dev-build.ps1 -App frontend-web",
+            "result": "tsc --noEmit && vite build · built in 779ms · exit 0",
+            "at": "2026-10-20"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web -Filter FE-mrr-010",
+            "result": "Test Files 1 passed | 8 skipped (9) · Tests 11 passed | 123 skipped (134) · exit 0",
+            "at": "2026-10-20"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1",
+            "result": "api: Test Suites 20 passed, Tests 266 passed · web: Test Files 9 passed, Tests 134 passed · exit 0",
+            "at": "2026-10-20"
+          }
+        ],
+        "last_error": null,
+        "recorded_by": "Noppasorn",
+        "recorded_at": "2026-10-20"
+      },
+      "manifest": {
+        "files": [
+          "apps/web/src/features/booking/ManageBookingPage.tsx",
+          "apps/web/src/features/booking/fields.tsx",
+          "apps/web/src/__tests__/booking-adjustment.test.tsx"
+        ],
+        "unit_tests": [
+          {
+            "file": "apps/web/src/__tests__/booking-adjustment.test.tsx",
+            "calc_ref": null,
+            "gd_ref": null
+          }
+        ],
+        "ui_controls": [
+          {
+            "id": "title",
+            "kind": "field",
+            "dd_ref": null,
+            "testid": "ui-mrr-010-ent-007-title",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "startAt",
+            "kind": "field",
+            "dd_ref": null,
+            "testid": "ui-mrr-010-ent-007-start-at",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "status",
+            "kind": "field",
+            "dd_ref": null,
+            "testid": "ui-mrr-010-ent-007-status",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "reason",
+            "kind": "field",
+            "dd_ref": null,
+            "testid": "ui-mrr-010-ent-010-reason",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "requestAdjustment",
+            "kind": "edit",
+            "dd_ref": null,
+            "testid": "ui-mrr-010-edit-on-behalf",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "back",
+            "kind": "navigate",
+            "dd_ref": null,
+            "testid": "ui-mrr-010-back",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          }
+        ],
+        "apis": []
+      }
     },
     {
       "id": "FE-mrr-032",
@@ -3993,8 +4096,8 @@
   "rollup": {
     "features_total": 33,
     "by_status": {
-      "validated": 21,
-      "draft": 12
+      "validated": 22,
+      "draft": 11
     },
     "by_origin": {
       "new": 33

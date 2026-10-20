@@ -25,14 +25,21 @@ export const FIELD_OF: Record<string, Field> = {
   end: 'end', endAt: 'end', equipment: 'equipment', equipmentIds: 'equipment',
 };
 
+/** The api's title check, with its words — null when the title is fine. */
+export function checkTitle(title: string): string | null {
+  if (!title.trim()) return 'กรุณาระบุหัวข้อการประชุม';
+  if (title.trim().length > TITLE_MAX) return `หัวข้อการประชุมต้องไม่เกิน ${TITLE_MAX} ตัวอักษร`;
+  return null;
+}
+
 /** The same checks the api makes first (BR-mrr-002 · field validation), with its words. */
 export function checkForm(start: string, end: string, title: string, attendees: Person[]): Errors {
   const errors: Errors = {};
   if (!start) errors.start = 'กรุณาระบุเวลาเริ่ม';
   if (!end) errors.end = 'กรุณาระบุเวลาสิ้นสุด';
   else if (start && end <= start) errors.end = 'เวลาสิ้นสุดต้องหลังเวลาเริ่ม';
-  if (!title.trim()) errors.title = 'กรุณาระบุหัวข้อการประชุม';
-  else if (title.trim().length > TITLE_MAX) errors.title = `หัวข้อการประชุมต้องไม่เกิน ${TITLE_MAX} ตัวอักษร`;
+  const titleError = checkTitle(title);
+  if (titleError) errors.title = titleError;
   if (attendees.length === 0) errors.attendees = 'กรุณาระบุผู้เข้าร่วมอย่างน้อย 1 คน';
   return errors;
 }
