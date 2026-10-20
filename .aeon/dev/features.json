@@ -370,7 +370,10 @@
           }
         ],
         "apis": []
-      }
+      },
+      "commits": [
+        "21a9e549658417078abcef7fd313eddc8e86f5b7"
+      ]
     },
     {
       "id": "FE-mrr-023",
@@ -424,7 +427,67 @@
           "hash": "sha256:1737121b862ffa8d357e0a875f395845189f339686edb666884fe6df716b7626"
         }
       ],
-      "status": "draft"
+      "status": "validated",
+      "build": {
+        "iterations": 0,
+        "proof": [
+          {
+            "cmd": "powershell -File scripts/dev-build.ps1 -App api",
+            "result": "tsc -p tsconfig.build.json · exit 0",
+            "at": "2026-10-20"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App api -Filter FE-mrr-023",
+            "result": "Test Suites: 3 skipped, 2 passed, 2 of 5 total · Tests: 18 skipped, 17 passed, 35 total · exit 0 · against postgres:16-alpine via Testcontainers",
+            "at": "2026-10-20"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1",
+            "result": "api: Test Suites 5 passed, Tests 35 passed · web: Test Files 1 passed, Tests 19 passed · exit 0",
+            "at": "2026-10-20"
+          }
+        ],
+        "last_error": null,
+        "recorded_by": "Noppasorn",
+        "recorded_at": "2026-10-20"
+      },
+      "manifest": {
+        "files": [
+          "apps/api/package.json",
+          "apps/api/src/app.module.ts",
+          "apps/api/src/common/database/migrations/001_rooms_bookings.sql",
+          "apps/api/src/common/database/schema.ts",
+          "apps/api/src/common/database/migrate.ts",
+          "apps/api/src/common/database/database.module.ts",
+          "apps/api/src/modules/calendar/calendar-range.ts",
+          "apps/api/src/modules/calendar/calendar.service.ts",
+          "apps/api/src/modules/calendar/calendar.controller.ts",
+          "apps/api/src/modules/calendar/calendar.module.ts",
+          "apps/api/test/support/postgres.ts",
+          "apps/api/test/calendar/calendar.service.spec.ts",
+          "apps/api/test/calendar/calendar.http.spec.ts"
+        ],
+        "unit_tests": [
+          {
+            "file": "apps/api/test/calendar/calendar.service.spec.ts",
+            "calc_ref": null,
+            "gd_ref": null
+          },
+          {
+            "file": "apps/api/test/calendar/calendar.http.spec.ts",
+            "calc_ref": null,
+            "gd_ref": null
+          }
+        ],
+        "ui_controls": [],
+        "apis": [
+          {
+            "api_ref": "API-003",
+            "route": "GET /rooms/:id/calendar?view={day|week|month}&date={YYYY-MM-DD}",
+            "file": "apps/api/src/modules/calendar/calendar.controller.ts"
+          }
+        ]
+      }
     },
     {
       "id": "FE-mrr-002",
@@ -2553,8 +2616,8 @@
   "rollup": {
     "features_total": 32,
     "by_status": {
-      "validated": 4,
-      "draft": 28
+      "validated": 5,
+      "draft": 27
     },
     "by_origin": {
       "new": 32
