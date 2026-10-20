@@ -5,6 +5,10 @@ import { SCREENS } from '../shared/sitemap';
 
 const labelOf = (id: string) => SCREENS.find((s) => s.id === id)!.label;
 
+/** A built page carries its wireframe's title (screens.json `title`), which can differ from its menu label. */
+const BUILT_TITLE: Record<string, string> = { 'UI-mrr-006': 'จองห้องประชุม' };
+const headingOf = (id: string) => BUILT_TITLE[id] ?? labelOf(id);
+
 const at = (path: string) =>
   render(
     <MemoryRouter initialEntries={[path]}>
@@ -58,7 +62,7 @@ describe('FE-mrr-022 app shell', () => {
     at(`/${id}`);
 
     expect(screen.getByRole('navigation', { name: 'เมนูหลัก' })).toBeInTheDocument();
-    expect(screen.getByRole('heading', { level: 1, name: labelOf(id) })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 1, name: headingOf(id) })).toBeInTheDocument();
   });
 
   it.each(['UI-mrr-001', 'UI-mrr-002', 'UI-mrr-003'])('%s is an auth page and opens without the frame', (id) => {

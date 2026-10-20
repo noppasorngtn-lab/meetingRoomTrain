@@ -12,7 +12,9 @@ export default defineConfig({
   // In development the api runs beside Vite; in production one origin serves both (/dev:deploy).
   server: {
     fs: { allow: ['.', themeDir] },
-    proxy: { '/rooms': process.env.API_URL ?? 'http://localhost:3000' },
+    proxy: Object.fromEntries(
+      ['/rooms', '/bookings', '/users', '/facilities'].map((p) => [p, process.env.API_URL ?? 'http://localhost:3000']),
+    ),
   },
   test: {
     environment: 'jsdom',

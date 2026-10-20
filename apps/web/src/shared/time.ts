@@ -19,3 +19,8 @@ export function slotLabel(startIso: string, endIso: string): string {
 export function bangkokDate(d: Date): string {
   return new Intl.DateTimeFormat('en-CA', { timeZone: TIME_ZONE, year: 'numeric', month: '2-digit', day: '2-digit' }).format(d);
 }
+
+/** A `datetime-local` value (YYYY-MM-DDTHH:MM, read as Bangkok) as an instant the api accepts. */
+export function bangkokInstant(local: string): string {
+  return `${local}:00+07:00`;
+}

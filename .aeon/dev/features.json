@@ -962,7 +962,134 @@
           "hash": "sha256:666080555c819182a9aa333a938293235b1547c32df616c837963f4576c713b3"
         }
       ],
-      "status": "draft"
+      "status": "validated",
+      "build": {
+        "iterations": 2,
+        "proof": [
+          {
+            "cmd": "powershell -File scripts/dev-build.ps1 -App frontend-web",
+            "result": "tsc --noEmit && vite build · 44 modules transformed · built in 902ms · exit 0",
+            "at": "2026-10-20"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web -Filter FE-mrr-003",
+            "result": "Test Files 1 passed | 2 skipped (3) · Tests 18 passed | 30 skipped (48) · exit 0",
+            "at": "2026-10-20"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1",
+            "result": "api: Test Suites 8 passed, Tests 83 passed · web: Test Files 3 passed, Tests 48 passed · exit 0",
+            "at": "2026-10-20"
+          }
+        ],
+        "last_error": null,
+        "recorded_by": "Noppasorn",
+        "recorded_at": "2026-10-20"
+      },
+      "manifest": {
+        "files": [
+          "apps/web/vite.config.ts",
+          "apps/web/src/App.tsx",
+          "apps/web/src/shared/api.ts",
+          "apps/web/src/shared/time.ts",
+          "apps/web/src/shared/components.css",
+          "apps/web/src/features/shell/AppShell.tsx",
+          "apps/web/src/features/booking/BookingPage.tsx",
+          "apps/web/src/__tests__/booking.test.tsx",
+          "apps/web/src/__tests__/calendar.test.tsx",
+          "apps/web/src/__tests__/shell.test.tsx"
+        ],
+        "unit_tests": [
+          {
+            "file": "apps/web/src/__tests__/booking.test.tsx",
+            "calc_ref": null,
+            "gd_ref": null
+          }
+        ],
+        "ui_controls": [
+          {
+            "id": "room",
+            "kind": "field",
+            "dd_ref": null,
+            "testid": "ui-mrr-006-ent-007-room",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "startAt",
+            "kind": "field",
+            "dd_ref": null,
+            "testid": "ui-mrr-006-ent-007-start-at",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "endAt",
+            "kind": "field",
+            "dd_ref": null,
+            "testid": "ui-mrr-006-ent-007-end-at",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "title",
+            "kind": "field",
+            "dd_ref": null,
+            "testid": "ui-mrr-006-ent-007-title",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "attendees",
+            "kind": "field",
+            "dd_ref": null,
+            "testid": "ui-mrr-006-ent-008-user",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "equipment",
+            "kind": "field",
+            "dd_ref": null,
+            "testid": "ui-mrr-006-ent-009-facility",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "confirm",
+            "kind": "create",
+            "dd_ref": null,
+            "testid": "ui-mrr-006-confirm",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "cancelForm",
+            "kind": "navigate",
+            "dd_ref": null,
+            "testid": "ui-mrr-006-cancel-form",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          }
+        ],
+        "apis": []
+      }
     },
     {
       "id": "FE-mrr-025",
@@ -2753,7 +2880,10 @@
             "file": "apps/api/src/modules/rooms/rooms.controller.ts"
           }
         ]
-      }
+      },
+      "commits": [
+        "f6898774c8f38e00ec5e0260343529b02f27fd97"
+      ]
     }
   ],
   "gaps": [
@@ -2942,8 +3072,8 @@
   "rollup": {
     "features_total": 33,
     "by_status": {
-      "validated": 8,
-      "draft": 25
+      "validated": 9,
+      "draft": 24
     },
     "by_origin": {
       "new": 33

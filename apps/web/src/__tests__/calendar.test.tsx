@@ -124,7 +124,7 @@ describe('FE-mrr-002 room calendar page', () => {
 
     fireEvent.click(screen.getByTestId('ui-mrr-005-book-slot'));
 
-    expect(await screen.findByRole('heading', { level: 1, name: 'จองห้อง' })).toBeInTheDocument();
+    expect(await screen.findByRole('heading', { level: 1, name: 'จองห้องประชุม' })).toBeInTheDocument();
   });
 
   it('overflow: a month-view day with five bookings shows three and +2, which opens the rest', async () => {

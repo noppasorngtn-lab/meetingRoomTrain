@@ -43,3 +43,29 @@ h2 { font: var(--text-heading); margin: 0 0 var(--space-3); }
 .time { font: var(--text-time); }
 .more { align-self: flex-start; font: var(--text-label); color: var(--primary); background: transparent; border: none; padding: var(--space-1) var(--space-2); cursor: pointer; }
 .more:focus-visible { outline: medium solid var(--focus-ring); outline-offset: var(--space-1); }
+
+/* Field errors and read-only values, as mock's L2 pages draw them */
+.label { font: var(--text-label); color: var(--ink); }
+.value { font: var(--text-body); padding: var(--space-2) 0; }
+.field.err .input { border: medium solid var(--danger); }
+.errtext { font: var(--text-caption); color: var(--danger); }
+.alert-title { font: var(--text-body-strong); }
+.alert-danger .alert-title { color: var(--danger); }
+.alert-warning { background: var(--warning-tint); }
+.alert-warning .alert-title { color: var(--warning); }
+.alert-info { background: var(--primary-tint); }
+.alert-info .alert-title { color: var(--on-primary-tint); }
+
+/* Picking people and equipment on the booking form */
+.picked { display: flex; flex-wrap: wrap; gap: var(--space-2); margin: 0; padding: 0; list-style: none; }
+.picked li { display: inline-flex; align-items: center; gap: var(--space-1); padding: var(--space-1) var(--space-1) var(--space-1) var(--space-3); border-radius: var(--radius-md); background: var(--primary-tint); color: var(--on-primary-tint); }
+.picked button { font: var(--text-label); color: inherit; background: transparent; border: none; padding: var(--space-1) var(--space-2); cursor: pointer; border-radius: var(--radius-sm); }
+.options { margin: 0; padding: 0; list-style: none; border: thin solid var(--border); border-radius: var(--radius-md); background: var(--surface-raised); }
+.options button { display: block; width: 100%; text-align: left; font: var(--text-body); color: var(--ink); background: transparent; border: none; padding: var(--space-2) var(--space-3); cursor: pointer; }
+.options button:hover { background: var(--surface-hover); }
+.checks { border: none; margin: 0 0 var(--space-6); padding: 0; display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-6); }
+.checks legend { font: var(--text-label); color: var(--ink); padding: 0; margin-bottom: var(--space-2); width: 100%; }
+.checks label { display: inline-flex; align-items: center; gap: var(--space-2); font: var(--text-body); }
+.picked button:focus-visible,
+.options button:focus-visible,
+.checks input:focus-visible { outline: medium solid var(--focus-ring); outline-offset: var(--space-1); }

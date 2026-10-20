@@ -1,4 +1,5 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { BookingPage } from './features/booking/BookingPage';
 import { CalendarPage } from './features/calendar/CalendarPage';
 import { AppShell } from './features/shell/AppShell';
 import { AuthLayout } from './features/shell/AuthLayout';
@@ -11,6 +12,7 @@ const ENTRY = 'UI-mrr-001';
 /** Screens already built; every other one is still its placeholder. */
 const BUILT: Record<string, JSX.Element> = {
   'UI-mrr-005': <CalendarPage />,
+  'UI-mrr-006': <BookingPage />,
 };
 
 const routesFor = (auth: boolean) =>
