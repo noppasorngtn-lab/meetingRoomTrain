@@ -1,21 +1,7 @@
-import {
-  BadRequestException, Controller, createParamDecorator, ExecutionContext, Get, NotFoundException, Param, Query,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { BadRequestException, Controller, Get, NotFoundException, Param, Query } from '@nestjs/common';
+import { Caller, CurrentUser, UUID } from '../../common/auth/current-user';
 import { CalendarView, isCalendarDate, VIEWS } from './calendar-range';
-import { Caller, CalendarService, RoomCalendar, RoomNotFound } from './calendar.service';
-
-/**
- * The signed-in user, as the sign-in guard leaves it on the request. Until that guard exists
- * (GAP-mrr-003) there is never one, so every call is 401 — there is no back door to fake it.
- */
-export const CurrentUser = createParamDecorator((_: unknown, ctx: ExecutionContext): Caller => {
-  const user = ctx.switchToHttp().getRequest().user as Caller | undefined;
-  if (!user?.userId) throw new UnauthorizedException();
-  return user;
-});
-
-const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+import { CalendarService, RoomCalendar, RoomNotFound } from './calendar.service';
 
 /** API-003 — the room's booked slots, details only on the caller's own bookings (BR-mrr-021). */
 @Controller('rooms')

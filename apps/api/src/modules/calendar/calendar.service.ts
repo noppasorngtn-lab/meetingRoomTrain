@@ -1,12 +1,11 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Kysely } from 'kysely';
 import { KYSELY } from '../../common/database/database.module';
+import { Caller } from '../../common/auth/current-user';
 import { Database } from '../../common/database/schema';
 import { CalendarView, rangeOf } from './calendar-range';
 
-export interface Caller {
-  userId: string;
-}
+export type { Caller };
 
 export interface CalendarSlot {
   startAt: string;

@@ -50,10 +50,23 @@ export interface BookingAttendeesTable {
   user_id: string;
 }
 
+export interface FacilitiesTable {
+  id: Generated<string>;
+  name: string;
+  active: Generated<boolean>;
+}
+
+export interface BookingEquipmentRequestsTable {
+  booking_id: string;
+  facility_id: string;
+}
+
 export interface Database {
   users: UsersTable;
   meeting_rooms: MeetingRoomsTable;
   meeting_room_versions: MeetingRoomVersionsTable;
   bookings: BookingsTable;
   booking_attendees: BookingAttendeesTable;
+  facilities: FacilitiesTable;
+  booking_equipment_requests: BookingEquipmentRequestsTable;
 }

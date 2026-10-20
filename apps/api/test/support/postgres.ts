@@ -21,7 +21,7 @@ export async function startDatabase(): Promise<{ db: Kysely<Database>; stop: () 
 }
 
 export async function truncateAll(db: Kysely<Database>): Promise<void> {
-  await sql`TRUNCATE booking_attendees, bookings, meeting_rooms, meeting_room_versions, users CASCADE`.execute(db);
+  await sql`TRUNCATE booking_equipment_requests, facilities, booking_attendees, bookings, meeting_rooms, meeting_room_versions, users CASCADE`.execute(db);
 }
 
 export async function seedUser(db: Kysely<Database>, fullName: string, role: Database['users']['role'] = 'GENERAL_USER') {
@@ -37,7 +37,7 @@ export async function seedRoom(
   db: Kysely<Database>,
   name: string,
   createdBy: string,
-  opts: { requiresApproval?: boolean; status?: Database['meeting_rooms']['status'] } = {},
+  opts: { requiresApproval?: boolean; status?: Database['meeting_rooms']['status']; capacity?: number } = {},
 ) {
   return db.transaction().execute(async (tx) => {
     const room = await tx
@@ -47,7 +47,7 @@ export async function seedRoom(
       .executeTakeFirstOrThrow();
     const version = await tx
       .insertInto('meeting_room_versions')
-      .values({ room_id: room.id, version_no: 1, name, capacity: 10, requires_approval: opts.requiresApproval ?? false, approver_id: null, created_by: createdBy })
+      .values({ room_id: room.id, version_no: 1, name, capacity: opts.capacity ?? 10, requires_approval: opts.requiresApproval ?? false, approver_id: null, created_by: createdBy })
       .returning('id')
       .executeTakeFirstOrThrow();
     await tx.updateTable('meeting_rooms').set({ current_version_id: version.id }).where('id', '=', room.id).execute();
