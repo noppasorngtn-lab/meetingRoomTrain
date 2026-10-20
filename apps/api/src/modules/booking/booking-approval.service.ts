@@ -7,9 +7,9 @@ import { Database } from '../../common/database/schema';
 import { BookingNotifier } from '../notification/booking-notifier';
 import { BookingNotFound } from './booking-edit.service';
 import { BookingInvalid, EXCLUSION_VIOLATION, SlotTaken } from './booking.service';
+import { assertRoomAdministrator, NotRoomAdministrator, recordAudit } from './room-admin';
 
-/** ACL-008 is ROLE-002's alone — a General User, or a System Administrator, decides nothing. */
-export class NotRoomAdministrator extends Error {}
+export { NotRoomAdministrator };
 
 /** BR-mrr-013 — the room names its own approver, and then only they decide its bookings. */
 export class NotTheApprover extends Error {}
@@ -71,7 +71,7 @@ export class BookingApprovalService {
    * (marked canDecide: false) and ones whose start has passed, which stay approvable (BR-mrr-016).
    */
   async listPending(caller: Caller, page: number): Promise<PendingPage> {
-    await this.assertRoomAdministrator(this.db, caller, 'คุณไม่มีสิทธิ์เข้าหน้านี้');
+    await assertRoomAdministrator(this.db, caller, 'คุณไม่มีสิทธิ์เข้าหน้านี้');
     const pending = this.db.selectFrom('bookings as b').where('b.status', '=', 'PENDING_APPROVAL');
     const { total } = await pending.select((eb) => eb.fn.countAll<string>().as('total')).executeTakeFirstOrThrow();
     const rows = await pending
@@ -112,7 +112,7 @@ export class BookingApprovalService {
       // No start-time check: a booking the auto-cancel could not mail stays approvable (BR-mrr-016).
       const current = await this.lockDecidable(tx, caller, id, 'อนุมัติ');
       await tx.updateTable('bookings').set({ status: 'APPROVED' }).where('id', '=', id).execute();
-      await this.record(tx, caller, id, 'APPROVE', now);
+      await recordAudit(tx, { bookingId: id, caller, action: 'APPROVE', at: now });
 
       const { email: bookerEmail } = await tx
         .selectFrom('users')
@@ -137,7 +137,7 @@ export class BookingApprovalService {
     return this.db.transaction().execute(async (tx) => {
       await this.lockDecidable(tx, caller, id, 'ปฏิเสธ');
       await tx.updateTable('bookings').set({ status: 'REJECTED' }).where('id', '=', id).execute();
-      await this.record(tx, caller, id, 'REJECT', now);
+      await recordAudit(tx, { bookingId: id, caller, action: 'REJECT', at: now });
       return { message: 'ปฏิเสธการจองสำเร็จ' };
     });
   }
@@ -145,7 +145,7 @@ export class BookingApprovalService {
   /** API-013 — APPROVED ↔ REJECTED, with a reason, before the meeting starts (UC-mrr-008 · ACL-009). */
   async changeDecision(caller: Caller, id: string, input: ChangeDecisionInput): Promise<{ message: string }> {
     // ACL-009 names no room approver, unlike ACL-008: any Room Administrator may change a decision.
-    await this.assertRoomAdministrator(this.db, caller, 'เฉพาะผู้ดูแลห้องเท่านั้นที่เปลี่ยนผลการอนุมัติได้');
+    await assertRoomAdministrator(this.db, caller, 'เฉพาะผู้ดูแลห้องเท่านั้นที่เปลี่ยนผลการอนุมัติได้');
     const reason = input.reason.trim();
     if (!reason) throw new BookingInvalid('reason', 'กรุณาระบุเหตุผล');
     const now = this.clock.now();
@@ -173,7 +173,7 @@ export class BookingApprovalService {
         if ((err as { code?: string }).code === EXCLUSION_VIOLATION) throw new SlotTaken();
         throw err;
       }
-      await this.record(tx, caller, id, 'CHANGE_DECISION', now, reason, { from: current.status, to: input.decision });
+      await recordAudit(tx, { bookingId: id, caller, action: 'CHANGE_DECISION', at: now, reason, detail: { from: current.status, to: input.decision } });
 
       if (input.decision === 'APPROVED') {
         const room = await tx
@@ -196,25 +196,9 @@ export class BookingApprovalService {
     });
   }
 
-  /** BR-mrr-017 — who · when · what · why, in the same transaction as the decision. */
-  private async record(
-    tx: Kysely<Database>,
-    caller: Caller,
-    id: string,
-    action: 'APPROVE' | 'REJECT' | 'CHANGE_DECISION',
-    at: Date,
-    reason: string | null = null,
-    detail: unknown = null,
-  ) {
-    await tx
-      .insertInto('booking_audit_entries')
-      .values({ booking_id: id, actor_id: caller.userId, action, reason, detail: detail === null ? null : JSON.stringify(detail), at })
-      .execute();
-  }
-
   /** The booking, locked for this transaction, if the caller may decide it (ACL-008 · BR-mrr-013). */
   private async lockDecidable(tx: Kysely<Database>, caller: Caller, id: string, verb: string) {
-    await this.assertRoomAdministrator(tx, caller, `เฉพาะผู้ดูแลห้องเท่านั้นที่${verb}ได้`);
+    await assertRoomAdministrator(tx, caller, `เฉพาะผู้ดูแลห้องเท่านั้นที่${verb}ได้`);
 
     const current = await tx
       .selectFrom('bookings')
@@ -236,11 +220,5 @@ export class BookingApprovalService {
       throw new NotTheApprover(`เฉพาะผู้อนุมัติประจำห้องนี้เท่านั้นที่${verb}ได้`);
     }
     return { ...current, roomName: room.name };
-  }
-
-  /** The role is read from the database on every call, never trusted from the request. */
-  private async assertRoomAdministrator(db: Kysely<Database>, caller: Caller, refusal: string) {
-    const me = await db.selectFrom('users').select('role').where('id', '=', caller.userId).executeTakeFirst();
-    if (me?.role !== 'ROOM_ADMINISTRATOR') throw new NotRoomAdministrator(refusal);
   }
 }
