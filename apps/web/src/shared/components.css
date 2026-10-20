@@ -1,0 +1,45 @@
+/* The theme's components (Button · TextField · Alert) and page blocks, as mock's L2 pages draw them.
+   Tokens only — every value is a var() from the theme. */
+h2 { font: var(--text-heading); margin: 0 0 var(--space-3); }
+.purpose { color: var(--ink-muted); margin: 0 0 var(--space-6); }
+.help { font: var(--text-caption); color: var(--ink-muted); }
+
+.card { background: var(--surface-raised); border: thin solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow-raised); padding: var(--space-6); margin-bottom: var(--space-6); }
+.grid { display: flex; flex-wrap: wrap; gap: var(--space-6); }
+.grid > .field { flex: 1 1 30%; min-width: 0; }
+.actions { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; }
+
+/* TextField */
+.field { display: flex; flex-direction: column; gap: var(--space-2); margin-bottom: var(--space-6); }
+.field label { font: var(--text-label); color: var(--ink); }
+.req { color: var(--danger); margin-left: var(--space-1); }
+.input { width: 100%; min-height: var(--control-height); padding: var(--space-2) var(--space-3); font: var(--text-body); color: var(--ink); background: var(--surface-raised); border: thin solid var(--border-strong); border-radius: var(--radius-md); }
+.input:hover { border-color: var(--ink-muted); }
+.input:focus-visible { outline: medium solid var(--focus-ring); outline-offset: var(--space-1); }
+.input:disabled { background: var(--disabled-fill); color: var(--disabled-ink); border-color: transparent; }
+
+/* Button */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2); min-height: var(--control-height); padding: 0 var(--space-4); border-radius: var(--radius-md); font: var(--text-body-strong); border: thin solid transparent; cursor: pointer; white-space: nowrap; }
+.btn:focus-visible { outline: medium solid var(--focus-ring); outline-offset: var(--space-1); }
+.btn:disabled { background: var(--disabled-fill); color: var(--disabled-ink); border-color: transparent; cursor: not-allowed; }
+.btn-primary { background: var(--primary); color: var(--on-primary); }
+.btn-primary:hover { background: var(--primary-hover); }
+.btn-primary:active { background: var(--primary-active); }
+.btn-secondary { background: var(--surface-raised); color: var(--ink); border-color: var(--border-strong); }
+.btn-secondary:hover { background: var(--surface-hover); }
+.btn-secondary:active { background: var(--surface-pressed); }
+
+/* Alert */
+.alert { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-1); padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); border: thin solid var(--border); margin-bottom: var(--space-6); }
+.alert p { margin: 0; }
+.alert-danger { background: var(--danger-tint); }
+
+/* Calendar slots */
+.slots { display: flex; flex-direction: column; gap: var(--space-2); margin-bottom: var(--space-4); }
+.slot { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-6); padding: var(--space-3); border-radius: var(--radius-sm); border: thin solid var(--border); background: var(--surface-raised); }
+.slot .k { font: var(--text-caption); }
+.slot-mine { background: var(--primary); color: var(--on-primary); border-color: var(--primary); }
+.slot-other { background: var(--primary-tint); color: var(--on-primary-tint); border-color: var(--primary-tint); }
+.time { font: var(--text-time); }
+.more { align-self: flex-start; font: var(--text-label); color: var(--primary); background: transparent; border: none; padding: var(--space-1) var(--space-2); cursor: pointer; }
+.more:focus-visible { outline: medium solid var(--focus-ring); outline-offset: var(--space-1); }

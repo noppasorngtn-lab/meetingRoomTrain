@@ -487,7 +487,10 @@
             "file": "apps/api/src/modules/calendar/calendar.controller.ts"
           }
         ]
-      }
+      },
+      "commits": [
+        "1f4c7a28ac99f55f002fb40097e4ccac24cc075c"
+      ]
     },
     {
       "id": "FE-mrr-002",
@@ -532,7 +535,122 @@
           "hash": "sha256:6e375cb534e19e35445f100b283d9f450b47a0c9b9ef661fa38e9c2a5b445f64"
         }
       ],
-      "status": "draft"
+      "status": "validated",
+      "build": {
+        "iterations": 0,
+        "proof": [
+          {
+            "cmd": "powershell -File scripts/dev-build.ps1 -App frontend-web",
+            "result": "tsc --noEmit && vite build · ✓ built in 741ms · exit 0",
+            "at": "2026-10-20"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web -Filter FE-mrr-002",
+            "result": "Test Files 1 passed | 1 skipped (2) · Tests 11 passed | 19 skipped (30) · exit 0",
+            "at": "2026-10-20"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1",
+            "result": "api: Test Suites 5 passed, Tests 35 passed · web: Test Files 2 passed, Tests 30 passed · exit 0",
+            "at": "2026-10-20"
+          }
+        ],
+        "last_error": null,
+        "recorded_by": "Noppasorn",
+        "recorded_at": "2026-10-20"
+      },
+      "manifest": {
+        "files": [
+          "apps/web/vite.config.ts",
+          "apps/web/src/main.tsx",
+          "apps/web/src/App.tsx",
+          "apps/web/src/shared/api.ts",
+          "apps/web/src/shared/time.ts",
+          "apps/web/src/shared/components.css",
+          "apps/web/src/features/calendar/CalendarPage.tsx",
+          "apps/web/src/__tests__/calendar.test.tsx"
+        ],
+        "unit_tests": [
+          {
+            "file": "apps/web/src/__tests__/calendar.test.tsx",
+            "calc_ref": null,
+            "gd_ref": null
+          }
+        ],
+        "ui_controls": [
+          {
+            "id": "viewSelect",
+            "kind": "field",
+            "dd_ref": null,
+            "testid": "ui-mrr-005-calendar-view",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "switchView",
+            "kind": "filter",
+            "dd_ref": null,
+            "testid": "ui-mrr-005-switch-view",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "bookSlot",
+            "kind": "navigate",
+            "dd_ref": null,
+            "testid": "ui-mrr-005-book-slot",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "slotTime",
+            "kind": "field",
+            "dd_ref": null,
+            "testid": "ui-mrr-005-ent-007-start-at",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "slotTitle",
+            "kind": "field",
+            "dd_ref": null,
+            "testid": "ui-mrr-005-ent-007-title",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "slotBooker",
+            "kind": "field",
+            "dd_ref": null,
+            "testid": "ui-mrr-005-ent-007-booked-by",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "slotAttendees",
+            "kind": "field",
+            "dd_ref": null,
+            "testid": "ui-mrr-005-ent-008-user",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          }
+        ],
+        "apis": []
+      }
     },
     {
       "id": "FE-mrr-024",
@@ -2611,13 +2729,39 @@
       "blocks": [
         "FE-mrr-022"
       ]
+    },
+    {
+      "id": "GAP-mrr-011",
+      "to": "design",
+      "about": "UI-mrr-005",
+      "question_th": "UI-mrr-005 ปฏิทินห้อง มีมุมมองรายวัน/สัปดาห์/เดือน แต่ไม่ได้ประกาศ field หรือ action สำหรับเปลี่ยนวันที่ (ก่อนหน้า/ถัดไป/เลือกวัน) — ตอนนี้วันที่มาจาก ?date= ใน URL เท่านั้น ผู้ใช้จึงเลื่อนไปดูสัปดาห์อื่นไม่ได้ · ต้องการ action นี้ไหม และชื่อ/key คืออะไร",
+      "found_at": "2026-10-20",
+      "found_by": "/dev:plan",
+      "status": "open",
+      "answer_th": null,
+      "answered_in": null,
+      "closed_by": null,
+      "blocks": []
+    },
+    {
+      "id": "GAP-mrr-012",
+      "to": "design",
+      "about": "UI-mrr-005",
+      "question_th": "action book-slot ของ UI-mrr-005 ประกาศว่า \"เปิดฟอร์มจองพร้อมช่วงเวลาที่เลือก\" แต่หน้านี้ไม่มี field ให้เลือกช่วงเวลา และ API-003 ส่งเฉพาะช่วงที่ไม่ว่าง — ตอนนี้ส่งแค่ห้องกับวันที่ (?room=&date=) ไปที่ UI-mrr-006 · ผู้ใช้เลือกช่วงเวลาที่หน้านี้อย่างไร (กดช่องว่างในตาราง? field เวลาเริ่ม/สิ้นสุด?)",
+      "found_at": "2026-10-20",
+      "found_by": "/dev:plan",
+      "status": "open",
+      "answer_th": null,
+      "answered_in": null,
+      "closed_by": null,
+      "blocks": []
     }
   ],
   "rollup": {
     "features_total": 32,
     "by_status": {
-      "validated": 5,
-      "draft": 27
+      "validated": 6,
+      "draft": 26
     },
     "by_origin": {
       "new": 32
@@ -2626,7 +2770,7 @@
       "frontend-web": 15,
       "api": 17
     },
-    "gaps_open": 10,
+    "gaps_open": 12,
     "ready_for_phase5": false
   }
 }

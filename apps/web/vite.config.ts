@@ -9,7 +9,11 @@ const themeDir = fileURLToPath(new URL('../../.aeon/mockup/handoff/mrr-ds', impo
 export default defineConfig({
   plugins: [react()],
   resolve: { alias: { '@theme': themeDir } },
-  server: { fs: { allow: ['.', themeDir] } },
+  // In development the api runs beside Vite; in production one origin serves both (/dev:deploy).
+  server: {
+    fs: { allow: ['.', themeDir] },
+    proxy: { '/rooms': process.env.API_URL ?? 'http://localhost:3000' },
+  },
   test: {
     environment: 'jsdom',
     globals: true,
