@@ -288,7 +288,7 @@
           "ref": "ENT-004"
         }
       ],
-      "status": "draft"
+      "status": "validated"
     },
     {
       "id": "FE-mrr-003",
@@ -297,7 +297,7 @@
       "type": "command",
       "origin": "new",
       "files_planned": [],
-      "status": "draft",
+      "status": "validated",
       "acceptance_refs": [
         "AC-mrr-001",
         "AC-mrr-002",
@@ -385,7 +385,7 @@
       "type": "command",
       "origin": "new",
       "files_planned": [],
-      "status": "draft",
+      "status": "validated",
       "acceptance_refs": [
         "AC-mrr-008",
         "AC-mrr-021",
@@ -443,7 +443,7 @@
       "type": "command",
       "origin": "new",
       "files_planned": [],
-      "status": "draft",
+      "status": "validated",
       "acceptance_refs": [
         "AC-mrr-008",
         "AC-mrr-021",
@@ -490,7 +490,7 @@
       "type": "command",
       "origin": "new",
       "files_planned": [],
-      "status": "draft",
+      "status": "validated",
       "acceptance_refs": [
         "AC-mrr-009",
         "AC-mrr-010",
@@ -545,7 +545,8 @@
       ],
       "depends_on": [
         "FE-mrr-022",
-        "FE-mrr-026"
+        "FE-mrr-026",
+        "FE-mrr-006"
       ],
       "traces_up": [
         {
