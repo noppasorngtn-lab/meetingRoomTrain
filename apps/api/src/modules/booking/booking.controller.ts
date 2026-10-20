@@ -1,8 +1,12 @@
 import {
-  BadRequestException, Body, ConflictException, Controller, NotFoundException, Post, ServiceUnavailableException,
+  BadRequestException, Body, ConflictException, Controller, ForbiddenException, Get, NotFoundException, Param, Patch,
+  Post, ServiceUnavailableException,
 } from '@nestjs/common';
 import { Caller, CurrentUser, UUID } from '../../common/auth/current-user';
 import { EmailDeliveryFailed } from '../notification/booking-notifier';
+import {
+  BookingDetail, BookingEditService, BookingLocked, BookingNotFound, EditBookingInput, NotTheBooker,
+} from './booking-edit.service';
 import {
   BookingInvalid, BookingRoomNotFound, BookingService, CreatedBooking, RoomUnderMaintenance, SlotTaken,
 } from './booking.service';
@@ -26,10 +30,31 @@ const ids = (value: unknown, field: string): string[] => {
   return value;
 };
 
-/** API-004 — create a booking, with the caller as its booker (ACL-004 scope own). */
+/** For an edit, a field left out means "unchanged", so it stays undefined. */
+const optional = <T>(value: unknown, read: (v: unknown) => T): T | undefined => (value === undefined ? undefined : read(value));
+
+/** The domain's refusals as HTTP answers, with the domain's words. */
+function answer(err: unknown): never {
+  if (err instanceof BookingInvalid) throw invalid(err.field, err.message);
+  if (err instanceof BookingRoomNotFound || err instanceof BookingNotFound) throw new NotFoundException(err.message);
+  if (err instanceof NotTheBooker) throw new ForbiddenException(err.message);
+  if (err instanceof RoomUnderMaintenance || err instanceof SlotTaken || err instanceof BookingLocked) {
+    throw new ConflictException(err.message);
+  }
+  if (err instanceof EmailDeliveryFailed) throw new ServiceUnavailableException(err.message);
+  throw err;
+}
+
+/**
+ * API-004 — create a booking, with the caller as its booker (ACL-004 scope own).
+ * API-007 · API-008 — read one booking, and let its booker edit it before it starts (ACL-005).
+ */
 @Controller('bookings')
 export class BookingController {
-  constructor(private readonly bookings: BookingService) {}
+  constructor(
+    private readonly bookings: BookingService,
+    private readonly edits: BookingEditService,
+  ) {}
 
   @Post()
   async create(@CurrentUser() caller: Caller, @Body() body: Record<string, unknown> = {}): Promise<CreatedBooking> {
@@ -45,11 +70,38 @@ export class BookingController {
     try {
       return await this.bookings.create(caller, input);
     } catch (err) {
-      if (err instanceof BookingInvalid) throw invalid(err.field, err.message);
-      if (err instanceof BookingRoomNotFound) throw new NotFoundException(err.message);
-      if (err instanceof RoomUnderMaintenance || err instanceof SlotTaken) throw new ConflictException(err.message);
-      if (err instanceof EmailDeliveryFailed) throw new ServiceUnavailableException(err.message);
-      throw err;
+      answer(err);
+    }
+  }
+
+  @Get(':id')
+  async get(@CurrentUser() caller: Caller, @Param('id') id: string): Promise<BookingDetail> {
+    if (!UUID.test(id)) throw new NotFoundException('ไม่พบการจอง');
+    try {
+      return await this.edits.get(caller, id);
+    } catch (err) {
+      answer(err);
+    }
+  }
+
+  @Patch(':id')
+  async edit(
+    @CurrentUser() caller: Caller,
+    @Param('id') id: string,
+    @Body() body: Record<string, unknown> = {},
+  ): Promise<{ message: string }> {
+    if (!UUID.test(id)) throw new NotFoundException('ไม่พบการจอง');
+    const input: EditBookingInput = {
+      startAt: optional(body.startAt, (v) => instant(v, 'startAt')),
+      endAt: optional(body.endAt, (v) => instant(v, 'endAt')),
+      title: optional(body.title, (v) => (typeof v === 'string' ? v : '')),
+      attendeeIds: optional(body.attendeeIds, (v) => ids(v, 'attendeeIds')),
+      equipmentIds: optional(body.equipmentIds, (v) => ids(v, 'equipmentIds')),
+    };
+    try {
+      return await this.edits.edit(caller, id, input);
+    } catch (err) {
+      answer(err);
     }
   }
 }

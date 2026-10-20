@@ -56,7 +56,41 @@ export class SlotTaken extends Error {
 }
 
 /** PostgreSQL's exclusion_violation — raised by bookings_no_overlap. */
-const EXCLUSION_VIOLATION = '23P01';
+export const EXCLUSION_VIOLATION = '23P01';
+
+/** BR-mrr-002 — returns the title as it is saved. */
+export function checkTitle(raw: string): string {
+  const title = raw.trim();
+  if (!title) throw new BookingInvalid('title', 'กรุณาระบุหัวข้อการประชุม');
+  if (title.length > TITLE_MAX) throw new BookingInvalid('title', `หัวข้อการประชุมต้องไม่เกิน ${TITLE_MAX} ตัวอักษร`);
+  return title;
+}
+
+/** BR-mrr-002 — the booker is not counted unless they are picked (AC-mrr-007). */
+export function checkAttendeeIds(ids: string[]): string[] {
+  const unique = [...new Set(ids)];
+  if (unique.length === 0) throw new BookingInvalid('attendees', 'กรุณาระบุผู้เข้าร่วมอย่างน้อย 1 คน');
+  return unique;
+}
+
+export function checkTimes(startAt: Date, endAt: Date, now: Date): void {
+  if (endAt.getTime() <= startAt.getTime()) throw new BookingInvalid('end', 'เวลาสิ้นสุดต้องหลังเวลาเริ่ม');
+  if (startAt.getTime() <= now.getTime()) throw new BookingInvalid('start', 'เวลาเริ่มต้องเป็นเวลาในอนาคต');
+}
+
+/** Every id must be an active user; returns them with their email, in no particular order. */
+export async function activeAttendees(tx: Kysely<Database>, ids: string[]) {
+  const found = await tx.selectFrom('users').select(['id', 'email']).where('id', 'in', ids).where('active', '=', true).execute();
+  if (found.length !== ids.length) throw new BookingInvalid('attendees', 'ไม่พบผู้เข้าร่วมบางคนในรายชื่อผู้ใช้');
+  return found;
+}
+
+/** Every id must be a facility still offered (ENT-004 active). */
+export async function checkEquipment(tx: Kysely<Database>, ids: string[]): Promise<void> {
+  if (!ids.length) return;
+  const found = await tx.selectFrom('facilities').select('id').where('id', 'in', ids).where('active', '=', true).execute();
+  if (found.length !== ids.length) throw new BookingInvalid('equipment', 'ไม่พบอุปกรณ์เสริมบางรายการ');
+}
 
 @Injectable()
 export class BookingService {
@@ -77,14 +111,9 @@ export class BookingService {
    */
   async create(caller: Caller, input: CreateBookingInput): Promise<CreatedBooking> {
     const now = this.clock.now();
-    const title = input.title.trim();
-    if (!title) throw new BookingInvalid('title', 'กรุณาระบุหัวข้อการประชุม');
-    if (title.length > TITLE_MAX) throw new BookingInvalid('title', `หัวข้อการประชุมต้องไม่เกิน ${TITLE_MAX} ตัวอักษร`);
-    const attendeeIds = [...new Set(input.attendeeIds)];
-    // The booker is not counted unless they are picked (AC-mrr-007).
-    if (attendeeIds.length === 0) throw new BookingInvalid('attendees', 'กรุณาระบุผู้เข้าร่วมอย่างน้อย 1 คน');
-    if (input.endAt.getTime() <= input.startAt.getTime()) throw new BookingInvalid('end', 'เวลาสิ้นสุดต้องหลังเวลาเริ่ม');
-    if (input.startAt.getTime() <= now.getTime()) throw new BookingInvalid('start', 'เวลาเริ่มต้องเป็นเวลาในอนาคต');
+    const title = checkTitle(input.title);
+    const attendeeIds = checkAttendeeIds(input.attendeeIds);
+    checkTimes(input.startAt, input.endAt, now);
     const equipmentIds = [...new Set(input.equipmentIds)];
 
     return this.db.transaction().execute(async (tx) => {
@@ -98,22 +127,8 @@ export class BookingService {
       if (!room || room.status === 'ARCHIVED') throw new BookingRoomNotFound();
       if (room.status === 'UNDER_MAINTENANCE') throw new RoomUnderMaintenance();
 
-      const attendees = await tx
-        .selectFrom('users')
-        .select(['id', 'email'])
-        .where('id', 'in', attendeeIds)
-        .where('active', '=', true)
-        .execute();
-      if (attendees.length !== attendeeIds.length) throw new BookingInvalid('attendees', 'ไม่พบผู้เข้าร่วมบางคนในรายชื่อผู้ใช้');
-      if (equipmentIds.length) {
-        const found = await tx
-          .selectFrom('facilities')
-          .select('id')
-          .where('id', 'in', equipmentIds)
-          .where('active', '=', true)
-          .execute();
-        if (found.length !== equipmentIds.length) throw new BookingInvalid('equipment', 'ไม่พบอุปกรณ์เสริมบางรายการ');
-      }
+      const attendees = await activeAttendees(tx, attendeeIds);
+      await checkEquipment(tx, equipmentIds);
 
       const status = room.requires_approval ? 'PENDING_APPROVAL' : 'CONFIRMED';
       let id: string;
