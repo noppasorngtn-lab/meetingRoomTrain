@@ -139,12 +139,13 @@ describe('FE-mrr-030 POST /bookings/:id/admin-edit · /admin-cancel', () => {
       expect([res.status, res.body.field]).toEqual([400, 'endAt']);
     });
 
-    it('409 at the end — a direct edit is over', async () => {
+    it('at the end a direct edit is over — the title stays and the edit is sent as a request', async () => {
       now = at(18, '11:00');
 
       const res = await post('admin-edit', { title: 'ประชุมวางแผน', reason: 'x' }, ra1);
 
-      expect([res.status, res.body.message]).toEqual([409, 'การประชุมจบแล้ว การแก้ไขต้องส่งเป็นคำขอแก้ไข']);
+      expect([res.status, res.body.message]).toEqual([200, 'ส่งคำขอแก้ไขแล้ว รอผู้ดูแลห้องคนอื่นอนุมัติ']);
+      expect((await row()).title).toBe('ประชุมทีม');
     });
 
     it('403 for a General User', async () => {

@@ -2553,7 +2553,10 @@
             "file": "apps/api/src/modules/booking/booking.controller.ts"
           }
         ]
-      }
+      },
+      "commits": [
+        "2751393157eb21dbc994ddcb6eb6877bf550c90a"
+      ]
     },
     {
       "id": "FE-mrr-009",
@@ -2638,7 +2641,61 @@
           "hash": "sha256:f4f7461f1560c969a8d444010e6a9e2ab99be0b7c5e25a43bbf9f18934e717f4"
         }
       ],
-      "status": "draft"
+      "status": "validated",
+      "build": {
+        "iterations": 0,
+        "proof": [
+          {
+            "cmd": "powershell -File scripts/dev-build.ps1 -App api",
+            "result": "tsc -p tsconfig.build.json · exit 0",
+            "at": "2026-10-20"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App api -Filter FE-mrr-031",
+            "result": "Test Suites: 18 skipped, 2 passed, 2 of 20 total · Tests: 247 skipped, 19 passed, 266 total · exit 0",
+            "at": "2026-10-20"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1",
+            "result": "api: Test Suites 20 passed, Tests 266 passed · web: Test Files 8 passed, Tests 123 passed · exit 0",
+            "at": "2026-10-20"
+          }
+        ],
+        "last_error": null,
+        "recorded_by": "Noppasorn",
+        "recorded_at": "2026-10-20"
+      },
+      "manifest": {
+        "files": [
+          "apps/api/src/common/database/migrations/004_booking_adjustment.sql",
+          "apps/api/src/common/database/schema.ts",
+          "apps/api/src/modules/booking/booking-edit.service.ts",
+          "apps/api/test/booking/booking-adjustment.spec.ts",
+          "apps/api/test/booking/booking-adjustment.http.spec.ts",
+          "apps/api/test/booking/booking-admin.spec.ts",
+          "apps/api/test/booking/booking-admin.http.spec.ts"
+        ],
+        "unit_tests": [
+          {
+            "file": "apps/api/test/booking/booking-adjustment.spec.ts",
+            "calc_ref": null,
+            "gd_ref": null
+          },
+          {
+            "file": "apps/api/test/booking/booking-adjustment.http.spec.ts",
+            "calc_ref": null,
+            "gd_ref": null
+          }
+        ],
+        "ui_controls": [],
+        "apis": [
+          {
+            "api_ref": "API-014",
+            "route": "POST /bookings/:id/admin-edit",
+            "file": "apps/api/src/modules/booking/booking.controller.ts"
+          }
+        ]
+      }
     },
     {
       "id": "FE-mrr-010",
@@ -3936,8 +3993,8 @@
   "rollup": {
     "features_total": 33,
     "by_status": {
-      "validated": 20,
-      "draft": 13
+      "validated": 21,
+      "draft": 12
     },
     "by_origin": {
       "new": 33

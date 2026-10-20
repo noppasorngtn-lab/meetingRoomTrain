@@ -73,6 +73,19 @@ export interface BookingAuditEntriesTable {
   at: Date;
 }
 
+export interface BookingAdjustmentRequestsTable {
+  id: Generated<string>;
+  booking_id: string;
+  requested_by: string;
+  /** Only the fields asked to change, in the api's own names (startAt · endAt as ISO instants). */
+  proposed_changes: ColumnType<Record<string, unknown>, string, string>;
+  reason: string;
+  status: ColumnType<'PENDING' | 'APPROVED' | 'REJECTED', 'PENDING' | 'APPROVED' | 'REJECTED' | undefined>;
+  decided_by: string | null;
+  decided_at: Date | null;
+  created_at: Date;
+}
+
 export interface Database {
   users: UsersTable;
   meeting_rooms: MeetingRoomsTable;
@@ -82,4 +95,5 @@ export interface Database {
   facilities: FacilitiesTable;
   booking_equipment_requests: BookingEquipmentRequestsTable;
   booking_audit_entries: BookingAuditEntriesTable;
+  booking_adjustment_requests: BookingAdjustmentRequestsTable;
 }

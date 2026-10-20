@@ -114,12 +114,10 @@ describe('FE-mrr-030 edit or cancel on behalf of the booker (UC-mrr-009)', () =>
       expect(await trail()).toEqual([]);
     });
 
-    it('at 11:00, the end, a direct edit is over — refused here (after the end it becomes a request, UC-mrr-010)', async () => {
+    it('at 11:00, the end, a direct edit is over — the booking is left alone and the edit becomes a request (UC-mrr-010)', async () => {
       now = at(18, '11:00');
 
-      const refused = edit({ title: 'ประชุมวางแผน' });
-      await expect(refused).rejects.toBeInstanceOf(BookingLocked);
-      await expect(refused).rejects.toThrow('การประชุมจบแล้ว การแก้ไขต้องส่งเป็นคำขอแก้ไข');
+      expect(await edit({ title: 'ประชุมวางแผน' })).toEqual({ message: 'ส่งคำขอแก้ไขแล้ว รอผู้ดูแลห้องคนอื่นอนุมัติ' });
       expect(await row()).toMatchObject({ title: 'ประชุมทีม' });
     });
 

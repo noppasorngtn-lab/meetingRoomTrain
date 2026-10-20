@@ -111,7 +111,7 @@ export class BookingEditService {
     const now = this.clock.now();
     return this.db.transaction().execute(async (tx) => {
       const current = await this.lockDuringMeeting(tx, id, now);
-      if (current.end_at.getTime() <= now.getTime()) throw new BookingLocked('การประชุมจบแล้ว การแก้ไขต้องส่งเป็นคำขอแก้ไข');
+      if (current.end_at.getTime() <= now.getTime()) return this.requestAdjustment(tx, caller, current, input, reason, now);
       // The meeting has begun, so its start may lie in the past — only the end must still be ahead.
       const checkUnderWay = (startAt: Date, endAt: Date) => {
         if (endAt.getTime() <= startAt.getTime()) throw new BookingInvalid('end', 'เวลาสิ้นสุดต้องหลังเวลาเริ่ม');
@@ -121,6 +121,57 @@ export class BookingEditService {
         recordAudit(tx, { bookingId: id, caller, action: 'EDIT_ON_BEHALF', at: now, reason, detail: changes }));
       return { message: 'บันทึกการแก้ไขสำเร็จ' };
     });
+  }
+
+  /**
+   * UC-mrr-010 · BR-mrr-014 — after the end (11:00 counts) an edit is kept as a request and the
+   * booking keeps its values until another Room Administrator approves it.
+   */
+  private async requestAdjustment(
+    tx: Kysely<Database>,
+    caller: Caller,
+    current: { id: string; title: string; start_at: Date; end_at: Date },
+    input: EditBookingInput,
+    reason: string,
+    now: Date,
+  ): Promise<{ message: string }> {
+    const before: Record<string, unknown> = {};
+    const after: Record<string, unknown> = {};
+    const changed = (key: string, was: unknown, asked: unknown) => {
+      if (JSON.stringify(was) === JSON.stringify(asked)) return;
+      before[key] = was;
+      after[key] = asked;
+    };
+
+    if (input.title !== undefined) changed('title', current.title, checkTitle(input.title));
+    const startAt = input.startAt ?? current.start_at;
+    const endAt = input.endAt ?? current.end_at;
+    // The meeting is over, so the asked-for time may lie in the past; it must still make sense.
+    if (endAt.getTime() <= startAt.getTime()) throw new BookingInvalid('end', 'เวลาสิ้นสุดต้องหลังเวลาเริ่ม');
+    changed('startAt', current.start_at.toISOString(), startAt.toISOString());
+    changed('endAt', current.end_at.toISOString(), endAt.toISOString());
+    if (input.attendeeIds !== undefined) {
+      const attendeeIds = checkAttendeeIds(input.attendeeIds);
+      await activeAttendees(tx, attendeeIds);
+      const was = await tx.selectFrom('booking_attendees').select('user_id').where('booking_id', '=', current.id).execute();
+      changed('attendeeIds', was.map((a) => a.user_id).sort(), [...attendeeIds].sort());
+    }
+    if (input.equipmentIds !== undefined) {
+      const equipmentIds = [...new Set(input.equipmentIds)];
+      await checkEquipment(tx, equipmentIds);
+      const was = await tx.selectFrom('booking_equipment_requests').select('facility_id').where('booking_id', '=', current.id).execute();
+      changed('equipmentIds', was.map((e) => e.facility_id).sort(), [...equipmentIds].sort());
+    }
+    // ENT-011 proposedChanges — at least one field.
+    if (!Object.keys(after).length) throw new BookingInvalid('changes', 'ไม่มีค่าที่ขอแก้ไข');
+
+    await tx
+      .insertInto('booking_adjustment_requests')
+      .values({ booking_id: current.id, requested_by: caller.userId, proposed_changes: JSON.stringify(after), reason, created_at: now })
+      .execute();
+    await recordAudit(tx, { bookingId: current.id, caller, action: 'CREATE_ADJUSTMENT', at: now, reason, detail: { before, after } });
+    // No mail: the booking has not changed, and will not until another Room Administrator approves.
+    return { message: 'ส่งคำขอแก้ไขแล้ว รอผู้ดูแลห้องคนอื่นอนุมัติ' };
   }
 
   /**
