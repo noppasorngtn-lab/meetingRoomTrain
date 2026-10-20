@@ -1,0 +1,26 @@
+/* The app frame, as mock's L2 pages draw it. Tokens only — every value is a var() from the theme. */
+* { box-sizing: border-box; }
+body { margin: 0; font: var(--text-body); background: var(--surface); color: var(--ink); }
+
+.appbar { display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-4); padding: var(--space-3) var(--space-8); background: var(--surface-raised); border-bottom: thin solid var(--border); }
+.wordmark { font: var(--text-heading); color: var(--ink); }
+.wordmark .mark { display: inline-block; padding: var(--space-1) var(--space-2); margin-right: var(--space-2); border-radius: var(--radius-sm); background: var(--primary); color: var(--on-primary); }
+.spacer { flex: 1; }
+.appbar a { color: var(--primary); font: var(--text-label); text-decoration: none; }
+
+.appnav { display: flex; flex-wrap: wrap; gap: var(--space-1); padding: 0 var(--space-8); background: var(--surface-raised); border-bottom: thin solid var(--border); }
+.appnav a { text-decoration: none; color: var(--ink-muted); font: var(--text-label); padding: var(--space-3); border-bottom: medium solid transparent; }
+.appnav a:hover { color: var(--ink); background: var(--surface-hover); }
+.appnav a[aria-current="page"] { color: var(--primary); border-bottom-color: var(--primary); }
+
+.appbar a:focus-visible,
+.appnav a:focus-visible { outline: medium solid var(--focus-ring); outline-offset: var(--space-1); }
+
+main { max-width: var(--content-max); margin: 0 auto; padding: var(--space-8); }
+h1 { font: var(--text-display); margin: 0 0 var(--space-2); }
+
+.auth { max-width: var(--content-max); margin: 0 auto; padding: var(--space-12) var(--space-4); display: flex; flex-direction: column; align-items: center; }
+.auth .card { width: 100%; max-width: var(--content-max); }
+.auth .product { font: var(--text-title); margin-bottom: var(--space-6); }
+
+.pending p { color: var(--ink-muted); }

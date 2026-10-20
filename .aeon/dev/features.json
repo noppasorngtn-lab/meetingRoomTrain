@@ -260,7 +260,117 @@
           "hash": "sha256:e354510bf33050a0f8234a81049c10d3793fb20c859d085de473c38d10c262cc"
         }
       ],
-      "status": "draft"
+      "status": "validated",
+      "build": {
+        "iterations": 0,
+        "proof": [
+          {
+            "cmd": "powershell -File scripts/dev-build.ps1 -App frontend-web",
+            "result": "tsc --noEmit && vite build · ✓ built in 696ms · exit 0",
+            "at": "2026-10-20"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web -Filter FE-mrr-022",
+            "result": "Test Files 1 passed (1) · Tests 19 passed (19) · exit 0",
+            "at": "2026-10-20"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1",
+            "result": "api: Test Suites 3 passed, Tests 18 passed · web: Test Files 1 passed, Tests 19 passed · exit 0",
+            "at": "2026-10-20"
+          }
+        ],
+        "last_error": null,
+        "recorded_by": "Noppasorn",
+        "recorded_at": "2026-10-20"
+      },
+      "manifest": {
+        "files": [
+          "apps/web/package.json",
+          "apps/web/tsconfig.json",
+          "apps/web/vite.config.ts",
+          "apps/web/index.html",
+          "apps/web/src/main.tsx",
+          "apps/web/src/App.tsx",
+          "apps/web/src/shared/sitemap.ts",
+          "apps/web/src/shared/PendingScreen.tsx",
+          "apps/web/src/shared/shell.css",
+          "apps/web/src/features/shell/AppShell.tsx",
+          "apps/web/src/features/shell/AuthLayout.tsx",
+          "apps/web/src/__tests__/setup.ts",
+          "apps/web/src/__tests__/shell.test.tsx"
+        ],
+        "unit_tests": [
+          {
+            "file": "apps/web/src/__tests__/shell.test.tsx",
+            "calc_ref": null,
+            "gd_ref": null
+          }
+        ],
+        "ui_controls": [
+          {
+            "id": "menuSearch",
+            "kind": "navigate",
+            "dd_ref": null,
+            "testid": "nav-ui-mrr-004",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "menuMyBookings",
+            "kind": "navigate",
+            "dd_ref": null,
+            "testid": "nav-ui-mrr-007",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "menuApprovals",
+            "kind": "navigate",
+            "dd_ref": null,
+            "testid": "nav-ui-mrr-009",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "menuRooms",
+            "kind": "navigate",
+            "dd_ref": null,
+            "testid": "nav-ui-mrr-012",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "menuReport",
+            "kind": "navigate",
+            "dd_ref": null,
+            "testid": "nav-rpt-mrr-001",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "signOut",
+            "kind": "navigate",
+            "dd_ref": null,
+            "testid": "nav-ui-mrr-003",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          }
+        ],
+        "apis": []
+      }
     },
     {
       "id": "FE-mrr-023",
@@ -2290,7 +2400,10 @@
         ],
         "ui_controls": [],
         "apis": []
-      }
+      },
+      "commits": [
+        "cc24e4a56cb2d18d09a64fde00aeee037b60896b"
+      ]
     }
   ],
   "gaps": [
@@ -2345,13 +2458,103 @@
       "answered_in": null,
       "closed_by": null,
       "blocks": []
+    },
+    {
+      "id": "GAP-mrr-005",
+      "to": "mock",
+      "about": "nav-ui-mrr-004",
+      "question_th": "testid nav-ui-mrr-004 ของลิงก์เมนูไป UI-mrr-004 มินต์โดย mock (wireframes.mjs navControlId) และอยู่ในหน้า L2 ทุกหน้า แต่ไม่อยู่ใน controls[] ของ wireframe ใด ๆ และ design ไม่ได้ประกาศ — roster ของ dev (testidRoster) จึงมองไม่เห็น และ DV17 นับเป็น Class B · ขอให้ mock ประกาศ control ของเมนูในที่ที่ dev อ่านได้ (เช่น wireframe controls[] หรือไฟล์ shell) หรือยืนยันว่า id นี้คือสัญญา",
+      "found_at": "2026-10-20",
+      "found_by": "/dev:plan",
+      "status": "open",
+      "answer_th": null,
+      "answered_in": null,
+      "closed_by": null,
+      "blocks": [
+        "FE-mrr-022"
+      ]
+    },
+    {
+      "id": "GAP-mrr-006",
+      "to": "mock",
+      "about": "nav-ui-mrr-007",
+      "question_th": "testid nav-ui-mrr-007 ของลิงก์เมนูไป UI-mrr-007 มินต์โดย mock (wireframes.mjs navControlId) และอยู่ในหน้า L2 ทุกหน้า แต่ไม่อยู่ใน controls[] ของ wireframe ใด ๆ และ design ไม่ได้ประกาศ — roster ของ dev (testidRoster) จึงมองไม่เห็น และ DV17 นับเป็น Class B · ขอให้ mock ประกาศ control ของเมนูในที่ที่ dev อ่านได้ (เช่น wireframe controls[] หรือไฟล์ shell) หรือยืนยันว่า id นี้คือสัญญา",
+      "found_at": "2026-10-20",
+      "found_by": "/dev:plan",
+      "status": "open",
+      "answer_th": null,
+      "answered_in": null,
+      "closed_by": null,
+      "blocks": [
+        "FE-mrr-022"
+      ]
+    },
+    {
+      "id": "GAP-mrr-007",
+      "to": "mock",
+      "about": "nav-ui-mrr-009",
+      "question_th": "testid nav-ui-mrr-009 ของลิงก์เมนูไป UI-mrr-009 มินต์โดย mock (wireframes.mjs navControlId) และอยู่ในหน้า L2 ทุกหน้า แต่ไม่อยู่ใน controls[] ของ wireframe ใด ๆ และ design ไม่ได้ประกาศ — roster ของ dev (testidRoster) จึงมองไม่เห็น และ DV17 นับเป็น Class B · ขอให้ mock ประกาศ control ของเมนูในที่ที่ dev อ่านได้ (เช่น wireframe controls[] หรือไฟล์ shell) หรือยืนยันว่า id นี้คือสัญญา",
+      "found_at": "2026-10-20",
+      "found_by": "/dev:plan",
+      "status": "open",
+      "answer_th": null,
+      "answered_in": null,
+      "closed_by": null,
+      "blocks": [
+        "FE-mrr-022"
+      ]
+    },
+    {
+      "id": "GAP-mrr-008",
+      "to": "mock",
+      "about": "nav-ui-mrr-012",
+      "question_th": "testid nav-ui-mrr-012 ของลิงก์เมนูไป UI-mrr-012 มินต์โดย mock (wireframes.mjs navControlId) และอยู่ในหน้า L2 ทุกหน้า แต่ไม่อยู่ใน controls[] ของ wireframe ใด ๆ และ design ไม่ได้ประกาศ — roster ของ dev (testidRoster) จึงมองไม่เห็น และ DV17 นับเป็น Class B · ขอให้ mock ประกาศ control ของเมนูในที่ที่ dev อ่านได้ (เช่น wireframe controls[] หรือไฟล์ shell) หรือยืนยันว่า id นี้คือสัญญา",
+      "found_at": "2026-10-20",
+      "found_by": "/dev:plan",
+      "status": "open",
+      "answer_th": null,
+      "answered_in": null,
+      "closed_by": null,
+      "blocks": [
+        "FE-mrr-022"
+      ]
+    },
+    {
+      "id": "GAP-mrr-009",
+      "to": "mock",
+      "about": "nav-rpt-mrr-001",
+      "question_th": "testid nav-rpt-mrr-001 ของลิงก์เมนูไป RPT-mrr-001 มินต์โดย mock (wireframes.mjs navControlId) และอยู่ในหน้า L2 ทุกหน้า แต่ไม่อยู่ใน controls[] ของ wireframe ใด ๆ และ design ไม่ได้ประกาศ — roster ของ dev (testidRoster) จึงมองไม่เห็น และ DV17 นับเป็น Class B · ขอให้ mock ประกาศ control ของเมนูในที่ที่ dev อ่านได้ (เช่น wireframe controls[] หรือไฟล์ shell) หรือยืนยันว่า id นี้คือสัญญา",
+      "found_at": "2026-10-20",
+      "found_by": "/dev:plan",
+      "status": "open",
+      "answer_th": null,
+      "answered_in": null,
+      "closed_by": null,
+      "blocks": [
+        "FE-mrr-022"
+      ]
+    },
+    {
+      "id": "GAP-mrr-010",
+      "to": "mock",
+      "about": "nav-ui-mrr-003",
+      "question_th": "testid nav-ui-mrr-003 ของลิงก์เมนูไป UI-mrr-003 มินต์โดย mock (wireframes.mjs navControlId) และอยู่ในหน้า L2 ทุกหน้า แต่ไม่อยู่ใน controls[] ของ wireframe ใด ๆ และ design ไม่ได้ประกาศ — roster ของ dev (testidRoster) จึงมองไม่เห็น และ DV17 นับเป็น Class B · ขอให้ mock ประกาศ control ของเมนูในที่ที่ dev อ่านได้ (เช่น wireframe controls[] หรือไฟล์ shell) หรือยืนยันว่า id นี้คือสัญญา",
+      "found_at": "2026-10-20",
+      "found_by": "/dev:plan",
+      "status": "open",
+      "answer_th": null,
+      "answered_in": null,
+      "closed_by": null,
+      "blocks": [
+        "FE-mrr-022"
+      ]
     }
   ],
   "rollup": {
     "features_total": 32,
     "by_status": {
-      "draft": 29,
-      "validated": 3
+      "validated": 4,
+      "draft": 28
     },
     "by_origin": {
       "new": 32
@@ -2360,7 +2563,7 @@
       "frontend-web": 15,
       "api": 17
     },
-    "gaps_open": 4,
+    "gaps_open": 10,
     "ready_for_phase5": false
   }
 }
