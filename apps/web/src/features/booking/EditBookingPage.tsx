@@ -6,8 +6,7 @@ import { bangkokInstant, bangkokLocal } from '../../shared/time';
 import {
   AttendeePicker, checkForm, EquipmentChecks, Errors, FIELD_OF, Option, Person, TimeField, TitleField,
 } from './fields';
-
-type BookingStatus = 'PENDING_APPROVAL' | 'CONFIRMED' | 'APPROVED' | 'REJECTED' | 'CANCELLED';
+import { BookingStatus, canEdit, STATUS_LABEL } from './status';
 
 interface Booking {
   id: string;
@@ -19,18 +18,6 @@ interface Booking {
   attendees: Person[];
   equipment: Option[];
 }
-
-/** STM-mrr-001's state labels, word for word. */
-const STATUS_LABEL: Record<BookingStatus, string> = {
-  PENDING_APPROVAL: 'รออนุมัติ',
-  CONFIRMED: 'จองสำเร็จ (ห้องไม่ต้องอนุมัติ)',
-  APPROVED: 'อนุมัติแล้ว',
-  REJECTED: 'ปฏิเสธแล้ว',
-  CANCELLED: 'ยกเลิกแล้ว',
-};
-
-/** ACL-005 condition — the states an owner may still edit. */
-const EDITABLE: BookingStatus[] = ['PENDING_APPROVAL', 'CONFIRMED', 'APPROVED'];
 
 const SIGN_IN = 'UI-mrr-001';
 /** save's and back's destinationRef in screens.json. */
@@ -71,8 +58,7 @@ export function EditBookingPage() {
   useEffect(() => {
     getJson<Booking>(`/bookings/${bookingId}`)
       .then((b) => {
-        // The api enforces this too (ACL-005); the page just does not offer a form it would refuse.
-        if (!EDITABLE.includes(b.status) || new Date(b.startAt).getTime() <= Date.now()) return setLoad({ kind: 'locked' });
+        if (!canEdit(b)) return setLoad({ kind: 'locked' });
         setStart(bangkokLocal(b.startAt));
         setEnd(bangkokLocal(b.endAt));
         setTitle(b.title);

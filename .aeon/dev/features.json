@@ -1646,7 +1646,10 @@
             "file": "apps/api/src/modules/booking/booking.controller.ts"
           }
         ]
-      }
+      },
+      "commits": [
+        "f8d2e9373f582c2eec0e3a6683e0c16fd1b71612"
+      ]
     },
     {
       "id": "FE-mrr-006",
@@ -1676,7 +1679,100 @@
           "hash": "sha256:f51d2d53df35887e09c6bff19de0c1d0e556745ff44c4000991661a21e9fb1ed"
         }
       ],
-      "status": "draft"
+      "status": "validated",
+      "build": {
+        "iterations": 0,
+        "proof": [
+          {
+            "cmd": "powershell -File scripts/dev-build.ps1 -App frontend-web",
+            "result": "tsc --noEmit && vite build · 48 modules transformed · built in 727ms · exit 0",
+            "at": "2026-10-20"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web -Filter FE-mrr-006",
+            "result": "Test Files 1 passed | 4 skipped (5) · Tests 11 passed | 65 skipped (76) · exit 0",
+            "at": "2026-10-20"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1",
+            "result": "api: Test Suites 12 passed, Tests 132 passed · web: Test Files 5 passed, Tests 76 passed · exit 0",
+            "at": "2026-10-20"
+          }
+        ],
+        "last_error": null,
+        "recorded_by": "Noppasorn",
+        "recorded_at": "2026-10-20"
+      },
+      "manifest": {
+        "files": [
+          "apps/web/src/App.tsx",
+          "apps/web/src/shared/components.css",
+          "apps/web/src/features/booking/status.ts",
+          "apps/web/src/features/booking/EditBookingPage.tsx",
+          "apps/web/src/features/booking/MyBookingsPage.tsx",
+          "apps/web/src/__tests__/my-bookings.test.tsx"
+        ],
+        "unit_tests": [
+          {
+            "file": "apps/web/src/__tests__/my-bookings.test.tsx",
+            "calc_ref": null,
+            "gd_ref": null
+          }
+        ],
+        "ui_controls": [
+          {
+            "id": "roomName",
+            "kind": "field",
+            "dd_ref": null,
+            "testid": "ui-mrr-007-ent-007-room",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "startAt",
+            "kind": "field",
+            "dd_ref": null,
+            "testid": "ui-mrr-007-ent-007-start-at",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "title",
+            "kind": "field",
+            "dd_ref": null,
+            "testid": "ui-mrr-007-ent-007-title",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "status",
+            "kind": "field",
+            "dd_ref": null,
+            "testid": "ui-mrr-007-ent-007-status",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "open",
+            "kind": "edit",
+            "dd_ref": null,
+            "testid": "ui-mrr-007-open",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          }
+        ],
+        "apis": []
+      }
     },
     {
       "id": "FE-mrr-028",
@@ -3366,8 +3462,8 @@
   "rollup": {
     "features_total": 33,
     "by_status": {
-      "validated": 13,
-      "draft": 20
+      "validated": 14,
+      "draft": 19
     },
     "by_origin": {
       "new": 33
