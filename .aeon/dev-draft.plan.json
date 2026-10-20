@@ -57,7 +57,7 @@
           "ref": "UI-mrr-014"
         }
       ],
-      "status": "draft"
+      "status": "validated"
     },
     {
       "id": "FE-mrr-023",
@@ -66,7 +66,7 @@
       "type": "command",
       "origin": "new",
       "files_planned": [],
-      "status": "draft",
+      "status": "validated",
       "acceptance_refs": [
         "AC-mrr-066",
         "AC-mrr-067",
@@ -111,7 +111,7 @@
       "type": "command",
       "origin": "new",
       "files_planned": [],
-      "status": "draft",
+      "status": "validated",
       "acceptance_refs": [
         "AC-mrr-066",
         "AC-mrr-067",
@@ -150,7 +150,7 @@
       "type": "command",
       "origin": "new",
       "files_planned": [],
-      "status": "draft",
+      "status": "validated",
       "acceptance_refs": [
         "AC-mrr-001",
         "AC-mrr-002",
@@ -251,6 +251,46 @@
       ]
     },
     {
+      "id": "FE-mrr-037",
+      "title_th": "ข้อมูลห้องและตัวเลือกอุปกรณ์เสริมสำหรับฟอร์มจอง — ฝั่ง API",
+      "app_ref": "api",
+      "type": "command",
+      "origin": "new",
+      "files_planned": [],
+      "depends_on": [],
+      "acceptance_refs": [
+        "AC-mrr-005",
+        "AC-mrr-032"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-003"
+        },
+        {
+          "ref": "AC-mrr-005"
+        },
+        {
+          "ref": "AC-mrr-032"
+        },
+        {
+          "ref": "API-002"
+        },
+        {
+          "ref": "API-022"
+        },
+        {
+          "ref": "ENT-002"
+        },
+        {
+          "ref": "ENT-003"
+        },
+        {
+          "ref": "ENT-004"
+        }
+      ],
+      "status": "draft"
+    },
+    {
       "id": "FE-mrr-003",
       "title_th": "จองห้องประชุม — หน้าจอ",
       "app_ref": "frontend-web",
@@ -278,7 +318,8 @@
       ],
       "depends_on": [
         "FE-mrr-022",
-        "FE-mrr-024"
+        "FE-mrr-024",
+        "FE-mrr-037"
       ],
       "traces_up": [
         {
@@ -1149,7 +1190,9 @@
         "AC-mrr-077",
         "AC-mrr-078"
       ],
-      "depends_on": [],
+      "depends_on": [
+        "FE-mrr-037"
+      ],
       "traces_up": [
         {
           "ref": "UC-mrr-013"
@@ -1185,16 +1228,10 @@
           "ref": "AC-mrr-078"
         },
         {
-          "ref": "API-002"
-        },
-        {
           "ref": "API-020"
         },
         {
           "ref": "API-021"
-        },
-        {
-          "ref": "API-022"
         },
         {
           "ref": "API-023"
@@ -1507,7 +1544,7 @@
       "type": "command",
       "origin": "new",
       "files_planned": [],
-      "status": "draft",
+      "status": "validated",
       "acceptance_refs": [
         "AC-mrr-019",
         "AC-mrr-021",
@@ -1565,7 +1602,7 @@
       "type": "batch",
       "origin": "new",
       "files_planned": [],
-      "status": "draft",
+      "status": "validated",
       "acceptance_refs": [
         "AC-mrr-020",
         "AC-mrr-023",
@@ -1622,7 +1659,7 @@
       "type": "batch",
       "origin": "new",
       "files_planned": [],
-      "status": "draft",
+      "status": "validated",
       "acceptance_refs": [
         "AC-mrr-048",
         "AC-mrr-049",
@@ -1677,6 +1714,13 @@
       "to": "design",
       "about": "UC-mrr-021",
       "question_th": "UC-mrr-021 (ออกจากระบบ · UI-mrr-003 · API-034) ไม่มีเกณฑ์รับ (AC-) ข้อไหนผูกไว้ใน functions.json acceptance[].useCases — dev สร้างหน่วยที่ไม่มีใครพิสูจน์ว่าเสร็จไม่ได้ · ขอให้ design เขียนเกณฑ์รับของ use case นี้ (given/when/then) หรือบอกว่าเกณฑ์รับข้อไหนที่มีอยู่แล้วครอบคลุมมัน",
+      "blocks": []
+    },
+    {
+      "id": "GAP-mrr-013",
+      "to": "design",
+      "about": "API-022",
+      "question_th": "UI-mrr-006 (จองห้องประชุม · ROLE-001/002/003) ต้องแสดงชื่อห้อง และเตือนเมื่อผู้เข้าร่วมเกินความจุ จึงต้องอ่าน GET /rooms/{id} (API-022) และ GET /facilities?active=true (API-002) — แต่ rbac.json ไม่มี ACL ที่ให้ General User เรียก API-022 (มีแค่ ACL-030 เปิดหน้าข้อมูลห้องของ ROLE-002) · dev ตั้งต้นว่าผู้ใช้ที่เข้าสู่ระบบแล้วทุกบทบาทอ่านห้องที่ไม่ใช่ ARCHIVED ได้ (ชื่อ · ความจุ · ต้องอนุมัติ · สถานะ) สอดคล้อง ACL-001 ที่เห็นทุกห้องในการค้นหา และอ่านสิ่งอำนวยความสะดวกที่ active ได้ · ขอให้ design ยืนยันหรือแก้: ผู้ใช้ทั่วไปเรียก API-022 ได้ไหม เห็นฟิลด์ไหน (ผู้อนุมัติประจำห้อง/รูปภาพด้วยไหม)",
       "blocks": []
     }
   ]

@@ -853,7 +853,10 @@
             "file": "apps/api/src/modules/users/users.controller.ts"
           }
         ]
-      }
+      },
+      "commits": [
+        "d728c50bf5f439516d849ba9cb19b54d857f8ab0"
+      ]
     },
     {
       "id": "FE-mrr-003",
@@ -864,7 +867,8 @@
       "files_planned": [],
       "depends_on": [
         "FE-mrr-022",
-        "FE-mrr-024"
+        "FE-mrr-024",
+        "FE-mrr-037"
       ],
       "acceptance_refs": [
         "AC-mrr-001",
@@ -1900,7 +1904,9 @@
       "type": "crud",
       "origin": "new",
       "files_planned": [],
-      "depends_on": [],
+      "depends_on": [
+        "FE-mrr-037"
+      ],
       "acceptance_refs": [
         "AC-mrr-015",
         "AC-mrr-017",
@@ -1959,20 +1965,12 @@
           "hash": "sha256:f308a7455dbfa5375cab633af8c1320135c08bc449320382edc03e7cd599d8ca"
         },
         {
-          "ref": "API-002",
-          "hash": "sha256:2fca112faaa0daad58cd0d3444a02e1b502b84e61f2312402d4e4bc2a1fa4ac9"
-        },
-        {
           "ref": "API-020",
           "hash": "sha256:6188da60a1093edcb2a0c6a30c449e131388baff2a3081ccc554913f00a2791d"
         },
         {
           "ref": "API-021",
           "hash": "sha256:a325f329c18769b5bb581260f6f724389d266d8fb87c5a6eaadc71bef4685d29"
-        },
-        {
-          "ref": "API-022",
-          "hash": "sha256:dfae0c6df3056ac08f1b859e7e46f223a67ca02d4d503a4356bd94f7e71cc645"
         },
         {
           "ref": "API-023",
@@ -2656,6 +2654,106 @@
       "commits": [
         "cc24e4a56cb2d18d09a64fde00aeee037b60896b"
       ]
+    },
+    {
+      "id": "FE-mrr-037",
+      "title_th": "ข้อมูลห้องและตัวเลือกอุปกรณ์เสริมสำหรับฟอร์มจอง — ฝั่ง API",
+      "app_ref": "api",
+      "type": "command",
+      "origin": "new",
+      "files_planned": [],
+      "depends_on": [],
+      "acceptance_refs": [
+        "AC-mrr-005",
+        "AC-mrr-032"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-003",
+          "hash": "sha256:203d58ad3e1cad8cbb63d9506407770cc48965ea3577fd2e51e4b818183a17c5"
+        },
+        {
+          "ref": "AC-mrr-005",
+          "hash": "sha256:520d772f18de2545143571da27940b7aad698b6b58614b1cd6ee80fe814dc5eb"
+        },
+        {
+          "ref": "AC-mrr-032",
+          "hash": "sha256:9a65993ff07e39661ed55c4b5f9d3ceae9aae93c9a32bce807f28886c87f846c"
+        },
+        {
+          "ref": "API-002",
+          "hash": "sha256:2fca112faaa0daad58cd0d3444a02e1b502b84e61f2312402d4e4bc2a1fa4ac9"
+        },
+        {
+          "ref": "API-022",
+          "hash": "sha256:dfae0c6df3056ac08f1b859e7e46f223a67ca02d4d503a4356bd94f7e71cc645"
+        },
+        {
+          "ref": "ENT-002",
+          "hash": "sha256:e70f20e6913f4a75f3388af299050d129f93fe894875b5a287874cf578477dfd"
+        },
+        {
+          "ref": "ENT-003",
+          "hash": "sha256:ea397c049aa7a429f1387b49238767b1607ffe0d499a16663a9d9d9c58d199e0"
+        },
+        {
+          "ref": "ENT-004",
+          "hash": "sha256:89882498e217530849d0da02a37af7b9f3c3589d31e1b7c7aae27635dcb22036"
+        }
+      ],
+      "status": "validated",
+      "build": {
+        "iterations": 0,
+        "proof": [
+          {
+            "cmd": "powershell -File scripts/dev-build.ps1 -App api",
+            "result": "tsc -p tsconfig.build.json · exit 0",
+            "at": "2026-10-20"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App api -Filter FE-mrr-037",
+            "result": "Test Suites: 7 skipped, 1 passed, 1 of 8 total · Tests: 72 skipped, 11 passed, 83 total · exit 0 · against postgres:16-alpine via Testcontainers",
+            "at": "2026-10-20"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1",
+            "result": "api: Test Suites 8 passed, Tests 83 passed · web: Test Files 2 passed, Tests 30 passed · exit 0",
+            "at": "2026-10-20"
+          }
+        ],
+        "last_error": null,
+        "recorded_by": "Noppasorn",
+        "recorded_at": "2026-10-20"
+      },
+      "manifest": {
+        "files": [
+          "apps/api/src/app.module.ts",
+          "apps/api/src/modules/rooms/rooms.service.ts",
+          "apps/api/src/modules/rooms/rooms.controller.ts",
+          "apps/api/src/modules/rooms/rooms.module.ts",
+          "apps/api/test/rooms/room-info.http.spec.ts"
+        ],
+        "unit_tests": [
+          {
+            "file": "apps/api/test/rooms/room-info.http.spec.ts",
+            "calc_ref": null,
+            "gd_ref": null
+          }
+        ],
+        "ui_controls": [],
+        "apis": [
+          {
+            "api_ref": "API-022",
+            "route": "GET /rooms/:id",
+            "file": "apps/api/src/modules/rooms/rooms.controller.ts"
+          },
+          {
+            "api_ref": "API-002",
+            "route": "GET /facilities?active=true",
+            "file": "apps/api/src/modules/rooms/rooms.controller.ts"
+          }
+        ]
+      }
     }
   ],
   "gaps": [
@@ -2826,22 +2924,35 @@
       "answered_in": null,
       "closed_by": null,
       "blocks": []
+    },
+    {
+      "id": "GAP-mrr-013",
+      "to": "design",
+      "about": "API-022",
+      "question_th": "UI-mrr-006 (จองห้องประชุม · ROLE-001/002/003) ต้องแสดงชื่อห้อง และเตือนเมื่อผู้เข้าร่วมเกินความจุ จึงต้องอ่าน GET /rooms/{id} (API-022) และ GET /facilities?active=true (API-002) — แต่ rbac.json ไม่มี ACL ที่ให้ General User เรียก API-022 (มีแค่ ACL-030 เปิดหน้าข้อมูลห้องของ ROLE-002) · dev ตั้งต้นว่าผู้ใช้ที่เข้าสู่ระบบแล้วทุกบทบาทอ่านห้องที่ไม่ใช่ ARCHIVED ได้ (ชื่อ · ความจุ · ต้องอนุมัติ · สถานะ) สอดคล้อง ACL-001 ที่เห็นทุกห้องในการค้นหา และอ่านสิ่งอำนวยความสะดวกที่ active ได้ · ขอให้ design ยืนยันหรือแก้: ผู้ใช้ทั่วไปเรียก API-022 ได้ไหม เห็นฟิลด์ไหน (ผู้อนุมัติประจำห้อง/รูปภาพด้วยไหม)",
+      "found_at": "2026-10-20",
+      "found_by": "/dev:plan",
+      "status": "open",
+      "answer_th": null,
+      "answered_in": null,
+      "closed_by": null,
+      "blocks": []
     }
   ],
   "rollup": {
-    "features_total": 32,
+    "features_total": 33,
     "by_status": {
-      "validated": 7,
+      "validated": 8,
       "draft": 25
     },
     "by_origin": {
-      "new": 32
+      "new": 33
     },
     "by_app": {
       "frontend-web": 15,
-      "api": 17
+      "api": 18
     },
-    "gaps_open": 12,
+    "gaps_open": 13,
     "ready_for_phase5": false
   }
 }
