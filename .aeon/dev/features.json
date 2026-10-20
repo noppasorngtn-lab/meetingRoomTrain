@@ -2204,7 +2204,10 @@
         ],
         "ui_controls": [],
         "apis": []
-      }
+      },
+      "commits": [
+        "109d51c2d285c9f44dbac5d384190c1e33a6cee4"
+      ]
     },
     {
       "id": "FE-mrr-019",
@@ -2243,7 +2246,51 @@
           "hash": "sha256:70b3048818d8c6af914931bd01d0fd6ee3282caa12fe7ae99691ab7addcfd0d8"
         }
       ],
-      "status": "draft"
+      "status": "validated",
+      "build": {
+        "iterations": 0,
+        "proof": [
+          {
+            "cmd": "powershell -File scripts/dev-build.ps1 -App api",
+            "result": "tsc -p tsconfig.build.json · exit 0",
+            "at": "2026-10-20"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App api -Filter FE-mrr-019",
+            "result": "Test Suites: 2 skipped, 1 passed, 1 of 3 total · Tests: 15 skipped, 3 passed, 18 total · exit 0",
+            "at": "2026-10-20"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App api",
+            "result": "Test Suites: 3 passed, 3 total · Tests: 18 passed, 18 total · exit 0 (FE-mrr-017 · FE-mrr-018 regression after the shared IntervalRunner)",
+            "at": "2026-10-20"
+          }
+        ],
+        "last_error": null,
+        "recorded_by": "Noppasorn",
+        "recorded_at": "2026-10-20"
+      },
+      "manifest": {
+        "files": [
+          "apps/api/src/common/interval-runner.ts",
+          "apps/api/src/modules/auto-cancel/auto-cancel-store.ts",
+          "apps/api/src/modules/auto-cancel/auto-cancel-job.ts",
+          "apps/api/src/modules/auto-cancel/auto-cancel-scheduler.ts",
+          "apps/api/src/modules/auto-cancel/auto-cancel.module.ts",
+          "apps/api/src/modules/reminder/reminder-scheduler.ts",
+          "apps/api/src/modules/notification/booking-notifier.ts",
+          "apps/api/test/auto-cancel/auto-cancel-job.spec.ts"
+        ],
+        "unit_tests": [
+          {
+            "file": "apps/api/test/auto-cancel/auto-cancel-job.spec.ts",
+            "calc_ref": null,
+            "gd_ref": null
+          }
+        ],
+        "ui_controls": [],
+        "apis": []
+      }
     }
   ],
   "gaps": [
@@ -2303,8 +2350,8 @@
   "rollup": {
     "features_total": 32,
     "by_status": {
-      "draft": 30,
-      "validated": 2
+      "draft": 29,
+      "validated": 3
     },
     "by_origin": {
       "new": 32
