@@ -181,7 +181,7 @@ describe('FE-mrr-004 edit booking page (UI-mrr-008)', () => {
   });
 
   it('unauthorized: a save the api refuses as not the booker hides the form', async () => {
-    saveReply = { status: 403, body: { message: 'แก้ไขได้เฉพาะการจองที่คุณเป็นผู้จอง' } };
+    saveReply = { status: 403, body: { message: 'เฉพาะผู้จองเท่านั้นที่แก้ไขหรือยกเลิกได้' } };
     open();
     await loaded();
 

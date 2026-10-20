@@ -64,6 +64,12 @@ export class BookingNotifier {
     return { reminderSent: true };
   }
 
+  /** The booker cancelled before the start — the booker and every attendee (BR-mrr-007 (3) · UC-mrr-005). */
+  async bookingCancelled(booking: BookingSnapshot): Promise<void> {
+    const s = subject('ยกเลิก', booking);
+    await this.transport.send({ to: [booking.bookerEmail, ...booking.attendeeEmails], subject: s, text: s });
+  }
+
   /** A pending booking cancelled at its start time — the booker only (UC-mrr-019). */
   async bookingAutoCancelled(booking: BookingSnapshot): Promise<void> {
     const s = subject('ยกเลิกอัตโนมัติ', booking);

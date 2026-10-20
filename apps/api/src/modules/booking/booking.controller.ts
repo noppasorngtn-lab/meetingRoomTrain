@@ -1,6 +1,6 @@
 import {
-  BadRequestException, Body, ConflictException, Controller, ForbiddenException, Get, NotFoundException, Param, Patch,
-  Post, ServiceUnavailableException,
+  BadRequestException, Body, ConflictException, Controller, ForbiddenException, Get, HttpCode, NotFoundException, Param,
+  Patch, Post, ServiceUnavailableException,
 } from '@nestjs/common';
 import { Caller, CurrentUser, UUID } from '../../common/auth/current-user';
 import { EmailDeliveryFailed } from '../notification/booking-notifier';
@@ -47,7 +47,8 @@ function answer(err: unknown): never {
 
 /**
  * API-004 — create a booking, with the caller as its booker (ACL-004 scope own).
- * API-007 · API-008 — read one booking, and let its booker edit it before it starts (ACL-005).
+ * API-007 · API-008 · API-009 — read one booking, and let its booker edit or cancel it before it
+ * starts (ACL-005 · ACL-006).
  */
 @Controller('bookings')
 export class BookingController {
@@ -79,6 +80,18 @@ export class BookingController {
     if (!UUID.test(id)) throw new NotFoundException('ไม่พบการจอง');
     try {
       return await this.edits.get(caller, id);
+    } catch (err) {
+      answer(err);
+    }
+  }
+
+  /** API-009 — the booker cancels before the start (ACL-006). */
+  @Post(':id/cancel')
+  @HttpCode(200)
+  async cancel(@CurrentUser() caller: Caller, @Param('id') id: string): Promise<{ message: string }> {
+    if (!UUID.test(id)) throw new NotFoundException('ไม่พบการจอง');
+    try {
+      return await this.edits.cancel(caller, id);
     } catch (err) {
       answer(err);
     }

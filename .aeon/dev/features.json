@@ -1402,7 +1402,10 @@
           }
         ],
         "apis": []
-      }
+      },
+      "commits": [
+        "42469c3d30cfb75ef5a955b970c1fa624d2542e1"
+      ]
     },
     {
       "id": "FE-mrr-026",
@@ -1455,7 +1458,55 @@
           "hash": "sha256:70b3048818d8c6af914931bd01d0fd6ee3282caa12fe7ae99691ab7addcfd0d8"
         }
       ],
-      "status": "draft"
+      "status": "validated",
+      "build": {
+        "iterations": 1,
+        "proof": [
+          {
+            "cmd": "powershell -File scripts/dev-build.ps1 -App api",
+            "result": "tsc -p tsconfig.build.json · exit 0",
+            "at": "2026-10-20"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App api -Filter FE-mrr-026",
+            "result": "Test Suites: 10 skipped, 1 passed, 1 of 11 total · Tests: 109 skipped, 15 passed, 124 total · exit 0 · against postgres:16-alpine via Testcontainers",
+            "at": "2026-10-20"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1",
+            "result": "api: Test Suites 11 passed, Tests 124 passed · web: Test Files 4 passed, Tests 65 passed · exit 0",
+            "at": "2026-10-20"
+          }
+        ],
+        "last_error": null,
+        "recorded_by": "Noppasorn",
+        "recorded_at": "2026-10-20"
+      },
+      "manifest": {
+        "files": [
+          "apps/api/src/modules/notification/booking-notifier.ts",
+          "apps/api/src/modules/booking/booking-edit.service.ts",
+          "apps/api/src/modules/booking/booking.controller.ts",
+          "apps/api/test/booking/booking-cancel.spec.ts",
+          "apps/api/test/booking/booking-edit.service.spec.ts",
+          "apps/api/test/booking/booking-edit.http.spec.ts"
+        ],
+        "unit_tests": [
+          {
+            "file": "apps/api/test/booking/booking-cancel.spec.ts",
+            "calc_ref": null,
+            "gd_ref": null
+          }
+        ],
+        "ui_controls": [],
+        "apis": [
+          {
+            "api_ref": "API-009",
+            "route": "POST /bookings/:id/cancel",
+            "file": "apps/api/src/modules/booking/booking.controller.ts"
+          }
+        ]
+      }
     },
     {
       "id": "FE-mrr-005",
@@ -3260,8 +3311,8 @@
   "rollup": {
     "features_total": 33,
     "by_status": {
-      "validated": 11,
-      "draft": 22
+      "validated": 12,
+      "draft": 21
     },
     "by_origin": {
       "new": 33

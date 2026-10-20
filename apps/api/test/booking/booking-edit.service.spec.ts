@@ -83,7 +83,7 @@ describe('FE-mrr-025 BookingEditService (UC-mrr-004)', () => {
       now = at(17, '10:00');
 
       await expect(edit({ title: 'สายไป' })).rejects.toThrow(BookingLocked);
-      await expect(edit({ title: 'สายไป' })).rejects.toThrow('ถึงเวลาเริ่มประชุมแล้ว แก้ไขไม่ได้ กรุณาติดต่อ Room Administrator');
+      await expect(edit({ title: 'สายไป' })).rejects.toThrow('การประชุมเริ่มแล้ว กรุณาติดต่อผู้ดูแลห้องเพื่อแก้ไขหรือยกเลิก');
     });
 
     it('refuses a cancelled booking', async () => {

@@ -86,7 +86,7 @@ describe('FE-mrr-025 GET · PATCH /bookings/:id', () => {
   it('PATCH answers 403 to someone who is not the booker', async () => {
     const res = await patch({ title: 'แอบแก้' }, u2).expect(403);
 
-    expect(res.body.message).toBe('แก้ไขได้เฉพาะการจองที่คุณเป็นผู้จอง');
+    expect(res.body.message).toBe('เฉพาะผู้จองเท่านั้นที่แก้ไขหรือยกเลิกได้');
   });
 
   it('PATCH answers 400 naming the field', async () => {

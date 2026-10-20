@@ -42,10 +42,10 @@ export class BookingNotFound extends Error {
   }
 }
 
-/** ACL-005 scope own — checked here, whatever the screen shows (UC-mrr-004 exception flow). */
+/** ACL-005 · ACL-006 scope own — checked here, whatever the screen shows (AC-mrr-010). */
 export class NotTheBooker extends Error {
   constructor() {
-    super('แก้ไขได้เฉพาะการจองที่คุณเป็นผู้จอง');
+    super('เฉพาะผู้จองเท่านั้นที่แก้ไขหรือยกเลิกได้');
     this.name = 'NotTheBooker';
   }
 }
@@ -53,7 +53,7 @@ export class NotTheBooker extends Error {
 /** The meeting has started, or the booking is no longer one that holds time. */
 export class BookingLocked extends Error {}
 
-/** ACL-005 condition — the states an owner may still edit. */
+/** ACL-005 · ACL-006 condition — the states an owner may still edit or cancel. */
 const EDITABLE: readonly BookingStatus[] = ['PENDING_APPROVAL', 'CONFIRMED', 'APPROVED'];
 /** ACL-013 · ACL-018 — these roles see every booking. */
 const SEES_ALL = ['ROOM_ADMINISTRATOR', 'SYSTEM_ADMINISTRATOR'];
@@ -86,18 +86,7 @@ export class BookingEditService {
   async edit(caller: Caller, id: string, input: EditBookingInput): Promise<{ message: string }> {
     const now = this.clock.now();
     return this.db.transaction().execute(async (tx) => {
-      const current = await tx
-        .selectFrom('bookings')
-        .select(['id', 'room_id', 'booked_by', 'title', 'start_at', 'end_at', 'status'])
-        .where('id', '=', id)
-        .forUpdate()
-        .executeTakeFirst();
-      if (!current) throw new BookingNotFound();
-      if (current.booked_by !== caller.userId) throw new NotTheBooker();
-      if (current.start_at.getTime() <= now.getTime()) {
-        throw new BookingLocked('ถึงเวลาเริ่มประชุมแล้ว แก้ไขไม่ได้ กรุณาติดต่อ Room Administrator');
-      }
-      if (!EDITABLE.includes(current.status)) throw new BookingLocked('การจองนี้ถูกยกเลิกหรือปฏิเสธแล้ว แก้ไขไม่ได้');
+      const current = await this.lockOwn(tx, caller, id, now);
 
       const title = input.title === undefined ? current.title : checkTitle(input.title);
       const startAt = input.startAt ?? current.start_at;
@@ -163,6 +152,62 @@ export class BookingEditService {
       }
       return { message: 'บันทึกการแก้ไขสำเร็จ' };
     });
+  }
+
+  /**
+   * UC-mrr-005 · API-009. Only the booker, only before the start (BR-mrr-009 — at 09:59 yes, at
+   * 10:00 no). CANCELLED no longer holds time, so the slot is free again the moment this commits.
+   * The booker and every attendee are mailed inside the transaction: a mail failure cancels
+   * nothing (BR-mrr-019). The booker's own action leaves no audit entry (AC-mrr-054).
+   */
+  async cancel(caller: Caller, id: string): Promise<{ message: string }> {
+    const now = this.clock.now();
+    return this.db.transaction().execute(async (tx) => {
+      const current = await this.lockOwn(tx, caller, id, now);
+      await tx.updateTable('bookings').set({ status: 'CANCELLED' }).where('id', '=', id).execute();
+
+      const room = await tx
+        .selectFrom('meeting_rooms as r')
+        .innerJoin('meeting_room_versions as v', 'v.id', 'r.current_version_id')
+        .select('v.name')
+        .where('r.id', '=', current.room_id)
+        .executeTakeFirstOrThrow();
+      const { email: bookerEmail } = await tx
+        .selectFrom('users')
+        .select('email')
+        .where('id', '=', current.booked_by)
+        .executeTakeFirstOrThrow();
+      const attendeeEmails = (
+        await tx
+          .selectFrom('booking_attendees as a')
+          .innerJoin('users as u', 'u.id', 'a.user_id')
+          .select('u.email')
+          .where('a.booking_id', '=', id)
+          .orderBy('u.email')
+          .execute()
+      ).map((a) => a.email);
+      await this.notifier.bookingCancelled({
+        title: current.title, roomName: room.name, startAt: current.start_at, endAt: current.end_at, bookerEmail, attendeeEmails,
+      });
+      return { message: 'ยกเลิกการจองสำเร็จ' };
+    });
+  }
+
+  /** The booking, locked for this transaction, if the caller may still change it (ACL-005 · ACL-006). */
+  private async lockOwn(tx: Kysely<Database>, caller: Caller, id: string, now: Date) {
+    const current = await tx
+      .selectFrom('bookings')
+      .select(['id', 'room_id', 'booked_by', 'title', 'start_at', 'end_at', 'status'])
+      .where('id', '=', id)
+      .forUpdate()
+      .executeTakeFirst();
+    if (!current) throw new BookingNotFound();
+    if (current.booked_by !== caller.userId) throw new NotTheBooker();
+    if (current.start_at.getTime() <= now.getTime()) {
+      throw new BookingLocked('การประชุมเริ่มแล้ว กรุณาติดต่อผู้ดูแลห้องเพื่อแก้ไขหรือยกเลิก');
+    }
+    if (!EDITABLE.includes(current.status)) throw new BookingLocked('การจองนี้ถูกยกเลิกหรือปฏิเสธแล้ว แก้ไขหรือยกเลิกไม่ได้');
+    return current;
   }
 
   private async read(db: Kysely<Database>, id: string): Promise<BookingDetail | null> {
