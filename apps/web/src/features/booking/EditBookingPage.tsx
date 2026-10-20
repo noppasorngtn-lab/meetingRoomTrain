@@ -6,7 +6,7 @@ import { bangkokInstant, bangkokLocal } from '../../shared/time';
 import {
   AttendeePicker, checkForm, EquipmentChecks, Errors, FIELD_OF, Option, Person, TimeField, TitleField,
 } from './fields';
-import { BookingStatus, canEdit, STATUS_LABEL } from './status';
+import { BookingStatus, canChange, STATUS_LABEL } from './status';
 
 interface Booking {
   id: string;
@@ -58,7 +58,7 @@ export function EditBookingPage() {
   useEffect(() => {
     getJson<Booking>(`/bookings/${bookingId}`)
       .then((b) => {
-        if (!canEdit(b)) return setLoad({ kind: 'locked' });
+        if (!canChange(b)) return setLoad({ kind: 'locked' });
         setStart(bangkokLocal(b.startAt));
         setEnd(bangkokLocal(b.endAt));
         setTitle(b.title);

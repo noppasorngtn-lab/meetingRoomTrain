@@ -1560,7 +1560,59 @@
           "hash": "sha256:f51d2d53df35887e09c6bff19de0c1d0e556745ff44c4000991661a21e9fb1ed"
         }
       ],
-      "status": "draft"
+      "status": "validated",
+      "build": {
+        "iterations": 0,
+        "proof": [
+          {
+            "cmd": "powershell -File scripts/dev-build.ps1 -App frontend-web",
+            "result": "tsc --noEmit && vite build · built in 819ms · exit 0",
+            "at": "2026-10-20"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web -Filter FE-mrr-005",
+            "result": "Test Files 1 passed | 5 skipped (6) · Tests 10 passed | 76 skipped (86) · exit 0",
+            "at": "2026-10-20"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1",
+            "result": "api: Test Suites 12 passed, Tests 132 passed · web: Test Files 6 passed, Tests 86 passed · exit 0",
+            "at": "2026-10-20"
+          }
+        ],
+        "last_error": null,
+        "recorded_by": "Noppasorn",
+        "recorded_at": "2026-10-20"
+      },
+      "manifest": {
+        "files": [
+          "apps/web/src/shared/components.css",
+          "apps/web/src/features/booking/status.ts",
+          "apps/web/src/features/booking/EditBookingPage.tsx",
+          "apps/web/src/features/booking/MyBookingsPage.tsx",
+          "apps/web/src/__tests__/cancel-booking.test.tsx"
+        ],
+        "unit_tests": [
+          {
+            "file": "apps/web/src/__tests__/cancel-booking.test.tsx",
+            "calc_ref": null,
+            "gd_ref": null
+          }
+        ],
+        "ui_controls": [
+          {
+            "id": "cancel",
+            "kind": "command",
+            "dd_ref": null,
+            "testid": "ui-mrr-007-cancel",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          }
+        ],
+        "apis": []
+      }
     },
     {
       "id": "FE-mrr-027",
@@ -1772,7 +1824,10 @@
           }
         ],
         "apis": []
-      }
+      },
+      "commits": [
+        "4b369901ba875d7563218d8efc9f247919d96e32"
+      ]
     },
     {
       "id": "FE-mrr-028",
@@ -3462,8 +3517,8 @@
   "rollup": {
     "features_total": 33,
     "by_status": {
-      "validated": 14,
-      "draft": 19
+      "validated": 15,
+      "draft": 18
     },
     "by_origin": {
       "new": 33
