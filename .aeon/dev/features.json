@@ -262,27 +262,37 @@
       ],
       "status": "validated",
       "build": {
-        "iterations": 0,
+        "iterations": 1,
         "proof": [
           {
-            "cmd": "powershell -File scripts/dev-build.ps1 -App frontend-web",
-            "result": "tsc --noEmit && vite build · ✓ built in 696ms · exit 0",
-            "at": "2026-10-20"
+            "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web -Filter FE-mrr-022",
+            "result": "red before the fix: api-proxy.test.tsx 2 failed (missing [/adjustment-requests,/auth,/me,/reports] · API_PREFIXES is not iterable) · round 1 was wiring: esbuild refused jsdom, file moved to @vitest-environment node",
+            "at": "2026-10-21"
           },
           {
             "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web -Filter FE-mrr-022",
-            "result": "Test Files 1 passed (1) · Tests 19 passed (19) · exit 0",
-            "at": "2026-10-20"
+            "result": "Test Files 2 passed · Tests 22 passed · exit 0",
+            "at": "2026-10-21"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-build.ps1 -App frontend-web",
+            "result": "tsc --noEmit && vite build · ✓ built in 815ms · exit 0",
+            "at": "2026-10-21"
           },
           {
             "cmd": "powershell -File scripts/dev-test.ps1",
-            "result": "api: Test Suites 3 passed, Tests 18 passed · web: Test Files 1 passed, Tests 19 passed · exit 0",
-            "at": "2026-10-20"
+            "result": "api: Test Suites 32 passed, Tests 394 passed · web: Test Files 16 passed, Tests 244 passed · exit 0",
+            "at": "2026-10-21"
+          },
+          {
+            "cmd": "docker compose -f docker/docker-compose.yml up -d --build --wait ; curl :4173/auth/me /me/bookings /reports/utilization /adjustment-requests /rooms ; down",
+            "result": "all five 401 application/json from the api (was 200 text/html for the first four) · / 200 text/html · up/down exit 0",
+            "at": "2026-10-21"
           }
         ],
         "last_error": null,
         "recorded_by": "Noppasorn",
-        "recorded_at": "2026-10-20"
+        "recorded_at": "2026-10-21"
       },
       "manifest": {
         "files": [
@@ -298,11 +308,17 @@
           "apps/web/src/features/shell/AppShell.tsx",
           "apps/web/src/features/shell/AuthLayout.tsx",
           "apps/web/src/__tests__/setup.ts",
-          "apps/web/src/__tests__/shell.test.tsx"
+          "apps/web/src/__tests__/shell.test.tsx",
+          "apps/web/src/__tests__/api-proxy.test.tsx"
         ],
         "unit_tests": [
           {
             "file": "apps/web/src/__tests__/shell.test.tsx",
+            "calc_ref": null,
+            "gd_ref": null
+          },
+          {
+            "file": "apps/web/src/__tests__/api-proxy.test.tsx",
             "calc_ref": null,
             "gd_ref": null
           }
