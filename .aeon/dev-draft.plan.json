@@ -66,14 +66,13 @@
       "type": "command",
       "origin": "new",
       "files_planned": [],
-      "status": "validated",
+      "depends_on": [],
       "acceptance_refs": [
         "AC-mrr-066",
         "AC-mrr-067",
         "AC-mrr-068",
         "AC-mrr-069"
       ],
-      "depends_on": [],
       "traces_up": [
         {
           "ref": "UC-mrr-002"
@@ -102,7 +101,8 @@
         {
           "ref": "ENT-008"
         }
-      ]
+      ],
+      "status": "validated"
     },
     {
       "id": "FE-mrr-002",
@@ -111,16 +111,15 @@
       "type": "command",
       "origin": "new",
       "files_planned": [],
-      "status": "validated",
+      "depends_on": [
+        "FE-mrr-022",
+        "FE-mrr-023"
+      ],
       "acceptance_refs": [
         "AC-mrr-066",
         "AC-mrr-067",
         "AC-mrr-068",
         "AC-mrr-069"
-      ],
-      "depends_on": [
-        "FE-mrr-022",
-        "FE-mrr-023"
       ],
       "traces_up": [
         {
@@ -141,7 +140,8 @@
         {
           "ref": "UI-mrr-005"
         }
-      ]
+      ],
+      "status": "validated"
     },
     {
       "id": "FE-mrr-024",
@@ -150,7 +150,9 @@
       "type": "command",
       "origin": "new",
       "files_planned": [],
-      "status": "validated",
+      "depends_on": [
+        "FE-mrr-017"
+      ],
       "acceptance_refs": [
         "AC-mrr-001",
         "AC-mrr-002",
@@ -168,9 +170,6 @@
         "AC-mrr-060",
         "AC-mrr-079",
         "AC-mrr-081"
-      ],
-      "depends_on": [
-        "FE-mrr-017"
       ],
       "traces_up": [
         {
@@ -248,45 +247,6 @@
         {
           "ref": "ENT-009"
         }
-      ]
-    },
-    {
-      "id": "FE-mrr-037",
-      "title_th": "ข้อมูลห้องและตัวเลือกอุปกรณ์เสริมสำหรับฟอร์มจอง — ฝั่ง API",
-      "app_ref": "api",
-      "type": "command",
-      "origin": "new",
-      "files_planned": [],
-      "depends_on": [],
-      "acceptance_refs": [
-        "AC-mrr-005",
-        "AC-mrr-032"
-      ],
-      "traces_up": [
-        {
-          "ref": "UC-mrr-003"
-        },
-        {
-          "ref": "AC-mrr-005"
-        },
-        {
-          "ref": "AC-mrr-032"
-        },
-        {
-          "ref": "API-002"
-        },
-        {
-          "ref": "API-022"
-        },
-        {
-          "ref": "ENT-002"
-        },
-        {
-          "ref": "ENT-003"
-        },
-        {
-          "ref": "ENT-004"
-        }
       ],
       "status": "validated"
     },
@@ -297,7 +257,11 @@
       "type": "command",
       "origin": "new",
       "files_planned": [],
-      "status": "validated",
+      "depends_on": [
+        "FE-mrr-022",
+        "FE-mrr-024",
+        "FE-mrr-037"
+      ],
       "acceptance_refs": [
         "AC-mrr-001",
         "AC-mrr-002",
@@ -315,11 +279,6 @@
         "AC-mrr-060",
         "AC-mrr-079",
         "AC-mrr-081"
-      ],
-      "depends_on": [
-        "FE-mrr-022",
-        "FE-mrr-024",
-        "FE-mrr-037"
       ],
       "traces_up": [
         {
@@ -376,7 +335,8 @@
         {
           "ref": "UI-mrr-006"
         }
-      ]
+      ],
+      "status": "validated"
     },
     {
       "id": "FE-mrr-025",
@@ -385,7 +345,9 @@
       "type": "command",
       "origin": "new",
       "files_planned": [],
-      "status": "validated",
+      "depends_on": [
+        "FE-mrr-017"
+      ],
       "acceptance_refs": [
         "AC-mrr-008",
         "AC-mrr-021",
@@ -393,9 +355,6 @@
         "AC-mrr-061",
         "AC-mrr-063",
         "AC-mrr-080"
-      ],
-      "depends_on": [
-        "FE-mrr-017"
       ],
       "traces_up": [
         {
@@ -434,7 +393,8 @@
         {
           "ref": "ENT-009"
         }
-      ]
+      ],
+      "status": "validated"
     },
     {
       "id": "FE-mrr-004",
@@ -443,7 +403,10 @@
       "type": "command",
       "origin": "new",
       "files_planned": [],
-      "status": "validated",
+      "depends_on": [
+        "FE-mrr-022",
+        "FE-mrr-025"
+      ],
       "acceptance_refs": [
         "AC-mrr-008",
         "AC-mrr-021",
@@ -451,10 +414,6 @@
         "AC-mrr-061",
         "AC-mrr-063",
         "AC-mrr-080"
-      ],
-      "depends_on": [
-        "FE-mrr-022",
-        "FE-mrr-025"
       ],
       "traces_up": [
         {
@@ -481,7 +440,8 @@
         {
           "ref": "UI-mrr-008"
         }
-      ]
+      ],
+      "status": "validated"
     },
     {
       "id": "FE-mrr-026",
@@ -490,16 +450,15 @@
       "type": "command",
       "origin": "new",
       "files_planned": [],
-      "status": "validated",
+      "depends_on": [
+        "FE-mrr-017"
+      ],
       "acceptance_refs": [
         "AC-mrr-009",
         "AC-mrr-010",
         "AC-mrr-026",
         "AC-mrr-027",
         "AC-mrr-054"
-      ],
-      "depends_on": [
-        "FE-mrr-017"
       ],
       "traces_up": [
         {
@@ -526,7 +485,8 @@
         {
           "ref": "ENT-007"
         }
-      ]
+      ],
+      "status": "validated"
     },
     {
       "id": "FE-mrr-005",
@@ -535,18 +495,17 @@
       "type": "command",
       "origin": "new",
       "files_planned": [],
-      "status": "draft",
+      "depends_on": [
+        "FE-mrr-022",
+        "FE-mrr-026",
+        "FE-mrr-006"
+      ],
       "acceptance_refs": [
         "AC-mrr-009",
         "AC-mrr-010",
         "AC-mrr-026",
         "AC-mrr-027",
         "AC-mrr-054"
-      ],
-      "depends_on": [
-        "FE-mrr-022",
-        "FE-mrr-026",
-        "FE-mrr-006"
       ],
       "traces_up": [
         {
@@ -570,7 +529,8 @@
         {
           "ref": "UI-mrr-007"
         }
-      ]
+      ],
+      "status": "validated"
     },
     {
       "id": "FE-mrr-027",
@@ -579,11 +539,10 @@
       "type": "command",
       "origin": "new",
       "files_planned": [],
-      "status": "draft",
+      "depends_on": [],
       "acceptance_refs": [
         "AC-mrr-011"
       ],
-      "depends_on": [],
       "traces_up": [
         {
           "ref": "UC-mrr-006"
@@ -600,7 +559,8 @@
         {
           "ref": "ENT-007"
         }
-      ]
+      ],
+      "status": "validated"
     },
     {
       "id": "FE-mrr-006",
@@ -609,13 +569,12 @@
       "type": "command",
       "origin": "new",
       "files_planned": [],
-      "status": "draft",
-      "acceptance_refs": [
-        "AC-mrr-011"
-      ],
       "depends_on": [
         "FE-mrr-022",
         "FE-mrr-027"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-011"
       ],
       "traces_up": [
         {
@@ -627,7 +586,8 @@
         {
           "ref": "UI-mrr-007"
         }
-      ]
+      ],
+      "status": "validated"
     },
     {
       "id": "FE-mrr-028",
@@ -636,7 +596,9 @@
       "type": "command",
       "origin": "new",
       "files_planned": [],
-      "status": "draft",
+      "depends_on": [
+        "FE-mrr-017"
+      ],
       "acceptance_refs": [
         "AC-mrr-013",
         "AC-mrr-014",
@@ -646,9 +608,6 @@
         "AC-mrr-051",
         "AC-mrr-052",
         "AC-mrr-062"
-      ],
-      "depends_on": [
-        "FE-mrr-017"
       ],
       "traces_up": [
         {
@@ -693,7 +652,8 @@
         {
           "ref": "ENT-010"
         }
-      ]
+      ],
+      "status": "validated"
     },
     {
       "id": "FE-mrr-007",
@@ -702,7 +662,10 @@
       "type": "command",
       "origin": "new",
       "files_planned": [],
-      "status": "draft",
+      "depends_on": [
+        "FE-mrr-022",
+        "FE-mrr-028"
+      ],
       "acceptance_refs": [
         "AC-mrr-013",
         "AC-mrr-014",
@@ -712,10 +675,6 @@
         "AC-mrr-051",
         "AC-mrr-052",
         "AC-mrr-062"
-      ],
-      "depends_on": [
-        "FE-mrr-022",
-        "FE-mrr-028"
       ],
       "traces_up": [
         {
@@ -748,7 +707,8 @@
         {
           "ref": "UI-mrr-009"
         }
-      ]
+      ],
+      "status": "validated"
     },
     {
       "id": "FE-mrr-029",
@@ -757,15 +717,14 @@
       "type": "command",
       "origin": "new",
       "files_planned": [],
-      "status": "draft",
+      "depends_on": [
+        "FE-mrr-017"
+      ],
       "acceptance_refs": [
         "AC-mrr-033",
         "AC-mrr-034",
         "AC-mrr-035",
         "AC-mrr-036"
-      ],
-      "depends_on": [
-        "FE-mrr-017"
       ],
       "traces_up": [
         {
@@ -792,7 +751,8 @@
         {
           "ref": "ENT-010"
         }
-      ]
+      ],
+      "status": "validated"
     },
     {
       "id": "FE-mrr-008",
@@ -801,16 +761,15 @@
       "type": "command",
       "origin": "new",
       "files_planned": [],
-      "status": "draft",
+      "depends_on": [
+        "FE-mrr-022",
+        "FE-mrr-029"
+      ],
       "acceptance_refs": [
         "AC-mrr-033",
         "AC-mrr-034",
         "AC-mrr-035",
         "AC-mrr-036"
-      ],
-      "depends_on": [
-        "FE-mrr-022",
-        "FE-mrr-029"
       ],
       "traces_up": [
         {
@@ -831,7 +790,8 @@
         {
           "ref": "UI-mrr-010"
         }
-      ]
+      ],
+      "status": "validated"
     },
     {
       "id": "FE-mrr-030",
@@ -840,16 +800,15 @@
       "type": "command",
       "origin": "new",
       "files_planned": [],
-      "status": "draft",
+      "depends_on": [
+        "FE-mrr-017"
+      ],
       "acceptance_refs": [
         "AC-mrr-028",
         "AC-mrr-029",
         "AC-mrr-042",
         "AC-mrr-053",
         "AC-mrr-055"
-      ],
-      "depends_on": [
-        "FE-mrr-017"
       ],
       "traces_up": [
         {
@@ -885,7 +844,8 @@
         {
           "ref": "ENT-010"
         }
-      ]
+      ],
+      "status": "validated"
     },
     {
       "id": "FE-mrr-009",
@@ -894,17 +854,16 @@
       "type": "command",
       "origin": "new",
       "files_planned": [],
-      "status": "draft",
+      "depends_on": [
+        "FE-mrr-022",
+        "FE-mrr-030"
+      ],
       "acceptance_refs": [
         "AC-mrr-028",
         "AC-mrr-029",
         "AC-mrr-042",
         "AC-mrr-053",
         "AC-mrr-055"
-      ],
-      "depends_on": [
-        "FE-mrr-022",
-        "FE-mrr-030"
       ],
       "traces_up": [
         {
@@ -928,7 +887,8 @@
         {
           "ref": "UI-mrr-010"
         }
-      ]
+      ],
+      "status": "draft"
     },
     {
       "id": "FE-mrr-031",
@@ -937,11 +897,10 @@
       "type": "command",
       "origin": "new",
       "files_planned": [],
-      "status": "draft",
+      "depends_on": [],
       "acceptance_refs": [
         "AC-mrr-041"
       ],
-      "depends_on": [],
       "traces_up": [
         {
           "ref": "UC-mrr-010"
@@ -958,7 +917,8 @@
         {
           "ref": "ENT-011"
         }
-      ]
+      ],
+      "status": "validated"
     },
     {
       "id": "FE-mrr-010",
@@ -967,13 +927,12 @@
       "type": "command",
       "origin": "new",
       "files_planned": [],
-      "status": "draft",
-      "acceptance_refs": [
-        "AC-mrr-041"
-      ],
       "depends_on": [
         "FE-mrr-022",
         "FE-mrr-031"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-041"
       ],
       "traces_up": [
         {
@@ -985,7 +944,8 @@
         {
           "ref": "UI-mrr-010"
         }
-      ]
+      ],
+      "status": "validated"
     },
     {
       "id": "FE-mrr-032",
@@ -994,12 +954,11 @@
       "type": "command",
       "origin": "new",
       "files_planned": [],
-      "status": "draft",
+      "depends_on": [],
       "acceptance_refs": [
         "AC-mrr-043",
         "AC-mrr-044"
       ],
-      "depends_on": [],
       "traces_up": [
         {
           "ref": "UC-mrr-011"
@@ -1028,7 +987,8 @@
         {
           "ref": "ENT-011"
         }
-      ]
+      ],
+      "status": "validated"
     },
     {
       "id": "FE-mrr-011",
@@ -1037,14 +997,13 @@
       "type": "command",
       "origin": "new",
       "files_planned": [],
-      "status": "draft",
-      "acceptance_refs": [
-        "AC-mrr-043",
-        "AC-mrr-044"
-      ],
       "depends_on": [
         "FE-mrr-022",
         "FE-mrr-032"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-043",
+        "AC-mrr-044"
       ],
       "traces_up": [
         {
@@ -1059,7 +1018,8 @@
         {
           "ref": "UI-mrr-011"
         }
-      ]
+      ],
+      "status": "validated"
     },
     {
       "id": "FE-mrr-033",
@@ -1068,7 +1028,7 @@
       "type": "command",
       "origin": "new",
       "files_planned": [],
-      "status": "draft",
+      "depends_on": [],
       "acceptance_refs": [
         "AC-mrr-052",
         "AC-mrr-053",
@@ -1079,7 +1039,6 @@
         "AC-mrr-058",
         "AC-mrr-059"
       ],
-      "depends_on": [],
       "traces_up": [
         {
           "ref": "UC-mrr-012"
@@ -1114,7 +1073,8 @@
         {
           "ref": "ENT-010"
         }
-      ]
+      ],
+      "status": "validated"
     },
     {
       "id": "FE-mrr-012",
@@ -1123,7 +1083,10 @@
       "type": "command",
       "origin": "new",
       "files_planned": [],
-      "status": "draft",
+      "depends_on": [
+        "FE-mrr-022",
+        "FE-mrr-033"
+      ],
       "acceptance_refs": [
         "AC-mrr-052",
         "AC-mrr-053",
@@ -1133,10 +1096,6 @@
         "AC-mrr-057",
         "AC-mrr-058",
         "AC-mrr-059"
-      ],
-      "depends_on": [
-        "FE-mrr-022",
-        "FE-mrr-033"
       ],
       "traces_up": [
         {
@@ -1169,7 +1128,8 @@
         {
           "ref": "UI-mrr-010"
         }
-      ]
+      ],
+      "status": "validated"
     },
     {
       "id": "FE-mrr-034",
@@ -1178,7 +1138,9 @@
       "type": "crud",
       "origin": "new",
       "files_planned": [],
-      "status": "draft",
+      "depends_on": [
+        "FE-mrr-037"
+      ],
       "acceptance_refs": [
         "AC-mrr-015",
         "AC-mrr-017",
@@ -1190,9 +1152,6 @@
         "AC-mrr-076",
         "AC-mrr-077",
         "AC-mrr-078"
-      ],
-      "depends_on": [
-        "FE-mrr-037"
       ],
       "traces_up": [
         {
@@ -1255,7 +1214,8 @@
         {
           "ref": "ENT-005"
         }
-      ]
+      ],
+      "status": "validated"
     },
     {
       "id": "FE-mrr-013",
@@ -1264,7 +1224,10 @@
       "type": "crud",
       "origin": "new",
       "files_planned": [],
-      "status": "draft",
+      "depends_on": [
+        "FE-mrr-022",
+        "FE-mrr-034"
+      ],
       "acceptance_refs": [
         "AC-mrr-015",
         "AC-mrr-017",
@@ -1276,10 +1239,6 @@
         "AC-mrr-076",
         "AC-mrr-077",
         "AC-mrr-078"
-      ],
-      "depends_on": [
-        "FE-mrr-022",
-        "FE-mrr-034"
       ],
       "traces_up": [
         {
@@ -1324,7 +1283,8 @@
         {
           "ref": "UI-mrr-014"
         }
-      ]
+      ],
+      "status": "validated"
     },
     {
       "id": "FE-mrr-035",
@@ -1333,12 +1293,11 @@
       "type": "command",
       "origin": "new",
       "files_planned": [],
-      "status": "draft",
+      "depends_on": [],
       "acceptance_refs": [
         "AC-mrr-016",
         "AC-mrr-081"
       ],
-      "depends_on": [],
       "traces_up": [
         {
           "ref": "UC-mrr-014"
@@ -1361,7 +1320,8 @@
         {
           "ref": "ENT-007"
         }
-      ]
+      ],
+      "status": "validated"
     },
     {
       "id": "FE-mrr-014",
@@ -1370,14 +1330,15 @@
       "type": "command",
       "origin": "new",
       "files_planned": [],
-      "status": "draft",
+      "depends_on": [
+        "FE-mrr-022",
+        "FE-mrr-035",
+        "FE-mrr-034",
+        "FE-mrr-013"
+      ],
       "acceptance_refs": [
         "AC-mrr-016",
         "AC-mrr-081"
-      ],
-      "depends_on": [
-        "FE-mrr-022",
-        "FE-mrr-035"
       ],
       "traces_up": [
         {
@@ -1392,7 +1353,8 @@
         {
           "ref": "UI-mrr-012"
         }
-      ]
+      ],
+      "status": "draft"
     },
     {
       "id": "FE-mrr-036",
@@ -1401,7 +1363,7 @@
       "type": "report",
       "origin": "new",
       "files_planned": [],
-      "status": "draft",
+      "depends_on": [],
       "acceptance_refs": [
         "AC-mrr-045",
         "AC-mrr-046",
@@ -1414,7 +1376,6 @@
         "AC-mrr-084",
         "AC-mrr-085"
       ],
-      "depends_on": [],
       "traces_up": [
         {
           "ref": "UC-mrr-016"
@@ -1473,7 +1434,8 @@
         {
           "ref": "ENT-013"
         }
-      ]
+      ],
+      "status": "validated"
     },
     {
       "id": "FE-mrr-016",
@@ -1482,7 +1444,10 @@
       "type": "report",
       "origin": "new",
       "files_planned": [],
-      "status": "draft",
+      "depends_on": [
+        "FE-mrr-022",
+        "FE-mrr-036"
+      ],
       "acceptance_refs": [
         "AC-mrr-045",
         "AC-mrr-046",
@@ -1494,10 +1459,6 @@
         "AC-mrr-083",
         "AC-mrr-084",
         "AC-mrr-085"
-      ],
-      "depends_on": [
-        "FE-mrr-022",
-        "FE-mrr-036"
       ],
       "traces_up": [
         {
@@ -1536,7 +1497,8 @@
         {
           "ref": "RPT-mrr-001"
         }
-      ]
+      ],
+      "status": "validated"
     },
     {
       "id": "FE-mrr-017",
@@ -1545,7 +1507,7 @@
       "type": "command",
       "origin": "new",
       "files_planned": [],
-      "status": "validated",
+      "depends_on": [],
       "acceptance_refs": [
         "AC-mrr-019",
         "AC-mrr-021",
@@ -1556,7 +1518,6 @@
         "AC-mrr-062",
         "AC-mrr-063"
       ],
-      "depends_on": [],
       "traces_up": [
         {
           "ref": "UC-mrr-017"
@@ -1594,7 +1555,8 @@
         {
           "ref": "ENT-008"
         }
-      ]
+      ],
+      "status": "validated"
     },
     {
       "id": "FE-mrr-018",
@@ -1603,7 +1565,9 @@
       "type": "batch",
       "origin": "new",
       "files_planned": [],
-      "status": "validated",
+      "depends_on": [
+        "FE-mrr-017"
+      ],
       "acceptance_refs": [
         "AC-mrr-020",
         "AC-mrr-023",
@@ -1613,9 +1577,6 @@
         "AC-mrr-073",
         "AC-mrr-074",
         "AC-mrr-075"
-      ],
-      "depends_on": [
-        "FE-mrr-017"
       ],
       "traces_up": [
         {
@@ -1651,7 +1612,8 @@
         {
           "ref": "ENT-008"
         }
-      ]
+      ],
+      "status": "validated"
     },
     {
       "id": "FE-mrr-019",
@@ -1660,14 +1622,13 @@
       "type": "batch",
       "origin": "new",
       "files_planned": [],
-      "status": "validated",
+      "depends_on": [
+        "FE-mrr-017"
+      ],
       "acceptance_refs": [
         "AC-mrr-048",
         "AC-mrr-049",
         "AC-mrr-050"
-      ],
-      "depends_on": [
-        "FE-mrr-017"
       ],
       "traces_up": [
         {
@@ -1685,7 +1646,48 @@
         {
           "ref": "ENT-007"
         }
-      ]
+      ],
+      "status": "validated"
+    },
+    {
+      "id": "FE-mrr-037",
+      "title_th": "ข้อมูลห้องและตัวเลือกอุปกรณ์เสริมสำหรับฟอร์มจอง — ฝั่ง API",
+      "app_ref": "api",
+      "type": "command",
+      "origin": "new",
+      "files_planned": [],
+      "depends_on": [],
+      "acceptance_refs": [
+        "AC-mrr-005",
+        "AC-mrr-032"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-003"
+        },
+        {
+          "ref": "AC-mrr-005"
+        },
+        {
+          "ref": "AC-mrr-032"
+        },
+        {
+          "ref": "API-002"
+        },
+        {
+          "ref": "API-022"
+        },
+        {
+          "ref": "ENT-002"
+        },
+        {
+          "ref": "ENT-003"
+        },
+        {
+          "ref": "ENT-004"
+        }
+      ],
+      "status": "validated"
     }
   ],
   "gaps": [
@@ -1718,10 +1720,129 @@
       "blocks": []
     },
     {
+      "id": "GAP-mrr-005",
+      "to": "mock",
+      "about": "nav-ui-mrr-004",
+      "question_th": "testid nav-ui-mrr-004 ของลิงก์เมนูไป UI-mrr-004 มินต์โดย mock (wireframes.mjs navControlId) และอยู่ในหน้า L2 ทุกหน้า แต่ไม่อยู่ใน controls[] ของ wireframe ใด ๆ และ design ไม่ได้ประกาศ — roster ของ dev (testidRoster) จึงมองไม่เห็น และ DV17 นับเป็น Class B · ขอให้ mock ประกาศ control ของเมนูในที่ที่ dev อ่านได้ (เช่น wireframe controls[] หรือไฟล์ shell) หรือยืนยันว่า id นี้คือสัญญา",
+      "blocks": [
+        "FE-mrr-022"
+      ]
+    },
+    {
+      "id": "GAP-mrr-006",
+      "to": "mock",
+      "about": "nav-ui-mrr-007",
+      "question_th": "testid nav-ui-mrr-007 ของลิงก์เมนูไป UI-mrr-007 มินต์โดย mock (wireframes.mjs navControlId) และอยู่ในหน้า L2 ทุกหน้า แต่ไม่อยู่ใน controls[] ของ wireframe ใด ๆ และ design ไม่ได้ประกาศ — roster ของ dev (testidRoster) จึงมองไม่เห็น และ DV17 นับเป็น Class B · ขอให้ mock ประกาศ control ของเมนูในที่ที่ dev อ่านได้ (เช่น wireframe controls[] หรือไฟล์ shell) หรือยืนยันว่า id นี้คือสัญญา",
+      "blocks": [
+        "FE-mrr-022"
+      ]
+    },
+    {
+      "id": "GAP-mrr-007",
+      "to": "mock",
+      "about": "nav-ui-mrr-009",
+      "question_th": "testid nav-ui-mrr-009 ของลิงก์เมนูไป UI-mrr-009 มินต์โดย mock (wireframes.mjs navControlId) และอยู่ในหน้า L2 ทุกหน้า แต่ไม่อยู่ใน controls[] ของ wireframe ใด ๆ และ design ไม่ได้ประกาศ — roster ของ dev (testidRoster) จึงมองไม่เห็น และ DV17 นับเป็น Class B · ขอให้ mock ประกาศ control ของเมนูในที่ที่ dev อ่านได้ (เช่น wireframe controls[] หรือไฟล์ shell) หรือยืนยันว่า id นี้คือสัญญา",
+      "blocks": [
+        "FE-mrr-022"
+      ]
+    },
+    {
+      "id": "GAP-mrr-008",
+      "to": "mock",
+      "about": "nav-ui-mrr-012",
+      "question_th": "testid nav-ui-mrr-012 ของลิงก์เมนูไป UI-mrr-012 มินต์โดย mock (wireframes.mjs navControlId) และอยู่ในหน้า L2 ทุกหน้า แต่ไม่อยู่ใน controls[] ของ wireframe ใด ๆ และ design ไม่ได้ประกาศ — roster ของ dev (testidRoster) จึงมองไม่เห็น และ DV17 นับเป็น Class B · ขอให้ mock ประกาศ control ของเมนูในที่ที่ dev อ่านได้ (เช่น wireframe controls[] หรือไฟล์ shell) หรือยืนยันว่า id นี้คือสัญญา",
+      "blocks": [
+        "FE-mrr-022"
+      ]
+    },
+    {
+      "id": "GAP-mrr-009",
+      "to": "mock",
+      "about": "nav-rpt-mrr-001",
+      "question_th": "testid nav-rpt-mrr-001 ของลิงก์เมนูไป RPT-mrr-001 มินต์โดย mock (wireframes.mjs navControlId) และอยู่ในหน้า L2 ทุกหน้า แต่ไม่อยู่ใน controls[] ของ wireframe ใด ๆ และ design ไม่ได้ประกาศ — roster ของ dev (testidRoster) จึงมองไม่เห็น และ DV17 นับเป็น Class B · ขอให้ mock ประกาศ control ของเมนูในที่ที่ dev อ่านได้ (เช่น wireframe controls[] หรือไฟล์ shell) หรือยืนยันว่า id นี้คือสัญญา",
+      "blocks": [
+        "FE-mrr-022"
+      ]
+    },
+    {
+      "id": "GAP-mrr-010",
+      "to": "mock",
+      "about": "nav-ui-mrr-003",
+      "question_th": "testid nav-ui-mrr-003 ของลิงก์เมนูไป UI-mrr-003 มินต์โดย mock (wireframes.mjs navControlId) และอยู่ในหน้า L2 ทุกหน้า แต่ไม่อยู่ใน controls[] ของ wireframe ใด ๆ และ design ไม่ได้ประกาศ — roster ของ dev (testidRoster) จึงมองไม่เห็น และ DV17 นับเป็น Class B · ขอให้ mock ประกาศ control ของเมนูในที่ที่ dev อ่านได้ (เช่น wireframe controls[] หรือไฟล์ shell) หรือยืนยันว่า id นี้คือสัญญา",
+      "blocks": [
+        "FE-mrr-022"
+      ]
+    },
+    {
+      "id": "GAP-mrr-011",
+      "to": "design",
+      "about": "UI-mrr-005",
+      "question_th": "UI-mrr-005 ปฏิทินห้อง มีมุมมองรายวัน/สัปดาห์/เดือน แต่ไม่ได้ประกาศ field หรือ action สำหรับเปลี่ยนวันที่ (ก่อนหน้า/ถัดไป/เลือกวัน) — ตอนนี้วันที่มาจาก ?date= ใน URL เท่านั้น ผู้ใช้จึงเลื่อนไปดูสัปดาห์อื่นไม่ได้ · ต้องการ action นี้ไหม และชื่อ/key คืออะไร",
+      "blocks": []
+    },
+    {
+      "id": "GAP-mrr-012",
+      "to": "design",
+      "about": "UI-mrr-005",
+      "question_th": "action book-slot ของ UI-mrr-005 ประกาศว่า \"เปิดฟอร์มจองพร้อมช่วงเวลาที่เลือก\" แต่หน้านี้ไม่มี field ให้เลือกช่วงเวลา และ API-003 ส่งเฉพาะช่วงที่ไม่ว่าง — ตอนนี้ส่งแค่ห้องกับวันที่ (?room=&date=) ไปที่ UI-mrr-006 · ผู้ใช้เลือกช่วงเวลาที่หน้านี้อย่างไร (กดช่องว่างในตาราง? field เวลาเริ่ม/สิ้นสุด?)",
+      "blocks": []
+    },
+    {
       "id": "GAP-mrr-013",
       "to": "design",
       "about": "API-022",
       "question_th": "UI-mrr-006 (จองห้องประชุม · ROLE-001/002/003) ต้องแสดงชื่อห้อง และเตือนเมื่อผู้เข้าร่วมเกินความจุ จึงต้องอ่าน GET /rooms/{id} (API-022) และ GET /facilities?active=true (API-002) — แต่ rbac.json ไม่มี ACL ที่ให้ General User เรียก API-022 (มีแค่ ACL-030 เปิดหน้าข้อมูลห้องของ ROLE-002) · dev ตั้งต้นว่าผู้ใช้ที่เข้าสู่ระบบแล้วทุกบทบาทอ่านห้องที่ไม่ใช่ ARCHIVED ได้ (ชื่อ · ความจุ · ต้องอนุมัติ · สถานะ) สอดคล้อง ACL-001 ที่เห็นทุกห้องในการค้นหา และอ่านสิ่งอำนวยความสะดวกที่ active ได้ · ขอให้ design ยืนยันหรือแก้: ผู้ใช้ทั่วไปเรียก API-022 ได้ไหม เห็นฟิลด์ไหน (ผู้อนุมัติประจำห้อง/รูปภาพด้วยไหม)",
+      "blocks": []
+    },
+    {
+      "id": "GAP-mrr-014",
+      "to": "design",
+      "about": "ENT-010",
+      "question_th": "ENT-010 action มีค่า CREATE_ADJUSTMENT แต่ไม่มีปุ่มหรือชื่อที่ design ประกาศให้มัน (ค่าอื่นทุกค่ามีชื่อ action บน UI-mrr-009/010/011) · ร่องรอยบน UI-mrr-010 (FE-mrr-012) จึงต้องเขียนเป็นคำไทยเอง · dev ตั้งต้นไว้ว่า 'สร้างคำขอแก้ไข' · ขอให้ design ระบุคำที่ใช้แสดงการกระทำนี้ในร่องรอย",
+      "blocks": []
+    },
+    {
+      "id": "GAP-mrr-015",
+      "to": "design",
+      "about": "UI-mrr-010",
+      "question_th": "UI-mrr-010 สถานะ unauthorized ประกาศว่า 'System Administrator เห็นเฉพาะร่องรอย ปุ่มคำสั่งไม่แสดง' แต่ interfaces.json ไม่มี API ที่บอกหน้าจอว่าผู้ใช้ที่เข้าสู่ระบบมีบทบาทอะไร (มีแค่ /me/bookings) · ตอนนี้ System Administrator ยังเห็นช่องเหตุผลและปุ่มคำสั่ง (API ปฏิเสธอยู่แล้ว) · ขอให้ design ระบุว่าหน้าจอรู้บทบาทของผู้ใช้จากที่ไหน — เช่นเพิ่ม API ข้อมูลผู้ใช้ปัจจุบัน หรือให้ API-007 ส่งสิทธิ์ของผู้เรียกมาด้วย",
+      "blocks": [
+        "FE-mrr-012"
+      ]
+    },
+    {
+      "id": "GAP-mrr-016",
+      "to": "design",
+      "about": "UI-mrr-013",
+      "question_th": "UI-mrr-013 ช่อง 'รูปภาพ' (ENT-003 photos · capture · 'ไฟล์ภาพ ไม่บังคับ' · overflow 'รูปภาพเกินขนาดที่กำหนดไม่รับและแจ้งที่ช่อง') แต่ interfaces.json ไม่มี API อัปโหลดไฟล์ และ API-021/023 รับ photos เป็นรายการ id ของไฟล์ · ตอนนี้ (FE-mrr-013) ฟอร์มแสดงจำนวนรูปและส่งรูปเดิมกลับทุกครั้งที่บันทึก เพิ่มหรือเปลี่ยนรูปไม่ได้ · ขอให้ design ประกาศ API อัปโหลดรูป ขนาดสูงสุด และชนิดไฟล์ที่รับ",
+      "blocks": []
+    },
+    {
+      "id": "GAP-mrr-017",
+      "to": "design",
+      "about": "UI-mrr-013",
+      "question_th": "UI-mrr-013 ช่อง 'สิ่งอำนวยความสะดวก' ประกาศว่า 'เลือกจาก Facility ที่ active' และ API-023 (FE-mrr-034) ปฏิเสธเวอร์ชันใหม่ที่มี facility ที่ปิดใช้แล้ว · ห้องที่เวอร์ชันปัจจุบันมี facility ซึ่งถูกปิดใช้ทีหลัง เมื่อแก้ไขแล้วบันทึก facility นั้นจึงหลุดจากเวอร์ชันใหม่ · ตอนนี้ (FE-mrr-013) ฟอร์มตัดออกก่อนบันทึกและแสดงว่า 'สิ่งอำนวยความสะดวกที่ปิดใช้แล้ว N รายการจะไม่อยู่ในเวอร์ชันใหม่' · ขอให้ design ยืนยันพฤติกรรมนี้ หรือกำหนดว่าเวอร์ชันใหม่คง facility ที่ปิดใช้แล้วไว้ได้",
+      "blocks": []
+    },
+    {
+      "id": "GAP-mrr-018",
+      "to": "design",
+      "about": "UI-mrr-014",
+      "question_th": "UI-mrr-014 ให้ปิดใช้ ('ใช้งาน' · 'ปิดแล้วไม่แสดงเป็นตัวเลือกใหม่ ข้อมูลเดิมคงไว้') แต่ API ที่อ่านรายการได้มีแค่ API-002 GET /facilities?active=true · facility ที่ปิดใช้แล้วจึงหายจากหน้านี้เมื่อโหลดใหม่ และเปิดใช้งานกลับไม่ได้ · ขอให้ design ประกาศ API ที่ให้ Room Administrator อ่าน facility ทั้งหมดรวมที่ปิดใช้ (เช่น GET /facilities ไม่ระบุ active) หรือยืนยันว่าปิดใช้แล้วเปิดกลับไม่ได้",
+      "blocks": []
+    },
+    {
+      "id": "GAP-mrr-019",
+      "to": "design",
+      "about": "UI-mrr-013",
+      "question_th": "UI-mrr-013 ช่อง 'ผู้อนุมัติประจำห้อง' ประกาศว่า 'เลือกจากผู้ใช้บทบาท Room Administrator' แต่ API ค้นผู้ใช้ที่มีคือ API-005 GET /users?query= ซึ่งคืนผู้ใช้ active ทุกบทบาท และบังคับให้ query ไม่ว่าง · ตอนนี้ (FE-mrr-013) เป็นช่องค้นหา และ API-023 ปฏิเสธที่ช่องว่า 'ผู้อนุมัติประจำห้องต้องเป็นผู้ดูแลห้อง' · ขอให้ design ประกาศตัวกรองบทบาท (เช่น GET /users?role=ROOM_ADMINISTRATOR) หรือยืนยันว่าค้นแล้วปฏิเสธที่ช่องพอ",
+      "blocks": []
+    },
+    {
+      "id": "GAP-mrr-020",
+      "to": "design",
+      "about": "UI-mrr-014",
+      "question_th": "UI-mrr-014 สถานะ unauthorized 'ไม่ใช่ Room Administrator — คุณไม่มีสิทธิ์เข้าหน้านี้' แต่ API-002 ที่หน้านี้โหลด เปิดให้ผู้ใช้ทุกบทบาท หน้าจึงรู้บทบาทไม่ได้ตอนเปิด (เรื่องเดียวกับ GAP-mrr-015) · ตอนนี้ (FE-mrr-013) คนที่ไม่ใช่ Room Administrator เห็นรายการ และถูกปฏิเสธที่แถวด้วยข้อความของ API-026/027 ตอนกดบันทึก · ขอให้ design ระบุว่าหน้าจอรู้บทบาทของผู้ใช้จากที่ไหน หรือให้หน้านี้อ่านจาก API ที่เฉพาะ Room Administrator เรียกได้",
       "blocks": []
     }
   ]

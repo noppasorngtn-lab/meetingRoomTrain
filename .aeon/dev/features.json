@@ -3888,7 +3888,10 @@
           }
         ],
         "apis": []
-      }
+      },
+      "commits": [
+        "7f295c030ba1341409956adde0bc5912eb6825da"
+      ]
     },
     {
       "id": "FE-mrr-035",
@@ -5061,6 +5064,71 @@
       "blocks": [
         "FE-mrr-012"
       ]
+    },
+    {
+      "id": "GAP-mrr-016",
+      "to": "design",
+      "about": "UI-mrr-013",
+      "question_th": "UI-mrr-013 ช่อง 'รูปภาพ' (ENT-003 photos · capture · 'ไฟล์ภาพ ไม่บังคับ' · overflow 'รูปภาพเกินขนาดที่กำหนดไม่รับและแจ้งที่ช่อง') แต่ interfaces.json ไม่มี API อัปโหลดไฟล์ และ API-021/023 รับ photos เป็นรายการ id ของไฟล์ · ตอนนี้ (FE-mrr-013) ฟอร์มแสดงจำนวนรูปและส่งรูปเดิมกลับทุกครั้งที่บันทึก เพิ่มหรือเปลี่ยนรูปไม่ได้ · ขอให้ design ประกาศ API อัปโหลดรูป ขนาดสูงสุด และชนิดไฟล์ที่รับ",
+      "found_at": "2026-10-21",
+      "found_by": "/dev:plan",
+      "status": "open",
+      "answer_th": null,
+      "answered_in": null,
+      "closed_by": null,
+      "blocks": []
+    },
+    {
+      "id": "GAP-mrr-017",
+      "to": "design",
+      "about": "UI-mrr-013",
+      "question_th": "UI-mrr-013 ช่อง 'สิ่งอำนวยความสะดวก' ประกาศว่า 'เลือกจาก Facility ที่ active' และ API-023 (FE-mrr-034) ปฏิเสธเวอร์ชันใหม่ที่มี facility ที่ปิดใช้แล้ว · ห้องที่เวอร์ชันปัจจุบันมี facility ซึ่งถูกปิดใช้ทีหลัง เมื่อแก้ไขแล้วบันทึก facility นั้นจึงหลุดจากเวอร์ชันใหม่ · ตอนนี้ (FE-mrr-013) ฟอร์มตัดออกก่อนบันทึกและแสดงว่า 'สิ่งอำนวยความสะดวกที่ปิดใช้แล้ว N รายการจะไม่อยู่ในเวอร์ชันใหม่' · ขอให้ design ยืนยันพฤติกรรมนี้ หรือกำหนดว่าเวอร์ชันใหม่คง facility ที่ปิดใช้แล้วไว้ได้",
+      "found_at": "2026-10-21",
+      "found_by": "/dev:plan",
+      "status": "open",
+      "answer_th": null,
+      "answered_in": null,
+      "closed_by": null,
+      "blocks": []
+    },
+    {
+      "id": "GAP-mrr-018",
+      "to": "design",
+      "about": "UI-mrr-014",
+      "question_th": "UI-mrr-014 ให้ปิดใช้ ('ใช้งาน' · 'ปิดแล้วไม่แสดงเป็นตัวเลือกใหม่ ข้อมูลเดิมคงไว้') แต่ API ที่อ่านรายการได้มีแค่ API-002 GET /facilities?active=true · facility ที่ปิดใช้แล้วจึงหายจากหน้านี้เมื่อโหลดใหม่ และเปิดใช้งานกลับไม่ได้ · ขอให้ design ประกาศ API ที่ให้ Room Administrator อ่าน facility ทั้งหมดรวมที่ปิดใช้ (เช่น GET /facilities ไม่ระบุ active) หรือยืนยันว่าปิดใช้แล้วเปิดกลับไม่ได้",
+      "found_at": "2026-10-21",
+      "found_by": "/dev:plan",
+      "status": "open",
+      "answer_th": null,
+      "answered_in": null,
+      "closed_by": null,
+      "blocks": []
+    },
+    {
+      "id": "GAP-mrr-019",
+      "to": "design",
+      "about": "UI-mrr-013",
+      "question_th": "UI-mrr-013 ช่อง 'ผู้อนุมัติประจำห้อง' ประกาศว่า 'เลือกจากผู้ใช้บทบาท Room Administrator' แต่ API ค้นผู้ใช้ที่มีคือ API-005 GET /users?query= ซึ่งคืนผู้ใช้ active ทุกบทบาท และบังคับให้ query ไม่ว่าง · ตอนนี้ (FE-mrr-013) เป็นช่องค้นหา และ API-023 ปฏิเสธที่ช่องว่า 'ผู้อนุมัติประจำห้องต้องเป็นผู้ดูแลห้อง' · ขอให้ design ประกาศตัวกรองบทบาท (เช่น GET /users?role=ROOM_ADMINISTRATOR) หรือยืนยันว่าค้นแล้วปฏิเสธที่ช่องพอ",
+      "found_at": "2026-10-21",
+      "found_by": "/dev:plan",
+      "status": "open",
+      "answer_th": null,
+      "answered_in": null,
+      "closed_by": null,
+      "blocks": []
+    },
+    {
+      "id": "GAP-mrr-020",
+      "to": "design",
+      "about": "UI-mrr-014",
+      "question_th": "UI-mrr-014 สถานะ unauthorized 'ไม่ใช่ Room Administrator — คุณไม่มีสิทธิ์เข้าหน้านี้' แต่ API-002 ที่หน้านี้โหลด เปิดให้ผู้ใช้ทุกบทบาท หน้าจึงรู้บทบาทไม่ได้ตอนเปิด (เรื่องเดียวกับ GAP-mrr-015) · ตอนนี้ (FE-mrr-013) คนที่ไม่ใช่ Room Administrator เห็นรายการ และถูกปฏิเสธที่แถวด้วยข้อความของ API-026/027 ตอนกดบันทึก · ขอให้ design ระบุว่าหน้าจอรู้บทบาทของผู้ใช้จากที่ไหน หรือให้หน้านี้อ่านจาก API ที่เฉพาะ Room Administrator เรียกได้",
+      "found_at": "2026-10-21",
+      "found_by": "/dev:plan",
+      "status": "open",
+      "answer_th": null,
+      "answered_in": null,
+      "closed_by": null,
+      "blocks": []
     }
   ],
   "rollup": {
@@ -5076,7 +5144,7 @@
       "frontend-web": 15,
       "api": 18
     },
-    "gaps_open": 15,
+    "gaps_open": 20,
     "ready_for_phase5": false
   }
 }
