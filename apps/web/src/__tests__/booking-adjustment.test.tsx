@@ -165,8 +165,16 @@ describe('FE-mrr-010 adjustment request after the meeting ends page (UI-mrr-010)
     expect(posts()).toHaveLength(1);
   });
 
-  it('ACL-011 at 10:59 the meeting has not ended — the title is not open and no request is offered', async () => {
+  it('ACL-011 at 10:59 the meeting has not ended — no request is offered; the edit there is a direct one (FE-mrr-009)', async () => {
     vi.setSystemTime(new Date('2026-10-18T10:59:00+07:00'));
+    open();
+
+    expect(await loaded()).toHaveValue('ประชุมทีม');
+    expect(screen.queryByText('การประชุมจบแล้ว — การแก้ไขจะเป็นคำขอให้ผู้ดูแลห้องคนอื่นอนุมัติ')).not.toBeInTheDocument();
+  });
+
+  it('ACL-011 before the meeting starts — the title is not open and nothing is edited for the booker', async () => {
+    vi.setSystemTime(new Date('2026-10-18T09:59:00+07:00'));
     open();
 
     expect(await loaded()).toHaveTextContent('ประชุมทีม');

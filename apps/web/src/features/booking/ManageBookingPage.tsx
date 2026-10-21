@@ -34,17 +34,22 @@ const changeTo = (b: Booking): Decision | null => {
   return b.status === 'APPROVED' ? 'REJECTED' : b.status === 'REJECTED' ? 'APPROVED' : null;
 };
 
+const holdsRoom = (b: Booking): boolean => b.status === 'CONFIRMED' || b.status === 'APPROVED';
+
 /** ACL-011 condition — a booking that held its room, whose meeting has ended (the end itself counts). */
-const meetingEnded = (b: Booking): boolean =>
-  (b.status === 'CONFIRMED' || b.status === 'APPROVED') && new Date(b.endAt).getTime() <= Date.now();
+const meetingEnded = (b: Booking): boolean => holdsRoom(b) && new Date(b.endAt).getTime() <= Date.now();
+
+/** ACL-010 condition — a booking that holds its room, from its start (10:00 counts) until its end. */
+const meetingUnderWay = (b: Booking): boolean =>
+  holdsRoom(b) && new Date(b.startAt).getTime() <= Date.now() && Date.now() < new Date(b.endAt).getTime();
 
 /**
  * UI-mrr-010 — a Room Administrator's page for one booking, opened with ?booking=<id> from the
  * pending queue. The booking is read through API-007, which shows any booking to an administrator.
- * It carries the change of decision (API-013 · UC-mrr-008) and, once the meeting has ended, the
- * adjustment request (API-014 · UC-mrr-010) — the title only — and the booking's trail (API-016 ·
- * UC-mrr-012), read again after each action here. Acting on behalf of the booker while the meeting
- * is under way and cancelling arrive with their own units.
+ * It carries the change of decision (API-013 · UC-mrr-008); while the meeting is under way, the edit
+ * (API-014) and the cancellation (API-015) on behalf of the booker (UC-mrr-009); once it has ended,
+ * the adjustment request (API-014 · UC-mrr-010) — the title only, both ways — and the booking's
+ * trail (API-016 · UC-mrr-012), read again after each action here.
  */
 export function ManageBookingPage() {
   const [params] = useSearchParams();
@@ -116,10 +121,11 @@ export function ManageBookingPage() {
   };
 
   /**
+   * UC-mrr-009 — while the meeting is under way the title changes at once (AC-mrr-042).
    * UC-mrr-010 — after the end the edit is kept as a request and the booking keeps its values until
-   * another Room Administrator approves (BR-mrr-014), so the page reads it again and shows the old title.
+   * another Room Administrator approves (BR-mrr-014). Either way the page reads the booking again.
    */
-  const requestAdjustment = async (e: FormEvent) => {
+  const editOnBehalf = async (e: FormEvent, request: boolean) => {
     e.preventDefault();
     setFailure(null);
     const titleProblem = checkTitle(title);
@@ -135,11 +141,39 @@ export function ManageBookingPage() {
       fetchBooking();
       setTrailVersion((v) => v + 1);
     } catch (err) {
-      // Nothing is requested; what was typed stays (UI-mrr-010 error state).
+      // Nothing is changed or requested; what was typed stays (UI-mrr-010 error state).
       if (err instanceof ApiError && err.status === 401) return setLoad({ kind: 'unauthorized' });
       if (err instanceof ApiError && err.status === 400 && err.field === 'reason') return setReasonError(err.message);
       if (err instanceof ApiError && err.status === 400 && err.field === 'title') return setTitleError(err.message);
-      setFailure(err instanceof ApiError && err.status !== 500 ? err.message : 'ส่งคำขอแก้ไขไม่สำเร็จ กรุณากดอีกครั้ง');
+      const fallback = request ? 'ส่งคำขอแก้ไขไม่สำเร็จ กรุณากดอีกครั้ง' : 'บันทึกการแก้ไขไม่สำเร็จ กรุณากดอีกครั้ง';
+      setFailure(err instanceof ApiError && err.status !== 500 ? err.message : fallback);
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  /**
+   * UC-mrr-009 — cancelled with a reason while the meeting is under way. The api mails the booker and
+   * every attendee inside its transaction, so a mail that does not go cancels nothing (BR-mrr-019).
+   */
+  const cancelOnBehalf = async () => {
+    setFailure(null);
+    setTitleError(null);
+    // AC-mrr-029 · AC-mrr-055 — no reason, nothing is sent and the trail gets no entry.
+    if (!reason.trim()) return setReasonError('กรุณาระบุเหตุผล');
+    setReasonError(null);
+    setSaving(true);
+    try {
+      const done = await postJson<{ message: string }>(`/bookings/${bookingId}/admin-cancel`, { reason: reason.trim() });
+      setReason('');
+      navigate({ pathname: location.pathname, search: location.search }, { replace: true, state: { notice: done.message } });
+      fetchBooking();
+      setTrailVersion((v) => v + 1);
+    } catch (err) {
+      // The booking stays as it was (UI-mrr-010 error state) — the meeting ended, or the mail did not go.
+      if (err instanceof ApiError && err.status === 401) return setLoad({ kind: 'unauthorized' });
+      if (err instanceof ApiError && err.status === 400 && err.field === 'reason') return setReasonError(err.message);
+      setFailure(err instanceof ApiError && err.status !== 500 ? err.message : 'ยกเลิกการจองไม่สำเร็จ กรุณากดอีกครั้ง');
     } finally {
       setSaving(false);
     }
@@ -185,11 +219,14 @@ export function ManageBookingPage() {
 
   const { booking } = load;
   const target = changeTo(booking);
-  // ACL-011 enforced at the ui too: the title opens for a request only once the meeting has ended.
+  // ACL-010 · ACL-011 enforced at the ui too: the title opens once the meeting has started — for a
+  // direct edit while it is under way, for a request once it has ended.
+  const underWay = meetingUnderWay(booking);
   const adjustable = meetingEnded(booking);
+  const editable = underWay || adjustable;
   const onSubmit = (e: FormEvent) => {
     if (target) return changeDecision(e, target);
-    if (adjustable) return requestAdjustment(e);
+    if (editable) return editOnBehalf(e, adjustable);
     e.preventDefault();
   };
   return withTrail(
@@ -197,7 +234,7 @@ export function ManageBookingPage() {
       {heading}
       <div className="card">
         <div className="grid">
-          {adjustable ? (
+          {editable ? (
             <TitleField id="ui-mrr-010-ent-007-title" value={title} onChange={setTitle} error={titleError ?? undefined} />
           ) : (
             <div className="field">
@@ -240,6 +277,18 @@ export function ManageBookingPage() {
           {reasonError && <span className="errtext" id="ui-mrr-010-ent-010-reason-error">{reasonError}</span>}
         </div>
         <div className="actions">
+          {/* The admin-actions zone's order: edit-on-behalf · change-decision · cancel-on-behalf · back. */}
+          {editable && (
+            <button
+              type="submit"
+              className="btn btn-primary"
+              data-testid="ui-mrr-010-edit-on-behalf"
+              disabled={saving}
+              aria-busy={saving || undefined}
+            >
+              แก้แทนผู้จอง
+            </button>
+          )}
           {/* ACL-009 enforced at the ui too: offered only for a decision made and a meeting not started. */}
           {target && (
             <button
@@ -252,18 +301,20 @@ export function ManageBookingPage() {
               เปลี่ยนผลการอนุมัติ
             </button>
           )}
-          {adjustable && (
+          {/* ACL-010 enforced at the ui too: only while the meeting is under way. */}
+          {underWay && (
             <button
-              type="submit"
-              className="btn btn-primary"
-              data-testid="ui-mrr-010-edit-on-behalf"
+              type="button"
+              className="btn btn-secondary"
+              data-testid="ui-mrr-010-cancel-on-behalf"
               disabled={saving}
-              aria-busy={saving || undefined}
+              onClick={cancelOnBehalf}
             >
-              แก้แทนผู้จอง
+              ยกเลิกแทนผู้จอง
             </button>
           )}
           {back}
+          {underWay && <span className="help">ยกเลิกแล้ว ระบบจะส่ง Email แจ้งผู้จองและผู้เข้าร่วมทุกคน</span>}
           {adjustable && <span className="help">การประชุมจบแล้ว — การแก้ไขจะเป็นคำขอให้ผู้ดูแลห้องคนอื่นอนุมัติ</span>}
           {target && <span className="help">ผลใหม่จะเป็น '{STATUS_LABEL[target]}'</span>}
         </div>
