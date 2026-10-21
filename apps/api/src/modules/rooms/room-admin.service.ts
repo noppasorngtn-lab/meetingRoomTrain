@@ -47,6 +47,12 @@ export interface RoomRow {
   versionNo: number;
 }
 
+/** API-022 for a Room Administrator — the whole current version, so an edit keeps what it did not change (ENT-003). */
+export interface RoomDetail extends RoomRow {
+  photos: string[];
+  facilityIds: string[];
+}
+
 export interface RoomPage {
   items: RoomRow[];
   page: number;
@@ -58,6 +64,26 @@ export interface Facility {
   id: string;
   name: string;
   active: boolean;
+}
+
+const ROW_COLUMNS = [
+  'r.id', 'r.code', 'r.status', 'v.name', 'v.capacity', 'v.requires_approval', 'v.version_no', 'a.id as approver_id', 'a.full_name as approver_name',
+] as const;
+
+function rowOf(r: {
+  id: string; code: string; status: RoomStatus; name: string; capacity: number; requires_approval: boolean;
+  version_no: number; approver_id: string | null; approver_name: string | null;
+}): RoomRow {
+  return {
+    id: r.id,
+    code: r.code,
+    name: r.name,
+    capacity: r.capacity,
+    status: r.status,
+    requiresApproval: r.requires_approval,
+    approver: r.approver_id ? { id: r.approver_id, fullName: r.approver_name! } : null,
+    versionNo: r.version_no,
+  };
 }
 
 /** UI-mrr-012 overflow — 20 to a page. */
@@ -112,26 +138,37 @@ export class RoomAdminService {
     }
     const { total } = await q.select((eb) => eb.fn.countAll<string>().as('total')).executeTakeFirstOrThrow();
     const rows = await q
-      .select(['r.id', 'r.code', 'r.status', 'v.name', 'v.capacity', 'v.requires_approval', 'v.version_no', 'a.id as approver_id', 'a.full_name as approver_name'])
+      .select(ROW_COLUMNS)
       .orderBy(sql`r.code COLLATE "C"`)
       .limit(PAGE_SIZE)
       .offset((page - 1) * PAGE_SIZE)
       .execute();
     return {
-      items: rows.map((r) => ({
-        id: r.id,
-        code: r.code,
-        name: r.name,
-        capacity: r.capacity,
-        status: r.status,
-        requiresApproval: r.requires_approval,
-        approver: r.approver_id ? { id: r.approver_id, fullName: r.approver_name! } : null,
-        versionNo: r.version_no,
-      })),
+      items: rows.map(rowOf),
       page,
       pageSize: PAGE_SIZE,
       total: Number(total),
     };
+  }
+
+  /** API-022 for a Room Administrator — an archived room is gone, as it is for everyone (STM-mrr-003). */
+  async room(caller: Caller, id: string): Promise<RoomDetail> {
+    await assertRoomAdministrator(this.db, caller, REFUSAL);
+    const row = await this.db
+      .selectFrom('meeting_rooms as r')
+      .innerJoin('meeting_room_versions as v', 'v.id', 'r.current_version_id')
+      .leftJoin('users as a', 'a.id', 'v.approver_id')
+      .select([...ROW_COLUMNS, 'v.id as version_id', 'v.photos'])
+      .where('r.id', '=', id)
+      .where('r.status', '!=', 'ARCHIVED')
+      .executeTakeFirst();
+    if (!row) throw new RoomInfoNotFound();
+    const facilities = await this.db
+      .selectFrom('room_version_facilities')
+      .select('facility_id')
+      .where('room_version_id', '=', row.version_id)
+      .execute();
+    return { ...rowOf(row), photos: row.photos, facilityIds: facilities.map((f) => f.facility_id) };
   }
 
   /** API-021 — a new room, ACTIVE, with its first version. Its code is fixed from now on (ENT-002). */

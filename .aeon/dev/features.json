@@ -3538,7 +3538,10 @@
             "file": "apps/api/src/modules/rooms/rooms.controller.ts"
           }
         ]
-      }
+      },
+      "commits": [
+        "bc8b0325b73689c87d8feca248a4d7aa97dac7a8"
+      ]
     },
     {
       "id": "FE-mrr-013",
@@ -4527,27 +4530,27 @@
       ],
       "status": "validated",
       "build": {
-        "iterations": 0,
+        "iterations": 1,
         "proof": [
           {
             "cmd": "powershell -File scripts/dev-build.ps1 -App api",
             "result": "tsc -p tsconfig.build.json · exit 0",
-            "at": "2026-10-20"
+            "at": "2026-10-21"
           },
           {
             "cmd": "powershell -File scripts/dev-test.ps1 -App api -Filter FE-mrr-037",
-            "result": "Test Suites: 7 skipped, 1 passed, 1 of 8 total · Tests: 72 skipped, 11 passed, 83 total · exit 0 · against postgres:16-alpine via Testcontainers",
-            "at": "2026-10-20"
+            "result": "Test Suites: 30 skipped, 1 passed, 1 of 31 total · Tests: 377 skipped, 13 passed, 390 total · exit 0",
+            "at": "2026-10-21"
           },
           {
-            "cmd": "powershell -File scripts/dev-test.ps1",
-            "result": "api: Test Suites 8 passed, Tests 83 passed · web: Test Files 2 passed, Tests 30 passed · exit 0",
-            "at": "2026-10-20"
+            "cmd": "powershell -File scripts/dev-test.ps1 -App api",
+            "result": "Test Suites: 31 passed, 31 total · Tests: 390 passed, 390 total · exit 0",
+            "at": "2026-10-21"
           }
         ],
-        "last_error": null,
+        "last_error": "iteration 1: the new admin test added an active facility to the shared database, so AC-mrr-005 saw one more choice — the test now seeds it out of use",
         "recorded_by": "Noppasorn",
-        "recorded_at": "2026-10-20"
+        "recorded_at": "2026-10-21"
       },
       "manifest": {
         "files": [
@@ -4555,7 +4558,8 @@
           "apps/api/src/modules/rooms/rooms.service.ts",
           "apps/api/src/modules/rooms/rooms.controller.ts",
           "apps/api/src/modules/rooms/rooms.module.ts",
-          "apps/api/test/rooms/room-info.http.spec.ts"
+          "apps/api/test/rooms/room-info.http.spec.ts",
+          "apps/api/src/modules/rooms/room-admin.service.ts"
         ],
         "unit_tests": [
           {

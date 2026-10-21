@@ -5,7 +5,7 @@ import {
 import { Caller, CurrentUser, UUID } from '../../common/auth/current-user';
 import { NotRoomAdministrator } from '../booking/room-admin';
 import { EmailDeliveryFailed } from '../notification/booking-notifier';
-import { Facility, FacilityNotFound, RoomAdminService, RoomInvalid, RoomPage, RoomVersionInput } from './room-admin.service';
+import { Facility, FacilityNotFound, RoomAdminService, RoomDetail, RoomInvalid, RoomPage, RoomVersionInput } from './room-admin.service';
 import { RoomMaintenanceService } from './room-maintenance.service';
 import { FacilityOption, RoomInfo, RoomInfoNotFound, RoomsService } from './rooms.service';
 
@@ -40,7 +40,8 @@ function versionInput(body: Record<string, unknown>): RoomVersionInput {
 
 /**
  * API-020 · API-021 · API-023 — a Room Administrator lists, adds and edits rooms (ACL-014).
- * API-022 — any signed-in user may read a room they can see in search (ACL-001 · GAP-mrr-013).
+ * API-022 — any signed-in user may read a room they can see in search (ACL-001 · GAP-mrr-013); a Room
+ *   Administrator reads its whole current version, the one an edit starts from (ACL-014).
  * API-024 — a Room Administrator puts it under maintenance or opens it again (ACL-015).
  */
 @Controller('rooms')
@@ -88,8 +89,13 @@ export class RoomsController {
   }
 
   @Get(':id')
-  async room(@CurrentUser() _caller: Caller, @Param('id') id: string): Promise<RoomInfo> {
+  async room(@CurrentUser() caller: Caller, @Param('id') id: string): Promise<RoomDetail | RoomInfo> {
     if (!UUID.test(id)) throw new NotFoundException('ไม่พบห้อง');
+    try {
+      return await this.admin.room(caller, id);
+    } catch (err) {
+      if (!(err instanceof NotRoomAdministrator)) answer(err);
+    }
     try {
       return await this.rooms.room(id);
     } catch (err) {

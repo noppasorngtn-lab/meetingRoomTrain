@@ -90,6 +90,36 @@ describe('FE-mrr-037 GET /rooms/:id · GET /facilities', () => {
 
       await get(`/rooms/${room.roomId}`).expect(401);
     });
+
+    it('answers a Room Administrator with the whole current version — the one an edit starts from, a facility since taken out of use included', async () => {
+      const room = await seedRoom(db, 'ห้อง D', admin, { requiresApproval: true, capacity: 6 });
+      const [projector] = await db.insertInto('facilities').values([{ name: 'จอ D', active: false }]).returning('id').execute();
+      const { id } = await db
+        .insertInto('meeting_room_versions')
+        .values({
+          room_id: room.roomId, version_no: 2, name: 'ห้อง D', capacity: 6, photos: JSON.stringify(['photo-1']),
+          requires_approval: true, approver_id: admin, created_by: admin,
+        })
+        .returning('id')
+        .executeTakeFirstOrThrow();
+      await db.insertInto('room_version_facilities').values({ room_version_id: id, facility_id: projector.id }).execute();
+      await db.updateTable('meeting_rooms').set({ current_version_id: id }).where('id', '=', room.roomId).execute();
+
+      const res = await get(`/rooms/${room.roomId}`, admin).expect(200);
+
+      expect(res.body).toEqual({
+        id: room.roomId, code: 'ห้อง-D', name: 'ห้อง D', capacity: 6, status: 'ACTIVE', requiresApproval: true,
+        approver: { id: admin, fullName: 'Admin' }, versionNo: 2, photos: ['photo-1'], facilityIds: [projector.id],
+      });
+    });
+
+    it('answers a Room Administrator 404 for an archived room', async () => {
+      const room = await seedRoom(db, 'ห้อง Y', admin, { status: 'ARCHIVED' });
+
+      const res = await get(`/rooms/${room.roomId}`, admin).expect(404);
+
+      expect(res.body.message).toBe('ไม่พบห้อง');
+    });
   });
 
   describe('GET /facilities?active=true (API-002)', () => {
