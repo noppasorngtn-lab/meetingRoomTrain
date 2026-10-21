@@ -3,7 +3,7 @@
   "producedBy": "design · scripts/rbac.mjs",
   "project": "mrr",
   "status": "approved",
-  "approvedAt": "2026-10-19T07:59:59Z",
+  "approvedAt": "2026-10-21T07:40:09Z",
   "approvedBy": "Noppasorn",
   "defaultEffect": "deny",
   "roles": [
@@ -523,6 +523,17 @@
       "role": "ROLE-001",
       "resource": "UC-mrr-021",
       "action": "ออกจากระบบของตนเอง — ยกเลิกได้เฉพาะ session ของตน",
+      "scope": "own",
+      "enforceAt": [
+        "api",
+        "domain"
+      ]
+    },
+    {
+      "id": "ACL-037",
+      "role": "ROLE-001",
+      "resource": "UC-mrr-020",
+      "action": "อ่านข้อมูลของตนเองใน session ปัจจุบัน (ชื่อ · บทบาท) เพื่อให้หน้าจอแสดงหรือซ่อนคำสั่งตามบทบาท (ADR-002) — เห็นเฉพาะของตน ไม่มีพารามิเตอร์ระบุผู้ใช้อื่น · การซ่อนปุ่มไม่ใช่การคุมสิทธิ์ ทุกคำสั่งยังถูกตรวจที่ api",
       "scope": "own",
       "enforceAt": [
         "api",

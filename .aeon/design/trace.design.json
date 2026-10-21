@@ -3048,6 +3048,31 @@
       "from": "API-034",
       "rel": "governedByAcl",
       "to": "ACL-036"
+    },
+    {
+      "from": "UC-mrr-020",
+      "rel": "governedByAcl",
+      "to": "ACL-037"
+    },
+    {
+      "from": "FUN-mrr-014",
+      "rel": "exposedAs",
+      "to": "API-035"
+    },
+    {
+      "from": "UI-mrr-010",
+      "rel": "calls",
+      "to": "API-035"
+    },
+    {
+      "from": "UI-mrr-014",
+      "rel": "calls",
+      "to": "API-035"
+    },
+    {
+      "from": "API-035",
+      "rel": "governedByAcl",
+      "to": "ACL-037"
     }
   ]
 }

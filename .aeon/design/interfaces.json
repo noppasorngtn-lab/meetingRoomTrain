@@ -3,7 +3,7 @@
   "producedBy": "design · scripts/interfaces.mjs",
   "project": "mrr",
   "status": "approved",
-  "approvedAt": "2026-10-19T07:59:59Z",
+  "approvedAt": "2026-10-21T07:40:09Z",
   "approvedBy": "Noppasorn",
   "integrations": [
     {
@@ -229,6 +229,12 @@
       "name": "ออกจากระบบ",
       "operation": "POST /auth/logout",
       "purpose": "ยกเลิก session ของผู้เรียก · ผู้ที่ไม่มี session ได้คำตอบสำเร็จเหมือนกัน"
+    },
+    {
+      "id": "API-035",
+      "name": "ข้อมูลผู้ใช้ปัจจุบัน",
+      "operation": "GET /auth/me",
+      "purpose": "ชื่อและบทบาทของผู้ใช้เจ้าของ session ที่เรียก เพื่อให้หน้าจอแสดงหรือซ่อนคำสั่งตามบทบาท (ADR-002) · ไม่รับพารามิเตอร์ระบุผู้ใช้อื่น · ไม่มี session ได้ 401 · การซ่อนปุ่มไม่ใช่การคุมสิทธิ์ — ทุกคำสั่งยังถูกตรวจที่ api ของมันเอง"
     }
   ],
   "ruleEnforcement": [
