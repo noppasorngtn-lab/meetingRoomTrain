@@ -30,7 +30,7 @@
     {
       "id": "function",
       "command": "/design:function",
-      "status": "stale",
+      "status": "done",
       "requires": [
         "overview"
       ],
@@ -38,9 +38,8 @@
         "modules/<module>/functions.json",
         "trace.design.json"
       ],
-      "attempts": 0,
-      "updatedAt": "2026-10-21T09:07:58Z",
-      "staleBecause": "ADR-003"
+      "attempts": 1,
+      "updatedAt": "2026-10-21T09:19:24Z"
     },
     {
       "id": "datamodel",

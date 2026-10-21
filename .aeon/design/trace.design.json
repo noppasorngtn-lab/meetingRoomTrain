@@ -3073,6 +3073,36 @@
       "from": "API-035",
       "rel": "governedByAcl",
       "to": "ACL-037"
+    },
+    {
+      "from": "AC-mrr-086",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-088"
+    },
+    {
+      "from": "AC-mrr-086",
+      "rel": "governedBy",
+      "to": "BR-mrr-009@v1"
+    },
+    {
+      "from": "AC-mrr-087",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-089"
+    },
+    {
+      "from": "AC-mrr-087",
+      "rel": "governedBy",
+      "to": "BR-mrr-011@v1"
+    },
+    {
+      "from": "AC-mrr-088",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-090"
+    },
+    {
+      "from": "AC-mrr-088",
+      "rel": "governedBy",
+      "to": "BR-mrr-005@v1"
     }
   ]
 }

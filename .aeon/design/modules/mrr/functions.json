@@ -3,9 +3,9 @@
   "producedBy": "design · scripts/functions.mjs",
   "project": "mrr",
   "module": "mrr",
-  "status": "approved",
-  "approvedAt": "2026-10-19T07:59:59Z",
-  "approvedBy": "Noppasorn",
+  "status": "draft",
+  "approvedAt": null,
+  "approvedBy": null,
   "functions": [
     {
       "id": "FUN-mrr-001",
@@ -1927,6 +1927,48 @@
       "given": "ห้อง E ปิดปรับปรุงทุกวัน จ.–ศ. ตลอด ต.ค. 2569 · มีการจองที่คงอยู่ 5/10 10:00–11:00",
       "when": "Room Administrator เปิดรายงานการใช้ห้องเดือน ต.ค. 2569",
       "then": "ห้อง E แสดง '—' ไม่มีเลขอันดับ และไม่อยู่ในอันดับห้องที่มีอัตราการใช้งานสูงสุด — ชั่วโมงทำการเหลือ 0 จึงไม่คำนวณ"
+    },
+    {
+      "id": "AC-mrr-086",
+      "example": "EX-mrr-088",
+      "rules": [
+        "BR-mrr-009@v1"
+      ],
+      "useCases": [
+        "UC-mrr-009"
+      ],
+      "title": "กรณีผิดพลาด · System Administrator เปิดหน้าจัดการการจองระหว่างประชุม",
+      "given": "U1 เป็นผู้จองห้อง A วันนี้ 10:00–11:00 ขณะนี้เวลา 10:30 และผู้ใช้ล็อกอินเป็น System Administrator",
+      "when": "System Administrator เปิดหน้าจัดการการจองนี้",
+      "then": "System Administrator เห็นข้อมูลการจองและร่องรอย แต่ไม่เห็นช่องเหตุผล ไม่เห็นปุ่ม 'แก้แทนผู้จอง' และ 'ยกเลิกแทนผู้จอง' — การจองคงเดิม"
+    },
+    {
+      "id": "AC-mrr-087",
+      "example": "EX-mrr-089",
+      "rules": [
+        "BR-mrr-011@v1"
+      ],
+      "useCases": [
+        "UC-mrr-008"
+      ],
+      "title": "กรณีผิดพลาด · System Administrator เปิดหน้าจัดการการจองก่อนเวลาเริ่ม",
+      "given": "การจองห้อง B 18/10 10:00–11:00 ของ U1 มีสถานะ 'อนุมัติแล้ว' · ขณะนี้ 16/10 15:00 และผู้ใช้ล็อกอินเป็น System Administrator",
+      "when": "System Administrator เปิดหน้าจัดการการจองนี้",
+      "then": "System Administrator เห็นข้อมูลการจองและร่องรอย แต่ไม่เห็นช่องเหตุผล และไม่เห็นปุ่ม 'เปลี่ยนผลการอนุมัติ' — สถานะยังเป็น 'อนุมัติแล้ว'"
+    },
+    {
+      "id": "AC-mrr-088",
+      "example": "EX-mrr-090",
+      "rules": [
+        "BR-mrr-005@v1"
+      ],
+      "useCases": [
+        "UC-mrr-013"
+      ],
+      "title": "กรณีผิดพลาด · General User เปิดหน้าสิ่งอำนวยความสะดวก",
+      "given": "ผู้ใช้ล็อกอินเป็น General User",
+      "when": "General User เปิดหน้าสิ่งอำนวยความสะดวก",
+      "then": "แสดงข้อความ 'คุณไม่มีสิทธิ์เข้าหน้านี้' และไม่เห็นรายการสิ่งอำนวยความสะดวก"
     }
   ]
 }
