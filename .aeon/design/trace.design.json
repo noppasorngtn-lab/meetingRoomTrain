@@ -3103,6 +3103,36 @@
       "from": "AC-mrr-088",
       "rel": "governedBy",
       "to": "BR-mrr-005@v1"
+    },
+    {
+      "from": "FUN-mrr-006",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-091"
+    },
+    {
+      "from": "FUN-mrr-005",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-092"
+    },
+    {
+      "from": "FUN-mrr-009",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-093"
+    },
+    {
+      "from": "FUN-mrr-006",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-094"
+    },
+    {
+      "from": "FUN-mrr-014",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-095"
+    },
+    {
+      "from": "FUN-mrr-014",
+      "rel": "verifiedBy",
+      "to": "SCN-mrr-096"
     }
   ]
 }

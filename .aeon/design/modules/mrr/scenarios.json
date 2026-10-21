@@ -3,9 +3,9 @@
   "producedBy": "design · scripts/scenarios.mjs",
   "project": "mrr",
   "module": "mrr",
-  "status": "approved",
-  "approvedAt": "2026-10-19T07:59:59Z",
-  "approvedBy": "Noppasorn",
+  "status": "draft",
+  "approvedAt": null,
+  "approvedBy": null,
   "scenarios": [
     {
       "id": "SCN-mrr-001",
@@ -2100,6 +2100,143 @@
       "expected": [
         "หน้าจอแจ้งให้ลองใหม่ และไม่แสดงข้อความ 'ออกจากระบบแล้ว'",
         "session ของ U1 ยังอยู่ — U1 ยังเปิดหน้าค้นหาห้องว่างได้"
+      ]
+    },
+    {
+      "id": "SCN-mrr-091",
+      "title": "System Administrator เปิดหน้าจัดการการจองระหว่างประชุม ไม่เห็นคำสั่งแทนผู้จอง",
+      "kind": "exception",
+      "verifies": [
+        "FUN-mrr-006"
+      ],
+      "rules": [
+        "BR-mrr-009@v1",
+        "BR-mrr-018@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง A: MeetingRoom.status = ACTIVE · การจอง CONFIRMED 18/10 10:00–11:00 หัวข้อ 'ประชุมทีม' ของ U1",
+        "เวลาปัจจุบัน 18/10 10:30"
+      ],
+      "when": [
+        "SA1 เปิดหน้าจัดการการจอง (UI-mrr-010) ของการจองนี้"
+      ],
+      "expected": [
+        "หน้าแสดงหัวข้อ 'ประชุมทีม' และส่วนร่องรอยของการจอง",
+        "ไม่มีช่องเหตุผล และไม่มีปุ่ม 'แก้แทนผู้จอง' กับ 'ยกเลิกแทนผู้จอง' บนหน้า",
+        "Booking.status ยังเป็น CONFIRMED · ไม่มี BookingAuditEntry ใหม่"
+      ]
+    },
+    {
+      "id": "SCN-mrr-092",
+      "title": "System Administrator เปิดหน้าจัดการการจองก่อนเริ่ม ไม่เห็นปุ่มเปลี่ยนผลการอนุมัติ",
+      "kind": "exception",
+      "verifies": [
+        "FUN-mrr-005"
+      ],
+      "rules": [
+        "BR-mrr-011@v1",
+        "BR-mrr-018@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ห้อง B: requiresApproval = true · การจอง APPROVED 18/10 10:00–11:00 ของ U1",
+        "เวลาปัจจุบัน 16/10 15:00"
+      ],
+      "when": [
+        "SA1 เปิดหน้าจัดการการจอง (UI-mrr-010) ของการจองนี้"
+      ],
+      "expected": [
+        "หน้าแสดงสถานะ 'อนุมัติแล้ว' และส่วนร่องรอยของการจอง",
+        "ไม่มีช่องเหตุผล และไม่มีปุ่ม 'เปลี่ยนผลการอนุมัติ' บนหน้า",
+        "Booking.status ยังเป็น APPROVED · ไม่มี BookingAuditEntry ใหม่"
+      ]
+    },
+    {
+      "id": "SCN-mrr-093",
+      "title": "General User เปิดหน้าสิ่งอำนวยความสะดวก ถูกบอกว่าไม่มีสิทธิ์",
+      "kind": "exception",
+      "verifies": [
+        "FUN-mrr-009"
+      ],
+      "rules": [
+        "BR-mrr-005@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "Facility: โปรเจคเตอร์ (active = true) · ไวท์บอร์ด (active = true)"
+      ],
+      "when": [
+        "U1 เปิดหน้าสิ่งอำนวยความสะดวก (UI-mrr-014)"
+      ],
+      "expected": [
+        "หน้าแสดงข้อความ 'คุณไม่มีสิทธิ์เข้าหน้านี้'",
+        "ไม่มีรายการ โปรเจคเตอร์ หรือ ไวท์บอร์ด บนหน้า และไม่มีช่องเพิ่มหรือแก้สิ่งอำนวยความสะดวก",
+        "ไม่มี Facility ถูกสร้างหรือแก้ไข"
+      ]
+    },
+    {
+      "id": "SCN-mrr-094",
+      "title": "System Administrator ส่งคำสั่งยกเลิกแทนผู้จองตรงถึง API ถูกปฏิเสธ — การซ่อนปุ่มไม่ใช่การคุมสิทธิ์",
+      "kind": "exception",
+      "verifies": [
+        "FUN-mrr-006"
+      ],
+      "rules": [
+        "BR-mrr-009@v1"
+      ],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "การจอง CONFIRMED 18/10 10:00–11:00 ของ U1 ผู้เข้าร่วม U2",
+        "เวลาปัจจุบัน 18/10 10:30"
+      ],
+      "when": [
+        "SA1 ส่ง POST /bookings/{id}/admin-cancel (API-015) ตรง ๆ พร้อมเหตุผล 'ทดสอบ' โดยไม่ผ่านหน้าจอ"
+      ],
+      "expected": [
+        "API ปฏิเสธด้วยสถานะ 403",
+        "Booking.status ยังเป็น CONFIRMED",
+        "ไม่มี BookingAuditEntry ใหม่ และไม่มี Email ถูกส่งถึง U1 หรือ U2"
+      ]
+    },
+    {
+      "id": "SCN-mrr-095",
+      "title": "ผู้ใช้ที่เข้าสู่ระบบอ่านชื่อและบทบาทของตนเอง",
+      "kind": "happy",
+      "verifies": [
+        "FUN-mrr-014"
+      ],
+      "rules": [],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "SA1 เข้าสู่ระบบแล้ว มี session ที่ยังไม่หมดอายุ"
+      ],
+      "when": [
+        "หน้าจอเรียก GET /auth/me (API-035) ด้วย session ของ SA1"
+      ],
+      "expected": [
+        "ได้ชื่อของ SA1 และบทบาท SYSTEM_ADMINISTRATOR",
+        "ไม่มีข้อมูลของผู้ใช้อื่นในคำตอบ"
+      ]
+    },
+    {
+      "id": "SCN-mrr-096",
+      "title": "เรียกข้อมูลผู้ใช้ปัจจุบันโดยไม่มี session ถูกปฏิเสธ",
+      "kind": "exception",
+      "verifies": [
+        "FUN-mrr-014"
+      ],
+      "rules": [],
+      "given": [
+        "ผู้ใช้: U1, U2, U3, U4 (GENERAL_USER) · RA1, RA2 (ROOM_ADMINISTRATOR) · SA1 (SYSTEM_ADMINISTRATOR)",
+        "ไม่มี session (ยังไม่เข้าสู่ระบบ หรือออกจากระบบแล้ว)"
+      ],
+      "when": [
+        "เรียก GET /auth/me (API-035) โดยไม่มี session"
+      ],
+      "expected": [
+        "API ตอบสถานะ 401",
+        "ไม่มีชื่อหรือบทบาทของผู้ใช้คนใดในคำตอบ"
       ]
     }
   ]
