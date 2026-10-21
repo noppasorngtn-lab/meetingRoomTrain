@@ -5522,17 +5522,17 @@
       },
       {
         "cmd": "docker compose -f docker/docker-compose.yml up -d --build --wait --wait-timeout 180",
-        "result": "exit 0 · db, mailpit, api, web Healthy · api log: migrations applied 001–007",
+        "result": "exit 0 · db, mailpit, api, web healthy · api log: migrations applied: none (volume already at 007 — the runner is idempotent)",
         "at": "2026-10-21"
       },
       {
-        "cmd": "curl http://localhost:3000/auth/me ; curl http://localhost:4173/rooms ; curl http://localhost:4173/auth/me",
-        "result": "api 401 json · web /rooms 401 json (proxied) · web /auth/me 200 text/html (NOT proxied — vite.config proxy lists only /rooms /bookings /users /facilities)",
+        "cmd": "curl http://localhost:4173{/auth/me,/me/bookings,/reports/utilization,/adjustment-requests,/rooms,/bookings,/users,/facilities,/}",
+        "result": "all 8 api prefixes 401 application/json through the web origin (after a3c3867) · / 200 text/html",
         "at": "2026-10-21"
       },
       {
         "cmd": "docker compose -f docker/docker-compose.yml down",
-        "result": "exit 0 · 4 containers + network removed",
+        "result": "exit 0",
         "at": "2026-10-21"
       }
     ],
@@ -5543,6 +5543,12 @@
         "at": "2026-10-21",
         "by": "Noppasorn",
         "result": "4/4 services healthy · web proxy misses /auth /me /reports /adjustment-requests"
+      },
+      {
+        "env": "dev",
+        "at": "2026-10-21",
+        "by": "Noppasorn",
+        "result": "4/4 services healthy · web origin forwards all 8 api prefixes"
       }
     ]
   }
