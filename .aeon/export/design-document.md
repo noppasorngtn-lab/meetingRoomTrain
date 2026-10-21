@@ -16,6 +16,7 @@
 | CHG-mrr-001 | design · revised | 2026-10-19T14:30:00+07:00 | ลูกค้า (คุณ Somchai) ขอให้การแก้ค่าตั้งของห้อง (ต้องอนุมัติ หรือความจุ) มีผลกับการจองที่ยังไม่ถึงเวลาเริ่มด้วย ไม่ใช่เฉพาะการจองใหม่ — อนุมัติโดย Adisorn มีผลตั้งแต่ 2026-10-19 | รับเข้าแล้ว 2026-10-19T06:30:33Z |
 | ADR-001 | design · revised | 2026-10-19T08:55:00Z | ลำดับปุ่มใน zone admin-actions ของหน้าจัดการการจอง (ผู้ดูแล) และ zone rooms ของหน้าห้องประชุม ไม่ตรงกับกติกาหน้าตาประจำโปรเจกต์ UIC-001 (ปุ่มประจำแถวเรียง ดู · แก้ไข · ลบ · จัดการ · คำสั่ง) ที่ Noppasorn ยืนยันไว้ — ขอเรียงปุ่มใหม่เท่านั้น ไม่เพิ่มหรือลบฟิลด์ ปุ่ม หรือปลายทางใด ๆ | รับเข้าแล้ว 2026-10-19T09:09:12Z |
 | ADR-002 | design · added | 2026-10-21T00:00:00Z | หน้าจัดการการจอง (ผู้ดูแล) ประกาศว่า System Administrator เห็นเฉพาะร่องรอย ปุ่มคำสั่งไม่แสดง และหน้าสิ่งอำนวยความสะดวกประกาศว่าคนที่ไม่ใช่ Room Administrator เห็น 'คุณไม่มีสิทธิ์เข้าหน้านี้' — แต่ไม่มี API ใดบอกหน้าจอว่าผู้ใช้ที่เข้าสู่ระบบมีบทบาทอะไร หน้าจอจึงทำตามสองข้อนี้ไม่ได้ (การ์ดจาก dev GAP-mrr-015 · GAP-mrr-020 · พบจาก /dev:review ของ FE-mrr-009) · ต้องเพิ่มช่องทางให้หน้าจอรู้บทบาทของผู้เรียก และสิทธิ์ของช่องทางนั้น — สิทธิ์จริงยังบังคับที่ api เหมือนเดิม การซ่อนปุ่มไม่ใช่การคุมสิทธิ์ | รับเข้าแล้ว 2026-10-21T07:29:43Z |
+| ADR-003 | design · added | 2026-10-21T08:30:00Z | req เพิ่มตัวอย่าง EX-mrr-088 · EX-mrr-089 · EX-mrr-090 (commit 64c0e25 · ยืนยันโดย Noppasorn) ใต้กฎเดิมโดยไม่ขึ้นเวอร์ชัน จึงไม่มี change set — System Administrator เปิดหน้าจัดการการจองแล้วไม่เห็นช่องเหตุผลและปุ่มคำสั่ง ทั้งระหว่างประชุมและก่อนเริ่ม และ General User เปิดหน้าสิ่งอำนวยความสะดวกแล้วเห็น 'คุณไม่มีสิทธิ์เข้าหน้านี้' · design ต้องเขียนเกณฑ์รับที่คัดลอกตัวอย่างทั้งสามคำต่อคำ (S16) และสถานการณ์ทดสอบของมัน เพื่อให้ dev สร้างหน่วยของ API-035 (ADR-002) และแก้หน้าจอที่ถูกการ์ด GAP-mrr-021 บล็อกได้ | รับเข้าแล้ว 2026-10-21T09:43:31Z |
 
 ### สถานะการอนุมัติรายไฟล์
 
@@ -23,11 +24,11 @@
 |---|---|---|---|---|---|---|
 | design.state.json | /design:init | done | — | — | — | — |
 | context.json | /design:overview | done | approved | Noppasorn | 2026-10-19T07:59:59Z | — |
-| modules/mrr/functions.json | /design:function | done | approved | Noppasorn | 2026-10-19T07:59:59Z | — |
+| modules/mrr/functions.json | /design:function | done | draft | — | — | — |
 | trace.design.json | /design:function | done | — | — | — | — |
 | datamodel.json | /design:datamodel | done | approved | Noppasorn | 2026-10-19T07:59:59Z | — |
 | modules/mrr/statemachines.json | /design:datamodel | done | approved | Noppasorn | 2026-10-19T07:59:59Z | — |
-| modules/mrr/scenarios.json | /design:scenario | done | approved | Noppasorn | 2026-10-19T07:59:59Z | — |
+| modules/mrr/scenarios.json | /design:scenario | done | draft | — | — | — |
 | rbac.json | /design:rbac | done | approved | Noppasorn | 2026-10-21T07:40:09Z | — |
 | nfr.json | /design:nfr | done | approved | Noppasorn | 2026-10-19T07:59:59Z | — |
 | sitemap.json | /design:sitemap | done | approved | Noppasorn | 2026-10-19T09:13:24Z | — |
@@ -897,6 +898,9 @@ flowchart LR
 | AC-mrr-083 | กรณีขอบเขต · Room Administrator เปิดรายงานการใช้ห้องเดือน ต.ค. 2569 | EX-mrr-085 | BR-mrr-006@v1 | UC-mrr-016 |
 | AC-mrr-084 | กรณีทางเลือก · Room Administrator เปิดรายงานการใช้ห้องเดือน ต.ค. 2569 | EX-mrr-086 | BR-mrr-006@v1 | UC-mrr-016 |
 | AC-mrr-085 | กรณีผิดพลาด · Room Administrator เปิดรายงานการใช้ห้องเดือน ต.ค. 2569 | EX-mrr-087 | BR-mrr-006@v1 | UC-mrr-016 |
+| AC-mrr-086 | กรณีผิดพลาด · System Administrator เปิดหน้าจัดการการจองระหว่างประชุม | EX-mrr-088 | BR-mrr-009@v1 | UC-mrr-009 |
+| AC-mrr-087 | กรณีผิดพลาด · System Administrator เปิดหน้าจัดการการจองก่อนเวลาเริ่ม | EX-mrr-089 | BR-mrr-011@v1 | UC-mrr-008 |
+| AC-mrr-088 | กรณีผิดพลาด · General User เปิดหน้าสิ่งอำนวยความสะดวก | EX-mrr-090 | BR-mrr-005@v1 | UC-mrr-013 |
 
 ##### AC-mrr-001 · กรณีปกติ · ผู้ใช้จองห้อง A เวลา 10:00–11:00
 
@@ -1577,6 +1581,30 @@ flowchart LR
 | สถานการณ์ตั้งต้น | ห้อง E ปิดปรับปรุงทุกวัน จ.–ศ. ตลอด ต.ค. 2569 · มีการจองที่คงอยู่ 5/10 10:00–11:00 |
 | สิ่งที่เกิดขึ้น | Room Administrator เปิดรายงานการใช้ห้องเดือน ต.ค. 2569 |
 | ผลที่ผู้ใช้ต้องเห็น | ห้อง E แสดง '—' ไม่มีเลขอันดับ และไม่อยู่ในอันดับห้องที่มีอัตราการใช้งานสูงสุด — ชั่วโมงทำการเหลือ 0 จึงไม่คำนวณ |
+
+##### AC-mrr-086 · กรณีผิดพลาด · System Administrator เปิดหน้าจัดการการจองระหว่างประชุม
+
+| หัวข้อ | รายละเอียด |
+|---|---|
+| สถานการณ์ตั้งต้น | U1 เป็นผู้จองห้อง A วันนี้ 10:00–11:00 ขณะนี้เวลา 10:30 และผู้ใช้ล็อกอินเป็น System Administrator |
+| สิ่งที่เกิดขึ้น | System Administrator เปิดหน้าจัดการการจองนี้ |
+| ผลที่ผู้ใช้ต้องเห็น | System Administrator เห็นข้อมูลการจองและร่องรอย แต่ไม่เห็นช่องเหตุผล ไม่เห็นปุ่ม 'แก้แทนผู้จอง' และ 'ยกเลิกแทนผู้จอง' — การจองคงเดิม |
+
+##### AC-mrr-087 · กรณีผิดพลาด · System Administrator เปิดหน้าจัดการการจองก่อนเวลาเริ่ม
+
+| หัวข้อ | รายละเอียด |
+|---|---|
+| สถานการณ์ตั้งต้น | การจองห้อง B 18/10 10:00–11:00 ของ U1 มีสถานะ 'อนุมัติแล้ว' · ขณะนี้ 16/10 15:00 และผู้ใช้ล็อกอินเป็น System Administrator |
+| สิ่งที่เกิดขึ้น | System Administrator เปิดหน้าจัดการการจองนี้ |
+| ผลที่ผู้ใช้ต้องเห็น | System Administrator เห็นข้อมูลการจองและร่องรอย แต่ไม่เห็นช่องเหตุผล และไม่เห็นปุ่ม 'เปลี่ยนผลการอนุมัติ' — สถานะยังเป็น 'อนุมัติแล้ว' |
+
+##### AC-mrr-088 · กรณีผิดพลาด · General User เปิดหน้าสิ่งอำนวยความสะดวก
+
+| หัวข้อ | รายละเอียด |
+|---|---|
+| สถานการณ์ตั้งต้น | ผู้ใช้ล็อกอินเป็น General User |
+| สิ่งที่เกิดขึ้น | General User เปิดหน้าสิ่งอำนวยความสะดวก |
+| ผลที่ผู้ใช้ต้องเห็น | แสดงข้อความ 'คุณไม่มีสิทธิ์เข้าหน้านี้' และไม่เห็นรายการสิ่งอำนวยความสะดวก |
 
 > ℹ️ **ข้อจำกัดของข้อมูลชุดนี้** — แถว “ผลที่ผู้ใช้ต้องเห็น” คัดลอกมาจากตัวอย่างของกฎที่ `req` เขียนไว้ **คำต่อคำ** — ผู้ทดสอบเทียบข้อความนี้ทีละไบต์ การแก้ถ้อยคำตรงนี้จึงทำให้สิ่งที่ท่านเซ็นกับสิ่งที่ถูกทดสอบเลิกเป็นข้อเดียวกัน · ถ้อยคำที่ต้องแก้ ให้แก้ที่ต้นทางแล้วสร้างเอกสารใหม่
 
@@ -2620,11 +2648,11 @@ _(ไม่มีรายการ)_
 
 | ความต้องการ | หัวข้อ | ฟังก์ชัน | หน้าจอ | สถานการณ์ทดสอบ | ต้องมีหน้าจอไหม | ผลสอบทานหน้าจอ | ผลสอบทานการทดสอบ |
 |---|---|---|---|---|---|---|---|
-| REQ-mrr-001 | การจองห้องประชุม | FUN-mrr-001 · FUN-mrr-002 · FUN-mrr-003 · FUN-mrr-004 · FUN-mrr-006 · FUN-mrr-007 · FUN-mrr-014 | UI-mrr-001 · UI-mrr-002 · UI-mrr-003 · UI-mrr-004 · UI-mrr-005 · UI-mrr-006 · UI-mrr-007 · UI-mrr-008 · UI-mrr-010 · UI-mrr-011 | SCN-mrr-076 · SCN-mrr-077 · SCN-mrr-078 · SCN-mrr-079 · SCN-mrr-080 · SCN-mrr-001 · SCN-mrr-002 · SCN-mrr-003 · SCN-mrr-004 · SCN-mrr-005 · SCN-mrr-006 · SCN-mrr-007 · SCN-mrr-008 · SCN-mrr-009 · SCN-mrr-010 · SCN-mrr-011 · SCN-mrr-012 · SCN-mrr-013 · SCN-mrr-014 · SCN-mrr-015 · SCN-mrr-016 · SCN-mrr-017 · SCN-mrr-018 · SCN-mrr-019 · SCN-mrr-020 · SCN-mrr-021 · SCN-mrr-022 · SCN-mrr-023 · SCN-mrr-024 · SCN-mrr-025 · SCN-mrr-026 · SCN-mrr-027 · SCN-mrr-028 · SCN-mrr-029 · SCN-mrr-030 · SCN-mrr-031 · SCN-mrr-042 · SCN-mrr-043 · SCN-mrr-044 · SCN-mrr-045 · SCN-mrr-046 · SCN-mrr-047 · SCN-mrr-054 · SCN-mrr-059 · SCN-mrr-081 · SCN-mrr-082 · SCN-mrr-083 · SCN-mrr-084 · SCN-mrr-085 · SCN-mrr-086 · SCN-mrr-087 · SCN-mrr-088 · SCN-mrr-089 · SCN-mrr-090 | ต้องมี | มีแล้ว | มีแล้ว |
-| REQ-mrr-002 | การอนุมัติการจอง | FUN-mrr-003 · FUN-mrr-005 · FUN-mrr-006 · FUN-mrr-008 · FUN-mrr-009 · FUN-mrr-013 | UI-mrr-006 · UI-mrr-009 · UI-mrr-010 · UI-mrr-012 · UI-mrr-013 · UI-mrr-014 | SCN-mrr-009 · SCN-mrr-010 · SCN-mrr-011 · SCN-mrr-012 · SCN-mrr-013 · SCN-mrr-014 · SCN-mrr-015 · SCN-mrr-016 · SCN-mrr-017 · SCN-mrr-018 · SCN-mrr-019 · SCN-mrr-020 · SCN-mrr-032 · SCN-mrr-033 · SCN-mrr-034 · SCN-mrr-035 · SCN-mrr-036 · SCN-mrr-037 · SCN-mrr-038 · SCN-mrr-039 · SCN-mrr-040 · SCN-mrr-041 · SCN-mrr-042 · SCN-mrr-043 · SCN-mrr-044 · SCN-mrr-048 · SCN-mrr-049 · SCN-mrr-050 · SCN-mrr-051 · SCN-mrr-052 · SCN-mrr-053 · SCN-mrr-054 · SCN-mrr-055 · SCN-mrr-056 · SCN-mrr-057 · SCN-mrr-058 · SCN-mrr-059 · SCN-mrr-072 · SCN-mrr-073 · SCN-mrr-074 · SCN-mrr-075 | ต้องมี | มีแล้ว | มีแล้ว |
-| REQ-mrr-003 | การจัดการข้อมูลห้องประชุม | FUN-mrr-009 | UI-mrr-012 · UI-mrr-013 · UI-mrr-014 | SCN-mrr-020 · SCN-mrr-050 · SCN-mrr-051 · SCN-mrr-052 · SCN-mrr-053 · SCN-mrr-054 · SCN-mrr-055 · SCN-mrr-056 · SCN-mrr-057 · SCN-mrr-058 · SCN-mrr-059 | ต้องมี | มีแล้ว | มีแล้ว |
+| REQ-mrr-001 | การจองห้องประชุม | FUN-mrr-001 · FUN-mrr-002 · FUN-mrr-003 · FUN-mrr-004 · FUN-mrr-006 · FUN-mrr-007 · FUN-mrr-014 | UI-mrr-001 · UI-mrr-002 · UI-mrr-003 · UI-mrr-004 · UI-mrr-005 · UI-mrr-006 · UI-mrr-007 · UI-mrr-008 · UI-mrr-010 · UI-mrr-011 | SCN-mrr-076 · SCN-mrr-077 · SCN-mrr-078 · SCN-mrr-079 · SCN-mrr-080 · SCN-mrr-001 · SCN-mrr-002 · SCN-mrr-003 · SCN-mrr-004 · SCN-mrr-005 · SCN-mrr-006 · SCN-mrr-007 · SCN-mrr-008 · SCN-mrr-009 · SCN-mrr-010 · SCN-mrr-011 · SCN-mrr-012 · SCN-mrr-013 · SCN-mrr-014 · SCN-mrr-015 · SCN-mrr-016 · SCN-mrr-017 · SCN-mrr-018 · SCN-mrr-019 · SCN-mrr-020 · SCN-mrr-021 · SCN-mrr-022 · SCN-mrr-023 · SCN-mrr-024 · SCN-mrr-025 · SCN-mrr-026 · SCN-mrr-027 · SCN-mrr-028 · SCN-mrr-029 · SCN-mrr-030 · SCN-mrr-031 · SCN-mrr-042 · SCN-mrr-043 · SCN-mrr-044 · SCN-mrr-045 · SCN-mrr-046 · SCN-mrr-047 · SCN-mrr-054 · SCN-mrr-059 · SCN-mrr-081 · SCN-mrr-082 · SCN-mrr-083 · SCN-mrr-084 · SCN-mrr-085 · SCN-mrr-086 · SCN-mrr-087 · SCN-mrr-088 · SCN-mrr-089 · SCN-mrr-090 · SCN-mrr-091 · SCN-mrr-094 · SCN-mrr-095 · SCN-mrr-096 | ต้องมี | มีแล้ว | มีแล้ว |
+| REQ-mrr-002 | การอนุมัติการจอง | FUN-mrr-003 · FUN-mrr-005 · FUN-mrr-006 · FUN-mrr-008 · FUN-mrr-009 · FUN-mrr-013 | UI-mrr-006 · UI-mrr-009 · UI-mrr-010 · UI-mrr-012 · UI-mrr-013 · UI-mrr-014 | SCN-mrr-009 · SCN-mrr-010 · SCN-mrr-011 · SCN-mrr-012 · SCN-mrr-013 · SCN-mrr-014 · SCN-mrr-015 · SCN-mrr-016 · SCN-mrr-017 · SCN-mrr-018 · SCN-mrr-019 · SCN-mrr-020 · SCN-mrr-032 · SCN-mrr-033 · SCN-mrr-034 · SCN-mrr-035 · SCN-mrr-036 · SCN-mrr-037 · SCN-mrr-038 · SCN-mrr-039 · SCN-mrr-040 · SCN-mrr-041 · SCN-mrr-042 · SCN-mrr-043 · SCN-mrr-044 · SCN-mrr-048 · SCN-mrr-049 · SCN-mrr-050 · SCN-mrr-051 · SCN-mrr-052 · SCN-mrr-053 · SCN-mrr-054 · SCN-mrr-055 · SCN-mrr-056 · SCN-mrr-057 · SCN-mrr-058 · SCN-mrr-059 · SCN-mrr-072 · SCN-mrr-073 · SCN-mrr-074 · SCN-mrr-075 · SCN-mrr-091 · SCN-mrr-092 · SCN-mrr-093 · SCN-mrr-094 | ต้องมี | มีแล้ว | มีแล้ว |
+| REQ-mrr-003 | การจัดการข้อมูลห้องประชุม | FUN-mrr-009 | UI-mrr-012 · UI-mrr-013 · UI-mrr-014 | SCN-mrr-020 · SCN-mrr-050 · SCN-mrr-051 · SCN-mrr-052 · SCN-mrr-053 · SCN-mrr-054 · SCN-mrr-055 · SCN-mrr-056 · SCN-mrr-057 · SCN-mrr-058 · SCN-mrr-059 · SCN-mrr-093 | ต้องมี | มีแล้ว | มีแล้ว |
 | REQ-mrr-004 | รายงานและสถิติการใช้ห้อง | FUN-mrr-010 | RPT-mrr-001 | SCN-mrr-059 · SCN-mrr-060 · SCN-mrr-061 · SCN-mrr-062 · SCN-mrr-063 · SCN-mrr-064 · SCN-mrr-065 · SCN-mrr-066 | ต้องมี | มีแล้ว | มีแล้ว |
-| REQ-mrr-005 | การแจ้งเตือน | FUN-mrr-003 · FUN-mrr-004 · FUN-mrr-005 · FUN-mrr-011 · FUN-mrr-012 | UI-mrr-006 · UI-mrr-007 · UI-mrr-008 · UI-mrr-009 · UI-mrr-010 | SCN-mrr-009 · SCN-mrr-010 · SCN-mrr-011 · SCN-mrr-012 · SCN-mrr-013 · SCN-mrr-014 · SCN-mrr-015 · SCN-mrr-016 · SCN-mrr-017 · SCN-mrr-018 · SCN-mrr-019 · SCN-mrr-020 · SCN-mrr-021 · SCN-mrr-022 · SCN-mrr-023 · SCN-mrr-024 · SCN-mrr-025 · SCN-mrr-026 · SCN-mrr-027 · SCN-mrr-028 · SCN-mrr-029 · SCN-mrr-030 · SCN-mrr-031 · SCN-mrr-032 · SCN-mrr-033 · SCN-mrr-034 · SCN-mrr-035 · SCN-mrr-036 · SCN-mrr-037 · SCN-mrr-038 · SCN-mrr-039 · SCN-mrr-040 · SCN-mrr-041 · SCN-mrr-042 · SCN-mrr-054 · SCN-mrr-067 · SCN-mrr-068 · SCN-mrr-069 · SCN-mrr-070 · SCN-mrr-071 · SCN-mrr-073 · SCN-mrr-075 | ไม่ต้องมี | มีแล้ว | มีแล้ว |
+| REQ-mrr-005 | การแจ้งเตือน | FUN-mrr-003 · FUN-mrr-004 · FUN-mrr-005 · FUN-mrr-011 · FUN-mrr-012 | UI-mrr-006 · UI-mrr-007 · UI-mrr-008 · UI-mrr-009 · UI-mrr-010 | SCN-mrr-009 · SCN-mrr-010 · SCN-mrr-011 · SCN-mrr-012 · SCN-mrr-013 · SCN-mrr-014 · SCN-mrr-015 · SCN-mrr-016 · SCN-mrr-017 · SCN-mrr-018 · SCN-mrr-019 · SCN-mrr-020 · SCN-mrr-021 · SCN-mrr-022 · SCN-mrr-023 · SCN-mrr-024 · SCN-mrr-025 · SCN-mrr-026 · SCN-mrr-027 · SCN-mrr-028 · SCN-mrr-029 · SCN-mrr-030 · SCN-mrr-031 · SCN-mrr-032 · SCN-mrr-033 · SCN-mrr-034 · SCN-mrr-035 · SCN-mrr-036 · SCN-mrr-037 · SCN-mrr-038 · SCN-mrr-039 · SCN-mrr-040 · SCN-mrr-041 · SCN-mrr-042 · SCN-mrr-054 · SCN-mrr-067 · SCN-mrr-068 · SCN-mrr-069 · SCN-mrr-070 · SCN-mrr-071 · SCN-mrr-073 · SCN-mrr-075 · SCN-mrr-092 | ไม่ต้องมี | มีแล้ว | มีแล้ว |
 
 **สรุป:** 5 ความต้องการ · 0 ข้อยังมีช่องว่าง
 
@@ -2635,16 +2663,16 @@ _(ไม่มีรายการ)_
 | BR-mrr-001@v1 | ห้องเดียวกันห้ามมีการจองที่ช่วงเวลาทับกัน — ระบบตรวจสอบความพร้อมของห้องอัตโนมัติก่อนรับการจอง · ช่วงเวลานับแบบ [เริ่ม, จบ) การจองที่จบ 10:00 กับที่เริ่ม 10:00 ไม่นับว่าทับ จองต่อกันได้ · การจองที่รออนุมัตินับเป็นการจองที่กันช่วงเวลา จนกว่าจะถูกปฏิเสธหรือยกเลิก | draft | FUN-mrr-001, FUN-mrr-002, FUN-mrr-003, FUN-mrr-004, AC-mrr-001, AC-mrr-002, AC-mrr-003, AC-mrr-004 | `req` ยังไม่ยืนยัน |
 | BR-mrr-002@v1 | การจองต้องระบุหัวข้อการประชุมและรายชื่อผู้เข้าร่วม ส่วนอุปกรณ์เสริมเลือกหรือไม่เลือกก็ได้ | draft | FUN-mrr-003, AC-mrr-005, AC-mrr-006, AC-mrr-007 | `req` ยังไม่ยืนยัน |
 | BR-mrr-003@v1 | ผู้ใช้ดูประวัติ แก้ไข หรือยกเลิกได้เฉพาะการจองของตนเอง | draft | FUN-mrr-004, AC-mrr-008, AC-mrr-009, AC-mrr-010, AC-mrr-011 | `req` ยังไม่ยืนยัน |
-| BR-mrr-009@v1 | เมื่อถึงเวลาเริ่มประชุมแล้ว ผู้จองแก้ไขหรือยกเลิกการจองเองไม่ได้ — ต้องให้ Room Administrator เป็นผู้แก้ไขหรือยกเลิก โดยต้องระบุเหตุผลทุกครั้ง | draft | FUN-mrr-004, FUN-mrr-006, AC-mrr-026, AC-mrr-027, AC-mrr-028, AC-mrr-029 | `req` ยังไม่ยืนยัน |
+| BR-mrr-009@v1 | เมื่อถึงเวลาเริ่มประชุมแล้ว ผู้จองแก้ไขหรือยกเลิกการจองเองไม่ได้ — ต้องให้ Room Administrator เป็นผู้แก้ไขหรือยกเลิก โดยต้องระบุเหตุผลทุกครั้ง | draft | FUN-mrr-004, FUN-mrr-006, AC-mrr-026, AC-mrr-027, AC-mrr-028, AC-mrr-029, AC-mrr-086 | `req` ยังไม่ยืนยัน |
 | BR-mrr-014@v1 | หลังเวลาจบประชุม การแก้ไขการจองเก็บเป็นคำขอแก้แยก ค่าเดิมคงไว้ — คำขอจะมีผลต่อเมื่อได้รับอนุมัติจาก Room Administrator คนอื่นที่ไม่ใช่คนแก้ | draft | FUN-mrr-006, FUN-mrr-007, AC-mrr-041, AC-mrr-042, AC-mrr-043, AC-mrr-044 | `req` ยังไม่ยืนยัน |
 | BR-mrr-021@v1 | ในปฏิทิน General User เห็นรายละเอียด (ผู้จอง · หัวข้อ · ผู้เข้าร่วม) เฉพาะการจองที่ตัวเองจองหรือเป็นผู้เข้าร่วม — การจองของคนอื่นเห็นแค่ว่าช่วงเวลานั้น "ไม่ว่าง" | draft | FUN-mrr-002, AC-mrr-066, AC-mrr-067, AC-mrr-068, AC-mrr-069 | `req` ยังไม่ยืนยัน |
 | BR-mrr-004@v1 | การจองห้องที่ถูกตั้งไว้ว่า "ต้องอนุมัติ" จะใช้งานจริงได้ต่อเมื่อ Room Administrator อนุมัติแล้ว ห้องที่ไม่ได้ตั้งไว้ไม่ต้องรออนุมัติ | draft | FUN-mrr-003, FUN-mrr-005, AC-mrr-001, AC-mrr-012, AC-mrr-013, AC-mrr-014 | `req` ยังไม่ยืนยัน |
-| BR-mrr-011@v1 | Room Administrator เปลี่ยนผลการอนุมัติหรือปฏิเสธการจองได้ โดยต้องระบุเหตุผลทุกครั้ง และทำได้เฉพาะก่อนถึงเวลาเริ่มประชุม | draft | FUN-mrr-005, AC-mrr-033, AC-mrr-034, AC-mrr-035, AC-mrr-036 | `req` ยังไม่ยืนยัน |
+| BR-mrr-011@v1 | Room Administrator เปลี่ยนผลการอนุมัติหรือปฏิเสธการจองได้ โดยต้องระบุเหตุผลทุกครั้ง และทำได้เฉพาะก่อนถึงเวลาเริ่มประชุม | draft | FUN-mrr-005, AC-mrr-033, AC-mrr-034, AC-mrr-035, AC-mrr-036, AC-mrr-087 | `req` ยังไม่ยืนยัน |
 | BR-mrr-013@v1 | แต่ละห้องที่ต้องอนุมัติกำหนดผู้อนุมัติประจำห้อง (Room Administrator) ได้ — ถ้ายังไม่กำหนด Room Administrator ทุกคนอนุมัติได้ และกำหนดทีหลังได้ | draft | FUN-mrr-005, FUN-mrr-009, AC-mrr-037, AC-mrr-038, AC-mrr-039, AC-mrr-040 | `req` ยังไม่ยืนยัน |
 | BR-mrr-016@v1 | การจองที่ยังรออนุมัติเมื่อถึงเวลาเริ่มประชุม ถูกยกเลิกอัตโนมัติ ปล่อยช่วงเวลาคืน และแจ้งผู้จอง — ถ้าส่ง Email แจ้งผู้จองไม่สำเร็จ ยังไม่ยกเลิก รองานรอบถัดไปทำใหม่ · ระหว่างที่ค้างอยู่ Room Administrator ยังอนุมัติได้ | draft | FUN-mrr-005, FUN-mrr-013, AC-mrr-048, AC-mrr-049, AC-mrr-050, AC-mrr-051 | `req` ยังไม่ยืนยัน |
 | BR-mrr-017@v1 | ทุกการกระทำของ Room Administrator ต่อการจอง (อนุมัติ · ปฏิเสธ · ถอยผล · แก้หรือยกเลิกแทนผู้จอง) ต้องบันทึกร่องรอย: ใคร · เมื่อไหร่ · ทำอะไร · เหตุผล | draft | FUN-mrr-005, FUN-mrr-006, FUN-mrr-007, FUN-mrr-008, AC-mrr-052, AC-mrr-053, AC-mrr-054, AC-mrr-055 | `req` ยังไม่ยืนยัน |
 | BR-mrr-018@v1 | ร่องรอยการกระทำดูได้เฉพาะ Room Administrator และ System Administrator — ผู้จองดูไม่ได้ | draft | FUN-mrr-008, AC-mrr-056, AC-mrr-057, AC-mrr-058, AC-mrr-059 | `req` ยังไม่ยืนยัน |
-| BR-mrr-005@v1 | การเพิ่ม แก้ไข ปิดปรับปรุง หรือลบข้อมูลห้องประชุม ทำได้เฉพาะ Room Administrator | draft | FUN-mrr-009, AC-mrr-015, AC-mrr-016, AC-mrr-017, AC-mrr-018 | `req` ยังไม่ยืนยัน |
+| BR-mrr-005@v1 | การเพิ่ม แก้ไข ปิดปรับปรุง หรือลบข้อมูลห้องประชุม ทำได้เฉพาะ Room Administrator | draft | FUN-mrr-009, AC-mrr-015, AC-mrr-016, AC-mrr-017, AC-mrr-018, AC-mrr-088 | `req` ยังไม่ยืนยัน |
 | BR-mrr-010@v2 | การแก้ค่าตั้งของห้อง (เช่น ต้องอนุมัติ หรือความจุ — ไม่รวมการตั้งปิดปรับปรุง ซึ่งเป็นไปตาม BR-mrr-012) มีผลกับการจองที่ยังไม่ถึงเวลาเริ่มด้วย — ถ้าห้องถูกแก้เป็นต้องอนุมัติ การจองเดิมที่ยังไม่ถึงเวลาเริ่มจะกลับไปเป็นสถานะ 'รออนุมัติ' · ถ้าห้องถูกแก้เป็นไม่ต้องอนุมัติ การจองที่รออนุมัติอยู่จะใช้ได้ทันที | draft | FUN-mrr-003, FUN-mrr-009, AC-mrr-030, AC-mrr-031, AC-mrr-032, AC-mrr-076, AC-mrr-077, AC-mrr-078 | `req` ยังไม่ยืนยัน |
 | BR-mrr-012@v1 | ห้องที่ตั้งเป็นปิดปรับปรุงรับการจองใหม่ไม่ได้ — การจองที่มีอยู่แล้วคงไว้ตามเดิม | draft | FUN-mrr-001, FUN-mrr-003, FUN-mrr-004, FUN-mrr-009, AC-mrr-016, AC-mrr-079, AC-mrr-080, AC-mrr-081 | `req` ยังไม่ยืนยัน |
 | BR-mrr-006@v1 | อัตราการใช้งานรายห้อง = ชั่วโมงที่ถูกจองและใช้ได้จริง (ไม่ต้องอนุมัติ หรืออนุมัติแล้ว — ไม่นับยกเลิก / ปฏิเสธ / รออนุมัติ) ÷ ชั่วโมงทำการของห้องในช่วงรายงาน · ปัดทุกจุดแบบ round half up · ใช้จัดอันดับห้องที่ใช้งานสูงสุด | draft | FUN-mrr-010, AC-mrr-082, AC-mrr-083, AC-mrr-084, AC-mrr-085 | `req` ยังไม่ยืนยัน |
