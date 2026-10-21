@@ -3857,7 +3857,10 @@
             "file": "apps/api/src/modules/reports/utilization-report.controller.ts"
           }
         ]
-      }
+      },
+      "commits": [
+        "f9c96fc150973d1e69a08f8b89be31c397c1a3af"
+      ]
     },
     {
       "id": "FE-mrr-016",
@@ -3932,7 +3935,157 @@
           "hash": "sha256:181579287c32cd6a9de1be174d7eb980b3ea0281aa264db75cad1b3ae3037c13"
         }
       ],
-      "status": "draft"
+      "status": "validated",
+      "build": {
+        "iterations": 0,
+        "proof": [
+          {
+            "cmd": "powershell -File scripts/dev-build.ps1 -App frontend-web",
+            "result": "tsc --noEmit && vite build · built in 929ms · exit 0",
+            "at": "2026-10-21"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web -Filter FE-mrr-016",
+            "result": "Test Files 1 passed | 11 skipped (12) · Tests 16 passed | 164 skipped (180) · exit 0",
+            "at": "2026-10-21"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1",
+            "result": "api: Test Suites 29 passed, Tests 353 passed · web: Test Files 12 passed, Tests 180 passed · exit 0",
+            "at": "2026-10-21"
+          }
+        ],
+        "last_error": null,
+        "recorded_by": "Noppasorn",
+        "recorded_at": "2026-10-21"
+      },
+      "manifest": {
+        "files": [
+          "apps/web/src/features/reports/UtilizationReportPage.tsx",
+          "apps/web/src/App.tsx",
+          "apps/web/src/__tests__/utilization-report.test.tsx"
+        ],
+        "unit_tests": [
+          {
+            "file": "apps/web/src/__tests__/utilization-report.test.tsx",
+            "calc_ref": null,
+            "gd_ref": null
+          }
+        ],
+        "ui_controls": [
+          {
+            "id": "periodType",
+            "kind": "field",
+            "dd_ref": null,
+            "testid": "rpt-mrr-001-ent-012-period-type",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "periodStart",
+            "kind": "field",
+            "dd_ref": null,
+            "testid": "rpt-mrr-001-ent-012-period-start",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "issueNo",
+            "kind": "field",
+            "dd_ref": null,
+            "testid": "rpt-mrr-001-ent-012-issue-no",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "room",
+            "kind": "field",
+            "dd_ref": null,
+            "testid": "rpt-mrr-001-ent-013-room",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "bookedMinutes",
+            "kind": "field",
+            "dd_ref": null,
+            "testid": "rpt-mrr-001-ent-013-booked-minutes",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "operatingMinutes",
+            "kind": "field",
+            "dd_ref": null,
+            "testid": "rpt-mrr-001-ent-013-operating-minutes",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "utilizationPct",
+            "kind": "field",
+            "dd_ref": null,
+            "testid": "rpt-mrr-001-ent-013-utilization-pct",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "rank",
+            "kind": "field",
+            "dd_ref": null,
+            "testid": "rpt-mrr-001-ent-013-rank",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "issue",
+            "kind": "create",
+            "dd_ref": null,
+            "testid": "rpt-mrr-001-issue",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "openIssue",
+            "kind": "view",
+            "dd_ref": null,
+            "testid": "rpt-mrr-001-open-issue",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "export",
+            "kind": "export",
+            "dd_ref": null,
+            "testid": "rpt-mrr-001-export",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          }
+        ],
+        "apis": []
+      }
     },
     {
       "id": "FE-mrr-017",
@@ -4567,8 +4720,8 @@
   "rollup": {
     "features_total": 33,
     "by_status": {
-      "validated": 28,
-      "draft": 5
+      "validated": 29,
+      "draft": 4
     },
     "by_origin": {
       "new": 33
