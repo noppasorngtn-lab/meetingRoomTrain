@@ -3645,7 +3645,10 @@
             "file": "apps/api/src/modules/rooms/rooms.controller.ts"
           }
         ]
-      }
+      },
+      "commits": [
+        "8903dd9ddc20150e60d6ad393cf0dc0c13bf5009"
+      ]
     },
     {
       "id": "FE-mrr-014",
@@ -3656,7 +3659,9 @@
       "files_planned": [],
       "depends_on": [
         "FE-mrr-022",
-        "FE-mrr-035"
+        "FE-mrr-035",
+        "FE-mrr-034",
+        "FE-mrr-013"
       ],
       "acceptance_refs": [
         "AC-mrr-016",
@@ -4457,6 +4462,34 @@
       "answered_in": null,
       "closed_by": null,
       "blocks": []
+    },
+    {
+      "id": "GAP-mrr-014",
+      "to": "design",
+      "about": "ENT-010",
+      "question_th": "ENT-010 action มีค่า CREATE_ADJUSTMENT แต่ไม่มีปุ่มหรือชื่อที่ design ประกาศให้มัน (ค่าอื่นทุกค่ามีชื่อ action บน UI-mrr-009/010/011) · ร่องรอยบน UI-mrr-010 (FE-mrr-012) จึงต้องเขียนเป็นคำไทยเอง · dev ตั้งต้นไว้ว่า 'สร้างคำขอแก้ไข' · ขอให้ design ระบุคำที่ใช้แสดงการกระทำนี้ในร่องรอย",
+      "found_at": "2026-10-21",
+      "found_by": "/dev:plan",
+      "status": "open",
+      "answer_th": null,
+      "answered_in": null,
+      "closed_by": null,
+      "blocks": []
+    },
+    {
+      "id": "GAP-mrr-015",
+      "to": "design",
+      "about": "UI-mrr-010",
+      "question_th": "UI-mrr-010 สถานะ unauthorized ประกาศว่า 'System Administrator เห็นเฉพาะร่องรอย ปุ่มคำสั่งไม่แสดง' แต่ interfaces.json ไม่มี API ที่บอกหน้าจอว่าผู้ใช้ที่เข้าสู่ระบบมีบทบาทอะไร (มีแค่ /me/bookings) · ตอนนี้ System Administrator ยังเห็นช่องเหตุผลและปุ่มคำสั่ง (API ปฏิเสธอยู่แล้ว) · ขอให้ design ระบุว่าหน้าจอรู้บทบาทของผู้ใช้จากที่ไหน — เช่นเพิ่ม API ข้อมูลผู้ใช้ปัจจุบัน หรือให้ API-007 ส่งสิทธิ์ของผู้เรียกมาด้วย",
+      "found_at": "2026-10-21",
+      "found_by": "/dev:plan",
+      "status": "open",
+      "answer_th": null,
+      "answered_in": null,
+      "closed_by": null,
+      "blocks": [
+        "FE-mrr-012"
+      ]
     }
   ],
   "rollup": {
@@ -4472,7 +4505,7 @@
       "frontend-web": 15,
       "api": 18
     },
-    "gaps_open": 13,
+    "gaps_open": 15,
     "ready_for_phase5": false
   }
 }
