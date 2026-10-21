@@ -2606,7 +2606,7 @@
           "hash": "sha256:5b8247cfc668ae8b94235f1ac30b9e6a1e28134765c25ad40b9672d89aa859a0"
         }
       ],
-      "status": "draft",
+      "status": "validated",
       "build": {
         "iterations": 0,
         "proof": [
@@ -4153,7 +4153,7 @@
           "hash": "sha256:1aa4200e6ea7d449401b576f15fa3064fdf11b22cb58fe1d3c135ee328141366"
         }
       ],
-      "status": "draft",
+      "status": "validated",
       "build": {
         "iterations": 0,
         "proof": [
@@ -5234,10 +5234,10 @@
       "question_th": "UI-mrr-010 สถานะ unauthorized ประกาศว่า 'System Administrator เห็นเฉพาะร่องรอย ปุ่มคำสั่งไม่แสดง' แต่ interfaces.json ไม่มี API ที่บอกหน้าจอว่าผู้ใช้ที่เข้าสู่ระบบมีบทบาทอะไร (มีแค่ /me/bookings) · ตอนนี้ System Administrator ยังเห็นช่องเหตุผลและปุ่มคำสั่ง (API ปฏิเสธอยู่แล้ว) · ขอให้ design ระบุว่าหน้าจอรู้บทบาทของผู้ใช้จากที่ไหน — เช่นเพิ่ม API ข้อมูลผู้ใช้ปัจจุบัน หรือให้ API-007 ส่งสิทธิ์ของผู้เรียกมาด้วย · ปุ่มที่ได้รับผลคือ เปลี่ยนผลการอนุมัติ (FE-mrr-008) · แก้แทนผู้จอง (FE-mrr-009/010) · ยกเลิกแทนผู้จอง (FE-mrr-009) — ยกขึ้นมาจาก /dev:review ของ FE-mrr-009 วันที่ 2026-10-21",
       "found_at": "2026-10-21",
       "found_by": "/dev:plan",
-      "status": "open",
-      "answer_th": null,
-      "answered_in": null,
-      "closed_by": null,
+      "status": "answered",
+      "answer_th": "design ตอบด้วย ADR-002 (ปิดแล้ว): API-035 GET /auth/me ส่งชื่อและบทบาทของเจ้าของ session · ACL-037 ทุกบทบาทอ่านได้เฉพาะของตน (scope own · api/domain) · UI-mrr-010 และ UI-mrr-014 calls API-035 · interfaces.json กับ rbac.json เซ็นใหม่โดย Noppasorn 2026-10-21",
+      "answered_in": ".aeon/design/interfaces.json",
+      "closed_by": "Noppasorn",
       "blocks": [
         "FE-mrr-008",
         "FE-mrr-009",
@@ -5304,18 +5304,36 @@
       "question_th": "UI-mrr-014 สถานะ unauthorized 'ไม่ใช่ Room Administrator — คุณไม่มีสิทธิ์เข้าหน้านี้' แต่ API-002 ที่หน้านี้โหลด เปิดให้ผู้ใช้ทุกบทบาท หน้าจึงรู้บทบาทไม่ได้ตอนเปิด (เรื่องเดียวกับ GAP-mrr-015) · ตอนนี้ (FE-mrr-013) คนที่ไม่ใช่ Room Administrator เห็นรายการ และถูกปฏิเสธที่แถวด้วยข้อความของ API-026/027 ตอนกดบันทึก · ขอให้ design ระบุว่าหน้าจอรู้บทบาทของผู้ใช้จากที่ไหน หรือให้หน้านี้อ่านจาก API ที่เฉพาะ Room Administrator เรียกได้",
       "found_at": "2026-10-21",
       "found_by": "/dev:plan",
+      "status": "answered",
+      "answer_th": "design ตอบด้วย ADR-002 (ปิดแล้ว): API-035 GET /auth/me ส่งชื่อและบทบาทของเจ้าของ session · ACL-037 ทุกบทบาทอ่านได้เฉพาะของตน (scope own · api/domain) · UI-mrr-010 และ UI-mrr-014 calls API-035 · interfaces.json กับ rbac.json เซ็นใหม่โดย Noppasorn 2026-10-21",
+      "answered_in": ".aeon/design/interfaces.json",
+      "closed_by": "Noppasorn",
+      "blocks": []
+    },
+    {
+      "id": "GAP-mrr-021",
+      "to": "design",
+      "about": "API-035",
+      "question_th": "API-035 GET /auth/me (ADR-002) อยู่ใต้ FUN-mrr-014 / UC-mrr-020 ซึ่งไม่มีเกณฑ์รับสักข้อ (GAP-mrr-003) — dev จึงเขียนหน่วยของ API-035 ไม่ได้ และหน้าจอที่ต้องซ่อนคำสั่งตามบทบาทก็ไม่มีเกณฑ์ที่พิสูจน์ได้ว่าเสร็จ · ขอให้ design เขียนเกณฑ์รับ (given/when/then) อย่างน้อย: (1) ผู้ใช้ที่เข้าสู่ระบบเรียก GET /auth/me ได้ชื่อและบทบาทของตนเอง · ไม่มี session ได้ 401 (2) System Administrator เปิดหน้าจัดการการจอง (UI-mrr-010) เห็นเฉพาะร่องรอย ไม่เห็นช่องเหตุผลและปุ่มคำสั่ง (3) ผู้ที่ไม่ใช่ Room Administrator เปิดหน้าสิ่งอำนวยความสะดวก (UI-mrr-014) เห็น คุณไม่มีสิทธิ์เข้าหน้านี้ — และบอกว่าเกณฑ์รับเหล่านี้ผูกกับ use case ไหน",
+      "found_at": "2026-10-21",
+      "found_by": "/dev:plan",
       "status": "open",
       "answer_th": null,
       "answered_in": null,
       "closed_by": null,
-      "blocks": []
+      "blocks": [
+        "FE-mrr-008",
+        "FE-mrr-009",
+        "FE-mrr-010",
+        "FE-mrr-012",
+        "FE-mrr-013"
+      ]
     }
   ],
   "rollup": {
     "features_total": 33,
     "by_status": {
-      "validated": 31,
-      "draft": 2
+      "validated": 33
     },
     "by_origin": {
       "new": 33
@@ -5324,7 +5342,7 @@
       "frontend-web": 15,
       "api": 18
     },
-    "gaps_open": 20,
+    "gaps_open": 19,
     "ready_for_phase5": false
   }
 }
