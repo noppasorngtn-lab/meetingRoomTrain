@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 import { Kysely } from 'kysely';
 import { KYSELY } from '../../common/database/database.module';
 import { Database } from '../../common/database/schema';
@@ -7,6 +7,11 @@ export interface UserOption {
   id: string;
   fullName: string;
   email: string;
+}
+
+export interface Me {
+  fullName: string;
+  role: Database['users']['role'];
 }
 
 const LIMIT = 20;
@@ -30,5 +35,20 @@ export class UsersService {
       .limit(LIMIT)
       .execute();
     return rows.map((r) => ({ id: r.id, fullName: r.full_name, email: r.email }));
+  }
+
+  /**
+   * API-035 — the signed-in user's own name and role. A session outlives the account it was made
+   * for, so a user deactivated since is answered as nobody at all.
+   */
+  async me(userId: string): Promise<Me> {
+    const row = await this.db
+      .selectFrom('users')
+      .select(['full_name', 'role'])
+      .where('id', '=', userId)
+      .where('active', '=', true)
+      .executeTakeFirst();
+    if (!row) throw new UnauthorizedException();
+    return { fullName: row.full_name, role: row.role };
   }
 }

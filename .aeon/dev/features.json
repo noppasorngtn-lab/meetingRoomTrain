@@ -5084,7 +5084,53 @@
           "hash": "sha256:3632fa6ee698b86cf7be33a14f1bff61ef6765f6cde4e3c0a8dbadb0abe477fd"
         }
       ],
-      "status": "draft"
+      "status": "validated",
+      "build": {
+        "iterations": 0,
+        "proof": [
+          {
+            "cmd": "powershell -File scripts/dev-build.ps1 -App api",
+            "result": "tsc -p tsconfig.build.json · exit 0",
+            "at": "2026-10-21"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App api -Filter FE-mrr-038",
+            "result": "Tests: 390 skipped, 4 passed, 394 total · exit 0",
+            "at": "2026-10-21"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1",
+            "result": "api: Test Suites: 32 passed, 32 total · Tests: 394 passed, 394 total · web: Test Files 15 passed (15) · Tests 232 passed (232) · exit 0",
+            "at": "2026-10-21"
+          }
+        ],
+        "last_error": null,
+        "recorded_by": "Noppasorn",
+        "recorded_at": "2026-10-21"
+      },
+      "manifest": {
+        "files": [
+          "apps/api/src/modules/users/me.controller.ts",
+          "apps/api/src/modules/users/users.service.ts",
+          "apps/api/src/modules/users/users.module.ts",
+          "apps/api/test/users/me.http.spec.ts"
+        ],
+        "unit_tests": [
+          {
+            "file": "apps/api/test/users/me.http.spec.ts",
+            "calc_ref": null,
+            "gd_ref": null
+          }
+        ],
+        "ui_controls": [],
+        "apis": [
+          {
+            "api_ref": "API-035",
+            "route": "GET /auth/me",
+            "file": "apps/api/src/modules/users/me.controller.ts"
+          }
+        ]
+      }
     }
   ],
   "gaps": [
@@ -5388,8 +5434,8 @@
   "rollup": {
     "features_total": 34,
     "by_status": {
-      "validated": 30,
-      "draft": 4
+      "validated": 31,
+      "draft": 3
     },
     "by_origin": {
       "new": 34
