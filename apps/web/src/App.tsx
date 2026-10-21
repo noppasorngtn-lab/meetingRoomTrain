@@ -1,4 +1,5 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { AdjustmentRequestsPage } from './features/booking/AdjustmentRequestsPage';
 import { BookingPage } from './features/booking/BookingPage';
 import { EditBookingPage } from './features/booking/EditBookingPage';
 import { ManageBookingPage } from './features/booking/ManageBookingPage';
@@ -21,6 +22,7 @@ const BUILT: Record<string, JSX.Element> = {
   'UI-mrr-008': <EditBookingPage />,
   'UI-mrr-009': <PendingApprovalsPage />,
   'UI-mrr-010': <ManageBookingPage />,
+  'UI-mrr-011': <AdjustmentRequestsPage />,
 };
 
 const routesFor = (auth: boolean) =>

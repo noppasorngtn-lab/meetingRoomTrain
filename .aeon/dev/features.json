@@ -2945,7 +2945,10 @@
             "file": "apps/api/src/modules/booking/adjustment-request.controller.ts"
           }
         ]
-      }
+      },
+      "commits": [
+        "d353044f1919289b2bed00bae86cf0911d2f28a6"
+      ]
     },
     {
       "id": "FE-mrr-011",
@@ -2980,7 +2983,117 @@
           "hash": "sha256:b35f3143833f2b04d2d4383de9cd4a86dfb56d3426990834378b721a6dfdfe2f"
         }
       ],
-      "status": "draft"
+      "status": "validated",
+      "build": {
+        "iterations": 0,
+        "proof": [
+          {
+            "cmd": "powershell -File scripts/dev-build.ps1 -App frontend-web",
+            "result": "tsc --noEmit && vite build · built in 944ms · exit 0",
+            "at": "2026-10-21"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web -Filter FE-mrr-011",
+            "result": "Test Files 1 passed | 9 skipped (10) · Tests 17 passed | 134 skipped (151) · exit 0",
+            "at": "2026-10-21"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1",
+            "result": "api: Test Suites 22 passed, Tests 286 passed · web: Test Files 10 passed, Tests 151 passed",
+            "at": "2026-10-21"
+          }
+        ],
+        "last_error": null,
+        "recorded_by": "Noppasorn",
+        "recorded_at": "2026-10-21"
+      },
+      "manifest": {
+        "files": [
+          "apps/web/src/App.tsx",
+          "apps/web/src/features/booking/AdjustmentRequestsPage.tsx",
+          "apps/web/src/__tests__/adjustment-requests.test.tsx"
+        ],
+        "unit_tests": [
+          {
+            "file": "apps/web/src/__tests__/adjustment-requests.test.tsx",
+            "calc_ref": null,
+            "gd_ref": null
+          }
+        ],
+        "ui_controls": [
+          {
+            "id": "booking",
+            "kind": "field",
+            "dd_ref": null,
+            "testid": "ui-mrr-011-ent-011-booking",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "requestedBy",
+            "kind": "field",
+            "dd_ref": null,
+            "testid": "ui-mrr-011-ent-011-requested-by",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "proposedChanges",
+            "kind": "field",
+            "dd_ref": null,
+            "testid": "ui-mrr-011-ent-011-proposed-changes",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "reason",
+            "kind": "field",
+            "dd_ref": null,
+            "testid": "ui-mrr-011-ent-011-reason",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "status",
+            "kind": "field",
+            "dd_ref": null,
+            "testid": "ui-mrr-011-ent-011-status",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "approve",
+            "kind": "command",
+            "dd_ref": null,
+            "testid": "ui-mrr-011-approve",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "reject",
+            "kind": "command",
+            "dd_ref": null,
+            "testid": "ui-mrr-011-reject",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          }
+        ],
+        "apis": []
+      }
     },
     {
       "id": "FE-mrr-033",
@@ -4161,8 +4274,8 @@
   "rollup": {
     "features_total": 33,
     "by_status": {
-      "validated": 23,
-      "draft": 10
+      "validated": 24,
+      "draft": 9
     },
     "by_origin": {
       "new": 33
