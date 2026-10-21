@@ -209,7 +209,8 @@
             "EX-mrr-026",
             "EX-mrr-027",
             "EX-mrr-028",
-            "EX-mrr-029"
+            "EX-mrr-029",
+            "EX-mrr-088"
           ],
           "questions": [],
           "constrainedBy": null,
@@ -432,7 +433,8 @@
             "EX-mrr-035",
             "EX-mrr-036",
             "EX-mrr-037",
-            "EX-mrr-038"
+            "EX-mrr-038",
+            "EX-mrr-089"
           ],
           "questions": [],
           "constrainedBy": null,
@@ -657,7 +659,8 @@
             "EX-mrr-015",
             "EX-mrr-016",
             "EX-mrr-017",
-            "EX-mrr-018"
+            "EX-mrr-018",
+            "EX-mrr-090"
           ],
           "questions": [
             "Q-mrr-002"
@@ -2264,6 +2267,45 @@
       "given": "ห้อง E ปิดปรับปรุงทุกวัน จ.–ศ. ตลอด ต.ค. 2569 · มีการจองที่คงอยู่ 5/10 10:00–11:00",
       "when": "Room Administrator เปิดรายงานการใช้ห้องเดือน ต.ค. 2569",
       "then": "ห้อง E แสดง '—' ไม่มีเลขอันดับ และไม่อยู่ในอันดับห้องที่มีอัตราการใช้งานสูงสุด — ชั่วโมงทำการเหลือ 0 จึงไม่คำนวณ",
+      "hasUi": true,
+      "extensions": {}
+    },
+    {
+      "id": "EX-mrr-088",
+      "proves": [
+        "BR-mrr-009@v1"
+      ],
+      "kind": "exception",
+      "status": "draft",
+      "given": "U1 เป็นผู้จองห้อง A วันนี้ 10:00–11:00 ขณะนี้เวลา 10:30 และผู้ใช้ล็อกอินเป็น System Administrator",
+      "when": "System Administrator เปิดหน้าจัดการการจองนี้",
+      "then": "System Administrator เห็นข้อมูลการจองและร่องรอย แต่ไม่เห็นช่องเหตุผล ไม่เห็นปุ่ม 'แก้แทนผู้จอง' และ 'ยกเลิกแทนผู้จอง' — การจองคงเดิม",
+      "hasUi": true,
+      "extensions": {}
+    },
+    {
+      "id": "EX-mrr-089",
+      "proves": [
+        "BR-mrr-011@v1"
+      ],
+      "kind": "exception",
+      "status": "draft",
+      "given": "การจองห้อง B 18/10 10:00–11:00 ของ U1 มีสถานะ 'อนุมัติแล้ว' · ขณะนี้ 16/10 15:00 และผู้ใช้ล็อกอินเป็น System Administrator",
+      "when": "System Administrator เปิดหน้าจัดการการจองนี้",
+      "then": "System Administrator เห็นข้อมูลการจองและร่องรอย แต่ไม่เห็นช่องเหตุผล และไม่เห็นปุ่ม 'เปลี่ยนผลการอนุมัติ' — สถานะยังเป็น 'อนุมัติแล้ว'",
+      "hasUi": true,
+      "extensions": {}
+    },
+    {
+      "id": "EX-mrr-090",
+      "proves": [
+        "BR-mrr-005@v1"
+      ],
+      "kind": "exception",
+      "status": "draft",
+      "given": "ผู้ใช้ล็อกอินเป็น General User",
+      "when": "General User เปิดหน้าสิ่งอำนวยความสะดวก",
+      "then": "แสดงข้อความ 'คุณไม่มีสิทธิ์เข้าหน้านี้' และไม่เห็นรายการสิ่งอำนวยความสะดวก",
       "hasUi": true,
       "extensions": {}
     }

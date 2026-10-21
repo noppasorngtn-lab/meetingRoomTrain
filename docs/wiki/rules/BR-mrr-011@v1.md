@@ -10,11 +10,11 @@ belongs_to: REQ-mrr-002
 kind: policy
 is_current: true
 test_design: [state_transition, BVA]
-proven_by: [EX-mrr-035, EX-mrr-036, EX-mrr-037, EX-mrr-038]
+proven_by: [EX-mrr-035, EX-mrr-036, EX-mrr-037, EX-mrr-038, EX-mrr-089]
 golden: []
 provenance: [SRC-006, SRC-006]
 timestamp: 2026-10-19T12:10:00+07:00
-spec_hash: sha256:28ae14b899367d8fd88c858bc721ae8b37f86796038054945544898d699a7e1b
+spec_hash: sha256:0d0809daaa94af57212c3a31baabe7c766c5565b5feb014d4a4cb76fa1d9bd16
 ---
 
 # BR-mrr-011@v1
@@ -36,6 +36,7 @@ Room Administrator เปลี่ยนผลการอนุมัติห�
 - [EX-mrr-036](../examples/EX-mrr-036.md) — exception: สถานะยังเป็น 'อนุมัติแล้ว' และแสดงข้อความ 'กรุณาระบุเหตุผล'
 - [EX-mrr-037](../examples/EX-mrr-037.md) — boundary: การจองเปลี่ยนเป็นสถานะ 'อนุมัติแล้ว' และ Room Administrator เห็นข้อความ 'เปลี่ยนผลการอนุมัติสำเร็จ' — 1 นาทีก่อนเริ่มยังเปลี่ยนได้
 - [EX-mrr-038](../examples/EX-mrr-038.md) — boundary: สถานะยังเป็น 'อนุมัติแล้ว' และแสดงข้อความ 'การประชุมเริ่มแล้ว ไม่สามารถเปลี่ยนผลการอนุมัติได้'
+- [EX-mrr-089](../examples/EX-mrr-089.md) — exception: System Administrator เห็นข้อมูลการจองและร่องรอย แต่ไม่เห็นช่องเหตุผล และไม่เห็นปุ่ม 'เปลี่ยนผลการอนุมัติ' — สถานะยังเป็น 'อนุมัติแล้ว'
 
 ## ประวัติ
 

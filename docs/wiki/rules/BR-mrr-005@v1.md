@@ -10,11 +10,11 @@ belongs_to: REQ-mrr-003
 kind: policy
 is_current: true
 test_design: [decision_table]
-proven_by: [EX-mrr-015, EX-mrr-016, EX-mrr-017, EX-mrr-018]
+proven_by: [EX-mrr-015, EX-mrr-016, EX-mrr-017, EX-mrr-018, EX-mrr-090]
 golden: []
 provenance: [SRC-001, SRC-001]
 timestamp: 2026-10-19T12:10:00+07:00
-spec_hash: sha256:6bb98fe0363b216ce56ac3cd2e17164f8a7690a945e1b5ce02e5dc4e17c027c4
+spec_hash: sha256:32f6ed45093ea96037b2b3817d1822166f8226042c8b1192cbd26135f40329f8
 ---
 
 # BR-mrr-005@v1
@@ -36,6 +36,7 @@ spec_hash: sha256:6bb98fe0363b216ce56ac3cd2e17164f8a7690a945e1b5ce02e5dc4e17c027
 - [EX-mrr-016](../examples/EX-mrr-016.md) — happy: ห้อง A เป็นสถานะปิดปรับปรุง การจองพรุ่งนี้ 10:00–11:00 คงเดิม และแสดงข้อความ 'ตั้งห้องเป็นปิดปรับปรุงแล้ว การจองที่มีอยู่คงเดิม'
 - [EX-mrr-017](../examples/EX-mrr-017.md) — exception: ความจุห้อง A ยังเป็น 8 คน และแสดงข้อความ 'เฉพาะผู้ดูแลห้องเท่านั้นที่จัดการข้อมูลห้องได้'
 - [EX-mrr-018](../examples/EX-mrr-018.md) — exception: ความจุห้อง A ยังเป็น 8 คน และแสดงข้อความ 'เฉพาะผู้ดูแลห้องเท่านั้นที่จัดการข้อมูลห้องได้'
+- [EX-mrr-090](../examples/EX-mrr-090.md) — exception: แสดงข้อความ 'คุณไม่มีสิทธิ์เข้าหน้านี้' และไม่เห็นรายการสิ่งอำนวยความสะดวก
 
 ## ประวัติ
 

@@ -10,11 +10,11 @@ belongs_to: REQ-mrr-001
 kind: policy
 is_current: true
 test_design: [BVA, decision_table]
-proven_by: [EX-mrr-026, EX-mrr-027, EX-mrr-028, EX-mrr-029]
+proven_by: [EX-mrr-026, EX-mrr-027, EX-mrr-028, EX-mrr-029, EX-mrr-088]
 golden: []
 provenance: [SRC-004, SRC-004, SRC-022]
 timestamp: 2026-10-19T12:10:00+07:00
-spec_hash: sha256:38814723e6cc3c6f5c8906ec404490e5a6e65c67d2544a21ba8515ffd910048b
+spec_hash: sha256:c938bf1941a3b362be7bf878faa1d455995806b0b68749b3f465c45c7821b913
 ---
 
 # BR-mrr-009@v1
@@ -39,6 +39,7 @@ spec_hash: sha256:38814723e6cc3c6f5c8906ec404490e5a6e65c67d2544a21ba8515ffd91004
 - [EX-mrr-027](../examples/EX-mrr-027.md) — boundary: การจองคงเดิม และแสดงข้อความ 'การประชุมเริ่มแล้ว กรุณาติดต่อผู้ดูแลห้องเพื่อแก้ไขหรือยกเลิก'
 - [EX-mrr-028](../examples/EX-mrr-028.md) — happy: ระบบยกเลิกการจอง และ Room Administrator เห็นข้อความ 'ยกเลิกการจองสำเร็จ'
 - [EX-mrr-029](../examples/EX-mrr-029.md) — exception: การจองคงเดิม และแสดงข้อความ 'กรุณาระบุเหตุผล'
+- [EX-mrr-088](../examples/EX-mrr-088.md) — exception: System Administrator เห็นข้อมูลการจองและร่องรอย แต่ไม่เห็นช่องเหตุผล ไม่เห็นปุ่ม 'แก้แทนผู้จอง' และ 'ยกเลิกแทนผู้จอง' — การจองคงเดิม
 
 ## ประวัติ
 
