@@ -2286,13 +2286,15 @@
       "files_planned": [],
       "depends_on": [
         "FE-mrr-022",
-        "FE-mrr-029"
+        "FE-mrr-029",
+        "FE-mrr-038"
       ],
       "acceptance_refs": [
         "AC-mrr-033",
         "AC-mrr-034",
         "AC-mrr-035",
-        "AC-mrr-036"
+        "AC-mrr-036",
+        "AC-mrr-087"
       ],
       "traces_up": [
         {
@@ -2318,9 +2320,13 @@
         {
           "ref": "UI-mrr-010",
           "hash": "sha256:5b8247cfc668ae8b94235f1ac30b9e6a1e28134765c25ad40b9672d89aa859a0"
+        },
+        {
+          "ref": "AC-mrr-087",
+          "hash": "sha256:3333432659f54346e15e6eee76bf3e0ea342cefc96cc4e3a3151b9fd4a76e66e"
         }
       ],
-      "status": "validated",
+      "status": "draft",
       "build": {
         "iterations": 0,
         "proof": [
@@ -2567,14 +2573,16 @@
       "files_planned": [],
       "depends_on": [
         "FE-mrr-022",
-        "FE-mrr-030"
+        "FE-mrr-030",
+        "FE-mrr-038"
       ],
       "acceptance_refs": [
         "AC-mrr-028",
         "AC-mrr-029",
         "AC-mrr-042",
         "AC-mrr-053",
-        "AC-mrr-055"
+        "AC-mrr-055",
+        "AC-mrr-086"
       ],
       "traces_up": [
         {
@@ -2604,9 +2612,13 @@
         {
           "ref": "UI-mrr-010",
           "hash": "sha256:5b8247cfc668ae8b94235f1ac30b9e6a1e28134765c25ad40b9672d89aa859a0"
+        },
+        {
+          "ref": "AC-mrr-086",
+          "hash": "sha256:c4dd2a664eb18ad7d4f725de40ad81e41d7d9d950a6ee03d9d1bb0bbd717c8f0"
         }
       ],
-      "status": "validated",
+      "status": "draft",
       "build": {
         "iterations": 0,
         "proof": [
@@ -3676,7 +3688,8 @@
       "files_planned": [],
       "depends_on": [
         "FE-mrr-022",
-        "FE-mrr-034"
+        "FE-mrr-034",
+        "FE-mrr-038"
       ],
       "acceptance_refs": [
         "AC-mrr-015",
@@ -3688,7 +3701,8 @@
         "AC-mrr-040",
         "AC-mrr-076",
         "AC-mrr-077",
-        "AC-mrr-078"
+        "AC-mrr-078",
+        "AC-mrr-088"
       ],
       "traces_up": [
         {
@@ -3746,9 +3760,13 @@
         {
           "ref": "UI-mrr-014",
           "hash": "sha256:e354510bf33050a0f8234a81049c10d3793fb20c859d085de473c38d10c262cc"
+        },
+        {
+          "ref": "AC-mrr-088",
+          "hash": "sha256:3632fa6ee698b86cf7be33a14f1bff61ef6765f6cde4e3c0a8dbadb0abe477fd"
         }
       ],
-      "status": "validated",
+      "status": "draft",
       "build": {
         "iterations": 1,
         "proof": [
@@ -5030,6 +5048,43 @@
         "f6898774c8f38e00ec5e0260343529b02f27fd97",
         "b7be0989c9e7b1b573b493d8cacf89fe6fefaa20"
       ]
+    },
+    {
+      "id": "FE-mrr-038",
+      "title_th": "ข้อมูลผู้ใช้ปัจจุบัน — ฝั่ง API",
+      "app_ref": "api",
+      "type": "command",
+      "origin": "new",
+      "files_planned": [],
+      "depends_on": [],
+      "acceptance_refs": [
+        "AC-mrr-086",
+        "AC-mrr-087",
+        "AC-mrr-088"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-020",
+          "hash": "sha256:bc30236626097a5cd72827e86eb1af65e231fb500f5595067bb00a72e87e6652"
+        },
+        {
+          "ref": "API-035",
+          "hash": "sha256:90bde762f16c87f1caeb9ddecc67a4fd95b01abaf756dabbe639a8fc29c7d320"
+        },
+        {
+          "ref": "AC-mrr-086",
+          "hash": "sha256:c4dd2a664eb18ad7d4f725de40ad81e41d7d9d950a6ee03d9d1bb0bbd717c8f0"
+        },
+        {
+          "ref": "AC-mrr-087",
+          "hash": "sha256:3333432659f54346e15e6eee76bf3e0ea342cefc96cc4e3a3151b9fd4a76e66e"
+        },
+        {
+          "ref": "AC-mrr-088",
+          "hash": "sha256:3632fa6ee698b86cf7be33a14f1bff61ef6765f6cde4e3c0a8dbadb0abe477fd"
+        }
+      ],
+      "status": "draft"
     }
   ],
   "gaps": [
@@ -5317,10 +5372,10 @@
       "question_th": "API-035 GET /auth/me (ADR-002) กับการซ่อนคำสั่งตามบทบาทบน UI-mrr-010 · UI-mrr-014 ไม่มีตัวอย่าง (EX-) สักข้อใน requirements.json — design เขียนเกณฑ์รับได้เฉพาะที่คัดลอกจากตัวอย่างของ req ข้อละหนึ่งเกณฑ์ (S16) จึงเขียนให้ไม่ได้ และ dev สร้างหน่วยที่ไม่มีเกณฑ์รับไม่ได้ · ขอให้ req เพิ่มตัวอย่าง (given/when/then) อย่างน้อย: (1) System Administrator เปิดหน้าจัดการการจอง เห็นเฉพาะร่องรอย ไม่เห็นช่องเหตุผลและปุ่มคำสั่ง — ใต้ BR-mrr-018 หรือกฎของคำสั่งนั้น (BR-mrr-009 · BR-mrr-011) (2) ผู้ที่ไม่ใช่ Room Administrator เปิดหน้าสิ่งอำนวยความสะดวก เห็น คุณไม่มีสิทธิ์เข้าหน้านี้ — ใต้ BR-mrr-005 (3) ผู้ใช้ที่เข้าสู่ระบบเห็นชื่อและบทบาทของตนเอง · ไม่มี session ต้องเข้าสู่ระบบก่อน — หรือบอกว่ากฎข้อไหนถือเรื่องนี้ · แล้ว export change set ให้ design รับด้วย /design:change",
       "found_at": "2026-10-21",
       "found_by": "/dev:plan",
-      "status": "open",
-      "answer_th": null,
-      "answered_in": null,
-      "closed_by": null,
+      "status": "answered",
+      "answer_th": "req เพิ่ม EX-mrr-088 (BR-mrr-009@v1) · EX-mrr-089 (BR-mrr-011@v1) · EX-mrr-090 (BR-mrr-005@v1) ยืนยันโดย Noppasorn (commit 64c0e25) · design รับด้วย ADR-003 เป็น AC-mrr-086/087/088 และ SCN-mrr-091..096 (เซ็นโดย Noppasorn Yoo 2026-10-21) · การอ่านบทบาทของตนเองไม่มีกฎธุรกิจถือ — API-035 ผูกกับสามเกณฑ์รับนี้แทน",
+      "answered_in": ".aeon/req/requirements.json",
+      "closed_by": "Noppasorn",
       "blocks": [
         "FE-mrr-008",
         "FE-mrr-009",
@@ -5331,18 +5386,19 @@
     }
   ],
   "rollup": {
-    "features_total": 33,
+    "features_total": 34,
     "by_status": {
-      "validated": 33
+      "validated": 30,
+      "draft": 4
     },
     "by_origin": {
-      "new": 33
+      "new": 34
     },
     "by_app": {
       "frontend-web": 15,
-      "api": 18
+      "api": 19
     },
-    "gaps_open": 19,
+    "gaps_open": 18,
     "ready_for_phase5": false
   }
 }

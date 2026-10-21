@@ -763,13 +763,15 @@
       "files_planned": [],
       "depends_on": [
         "FE-mrr-022",
-        "FE-mrr-029"
+        "FE-mrr-029",
+        "FE-mrr-038"
       ],
       "acceptance_refs": [
         "AC-mrr-033",
         "AC-mrr-034",
         "AC-mrr-035",
-        "AC-mrr-036"
+        "AC-mrr-036",
+        "AC-mrr-087"
       ],
       "traces_up": [
         {
@@ -789,9 +791,12 @@
         },
         {
           "ref": "UI-mrr-010"
+        },
+        {
+          "ref": "AC-mrr-087"
         }
       ],
-      "status": "validated"
+      "status": "draft"
     },
     {
       "id": "FE-mrr-030",
@@ -856,14 +861,16 @@
       "files_planned": [],
       "depends_on": [
         "FE-mrr-022",
-        "FE-mrr-030"
+        "FE-mrr-030",
+        "FE-mrr-038"
       ],
       "acceptance_refs": [
         "AC-mrr-028",
         "AC-mrr-029",
         "AC-mrr-042",
         "AC-mrr-053",
-        "AC-mrr-055"
+        "AC-mrr-055",
+        "AC-mrr-086"
       ],
       "traces_up": [
         {
@@ -886,9 +893,12 @@
         },
         {
           "ref": "UI-mrr-010"
+        },
+        {
+          "ref": "AC-mrr-086"
         }
       ],
-      "status": "validated"
+      "status": "draft"
     },
     {
       "id": "FE-mrr-031",
@@ -1226,7 +1236,8 @@
       "files_planned": [],
       "depends_on": [
         "FE-mrr-022",
-        "FE-mrr-034"
+        "FE-mrr-034",
+        "FE-mrr-038"
       ],
       "acceptance_refs": [
         "AC-mrr-015",
@@ -1238,7 +1249,8 @@
         "AC-mrr-040",
         "AC-mrr-076",
         "AC-mrr-077",
-        "AC-mrr-078"
+        "AC-mrr-078",
+        "AC-mrr-088"
       ],
       "traces_up": [
         {
@@ -1282,9 +1294,12 @@
         },
         {
           "ref": "UI-mrr-014"
+        },
+        {
+          "ref": "AC-mrr-088"
         }
       ],
-      "status": "validated"
+      "status": "draft"
     },
     {
       "id": "FE-mrr-035",
@@ -1688,6 +1703,38 @@
         }
       ],
       "status": "validated"
+    },
+    {
+      "id": "FE-mrr-038",
+      "title_th": "ข้อมูลผู้ใช้ปัจจุบัน — ฝั่ง API",
+      "app_ref": "api",
+      "type": "command",
+      "origin": "new",
+      "files_planned": [],
+      "depends_on": [],
+      "acceptance_refs": [
+        "AC-mrr-086",
+        "AC-mrr-087",
+        "AC-mrr-088"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-020"
+        },
+        {
+          "ref": "API-035"
+        },
+        {
+          "ref": "AC-mrr-086"
+        },
+        {
+          "ref": "AC-mrr-087"
+        },
+        {
+          "ref": "AC-mrr-088"
+        }
+      ],
+      "status": "draft"
     }
   ],
   "gaps": [
@@ -1865,7 +1912,10 @@
         "FE-mrr-010",
         "FE-mrr-012",
         "FE-mrr-013"
-      ]
+      ],
+      "status": "answered",
+      "answered_in": ".aeon/req/requirements.json",
+      "answer_th": "req เพิ่ม EX-mrr-088 (BR-mrr-009@v1) · EX-mrr-089 (BR-mrr-011@v1) · EX-mrr-090 (BR-mrr-005@v1) ยืนยันโดย Noppasorn (commit 64c0e25) · design รับด้วย ADR-003 เป็น AC-mrr-086/087/088 และ SCN-mrr-091..096 (เซ็นโดย Noppasorn Yoo 2026-10-21) · การอ่านบทบาทของตนเองไม่มีกฎธุรกิจถือ — API-035 ผูกกับสามเกณฑ์รับนี้แทน"
     }
   ]
 }
