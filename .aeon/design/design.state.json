@@ -30,7 +30,7 @@
     {
       "id": "function",
       "command": "/design:function",
-      "status": "done",
+      "status": "stale",
       "requires": [
         "overview"
       ],
@@ -38,8 +38,9 @@
         "modules/<module>/functions.json",
         "trace.design.json"
       ],
-      "attempts": 1,
-      "updatedAt": "2026-10-19T04:47:43Z"
+      "attempts": 0,
+      "updatedAt": "2026-10-21T09:07:58Z",
+      "staleBecause": "ADR-003"
     },
     {
       "id": "datamodel",
@@ -58,7 +59,7 @@
     {
       "id": "scenario",
       "command": "/design:scenario",
-      "status": "done",
+      "status": "stale",
       "requires": [
         "function",
         "datamodel"
@@ -66,8 +67,9 @@
       "artifacts": [
         "modules/<module>/scenarios.json"
       ],
-      "attempts": 1,
-      "updatedAt": "2026-10-19T05:05:03Z"
+      "attempts": 0,
+      "updatedAt": "2026-10-21T09:07:58Z",
+      "staleBecause": "ADR-003"
     },
     {
       "id": "rbac",
