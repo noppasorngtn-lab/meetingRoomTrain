@@ -24,11 +24,11 @@
 |---|---|---|---|---|---|---|
 | design.state.json | /design:init | done | — | — | — | — |
 | context.json | /design:overview | done | approved | Noppasorn | 2026-10-19T07:59:59Z | — |
-| modules/mrr/functions.json | /design:function | done | draft | — | — | — |
+| modules/mrr/functions.json | /design:function | done | approved | Noppasorn Yoo | 2026-10-21T09:54:55Z | — |
 | trace.design.json | /design:function | done | — | — | — | — |
 | datamodel.json | /design:datamodel | done | approved | Noppasorn | 2026-10-19T07:59:59Z | — |
 | modules/mrr/statemachines.json | /design:datamodel | done | approved | Noppasorn | 2026-10-19T07:59:59Z | — |
-| modules/mrr/scenarios.json | /design:scenario | done | draft | — | — | — |
+| modules/mrr/scenarios.json | /design:scenario | done | approved | Noppasorn Yoo | 2026-10-21T09:54:55Z | — |
 | rbac.json | /design:rbac | done | approved | Noppasorn | 2026-10-21T07:40:09Z | — |
 | nfr.json | /design:nfr | done | approved | Noppasorn | 2026-10-19T07:59:59Z | — |
 | sitemap.json | /design:sitemap | done | approved | Noppasorn | 2026-10-19T09:13:24Z | — |
