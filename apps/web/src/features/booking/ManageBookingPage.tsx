@@ -3,6 +3,7 @@ import { Navigate, useLocation, useNavigate, useSearchParams } from 'react-route
 import { ApiError, getJson, postJson } from '../../shared/api';
 import { routeOf } from '../../shared/sitemap';
 import { slotLabel } from '../../shared/time';
+import { AuditTrail } from './AuditTrail';
 import { checkTitle, TitleField } from './fields';
 import { BookingStatus, STATUS_LABEL } from './status';
 
@@ -41,8 +42,9 @@ const meetingEnded = (b: Booking): boolean =>
  * UI-mrr-010 — a Room Administrator's page for one booking, opened with ?booking=<id> from the
  * pending queue. The booking is read through API-007, which shows any booking to an administrator.
  * It carries the change of decision (API-013 · UC-mrr-008) and, once the meeting has ended, the
- * adjustment request (API-014 · UC-mrr-010) — the title only; acting on behalf of the booker while
- * the meeting is under way, cancelling and the trail arrive with their own units.
+ * adjustment request (API-014 · UC-mrr-010) — the title only — and the booking's trail (API-016 ·
+ * UC-mrr-012), read again after each action here. Acting on behalf of the booker while the meeting
+ * is under way and cancelling arrive with their own units.
  */
 export function ManageBookingPage() {
   const [params] = useSearchParams();
@@ -57,6 +59,7 @@ export function ManageBookingPage() {
   const [titleError, setTitleError] = useState<string | null>(null);
   const [failure, setFailure] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
+  const [trailVersion, setTrailVersion] = useState(0);
 
   const fetchBooking = useCallback(() => {
     setLoad({ kind: 'loading' });
@@ -74,6 +77,21 @@ export function ManageBookingPage() {
 
   useEffect(fetchBooking, [fetchBooking]);
 
+  const signedOut = useCallback(() => setLoad({ kind: 'unauthorized' }), []);
+  // One place on the page whichever state it is in, so the trail keeps what it read.
+  const withTrail = (page: JSX.Element) => (
+    <>
+      {page}
+      <AuditTrail
+        bookingId={bookingId}
+        version={trailVersion}
+        start={load.kind !== 'loading'}
+        bookingMissing={load.kind === 'missing'}
+        onUnauthorized={signedOut}
+      />
+    </>
+  );
+
   const changeDecision = async (e: FormEvent, decision: Decision) => {
     e.preventDefault();
     setFailure(null);
@@ -86,6 +104,7 @@ export function ManageBookingPage() {
       // Said through the shell's notice, the same way every other page reports here.
       navigate({ pathname: location.pathname, search: location.search }, { replace: true, state: { notice: done.message } });
       fetchBooking();
+      setTrailVersion((v) => v + 1);
     } catch (err) {
       // The status stays as it was (UI-mrr-010 error state) and the reason stays typed.
       if (err instanceof ApiError && err.status === 401) return setLoad({ kind: 'unauthorized' });
@@ -114,6 +133,7 @@ export function ManageBookingPage() {
       setReason('');
       navigate({ pathname: location.pathname, search: location.search }, { replace: true, state: { notice: done.message } });
       fetchBooking();
+      setTrailVersion((v) => v + 1);
     } catch (err) {
       // Nothing is requested; what was typed stays (UI-mrr-010 error state).
       if (err instanceof ApiError && err.status === 401) return setLoad({ kind: 'unauthorized' });
@@ -140,7 +160,7 @@ export function ManageBookingPage() {
     </>
   );
   if (load.kind !== 'ready') {
-    return (
+    return withTrail(
       <>
         {heading}
         {/* Not role="status": the shell's notice after a change is the page's one status message. */}
@@ -159,7 +179,7 @@ export function ManageBookingPage() {
           </div>
         )}
         <div className="actions">{back}</div>
-      </>
+      </>,
     );
   }
 
@@ -172,7 +192,7 @@ export function ManageBookingPage() {
     if (adjustable) return requestAdjustment(e);
     e.preventDefault();
   };
-  return (
+  return withTrail(
     <>
       {heading}
       <div className="card">
@@ -248,6 +268,6 @@ export function ManageBookingPage() {
           {target && <span className="help">ผลใหม่จะเป็น '{STATUS_LABEL[target]}'</span>}
         </div>
       </form>
-    </>
+    </>,
   );
 }

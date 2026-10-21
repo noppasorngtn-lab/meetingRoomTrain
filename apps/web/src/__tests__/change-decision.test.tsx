@@ -30,6 +30,8 @@ beforeEach(() => {
     calls.push({ method, url, body: init?.body ? JSON.parse(String(init.body)) : undefined });
     let r: Reply = { status: 500 };
     if (url === GET && method === 'GET') r = getReply ?? { status: 200, body: booking };
+    // The page reads the booking's trail too (FE-mrr-012); nothing has been done to it yet.
+    if (url === `${GET}/audit` && method === 'GET') r = { status: 200, body: [] };
     if (url === DECIDE && method === 'POST') {
       r = typeof decideReply === 'function' ? await decideReply() : decideReply;
       // The api has changed it; the next read says so.

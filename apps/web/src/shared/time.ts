@@ -31,3 +31,9 @@ export function bangkokLocal(iso: string): string {
   const time = new Intl.DateTimeFormat('en-GB', { timeZone: TIME_ZONE, hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).format(d);
   return `${bangkokDate(d)}T${time}`;
 }
+
+/** `16/10 14:05` — one instant, the way a trail entry is read. */
+export function instantLabel(iso: string): string {
+  const d = new Date(iso);
+  return `${dayMonth(d)} ${hourMinute(d)}`;
+}

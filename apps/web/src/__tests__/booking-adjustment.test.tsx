@@ -29,6 +29,8 @@ beforeEach(() => {
     calls.push({ method, url, body: init?.body ? JSON.parse(String(init.body)) : undefined });
     let r: Reply = { status: 500 };
     if (url === GET && method === 'GET') r = { status: 200, body: booking };
+    // The page reads the booking's trail too (FE-mrr-012); nothing has been done to it yet.
+    if (url === `${GET}/audit` && method === 'GET') r = { status: 200, body: [] };
     // A request changes nothing on the booking until another Room Administrator approves (BR-mrr-014).
     if (url === ADMIN_EDIT && method === 'POST') r = typeof editReply === 'function' ? await editReply() : editReply;
     return new Response(r.body === undefined ? null : JSON.stringify(r.body), { status: r.status, headers: { 'content-type': 'application/json' } });
@@ -64,7 +66,7 @@ describe('FE-mrr-010 adjustment request after the meeting ends page (UI-mrr-010)
     expect(await screen.findByRole('status')).toHaveTextContent(SENT);
     expect(posts()).toEqual([{ method: 'POST', url: ADMIN_EDIT, body: { title: 'ประชุมวางแผน', reason: 'ผู้จองพิมพ์หัวข้อผิด' } }]);
     // Read again: the booking keeps its values.
-    await waitFor(() => expect(calls.filter((c) => c.method === 'GET')).toHaveLength(2));
+    await waitFor(() => expect(calls.filter((c) => c.method === 'GET' && c.url === GET)).toHaveLength(2));
     await waitFor(() => expect(screen.getByTestId('ui-mrr-010-ent-007-title')).toHaveValue('ประชุมทีม'));
     expect(screen.getByTestId('ui-mrr-010-ent-007-status')).toHaveTextContent('จองสำเร็จ (ห้องไม่ต้องอนุมัติ)');
     expect(screen.getByTestId('ui-mrr-010-ent-010-reason')).toHaveValue('');
