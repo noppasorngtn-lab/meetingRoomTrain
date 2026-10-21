@@ -209,6 +209,21 @@ describe('FE-mrr-009 edit or cancel on behalf of the booker (UI-mrr-010)', () =>
     expect(posts()).toHaveLength(0);
   });
 
+  it('error state — API-035 fails: the page says so, offers no command, and โหลดใหม่ asks again', async () => {
+    replies['GET /auth/me'] = { status: 500 };
+    open();
+
+    expect(await screen.findByRole('alert')).toHaveTextContent('โหลดการจองไม่สำเร็จ');
+    expect(screen.queryByTestId('ui-mrr-010-cancel-on-behalf')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('ui-mrr-010-ent-010-reason')).not.toBeInTheDocument();
+
+    delete replies['GET /auth/me'];
+    fireEvent.click(screen.getByRole('button', { name: 'โหลดใหม่' }));
+
+    expect(await screen.findByTestId('ui-mrr-010-cancel-on-behalf')).toHaveTextContent('ยกเลิกแทนผู้จอง');
+    expect(screen.queryByRole('alert')).not.toBeInTheDocument();
+  });
+
   it('someone whose session API-035 refuses is taken to sign-in', async () => {
     replies['GET /auth/me'] = { status: 401, body: { message: 'Unauthorized' } };
     open();

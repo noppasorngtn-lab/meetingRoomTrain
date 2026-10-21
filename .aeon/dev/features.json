@@ -2629,17 +2629,17 @@
         "proof": [
           {
             "cmd": "powershell -File scripts/dev-build.ps1 -App frontend-web",
-            "result": "tsc --noEmit && vite build · built in 828ms · exit 0",
+            "result": "tsc --noEmit && vite build · built in 847ms · exit 0",
             "at": "2026-10-21"
           },
           {
             "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web -Filter FE-mrr-009",
-            "result": "Tests 15 passed | 221 skipped (236) · exit 0 — the two new tests fail on ManageBookingPage.tsx as of e653e54~1 (2 failed | 13 passed)",
+            "result": "Tests 16 passed | 225 skipped (241) · exit 0",
             "at": "2026-10-21"
           },
           {
             "cmd": "powershell -File scripts/dev-test.ps1",
-            "result": "api: Test Suites: 32 passed, 32 total · Tests: 394 passed, 394 total · web: Test Files 15 passed (15) · Tests 236 passed (236) · exit 0",
+            "result": "api: Test Suites: 32 passed, 32 total · Tests: 394 passed, 394 total · web: Test Files 15 passed (15) · Tests 241 passed (241) · exit 0",
             "at": "2026-10-21"
           }
         ],

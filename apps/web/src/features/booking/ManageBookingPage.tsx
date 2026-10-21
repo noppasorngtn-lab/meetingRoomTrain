@@ -84,15 +84,19 @@ export function ManageBookingPage() {
   useEffect(fetchBooking, [fetchBooking]);
 
   // UI-mrr-010 unauthorized state: a System Administrator sees the trail only (AC-mrr-086 · 087).
-  // Until API-035 answers there is no role, and no role means no command.
-  const [role, setRole] = useState<Role | null>(null);
-  useEffect(() => {
+  // Until API-035 answers there is no role, and no role means no command. If it fails, the page says
+  // so (UI-mrr-010 error state) rather than leaving a Room Administrator without commands and a reason.
+  const [role, setRole] = useState<Role | 'failed' | null>(null);
+  const fetchRole = useCallback(() => {
+    setRole(null);
     getMe()
       .then((me) => setRole(me.role))
       .catch((err) => {
-        if (err instanceof ApiError && err.status === 401) setLoad({ kind: 'unauthorized' });
+        if (err instanceof ApiError && err.status === 401) return setLoad({ kind: 'unauthorized' });
+        setRole('failed');
       });
   }, []);
+  useEffect(fetchRole, [fetchRole]);
 
   const signedOut = useCallback(() => setLoad({ kind: 'unauthorized' }), []);
   // One place on the page whichever state it is in, so the trail keeps what it read.
@@ -205,6 +209,14 @@ export function ManageBookingPage() {
       <p className="purpose">Room Administrator เปลี่ยนผลการอนุมัติ แก้หรือยกเลิกแทนผู้จอง และดูร่องรอยของการจองหนึ่ง</p>
     </>
   );
+  const failed = (retry: () => void) => (
+    <div role="alert" className="alert alert-danger">
+      <span className="alert-title">โหลดการจองไม่สำเร็จ</span>
+      <button type="button" className="btn btn-secondary" onClick={retry}>
+        โหลดใหม่
+      </button>
+    </div>
+  );
   if (load.kind !== 'ready') {
     return withTrail(
       <>
@@ -216,14 +228,7 @@ export function ManageBookingPage() {
             <span className="alert-title">{load.message}</span>
           </div>
         )}
-        {load.kind === 'failed' && (
-          <div role="alert" className="alert alert-danger">
-            <span className="alert-title">โหลดการจองไม่สำเร็จ</span>
-            <button type="button" className="btn btn-secondary" onClick={fetchBooking}>
-              โหลดใหม่
-            </button>
-          </div>
-        )}
+        {load.kind === 'failed' && failed(fetchBooking)}
         <div className="actions">{back}</div>
       </>,
     );
@@ -271,6 +276,7 @@ export function ManageBookingPage() {
           <span className="alert-title">{failure}</span>
         </div>
       )}
+      {role === 'failed' && failed(fetchRole)}
       {!acts && <div className="actions">{back}</div>}
       {acts && (
         <form className="card" noValidate onSubmit={onSubmit}>
