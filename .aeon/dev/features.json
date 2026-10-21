@@ -3464,7 +3464,81 @@
           "hash": "sha256:a989012d2d7146e7d736917097cb99095ec1607ec1a2d61fc7cf4ee1e0f10a80"
         }
       ],
-      "status": "draft"
+      "status": "validated",
+      "build": {
+        "iterations": 0,
+        "proof": [
+          {
+            "cmd": "powershell -File scripts/dev-build.ps1 -App api",
+            "result": "tsc -p tsconfig.build.json · exit 0",
+            "at": "2026-10-21"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App api -Filter FE-mrr-034",
+            "result": "Test Suites: 29 skipped, 2 passed, 2 of 31 total · Tests: 353 skipped, 35 passed, 388 total · exit 0",
+            "at": "2026-10-21"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1",
+            "result": "api: Test Suites 31 passed, Tests 388 passed · web: Test Files 12 passed, Tests 180 passed · exit 0",
+            "at": "2026-10-21"
+          }
+        ],
+        "last_error": null,
+        "recorded_by": "Noppasorn",
+        "recorded_at": "2026-10-21"
+      },
+      "manifest": {
+        "files": [
+          "apps/api/src/common/database/migrations/007_room_version_facilities.sql",
+          "apps/api/src/common/database/schema.ts",
+          "apps/api/src/modules/rooms/room-admin.service.ts",
+          "apps/api/src/modules/rooms/rooms.controller.ts",
+          "apps/api/src/modules/rooms/rooms.module.ts",
+          "apps/api/test/rooms/room-admin.spec.ts",
+          "apps/api/test/rooms/room-admin.http.spec.ts"
+        ],
+        "unit_tests": [
+          {
+            "file": "apps/api/test/rooms/room-admin.spec.ts",
+            "calc_ref": null,
+            "gd_ref": null
+          },
+          {
+            "file": "apps/api/test/rooms/room-admin.http.spec.ts",
+            "calc_ref": null,
+            "gd_ref": null
+          }
+        ],
+        "ui_controls": [],
+        "apis": [
+          {
+            "api_ref": "API-020",
+            "route": "GET /rooms?status={s}&query={text}&page={n}",
+            "file": "apps/api/src/modules/rooms/rooms.controller.ts"
+          },
+          {
+            "api_ref": "API-021",
+            "route": "POST /rooms",
+            "file": "apps/api/src/modules/rooms/rooms.controller.ts"
+          },
+          {
+            "api_ref": "API-023",
+            "route": "POST /rooms/:id/versions",
+            "file": "apps/api/src/modules/rooms/rooms.controller.ts"
+          },
+          {
+            "api_ref": "API-026",
+            "route": "POST /facilities",
+            "file": "apps/api/src/modules/rooms/rooms.controller.ts"
+          },
+          {
+            "api_ref": "API-027",
+            "route": "PATCH /facilities/:id",
+            "file": "apps/api/src/modules/rooms/rooms.controller.ts"
+          }
+        ]
+      }
     },
     {
       "id": "FE-mrr-013",
@@ -4085,7 +4159,10 @@
           }
         ],
         "apis": []
-      }
+      },
+      "commits": [
+        "baf7e5fa7e63862a0ff5e6b2bf1d06acdc527d5c"
+      ]
     },
     {
       "id": "FE-mrr-017",
@@ -4720,8 +4797,8 @@
   "rollup": {
     "features_total": 33,
     "by_status": {
-      "validated": 29,
-      "draft": 4
+      "validated": 30,
+      "draft": 3
     },
     "by_origin": {
       "new": 33

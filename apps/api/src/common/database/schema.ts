@@ -115,6 +115,11 @@ export interface UtilizationReportLinesTable {
   rank: number | null;
 }
 
+export interface RoomVersionFacilitiesTable {
+  room_version_id: string;
+  facility_id: string;
+}
+
 export interface Database {
   users: UsersTable;
   meeting_rooms: MeetingRoomsTable;
@@ -128,4 +133,5 @@ export interface Database {
   room_maintenance_periods: RoomMaintenancePeriodsTable;
   utilization_reports: UtilizationReportsTable;
   utilization_report_lines: UtilizationReportLinesTable;
+  room_version_facilities: RoomVersionFacilitiesTable;
 }
