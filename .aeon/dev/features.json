@@ -3785,7 +3785,79 @@
           "hash": "sha256:2770e83042df11c4de196cb518f6f727c5194dd9c50a9a8d7c0d7471fe4cf6b3"
         }
       ],
-      "status": "draft"
+      "status": "validated",
+      "build": {
+        "iterations": 2,
+        "proof": [
+          {
+            "cmd": "powershell -File scripts/dev-build.ps1 -App api",
+            "result": "tsc -p tsconfig.build.json · exit 0",
+            "at": "2026-10-21"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App api -Filter FE-mrr-036",
+            "result": "Test Suites: 26 skipped, 3 passed, 3 of 29 total · Tests: 313 skipped, 40 passed, 353 total · exit 0",
+            "at": "2026-10-21"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1",
+            "result": "api: Test Suites 29 passed, Tests 353 passed · web: Test Files 11 passed, Tests 164 passed · exit 0",
+            "at": "2026-10-21"
+          }
+        ],
+        "last_error": null,
+        "recorded_by": "Noppasorn",
+        "recorded_at": "2026-10-21"
+      },
+      "manifest": {
+        "files": [
+          "apps/api/src/common/database/migrations/006_utilization_reports.sql",
+          "apps/api/src/common/database/schema.ts",
+          "apps/api/src/modules/reports/utilization.ts",
+          "apps/api/src/modules/reports/utilization-report.service.ts",
+          "apps/api/src/modules/reports/utilization-report.controller.ts",
+          "apps/api/src/modules/reports/reports.module.ts",
+          "apps/api/src/app.module.ts",
+          "apps/api/test/reports/utilization.spec.ts",
+          "apps/api/test/reports/utilization-report.spec.ts",
+          "apps/api/test/reports/utilization-report.http.spec.ts"
+        ],
+        "unit_tests": [
+          {
+            "file": "apps/api/test/reports/utilization.spec.ts",
+            "calc_ref": "CALC-mrr-001@v1",
+            "gd_ref": "GD-mrr-001"
+          },
+          {
+            "file": "apps/api/test/reports/utilization-report.spec.ts",
+            "calc_ref": null,
+            "gd_ref": null
+          },
+          {
+            "file": "apps/api/test/reports/utilization-report.http.spec.ts",
+            "calc_ref": null,
+            "gd_ref": null
+          }
+        ],
+        "ui_controls": [],
+        "apis": [
+          {
+            "api_ref": "API-028",
+            "route": "POST /reports/utilization",
+            "file": "apps/api/src/modules/reports/utilization-report.controller.ts"
+          },
+          {
+            "api_ref": "API-029",
+            "route": "GET /reports/utilization?periodType={MONTH|YEAR}&periodStart={d}&issueNo={n}",
+            "file": "apps/api/src/modules/reports/utilization-report.controller.ts"
+          },
+          {
+            "api_ref": "API-030",
+            "route": "GET /reports/utilization/:id/export",
+            "file": "apps/api/src/modules/reports/utilization-report.controller.ts"
+          }
+        ]
+      }
     },
     {
       "id": "FE-mrr-016",
@@ -4495,8 +4567,8 @@
   "rollup": {
     "features_total": 33,
     "by_status": {
-      "validated": 27,
-      "draft": 6
+      "validated": 28,
+      "draft": 5
     },
     "by_origin": {
       "new": 33

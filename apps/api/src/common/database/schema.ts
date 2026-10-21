@@ -94,6 +94,27 @@ export interface RoomMaintenancePeriodsTable {
   set_by: string;
 }
 
+export interface UtilizationReportsTable {
+  id: Generated<string>;
+  period_type: 'MONTH' | 'YEAR';
+  /** DATE columns — written as YYYY-MM-DD and read back with to_char, never as a local-midnight Date. */
+  period_start: ColumnType<Date, string, never>;
+  period_end: ColumnType<Date, string, never>;
+  issue_no: number;
+  issued_by: string;
+  issued_at: Date;
+}
+
+export interface UtilizationReportLinesTable {
+  report_id: string;
+  room_id: string;
+  booked_minutes: number;
+  operating_minutes: number;
+  /** numeric(5,2) — node-pg hands it over as a string, so "66.67" is never a float. */
+  utilization_pct: ColumnType<string | null, string | null, never>;
+  rank: number | null;
+}
+
 export interface Database {
   users: UsersTable;
   meeting_rooms: MeetingRoomsTable;
@@ -105,4 +126,6 @@ export interface Database {
   booking_audit_entries: BookingAuditEntriesTable;
   booking_adjustment_requests: BookingAdjustmentRequestsTable;
   room_maintenance_periods: RoomMaintenancePeriodsTable;
+  utilization_reports: UtilizationReportsTable;
+  utilization_report_lines: UtilizationReportLinesTable;
 }
