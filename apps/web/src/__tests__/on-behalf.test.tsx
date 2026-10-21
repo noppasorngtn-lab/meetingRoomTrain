@@ -34,6 +34,8 @@ beforeEach(() => {
     if (url === GET && method === 'GET') r = { status: 200, body: booking };
     // The page reads the booking's trail too (FE-mrr-012); it is FE-mrr-012's to show.
     if (url === `${GET}/audit` && method === 'GET') r = { status: 200, body: [] };
+    // Who is signed in, as API-035 answers (FE-mrr-038): a Room Administrator, so the commands show.
+    if (url === '/auth/me' && method === 'GET') r = { status: 200, body: { fullName: 'RA1', role: 'ROOM_ADMINISTRATOR' } };
     const asked = replies[`${method} ${url}`];
     if (asked) r = typeof asked === 'function' ? await asked() : asked;
     return new Response(r.body === undefined ? null : JSON.stringify(r.body), { status: r.status, headers: { 'content-type': 'application/json' } });

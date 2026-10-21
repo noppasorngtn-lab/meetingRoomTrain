@@ -27,7 +27,12 @@ const entry = (over: object = {}) => ({
 
 beforeEach(() => {
   calls = [];
-  replies = { [GET]: { status: 200, body: booking() }, [AUDIT]: { status: 200, body: [entry()] } };
+  replies = {
+    [GET]: { status: 200, body: booking() },
+    [AUDIT]: { status: 200, body: [entry()] },
+    // Who is signed in, as API-035 answers (FE-mrr-038): a Room Administrator, so the commands show.
+    '/auth/me': { status: 200, body: { fullName: 'RA1', role: 'ROOM_ADMINISTRATOR' } },
+  };
   vi.stubGlobal('fetch', vi.fn(async (url: string, init?: RequestInit) => {
     const method = init?.method ?? 'GET';
     calls.push({ method, url });

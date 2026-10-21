@@ -13,6 +13,8 @@ let booking: Record<string, unknown>;
 let decideReply: Reply | (() => Reply | Promise<Reply>);
 let getReply: Reply | null;
 let calls: Call[];
+/** Who is signed in, as API-035 answers (FE-mrr-038); a Room Administrator unless a test says otherwise. */
+let me: Reply;
 
 /** Far enough ahead that "before the start" holds whatever day the test runs. */
 const FUTURE = { startAt: '2099-10-18T03:00:00.000Z', endAt: '2099-10-18T04:00:00.000Z' };
@@ -25,6 +27,7 @@ beforeEach(() => {
   getReply = null;
   decideReply = { status: 200, body: { message: 'เปลี่ยนผลการอนุมัติสำเร็จ' } };
   calls = [];
+  me = { status: 200, body: { fullName: 'RA1', role: 'ROOM_ADMINISTRATOR' } };
   vi.stubGlobal('fetch', vi.fn(async (url: string, init?: RequestInit) => {
     const method = init?.method ?? 'GET';
     calls.push({ method, url, body: init?.body ? JSON.parse(String(init.body)) : undefined });
@@ -32,6 +35,7 @@ beforeEach(() => {
     if (url === GET && method === 'GET') r = getReply ?? { status: 200, body: booking };
     // The page reads the booking's trail too (FE-mrr-012); nothing has been done to it yet.
     if (url === `${GET}/audit` && method === 'GET') r = { status: 200, body: [] };
+    if (url === '/auth/me' && method === 'GET') r = me;
     if (url === DECIDE && method === 'POST') {
       r = typeof decideReply === 'function' ? await decideReply() : decideReply;
       // The api has changed it; the next read says so.
@@ -250,5 +254,29 @@ describe('FE-mrr-008 change an approval decision page (UI-mrr-010)', () => {
     fireEvent.click(screen.getByTestId('ui-mrr-010-back'));
 
     expect(await screen.findByRole('heading', { level: 1, name: 'รายการรออนุมัติ' })).toBeInTheDocument();
+  });
+
+  it('AC-mrr-087 a System Administrator before the start sees the booking and its trail, but no reason and no เปลี่ยนผลการอนุมัติ — the status stays อนุมัติแล้ว', async () => {
+    me = { status: 200, body: { fullName: 'SA1', role: 'SYSTEM_ADMINISTRATOR' } };
+    open();
+
+    expect(await loaded()).toHaveTextContent('ประชุมลูกค้า');
+    await waitFor(() => expect(calls.some((c) => c.url === '/auth/me')).toBe(true));
+    await waitFor(() => expect(screen.queryByTestId('ui-mrr-010-ent-010-reason')).not.toBeInTheDocument());
+    expect(screen.queryByTestId('ui-mrr-010-change-decision')).not.toBeInTheDocument();
+    expect(screen.getByTestId('ui-mrr-010-ent-007-status')).toHaveTextContent('อนุมัติแล้ว');
+    expect(screen.getByTestId('ui-mrr-010-back')).toBeInTheDocument();
+    expect(calls.some((c) => c.url === `${GET}/audit`)).toBe(true);
+    expect(posts()).toHaveLength(0);
+  });
+
+  it('while API-035 has not answered, nothing is offered — the default is no command', async () => {
+    me = { status: 500 };
+    open();
+
+    await loaded();
+    await waitFor(() => expect(calls.some((c) => c.url === '/auth/me')).toBe(true));
+    expect(screen.queryByTestId('ui-mrr-010-change-decision')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('ui-mrr-010-ent-010-reason')).not.toBeInTheDocument();
   });
 });

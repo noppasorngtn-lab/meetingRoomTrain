@@ -2326,29 +2326,29 @@
           "hash": "sha256:3333432659f54346e15e6eee76bf3e0ea342cefc96cc4e3a3151b9fd4a76e66e"
         }
       ],
-      "status": "draft",
+      "status": "validated",
       "build": {
-        "iterations": 0,
+        "iterations": 1,
         "proof": [
           {
             "cmd": "powershell -File scripts/dev-build.ps1 -App frontend-web",
-            "result": "tsc --noEmit && vite build · built in 753ms · exit 0",
-            "at": "2026-10-20"
+            "result": "tsc --noEmit && vite build · built in 912ms · exit 0",
+            "at": "2026-10-21"
           },
           {
             "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web -Filter FE-mrr-008",
-            "result": "Test Files 1 passed | 7 skipped (8) · Tests 19 passed | 104 skipped (123) · exit 0",
-            "at": "2026-10-20"
+            "result": "Test Files 1 passed | 14 skipped (15) · Tests 21 passed | 213 skipped (234) · exit 0",
+            "at": "2026-10-21"
           },
           {
             "cmd": "powershell -File scripts/dev-test.ps1",
-            "result": "api: Test Suites 16 passed, Tests 202 passed · web: Test Files 8 passed, Tests 123 passed · exit 0",
-            "at": "2026-10-20"
+            "result": "api: Test Suites: 32 passed, 32 total · Tests: 394 passed, 394 total · web: Test Files 15 passed (15) · Tests 234 passed (234) · exit 0",
+            "at": "2026-10-21"
           }
         ],
         "last_error": null,
         "recorded_by": "Noppasorn",
-        "recorded_at": "2026-10-20"
+        "recorded_at": "2026-10-21"
       },
       "manifest": {
         "files": [
@@ -2356,7 +2356,11 @@
           "apps/web/src/features/booking/ManageBookingPage.tsx",
           "apps/web/src/__tests__/shell.test.tsx",
           "apps/web/src/__tests__/pending-approvals.test.tsx",
-          "apps/web/src/__tests__/change-decision.test.tsx"
+          "apps/web/src/__tests__/change-decision.test.tsx",
+          "apps/web/src/shared/me.ts",
+          "apps/web/src/__tests__/on-behalf.test.tsx",
+          "apps/web/src/__tests__/booking-adjustment.test.tsx",
+          "apps/web/src/__tests__/audit-trail.test.tsx"
         ],
         "unit_tests": [
           {
@@ -5130,7 +5134,10 @@
             "file": "apps/api/src/modules/users/me.controller.ts"
           }
         ]
-      }
+      },
+      "commits": [
+        "dac9dd961e987a962b6a165634258d0f049030ff"
+      ]
     }
   ],
   "gaps": [
@@ -5434,8 +5441,8 @@
   "rollup": {
     "features_total": 34,
     "by_status": {
-      "validated": 31,
-      "draft": 3
+      "validated": 32,
+      "draft": 2
     },
     "by_origin": {
       "new": 34

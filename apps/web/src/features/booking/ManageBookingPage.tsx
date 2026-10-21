@@ -1,6 +1,7 @@
 import { FormEvent, useCallback, useEffect, useState } from 'react';
 import { Navigate, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { ApiError, getJson, postJson } from '../../shared/api';
+import { getMe, Role } from '../../shared/me';
 import { routeOf } from '../../shared/sitemap';
 import { slotLabel } from '../../shared/time';
 import { AuditTrail } from './AuditTrail';
@@ -81,6 +82,17 @@ export function ManageBookingPage() {
   }, [bookingId]);
 
   useEffect(fetchBooking, [fetchBooking]);
+
+  // UI-mrr-010 unauthorized state: a System Administrator sees the trail only (AC-mrr-086 · 087).
+  // Until API-035 answers there is no role, and no role means no command.
+  const [role, setRole] = useState<Role | null>(null);
+  useEffect(() => {
+    getMe()
+      .then((me) => setRole(me.role))
+      .catch((err) => {
+        if (err instanceof ApiError && err.status === 401) setLoad({ kind: 'unauthorized' });
+      });
+  }, []);
 
   const signedOut = useCallback(() => setLoad({ kind: 'unauthorized' }), []);
   // One place on the page whichever state it is in, so the trail keeps what it read.
@@ -218,11 +230,13 @@ export function ManageBookingPage() {
   }
 
   const { booking } = load;
-  const target = changeTo(booking);
+  // ACL-026 · ACL-027: the commands are a Room Administrator's; every other role reads the booking.
+  const acts = role === 'ROOM_ADMINISTRATOR';
+  const target = acts ? changeTo(booking) : null;
   // ACL-010 · ACL-011 enforced at the ui too: the title opens once the meeting has started — for a
   // direct edit while it is under way, for a request once it has ended.
-  const underWay = meetingUnderWay(booking);
-  const adjustable = meetingEnded(booking);
+  const underWay = acts && meetingUnderWay(booking);
+  const adjustable = acts && meetingEnded(booking);
   const editable = underWay || adjustable;
   const onSubmit = (e: FormEvent) => {
     if (target) return changeDecision(e, target);
@@ -257,68 +271,71 @@ export function ManageBookingPage() {
           <span className="alert-title">{failure}</span>
         </div>
       )}
-      <form className="card" noValidate onSubmit={onSubmit}>
-        <div className={reasonError ? 'field err' : 'field'}>
-          <label htmlFor="ui-mrr-010-ent-010-reason">
-            เหตุผล<span className="req" aria-hidden="true">*</span>
-          </label>
-          <textarea
-            className="input"
-            id="ui-mrr-010-ent-010-reason"
-            name="เหตุผล"
-            data-testid="ui-mrr-010-ent-010-reason"
-            rows={3}
-            value={reason}
-            onChange={(e) => setReason(e.target.value)}
-            required
-            aria-invalid={reasonError ? true : undefined}
-            aria-describedby={reasonError ? 'ui-mrr-010-ent-010-reason-error' : undefined}
-          />
-          {reasonError && <span className="errtext" id="ui-mrr-010-ent-010-reason-error">{reasonError}</span>}
-        </div>
-        <div className="actions">
-          {/* The admin-actions zone's order: edit-on-behalf · change-decision · cancel-on-behalf · back. */}
-          {editable && (
-            <button
-              type="submit"
-              className="btn btn-primary"
-              data-testid="ui-mrr-010-edit-on-behalf"
-              disabled={saving}
-              aria-busy={saving || undefined}
-            >
-              แก้แทนผู้จอง
-            </button>
-          )}
-          {/* ACL-009 enforced at the ui too: offered only for a decision made and a meeting not started. */}
-          {target && (
-            <button
-              type="submit"
-              className="btn btn-primary"
-              data-testid="ui-mrr-010-change-decision"
-              disabled={saving}
-              aria-busy={saving || undefined}
-            >
-              เปลี่ยนผลการอนุมัติ
-            </button>
-          )}
-          {/* ACL-010 enforced at the ui too: only while the meeting is under way. */}
-          {underWay && (
-            <button
-              type="button"
-              className="btn btn-secondary"
-              data-testid="ui-mrr-010-cancel-on-behalf"
-              disabled={saving}
-              onClick={cancelOnBehalf}
-            >
-              ยกเลิกแทนผู้จอง
-            </button>
-          )}
-          {back}
-          {underWay && <span className="help">ยกเลิกแล้ว ระบบจะส่ง Email แจ้งผู้จองและผู้เข้าร่วมทุกคน</span>}
-          {adjustable && <span className="help">การประชุมจบแล้ว — การแก้ไขจะเป็นคำขอให้ผู้ดูแลห้องคนอื่นอนุมัติ</span>}
-          {target && <span className="help">ผลใหม่จะเป็น '{STATUS_LABEL[target]}'</span>}
-        </div>
-      </form>
+      {!acts && <div className="actions">{back}</div>}
+      {acts && (
+        <form className="card" noValidate onSubmit={onSubmit}>
+          <div className={reasonError ? 'field err' : 'field'}>
+            <label htmlFor="ui-mrr-010-ent-010-reason">
+              เหตุผล<span className="req" aria-hidden="true">*</span>
+            </label>
+            <textarea
+              className="input"
+              id="ui-mrr-010-ent-010-reason"
+              name="เหตุผล"
+              data-testid="ui-mrr-010-ent-010-reason"
+              rows={3}
+              value={reason}
+              onChange={(e) => setReason(e.target.value)}
+              required
+              aria-invalid={reasonError ? true : undefined}
+              aria-describedby={reasonError ? 'ui-mrr-010-ent-010-reason-error' : undefined}
+            />
+            {reasonError && <span className="errtext" id="ui-mrr-010-ent-010-reason-error">{reasonError}</span>}
+          </div>
+          <div className="actions">
+            {/* The admin-actions zone's order: edit-on-behalf · change-decision · cancel-on-behalf · back. */}
+            {editable && (
+              <button
+                type="submit"
+                className="btn btn-primary"
+                data-testid="ui-mrr-010-edit-on-behalf"
+                disabled={saving}
+                aria-busy={saving || undefined}
+              >
+                แก้แทนผู้จอง
+              </button>
+            )}
+            {/* ACL-009 enforced at the ui too: offered only for a decision made and a meeting not started. */}
+            {target && (
+              <button
+                type="submit"
+                className="btn btn-primary"
+                data-testid="ui-mrr-010-change-decision"
+                disabled={saving}
+                aria-busy={saving || undefined}
+              >
+                เปลี่ยนผลการอนุมัติ
+              </button>
+            )}
+            {/* ACL-010 enforced at the ui too: only while the meeting is under way. */}
+            {underWay && (
+              <button
+                type="button"
+                className="btn btn-secondary"
+                data-testid="ui-mrr-010-cancel-on-behalf"
+                disabled={saving}
+                onClick={cancelOnBehalf}
+              >
+                ยกเลิกแทนผู้จอง
+              </button>
+            )}
+            {back}
+            {underWay && <span className="help">ยกเลิกแล้ว ระบบจะส่ง Email แจ้งผู้จองและผู้เข้าร่วมทุกคน</span>}
+            {adjustable && <span className="help">การประชุมจบแล้ว — การแก้ไขจะเป็นคำขอให้ผู้ดูแลห้องคนอื่นอนุมัติ</span>}
+            {target && <span className="help">ผลใหม่จะเป็น '{STATUS_LABEL[target]}'</span>}
+          </div>
+        </form>
+      )}
     </>,
   );
 }

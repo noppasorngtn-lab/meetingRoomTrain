@@ -31,6 +31,8 @@ beforeEach(() => {
     if (url === GET && method === 'GET') r = { status: 200, body: booking };
     // The page reads the booking's trail too (FE-mrr-012); nothing has been done to it yet.
     if (url === `${GET}/audit` && method === 'GET') r = { status: 200, body: [] };
+    // Who is signed in, as API-035 answers (FE-mrr-038): a Room Administrator, so the commands show.
+    if (url === '/auth/me' && method === 'GET') r = { status: 200, body: { fullName: 'RA1', role: 'ROOM_ADMINISTRATOR' } };
     // A request changes nothing on the booking until another Room Administrator approves (BR-mrr-014).
     if (url === ADMIN_EDIT && method === 'POST') r = typeof editReply === 'function' ? await editReply() : editReply;
     return new Response(r.body === undefined ? null : JSON.stringify(r.body), { status: r.status, headers: { 'content-type': 'application/json' } });
