@@ -25,10 +25,16 @@ const pageOf = (items: object[], page = 1, total = items.length): Reply => ({ st
 
 const LIST = '/rooms?page=1';
 const FACILITIES = '/facilities?active=true';
+const ME = '/auth/me';
 
 beforeEach(() => {
   calls = [];
-  replies = { [LIST]: pageOf([row()]), [FACILITIES]: { status: 200, body: [PROJECTOR, MIC] } };
+  replies = {
+    [LIST]: pageOf([row()]),
+    [FACILITIES]: { status: 200, body: [PROJECTOR, MIC] },
+    // Who is signed in, as API-035 answers (FE-mrr-038): a Room Administrator unless a test says otherwise.
+    [ME]: { status: 200, body: { fullName: 'RA1', role: 'ROOM_ADMINISTRATOR' } },
+  };
   vi.stubGlobal('fetch', vi.fn(async (url: string, init?: RequestInit) => {
     const method = init?.method ?? 'GET';
     calls.push({ method, url, ...(init?.body ? { body: JSON.parse(init.body as string) } : {}) });
@@ -381,6 +387,43 @@ describe('FE-mrr-013 facilities page (UI-mrr-014)', () => {
     const error = await screen.findByText('มีสิ่งอำนวยความสะดวกชื่อนี้แล้ว');
     expect(error.closest('tr')).toBe(screen.getAllByRole('row')[2]);
     expect(screen.getAllByTestId('ui-mrr-014-ent-004-name')[1]).toHaveAttribute('aria-invalid', 'true');
+  });
+
+  it.each([['a General User', 'GENERAL_USER'], ['a System Administrator', 'SYSTEM_ADMINISTRATOR']])(
+    'AC-mrr-088 %s opening the page is told คุณไม่มีสิทธิ์เข้าหน้านี้ and sees no facility, no เพิ่ม and no บันทึก',
+    async (_who, role) => {
+      replies[ME] = { status: 200, body: { fullName: 'U1', role } };
+      open('/UI-mrr-014');
+
+      expect(await screen.findByRole('alert')).toHaveTextContent('คุณไม่มีสิทธิ์เข้าหน้านี้');
+      expect(screen.queryByText('โปรเจคเตอร์')).not.toBeInTheDocument();
+      expect(screen.queryByTestId('ui-mrr-014-ent-004-name')).not.toBeInTheDocument();
+      expect(screen.queryByTestId('ui-mrr-014-add')).not.toBeInTheDocument();
+      expect(screen.queryByTestId('ui-mrr-014-save')).not.toBeInTheDocument();
+      expect(screen.getByTestId('ui-mrr-014-back')).toBeInTheDocument();
+      expect(sent()).toEqual([]);
+    },
+  );
+
+  it('while API-035 cannot say who is signed in, nothing is listed and โหลดใหม่ asks again', async () => {
+    replies[ME] = { status: 500 };
+    open('/UI-mrr-014');
+
+    expect(await screen.findByRole('alert')).toHaveTextContent('โหลดรายการสิ่งอำนวยความสะดวกไม่สำเร็จ');
+    expect(screen.queryByTestId('ui-mrr-014-ent-004-name')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('ui-mrr-014-add')).not.toBeInTheDocument();
+
+    replies[ME] = { status: 200, body: { fullName: 'RA1', role: 'ROOM_ADMINISTRATOR' } };
+    fireEvent.click(screen.getByRole('button', { name: 'โหลดใหม่' }));
+    await screen.findAllByTestId('ui-mrr-014-ent-004-name');
+    expect(names()).toEqual(['โปรเจคเตอร์', 'ไมโครโฟน']);
+  });
+
+  it('someone whose session API-035 refuses is taken to sign-in', async () => {
+    replies[ME] = { status: 401, body: { message: 'Unauthorized' } };
+    open('/UI-mrr-014');
+
+    expect(await screen.findByRole('heading', { level: 1, name: 'เข้าสู่ระบบ' })).toBeInTheDocument();
   });
 
   it('unauthorized state — anyone but a Room Administrator is refused at the row with the api\'s words', async () => {

@@ -2726,7 +2726,8 @@
         "apis": []
       },
       "commits": [
-        "5b7c34104ffdc7ce0c11ef8e9e4452a1b7a34878"
+        "5b7c34104ffdc7ce0c11ef8e9e4452a1b7a34878",
+        "587fb51d16cb6cf40418320c6888230643477f4f"
       ],
       "review": {
         "at": "2026-10-21",
@@ -3772,27 +3773,27 @@
           "hash": "sha256:3632fa6ee698b86cf7be33a14f1bff61ef6765f6cde4e3c0a8dbadb0abe477fd"
         }
       ],
-      "status": "draft",
+      "status": "validated",
       "build": {
-        "iterations": 1,
+        "iterations": 0,
         "proof": [
           {
             "cmd": "powershell -File scripts/dev-build.ps1 -App frontend-web",
-            "result": "tsc --noEmit && vite build · built in 854ms · exit 0",
+            "result": "tsc --noEmit && vite build · built in 845ms · exit 0",
             "at": "2026-10-21"
           },
           {
             "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web -Filter FE-mrr-013",
-            "result": "Test Files 1 passed | 12 skipped (13) · Tests 33 passed | 180 skipped (213) · exit 0",
+            "result": "Test Files 1 passed | 14 skipped (15) · Tests 37 passed | 203 skipped (240) · exit 0",
             "at": "2026-10-21"
           },
           {
             "cmd": "powershell -File scripts/dev-test.ps1",
-            "result": "api: Test Suites 31 passed, Tests 390 passed · web: Test Files 13 passed, Tests 213 passed · exit 0",
+            "result": "api: Test Suites: 32 passed, 32 total · Tests: 394 passed, 394 total · web: Test Files 15 passed (15) · Tests 240 passed (240) · exit 0",
             "at": "2026-10-21"
           }
         ],
-        "last_error": "iteration 1: 7 form tests read the first role=status, which was the form's own กำลังบันทึก… — they now wait for the shell's notice",
+        "last_error": null,
         "recorded_by": "Noppasorn",
         "recorded_at": "2026-10-21"
       },
@@ -3804,7 +3805,8 @@
           "apps/web/src/features/rooms/RoomsPage.tsx",
           "apps/web/src/features/rooms/RoomFormPage.tsx",
           "apps/web/src/features/rooms/FacilitiesPage.tsx",
-          "apps/web/src/__tests__/room-admin.test.tsx"
+          "apps/web/src/__tests__/room-admin.test.tsx",
+          "apps/web/src/shared/me.ts"
         ],
         "unit_tests": [
           {
@@ -5443,8 +5445,7 @@
   "rollup": {
     "features_total": 34,
     "by_status": {
-      "validated": 33,
-      "draft": 1
+      "validated": 34
     },
     "by_origin": {
       "new": 34

@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { ApiError, getJson, patchJson, postJson } from '../../shared/api';
+import { getMe } from '../../shared/me';
 import { Pager } from '../../shared/Pager';
 import { routeOf } from '../../shared/sitemap';
 
@@ -14,9 +15,10 @@ interface Row {
   error: string | null;
 }
 
-type Load = { kind: 'loading' } | { kind: 'ready' } | { kind: 'failed' } | { kind: 'unauthorized' };
+type Load = { kind: 'loading' } | { kind: 'ready' } | { kind: 'failed' } | { kind: 'forbidden' } | { kind: 'unauthorized' };
 
 const SIGN_IN = 'UI-mrr-001';
+const FORBIDDEN = 'คุณไม่มีสิทธิ์เข้าหน้านี้';
 /** add's and save's destinationRef is self; back's is the rooms. */
 const SELF = 'UI-mrr-014';
 const ROOMS = 'UI-mrr-012';
@@ -35,10 +37,14 @@ export function FacilitiesPage() {
   const [page, setPage] = useState(1);
   const [saving, setSaving] = useState<string | null>(null);
 
+  // UI-mrr-014 unauthorized state (AC-mrr-088 · ACL-031): API-002 answers every role, so the page asks
+  // API-035 who is calling first, and lists nothing until it knows that is a Room Administrator.
   const fetchRows = useCallback(() => {
     setLoad({ kind: 'loading' });
-    getJson<{ id: string; name: string }[]>('/facilities?active=true')
-      .then((list) => {
+    getMe()
+      .then(async (me) => {
+        if (me.role !== 'ROOM_ADMINISTRATOR') return setLoad({ kind: 'forbidden' });
+        const list = await getJson<{ id: string; name: string }[]>('/facilities?active=true');
         setRows(list.map((f) => ({ key: f.id, id: f.id, name: f.name, active: true, saved: { name: f.name, active: true }, error: null })));
         setLoad({ kind: 'ready' });
       })
@@ -105,9 +111,14 @@ export function FacilitiesPage() {
       <h1>สิ่งอำนวยความสะดวก</h1>
       <p className="purpose">Room Administrator เพิ่ม แก้ชื่อ หรือปิดใช้รายการสิ่งอำนวยความสะดวกที่ใช้กรองและเลือกตอนจอง</p>
       <div className="actions">
-        {addButton}
+        {load.kind === 'ready' && addButton}
         {back}
       </div>
+      {load.kind === 'forbidden' && (
+        <div role="alert" className="alert alert-danger">
+          <span className="alert-title">{FORBIDDEN}</span>
+        </div>
+      )}
       {/* Not role="status": the shell's notice after a save is the page's one status message. */}
       {load.kind === 'loading' && <p className="help" aria-live="polite">กำลังโหลดรายการสิ่งอำนวยความสะดวก…</p>}
       {load.kind === 'failed' && (
