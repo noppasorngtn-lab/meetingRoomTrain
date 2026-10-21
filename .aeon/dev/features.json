@@ -5494,5 +5494,39 @@
     },
     "gaps_open": 20,
     "ready_for_phase5": false
+  },
+  "deploy": {
+    "env": "dev",
+    "proof": [
+      {
+        "cmd": "docker compose -f docker/docker-compose.yml config --quiet",
+        "result": "exit 0",
+        "at": "2026-10-21"
+      },
+      {
+        "cmd": "docker compose -f docker/docker-compose.yml up -d --build --wait --wait-timeout 180",
+        "result": "exit 0 · db, mailpit, api, web Healthy · api log: migrations applied 001–007",
+        "at": "2026-10-21"
+      },
+      {
+        "cmd": "curl http://localhost:3000/auth/me ; curl http://localhost:4173/rooms ; curl http://localhost:4173/auth/me",
+        "result": "api 401 json · web /rooms 401 json (proxied) · web /auth/me 200 text/html (NOT proxied — vite.config proxy lists only /rooms /bookings /users /facilities)",
+        "at": "2026-10-21"
+      },
+      {
+        "cmd": "docker compose -f docker/docker-compose.yml down",
+        "result": "exit 0 · 4 containers + network removed",
+        "at": "2026-10-21"
+      }
+    ],
+    "last_error": null,
+    "history": [
+      {
+        "env": "dev",
+        "at": "2026-10-21",
+        "by": "Noppasorn",
+        "result": "4/4 services healthy · web proxy misses /auth /me /reports /adjustment-requests"
+      }
+    ]
   }
 }

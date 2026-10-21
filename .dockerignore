@@ -1,0 +1,8 @@
+# Build context is the repo root (npm workspaces + the theme under .aeon/mockup/handoff).
+**/node_modules
+**/dist
+**/coverage
+.git
+.claude
+.playwright-mcp
+docker/.env
