@@ -2735,17 +2735,22 @@
         "passes": {
           "bugs": "pass",
           "security": "pass",
-          "compliance": "concerns"
+          "compliance": "pass"
         },
         "findings": [
           {
             "severity": "important",
             "text_th": "UI-mrr-010 สถานะ unauthorized ประกาศว่า System Administrator เห็นเฉพาะร่องรอย ปุ่มคำสั่งไม่แสดง แต่ ManageBookingPage ตัดสินการแสดงปุ่ม แก้แทนผู้จอง · ยกเลิกแทนผู้จอง จากสถานะและเวลาของการจองเท่านั้น ไม่ดูบทบาท ขณะที่ API-007 ให้ SYSTEM_ADMINISTRATOR อ่านการจองได้ (SEES_ALL ใน booking-edit.service.ts) ⇒ System Administrator ที่เปิดหน้านี้ระหว่างประชุมจะเห็นสองปุ่มนี้ กดแล้ว API ปฏิเสธ (assertRoomAdministrator) — สิทธิ์ยังปลอดภัยที่ API แต่หน้าจอไม่ตรงสเปก และไม่มีเทสของบทบาทนี้ (รูปเดียวกับปุ่ม เปลี่ยนผลการอนุมัติ ของ FE-mrr-008 ที่มีอยู่ก่อน)",
-            "resolved": false
+            "resolved": true
           },
           {
             "severity": "minor",
             "text_th": "meetingUnderWay / meetingEnded คำนวณจาก Date.now() ตอน render เท่านั้น — หน้าที่เปิดไว้ตั้งแต่ก่อนเวลาเริ่มจะไม่แสดงปุ่มจนกว่าจะโหลดใหม่ และหน้าที่เปิดค้างข้ามเวลาจบจะยังแสดงปุ่ม ยกเลิกแทนผู้จอง (API ปฏิเสธและหน้าแสดงข้อความของ API ตามเทส ⇒ ไม่เสียข้อมูล แค่ผู้ใช้สับสน)",
+            "resolved": false
+          },
+          {
+            "severity": "minor",
+            "text_th": "ถ้า API-035 ล้มด้วยเหตุอื่นที่ไม่ใช่ 401 (เช่น 500) ManageBookingPage ไม่ตั้งบทบาทและไม่แจ้งอะไร — Room Administrator เห็นการจองโดยไม่มีช่องเหตุผลและปุ่มคำสั่ง ไม่มีข้อความบอกเหตุ และปุ่ม โหลดใหม่ (ซึ่งแสดงเฉพาะเมื่อโหลดการจองล้ม) ก็ไม่ถาม /auth/me ซ้ำ ต้องโหลดทั้งหน้าใหม่ · ปลอดภัยเพราะค่าเริ่มต้นคือไม่ให้สิทธิ์ แต่สถานะ error ของ UI-mrr-010 ประกาศว่าให้แจ้งเหตุ (มาจาก e653e54 · FE-mrr-008 ใช้โค้ดเดียวกัน)",
             "resolved": false
           }
         ]
@@ -4040,7 +4045,8 @@
         "apis": []
       },
       "commits": [
-        "7f295c030ba1341409956adde0bc5912eb6825da"
+        "7f295c030ba1341409956adde0bc5912eb6825da",
+        "bd3175706fb57fd03521c46ad869e2b90de2e253"
       ]
     },
     {
