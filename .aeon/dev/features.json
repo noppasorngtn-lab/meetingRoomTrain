@@ -2434,7 +2434,8 @@
         "apis": []
       },
       "commits": [
-        "17e9fb0cc4ec3e91cfb17d34bf1c06883c9cd1c4"
+        "17e9fb0cc4ec3e91cfb17d34bf1c06883c9cd1c4",
+        "e653e542a402dfc3cdb8cc9e0384ad1f92721fa1"
       ]
     },
     {
@@ -2622,23 +2623,23 @@
           "hash": "sha256:c4dd2a664eb18ad7d4f725de40ad81e41d7d9d950a6ee03d9d1bb0bbd717c8f0"
         }
       ],
-      "status": "draft",
+      "status": "validated",
       "build": {
         "iterations": 0,
         "proof": [
           {
             "cmd": "powershell -File scripts/dev-build.ps1 -App frontend-web",
-            "result": "tsc --noEmit && vite build · built in 841ms · exit 0",
+            "result": "tsc --noEmit && vite build · built in 828ms · exit 0",
             "at": "2026-10-21"
           },
           {
             "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web -Filter FE-mrr-009",
-            "result": "Test Files 2 passed | 13 skipped (15) · Tests 13 passed | 219 skipped (232) · exit 0",
+            "result": "Tests 15 passed | 221 skipped (236) · exit 0 — the two new tests fail on ManageBookingPage.tsx as of e653e54~1 (2 failed | 13 passed)",
             "at": "2026-10-21"
           },
           {
             "cmd": "powershell -File scripts/dev-test.ps1",
-            "result": "api: Test Suites 31 passed, Tests 390 passed · web: Test Files 15 passed, Tests 232 passed · exit 0",
+            "result": "api: Test Suites: 32 passed, 32 total · Tests: 394 passed, 394 total · web: Test Files 15 passed (15) · Tests 236 passed (236) · exit 0",
             "at": "2026-10-21"
           }
         ],
@@ -2650,7 +2651,8 @@
         "files": [
           "apps/web/src/features/booking/ManageBookingPage.tsx",
           "apps/web/src/__tests__/on-behalf.test.tsx",
-          "apps/web/src/__tests__/booking-adjustment.test.tsx"
+          "apps/web/src/__tests__/booking-adjustment.test.tsx",
+          "apps/web/src/shared/me.ts"
         ],
         "unit_tests": [
           {
@@ -5441,8 +5443,8 @@
   "rollup": {
     "features_total": 34,
     "by_status": {
-      "validated": 32,
-      "draft": 2
+      "validated": 33,
+      "draft": 1
     },
     "by_origin": {
       "new": 34

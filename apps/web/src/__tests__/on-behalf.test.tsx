@@ -193,4 +193,26 @@ describe('FE-mrr-009 edit or cancel on behalf of the booker (UI-mrr-010)', () =>
 
     expect(screen.getByTestId('ui-mrr-010-cancel-on-behalf')).toHaveTextContent('ยกเลิกแทนผู้จอง');
   });
+
+  it('AC-mrr-086 a System Administrator at 10:30 sees the booking and its trail, but no reason, no แก้แทนผู้จอง and no ยกเลิกแทนผู้จอง — the booking stays', async () => {
+    replies['GET /auth/me'] = { status: 200, body: { fullName: 'SA1', role: 'SYSTEM_ADMINISTRATOR' } };
+    open();
+
+    expect(await loaded()).toHaveTextContent('ประชุมทีม');
+    await waitFor(() => expect(calls.some((c) => c.url === '/auth/me')).toBe(true));
+    await waitFor(() => expect(screen.queryByTestId('ui-mrr-010-ent-010-reason')).not.toBeInTheDocument());
+    expect(screen.queryByTestId('ui-mrr-010-edit-on-behalf')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('ui-mrr-010-cancel-on-behalf')).not.toBeInTheDocument();
+    expect(screen.queryByRole('textbox', { name: /หัวข้อ/ })).not.toBeInTheDocument();
+    expect(screen.getByTestId('ui-mrr-010-back')).toBeInTheDocument();
+    expect(trailReads()).toBeGreaterThan(0);
+    expect(posts()).toHaveLength(0);
+  });
+
+  it('someone whose session API-035 refuses is taken to sign-in', async () => {
+    replies['GET /auth/me'] = { status: 401, body: { message: 'Unauthorized' } };
+    open();
+
+    expect(await screen.findByRole('heading', { level: 1, name: 'เข้าสู่ระบบ' })).toBeInTheDocument();
+  });
 });
