@@ -3093,7 +3093,10 @@
           }
         ],
         "apis": []
-      }
+      },
+      "commits": [
+        "95cfcd01fa725bf2bd1e64491f8c57d8cd5ad08f"
+      ]
     },
     {
       "id": "FE-mrr-033",
@@ -3159,7 +3162,59 @@
           "hash": "sha256:fb41b9378eaf8f1f19c7e0cb570aad7582f05713eab16d4c5f2f9d57de03f3fc"
         }
       ],
-      "status": "draft"
+      "status": "validated",
+      "build": {
+        "iterations": 0,
+        "proof": [
+          {
+            "cmd": "powershell -File scripts/dev-build.ps1 -App api",
+            "result": "tsc -p tsconfig.build.json · exit 0",
+            "at": "2026-10-21"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App api -Filter FE-mrr-033",
+            "result": "Test Suites: 22 skipped, 2 passed, 2 of 24 total · Tests: 286 skipped, 16 passed, 302 total · exit 0",
+            "at": "2026-10-21"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1",
+            "result": "api: Test Suites 24 passed, Tests 302 passed · web: Test Files 10 passed, Tests 151 passed · exit 0",
+            "at": "2026-10-21"
+          }
+        ],
+        "last_error": null,
+        "recorded_by": "Noppasorn",
+        "recorded_at": "2026-10-21"
+      },
+      "manifest": {
+        "files": [
+          "apps/api/src/modules/booking/booking-audit.service.ts",
+          "apps/api/src/modules/booking/booking.controller.ts",
+          "apps/api/src/modules/booking/booking.module.ts",
+          "apps/api/test/booking/booking-audit.spec.ts",
+          "apps/api/test/booking/booking-audit.http.spec.ts"
+        ],
+        "unit_tests": [
+          {
+            "file": "apps/api/test/booking/booking-audit.spec.ts",
+            "calc_ref": null,
+            "gd_ref": null
+          },
+          {
+            "file": "apps/api/test/booking/booking-audit.http.spec.ts",
+            "calc_ref": null,
+            "gd_ref": null
+          }
+        ],
+        "ui_controls": [],
+        "apis": [
+          {
+            "api_ref": "API-016",
+            "route": "GET /bookings/:id/audit",
+            "file": "apps/api/src/modules/booking/booking.controller.ts"
+          }
+        ]
+      }
     },
     {
       "id": "FE-mrr-012",
@@ -4274,8 +4329,8 @@
   "rollup": {
     "features_total": 33,
     "by_status": {
-      "validated": 24,
-      "draft": 9
+      "validated": 25,
+      "draft": 8
     },
     "by_origin": {
       "new": 33

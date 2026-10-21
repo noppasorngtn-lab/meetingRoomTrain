@@ -6,6 +6,7 @@ import { AdjustmentRequestController } from './adjustment-request.controller';
 import { AdjustmentRequestService } from './adjustment-request.service';
 import { BookingApprovalController } from './booking-approval.controller';
 import { BookingApprovalService } from './booking-approval.service';
+import { BookingAuditService } from './booking-audit.service';
 import { BookingEditService } from './booking-edit.service';
 import { BookingController } from './booking.controller';
 import { BookingService } from './booking.service';
@@ -17,7 +18,7 @@ import { MyBookingsService } from './my-bookings.service';
   controllers: [BookingController, BookingApprovalController, MyBookingsController, AdjustmentRequestController],
   providers: [
     { provide: CLOCK, useValue: systemClock }, BookingService, BookingEditService, BookingApprovalService, MyBookingsService,
-    AdjustmentRequestService,
+    AdjustmentRequestService, BookingAuditService,
   ],
 })
 export class BookingModule {}

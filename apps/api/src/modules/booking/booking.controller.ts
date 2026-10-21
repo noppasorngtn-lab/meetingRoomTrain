@@ -4,6 +4,7 @@ import {
 } from '@nestjs/common';
 import { Caller, CurrentUser, UUID } from '../../common/auth/current-user';
 import { EmailDeliveryFailed } from '../notification/booking-notifier';
+import { BookingAuditRow, BookingAuditService, NotAuditReader } from './booking-audit.service';
 import {
   BookingDetail, BookingEditService, BookingLocked, BookingNotFound, EditBookingInput, NotTheBooker,
 } from './booking-edit.service';
@@ -50,7 +51,9 @@ const reasonOf = (body: Record<string, unknown>): string => (typeof body.reason 
 function answer(err: unknown): never {
   if (err instanceof BookingInvalid) throw invalid(err.field, err.message);
   if (err instanceof BookingRoomNotFound || err instanceof BookingNotFound) throw new NotFoundException(err.message);
-  if (err instanceof NotTheBooker || err instanceof NotRoomAdministrator) throw new ForbiddenException(err.message);
+  if (err instanceof NotTheBooker || err instanceof NotRoomAdministrator || err instanceof NotAuditReader) {
+    throw new ForbiddenException(err.message);
+  }
   if (err instanceof RoomUnderMaintenance || err instanceof SlotTaken || err instanceof BookingLocked) {
     throw new ConflictException(err.message);
   }
@@ -63,12 +66,14 @@ function answer(err: unknown): never {
  * API-007 · API-008 · API-009 — read one booking, and let its booker edit or cancel it before it
  * starts (ACL-005 · ACL-006).
  * API-014 · API-015 — once it has started, a Room Administrator edits or cancels it for them (ACL-010).
+ * API-016 — its trail, for a Room or System Administrator (ACL-013 · ACL-018).
  */
 @Controller('bookings')
 export class BookingController {
   constructor(
     private readonly bookings: BookingService,
     private readonly edits: BookingEditService,
+    private readonly audit: BookingAuditService,
   ) {}
 
   @Post()
@@ -94,6 +99,17 @@ export class BookingController {
     if (!UUID.test(id)) throw new NotFoundException('ไม่พบการจอง');
     try {
       return await this.edits.get(caller, id);
+    } catch (err) {
+      answer(err);
+    }
+  }
+
+  /** API-016 — who · when · what · why, oldest first; a General User is refused (BR-mrr-018). */
+  @Get(':id/audit')
+  async trail(@CurrentUser() caller: Caller, @Param('id') id: string): Promise<BookingAuditRow[]> {
+    if (!UUID.test(id)) throw new NotFoundException('ไม่พบการจอง');
+    try {
+      return await this.audit.list(caller, id);
     } catch (err) {
       answer(err);
     }
