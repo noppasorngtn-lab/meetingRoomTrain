@@ -86,6 +86,14 @@ export interface BookingAdjustmentRequestsTable {
   created_at: Date;
 }
 
+export interface RoomMaintenancePeriodsTable {
+  id: Generated<string>;
+  room_id: string;
+  start_at: Date;
+  end_at: Date | null;
+  set_by: string;
+}
+
 export interface Database {
   users: UsersTable;
   meeting_rooms: MeetingRoomsTable;
@@ -96,4 +104,5 @@ export interface Database {
   booking_equipment_requests: BookingEquipmentRequestsTable;
   booking_audit_entries: BookingAuditEntriesTable;
   booking_adjustment_requests: BookingAdjustmentRequestsTable;
+  room_maintenance_periods: RoomMaintenancePeriodsTable;
 }

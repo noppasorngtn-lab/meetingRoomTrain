@@ -3355,7 +3355,10 @@
           }
         ],
         "apis": []
-      }
+      },
+      "commits": [
+        "e2d26d89ea6179a3e5d81a6a8cf42a7993d3a83d"
+      ]
     },
     {
       "id": "FE-mrr-034",
@@ -3588,7 +3591,61 @@
           "hash": "sha256:70b3048818d8c6af914931bd01d0fd6ee3282caa12fe7ae99691ab7addcfd0d8"
         }
       ],
-      "status": "draft"
+      "status": "validated",
+      "build": {
+        "iterations": 0,
+        "proof": [
+          {
+            "cmd": "powershell -File scripts/dev-build.ps1 -App api",
+            "result": "tsc -p tsconfig.build.json · exit 0",
+            "at": "2026-10-21"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App api -Filter FE-mrr-035",
+            "result": "Test Suites: 24 skipped, 2 passed, 2 of 26 total · Tests: 302 skipped, 11 passed, 313 total · exit 0",
+            "at": "2026-10-21"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1",
+            "result": "api: Test Suites 26 passed, Tests 313 passed · web: Test Files 11 passed, Tests 164 passed · exit 0",
+            "at": "2026-10-21"
+          }
+        ],
+        "last_error": null,
+        "recorded_by": "Noppasorn",
+        "recorded_at": "2026-10-21"
+      },
+      "manifest": {
+        "files": [
+          "apps/api/src/common/database/migrations/005_room_maintenance.sql",
+          "apps/api/src/common/database/schema.ts",
+          "apps/api/src/modules/rooms/room-maintenance.service.ts",
+          "apps/api/src/modules/rooms/rooms.controller.ts",
+          "apps/api/src/modules/rooms/rooms.module.ts",
+          "apps/api/test/rooms/room-maintenance.spec.ts",
+          "apps/api/test/rooms/room-maintenance.http.spec.ts"
+        ],
+        "unit_tests": [
+          {
+            "file": "apps/api/test/rooms/room-maintenance.spec.ts",
+            "calc_ref": null,
+            "gd_ref": null
+          },
+          {
+            "file": "apps/api/test/rooms/room-maintenance.http.spec.ts",
+            "calc_ref": null,
+            "gd_ref": null
+          }
+        ],
+        "ui_controls": [],
+        "apis": [
+          {
+            "api_ref": "API-024",
+            "route": "POST /rooms/:id/maintenance",
+            "file": "apps/api/src/modules/rooms/rooms.controller.ts"
+          }
+        ]
+      }
     },
     {
       "id": "FE-mrr-014",
@@ -4405,8 +4462,8 @@
   "rollup": {
     "features_total": 33,
     "by_status": {
-      "validated": 26,
-      "draft": 7
+      "validated": 27,
+      "draft": 6
     },
     "by_origin": {
       "new": 33
