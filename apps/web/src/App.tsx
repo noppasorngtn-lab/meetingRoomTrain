@@ -7,6 +7,9 @@ import { MyBookingsPage } from './features/booking/MyBookingsPage';
 import { PendingApprovalsPage } from './features/booking/PendingApprovalsPage';
 import { CalendarPage } from './features/calendar/CalendarPage';
 import { UtilizationReportPage } from './features/reports/UtilizationReportPage';
+import { FacilitiesPage } from './features/rooms/FacilitiesPage';
+import { RoomFormPage } from './features/rooms/RoomFormPage';
+import { RoomsPage } from './features/rooms/RoomsPage';
 import { AppShell } from './features/shell/AppShell';
 import { AuthLayout } from './features/shell/AuthLayout';
 import { PendingScreen } from './shared/PendingScreen';
@@ -24,6 +27,9 @@ const BUILT: Record<string, JSX.Element> = {
   'UI-mrr-009': <PendingApprovalsPage />,
   'UI-mrr-010': <ManageBookingPage />,
   'UI-mrr-011': <AdjustmentRequestsPage />,
+  'UI-mrr-012': <RoomsPage />,
+  'UI-mrr-013': <RoomFormPage />,
+  'UI-mrr-014': <FacilitiesPage />,
   'RPT-mrr-001': <UtilizationReportPage />,
 };
 
