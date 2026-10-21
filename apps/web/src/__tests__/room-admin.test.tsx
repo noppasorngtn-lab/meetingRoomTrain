@@ -62,11 +62,11 @@ describe('FE-mrr-013 rooms page (UI-mrr-012)', () => {
     expect(calls).toEqual([{ method: 'GET', url: LIST }]);
   });
 
-  it('UIC-001 the row\'s action sits in the first column: แก้ไขห้อง', async () => {
+  it('UIC-001 the row\'s actions sit in the first column, edit before command: แก้ไขห้อง · ปิดปรับปรุง (FE-mrr-014)', async () => {
     open('/UI-mrr-012');
     const first = (await screen.findAllByRole('row'))[1].querySelector('td')!;
 
-    expect(within(first).getAllByRole('button').map((b) => b.textContent)).toEqual(['แก้ไขห้อง']);
+    expect(within(first).getAllByRole('button').map((b) => b.textContent)).toEqual(['แก้ไขห้อง', 'ปิดปรับปรุง']);
   });
 
   it('overflow state — finds by name or code and shows archived rooms only through the filter', async () => {

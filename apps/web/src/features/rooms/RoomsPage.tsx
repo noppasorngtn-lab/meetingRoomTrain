@@ -1,6 +1,6 @@
 import { FormEvent, useCallback, useEffect, useState } from 'react';
 import { Navigate, useNavigate, useSearchParams } from 'react-router-dom';
-import { ApiError, getJson } from '../../shared/api';
+import { ApiError, getJson, postJson } from '../../shared/api';
 import { Pager } from '../../shared/Pager';
 import { routeOf } from '../../shared/sitemap';
 import { ROOM_STATUS_LABEL, RoomStatus } from './status';
@@ -35,11 +35,14 @@ const SIGN_IN = 'UI-mrr-001';
 const ROOM_FORM = 'UI-mrr-013';
 /** facilities' destinationRef in screens.json. */
 const FACILITIES = 'UI-mrr-014';
+/** toggle-maintenance's destination in screens.json — it stays here. */
+const ROOMS = 'UI-mrr-012';
 
 /**
  * UI-mrr-012 — a Room Administrator's rooms (API-020), 20 to a page by code, found by part of a
  * name or a code. ?query=<text>&archived=1&page=<n> keep the search; archived rooms show only
- * through that filter (overflow state).
+ * through that filter (overflow state). ปิดปรับปรุง / เปิดใช้งาน flips a room through API-024 right
+ * here; the bookings it has stay as they are (BR-mrr-012).
  */
 export function RoomsPage() {
   const [params, setParams] = useSearchParams();
@@ -49,6 +52,8 @@ export function RoomsPage() {
   const archived = params.get('archived') === '1';
   const [text, setText] = useState(query);
   const [load, setLoad] = useState<Load>({ kind: 'loading' });
+  const [toggling, setToggling] = useState<string | null>(null);
+  const [failure, setFailure] = useState<string | null>(null);
 
   const fetchPage = useCallback(() => {
     setLoad({ kind: 'loading' });
@@ -66,6 +71,23 @@ export function RoomsPage() {
   }, [page, query, archived]);
 
   useEffect(fetchPage, [fetchPage]);
+
+  const toggle = async (id: string) => {
+    setToggling(id);
+    setFailure(null);
+    try {
+      const done = await postJson<{ message: string }>(`/rooms/${id}/maintenance`, {});
+      // Said through the shell's notice; the room's new status is read again with the list.
+      navigate({ pathname: routeOf(ROOMS), search: params.toString() }, { replace: true, state: { notice: done.message } });
+      fetchPage();
+    } catch (err) {
+      // The room's status does not change (UI-mrr-012 error state) — the api says why when it can.
+      if (err instanceof ApiError && err.status === 401) return setLoad({ kind: 'unauthorized' });
+      setFailure(err instanceof ApiError && err.status !== 500 ? err.message : 'เปลี่ยนสถานะห้องไม่สำเร็จ กรุณากดอีกครั้ง');
+    } finally {
+      setToggling(null);
+    }
+  };
 
   const keep = (next: { query?: string; archived?: boolean; page?: number }) => {
     const q = next.query ?? query;
@@ -130,6 +152,11 @@ export function RoomsPage() {
           </label>
         </div>
       </form>
+      {failure && (
+        <div role="alert" className="alert alert-danger">
+          <span className="alert-title">{failure}</span>
+        </div>
+      )}
       {/* Not role="status": the shell's notice after a save is the page's one status message. */}
       {load.kind === 'loading' && <p className="help" aria-live="polite">กำลังโหลดรายการห้อง…</p>}
       {load.kind === 'failed' && (
@@ -167,9 +194,9 @@ export function RoomsPage() {
                 {load.data.items.map((r) => (
                   <tr key={r.id}>
                     <td>
-                      {/* UIC-001 — row actions in the first column. An archived room is gone and is not edited. */}
-                      <span className="row-actions">
-                        {r.status !== 'ARCHIVED' && (
+                      {/* UIC-001 — row actions in the first column, edit before command. An archived room is gone. */}
+                      {r.status !== 'ARCHIVED' && (
+                        <span className="row-actions">
                           <button
                             type="button"
                             className="more"
@@ -178,8 +205,19 @@ export function RoomsPage() {
                           >
                             แก้ไขห้อง
                           </button>
-                        )}
-                      </span>
+                          {/* The half of ปิดปรับปรุง / เปิดใช้งาน that this room's status allows (STM-mrr-003). */}
+                          <button
+                            type="button"
+                            className="more"
+                            data-testid="ui-mrr-012-toggle-maintenance"
+                            disabled={toggling !== null}
+                            aria-busy={toggling === r.id || undefined}
+                            onClick={() => toggle(r.id)}
+                          >
+                            {r.status === 'ACTIVE' ? 'ปิดปรับปรุง' : 'เปิดใช้งาน'}
+                          </button>
+                        </span>
+                      )}
                     </td>
                     <td data-testid="ui-mrr-012-ent-002-code">{r.code}</td>
                     <td className="clip" title={r.name} data-testid="ui-mrr-012-ent-003-name">{r.name}</td>

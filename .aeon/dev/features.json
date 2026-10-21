@@ -4029,7 +4029,57 @@
           "hash": "sha256:1aa4200e6ea7d449401b576f15fa3064fdf11b22cb58fe1d3c135ee328141366"
         }
       ],
-      "status": "draft"
+      "status": "validated",
+      "build": {
+        "iterations": 0,
+        "proof": [
+          {
+            "cmd": "powershell -File scripts/dev-build.ps1 -App frontend-web",
+            "result": "tsc --noEmit && vite build · built in 822ms · exit 0",
+            "at": "2026-10-21"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web -Filter FE-mrr-014",
+            "result": "Test Files 2 passed | 12 skipped (14) · Tests 7 passed | 212 skipped (219) · exit 0",
+            "at": "2026-10-21"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1",
+            "result": "api: Test Suites 31 passed, Tests 390 passed · web: Test Files 14 passed, Tests 219 passed · exit 0",
+            "at": "2026-10-21"
+          }
+        ],
+        "last_error": null,
+        "recorded_by": "Noppasorn",
+        "recorded_at": "2026-10-21"
+      },
+      "manifest": {
+        "files": [
+          "apps/web/src/features/rooms/RoomsPage.tsx",
+          "apps/web/src/__tests__/room-maintenance.test.tsx",
+          "apps/web/src/__tests__/room-admin.test.tsx"
+        ],
+        "unit_tests": [
+          {
+            "file": "apps/web/src/__tests__/room-maintenance.test.tsx",
+            "calc_ref": null,
+            "gd_ref": null
+          }
+        ],
+        "ui_controls": [
+          {
+            "id": "toggle",
+            "kind": "command",
+            "dd_ref": null,
+            "testid": "ui-mrr-012-toggle-maintenance",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          }
+        ],
+        "apis": []
+      }
     },
     {
       "id": "FE-mrr-036",
@@ -5134,8 +5184,8 @@
   "rollup": {
     "features_total": 33,
     "by_status": {
-      "validated": 31,
-      "draft": 2
+      "validated": 32,
+      "draft": 1
     },
     "by_origin": {
       "new": 33
