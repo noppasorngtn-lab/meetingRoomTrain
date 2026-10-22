@@ -38,6 +38,8 @@ services:
       SMTP_HOST: mailpit
       SMTP_PORT: "1025"
       SMTP_FROM: no-reply@mrr.local
+      # The magic link in the sign-in email points at the web origin, which forwards /auth to this api.
+      APP_BASE_URL: http://localhost:4173
     ports:
       - "3000:3000"
     depends_on:
@@ -46,8 +48,8 @@ services:
       mailpit:
         condition: service_healthy
     healthcheck:
-      # No /health route exists; until the sign-in guard lands (GAP-mrr-003) every route answers 401,
-      # so exactly 401 from /auth/me means Nest is up and routing — any other answer is unhealthy.
+      # No /health route exists; /auth/me with no session cookie answers 401 (FE-mrr-039's guard),
+      # so exactly 401 means Nest is up, routing and reaching the database — any other answer is unhealthy.
       test: ["CMD", "node", "-e", "fetch('http://localhost:3000/auth/me').then((r)=>process.exit(r.status===401?0:1)).catch(()=>process.exit(1))"]
       interval: 5s
       timeout: 3s

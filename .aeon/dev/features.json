@@ -5959,22 +5959,22 @@
       {
         "cmd": "docker compose -f docker/docker-compose.yml config --quiet",
         "result": "exit 0",
-        "at": "2026-10-21"
+        "at": "2026-10-22"
       },
       {
-        "cmd": "docker compose -f docker/docker-compose.yml up -d --build --wait --wait-timeout 180",
-        "result": "exit 0 · db, mailpit, api, web healthy · api log: migrations applied: none (volume already at 007 — the runner is idempotent)",
-        "at": "2026-10-21"
+        "cmd": "docker compose -f docker/docker-compose.yml up -d --build --wait --wait-timeout 300",
+        "result": "exit 0 · db, mailpit, api, web healthy · api log: migrations applied: 008_login_codes.sql",
+        "at": "2026-10-22"
       },
       {
-        "cmd": "curl http://localhost:4173{/auth/me,/me/bookings,/reports/utilization,/adjustment-requests,/rooms,/bookings,/users,/facilities,/}",
-        "result": "all 8 api prefixes 401 application/json through the web origin (after a3c3867) · / 200 text/html",
-        "at": "2026-10-21"
+        "cmd": "curl through http://localhost:4173 with a throwaway user smoke.user@example.test (removed afterwards) and mailpit's API",
+        "result": "POST /auth/otp/request 200 (sent sentence) · again 409 (asked-too-soon sentence) · mailpit 1 message '[จองห้องประชุม] รหัสเข้าสู่ระบบ' with a 6-digit code and a localhost:4173 magic link · verify 000000 401 (wrong-code sentence) · /auth/me before 401 · verify the code 200 with mrr_session · /auth/me after 200 · /me/bookings 200 · /rooms?page=1 403 (General User) · the link after the code was used 302 → /UI-mrr-002?reason=used · /UI-mrr-002 page 200",
+        "at": "2026-10-22"
       },
       {
         "cmd": "docker compose -f docker/docker-compose.yml down",
         "result": "exit 0",
-        "at": "2026-10-21"
+        "at": "2026-10-22"
       }
     ],
     "last_error": null,
@@ -5990,6 +5990,12 @@
         "at": "2026-10-21",
         "by": "Noppasorn",
         "result": "4/4 services healthy · web origin forwards all 8 api prefixes"
+      },
+      {
+        "env": "dev",
+        "at": "2026-10-22",
+        "by": "Noppasorn",
+        "result": "4/4 services healthy · migration 008_login_codes applied · sign-in works end to end through the web origin"
       }
     ]
   }
