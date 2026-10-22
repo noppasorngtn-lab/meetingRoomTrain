@@ -58,7 +58,7 @@
     {
       "id": "scenario",
       "command": "/design:scenario",
-      "status": "stale",
+      "status": "done",
       "requires": [
         "function",
         "datamodel"
@@ -66,9 +66,8 @@
       "artifacts": [
         "modules/<module>/scenarios.json"
       ],
-      "attempts": 0,
-      "updatedAt": "2026-10-22T07:29:31Z",
-      "staleBecause": "CHG-mrr-002"
+      "attempts": 1,
+      "updatedAt": "2026-10-22T08:24:27Z"
     },
     {
       "id": "rbac",
