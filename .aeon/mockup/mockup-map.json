@@ -20,7 +20,14 @@
         "Alert",
         "Button",
         "TextField"
-      ]
+      ],
+      "deliveredPages": {
+        "default": "sha256:49d06416df2abc288946b81b422a25d45b7743bb80e850240155c3338eb26034",
+        "empty": "sha256:ab0887bc9a5e177c745bbed50f5822c558578a5ab5711f7c50c860623b482715",
+        "error": "sha256:370f15df2d6f7bb9e111e75903f7b31486f32615a349d1e80ddcd869da034394",
+        "loading": "sha256:56fe04bd90d0c2a6e4df4783dae27679f2bae34960ce9230d7e4457aff5ec9d4",
+        "overflow": "sha256:d96fb0170bf8c8ee02f29acb934b5a3de19d2e41f025e9aa16716e114eb3f02f"
+      }
     },
     {
       "id": "MCK-mrr-002",
