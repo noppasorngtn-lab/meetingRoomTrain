@@ -58,6 +58,14 @@
       "at": "2026-10-19T13:30:00+07:00",
       "answeredByNode": "ENT-007",
       "extensions": {}
+    },
+    {
+      "dq": "DQ-mrr-015",
+      "answer": "นับต่อบัญชีผู้ใช้ (User, ENT-001) — LoginCode.user อ้าง User และผู้ใช้หนึ่งคนมีรหัสสถานะ ISSUED ที่ยังไม่หมดอายุได้ไม่เกินหนึ่งตัว บังคับที่ db",
+      "by": "Noppasorn",
+      "at": "2026-10-22T09:57:40+07:00",
+      "answeredByNode": "ENT-014",
+      "extensions": {}
     }
   ],
   "gaps": [],

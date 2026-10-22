@@ -233,6 +233,49 @@
           ]
         }
       ]
+    },
+    {
+      "id": "STM-mrr-004",
+      "entity": "ENT-014",
+      "title": "วงจรชีวิตของรหัสเข้าสู่ระบบ",
+      "initial": "ISSUED",
+      "states": [
+        {
+          "name": "ISSUED",
+          "label": "ออกแล้ว ยังใช้ได้",
+          "final": false
+        },
+        {
+          "name": "USED",
+          "label": "ใช้เข้าสู่ระบบแล้ว",
+          "final": true
+        },
+        {
+          "name": "EXPIRED",
+          "label": "หมดอายุ",
+          "final": true
+        }
+      ],
+      "transitions": [
+        {
+          "from": "ISSUED",
+          "to": "USED",
+          "trigger": "ผู้ใช้กรอกรหัสถูกต้อง หรือเปิด magic link ก่อน expiresAt — สร้าง session และทั้งรหัสกับลิงก์ใช้ไม่ได้อีก",
+          "rules": [
+            "BR-mrr-027@v1",
+            "BR-mrr-028@v1"
+          ]
+        },
+        {
+          "from": "ISSUED",
+          "to": "EXPIRED",
+          "trigger": "ถึง expiresAt โดยยังไม่ถูกใช้ — ตรวจตอนมีการใช้รหัส/ลิงก์ หรือตอนผู้ใช้คนเดิมขอรหัสใหม่",
+          "rules": [
+            "BR-mrr-027@v1",
+            "BR-mrr-025@v1"
+          ]
+        }
+      ]
     }
   ]
 }

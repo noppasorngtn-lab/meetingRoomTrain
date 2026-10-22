@@ -719,6 +719,101 @@
           ]
         }
       ]
+    },
+    {
+      "id": "ENT-014",
+      "name": "LoginCode",
+      "label": "รหัสเข้าสู่ระบบ",
+      "glossaryTerms": [
+        "UL-mrr-013",
+        "UL-mrr-014"
+      ],
+      "stateful": true,
+      "invariants": [],
+      "attributes": [
+        {
+          "name": "user",
+          "type": "reference",
+          "references": "ENT-001",
+          "required": true,
+          "validation": "ผู้ใช้ที่ขอรหัส — การขอซ้ำนับต่อบัญชีผู้ใช้ (DQ-mrr-015) · ผู้ใช้หนึ่งคนมีแถวสถานะ ISSUED ที่ยังไม่ถึง expiresAt ได้ไม่เกินหนึ่งแถว บังคับที่ db · สร้างได้เฉพาะ User ที่อยู่ในรายชื่อนำเข้าและ active",
+          "rules": [
+            "BR-mrr-025@v1",
+            "BR-mrr-026@v1"
+          ]
+        },
+        {
+          "name": "codeHash",
+          "type": "string",
+          "required": true,
+          "validation": "ค่าแฮชของรหัสตัวเลข 6 หลักที่ส่งใน Email — ไม่เก็บรหัสจริง · กรอกผิดไม่เปลี่ยนแถวนี้",
+          "rules": [
+            "BR-mrr-027@v1",
+            "BR-mrr-028@v1"
+          ]
+        },
+        {
+          "name": "magicLinkTokenHash",
+          "type": "string",
+          "required": true,
+          "validation": "ค่าแฮชของ token ใน magic link ของ Email ฉบับเดียวกัน ไม่ซ้ำทั้งระบบ — ไม่เก็บ token จริง",
+          "rules": [
+            "BR-mrr-027@v1"
+          ]
+        },
+        {
+          "name": "issuedAt",
+          "type": "datetime",
+          "required": true,
+          "validation": "เวลาที่ส่ง Email สำเร็จ · การขอที่ส่ง Email ไม่สำเร็จไม่ทิ้งแถวไว้",
+          "rules": [
+            "BR-mrr-024@v1"
+          ]
+        },
+        {
+          "name": "expiresAt",
+          "type": "datetime",
+          "required": true,
+          "validation": "issuedAt + 10 นาที · รหัสและลิงก์ใช้ได้เมื่อเวลาปัจจุบัน < expiresAt (ที่ expiresAt พอดีถือว่าหมดอายุ)",
+          "rules": [
+            "BR-mrr-027@v1",
+            "BR-mrr-025@v1"
+          ]
+        },
+        {
+          "name": "status",
+          "type": "enum",
+          "valuesFrom": "STM-mrr-004",
+          "required": true,
+          "validation": "สถานะตามวงจรชีวิต STM-mrr-004",
+          "rules": [
+            "BR-mrr-027@v1"
+          ]
+        },
+        {
+          "name": "usedAt",
+          "type": "datetime",
+          "required": false,
+          "validation": "เวลาที่รหัสหรือ magic link ถูกใช้เข้าสู่ระบบ · ว่างจนกว่าจะใช้ · เขียนครั้งเดียวด้วยการอัปเดตแบบมีเงื่อนไข (status = ISSUED และยังไม่ถึง expiresAt) จึงใช้ได้ครั้งเดียวแม้เรียกพร้อมกัน",
+          "rules": [
+            "BR-mrr-027@v1"
+          ]
+        },
+        {
+          "name": "usedVia",
+          "type": "enum",
+          "values": [
+            "CODE",
+            "MAGIC_LINK"
+          ],
+          "required": false,
+          "validation": "ช่องทางที่ใช้เข้าสู่ระบบ · ว่างจนกว่าจะใช้ · ใช้ทางหนึ่งแล้วอีกทางใช้ไม่ได้",
+          "rules": [
+            "BR-mrr-027@v1"
+          ]
+        }
+      ],
+      "notes": "session หลังเข้าสู่ระบบไม่ใช่ข้อมูลธุรกิจและไม่อยู่ใน glossary — กลไกและที่เก็บเป็นของ dev (Noppasorn ตัดสิน 2026-10-22 ADR-004) · อายุ session ยังไม่มีใครตัดสิน"
     }
   ]
 }

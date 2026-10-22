@@ -3343,6 +3343,21 @@
       "from": "FUN-mrr-014",
       "rel": "verifiedBy",
       "to": "SCN-mrr-100"
+    },
+    {
+      "from": "FUN-mrr-014",
+      "rel": "operatesOn",
+      "to": "ENT-001"
+    },
+    {
+      "from": "FUN-mrr-014",
+      "rel": "operatesOn",
+      "to": "ENT-014"
+    },
+    {
+      "from": "ENT-014",
+      "rel": "hasState",
+      "to": "STM-mrr-004"
     }
   ]
 }
