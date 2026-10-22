@@ -5221,6 +5221,14 @@
           "hash": "sha256:2af3a4598600d7da810914e67bbc95292b60dec51e87fa1f16eebcef683dfa50"
         },
         {
+          "ref": "ENT-014",
+          "hash": "sha256:e0e6111b1d64bab56960ff3006e2b40a85ac1e1615cf29d02b474b31bbbb94ca"
+        },
+        {
+          "ref": "STM-mrr-004",
+          "hash": "sha256:bab92f17a26accd0eb8faa150839ca3b184c09d7279e29b5d40e2b8d3c82aedb"
+        },
+        {
           "ref": "AC-mrr-089",
           "hash": "sha256:77d0eb4f746eb60ae12bb8090ae4db34be38868ddc4b7c3781512c2cda749cfb"
         },
@@ -5713,10 +5721,10 @@
       "question_th": "datamodel.json ไม่มีเอนทิตีของรหัสเข้าสู่ระบบ magic link หรือ session (มีแค่ ENT-001..013) แต่ BR-mrr-025/027/028@v1 ต้องเก็บสถานะ ออกแล้ว · ใช้แล้ว · หมดอายุ ของรหัส นับการใช้รหัสกับ magic link ของ Email ฉบับเดียวกันร่วมกัน และกันรหัสที่ใช้ได้เกินหนึ่งตัวต่อผู้ใช้ (ruleEnforcement ระบุ db) · ถ้า dev สร้างเองจะเป็นการเดาฟิลด์ ช่วงชีวิต natural key (DQ-mrr-015) ขอบเขต transaction ตอนส่ง Email ล้ม (DQ-mrr-014) และอายุ/การหมดอายุของ session ที่ไม่มีใครเซ็น · ขอให้ design เพิ่มเอนทิตี (และ state machine ถ้ามี) ของรหัสเข้าสู่ระบบ/magic link กับ session หรือบอกว่าเก็บที่ไหน",
       "found_at": "2026-10-22",
       "found_by": "/dev:plan",
-      "status": "open",
-      "answer_th": null,
-      "answered_in": null,
-      "closed_by": null,
+      "status": "answered",
+      "answer_th": "design ตอบด้วย ADR-004: ENT-014 LoginCode (รหัส/magic link หนึ่งแถวต่อ Email หนึ่งฉบับ เก็บค่าแฮช เวลาออก/หมดอายุ/ใช้) + STM-mrr-004 ISSUED → USED | EXPIRED · การขอซ้ำนับต่อบัญชีผู้ใช้ (DQ-mrr-015) · ACL-038 ให้ใช้รหัสของตนเองขณะ ISSUED · session เป็นเรื่องเทคนิคของ dev และอายุ session ยังไม่มีใครตัดสิน · เซ็นโดย Noppasorn 2026-10-22 (e4a6bc5)",
+      "answered_in": ".aeon/design/datamodel.json",
+      "closed_by": "Noppasorn",
       "blocks": [
         "FE-mrr-039"
       ]
@@ -5728,10 +5736,10 @@
       "question_th": "screens.json ยังไม่ตรงกับ AC-mrr-089..103: UI-mrr-002 สถานะ error เขียนรวมว่า รหัสผิด หมดอายุ หรือใช้ไปแล้ว — แจ้งเหตุและให้ขอรหัสใหม่ แต่เกณฑ์รับกำหนดข้อความแยก 3 แบบ และกรอกผิดต้องกรอกรหัสเดิมใหม่ได้ ไม่ใช่ขอรหัสใหม่ (BR-mrr-028@v1) · UI-mrr-001 ไม่มีสถานะ/ข้อความของการขอรหัสซ้ำระหว่างรหัสเดิมยังใช้ได้ (AC-mrr-093) และข้อความยืนยันหลังขอสำเร็จ (AC-mrr-089) · dev จะทำตามข้อความใน AC ไปก่อน ขอให้ design แก้ screens.json ให้ตรง แล้ว mock วาด UI-mrr-002 ใหม่",
       "found_at": "2026-10-22",
       "found_by": "/dev:plan",
-      "status": "open",
-      "answer_th": null,
-      "answered_in": null,
-      "closed_by": null,
+      "status": "answered",
+      "answer_th": "design แก้ screens.json ด้วย ADR-004: UI-mrr-001/002 ใช้ข้อความตรงตัวตาม AC-mrr-089..103 แยกสามเหตุบน UI-mrr-002 เพิ่มกรณีขอรหัสซ้ำบน UI-mrr-001 และปุ่มขอรหัสใหม่ทำได้เมื่อรหัสเดิมหมดอายุหรือถูกใช้แล้วเท่านั้น · mock วาด wireframe UI-mrr-001/002 และหน้า L2 error ของ UI-mrr-001 ใหม่ testid เดิม",
+      "answered_in": ".aeon/design/modules/mrr/screens.json",
+      "closed_by": "Noppasorn",
       "blocks": []
     }
   ],
@@ -5748,7 +5756,7 @@
       "frontend-web": 16,
       "api": 20
     },
-    "gaps_open": 21,
+    "gaps_open": 19,
     "ready_for_phase5": false
   },
   "deploy": {
