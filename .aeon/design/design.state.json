@@ -30,7 +30,7 @@
     {
       "id": "function",
       "command": "/design:function",
-      "status": "done",
+      "status": "stale",
       "requires": [
         "overview"
       ],
@@ -38,8 +38,9 @@
         "modules/<module>/functions.json",
         "trace.design.json"
       ],
-      "attempts": 1,
-      "updatedAt": "2026-10-21T09:19:24Z"
+      "attempts": 0,
+      "updatedAt": "2026-10-22T07:29:31Z",
+      "staleBecause": "CHG-mrr-002"
     },
     {
       "id": "datamodel",
@@ -58,7 +59,7 @@
     {
       "id": "scenario",
       "command": "/design:scenario",
-      "status": "done",
+      "status": "stale",
       "requires": [
         "function",
         "datamodel"
@@ -66,8 +67,9 @@
       "artifacts": [
         "modules/<module>/scenarios.json"
       ],
-      "attempts": 1,
-      "updatedAt": "2026-10-21T09:31:51Z"
+      "attempts": 0,
+      "updatedAt": "2026-10-22T07:29:31Z",
+      "staleBecause": "CHG-mrr-002"
     },
     {
       "id": "rbac",
