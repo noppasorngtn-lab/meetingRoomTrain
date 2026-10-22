@@ -318,10 +318,14 @@
         "command": "/mock:coverage",
         "why": "the answer is about what a screen shows or how it behaves once the data model is settled"
       },
-      "state": "open",
-      "answer": null,
-      "answeredAt": null,
-      "resultedIn": [],
+      "state": "answered",
+      "answer": "เจ้าของตอบใน /req:example BR-mrr-025: ข้อความคือ 'ส่งรหัสไปแล้ว กรุณาใช้รหัสเดิมใน Email หรือรอให้รหัสหมดอายุก่อนขอใหม่'",
+      "answeredAt": "2026-10-22T06:18+07:00",
+      "resultedIn": [
+        "EX-mrr-095",
+        "EX-mrr-096",
+        "EX-mrr-097"
+      ],
       "extensions": {}
     }
   ],

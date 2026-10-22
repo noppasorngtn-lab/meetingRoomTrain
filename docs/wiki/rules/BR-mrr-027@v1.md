@@ -10,11 +10,11 @@ belongs_to: REQ-mrr-001
 kind: constraint
 is_current: true
 test_design: [BVA]
-proven_by: []
+proven_by: [EX-mrr-100, EX-mrr-101, EX-mrr-102, EX-mrr-103]
 golden: []
 provenance: [SRC-027, SRC-027, SRC-027, SRC-027]
 timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:457d1374772a63e474f4e405febff12320510d770a40237e47b68a5d77d810c1
+spec_hash: sha256:f402b7c07d606cf0b6c7f658a4b6a9dde58f36586b98d6bc7bab5d5edabc382a
 ---
 
 # BR-mrr-027@v1
@@ -38,7 +38,10 @@ spec_hash: sha256:457d1374772a63e474f4e405febff12320510d770a40237e47b68a5d77d810
 
 ## พิสูจน์โดย
 
-🔴 ยังไม่มีใครพิสูจน์กฎข้อนี้
+- [EX-mrr-100](../examples/EX-mrr-100.md) — happy: U1 เข้าสู่ระบบได้ และถูกพาไปหน้า 'ค้นหาห้องว่าง' ทันที โดยไม่มีข้อความแจ้ง
+- [EX-mrr-101](../examples/EX-mrr-101.md) — boundary: แสดงข้อความ 'รหัสหรือลิงก์เข้าสู่ระบบหมดอายุแล้ว กรุณาขอรหัสใหม่' · ระบบไม่สร้าง session และ U1 ยังอยู่หน้ากรอกรหัส
+- [EX-mrr-102](../examples/EX-mrr-102.md) — exception: แสดงข้อความ 'รหัสหรือลิงก์นี้ถูกใช้เข้าสู่ระบบไปแล้ว กรุณาขอรหัสใหม่' · ระบบไม่สร้าง session บนเครื่องนั้น — รหัสกับลิงก์นับการใช้ร่วมกัน
+- [EX-mrr-103](../examples/EX-mrr-103.md) — exception: แสดงข้อความ 'รหัสหรือลิงก์นี้ถูกใช้เข้าสู่ระบบไปแล้ว กรุณาขอรหัสใหม่' · ระบบไม่สร้าง session — ลิงก์ใช้ไม่ได้แม้ยังไม่ถึง 10:10:00
 
 ## ประวัติ
 

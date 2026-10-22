@@ -10,11 +10,11 @@ belongs_to: REQ-mrr-001
 kind: policy
 is_current: true
 test_design: [decision_table]
-proven_by: []
+proven_by: [EX-mrr-101, EX-mrr-102, EX-mrr-104, EX-mrr-105]
 golden: []
 provenance: [SRC-027, SRC-027]
 timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:d36c52cd8053ac8e745b4d289b0e32deb5a9dfdb714dc39827f1ee1bc1284e0a
+spec_hash: sha256:8f758c4d899641cb33452f45e4f4e2a5bb4eadcee6660100fe5a93340a30b3b5
 ---
 
 # BR-mrr-028@v1
@@ -32,7 +32,10 @@ spec_hash: sha256:d36c52cd8053ac8e745b4d289b0e32deb5a9dfdb714dc39827f1ee1bc1284e
 
 ## พิสูจน์โดย
 
-🔴 ยังไม่มีใครพิสูจน์กฎข้อนี้
+- [EX-mrr-101](../examples/EX-mrr-101.md) — boundary: แสดงข้อความ 'รหัสหรือลิงก์เข้าสู่ระบบหมดอายุแล้ว กรุณาขอรหัสใหม่' · ระบบไม่สร้าง session และ U1 ยังอยู่หน้ากรอกรหัส
+- [EX-mrr-102](../examples/EX-mrr-102.md) — exception: แสดงข้อความ 'รหัสหรือลิงก์นี้ถูกใช้เข้าสู่ระบบไปแล้ว กรุณาขอรหัสใหม่' · ระบบไม่สร้าง session บนเครื่องนั้น — รหัสกับลิงก์นับการใช้ร่วมกัน
+- [EX-mrr-104](../examples/EX-mrr-104.md) — exception: แสดงข้อความ 'รหัสไม่ถูกต้อง กรุณาตรวจสอบรหัสใน Email แล้วกรอกใหม่' · ระบบไม่สร้าง session และ U1 ยังอยู่หน้ากรอกรหัส
+- [EX-mrr-105](../examples/EX-mrr-105.md) — happy: U1 เข้าสู่ระบบได้ และถูกพาไปหน้า 'ค้นหาห้องว่าง' ทันที โดยไม่มีข้อความแจ้ง — กรอกผิดไม่ทำให้รหัสเสีย
 
 ## ประวัติ
 

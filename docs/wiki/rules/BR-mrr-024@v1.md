@@ -10,11 +10,11 @@ belongs_to: REQ-mrr-001
 kind: policy
 is_current: true
 test_design: [decision_table]
-proven_by: []
+proven_by: [EX-mrr-091, EX-mrr-092, EX-mrr-093, EX-mrr-094]
 golden: []
 provenance: [SRC-026]
 timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:0d1cdbc2a68a07a03555aedb2c663922b1b9b2858a423f48b851a7286458bd65
+spec_hash: sha256:642ac21657e550fdadbc5885e796988bc296612b4ec2ce7678b791401b972fe7
 ---
 
 # BR-mrr-024@v1
@@ -29,7 +29,10 @@ spec_hash: sha256:0d1cdbc2a68a07a03555aedb2c663922b1b9b2858a423f48b851a7286458bd
 
 ## พิสูจน์โดย
 
-🔴 ยังไม่มีใครพิสูจน์กฎข้อนี้
+- [EX-mrr-091](../examples/EX-mrr-091.md) — happy: แสดงข้อความ 'หากเป็น Email ในระบบ เราได้ส่งรหัสเข้าสู่ระบบไปแล้ว กรุณาตรวจสอบ Email' และ U1 ได้รับ Email ที่มีรหัสเข้าสู่ระบบ
+- [EX-mrr-092](../examples/EX-mrr-092.md) — exception: แสดงข้อความ 'ส่งรหัสไม่สำเร็จ กรุณาลองใหม่อีกครั้ง' · U1 ไม่ได้รับ Email และยังเข้าสู่ระบบไม่ได้
+- [EX-mrr-093](../examples/EX-mrr-093.md) — boundary: U1 ไม่ได้รับ Email รหัสเข้าสู่ระบบเลย — ระบบไม่ส่งซ้ำให้เอง เพราะไม่มีคิวส่งซ้ำ
+- [EX-mrr-094](../examples/EX-mrr-094.md) — alternate: แสดงข้อความ 'หากเป็น Email ในระบบ เราได้ส่งรหัสเข้าสู่ระบบไปแล้ว กรุณาตรวจสอบ Email' และ U1 ได้รับ Email ที่มีรหัสเข้าสู่ระบบ — การขอครั้งที่ล้มไม่นับเป็นรหัสที่ยังใช้ได้ จึงไม่ถูกกันการขอซ้ำ
 
 ## ประวัติ
 

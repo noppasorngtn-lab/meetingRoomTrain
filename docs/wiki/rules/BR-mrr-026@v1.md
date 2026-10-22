@@ -10,11 +10,11 @@ belongs_to: REQ-mrr-001
 kind: policy
 is_current: true
 test_design: [decision_table]
-proven_by: []
+proven_by: [EX-mrr-091, EX-mrr-098, EX-mrr-099]
 golden: []
 provenance: [SRC-026]
 timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:ce0b45556bd315165f36da884352e58ba689fb8ecb7a3445dac5ca65835bd217
+spec_hash: sha256:257e7e786e8d1bf827ae7a6ca0a11d25aa2fb71696e3d022b09c591c86f7db19
 ---
 
 # BR-mrr-026@v1
@@ -29,7 +29,9 @@ spec_hash: sha256:ce0b45556bd315165f36da884352e58ba689fb8ecb7a3445dac5ca65835bd2
 
 ## พิสูจน์โดย
 
-🔴 ยังไม่มีใครพิสูจน์กฎข้อนี้
+- [EX-mrr-091](../examples/EX-mrr-091.md) — happy: แสดงข้อความ 'หากเป็น Email ในระบบ เราได้ส่งรหัสเข้าสู่ระบบไปแล้ว กรุณาตรวจสอบ Email' และ U1 ได้รับ Email ที่มีรหัสเข้าสู่ระบบ
+- [EX-mrr-098](../examples/EX-mrr-098.md) — exception: แสดงข้อความ 'หากเป็น Email ในระบบ เราได้ส่งรหัสเข้าสู่ระบบไปแล้ว กรุณาตรวจสอบ Email' เหมือนกรณีปกติทุกตัวอักษร · แต่ระบบไม่ส่ง Email รหัสเข้าสู่ระบบ U9 จึงเข้าสู่ระบบไม่ได้
+- [EX-mrr-099](../examples/EX-mrr-099.md) — boundary: แสดงข้อความ 'หากเป็น Email ในระบบ เราได้ส่งรหัสเข้าสู่ระบบไปแล้ว กรุณาตรวจสอบ Email' เหมือนกรณีปกติทุกตัวอักษร · แต่ระบบไม่ส่ง Email รหัสเข้าสู่ระบบ U5 จึงเข้าสู่ระบบไม่ได้ — อยู่ในรายชื่ออย่างเดียวไม่พอ ต้อง active ด้วย
 
 ## ประวัติ
 

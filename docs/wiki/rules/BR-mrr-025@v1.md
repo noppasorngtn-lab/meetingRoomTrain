@@ -10,11 +10,11 @@ belongs_to: REQ-mrr-001
 kind: constraint
 is_current: true
 test_design: [BVA]
-proven_by: []
+proven_by: [EX-mrr-095, EX-mrr-096, EX-mrr-097]
 golden: []
 provenance: [SRC-026, SRC-027]
 timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:1dba1ec1bf32f89282bda8c6b3918a74c3ff017b3c67cbfac13c0ac80a48399e
+spec_hash: sha256:d62c61e544e5439c38d4ae18e47a16dd98c24fa571d9250f7fd7bc346d5084cd
 ---
 
 # BR-mrr-025@v1
@@ -32,7 +32,9 @@ spec_hash: sha256:1dba1ec1bf32f89282bda8c6b3918a74c3ff017b3c67cbfac13c0ac80a4839
 
 ## พิสูจน์โดย
 
-🔴 ยังไม่มีใครพิสูจน์กฎข้อนี้
+- [EX-mrr-095](../examples/EX-mrr-095.md) — exception: แสดงข้อความ 'ส่งรหัสไปแล้ว กรุณาใช้รหัสเดิมใน Email หรือรอให้รหัสหมดอายุก่อนขอใหม่' · ระบบไม่ออกรหัสใหม่ U1 ไม่ได้รับ Email ฉบับใหม่ และรหัสเดิมยังใช้เข้าสู่ระบบได้
+- [EX-mrr-096](../examples/EX-mrr-096.md) — boundary: แสดงข้อความ 'หากเป็น Email ในระบบ เราได้ส่งรหัสเข้าสู่ระบบไปแล้ว กรุณาตรวจสอบ Email' และ U1 ได้รับ Email ฉบับใหม่ที่มีรหัสใหม่ — รหัสเดิมหมดอายุพอดีที่ 10:10:00 จึงไม่ถูกกันการขอซ้ำ
+- [EX-mrr-097](../examples/EX-mrr-097.md) — happy: แสดงข้อความ 'หากเป็น Email ในระบบ เราได้ส่งรหัสเข้าสู่ระบบไปแล้ว กรุณาตรวจสอบ Email' และ U1 ได้รับ Email ฉบับใหม่ที่มีรหัสใหม่ — รหัสเดิมถูกใช้ไปแล้ว จึงขอใหม่ได้แม้ยังไม่ถึง 10:10:00
 
 ## ประวัติ
 
