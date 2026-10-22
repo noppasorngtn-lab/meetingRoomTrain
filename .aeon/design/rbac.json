@@ -2,9 +2,9 @@
   "schemaVersion": "1.0",
   "producedBy": "design · scripts/rbac.mjs",
   "project": "mrr",
-  "status": "draft",
-  "approvedAt": null,
-  "approvedBy": null,
+  "status": "approved",
+  "approvedAt": "2026-10-22T10:37:18Z",
+  "approvedBy": "Noppasorn",
   "defaultEffect": "deny",
   "roles": [
     {

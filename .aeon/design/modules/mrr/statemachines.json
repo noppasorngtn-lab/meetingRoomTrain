@@ -3,9 +3,9 @@
   "producedBy": "design · scripts/statemachines.mjs",
   "project": "mrr",
   "module": "mrr",
-  "status": "draft",
-  "approvedAt": null,
-  "approvedBy": null,
+  "status": "approved",
+  "approvedAt": "2026-10-22T10:37:18Z",
+  "approvedBy": "Noppasorn",
   "stateMachines": [
     {
       "id": "STM-mrr-001",
