@@ -14,7 +14,7 @@ proven_by: [EX-mrr-091, EX-mrr-098, EX-mrr-099]
 golden: []
 provenance: [SRC-026]
 timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:257e7e786e8d1bf827ae7a6ca0a11d25aa2fb71696e3d022b09c591c86f7db19
+spec_hash: sha256:ee2461e07ed6572e2ef361a6f95f64cb9ac3bd4b7db63235a4b716287635f58c
 ---
 
 # BR-mrr-026@v1
@@ -37,4 +37,4 @@ spec_hash: sha256:257e7e786e8d1bf827ae7a6ca0a11d25aa2fb71696e3d022b09c591c86f7db
 
 | เวอร์ชัน | มีผลตั้งแต่ | เหตุผล | change set |
 |---|---|---|---|
-| **BR-mrr-026@v1** (หน้านี้) ✅ | — | ตั้งต้น | — |
+| **BR-mrr-026@v1** (หน้านี้) ✅ | — | ตั้งต้น | [CHG-mrr-002](../changes/CHG-mrr-002.md) |

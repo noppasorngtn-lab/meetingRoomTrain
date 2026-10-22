@@ -22,7 +22,7 @@
 | [calculations/](calculations/index.md) | 1 | ตัวเลขถูกผลิตยังไง |
 | [examples/](examples/index.md) | 105 | ใครพิสูจน์กฎข้อไหน |
 | [golden/](golden/index.md) | 1 | เลขเฉลยที่คนยืนยันแล้ว |
-| [changes/](changes/index.md) | 1 | เปลี่ยนอะไร ใครสั่ง เมื่อไหร่ |
+| [changes/](changes/index.md) | 2 | เปลี่ยนอะไร ใครสั่ง เมื่อไหร่ |
 | [glossary/](glossary/index.md) | 13 | คำที่ตกลงกันแล้ว |
 | [questions/](questions/index.md) | 20 | สิ่งที่ยังไม่ตัดสิน |
 | [nfr/](nfr/index.md) | 5 | ข้อกำหนดที่ไม่ใช่ฟังก์ชัน |

@@ -29,5 +29,5 @@
 | [SRC-023](SRC-023.md) | chat | — | 2 |
 | [SRC-024](SRC-024.md) | chat | — | ⚠️ 0 |
 | [SRC-025](SRC-025.md) | chat | — | ⚠️ 0 |
-| [SRC-026](SRC-026.md) | chat | — | 3 |
-| [SRC-027](SRC-027.md) | chat | — | 3 |
+| [SRC-026](SRC-026.md) | chat | — | 4 |
+| [SRC-027](SRC-027.md) | chat | — | 4 |
