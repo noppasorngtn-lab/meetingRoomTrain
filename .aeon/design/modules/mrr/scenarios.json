@@ -3,9 +3,9 @@
   "producedBy": "design · scripts/scenarios.mjs",
   "project": "mrr",
   "module": "mrr",
-  "status": "approved",
-  "approvedAt": "2026-10-21T09:54:55Z",
-  "approvedBy": "Noppasorn Yoo",
+  "status": "draft",
+  "approvedAt": null,
+  "approvedBy": null,
   "scenarios": [
     {
       "id": "SCN-mrr-001",
