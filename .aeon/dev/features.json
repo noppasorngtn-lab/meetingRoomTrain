@@ -5289,7 +5289,75 @@
           "hash": "sha256:77ac1bdea50a6df7676685e32ef520e3e52fd361c8a9c13fe012c2f9d8ba488b"
         }
       ],
-      "status": "draft"
+      "status": "validated",
+      "build": {
+        "iterations": 0,
+        "proof": [
+          {
+            "cmd": "powershell -File scripts/dev-build.ps1 -App api",
+            "result": "tsc -p tsconfig.build.json · exit 0",
+            "at": "2026-10-22"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App api -Filter FE-mrr-039",
+            "result": "Test Suites: 32 skipped, 1 passed · Tests: 394 skipped, 16 passed, 410 total · exit 0",
+            "at": "2026-10-22"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1",
+            "result": "first run: api 1 suite failed (test/booking/booking-admin.spec.ts, 30 tests, 93 s — passes 30/30 when run alone, unchanged by this unit) · exit 1",
+            "at": "2026-10-22"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1",
+            "result": "api: Test Suites: 33 passed, 33 total · Tests: 410 passed, 410 total · web: Test Files 16 passed (16) · exit 0",
+            "at": "2026-10-22"
+          }
+        ],
+        "last_error": null,
+        "recorded_by": "Noppasorn",
+        "recorded_at": "2026-10-22"
+      },
+      "manifest": {
+        "files": [
+          "apps/api/src/common/database/migrations/008_login_codes.sql",
+          "apps/api/src/common/database/schema.ts",
+          "apps/api/src/modules/auth/auth.module.ts",
+          "apps/api/src/modules/auth/auth.controller.ts",
+          "apps/api/src/modules/auth/sign-in.service.ts",
+          "apps/api/src/modules/auth/sessions.service.ts",
+          "apps/api/src/modules/auth/session.middleware.ts",
+          "apps/api/src/modules/auth/tokens.ts",
+          "apps/api/src/modules/notification/notification.module.ts",
+          "apps/api/src/app.module.ts",
+          "apps/api/test/auth/sign-in.http.spec.ts"
+        ],
+        "unit_tests": [
+          {
+            "file": "apps/api/test/auth/sign-in.http.spec.ts",
+            "calc_ref": null,
+            "gd_ref": null
+          }
+        ],
+        "ui_controls": [],
+        "apis": [
+          {
+            "api_ref": "API-031",
+            "route": "POST /auth/otp/request",
+            "file": "apps/api/src/modules/auth/auth.controller.ts"
+          },
+          {
+            "api_ref": "API-032",
+            "route": "POST /auth/otp/verify",
+            "file": "apps/api/src/modules/auth/auth.controller.ts"
+          },
+          {
+            "api_ref": "API-033",
+            "route": "GET /auth/magic-link",
+            "file": "apps/api/src/modules/auth/auth.controller.ts"
+          }
+        ]
+      }
     },
     {
       "id": "FE-mrr-040",
@@ -5746,8 +5814,8 @@
   "rollup": {
     "features_total": 36,
     "by_status": {
-      "validated": 34,
-      "draft": 2
+      "validated": 35,
+      "draft": 1
     },
     "by_origin": {
       "new": 36

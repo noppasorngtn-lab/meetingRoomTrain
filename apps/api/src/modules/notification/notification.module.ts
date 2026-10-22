@@ -8,6 +8,6 @@ import { SmtpMailTransport, smtpConfigFromEnv } from './smtp-mail-transport';
     { provide: MAIL_TRANSPORT, useFactory: () => new SmtpMailTransport(smtpConfigFromEnv()) },
     BookingNotifier,
   ],
-  exports: [BookingNotifier],
+  exports: [BookingNotifier, MAIL_TRANSPORT],
 })
 export class NotificationModule {}

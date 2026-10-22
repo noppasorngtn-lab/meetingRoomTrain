@@ -120,8 +120,30 @@ export interface RoomVersionFacilitiesTable {
   facility_id: string;
 }
 
+export interface LoginCodesTable {
+  id: Generated<string>;
+  user_id: string;
+  code_hash: string;
+  magic_link_token_hash: string;
+  issued_at: Date;
+  expires_at: Date;
+  status: Generated<'ISSUED' | 'USED' | 'EXPIRED'>;
+  used_at: Date | null;
+  used_via: 'CODE' | 'MAGIC_LINK' | null;
+}
+
+export interface SessionsTable {
+  id: Generated<string>;
+  token_hash: string;
+  user_id: string;
+  created_at: Date;
+  last_seen_at: Date;
+}
+
 export interface Database {
   users: UsersTable;
+  login_codes: LoginCodesTable;
+  sessions: SessionsTable;
   meeting_rooms: MeetingRoomsTable;
   meeting_room_versions: MeetingRoomVersionsTable;
   bookings: BookingsTable;
