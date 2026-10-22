@@ -44,7 +44,7 @@
     {
       "id": "datamodel",
       "command": "/design:datamodel",
-      "status": "done",
+      "status": "stale",
       "requires": [
         "function"
       ],
@@ -52,8 +52,9 @@
         "datamodel.json",
         "modules/<module>/statemachines.json"
       ],
-      "attempts": 1,
-      "updatedAt": "2026-10-19T04:58:41Z"
+      "attempts": 0,
+      "updatedAt": "2026-10-22T09:30:11Z",
+      "staleBecause": "ADR-004"
     },
     {
       "id": "scenario",
@@ -99,7 +100,7 @@
     {
       "id": "sitemap",
       "command": "/design:sitemap",
-      "status": "done",
+      "status": "stale",
       "requires": [
         "function",
         "rbac"
@@ -108,8 +109,9 @@
         "sitemap.json",
         "modules/<module>/screens.json"
       ],
-      "attempts": 1,
-      "updatedAt": "2026-10-19T09:02:27Z"
+      "attempts": 0,
+      "updatedAt": "2026-10-22T09:30:12Z",
+      "staleBecause": "ADR-004"
     },
     {
       "id": "interface",
