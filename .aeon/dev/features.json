@@ -5171,6 +5171,216 @@
       "commits": [
         "dac9dd961e987a962b6a165634258d0f049030ff"
       ]
+    },
+    {
+      "id": "FE-mrr-039",
+      "title_th": "เข้าสู่ระบบด้วยรหัสหรือ magic link — ฝั่ง API",
+      "app_ref": "api",
+      "type": "command",
+      "origin": "new",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-017"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-089",
+        "AC-mrr-090",
+        "AC-mrr-091",
+        "AC-mrr-092",
+        "AC-mrr-093",
+        "AC-mrr-094",
+        "AC-mrr-095",
+        "AC-mrr-096",
+        "AC-mrr-097",
+        "AC-mrr-098",
+        "AC-mrr-099",
+        "AC-mrr-100",
+        "AC-mrr-101",
+        "AC-mrr-102",
+        "AC-mrr-103"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-020",
+          "hash": "sha256:dfe852cd49d4bdd1db6eb6ac67aa3993eb8209cf767a4063242b22a2736f799d"
+        },
+        {
+          "ref": "API-031",
+          "hash": "sha256:342ed0a5f42d9daf4b2d75ab8d3ae4762b9e7fd1ade216fbb796291abf02ff83"
+        },
+        {
+          "ref": "API-032",
+          "hash": "sha256:07c2e762492c05b70d2e49da92ed4307dc09bae28403f5edd3e830f46c9688cc"
+        },
+        {
+          "ref": "API-033",
+          "hash": "sha256:bc92b8ada88d31d1e68e3c7277ca042411b5633bf93e9805e317bf06d41e73b3"
+        },
+        {
+          "ref": "ENT-001",
+          "hash": "sha256:2af3a4598600d7da810914e67bbc95292b60dec51e87fa1f16eebcef683dfa50"
+        },
+        {
+          "ref": "AC-mrr-089",
+          "hash": "sha256:77d0eb4f746eb60ae12bb8090ae4db34be38868ddc4b7c3781512c2cda749cfb"
+        },
+        {
+          "ref": "AC-mrr-090",
+          "hash": "sha256:4ea2a09d038d8e8b6c39061cad702ec5cf91505b86c8610f8ae415dbcff7ce12"
+        },
+        {
+          "ref": "AC-mrr-091",
+          "hash": "sha256:502f28ce8aba1d246baa08d951262014e092ede6c6b31e73670d42a957488671"
+        },
+        {
+          "ref": "AC-mrr-092",
+          "hash": "sha256:2ab929df5841f285674ff415613725da0bc76525b76490d25c7cf557f943be00"
+        },
+        {
+          "ref": "AC-mrr-093",
+          "hash": "sha256:deb1b6af7b6353d0065a544d3775748ba7343dc77466e6896e3c449cc49f05f8"
+        },
+        {
+          "ref": "AC-mrr-094",
+          "hash": "sha256:4a2f3f476c5e25b150dcbf68f50761c38b846532f775be7a98d9e466e2c4e965"
+        },
+        {
+          "ref": "AC-mrr-095",
+          "hash": "sha256:ac396ef31326219bc6a014f0cd2b56df2321ebdc8396fb6d92dd795d43f8e52e"
+        },
+        {
+          "ref": "AC-mrr-096",
+          "hash": "sha256:40a607e6d05075e5d515fd597fdf7dfed544429b42a629f61d64ded53ec3aae0"
+        },
+        {
+          "ref": "AC-mrr-097",
+          "hash": "sha256:d6efe20b32c2cfd0b2df8f3600ee70eed41245671caac5931fee201137121891"
+        },
+        {
+          "ref": "AC-mrr-098",
+          "hash": "sha256:35c8a51efac9b1718b21094835c01bb6ee90f87cd9ceca778dbbfeeb10f60f05"
+        },
+        {
+          "ref": "AC-mrr-099",
+          "hash": "sha256:2f81df7c0d3666853654d2327b20dae86e6a195976f76b218e518fd8a322f48c"
+        },
+        {
+          "ref": "AC-mrr-100",
+          "hash": "sha256:130e57211a448618c17234580d0c2551b91106fc87233aeb2462276b76c1226e"
+        },
+        {
+          "ref": "AC-mrr-101",
+          "hash": "sha256:24d2344414b1ed27cc4a42981090c59054312727c2a8172d9ab2da6cf4389b41"
+        },
+        {
+          "ref": "AC-mrr-102",
+          "hash": "sha256:bc2d18f6cb43588ad6dad6553a48622f30cc4e736936f633acbf7b07909243cf"
+        },
+        {
+          "ref": "AC-mrr-103",
+          "hash": "sha256:77ac1bdea50a6df7676685e32ef520e3e52fd361c8a9c13fe012c2f9d8ba488b"
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "FE-mrr-040",
+      "title_th": "เข้าสู่ระบบด้วยรหัสหรือ magic link — หน้าจอ",
+      "app_ref": "frontend-web",
+      "type": "command",
+      "origin": "new",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-022",
+        "FE-mrr-039"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-089",
+        "AC-mrr-090",
+        "AC-mrr-092",
+        "AC-mrr-093",
+        "AC-mrr-094",
+        "AC-mrr-095",
+        "AC-mrr-096",
+        "AC-mrr-097",
+        "AC-mrr-098",
+        "AC-mrr-099",
+        "AC-mrr-100",
+        "AC-mrr-101",
+        "AC-mrr-102",
+        "AC-mrr-103"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-020",
+          "hash": "sha256:dfe852cd49d4bdd1db6eb6ac67aa3993eb8209cf767a4063242b22a2736f799d"
+        },
+        {
+          "ref": "UI-mrr-001",
+          "hash": "sha256:771ebf5f42150129e807602f3cbb12445693d915a056b3789b8b11ac8178fc63"
+        },
+        {
+          "ref": "UI-mrr-002",
+          "hash": "sha256:4fd92c33bcb1f80bbc1a268a52fc004e5811e0868ff259098a64a6f84b673ec5"
+        },
+        {
+          "ref": "AC-mrr-089",
+          "hash": "sha256:77d0eb4f746eb60ae12bb8090ae4db34be38868ddc4b7c3781512c2cda749cfb"
+        },
+        {
+          "ref": "AC-mrr-090",
+          "hash": "sha256:4ea2a09d038d8e8b6c39061cad702ec5cf91505b86c8610f8ae415dbcff7ce12"
+        },
+        {
+          "ref": "AC-mrr-092",
+          "hash": "sha256:2ab929df5841f285674ff415613725da0bc76525b76490d25c7cf557f943be00"
+        },
+        {
+          "ref": "AC-mrr-093",
+          "hash": "sha256:deb1b6af7b6353d0065a544d3775748ba7343dc77466e6896e3c449cc49f05f8"
+        },
+        {
+          "ref": "AC-mrr-094",
+          "hash": "sha256:4a2f3f476c5e25b150dcbf68f50761c38b846532f775be7a98d9e466e2c4e965"
+        },
+        {
+          "ref": "AC-mrr-095",
+          "hash": "sha256:ac396ef31326219bc6a014f0cd2b56df2321ebdc8396fb6d92dd795d43f8e52e"
+        },
+        {
+          "ref": "AC-mrr-096",
+          "hash": "sha256:40a607e6d05075e5d515fd597fdf7dfed544429b42a629f61d64ded53ec3aae0"
+        },
+        {
+          "ref": "AC-mrr-097",
+          "hash": "sha256:d6efe20b32c2cfd0b2df8f3600ee70eed41245671caac5931fee201137121891"
+        },
+        {
+          "ref": "AC-mrr-098",
+          "hash": "sha256:35c8a51efac9b1718b21094835c01bb6ee90f87cd9ceca778dbbfeeb10f60f05"
+        },
+        {
+          "ref": "AC-mrr-099",
+          "hash": "sha256:2f81df7c0d3666853654d2327b20dae86e6a195976f76b218e518fd8a322f48c"
+        },
+        {
+          "ref": "AC-mrr-100",
+          "hash": "sha256:130e57211a448618c17234580d0c2551b91106fc87233aeb2462276b76c1226e"
+        },
+        {
+          "ref": "AC-mrr-101",
+          "hash": "sha256:24d2344414b1ed27cc4a42981090c59054312727c2a8172d9ab2da6cf4389b41"
+        },
+        {
+          "ref": "AC-mrr-102",
+          "hash": "sha256:bc2d18f6cb43588ad6dad6553a48622f30cc4e736936f633acbf7b07909243cf"
+        },
+        {
+          "ref": "AC-mrr-103",
+          "hash": "sha256:77ac1bdea50a6df7676685e32ef520e3e52fd361c8a9c13fe012c2f9d8ba488b"
+        }
+      ],
+      "status": "draft"
     }
   ],
   "gaps": [
@@ -5207,10 +5417,10 @@
       "question_th": "UC-mrr-020 (เข้าสู่ระบบด้วยรหัส OTP · UI-mrr-001/002 · API-031/032/033 — ทุก endpoint บังคับสิทธิ์ที่ api จึงอยู่บนเส้นทางวิกฤต · scenario SCN-mrr-076.. มีอยู่ผ่าน FUN-mrr-014 แต่ไม่มี AC) ไม่มีเกณฑ์รับ (AC-) ข้อไหนผูกไว้ใน functions.json acceptance[].useCases — dev สร้างหน่วยที่ไม่มีใครพิสูจน์ว่าเสร็จไม่ได้ · ขอให้ design เขียนเกณฑ์รับของ use case นี้ (given/when/then) หรือบอกว่าเกณฑ์รับข้อไหนที่มีอยู่แล้วครอบคลุมมัน",
       "found_at": "2026-10-20",
       "found_by": "/dev:plan",
-      "status": "open",
-      "answer_th": null,
-      "answered_in": null,
-      "closed_by": null,
+      "status": "answered",
+      "answer_th": "design รับ CHG-mrr-002 (กฎ BR-mrr-024..028@v1 จาก req) แล้วเขียน AC-mrr-089..103 ผูก UC-mrr-020 คัดข้อความจาก EX-mrr-091..105 คำต่อคำ พร้อม SCN-mrr-097..100 และชั้นที่บังคับใน interfaces.json · เซ็นโดย Noppasorn 2026-10-22 (commit 16460a8)",
+      "answered_in": ".aeon/design/modules/mrr/functions.json",
+      "closed_by": "Noppasorn",
       "blocks": []
     },
     {
@@ -5495,21 +5705,50 @@
       "answered_in": null,
       "closed_by": null,
       "blocks": []
+    },
+    {
+      "id": "GAP-mrr-024",
+      "to": "design",
+      "about": "UC-mrr-020",
+      "question_th": "datamodel.json ไม่มีเอนทิตีของรหัสเข้าสู่ระบบ magic link หรือ session (มีแค่ ENT-001..013) แต่ BR-mrr-025/027/028@v1 ต้องเก็บสถานะ ออกแล้ว · ใช้แล้ว · หมดอายุ ของรหัส นับการใช้รหัสกับ magic link ของ Email ฉบับเดียวกันร่วมกัน และกันรหัสที่ใช้ได้เกินหนึ่งตัวต่อผู้ใช้ (ruleEnforcement ระบุ db) · ถ้า dev สร้างเองจะเป็นการเดาฟิลด์ ช่วงชีวิต natural key (DQ-mrr-015) ขอบเขต transaction ตอนส่ง Email ล้ม (DQ-mrr-014) และอายุ/การหมดอายุของ session ที่ไม่มีใครเซ็น · ขอให้ design เพิ่มเอนทิตี (และ state machine ถ้ามี) ของรหัสเข้าสู่ระบบ/magic link กับ session หรือบอกว่าเก็บที่ไหน",
+      "found_at": "2026-10-22",
+      "found_by": "/dev:plan",
+      "status": "open",
+      "answer_th": null,
+      "answered_in": null,
+      "closed_by": null,
+      "blocks": [
+        "FE-mrr-039"
+      ]
+    },
+    {
+      "id": "GAP-mrr-025",
+      "to": "design",
+      "about": "UI-mrr-002",
+      "question_th": "screens.json ยังไม่ตรงกับ AC-mrr-089..103: UI-mrr-002 สถานะ error เขียนรวมว่า รหัสผิด หมดอายุ หรือใช้ไปแล้ว — แจ้งเหตุและให้ขอรหัสใหม่ แต่เกณฑ์รับกำหนดข้อความแยก 3 แบบ และกรอกผิดต้องกรอกรหัสเดิมใหม่ได้ ไม่ใช่ขอรหัสใหม่ (BR-mrr-028@v1) · UI-mrr-001 ไม่มีสถานะ/ข้อความของการขอรหัสซ้ำระหว่างรหัสเดิมยังใช้ได้ (AC-mrr-093) และข้อความยืนยันหลังขอสำเร็จ (AC-mrr-089) · dev จะทำตามข้อความใน AC ไปก่อน ขอให้ design แก้ screens.json ให้ตรง แล้ว mock วาด UI-mrr-002 ใหม่",
+      "found_at": "2026-10-22",
+      "found_by": "/dev:plan",
+      "status": "open",
+      "answer_th": null,
+      "answered_in": null,
+      "closed_by": null,
+      "blocks": []
     }
   ],
   "rollup": {
-    "features_total": 34,
+    "features_total": 36,
     "by_status": {
-      "validated": 34
+      "validated": 34,
+      "draft": 2
     },
     "by_origin": {
-      "new": 34
+      "new": 36
     },
     "by_app": {
-      "frontend-web": 15,
-      "api": 19
+      "frontend-web": 16,
+      "api": 20
     },
-    "gaps_open": 20,
+    "gaps_open": 21,
     "ready_for_phase5": false
   },
   "deploy": {
