@@ -98,7 +98,7 @@ describe('FE-mrr-002 room calendar page', () => {
     replies.push({ status: 401 });
     open();
 
-    expect(await screen.findByRole('heading', { level: 1, name: 'เข้าสู่ระบบ' })).toBeInTheDocument();
+    expect(await screen.findByRole('heading', { level: 1, name: 'ขอรหัสเข้าสู่ระบบ' })).toBeInTheDocument();
   });
 
   it('switch-view: choosing รายเดือน and pressing เปลี่ยนมุมมอง asks the API for the month', async () => {

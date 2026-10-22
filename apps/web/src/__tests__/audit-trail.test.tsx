@@ -172,9 +172,10 @@ describe('FE-mrr-012 a booking\'s trail on the admin page (UI-mrr-010)', () => {
   it('someone not signed in is taken to sign-in', async () => {
     replies[GET] = { status: 401, body: { message: 'Unauthorized' } };
     replies[AUDIT] = { status: 401, body: { message: 'Unauthorized' } };
+    replies['/auth/me'] = { status: 401, body: { message: 'Unauthorized' } };
     open();
 
-    expect(await screen.findByRole('heading', { level: 1, name: 'เข้าสู่ระบบ' })).toBeInTheDocument();
+    expect(await screen.findByRole('heading', { level: 1, name: 'ขอรหัสเข้าสู่ระบบ' })).toBeInTheDocument();
   });
 
   it('overflow state — more than 50 entries page, the latest first', async () => {

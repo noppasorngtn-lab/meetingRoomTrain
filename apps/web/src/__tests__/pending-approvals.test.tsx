@@ -220,7 +220,7 @@ describe('FE-mrr-007 pending approvals page (UI-mrr-009)', () => {
     replies[LIST] = { status: 401, body: { message: 'Unauthorized' } };
     open();
 
-    expect(await screen.findByRole('heading', { level: 1, name: 'เข้าสู่ระบบ' })).toBeInTheDocument();
+    expect(await screen.findByRole('heading', { level: 1, name: 'ขอรหัสเข้าสู่ระบบ' })).toBeInTheDocument();
   });
 
   it('overflow state — more than 20 pages through the api', async () => {

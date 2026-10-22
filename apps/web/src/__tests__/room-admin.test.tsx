@@ -423,7 +423,7 @@ describe('FE-mrr-013 facilities page (UI-mrr-014)', () => {
     replies[ME] = { status: 401, body: { message: 'Unauthorized' } };
     open('/UI-mrr-014');
 
-    expect(await screen.findByRole('heading', { level: 1, name: 'เข้าสู่ระบบ' })).toBeInTheDocument();
+    expect(await screen.findByRole('heading', { level: 1, name: 'ขอรหัสเข้าสู่ระบบ' })).toBeInTheDocument();
   });
 
   it('unauthorized state — anyone but a Room Administrator is refused at the row with the api\'s words', async () => {

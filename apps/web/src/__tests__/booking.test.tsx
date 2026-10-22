@@ -238,7 +238,7 @@ describe('FE-mrr-003 booking form (UI-mrr-006)', () => {
     room = { status: 401 };
     open();
 
-    expect(await screen.findByRole('heading', { level: 1, name: 'เข้าสู่ระบบ' })).toBeInTheDocument();
+    expect(await screen.findByRole('heading', { level: 1, name: 'ขอรหัสเข้าสู่ระบบ' })).toBeInTheDocument();
   });
 
   it('cancel-form: closes the form without sending, back to the room search', async () => {

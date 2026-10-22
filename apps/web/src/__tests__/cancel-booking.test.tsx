@@ -163,6 +163,6 @@ describe('FE-mrr-005 cancel own booking (UI-mrr-007 cancel)', () => {
     open();
     await cancel();
 
-    expect(await screen.findByRole('heading', { level: 1, name: 'เข้าสู่ระบบ' })).toBeInTheDocument();
+    expect(await screen.findByRole('heading', { level: 1, name: 'ขอรหัสเข้าสู่ระบบ' })).toBeInTheDocument();
   });
 });

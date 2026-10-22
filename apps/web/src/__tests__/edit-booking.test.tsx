@@ -208,7 +208,7 @@ describe('FE-mrr-004 edit booking page (UI-mrr-008)', () => {
     booking = { status: 401 };
     open();
 
-    expect(await screen.findByRole('heading', { level: 1, name: 'เข้าสู่ระบบ' })).toBeInTheDocument();
+    expect(await screen.findByRole('heading', { level: 1, name: 'ขอรหัสเข้าสู่ระบบ' })).toBeInTheDocument();
   });
 
   it('back: returns to my bookings without saving', async () => {

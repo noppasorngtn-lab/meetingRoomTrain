@@ -228,6 +228,6 @@ describe('FE-mrr-009 edit or cancel on behalf of the booker (UI-mrr-010)', () =>
     replies['GET /auth/me'] = { status: 401, body: { message: 'Unauthorized' } };
     open();
 
-    expect(await screen.findByRole('heading', { level: 1, name: 'เข้าสู่ระบบ' })).toBeInTheDocument();
+    expect(await screen.findByRole('heading', { level: 1, name: 'ขอรหัสเข้าสู่ระบบ' })).toBeInTheDocument();
   });
 });

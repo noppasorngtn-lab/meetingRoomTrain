@@ -126,7 +126,7 @@ describe('FE-mrr-006 my bookings page (UI-mrr-007)', () => {
     replies['/me/bookings?page=1'] = { status: 401, body: { message: 'Unauthorized' } };
     open();
 
-    expect(await screen.findByRole('heading', { level: 1, name: 'เข้าสู่ระบบ' })).toBeInTheDocument();
+    expect(await screen.findByRole('heading', { level: 1, name: 'ขอรหัสเข้าสู่ระบบ' })).toBeInTheDocument();
   });
 
   it('overflow state — more than 20 pages through the api, 20 to a page', async () => {

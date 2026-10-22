@@ -6,7 +6,7 @@ import { SCREENS } from '../shared/sitemap';
 const labelOf = (id: string) => SCREENS.find((s) => s.id === id)!.label;
 
 /** A built page carries its wireframe's title (screens.json `title`), which can differ from its menu label. */
-const BUILT_TITLE: Record<string, string> = { 'UI-mrr-006': 'จองห้องประชุม', 'UI-mrr-009': 'รายการรออนุมัติ', 'UI-mrr-010': 'จัดการการจอง (ผู้ดูแล)' };
+const BUILT_TITLE: Record<string, string> = { 'UI-mrr-001': 'ขอรหัสเข้าสู่ระบบ', 'UI-mrr-002': 'ยืนยันรหัส OTP', 'UI-mrr-006': 'จองห้องประชุม', 'UI-mrr-009': 'รายการรออนุมัติ', 'UI-mrr-010': 'จัดการการจอง (ผู้ดูแล)' };
 const headingOf = (id: string) => BUILT_TITLE[id] ?? labelOf(id);
 
 const at = (path: string) =>
@@ -69,12 +69,12 @@ describe('FE-mrr-022 app shell', () => {
     at(`/${id}`);
 
     expect(screen.queryByRole('navigation', { name: 'เมนูหลัก' })).not.toBeInTheDocument();
-    expect(screen.getByRole('heading', { level: 1, name: labelOf(id) })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 1, name: headingOf(id) })).toBeInTheDocument();
   });
 
   it('the root opens the sign-in page', () => {
     at('/');
 
-    expect(screen.getByRole('heading', { level: 1, name: labelOf('UI-mrr-001') })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 1, name: headingOf('UI-mrr-001') })).toBeInTheDocument();
   });
 });

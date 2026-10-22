@@ -1,4 +1,6 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { RequestCodePage } from './features/auth/RequestCodePage';
+import { VerifyCodePage } from './features/auth/VerifyCodePage';
 import { AdjustmentRequestsPage } from './features/booking/AdjustmentRequestsPage';
 import { BookingPage } from './features/booking/BookingPage';
 import { EditBookingPage } from './features/booking/EditBookingPage';
@@ -20,6 +22,8 @@ const ENTRY = 'UI-mrr-001';
 
 /** Screens already built; every other one is still its placeholder. */
 const BUILT: Record<string, JSX.Element> = {
+  'UI-mrr-001': <RequestCodePage />,
+  'UI-mrr-002': <VerifyCodePage />,
   'UI-mrr-005': <CalendarPage />,
   'UI-mrr-006': <BookingPage />,
   'UI-mrr-007': <MyBookingsPage />,

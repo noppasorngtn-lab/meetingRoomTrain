@@ -242,9 +242,10 @@ describe('FE-mrr-008 change an approval decision page (UI-mrr-010)', () => {
 
   it('someone not signed in is taken to sign-in', async () => {
     getReply = { status: 401, body: { message: 'Unauthorized' } };
+    me = { status: 401, body: { message: 'Unauthorized' } };
     open();
 
-    expect(await screen.findByRole('heading', { level: 1, name: 'เข้าสู่ระบบ' })).toBeInTheDocument();
+    expect(await screen.findByRole('heading', { level: 1, name: 'ขอรหัสเข้าสู่ระบบ' })).toBeInTheDocument();
   });
 
   it('กลับ goes back to the pending queue', async () => {

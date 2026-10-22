@@ -5459,7 +5459,128 @@
           "hash": "sha256:77ac1bdea50a6df7676685e32ef520e3e52fd361c8a9c13fe012c2f9d8ba488b"
         }
       ],
-      "status": "draft"
+      "status": "validated",
+      "build": {
+        "iterations": 1,
+        "proof": [
+          {
+            "cmd": "powershell -File scripts/dev-build.ps1 -App frontend-web",
+            "result": "vite build · built in 896ms · exit 0",
+            "at": "2026-10-22"
+          },
+          {
+            "cmd": "npx vitest run (apps/web)",
+            "result": "first run: 15 failed, 243 passed — 13 earlier suites expected the placeholder heading เข้าสู่ระบบ on the sign-in page, and two signed-out fixtures still answered /auth/me 200; expectations updated to the built page title ขอรหัสเข้าสู่ระบบ and the fixtures made consistent",
+            "at": "2026-10-22"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web -Filter FE-mrr-040",
+            "result": "Test Files 1 passed | 16 skipped (17) · Tests 14 passed | 244 skipped (258) · exit 0",
+            "at": "2026-10-22"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1",
+            "result": "api: Test Suites 33 passed · Tests 410 passed · web: Test Files 17 passed (17) · exit 0",
+            "at": "2026-10-22"
+          }
+        ],
+        "last_error": null,
+        "recorded_by": "Noppasorn",
+        "recorded_at": "2026-10-22"
+      },
+      "manifest": {
+        "files": [
+          "apps/web/src/features/auth/RequestCodePage.tsx",
+          "apps/web/src/features/auth/VerifyCodePage.tsx",
+          "apps/web/src/features/auth/NoticeBox.tsx",
+          "apps/web/src/features/auth/sign-in.ts",
+          "apps/web/src/App.tsx",
+          "apps/web/src/__tests__/sign-in.test.tsx",
+          "apps/web/src/__tests__/adjustment-requests.test.tsx",
+          "apps/web/src/__tests__/audit-trail.test.tsx",
+          "apps/web/src/__tests__/booking.test.tsx",
+          "apps/web/src/__tests__/calendar.test.tsx",
+          "apps/web/src/__tests__/cancel-booking.test.tsx",
+          "apps/web/src/__tests__/change-decision.test.tsx",
+          "apps/web/src/__tests__/edit-booking.test.tsx",
+          "apps/web/src/__tests__/my-bookings.test.tsx",
+          "apps/web/src/__tests__/on-behalf.test.tsx",
+          "apps/web/src/__tests__/pending-approvals.test.tsx",
+          "apps/web/src/__tests__/room-admin.test.tsx",
+          "apps/web/src/__tests__/shell.test.tsx",
+          "apps/web/src/__tests__/utilization-report.test.tsx"
+        ],
+        "unit_tests": [
+          {
+            "file": "apps/web/src/__tests__/sign-in.test.tsx",
+            "calc_ref": null,
+            "gd_ref": null
+          }
+        ],
+        "ui_controls": [
+          {
+            "id": "org-email",
+            "kind": "field",
+            "dd_ref": null,
+            "testid": "ui-mrr-001-org-email",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "request-code",
+            "kind": "command",
+            "dd_ref": null,
+            "testid": "ui-mrr-001-request-code",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "requested-email",
+            "kind": "field",
+            "dd_ref": null,
+            "testid": "ui-mrr-002-requested-email",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "otp-code",
+            "kind": "field",
+            "dd_ref": null,
+            "testid": "ui-mrr-002-otp-code",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "verify",
+            "kind": "command",
+            "dd_ref": null,
+            "testid": "ui-mrr-002-verify",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "resend",
+            "kind": "command",
+            "dd_ref": null,
+            "testid": "ui-mrr-002-resend",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          }
+        ],
+        "apis": []
+      }
     }
   ],
   "gaps": [
@@ -5817,8 +5938,7 @@
   "rollup": {
     "features_total": 36,
     "by_status": {
-      "validated": 35,
-      "draft": 1
+      "validated": 36
     },
     "by_origin": {
       "new": 36
