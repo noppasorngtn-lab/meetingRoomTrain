@@ -8,7 +8,7 @@ id: UL-mrr-007
 status: draft
 term_th: ปิดปรับปรุง
 not_to_confuse_with: []
-timestamp: 2026-10-22T10:00:00+07:00
+timestamp: 2026-10-22T10:30:00+07:00
 spec_hash: sha256:decd3551cc2835238cd91f25d31a67ca4063c2df31e30b9600a375ee8f288429
 ---
 

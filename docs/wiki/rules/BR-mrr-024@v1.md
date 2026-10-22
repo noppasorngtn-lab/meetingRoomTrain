@@ -13,7 +13,7 @@ test_design: [decision_table]
 proven_by: []
 golden: []
 provenance: [SRC-026]
-timestamp: 2026-10-22T10:00:00+07:00
+timestamp: 2026-10-22T10:30:00+07:00
 spec_hash: sha256:0d1cdbc2a68a07a03555aedb2c663922b1b9b2858a423f48b851a7286458bd65
 ---
 

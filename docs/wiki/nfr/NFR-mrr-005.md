@@ -7,7 +7,7 @@ tags: [mrr, nfr, usability]
 id: NFR-mrr-005
 kind: usability
 belongs_to: REQ-mrr-001
-timestamp: 2026-10-22T10:00:00+07:00
+timestamp: 2026-10-22T10:30:00+07:00
 spec_hash: sha256:520f29b795a7bf82998ba2a65cc44a4d1d6875abbed415f709bcb49782a5eaf5
 ---
 

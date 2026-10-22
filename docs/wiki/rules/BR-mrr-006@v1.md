@@ -14,7 +14,7 @@ constrained_by: CALC-mrr-001@v1
 proven_by: [EX-mrr-084, EX-mrr-085, EX-mrr-086, EX-mrr-087]
 golden: [GD-mrr-001]
 provenance: [SRC-001, SRC-012, SRC-012, SRC-012]
-timestamp: 2026-10-22T10:00:00+07:00
+timestamp: 2026-10-22T10:30:00+07:00
 spec_hash: sha256:de607de88db4ef83fb1e69bba510c70f323d51fff9007d430072300c94aa4d47
 ---
 

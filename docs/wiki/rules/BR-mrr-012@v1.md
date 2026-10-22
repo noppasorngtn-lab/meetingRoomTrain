@@ -13,7 +13,7 @@ test_design: [state_transition, decision_table]
 proven_by: [EX-mrr-016, EX-mrr-081, EX-mrr-082, EX-mrr-083]
 golden: []
 provenance: [SRC-006]
-timestamp: 2026-10-22T10:00:00+07:00
+timestamp: 2026-10-22T10:30:00+07:00
 spec_hash: sha256:08c9acaea9898bfd6952914863a1ddf915bddc23674e8c929cfedff534b8d5fd
 ---
 

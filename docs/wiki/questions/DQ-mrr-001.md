@@ -8,7 +8,7 @@ id: DQ-mrr-001
 state: answered
 raised_by: BR-mrr-010@v1
 answer_phase: domain
-timestamp: 2026-10-22T10:00:00+07:00
+timestamp: 2026-10-22T10:30:00+07:00
 spec_hash: sha256:da6205cd6aee6fe7859837f7d582c5a327208a41ee96551d67f5d7b00d422236
 ---
 

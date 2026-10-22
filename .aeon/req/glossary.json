@@ -8,7 +8,7 @@
     "specStatus": "validated",
     "specApprovedBy": "Noppasorn",
     "specApprovedAt": "2026-10-19T03:53:17.093Z",
-    "specUpdatedAt": "2026-10-22T10:00+07:00"
+    "specUpdatedAt": "2026-10-22T10:30+07:00"
   },
   "terms": [
     {
@@ -346,6 +346,27 @@
             "line": 1
           },
           "quote": "QB-int-01: ส่ง Email รหัสเข้าสู่ระบบ (OTP) ไม่สำเร็จ (mail server ล่ม) — ล้มทันที แจ้งผู้ใช้ให้กดขอรหัสใหม่เอง · เป็นคนละกฎกับ BR-mrr-019 เพราะรหัสเข้าสู่ระบบไม่ใช่การแจ้งเตือน",
+          "confidence": 1
+        }
+      ],
+      "extensions": {}
+    },
+    {
+      "id": "UL-mrr-014",
+      "termTh": "magic link",
+      "termEn": "MagicLink",
+      "definition": "ลิงก์ใน Email ฉบับเดียวกับรหัสเข้าสู่ระบบ กดแล้วเข้าสู่ระบบได้แทนการกรอกรหัส",
+      "aka": [],
+      "notToConfuseWith": [],
+      "status": "draft",
+      "becomesEntity": null,
+      "provenance": [
+        {
+          "source": "SRC-027",
+          "locator": {
+            "line": 3
+          },
+          "quote": "Email ที่ส่งรหัสมี magic link ให้กดเข้าสู่ระบบแทนการกรอกรหัส — อายุเท่ากันและใช้ได้ครั้งเดียวเหมือนรหัส",
           "confidence": 1
         }
       ],

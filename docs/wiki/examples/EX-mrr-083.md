@@ -9,7 +9,7 @@ status: draft
 kind: boundary
 proves: [BR-mrr-012@v1]
 has_ui: true
-timestamp: 2026-10-22T10:00:00+07:00
+timestamp: 2026-10-22T10:30:00+07:00
 spec_hash: sha256:05b4706867f5ec27ed4866daf88f7cdc2035a5124321086623f8eaff5bdf1cdf
 ---
 

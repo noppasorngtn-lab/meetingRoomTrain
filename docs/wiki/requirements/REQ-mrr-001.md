@@ -7,10 +7,10 @@ tags: [mrr, requirement]
 id: REQ-mrr-001
 status: draft
 actor: General User
-rules: [BR-mrr-001, BR-mrr-002, BR-mrr-003, BR-mrr-009, BR-mrr-014, BR-mrr-021, BR-mrr-024, BR-mrr-025, BR-mrr-026]
-domain_concepts: [UL-mrr-001, UL-mrr-002, UL-mrr-003, UL-mrr-005, UL-mrr-011, UL-mrr-013]
-timestamp: 2026-10-22T10:00:00+07:00
-spec_hash: sha256:502a9d9a972788db478259e1249078016bf3323173e5cc841b363f3129fb24f6
+rules: [BR-mrr-001, BR-mrr-002, BR-mrr-003, BR-mrr-009, BR-mrr-014, BR-mrr-021, BR-mrr-024, BR-mrr-025, BR-mrr-026, BR-mrr-027, BR-mrr-028]
+domain_concepts: [UL-mrr-001, UL-mrr-002, UL-mrr-003, UL-mrr-005, UL-mrr-011, UL-mrr-013, UL-mrr-014]
+timestamp: 2026-10-22T10:30:00+07:00
+spec_hash: sha256:345842bd7a372abf617020a5a7c32f55f82bbb320e0b79697e4b7acb47ce5215
 ---
 
 # REQ-mrr-001
@@ -36,6 +36,8 @@ spec_hash: sha256:502a9d9a972788db478259e1249078016bf3323173e5cc841b363f3129fb24
 | [BR-mrr-024@v1](../rules/BR-mrr-024@v1.md) | policy | ถ้าส่ง Email รหัสเข้าสู่ระบบไม่สำเร็จ การขอรหัสครั้งนั้นล้มทันที และแจ้งผู้ใช้ให้กดขอรหัสใหม่เอง — ไม่มีคิวส่งซ้ำ | 🔴 0 |
 | [BR-mrr-025@v1](../rules/BR-mrr-025@v1.md) | constraint | ระหว่างที่รหัสเข้าสู่ระบบที่ส่งไปแล้วยังใช้ได้ ผู้ใช้คนเดิมขอรหัสใหม่ไม่ได้ — ระบบกันการขอซ้ำ แจ้ง error และไม่ออกรหัสใหม่ | 🔴 0 |
 | [BR-mrr-026@v1](../rules/BR-mrr-026@v1.md) | policy | เข้าสู่ระบบได้เฉพาะพนักงานที่อยู่ในรายชื่อนำเข้าจาก HR และบัญชี active — Email นอกรายชื่อหรือบัญชีไม่ active ได้ข้อความตอบกลับเดียวกับกรณีปกติ แต่ระบบไม่ส่งรหัส และเข้าสู่ระบบไม่ได้ | 🔴 0 |
+| [BR-mrr-027@v1](../rules/BR-mrr-027@v1.md) | constraint | รหัสเข้าสู่ระบบเป็นตัวเลข 6 หลัก อายุ 10 นาที และใช้ได้ครั้งเดียว — Email ฉบับเดียวกันมี magic link อายุเท่ากันที่ใช้แทนการกรอกรหัสได้ และนับการใช้ร่วมกับรหัส: ใช้อย่างใดอย่างหนึ่งเข้าสู่ระบบแล้ว อีกอย่างใช้ไม่ได้อีก | 🔴 0 |
+| [BR-mrr-028@v1](../rules/BR-mrr-028@v1.md) | policy | รหัสที่ผิด หมดอายุ หรือถูกใช้ไปแล้ว เข้าสู่ระบบไม่ได้ — ระบบไม่สร้าง session และแจ้งเหตุ · กรอกผิดไม่ทำให้รหัสเสีย ผู้ใช้กรอกใหม่ด้วยรหัสเดิมได้จนหมดอายุ | 🔴 0 |
 
 ## คำศัพท์ที่ผูกกับ requirement นี้
 
@@ -45,6 +47,7 @@ spec_hash: sha256:502a9d9a972788db478259e1249078016bf3323173e5cc841b363f3129fb24
 - [UL-mrr-005 · การจองซ้ำ](../glossary/UL-mrr-005.md)
 - [UL-mrr-011 · คำขอแก้ไขการจอง](../glossary/UL-mrr-011.md)
 - [UL-mrr-013 · รหัสเข้าสู่ระบบ](../glossary/UL-mrr-013.md)
+- [UL-mrr-014 · magic link](../glossary/UL-mrr-014.md)
 
 ## NFR
 

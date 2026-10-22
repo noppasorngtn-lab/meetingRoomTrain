@@ -8,7 +8,7 @@ id: NFR-mrr-002
 kind: performance
 belongs_to: REQ-mrr-001
 verified_by: load_test
-timestamp: 2026-10-22T10:00:00+07:00
+timestamp: 2026-10-22T10:30:00+07:00
 spec_hash: sha256:05ca71b99fdc35cee5a9b83c7ac3ec7dca2a666d15ebbadcc12b32e6cd21e5ab
 ---
 

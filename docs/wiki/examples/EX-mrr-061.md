@@ -9,7 +9,7 @@ status: draft
 kind: exception
 proves: [BR-mrr-018@v1]
 has_ui: true
-timestamp: 2026-10-22T10:00:00+07:00
+timestamp: 2026-10-22T10:30:00+07:00
 spec_hash: sha256:3c9b3225f6764f464cd0fd5aeb1b9c77f4eb57dbcf1995d1cd3169eb90cc2cd1
 ---
 

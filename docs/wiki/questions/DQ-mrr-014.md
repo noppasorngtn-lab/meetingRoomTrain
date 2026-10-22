@@ -8,7 +8,7 @@ id: DQ-mrr-014
 state: open
 raised_by: BR-mrr-024@v1
 answer_phase: plan
-timestamp: 2026-10-22T10:00:00+07:00
+timestamp: 2026-10-22T10:30:00+07:00
 spec_hash: sha256:0ba508a78aeedd3387962c44b9bac19e0a631bd4b044d848c248830056879bb8
 ---
 

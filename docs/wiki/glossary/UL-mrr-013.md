@@ -9,7 +9,7 @@ status: draft
 term_th: รหัสเข้าสู่ระบบ
 term_en: LoginCode
 not_to_confuse_with: []
-timestamp: 2026-10-22T10:00:00+07:00
+timestamp: 2026-10-22T10:30:00+07:00
 spec_hash: sha256:457c2e57ada195a5e8d16e137f4ec8ac9652bea412fc2a7532077106859ce740
 ---
 

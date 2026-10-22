@@ -9,7 +9,7 @@ status: draft
 kind: happy
 proves: [BR-mrr-021@v1]
 has_ui: true
-timestamp: 2026-10-22T10:00:00+07:00
+timestamp: 2026-10-22T10:30:00+07:00
 spec_hash: sha256:1562dd9871a023309974d55f7c69dbf16e8f6d608bc789ab74a2698fb78a3cdf
 ---
 

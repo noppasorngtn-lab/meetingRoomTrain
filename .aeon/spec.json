@@ -5,7 +5,7 @@
     "scale": "FULL",
     "status": "validated",
     "created_at": "2026-10-16T11:40+07:00",
-    "updated_at": "2026-10-22T10:00+07:00",
+    "updated_at": "2026-10-22T10:30+07:00",
     "approved_by": "Noppasorn",
     "approved_at": "2026-10-19T03:53:17.093Z"
   },
@@ -223,6 +223,14 @@
       "captured_by": "/req:ask integration · idempotency · permission",
       "content": "QB-int-01: ส่ง Email รหัสเข้าสู่ระบบ (OTP) ไม่สำเร็จ (mail server ล่ม) — ล้มทันที แจ้งผู้ใช้ให้กดขอรหัสใหม่เอง · เป็นคนละกฎกับ BR-mrr-019 เพราะรหัสเข้าสู่ระบบไม่ใช่การแจ้งเตือน\nQB-idem-01: ผู้ใช้กดขอรหัสซ้ำ (กดรัว ๆ หรือกดขอรหัสใหม่) — กันการขอซ้ำแล้วแจ้ง error ห้ามขอรหัสใหม่ระหว่างที่รหัสเดิมยังใช้ได้\nQB-perm-02: เข้าสู่ระบบได้เฉพาะพนักงานที่อยู่ในรายชื่อนำเข้าจาก HR และบัญชี active — ถ้าไม่เข้าเงื่อนไข ระบบตอบข้อความเดียวกับกรณีปกติแต่ไม่ส่งรหัส และเข้าสู่ระบบไม่ได้\nกฎการเข้าสู่ระบบอยู่ใต้ REQ-mrr-001 (ที่ NFR-mrr-001 อยู่) — รอบนี้ถามเพื่อปิดการ์ด GAP-mrr-003 ที่ dev ยกขึ้นมา (UC-mrr-020 ไม่มีเกณฑ์รับ)",
       "hash_at_import": "sha256:29546b88556b707cc56eabe8f7ba6c8c10e648af7c459f490cd1ea647b5a20fb"
+    },
+    {
+      "id": "SRC-027",
+      "kind": "chat",
+      "captured_at": "2026-10-22T10:30+07:00",
+      "captured_by": "/req:capture mrr",
+      "content": "รหัสเข้าสู่ระบบเป็นตัวเลข 6 หลัก อายุ 10 นาที\nรหัสหนึ่งตัวใช้ได้ครั้งเดียว — รหัสผิด หมดอายุ หรือถูกใช้ไปแล้ว ระบบไม่สร้าง session และแจ้งเหตุ\nEmail ที่ส่งรหัสมี magic link ให้กดเข้าสู่ระบบแทนการกรอกรหัส — อายุเท่ากันและใช้ได้ครั้งเดียวเหมือนรหัส\nกรอกรหัสผิดระหว่างที่รหัสยังไม่หมดอายุ — กรอกใหม่ด้วยรหัสเดิมได้จนหมดอายุ รหัสไม่เสียเพราะกรอกผิด · ขอรหัสใหม่ได้เมื่อรหัสเดิมหมดอายุหรือถูกใช้ไปแล้ว (ยืนยัน BR-mrr-025)\nmagic link กับรหัสใน Email ฉบับเดียวกันนับการใช้ร่วมกัน — ใช้อย่างใดอย่างหนึ่งเข้าสู่ระบบแล้ว อีกอย่างใช้ไม่ได้อีก",
+      "hash_at_import": "sha256:d96d0ed199d2d7682325dd93dd097523a9ec360b43f5b9da266b715c743693d1"
     }
   ],
   "glossary": [
@@ -553,6 +561,26 @@
         }
       ],
       "becomes_entity": null
+    },
+    {
+      "id": "UL-mrr-014",
+      "term_th": "magic link",
+      "term_en": "MagicLink",
+      "definition": "ลิงก์ใน Email ฉบับเดียวกับรหัสเข้าสู่ระบบ กดแล้วเข้าสู่ระบบได้แทนการกรอกรหัส",
+      "aka": [],
+      "not_to_confuse_with": [],
+      "status": "draft",
+      "provenance": [
+        {
+          "source": "SRC-027",
+          "locator": {
+            "line": 3
+          },
+          "quote": "Email ที่ส่งรหัสมี magic link ให้กดเข้าสู่ระบบแทนการกรอกรหัส — อายุเท่ากันและใช้ได้ครั้งเดียวเหมือนรหัส",
+          "confidence": 1
+        }
+      ],
+      "becomes_entity": null
     }
   ],
   "stakeholders": [
@@ -656,7 +684,8 @@
         "UL-mrr-003",
         "UL-mrr-005",
         "UL-mrr-011",
-        "UL-mrr-013"
+        "UL-mrr-013",
+        "UL-mrr-014"
       ],
       "rules": [
         "BR-mrr-001",
@@ -667,7 +696,9 @@
         "BR-mrr-021",
         "BR-mrr-024",
         "BR-mrr-025",
-        "BR-mrr-026"
+        "BR-mrr-026",
+        "BR-mrr-027",
+        "BR-mrr-028"
       ],
       "provenance": [
         {
@@ -2160,6 +2191,14 @@
           },
           "quote": "QB-idem-01: ผู้ใช้กดขอรหัสซ้ำ (กดรัว ๆ หรือกดขอรหัสใหม่) — กันการขอซ้ำแล้วแจ้ง error ห้ามขอรหัสใหม่ระหว่างที่รหัสเดิมยังใช้ได้",
           "confidence": 1
+        },
+        {
+          "source": "SRC-027",
+          "locator": {
+            "line": 4
+          },
+          "quote": "กรอกรหัสผิดระหว่างที่รหัสยังไม่หมดอายุ — กรอกใหม่ด้วยรหัสเดิมได้จนหมดอายุ รหัสไม่เสียเพราะกรอกผิด · ขอรหัสใหม่ได้เมื่อรหัสเดิมหมดอายุหรือถูกใช้ไปแล้ว (ยืนยัน BR-mrr-025)",
+          "confidence": 1
         }
       ],
       "supersedes": null,
@@ -2193,6 +2232,106 @@
             "line": 3
           },
           "quote": "QB-perm-02: เข้าสู่ระบบได้เฉพาะพนักงานที่อยู่ในรายชื่อนำเข้าจาก HR และบัญชี active — ถ้าไม่เข้าเงื่อนไข ระบบตอบข้อความเดียวกับกรณีปกติแต่ไม่ส่งรหัส และเข้าสู่ระบบไม่ได้",
+          "confidence": 1
+        }
+      ],
+      "supersedes": null,
+      "superseded_by": null,
+      "superseded_at": null,
+      "change_reason": null,
+      "traces_down": {
+        "features": [],
+        "test_cases": []
+      }
+    },
+    {
+      "id": "BR-mrr-027@v1",
+      "base_id": "BR-mrr-027",
+      "version": 1,
+      "is_current": true,
+      "status": "draft",
+      "belongs_to": "REQ-mrr-001",
+      "statement": "รหัสเข้าสู่ระบบเป็นตัวเลข 6 หลัก อายุ 10 นาที และใช้ได้ครั้งเดียว — Email ฉบับเดียวกันมี magic link อายุเท่ากันที่ใช้แทนการกรอกรหัสได้ และนับการใช้ร่วมกับรหัส: ใช้อย่างใดอย่างหนึ่งเข้าสู่ระบบแล้ว อีกอย่างใช้ไม่ได้อีก",
+      "kind": "constraint",
+      "enforced_by": [],
+      "examples": [],
+      "questions": [],
+      "test_design": [
+        "BVA"
+      ],
+      "provenance": [
+        {
+          "source": "SRC-027",
+          "locator": {
+            "line": 1
+          },
+          "quote": "รหัสเข้าสู่ระบบเป็นตัวเลข 6 หลัก อายุ 10 นาที",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-027",
+          "locator": {
+            "line": 2
+          },
+          "quote": "รหัสหนึ่งตัวใช้ได้ครั้งเดียว — รหัสผิด หมดอายุ หรือถูกใช้ไปแล้ว ระบบไม่สร้าง session และแจ้งเหตุ",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-027",
+          "locator": {
+            "line": 3
+          },
+          "quote": "Email ที่ส่งรหัสมี magic link ให้กดเข้าสู่ระบบแทนการกรอกรหัส — อายุเท่ากันและใช้ได้ครั้งเดียวเหมือนรหัส",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-027",
+          "locator": {
+            "line": 5
+          },
+          "quote": "magic link กับรหัสใน Email ฉบับเดียวกันนับการใช้ร่วมกัน — ใช้อย่างใดอย่างหนึ่งเข้าสู่ระบบแล้ว อีกอย่างใช้ไม่ได้อีก",
+          "confidence": 1
+        }
+      ],
+      "supersedes": null,
+      "superseded_by": null,
+      "superseded_at": null,
+      "change_reason": null,
+      "traces_down": {
+        "features": [],
+        "test_cases": []
+      }
+    },
+    {
+      "id": "BR-mrr-028@v1",
+      "base_id": "BR-mrr-028",
+      "version": 1,
+      "is_current": true,
+      "status": "draft",
+      "belongs_to": "REQ-mrr-001",
+      "statement": "รหัสที่ผิด หมดอายุ หรือถูกใช้ไปแล้ว เข้าสู่ระบบไม่ได้ — ระบบไม่สร้าง session และแจ้งเหตุ · กรอกผิดไม่ทำให้รหัสเสีย ผู้ใช้กรอกใหม่ด้วยรหัสเดิมได้จนหมดอายุ",
+      "kind": "policy",
+      "enforced_by": [],
+      "examples": [],
+      "questions": [],
+      "test_design": [
+        "decision_table"
+      ],
+      "provenance": [
+        {
+          "source": "SRC-027",
+          "locator": {
+            "line": 2
+          },
+          "quote": "รหัสหนึ่งตัวใช้ได้ครั้งเดียว — รหัสผิด หมดอายุ หรือถูกใช้ไปแล้ว ระบบไม่สร้าง session และแจ้งเหตุ",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-027",
+          "locator": {
+            "line": 4
+          },
+          "quote": "กรอกรหัสผิดระหว่างที่รหัสยังไม่หมดอายุ — กรอกใหม่ด้วยรหัสเดิมได้จนหมดอายุ รหัสไม่เสียเพราะกรอกผิด · ขอรหัสใหม่ได้เมื่อรหัสเดิมหมดอายุหรือถูกใช้ไปแล้ว (ยืนยัน BR-mrr-025)",
           "confidence": 1
         }
       ],
@@ -4368,12 +4507,12 @@
     }
   ],
   "rollup": {
-    "rules_total": 26,
+    "rules_total": 28,
     "rules_with_example": 23,
     "rules_with_green_test": 0,
     "open_questions": 0,
     "open_deferred": 11,
-    "rule_coverage": 0.8846,
+    "rule_coverage": 0.8214,
     "ready_for_next_step": false
   }
 }

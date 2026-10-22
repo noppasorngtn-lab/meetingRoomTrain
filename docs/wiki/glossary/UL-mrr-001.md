@@ -9,7 +9,7 @@ status: draft
 term_th: ห้องประชุม
 term_en: MeetingRoom
 not_to_confuse_with: []
-timestamp: 2026-10-22T10:00:00+07:00
+timestamp: 2026-10-22T10:30:00+07:00
 spec_hash: sha256:05bade542d7d0b08288e64cec044df936cdf64fc85427033bdb507a9c5f97985
 ---
 

@@ -9,7 +9,7 @@ status: draft
 actor: Room Administrator
 rules: [BR-mrr-006, BR-mrr-015, BR-mrr-022]
 domain_concepts: [UL-mrr-001, UL-mrr-008, UL-mrr-012]
-timestamp: 2026-10-22T10:00:00+07:00
+timestamp: 2026-10-22T10:30:00+07:00
 spec_hash: sha256:06e32d3b40e4bd6fa94c4fd7b8a3fa3bc7736ac16f794dc9e57f79716ad3db00
 ---
 

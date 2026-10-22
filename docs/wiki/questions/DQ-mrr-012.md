@@ -8,7 +8,7 @@ id: DQ-mrr-012
 state: open
 raised_by: BR-mrr-021@v1
 answer_phase: domain
-timestamp: 2026-10-22T10:00:00+07:00
+timestamp: 2026-10-22T10:30:00+07:00
 spec_hash: sha256:8724b3b32e50bdf2bb9623e7c0a264f2a7aa08014c9dcbbf3059868b75bdfbfd
 ---
 

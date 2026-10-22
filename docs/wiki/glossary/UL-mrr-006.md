@@ -9,7 +9,7 @@ status: draft
 term_th: การอนุมัติการจอง
 term_en: BookingApproval
 not_to_confuse_with: []
-timestamp: 2026-10-22T10:00:00+07:00
+timestamp: 2026-10-22T10:30:00+07:00
 spec_hash: sha256:b1054d35f450f89034ecea03ca78da682ab523fa81cf515f9a10588c6ae9b09d
 ---
 

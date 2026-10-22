@@ -9,7 +9,7 @@ status: draft
 term_th: การจองซ้ำ
 term_en: BookingConflict
 not_to_confuse_with: []
-timestamp: 2026-10-22T10:00:00+07:00
+timestamp: 2026-10-22T10:30:00+07:00
 spec_hash: sha256:9c409323d9059e5cadc2ca7ffad9ae66cd62933ab9c598fee6411329f1d15e8d
 ---
 
