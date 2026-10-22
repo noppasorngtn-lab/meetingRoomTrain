@@ -2,9 +2,9 @@
   "schemaVersion": "1.0",
   "producedBy": "design · scripts/rbac.mjs",
   "project": "mrr",
-  "status": "approved",
-  "approvedAt": "2026-10-21T07:40:09Z",
-  "approvedBy": "Noppasorn",
+  "status": "draft",
+  "approvedAt": null,
+  "approvedBy": null,
   "defaultEffect": "deny",
   "roles": [
     {
@@ -538,6 +538,24 @@
       "enforceAt": [
         "api",
         "domain"
+      ]
+    },
+    {
+      "id": "ACL-038",
+      "role": "ROLE-001",
+      "resource": "UC-mrr-020",
+      "action": "ใช้รหัสเข้าสู่ระบบหรือ magic link ที่ส่งถึง Email ของตนเอง ระหว่างที่ยังใช้ได้ — รหัสเปลี่ยนจาก ISSUED เป็น USED และได้ session ตามบทบาทของ User นั้น · ทำได้ก่อนเข้าสู่ระบบ เพราะเป็นทางเข้าสู่ระบบเอง · ผู้ใช้ที่ไม่ active ใช้ไม่ได้ (BR-mrr-026@v1) · การหมดอายุ (ISSUED → EXPIRED) เกิดเองตามเวลา ไม่มีใครเป็นผู้กระทำ",
+      "scope": "own",
+      "condition": {
+        "stateMachine": "STM-mrr-004",
+        "state": [
+          "ISSUED"
+        ]
+      },
+      "enforceAt": [
+        "api",
+        "domain",
+        "db"
       ]
     }
   ],

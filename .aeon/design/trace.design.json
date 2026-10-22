@@ -3358,6 +3358,11 @@
       "from": "ENT-014",
       "rel": "hasState",
       "to": "STM-mrr-004"
+    },
+    {
+      "from": "UC-mrr-020",
+      "rel": "governedByAcl",
+      "to": "ACL-038"
     }
   ]
 }
