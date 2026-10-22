@@ -249,7 +249,7 @@
     {
       "id": "wireframe",
       "command": "/mock:wireframe",
-      "status": "done",
+      "status": "stale",
       "requires": [
         "convention"
       ],
@@ -260,8 +260,9 @@
         "mockup-map.json",
         "trace.mockup.json"
       ],
-      "attempts": 1,
-      "updatedAt": "2026-10-19T11:17:43Z"
+      "attempts": 0,
+      "updatedAt": "2026-10-22T10:52:39Z",
+      "staleBecause": "ADR-004"
     },
     {
       "id": "theme",
@@ -280,7 +281,7 @@
     {
       "id": "html",
       "command": "/mock:html",
-      "status": "done",
+      "status": "stale",
       "requires": [
         "wireframe",
         "theme"
@@ -288,8 +289,9 @@
       "artifacts": [
         "../../mockups/<UI-id>/<state>.html"
       ],
-      "attempts": 1,
-      "updatedAt": "2026-10-19T11:33:17Z"
+      "attempts": 0,
+      "updatedAt": "2026-10-22T10:52:39Z",
+      "staleBecause": "ADR-004"
     },
     {
       "id": "handoff",
