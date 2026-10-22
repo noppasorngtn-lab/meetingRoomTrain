@@ -9,7 +9,7 @@ status: draft
 term_th: อัตราการใช้งาน
 term_en: UtilizationRate
 not_to_confuse_with: []
-timestamp: 2026-10-19T12:10:00+07:00
+timestamp: 2026-10-22T10:00:00+07:00
 spec_hash: sha256:f75836e24a477d9f37a91cf0de19cc3867ea0955ad19f7d5bc1b7c6f05da89fd
 ---
 

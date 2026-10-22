@@ -9,7 +9,7 @@ status: draft
 kind: alternate
 proves: [BR-mrr-016@v1]
 has_ui: true
-timestamp: 2026-10-19T12:10:00+07:00
+timestamp: 2026-10-22T10:00:00+07:00
 spec_hash: sha256:f3f6cd2163422a6b23cec7ec6a0cd44d3ae3205164733e276da03bc4b0381646
 ---
 

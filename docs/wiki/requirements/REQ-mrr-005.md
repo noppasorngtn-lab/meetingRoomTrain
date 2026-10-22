@@ -9,7 +9,7 @@ status: draft
 actor: General User · งานแจ้งเตือนตามเวลา (ระบบ)
 rules: [BR-mrr-007, BR-mrr-008, BR-mrr-019, BR-mrr-020, BR-mrr-023]
 domain_concepts: [UL-mrr-002, UL-mrr-006, UL-mrr-009]
-timestamp: 2026-10-19T12:10:00+07:00
+timestamp: 2026-10-22T10:00:00+07:00
 spec_hash: sha256:b3a9cbe460c3d415e3da7338a618d2bebc49b7f8a2d42bc89e3918f0a1fe9462
 ---
 

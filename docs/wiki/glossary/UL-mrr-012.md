@@ -9,7 +9,7 @@ status: draft
 term_th: ชั่วโมงทำการของห้อง
 term_en: RoomOperatingHours
 not_to_confuse_with: []
-timestamp: 2026-10-19T12:10:00+07:00
+timestamp: 2026-10-22T10:00:00+07:00
 spec_hash: sha256:13e0d683bc426806e379b89848d97ec7fea03aee44d92c566ddc265048983ecc
 ---
 

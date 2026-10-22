@@ -13,7 +13,7 @@ test_design: [decision_table]
 proven_by: [EX-mrr-015, EX-mrr-016, EX-mrr-017, EX-mrr-018, EX-mrr-090]
 golden: []
 provenance: [SRC-001, SRC-001]
-timestamp: 2026-10-19T12:10:00+07:00
+timestamp: 2026-10-22T10:00:00+07:00
 spec_hash: sha256:32f6ed45093ea96037b2b3817d1822166f8226042c8b1192cbd26135f40329f8
 ---
 

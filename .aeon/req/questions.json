@@ -8,7 +8,7 @@
     "specStatus": "validated",
     "specApprovedBy": "Noppasorn",
     "specApprovedAt": "2026-10-19T03:53:17.093Z",
-    "specUpdatedAt": "2026-10-19T12:10+07:00"
+    "specUpdatedAt": "2026-10-22T10:00+07:00"
   },
   "deferred": [
     {
@@ -265,6 +265,63 @@
       "resultedIn": [
         "BR-mrr-022@v1"
       ],
+      "extensions": {}
+    },
+    {
+      "id": "DQ-mrr-014",
+      "question": "ข้อมูลที่เขียนไปแล้วก่อนส่ง Email รหัสเข้าสู่ระบบ (เช่น รหัสที่ออกไว้) — rollback หรือค้างครึ่งทาง เมื่อส่งไม่สำเร็จ (transaction boundary)",
+      "raisedBy": "BR-mrr-024@v1",
+      "category": "integration",
+      "blockedUntil": null,
+      "answerPhase": "plan",
+      "answerBy": {
+        "phase": "plan",
+        "plugin": "dev",
+        "command": null,
+        "why": "the answer is a build decision — sequencing, migration, rollout"
+      },
+      "state": "open",
+      "answer": null,
+      "answeredAt": null,
+      "resultedIn": [],
+      "extensions": {}
+    },
+    {
+      "id": "DQ-mrr-015",
+      "question": "ระบบรู้ได้อย่างไรว่าเป็นการขอรหัสซ้ำของคนเดิม — natural key คือบัญชีผู้ใช้หรือ Email",
+      "raisedBy": "BR-mrr-025@v1",
+      "category": "idempotency",
+      "blockedUntil": null,
+      "answerPhase": "domain",
+      "answerBy": {
+        "phase": "domain",
+        "plugin": "design",
+        "command": "/design:datamodel",
+        "why": "the answer is an entity, a field, a type or a life cycle — design is the pen that writes those"
+      },
+      "state": "open",
+      "answer": null,
+      "answeredAt": null,
+      "resultedIn": [],
+      "extensions": {}
+    },
+    {
+      "id": "DQ-mrr-016",
+      "question": "ข้อความ error ภาษาไทยตรงตัวที่ผู้ใช้เห็นเมื่อขอรหัสซ้ำระหว่างที่รหัสเดิมยังใช้ได้",
+      "raisedBy": "BR-mrr-025@v1",
+      "category": "idempotency",
+      "blockedUntil": null,
+      "answerPhase": "screen",
+      "answerBy": {
+        "phase": "screen",
+        "plugin": "mock",
+        "command": "/mock:coverage",
+        "why": "the answer is about what a screen shows or how it behaves once the data model is settled"
+      },
+      "state": "open",
+      "answer": null,
+      "answeredAt": null,
+      "resultedIn": [],
       "extensions": {}
     }
   ],

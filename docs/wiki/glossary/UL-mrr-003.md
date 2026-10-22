@@ -9,7 +9,7 @@ status: draft
 term_th: สิ่งอำนวยความสะดวก
 term_en: Facility
 not_to_confuse_with: []
-timestamp: 2026-10-19T12:10:00+07:00
+timestamp: 2026-10-22T10:00:00+07:00
 spec_hash: sha256:70c08d76893e307fe781067a84a7e3ba82f5f298db3c8ba3336c3099b1b52a4f
 ---
 

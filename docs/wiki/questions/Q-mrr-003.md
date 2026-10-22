@@ -7,7 +7,7 @@ tags: [mrr, question]
 id: Q-mrr-003
 state: answered
 raised_by: BR-mrr-008@v1
-timestamp: 2026-10-19T12:10:00+07:00
+timestamp: 2026-10-22T10:00:00+07:00
 spec_hash: sha256:664399c590d6a6ec4782ac6629593142bda685554a68378dc8a86353a7939a30
 ---
 

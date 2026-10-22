@@ -9,7 +9,7 @@ status: draft
 term_th: งานแจ้งเตือนตามเวลา
 term_en: ReminderJob
 not_to_confuse_with: []
-timestamp: 2026-10-19T12:10:00+07:00
+timestamp: 2026-10-22T10:00:00+07:00
 spec_hash: sha256:b26a1c5546dc08ef5631c91294eba4992b335fa0d76132084f26e1983ac2faea
 ---
 

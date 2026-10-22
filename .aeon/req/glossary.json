@@ -8,7 +8,7 @@
     "specStatus": "validated",
     "specApprovedBy": "Noppasorn",
     "specApprovedAt": "2026-10-19T03:53:17.093Z",
-    "specUpdatedAt": "2026-10-19T12:10+07:00"
+    "specUpdatedAt": "2026-10-22T10:00+07:00"
   },
   "terms": [
     {
@@ -315,6 +315,37 @@
             "line": 8
           },
           "quote": "boundary: วันหยุดนักขัตฤกษ์ที่ตรงกับ จ.–ศ. นับเป็นเวลาทำการตามปกติ",
+          "confidence": 1
+        }
+      ],
+      "extensions": {}
+    },
+    {
+      "id": "UL-mrr-013",
+      "termTh": "รหัสเข้าสู่ระบบ",
+      "termEn": "LoginCode",
+      "definition": "รหัสที่ระบบส่งไปที่ Email องค์กรของผู้ใช้เพื่อใช้เข้าสู่ระบบ — ระบบไม่มีรหัสผ่าน",
+      "aka": [
+        "OTP"
+      ],
+      "notToConfuseWith": [],
+      "status": "draft",
+      "becomesEntity": null,
+      "provenance": [
+        {
+          "source": "SRC-010",
+          "locator": {
+            "line": 2
+          },
+          "quote": "เข้าสู่ระบบด้วย Email ขององค์กรอย่างเดียว — ไม่เชื่อม Active Directory (SSO) ในรอบนี้",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-026",
+          "locator": {
+            "line": 1
+          },
+          "quote": "QB-int-01: ส่ง Email รหัสเข้าสู่ระบบ (OTP) ไม่สำเร็จ (mail server ล่ม) — ล้มทันที แจ้งผู้ใช้ให้กดขอรหัสใหม่เอง · เป็นคนละกฎกับ BR-mrr-019 เพราะรหัสเข้าสู่ระบบไม่ใช่การแจ้งเตือน",
           "confidence": 1
         }
       ],

@@ -8,7 +8,7 @@
     "specStatus": "validated",
     "specApprovedBy": "Noppasorn",
     "specApprovedAt": "2026-10-19T03:53:17.093Z",
-    "specUpdatedAt": "2026-10-19T12:10+07:00"
+    "specUpdatedAt": "2026-10-22T10:00+07:00"
   },
   "requirements": [
     {
@@ -25,7 +25,8 @@
         "UL-mrr-002",
         "UL-mrr-003",
         "UL-mrr-005",
-        "UL-mrr-011"
+        "UL-mrr-011",
+        "UL-mrr-013"
       ],
       "nfr": [
         {
@@ -318,6 +319,75 @@
                 "line": 2
               },
               "quote": "เป็นกฎคนละข้อกับ BR-mrr-003 — BR-mrr-003 คือหน้า My Bookings ส่วนข้อนี้คือการมองเห็นในปฏิทิน",
+              "confidence": 1
+            }
+          ],
+          "extensions": {}
+        },
+        {
+          "id": "BR-mrr-024@v1",
+          "baseId": "BR-mrr-024",
+          "version": 1,
+          "status": "draft",
+          "kind": "policy",
+          "statement": "ถ้าส่ง Email รหัสเข้าสู่ระบบไม่สำเร็จ การขอรหัสครั้งนั้นล้มทันที และแจ้งผู้ใช้ให้กดขอรหัสใหม่เอง — ไม่มีคิวส่งซ้ำ",
+          "examples": [],
+          "questions": [],
+          "constrainedBy": null,
+          "effectiveFrom": null,
+          "provenance": [
+            {
+              "source": "SRC-026",
+              "locator": {
+                "line": 1
+              },
+              "quote": "QB-int-01: ส่ง Email รหัสเข้าสู่ระบบ (OTP) ไม่สำเร็จ (mail server ล่ม) — ล้มทันที แจ้งผู้ใช้ให้กดขอรหัสใหม่เอง · เป็นคนละกฎกับ BR-mrr-019 เพราะรหัสเข้าสู่ระบบไม่ใช่การแจ้งเตือน",
+              "confidence": 1
+            }
+          ],
+          "extensions": {}
+        },
+        {
+          "id": "BR-mrr-025@v1",
+          "baseId": "BR-mrr-025",
+          "version": 1,
+          "status": "draft",
+          "kind": "constraint",
+          "statement": "ระหว่างที่รหัสเข้าสู่ระบบที่ส่งไปแล้วยังใช้ได้ ผู้ใช้คนเดิมขอรหัสใหม่ไม่ได้ — ระบบกันการขอซ้ำ แจ้ง error และไม่ออกรหัสใหม่",
+          "examples": [],
+          "questions": [],
+          "constrainedBy": null,
+          "effectiveFrom": null,
+          "provenance": [
+            {
+              "source": "SRC-026",
+              "locator": {
+                "line": 2
+              },
+              "quote": "QB-idem-01: ผู้ใช้กดขอรหัสซ้ำ (กดรัว ๆ หรือกดขอรหัสใหม่) — กันการขอซ้ำแล้วแจ้ง error ห้ามขอรหัสใหม่ระหว่างที่รหัสเดิมยังใช้ได้",
+              "confidence": 1
+            }
+          ],
+          "extensions": {}
+        },
+        {
+          "id": "BR-mrr-026@v1",
+          "baseId": "BR-mrr-026",
+          "version": 1,
+          "status": "draft",
+          "kind": "policy",
+          "statement": "เข้าสู่ระบบได้เฉพาะพนักงานที่อยู่ในรายชื่อนำเข้าจาก HR และบัญชี active — Email นอกรายชื่อหรือบัญชีไม่ active ได้ข้อความตอบกลับเดียวกับกรณีปกติ แต่ระบบไม่ส่งรหัส และเข้าสู่ระบบไม่ได้",
+          "examples": [],
+          "questions": [],
+          "constrainedBy": null,
+          "effectiveFrom": null,
+          "provenance": [
+            {
+              "source": "SRC-026",
+              "locator": {
+                "line": 3
+              },
+              "quote": "QB-perm-02: เข้าสู่ระบบได้เฉพาะพนักงานที่อยู่ในรายชื่อนำเข้าจาก HR และบัญชี active — ถ้าไม่เข้าเงื่อนไข ระบบตอบข้อความเดียวกับกรณีปกติแต่ไม่ส่งรหัส และเข้าสู่ระบบไม่ได้",
               "confidence": 1
             }
           ],

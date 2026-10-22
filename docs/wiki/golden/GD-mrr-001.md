@@ -9,7 +9,7 @@ status: validated
 proves: [BR-mrr-006@v1, CALC-mrr-001@v1]
 verified_by: Adisorn
 verified_at: 2026-10-19T12:10+07:00
-timestamp: 2026-10-19T12:10:00+07:00
+timestamp: 2026-10-22T10:00:00+07:00
 spec_hash: sha256:5410c8670bc6732813dcc5b90aec5149a00bf9b9a9238e4375d5442da24270a7
 ---
 

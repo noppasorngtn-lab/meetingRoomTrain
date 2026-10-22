@@ -7,10 +7,10 @@ tags: [mrr, requirement]
 id: REQ-mrr-001
 status: draft
 actor: General User
-rules: [BR-mrr-001, BR-mrr-002, BR-mrr-003, BR-mrr-009, BR-mrr-014, BR-mrr-021]
-domain_concepts: [UL-mrr-001, UL-mrr-002, UL-mrr-003, UL-mrr-005, UL-mrr-011]
-timestamp: 2026-10-19T12:10:00+07:00
-spec_hash: sha256:34b2094c887eb685f6ba9e4ecb16cc95ba37c8eeb0a3810f47fd839b96fd2201
+rules: [BR-mrr-001, BR-mrr-002, BR-mrr-003, BR-mrr-009, BR-mrr-014, BR-mrr-021, BR-mrr-024, BR-mrr-025, BR-mrr-026]
+domain_concepts: [UL-mrr-001, UL-mrr-002, UL-mrr-003, UL-mrr-005, UL-mrr-011, UL-mrr-013]
+timestamp: 2026-10-22T10:00:00+07:00
+spec_hash: sha256:502a9d9a972788db478259e1249078016bf3323173e5cc841b363f3129fb24f6
 ---
 
 # REQ-mrr-001
@@ -33,6 +33,9 @@ spec_hash: sha256:34b2094c887eb685f6ba9e4ecb16cc95ba37c8eeb0a3810f47fd839b96fd22
 | [BR-mrr-009@v1](../rules/BR-mrr-009@v1.md) | policy | เมื่อถึงเวลาเริ่มประชุมแล้ว ผู้จองแก้ไขหรือยกเลิกการจองเองไม่ได้ — ต้องให้ Room Administrator เป็นผู้แก้ไขหรือยกเลิก โดยต้องระบุเหตุผลทุกครั้ง | 5 |
 | [BR-mrr-014@v1](../rules/BR-mrr-014@v1.md) | policy | หลังเวลาจบประชุม การแก้ไขการจองเก็บเป็นคำขอแก้แยก ค่าเดิมคงไว้ — คำขอจะมีผลต่อเมื่อได้รับอนุมัติจาก Room Administrator คนอื่นที่ไม่ใช่คนแก้ | 4 |
 | [BR-mrr-021@v1](../rules/BR-mrr-021@v1.md) | policy | ในปฏิทิน General User เห็นรายละเอียด (ผู้จอง · หัวข้อ · ผู้เข้าร่วม) เฉพาะการจองที่ตัวเองจองหรือเป็นผู้เข้าร่วม — การจองของคนอื่นเห็นแค่ว่าช่วงเวลานั้น "ไม่ว่าง" | 4 |
+| [BR-mrr-024@v1](../rules/BR-mrr-024@v1.md) | policy | ถ้าส่ง Email รหัสเข้าสู่ระบบไม่สำเร็จ การขอรหัสครั้งนั้นล้มทันที และแจ้งผู้ใช้ให้กดขอรหัสใหม่เอง — ไม่มีคิวส่งซ้ำ | 🔴 0 |
+| [BR-mrr-025@v1](../rules/BR-mrr-025@v1.md) | constraint | ระหว่างที่รหัสเข้าสู่ระบบที่ส่งไปแล้วยังใช้ได้ ผู้ใช้คนเดิมขอรหัสใหม่ไม่ได้ — ระบบกันการขอซ้ำ แจ้ง error และไม่ออกรหัสใหม่ | 🔴 0 |
+| [BR-mrr-026@v1](../rules/BR-mrr-026@v1.md) | policy | เข้าสู่ระบบได้เฉพาะพนักงานที่อยู่ในรายชื่อนำเข้าจาก HR และบัญชี active — Email นอกรายชื่อหรือบัญชีไม่ active ได้ข้อความตอบกลับเดียวกับกรณีปกติ แต่ระบบไม่ส่งรหัส และเข้าสู่ระบบไม่ได้ | 🔴 0 |
 
 ## คำศัพท์ที่ผูกกับ requirement นี้
 
@@ -41,6 +44,7 @@ spec_hash: sha256:34b2094c887eb685f6ba9e4ecb16cc95ba37c8eeb0a3810f47fd839b96fd22
 - [UL-mrr-003 · สิ่งอำนวยความสะดวก](../glossary/UL-mrr-003.md)
 - [UL-mrr-005 · การจองซ้ำ](../glossary/UL-mrr-005.md)
 - [UL-mrr-011 · คำขอแก้ไขการจอง](../glossary/UL-mrr-011.md)
+- [UL-mrr-013 · รหัสเข้าสู่ระบบ](../glossary/UL-mrr-013.md)
 
 ## NFR
 

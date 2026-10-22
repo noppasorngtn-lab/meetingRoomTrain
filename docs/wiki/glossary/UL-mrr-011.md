@@ -9,7 +9,7 @@ status: draft
 term_th: คำขอแก้ไขการจอง
 term_en: BookingAdjustmentRequest
 not_to_confuse_with: []
-timestamp: 2026-10-19T12:10:00+07:00
+timestamp: 2026-10-22T10:00:00+07:00
 spec_hash: sha256:76cd9d8cd968e15a01a5bfb1092a9d0d5114971ba7572f7d97757188aa65639c
 ---
 

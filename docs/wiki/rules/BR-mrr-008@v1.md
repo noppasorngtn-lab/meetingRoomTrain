@@ -13,7 +13,7 @@ test_design: [BVA]
 proven_by: [EX-mrr-023, EX-mrr-024, EX-mrr-025, EX-mrr-020]
 golden: []
 provenance: [SRC-001, SRC-021, SRC-021]
-timestamp: 2026-10-19T12:10:00+07:00
+timestamp: 2026-10-22T10:00:00+07:00
 spec_hash: sha256:2e1aa42f251b22466bd92c90df6eed1b21e150d93a522a3fb4a492e2d6d5a561
 ---
 

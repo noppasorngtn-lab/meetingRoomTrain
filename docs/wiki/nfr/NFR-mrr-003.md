@@ -7,7 +7,7 @@ tags: [mrr, nfr, security]
 id: NFR-mrr-003
 kind: security
 belongs_to: REQ-mrr-001
-timestamp: 2026-10-19T12:10:00+07:00
+timestamp: 2026-10-22T10:00:00+07:00
 spec_hash: sha256:de13fe4d0e809ca8d222e98ec566f539d86dde172876be65d6ece78db663e54f
 ---
 

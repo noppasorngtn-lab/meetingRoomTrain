@@ -9,7 +9,7 @@ status: draft
 term_th: ผู้อนุมัติประจำห้อง
 term_en: RoomApprover
 not_to_confuse_with: []
-timestamp: 2026-10-19T12:10:00+07:00
+timestamp: 2026-10-22T10:00:00+07:00
 spec_hash: sha256:7e3803260369092120211cbe85da9b4b6fcffc3ccf2a25d6301ce6c153d8c8fc
 ---
 

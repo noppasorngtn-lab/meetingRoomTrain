@@ -5,7 +5,7 @@
     "scale": "FULL",
     "status": "validated",
     "created_at": "2026-10-16T11:40+07:00",
-    "updated_at": "2026-10-19T12:10+07:00",
+    "updated_at": "2026-10-22T10:00+07:00",
     "approved_by": "Noppasorn",
     "approved_at": "2026-10-19T03:53:17.093Z"
   },
@@ -215,6 +215,14 @@
       "captured_by": "/req:example BR-mrr-006",
       "content": "ช่วงรายงานของอัตราการใช้งานคือเดือนปฏิทิน (วันที่ 1 ถึงวันสุดท้ายของเดือน)\nหน้ารายงานแสดงอัตราการใช้งานเป็นทศนิยม 2 ตำแหน่งต่อท้ายด้วย % เช่น \"66.67%\" · ห้องที่ไม่คำนวณแสดง \"—\" และไม่มีเลขอันดับ",
       "hash_at_import": "sha256:e7a52beaf0b208a59c3357a7a0317655ca18ed9c0c8c5316520ae642cd4d0e77"
+    },
+    {
+      "id": "SRC-026",
+      "kind": "chat",
+      "captured_at": "2026-10-22T10:00+07:00",
+      "captured_by": "/req:ask integration · idempotency · permission",
+      "content": "QB-int-01: ส่ง Email รหัสเข้าสู่ระบบ (OTP) ไม่สำเร็จ (mail server ล่ม) — ล้มทันที แจ้งผู้ใช้ให้กดขอรหัสใหม่เอง · เป็นคนละกฎกับ BR-mrr-019 เพราะรหัสเข้าสู่ระบบไม่ใช่การแจ้งเตือน\nQB-idem-01: ผู้ใช้กดขอรหัสซ้ำ (กดรัว ๆ หรือกดขอรหัสใหม่) — กันการขอซ้ำแล้วแจ้ง error ห้ามขอรหัสใหม่ระหว่างที่รหัสเดิมยังใช้ได้\nQB-perm-02: เข้าสู่ระบบได้เฉพาะพนักงานที่อยู่ในรายชื่อนำเข้าจาก HR และบัญชี active — ถ้าไม่เข้าเงื่อนไข ระบบตอบข้อความเดียวกับกรณีปกติแต่ไม่ส่งรหัส และเข้าสู่ระบบไม่ได้\nกฎการเข้าสู่ระบบอยู่ใต้ REQ-mrr-001 (ที่ NFR-mrr-001 อยู่) — รอบนี้ถามเพื่อปิดการ์ด GAP-mrr-003 ที่ dev ยกขึ้นมา (UC-mrr-020 ไม่มีเกณฑ์รับ)",
+      "hash_at_import": "sha256:29546b88556b707cc56eabe8f7ba6c8c10e648af7c459f490cd1ea647b5a20fb"
     }
   ],
   "glossary": [
@@ -515,6 +523,36 @@
         }
       ],
       "becomes_entity": null
+    },
+    {
+      "id": "UL-mrr-013",
+      "term_th": "รหัสเข้าสู่ระบบ",
+      "term_en": "LoginCode",
+      "definition": "รหัสที่ระบบส่งไปที่ Email องค์กรของผู้ใช้เพื่อใช้เข้าสู่ระบบ — ระบบไม่มีรหัสผ่าน",
+      "aka": [
+        "OTP"
+      ],
+      "not_to_confuse_with": [],
+      "status": "draft",
+      "provenance": [
+        {
+          "source": "SRC-010",
+          "locator": {
+            "line": 2
+          },
+          "quote": "เข้าสู่ระบบด้วย Email ขององค์กรอย่างเดียว — ไม่เชื่อม Active Directory (SSO) ในรอบนี้",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-026",
+          "locator": {
+            "line": 1
+          },
+          "quote": "QB-int-01: ส่ง Email รหัสเข้าสู่ระบบ (OTP) ไม่สำเร็จ (mail server ล่ม) — ล้มทันที แจ้งผู้ใช้ให้กดขอรหัสใหม่เอง · เป็นคนละกฎกับ BR-mrr-019 เพราะรหัสเข้าสู่ระบบไม่ใช่การแจ้งเตือน",
+          "confidence": 1
+        }
+      ],
+      "becomes_entity": null
     }
   ],
   "stakeholders": [
@@ -617,7 +655,8 @@
         "UL-mrr-002",
         "UL-mrr-003",
         "UL-mrr-005",
-        "UL-mrr-011"
+        "UL-mrr-011",
+        "UL-mrr-013"
       ],
       "rules": [
         "BR-mrr-001",
@@ -625,7 +664,10 @@
         "BR-mrr-003",
         "BR-mrr-009",
         "BR-mrr-014",
-        "BR-mrr-021"
+        "BR-mrr-021",
+        "BR-mrr-024",
+        "BR-mrr-025",
+        "BR-mrr-026"
       ],
       "provenance": [
         {
@@ -2049,6 +2091,108 @@
             "line": 4
           },
           "quote": "งานตามเวลาที่รันซ้ำ ต้องส่ง Email เตือนครั้งเดียวต่อการจอง",
+          "confidence": 1
+        }
+      ],
+      "supersedes": null,
+      "superseded_by": null,
+      "superseded_at": null,
+      "change_reason": null,
+      "traces_down": {
+        "features": [],
+        "test_cases": []
+      }
+    },
+    {
+      "id": "BR-mrr-024@v1",
+      "base_id": "BR-mrr-024",
+      "version": 1,
+      "is_current": true,
+      "status": "draft",
+      "belongs_to": "REQ-mrr-001",
+      "statement": "ถ้าส่ง Email รหัสเข้าสู่ระบบไม่สำเร็จ การขอรหัสครั้งนั้นล้มทันที และแจ้งผู้ใช้ให้กดขอรหัสใหม่เอง — ไม่มีคิวส่งซ้ำ",
+      "kind": "policy",
+      "enforced_by": [],
+      "examples": [],
+      "questions": [],
+      "test_design": [
+        "decision_table"
+      ],
+      "provenance": [
+        {
+          "source": "SRC-026",
+          "locator": {
+            "line": 1
+          },
+          "quote": "QB-int-01: ส่ง Email รหัสเข้าสู่ระบบ (OTP) ไม่สำเร็จ (mail server ล่ม) — ล้มทันที แจ้งผู้ใช้ให้กดขอรหัสใหม่เอง · เป็นคนละกฎกับ BR-mrr-019 เพราะรหัสเข้าสู่ระบบไม่ใช่การแจ้งเตือน",
+          "confidence": 1
+        }
+      ],
+      "supersedes": null,
+      "superseded_by": null,
+      "superseded_at": null,
+      "change_reason": null,
+      "traces_down": {
+        "features": [],
+        "test_cases": []
+      }
+    },
+    {
+      "id": "BR-mrr-025@v1",
+      "base_id": "BR-mrr-025",
+      "version": 1,
+      "is_current": true,
+      "status": "draft",
+      "belongs_to": "REQ-mrr-001",
+      "statement": "ระหว่างที่รหัสเข้าสู่ระบบที่ส่งไปแล้วยังใช้ได้ ผู้ใช้คนเดิมขอรหัสใหม่ไม่ได้ — ระบบกันการขอซ้ำ แจ้ง error และไม่ออกรหัสใหม่",
+      "kind": "constraint",
+      "enforced_by": [],
+      "examples": [],
+      "questions": [],
+      "test_design": [
+        "BVA"
+      ],
+      "provenance": [
+        {
+          "source": "SRC-026",
+          "locator": {
+            "line": 2
+          },
+          "quote": "QB-idem-01: ผู้ใช้กดขอรหัสซ้ำ (กดรัว ๆ หรือกดขอรหัสใหม่) — กันการขอซ้ำแล้วแจ้ง error ห้ามขอรหัสใหม่ระหว่างที่รหัสเดิมยังใช้ได้",
+          "confidence": 1
+        }
+      ],
+      "supersedes": null,
+      "superseded_by": null,
+      "superseded_at": null,
+      "change_reason": null,
+      "traces_down": {
+        "features": [],
+        "test_cases": []
+      }
+    },
+    {
+      "id": "BR-mrr-026@v1",
+      "base_id": "BR-mrr-026",
+      "version": 1,
+      "is_current": true,
+      "status": "draft",
+      "belongs_to": "REQ-mrr-001",
+      "statement": "เข้าสู่ระบบได้เฉพาะพนักงานที่อยู่ในรายชื่อนำเข้าจาก HR และบัญชี active — Email นอกรายชื่อหรือบัญชีไม่ active ได้ข้อความตอบกลับเดียวกับกรณีปกติ แต่ระบบไม่ส่งรหัส และเข้าสู่ระบบไม่ได้",
+      "kind": "policy",
+      "enforced_by": [],
+      "examples": [],
+      "questions": [],
+      "test_design": [
+        "decision_table"
+      ],
+      "provenance": [
+        {
+          "source": "SRC-026",
+          "locator": {
+            "line": 3
+          },
+          "quote": "QB-perm-02: เข้าสู่ระบบได้เฉพาะพนักงานที่อยู่ในรายชื่อนำเข้าจาก HR และบัญชี active — ถ้าไม่เข้าเงื่อนไข ระบบตอบข้อความเดียวกับกรณีปกติแต่ไม่ส่งรหัส และเข้าสู่ระบบไม่ได้",
           "confidence": 1
         }
       ],
@@ -4191,15 +4335,45 @@
       ],
       "raised_by": "BR-mrr-021@v1",
       "category": "data_scope"
+    },
+    {
+      "id": "DQ-mrr-014",
+      "question": "ข้อมูลที่เขียนไปแล้วก่อนส่ง Email รหัสเข้าสู่ระบบ (เช่น รหัสที่ออกไว้) — rollback หรือค้างครึ่งทาง เมื่อส่งไม่สำเร็จ (transaction boundary)",
+      "raised_by": "BR-mrr-024@v1",
+      "category": "integration",
+      "answer_phase": "plan",
+      "state": "open",
+      "answer": null,
+      "answered_at": null
+    },
+    {
+      "id": "DQ-mrr-015",
+      "question": "ระบบรู้ได้อย่างไรว่าเป็นการขอรหัสซ้ำของคนเดิม — natural key คือบัญชีผู้ใช้หรือ Email",
+      "raised_by": "BR-mrr-025@v1",
+      "category": "idempotency",
+      "answer_phase": "domain",
+      "state": "open",
+      "answer": null,
+      "answered_at": null
+    },
+    {
+      "id": "DQ-mrr-016",
+      "question": "ข้อความ error ภาษาไทยตรงตัวที่ผู้ใช้เห็นเมื่อขอรหัสซ้ำระหว่างที่รหัสเดิมยังใช้ได้",
+      "raised_by": "BR-mrr-025@v1",
+      "category": "idempotency",
+      "answer_phase": "screen",
+      "state": "open",
+      "answer": null,
+      "answered_at": null
     }
   ],
   "rollup": {
-    "rules_total": 23,
+    "rules_total": 26,
     "rules_with_example": 23,
     "rules_with_green_test": 0,
     "open_questions": 0,
-    "open_deferred": 8,
-    "rule_coverage": 1,
-    "ready_for_next_step": true
+    "open_deferred": 11,
+    "rule_coverage": 0.8846,
+    "ready_for_next_step": false
   }
 }
