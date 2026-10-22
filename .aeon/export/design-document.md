@@ -19,6 +19,7 @@
 | ADR-002 | design · added | 2026-10-21T00:00:00Z | หน้าจัดการการจอง (ผู้ดูแล) ประกาศว่า System Administrator เห็นเฉพาะร่องรอย ปุ่มคำสั่งไม่แสดง และหน้าสิ่งอำนวยความสะดวกประกาศว่าคนที่ไม่ใช่ Room Administrator เห็น 'คุณไม่มีสิทธิ์เข้าหน้านี้' — แต่ไม่มี API ใดบอกหน้าจอว่าผู้ใช้ที่เข้าสู่ระบบมีบทบาทอะไร หน้าจอจึงทำตามสองข้อนี้ไม่ได้ (การ์ดจาก dev GAP-mrr-015 · GAP-mrr-020 · พบจาก /dev:review ของ FE-mrr-009) · ต้องเพิ่มช่องทางให้หน้าจอรู้บทบาทของผู้เรียก และสิทธิ์ของช่องทางนั้น — สิทธิ์จริงยังบังคับที่ api เหมือนเดิม การซ่อนปุ่มไม่ใช่การคุมสิทธิ์ | รับเข้าแล้ว 2026-10-21T07:29:43Z |
 | ADR-003 | design · added | 2026-10-21T08:30:00Z | req เพิ่มตัวอย่าง EX-mrr-088 · EX-mrr-089 · EX-mrr-090 (commit 64c0e25 · ยืนยันโดย Noppasorn) ใต้กฎเดิมโดยไม่ขึ้นเวอร์ชัน จึงไม่มี change set — System Administrator เปิดหน้าจัดการการจองแล้วไม่เห็นช่องเหตุผลและปุ่มคำสั่ง ทั้งระหว่างประชุมและก่อนเริ่ม และ General User เปิดหน้าสิ่งอำนวยความสะดวกแล้วเห็น 'คุณไม่มีสิทธิ์เข้าหน้านี้' · design ต้องเขียนเกณฑ์รับที่คัดลอกตัวอย่างทั้งสามคำต่อคำ (S16) และสถานการณ์ทดสอบของมัน เพื่อให้ dev สร้างหน่วยของ API-035 (ADR-002) และแก้หน้าจอที่ถูกการ์ด GAP-mrr-021 บล็อกได้ | รับเข้าแล้ว 2026-10-21T09:43:31Z |
 | CHG-mrr-002 | design · added | 2026-10-22T07:13:26Z | req เพิ่มกฎเข้าสู่ระบบด้วยรหัส/magic link 5 ข้อ ตามการ์ด GAP-mrr-003 ของ dev (UC-mrr-020 ไม่มีกฎรองรับ) · อนุมัติโดย Noppasorn มีผล 2026-10-22 · ส่งรหัสไม่สำเร็จล้มทันทีไม่มีคิวส่งซ้ำ · ห้ามขอรหัสใหม่ระหว่างรหัสเดิมยังใช้ได้ · เข้าสู่ระบบได้เฉพาะพนักงานในรายชื่อ HR ที่ active และคนนอกรายชื่อได้ข้อความเดียวกับกรณีปกติ · รหัส 6 หลัก อายุ 10 นาที ใช้ครั้งเดียว นับร่วมกับ magic link · กรอกผิดไม่ทำให้รหัสเสีย · พร้อมตัวอย่าง EX-mrr-091..105 ที่มีข้อความไทยตรงตัวซึ่งต้องเข้าเกณฑ์รับคำต่อคำ (S16) | รับเข้าแล้ว 2026-10-22T08:46:02Z |
+| ADR-004 | design · added | 2026-10-22T09:30:04Z | dev ยกการ์ด GAP-mrr-024 และ GAP-mrr-025 หลัง design รับกฎเข้าสู่ระบบ (CHG-mrr-002) · แบบข้อมูลยังไม่มีที่เก็บรหัสเข้าสู่ระบบ magic link และ session ทั้งที่ BR-mrr-025/027/028@v1 ต้องจำว่ารหัสออกแล้ว ใช้แล้ว หรือหมดอายุ นับการใช้รหัสกับลิงก์ร่วมกัน และกันรหัสที่ใช้ได้เกินหนึ่งตัวต่อผู้ใช้ — dev สร้างหน่วยเข้าสู่ระบบ (FE-mrr-039) ไม่ได้จนกว่าจะมี · และหน้าขอรหัส/หน้ายืนยันรหัส (UI-mrr-001/002) ยังแสดงสถานะไม่ตรงกับข้อความที่ลูกค้ายืนยันใน AC-mrr-089..103 · design ต้องเพิ่มเอนทิตีกับวงจรชีวิตของรหัส และแก้สถานะของสองหน้าจอนี้ | ยังไม่ปิด |
 
 ### สถานะการอนุมัติรายไฟล์
 
@@ -28,13 +29,13 @@
 | context.json | /design:overview | done | approved | Noppasorn | 2026-10-19T07:59:59Z | — |
 | modules/mrr/functions.json | /design:function | done | approved | Noppasorn | 2026-10-22T08:55:12Z | — |
 | trace.design.json | /design:function | done | — | — | — | — |
-| datamodel.json | /design:datamodel | done | approved | Noppasorn | 2026-10-19T07:59:59Z | — |
-| modules/mrr/statemachines.json | /design:datamodel | done | approved | Noppasorn | 2026-10-19T07:59:59Z | — |
+| datamodel.json | /design:datamodel | stale | draft | — | — | ค้างเพราะ ADR-004 |
+| modules/mrr/statemachines.json | /design:datamodel | stale | draft | — | — | ค้างเพราะ ADR-004 |
 | modules/mrr/scenarios.json | /design:scenario | done | approved | Noppasorn | 2026-10-22T08:55:12Z | — |
 | rbac.json | /design:rbac | done | approved | Noppasorn | 2026-10-21T07:40:09Z | — |
 | nfr.json | /design:nfr | done | approved | Noppasorn | 2026-10-19T07:59:59Z | — |
-| sitemap.json | /design:sitemap | done | approved | Noppasorn | 2026-10-19T09:13:24Z | — |
-| modules/mrr/screens.json | /design:sitemap | done | approved | Noppasorn | 2026-10-19T09:13:24Z | — |
+| sitemap.json | /design:sitemap | stale | draft | — | — | ค้างเพราะ ADR-004 |
+| modules/mrr/screens.json | /design:sitemap | stale | draft | — | — | ค้างเพราะ ADR-004 |
 | interfaces.json | /design:interface | done | approved | Noppasorn | 2026-10-22T08:55:12Z | — |
 
 > ℹ️ **ข้อจำกัดของข้อมูลชุดนี้** — "สถานะขั้น" มาจากไฟล์สถานะ ส่วน "สถานะเอกสาร" มาจากตัวไฟล์เอง — ขั้นที่ค้างจะเห็นได้ที่คอลัมน์แรกเท่านั้น เพราะเครื่องหมายค้างถูกเก็บที่ขั้น ไม่ใช่ในเนื้อหาที่อนุมัติไปแล้ว

@@ -2,9 +2,9 @@
   "schemaVersion": "1.1",
   "producedBy": "design · scripts/sitemap.mjs",
   "project": "mrr",
-  "status": "approved",
-  "approvedAt": "2026-10-19T09:13:24Z",
-  "approvedBy": "Noppasorn",
+  "status": "draft",
+  "approvedAt": null,
+  "approvedBy": null,
   "nodes": [
     {
       "screen": "UI-mrr-001",
