@@ -3,9 +3,9 @@
   "producedBy": "design · scripts/functions.mjs",
   "project": "mrr",
   "module": "mrr",
-  "status": "draft",
-  "approvedAt": null,
-  "approvedBy": null,
+  "status": "approved",
+  "approvedAt": "2026-10-22T08:55:12Z",
+  "approvedBy": "Noppasorn",
   "functions": [
     {
       "id": "FUN-mrr-001",
