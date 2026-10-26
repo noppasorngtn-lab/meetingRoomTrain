@@ -1,0 +1,372 @@
+{
+  "schemaVersion": "1.0",
+  "producedBy": "design · scripts/reverse.mjs",
+  "project": "mrr",
+  "scannedFrom": "../MeetingRoom",
+  "scannedBy": "Noppasorn Y",
+  "scannedAt": "2026-10-26",
+  "sources": {
+    "files": 0,
+    "dbcontext": 0,
+    "class": 0,
+    "configuration": 0,
+    "migration": 0,
+    "controller": 0,
+    "page": 0,
+    "other": 0,
+    "migrations": 0
+  },
+  "candidates": {
+    "entities": [],
+    "apis": [],
+    "pages": []
+  },
+  "mismatches": [
+    {
+      "key": "api:API-001",
+      "kind": "design-only",
+      "subject": "api",
+      "detail": "the endpoint API-001 (\"GET /rooms/available?date={d}&start={t}&end={t}&attendees={n}&facilities={ids}\") is in this design and no controller in the scanned tree routes GET rooms/available",
+      "designRef": "API-001"
+    },
+    {
+      "key": "api:API-002",
+      "kind": "design-only",
+      "subject": "api",
+      "detail": "the endpoint API-002 (\"GET /facilities?active=true\") is in this design and no controller in the scanned tree routes GET facilities",
+      "designRef": "API-002"
+    },
+    {
+      "key": "api:API-003",
+      "kind": "design-only",
+      "subject": "api",
+      "detail": "the endpoint API-003 (\"GET /rooms/{id}/calendar?view={day|week|month}&date={d}\") is in this design and no controller in the scanned tree routes GET rooms/{}/calendar",
+      "designRef": "API-003"
+    },
+    {
+      "key": "api:API-004",
+      "kind": "design-only",
+      "subject": "api",
+      "detail": "the endpoint API-004 (\"POST /bookings\") is in this design and no controller in the scanned tree routes POST bookings",
+      "designRef": "API-004"
+    },
+    {
+      "key": "api:API-005",
+      "kind": "design-only",
+      "subject": "api",
+      "detail": "the endpoint API-005 (\"GET /users?query={text}\") is in this design and no controller in the scanned tree routes GET users",
+      "designRef": "API-005"
+    },
+    {
+      "key": "api:API-006",
+      "kind": "design-only",
+      "subject": "api",
+      "detail": "the endpoint API-006 (\"GET /me/bookings?page={n}\") is in this design and no controller in the scanned tree routes GET me/bookings",
+      "designRef": "API-006"
+    },
+    {
+      "key": "api:API-007",
+      "kind": "design-only",
+      "subject": "api",
+      "detail": "the endpoint API-007 (\"GET /bookings/{id}\") is in this design and no controller in the scanned tree routes GET bookings/{}",
+      "designRef": "API-007"
+    },
+    {
+      "key": "api:API-008",
+      "kind": "design-only",
+      "subject": "api",
+      "detail": "the endpoint API-008 (\"PATCH /bookings/{id}\") is in this design and no controller in the scanned tree routes PATCH bookings/{}",
+      "designRef": "API-008"
+    },
+    {
+      "key": "api:API-009",
+      "kind": "design-only",
+      "subject": "api",
+      "detail": "the endpoint API-009 (\"POST /bookings/{id}/cancel\") is in this design and no controller in the scanned tree routes POST bookings/{}/cancel",
+      "designRef": "API-009"
+    },
+    {
+      "key": "api:API-010",
+      "kind": "design-only",
+      "subject": "api",
+      "detail": "the endpoint API-010 (\"GET /bookings?status=PENDING_APPROVAL&page={n}\") is in this design and no controller in the scanned tree routes GET bookings",
+      "designRef": "API-010"
+    },
+    {
+      "key": "api:API-011",
+      "kind": "design-only",
+      "subject": "api",
+      "detail": "the endpoint API-011 (\"POST /bookings/{id}/approve\") is in this design and no controller in the scanned tree routes POST bookings/{}/approve",
+      "designRef": "API-011"
+    },
+    {
+      "key": "api:API-012",
+      "kind": "design-only",
+      "subject": "api",
+      "detail": "the endpoint API-012 (\"POST /bookings/{id}/reject\") is in this design and no controller in the scanned tree routes POST bookings/{}/reject",
+      "designRef": "API-012"
+    },
+    {
+      "key": "api:API-013",
+      "kind": "design-only",
+      "subject": "api",
+      "detail": "the endpoint API-013 (\"POST /bookings/{id}/decision\") is in this design and no controller in the scanned tree routes POST bookings/{}/decision",
+      "designRef": "API-013"
+    },
+    {
+      "key": "api:API-014",
+      "kind": "design-only",
+      "subject": "api",
+      "detail": "the endpoint API-014 (\"POST /bookings/{id}/admin-edit\") is in this design and no controller in the scanned tree routes POST bookings/{}/admin-edit",
+      "designRef": "API-014"
+    },
+    {
+      "key": "api:API-015",
+      "kind": "design-only",
+      "subject": "api",
+      "detail": "the endpoint API-015 (\"POST /bookings/{id}/admin-cancel\") is in this design and no controller in the scanned tree routes POST bookings/{}/admin-cancel",
+      "designRef": "API-015"
+    },
+    {
+      "key": "api:API-016",
+      "kind": "design-only",
+      "subject": "api",
+      "detail": "the endpoint API-016 (\"GET /bookings/{id}/audit\") is in this design and no controller in the scanned tree routes GET bookings/{}/audit",
+      "designRef": "API-016"
+    },
+    {
+      "key": "api:API-017",
+      "kind": "design-only",
+      "subject": "api",
+      "detail": "the endpoint API-017 (\"GET /adjustment-requests?status=PENDING&page={n}\") is in this design and no controller in the scanned tree routes GET adjustment-requests",
+      "designRef": "API-017"
+    },
+    {
+      "key": "api:API-018",
+      "kind": "design-only",
+      "subject": "api",
+      "detail": "the endpoint API-018 (\"POST /adjustment-requests/{id}/approve\") is in this design and no controller in the scanned tree routes POST adjustment-requests/{}/approve",
+      "designRef": "API-018"
+    },
+    {
+      "key": "api:API-019",
+      "kind": "design-only",
+      "subject": "api",
+      "detail": "the endpoint API-019 (\"POST /adjustment-requests/{id}/reject\") is in this design and no controller in the scanned tree routes POST adjustment-requests/{}/reject",
+      "designRef": "API-019"
+    },
+    {
+      "key": "api:API-020",
+      "kind": "design-only",
+      "subject": "api",
+      "detail": "the endpoint API-020 (\"GET /rooms?status={s}&query={text}&page={n}\") is in this design and no controller in the scanned tree routes GET rooms",
+      "designRef": "API-020"
+    },
+    {
+      "key": "api:API-021",
+      "kind": "design-only",
+      "subject": "api",
+      "detail": "the endpoint API-021 (\"POST /rooms\") is in this design and no controller in the scanned tree routes POST rooms",
+      "designRef": "API-021"
+    },
+    {
+      "key": "api:API-022",
+      "kind": "design-only",
+      "subject": "api",
+      "detail": "the endpoint API-022 (\"GET /rooms/{id}\") is in this design and no controller in the scanned tree routes GET rooms/{}",
+      "designRef": "API-022"
+    },
+    {
+      "key": "api:API-023",
+      "kind": "design-only",
+      "subject": "api",
+      "detail": "the endpoint API-023 (\"POST /rooms/{id}/versions\") is in this design and no controller in the scanned tree routes POST rooms/{}/versions",
+      "designRef": "API-023"
+    },
+    {
+      "key": "api:API-024",
+      "kind": "design-only",
+      "subject": "api",
+      "detail": "the endpoint API-024 (\"POST /rooms/{id}/maintenance\") is in this design and no controller in the scanned tree routes POST rooms/{}/maintenance",
+      "designRef": "API-024"
+    },
+    {
+      "key": "api:API-025",
+      "kind": "design-only",
+      "subject": "api",
+      "detail": "the endpoint API-025 (\"POST /rooms/{id}/archive\") is in this design and no controller in the scanned tree routes POST rooms/{}/archive",
+      "designRef": "API-025"
+    },
+    {
+      "key": "api:API-026",
+      "kind": "design-only",
+      "subject": "api",
+      "detail": "the endpoint API-026 (\"POST /facilities\") is in this design and no controller in the scanned tree routes POST facilities",
+      "designRef": "API-026"
+    },
+    {
+      "key": "api:API-027",
+      "kind": "design-only",
+      "subject": "api",
+      "detail": "the endpoint API-027 (\"PATCH /facilities/{id}\") is in this design and no controller in the scanned tree routes PATCH facilities/{}",
+      "designRef": "API-027"
+    },
+    {
+      "key": "api:API-028",
+      "kind": "design-only",
+      "subject": "api",
+      "detail": "the endpoint API-028 (\"POST /reports/utilization\") is in this design and no controller in the scanned tree routes POST reports/utilization",
+      "designRef": "API-028"
+    },
+    {
+      "key": "api:API-029",
+      "kind": "design-only",
+      "subject": "api",
+      "detail": "the endpoint API-029 (\"GET /reports/utilization?periodType={MONTH|YEAR}&periodStart={d}&issueNo={n}\") is in this design and no controller in the scanned tree routes GET reports/utilization",
+      "designRef": "API-029"
+    },
+    {
+      "key": "api:API-030",
+      "kind": "design-only",
+      "subject": "api",
+      "detail": "the endpoint API-030 (\"GET /reports/utilization/{id}/export\") is in this design and no controller in the scanned tree routes GET reports/utilization/{}/export",
+      "designRef": "API-030"
+    },
+    {
+      "key": "api:API-031",
+      "kind": "design-only",
+      "subject": "api",
+      "detail": "the endpoint API-031 (\"POST /auth/otp/request\") is in this design and no controller in the scanned tree routes POST auth/otp/request",
+      "designRef": "API-031"
+    },
+    {
+      "key": "api:API-032",
+      "kind": "design-only",
+      "subject": "api",
+      "detail": "the endpoint API-032 (\"POST /auth/otp/verify\") is in this design and no controller in the scanned tree routes POST auth/otp/verify",
+      "designRef": "API-032"
+    },
+    {
+      "key": "api:API-033",
+      "kind": "design-only",
+      "subject": "api",
+      "detail": "the endpoint API-033 (\"GET /auth/magic-link?token={t}\") is in this design and no controller in the scanned tree routes GET auth/magic-link",
+      "designRef": "API-033"
+    },
+    {
+      "key": "api:API-034",
+      "kind": "design-only",
+      "subject": "api",
+      "detail": "the endpoint API-034 (\"POST /auth/logout\") is in this design and no controller in the scanned tree routes POST auth/logout",
+      "designRef": "API-034"
+    },
+    {
+      "key": "api:API-035",
+      "kind": "design-only",
+      "subject": "api",
+      "detail": "the endpoint API-035 (\"GET /auth/me\") is in this design and no controller in the scanned tree routes GET auth/me",
+      "designRef": "API-035"
+    },
+    {
+      "key": "entity:ENT-001",
+      "kind": "design-only",
+      "subject": "entity",
+      "detail": "the entity ENT-001 (\"User\") is in this design and no DbSet, configuration or migration in the scanned tree builds it",
+      "designRef": "ENT-001"
+    },
+    {
+      "key": "entity:ENT-002",
+      "kind": "design-only",
+      "subject": "entity",
+      "detail": "the entity ENT-002 (\"MeetingRoom\") is in this design and no DbSet, configuration or migration in the scanned tree builds it",
+      "designRef": "ENT-002"
+    },
+    {
+      "key": "entity:ENT-003",
+      "kind": "design-only",
+      "subject": "entity",
+      "detail": "the entity ENT-003 (\"MeetingRoomVersion\") is in this design and no DbSet, configuration or migration in the scanned tree builds it",
+      "designRef": "ENT-003"
+    },
+    {
+      "key": "entity:ENT-004",
+      "kind": "design-only",
+      "subject": "entity",
+      "detail": "the entity ENT-004 (\"Facility\") is in this design and no DbSet, configuration or migration in the scanned tree builds it",
+      "designRef": "ENT-004"
+    },
+    {
+      "key": "entity:ENT-005",
+      "kind": "design-only",
+      "subject": "entity",
+      "detail": "the entity ENT-005 (\"RoomVersionFacility\") is in this design and no DbSet, configuration or migration in the scanned tree builds it",
+      "designRef": "ENT-005"
+    },
+    {
+      "key": "entity:ENT-006",
+      "kind": "design-only",
+      "subject": "entity",
+      "detail": "the entity ENT-006 (\"RoomMaintenancePeriod\") is in this design and no DbSet, configuration or migration in the scanned tree builds it",
+      "designRef": "ENT-006"
+    },
+    {
+      "key": "entity:ENT-007",
+      "kind": "design-only",
+      "subject": "entity",
+      "detail": "the entity ENT-007 (\"Booking\") is in this design and no DbSet, configuration or migration in the scanned tree builds it",
+      "designRef": "ENT-007"
+    },
+    {
+      "key": "entity:ENT-008",
+      "kind": "design-only",
+      "subject": "entity",
+      "detail": "the entity ENT-008 (\"BookingAttendee\") is in this design and no DbSet, configuration or migration in the scanned tree builds it",
+      "designRef": "ENT-008"
+    },
+    {
+      "key": "entity:ENT-009",
+      "kind": "design-only",
+      "subject": "entity",
+      "detail": "the entity ENT-009 (\"BookingEquipmentRequest\") is in this design and no DbSet, configuration or migration in the scanned tree builds it",
+      "designRef": "ENT-009"
+    },
+    {
+      "key": "entity:ENT-010",
+      "kind": "design-only",
+      "subject": "entity",
+      "detail": "the entity ENT-010 (\"BookingAuditEntry\") is in this design and no DbSet, configuration or migration in the scanned tree builds it",
+      "designRef": "ENT-010"
+    },
+    {
+      "key": "entity:ENT-011",
+      "kind": "design-only",
+      "subject": "entity",
+      "detail": "the entity ENT-011 (\"BookingAdjustmentRequest\") is in this design and no DbSet, configuration or migration in the scanned tree builds it",
+      "designRef": "ENT-011"
+    },
+    {
+      "key": "entity:ENT-012",
+      "kind": "design-only",
+      "subject": "entity",
+      "detail": "the entity ENT-012 (\"UtilizationReport\") is in this design and no DbSet, configuration or migration in the scanned tree builds it",
+      "designRef": "ENT-012"
+    },
+    {
+      "key": "entity:ENT-013",
+      "kind": "design-only",
+      "subject": "entity",
+      "detail": "the entity ENT-013 (\"UtilizationReportLine\") is in this design and no DbSet, configuration or migration in the scanned tree builds it",
+      "designRef": "ENT-013"
+    },
+    {
+      "key": "entity:ENT-014",
+      "kind": "design-only",
+      "subject": "entity",
+      "detail": "the entity ENT-014 (\"LoginCode\") is in this design and no DbSet, configuration or migration in the scanned tree builds it",
+      "designRef": "ENT-014"
+    }
+  ],
+  "resolutions": [],
+  "screenMap": [],
+  "extensions": {}
+}
