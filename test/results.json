@@ -1,0 +1,927 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\node_modules\\@playwright\\test\\cli.js",
+      "test"
+    ],
+    "configFile": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\playwright.config.ts",
+    "rootDir": "C:/04 - Claude-Training/workshop/meetingRoomTrain/test/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\e2e\\global-setup.ts",
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/04 - Claude-Training/workshop/meetingRoomTrain/test/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "C:/04 - Claude-Training/workshop/meetingRoomTrain/test/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "",
+        "testDir": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\e2e",
+        "snapshotDir": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\e2e",
+        "testIgnore": [],
+        "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
+        "timeout": 30000,
+        "use": {
+          "baseURL": "http://localhost:4173",
+          "locale": "th-TH",
+          "timezoneId": "Asia/Bangkok",
+          "screenshot": "on",
+          "trace": "retain-on-failure"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": ""
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "html",
+        {
+          "outputFolder": "playwright-report",
+          "open": "never"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "booking.spec.ts",
+      "file": "booking.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "ฟอร์มเปิดขึ้น (empty)",
+          "file": "booking.spec.ts",
+          "line": 55,
+          "column": 6,
+          "specs": [
+            {
+              "title": "[real] เปิดพร้อมห้องและเวลาที่ส่งมาทาง URL ช่องอื่นว่าง",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 451,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-26T10:42:20.081Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\booking-ฟอร์มเปิดขึ้น-empt-11872-ี่ส่งมาทาง-URL-ช่องอื่นว่าง\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a3a10f2351dcc49e1cb9-c3ae8e83677bd1cd8964",
+              "file": "booking.spec.ts",
+              "line": 56,
+              "column": 3
+            },
+            {
+              "title": "[real] ห้องที่ต้องรออนุมัติบอกผู้จองตั้งแต่เปิดฟอร์ม",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 364,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-26T10:42:20.642Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\booking-ฟอร์มเปิดขึ้น-empt-d269c-ติบอกผู้จองตั้งแต่เปิดฟอร์ม\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a3a10f2351dcc49e1cb9-f5403c969e92364fef45",
+              "file": "booking.spec.ts",
+              "line": 66,
+              "column": 3
+            },
+            {
+              "title": "[real] ปุ่มยกเลิกกลับหน้าค้นหาห้องว่างโดยไม่บันทึก",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 362,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-26T10:42:21.018Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\booking-ฟอร์มเปิดขึ้น-empt-310c4-้าค้นหาห้องว่างโดยไม่บันทึก\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a3a10f2351dcc49e1cb9-b8692bf2ea8a171d0f6c",
+              "file": "booking.spec.ts",
+              "line": 71,
+              "column": 3
+            }
+          ]
+        },
+        {
+          "title": "ตรวจข้อมูลก่อนจอง (BR-mrr-002)",
+          "file": "booking.spec.ts",
+          "line": 78,
+          "column": 6,
+          "specs": [
+            {
+              "title": "[real] กดยืนยันทั้งที่ฟอร์มว่าง → แจ้งทุกช่องที่ขาด และไม่ยิง API",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 396,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-26T10:42:21.389Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\booking-ตรวจข้อมูลก่อนจอง--8eed5-ทุกช่องที่ขาด-และไม่ยิง-API\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a3a10f2351dcc49e1cb9-79cf3bb1397296b036a2",
+              "file": "booking.spec.ts",
+              "line": 79,
+              "column": 3
+            },
+            {
+              "title": "[real] เวลาสิ้นสุดไม่หลังเวลาเริ่ม → แจ้งที่ช่องเวลาสิ้นสุด",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 481,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-26T10:42:21.795Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\booking-ตรวจข้อมูลก่อนจอง--b6247-่ม-→-แจ้งที่ช่องเวลาสิ้นสุด\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a3a10f2351dcc49e1cb9-92f27875040cf15cc967",
+              "file": "booking.spec.ts",
+              "line": 91,
+              "column": 3
+            },
+            {
+              "title": "[real] หัวข้อเกิน 200 ตัวอักษรไม่รับ (overflow)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 485,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-26T10:42:22.287Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\booking-ตรวจข้อมูลก่อนจอง--f3884-00-ตัวอักษรไม่รับ-overflow-\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a3a10f2351dcc49e1cb9-e4acc02c91f7ffc1dda5",
+              "file": "booking.spec.ts",
+              "line": 99,
+              "column": 3
+            },
+            {
+              "title": "[real] เวลาเริ่มในอดีต → API ปฏิเสธที่ช่องเวลาเริ่ม และข้อมูลที่กรอกยังอยู่",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 508,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-26T10:42:22.783Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\booking-ตรวจข้อมูลก่อนจอง--d9107-ิ่ม-และข้อมูลที่กรอกยังอยู่\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a3a10f2351dcc49e1cb9-8c8ab2fb80199ed2c033",
+              "file": "booking.spec.ts",
+              "line": 107,
+              "column": 3
+            }
+          ]
+        },
+        {
+          "title": "จองสำเร็จและจองซ้ำ (BR-mrr-001 · BR-mrr-004 · BR-mrr-007)",
+          "file": "booking.spec.ts",
+          "line": 117,
+          "column": 15,
+          "specs": [
+            {
+              "title": "[real] ห้องที่ไม่ต้องอนุมัติ → CONFIRMED แล้วไปหน้าการจองของฉันพร้อมข้อความ",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "serial",
+                      "location": {
+                        "file": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\e2e\\booking.spec.ts",
+                        "line": 117,
+                        "column": 15
+                      }
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 640,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-26T10:42:23.303Z",
+                      "annotations": [
+                        {
+                          "type": "serial",
+                          "location": {
+                            "file": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\e2e\\booking.spec.ts",
+                            "line": 117,
+                            "column": 15
+                          }
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\booking-จองสำเร็จและจองซ้ำ-4c0b5-น้าการจองของฉันพร้อมข้อความ\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a3a10f2351dcc49e1cb9-524864f95aa88e6f2cef",
+              "file": "booking.spec.ts",
+              "line": 120,
+              "column": 3
+            },
+            {
+              "title": "[real] จองช่วงเวลาเดิมซ้ำ → ห้องไม่ว่าง และข้อมูลในฟอร์มยังอยู่",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "serial",
+                      "location": {
+                        "file": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\e2e\\booking.spec.ts",
+                        "line": 117,
+                        "column": 15
+                      }
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 551,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-26T10:42:23.972Z",
+                      "annotations": [
+                        {
+                          "type": "serial",
+                          "location": {
+                            "file": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\e2e\\booking.spec.ts",
+                            "line": 117,
+                            "column": 15
+                          }
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\booking-จองสำเร็จและจองซ้ำ-accd4-่าง-และข้อมูลในฟอร์มยังอยู่\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a3a10f2351dcc49e1cb9-cc5940e2fd009f84b495",
+              "file": "booking.spec.ts",
+              "line": 134,
+              "column": 3
+            },
+            {
+              "title": "[real] ห้องที่ต้องอนุมัติ → PENDING_APPROVAL",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "serial",
+                      "location": {
+                        "file": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\e2e\\booking.spec.ts",
+                        "line": 117,
+                        "column": 15
+                      }
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 542,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-26T10:42:24.534Z",
+                      "annotations": [
+                        {
+                          "type": "serial",
+                          "location": {
+                            "file": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\e2e\\booking.spec.ts",
+                            "line": 117,
+                            "column": 15
+                          }
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\booking-จองสำเร็จและจองซ้ำ-b64a9-งอนุมัติ-→-PENDING-APPROVAL\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a3a10f2351dcc49e1cb9-5d1ee01bf89e22d28944",
+              "file": "booking.spec.ts",
+              "line": 144,
+              "column": 3
+            }
+          ]
+        },
+        {
+          "title": "สถานะที่ design ประกาศ",
+          "file": "booking.spec.ts",
+          "line": 158,
+          "column": 6,
+          "specs": [
+            {
+              "title": "[real] ไม่พบห้อง → แจ้ง \"ไม่พบห้อง\" และกดยืนยันไม่ได้",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 358,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-26T10:42:25.087Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\booking-สถานะที่-design-ปร-aed5c-ไม่พบห้อง-และกดยืนยันไม่ได้\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a3a10f2351dcc49e1cb9-ccaef6950f038cad5524",
+              "file": "booking.spec.ts",
+              "line": 159,
+              "column": 3
+            },
+            {
+              "title": "[real] ยังไม่เข้าสู่ระบบ (unauthorized) → พาไปหน้าขอรหัส",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 351,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-26T10:42:25.456Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\booking-สถานะที่-design-ปร-862fa-authorized-→-พาไปหน้าขอรหัส\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a3a10f2351dcc49e1cb9-d68fe9b1ec1bc0386cad",
+              "file": "booking.spec.ts",
+              "line": 165,
+              "column": 3
+            },
+            {
+              "title": "[stub] ห้องปิดปรับปรุง → แจ้งและปิดปุ่มยืนยัน",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 365,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-26T10:42:25.818Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\booking-สถานะที่-design-ปร-4244c-ปรุง-→-แจ้งและปิดปุ่มยืนยัน\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a3a10f2351dcc49e1cb9-e3a19bd161138796854a",
+              "file": "booking.spec.ts",
+              "line": 173,
+              "column": 3
+            },
+            {
+              "title": "[stub] ห้องปิดซ่อมหลังเปิดฟอร์ม (API ตอบ 409) → แจ้งข้อความเดียวกันและเก็บข้อมูลไว้",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 514,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-26T10:42:26.193Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\booking-สถานะที่-design-ปร-e7a11-วามเดียวกันและเก็บข้อมูลไว้\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a3a10f2351dcc49e1cb9-15b361da664b9fe7b643",
+              "file": "booking.spec.ts",
+              "line": 181,
+              "column": 3
+            },
+            {
+              "title": "[stub] ผู้เข้าร่วมเกินความจุ → เตือนแต่ยังจองได้ (overflow)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 611,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-26T10:42:26.719Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\booking-สถานะที่-design-ปร-d07b9-เตือนแต่ยังจองได้-overflow-\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a3a10f2351dcc49e1cb9-f4362bf3baeb4e2b5962",
+              "file": "booking.spec.ts",
+              "line": 192,
+              "column": 3
+            },
+            {
+              "title": "[stub] ส่ง Email ไม่สำเร็จ (500) → แจ้งให้กดใหม่ ข้อมูลในฟอร์มคงไว้ และกดซ้ำได้",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 522,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-26T10:42:27.340Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\booking-สถานะที่-design-ปร-c42b1-มูลในฟอร์มคงไว้-และกดซ้ำได้\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a3a10f2351dcc49e1cb9-382afbd3b3b2b1576b62",
+              "file": "booking.spec.ts",
+              "line": 211,
+              "column": 3
+            },
+            {
+              "title": "[stub] ระหว่างบันทึก (loading) ปุ่มยืนยันถูกปิดและบอกว่ากำลังส่ง Email",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 539,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-26T10:42:27.875Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\booking-สถานะที่-design-ปร-6560d-กปิดและบอกว่ากำลังส่ง-Email\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a3a10f2351dcc49e1cb9-6616bdb0263cc3373154",
+              "file": "booking.spec.ts",
+              "line": 223,
+              "column": 3
+            },
+            {
+              "title": "[stub] อุปกรณ์เสริมที่ติ๊กถูกส่งไปกับคำขอจอง และเวลาถูกอ่านเป็นเวลาไทย",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 615,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-10-26T10:42:28.425Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\booking-สถานะที่-design-ปร-f9fdc-ง-และเวลาถูกอ่านเป็นเวลาไทย\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a3a10f2351dcc49e1cb9-f1b088860aac5c3abd72",
+              "file": "booking.spec.ts",
+              "line": 241,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-26T10:42:18.646Z",
+    "duration": 10510.911,
+    "expected": 18,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}
