@@ -1,22 +1,22 @@
 {
-  "feature": "FE-mrr-041",
+  "feature": "FE-mrr-042",
   "status": "validated",
   "build": {
     "iterations": 1,
     "proof": [
       {
-        "cmd": "powershell -File scripts/dev-build.ps1 -App api",
-        "result": "tsc -p tsconfig.build.json · exit 0",
+        "cmd": "powershell -File scripts/dev-build.ps1 -App frontend-web",
+        "result": "tsc --noEmit && vite build · built in 860ms · exit 0",
         "at": "2026-11-17"
       },
       {
-        "cmd": "powershell -File scripts/dev-test.ps1 -App api -Filter FE-mrr-041",
-        "result": "Test Suites: 36 skipped, 1 passed, 1 of 37 total · Tests: 427 skipped, 27 passed, 454 total · exit 0",
+        "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web -Filter FE-mrr-042",
+        "result": "Test Files 1 passed | 17 skipped (18) · Tests 21 passed | 264 skipped (285) · exit 0",
         "at": "2026-11-17"
       },
       {
-        "cmd": "powershell -File scripts/dev-test.ps1 -App api",
-        "result": "Test Suites: 37 passed, 37 total · Tests: 454 passed, 454 total · exit 0",
+        "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web",
+        "result": "Test Files 18 passed (18) · Tests 285 passed (285) · exit 0",
         "at": "2026-11-17"
       }
     ],
@@ -24,26 +24,148 @@
   },
   "manifest": {
     "files": [
-      "apps/api/src/modules/rooms/room-search.service.ts",
-      "apps/api/src/modules/rooms/rooms.controller.ts",
-      "apps/api/src/modules/rooms/rooms.module.ts",
-      "apps/api/test/rooms/room-search.http.spec.ts"
+      "apps/web/src/features/search/RoomSearchPage.tsx",
+      "apps/web/src/App.tsx",
+      "apps/web/src/__tests__/room-search.test.tsx"
     ],
     "unit_tests": [
       {
-        "file": "apps/api/test/rooms/room-search.http.spec.ts",
+        "file": "apps/web/src/__tests__/room-search.test.tsx",
         "calc_ref": null,
         "gd_ref": null
       }
     ],
-    "ui_controls": [],
+    "ui_controls": [
+      {
+        "id": "searchDate",
+        "kind": "field",
+        "dd_ref": null,
+        "testid": "ui-mrr-004-search-date",
+        "binding": null,
+        "validation_refs": [],
+        "depends_on": null,
+        "roles": []
+      },
+      {
+        "id": "searchStartTime",
+        "kind": "field",
+        "dd_ref": null,
+        "testid": "ui-mrr-004-search-start-time",
+        "binding": null,
+        "validation_refs": [],
+        "depends_on": null,
+        "roles": []
+      },
+      {
+        "id": "searchEndTime",
+        "kind": "field",
+        "dd_ref": null,
+        "testid": "ui-mrr-004-search-end-time",
+        "binding": null,
+        "validation_refs": [],
+        "depends_on": null,
+        "roles": []
+      },
+      {
+        "id": "attendeeCount",
+        "kind": "field",
+        "dd_ref": null,
+        "testid": "ui-mrr-004-attendee-count",
+        "binding": null,
+        "validation_refs": [],
+        "depends_on": null,
+        "roles": []
+      },
+      {
+        "id": "facilities",
+        "kind": "field",
+        "dd_ref": null,
+        "testid": "ui-mrr-004-ent-004-name",
+        "binding": null,
+        "validation_refs": [],
+        "depends_on": null,
+        "roles": []
+      },
+      {
+        "id": "search",
+        "kind": "action",
+        "dd_ref": null,
+        "testid": "ui-mrr-004-search",
+        "binding": null,
+        "validation_refs": [],
+        "depends_on": null,
+        "roles": []
+      },
+      {
+        "id": "roomName",
+        "kind": "field",
+        "dd_ref": null,
+        "testid": "ui-mrr-004-ent-003-name",
+        "binding": null,
+        "validation_refs": [],
+        "depends_on": null,
+        "roles": [],
+        "row_key": {
+          "entity": "ENT-003",
+          "field": "name"
+        }
+      },
+      {
+        "id": "roomCapacity",
+        "kind": "field",
+        "dd_ref": null,
+        "testid": "ui-mrr-004-ent-003-capacity",
+        "binding": null,
+        "validation_refs": [],
+        "depends_on": null,
+        "roles": [],
+        "row_key": {
+          "entity": "ENT-003",
+          "field": "name"
+        }
+      },
+      {
+        "id": "roomRequiresApproval",
+        "kind": "field",
+        "dd_ref": null,
+        "testid": "ui-mrr-004-ent-003-requires-approval",
+        "binding": null,
+        "validation_refs": [],
+        "depends_on": null,
+        "roles": [],
+        "row_key": {
+          "entity": "ENT-003",
+          "field": "name"
+        }
+      },
+      {
+        "id": "viewCalendar",
+        "kind": "action",
+        "dd_ref": null,
+        "testid": "ui-mrr-004-view-calendar",
+        "binding": null,
+        "validation_refs": [],
+        "depends_on": null,
+        "roles": []
+      },
+      {
+        "id": "book",
+        "kind": "action",
+        "dd_ref": null,
+        "testid": "ui-mrr-004-book",
+        "binding": null,
+        "validation_refs": [],
+        "depends_on": null,
+        "roles": []
+      }
+    ],
     "apis": [
       {
         "api_ref": "API-001",
         "route": "GET /rooms/available",
-        "file": "apps/api/src/modules/rooms/rooms.controller.ts"
+        "file": "apps/web/src/features/search/RoomSearchPage.tsx"
       }
     ]
   },
-  "commit": "35f9f61e84678fa5fe5aeb8951c15fbdb57c8a98"
+  "commit": "4d08d830b200cabe8f4766141ed2bf2c96e4999f"
 }
