@@ -3413,6 +3413,71 @@
       "from": "API-036",
       "rel": "governedByAcl",
       "to": "ACL-041"
+    },
+    {
+      "from": "AC-mrr-106",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-106"
+    },
+    {
+      "from": "AC-mrr-106",
+      "rel": "governedBy",
+      "to": "BR-mrr-001@v1"
+    },
+    {
+      "from": "AC-mrr-106",
+      "rel": "governedBy",
+      "to": "BR-mrr-012@v1"
+    },
+    {
+      "from": "AC-mrr-107",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-107"
+    },
+    {
+      "from": "AC-mrr-107",
+      "rel": "governedBy",
+      "to": "BR-mrr-001@v1"
+    },
+    {
+      "from": "AC-mrr-107",
+      "rel": "governedBy",
+      "to": "BR-mrr-012@v1"
+    },
+    {
+      "from": "AC-mrr-108",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-108"
+    },
+    {
+      "from": "AC-mrr-108",
+      "rel": "governedBy",
+      "to": "BR-mrr-001@v1"
+    },
+    {
+      "from": "AC-mrr-108",
+      "rel": "governedBy",
+      "to": "BR-mrr-012@v1"
+    },
+    {
+      "from": "AC-mrr-109",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-109"
+    },
+    {
+      "from": "AC-mrr-109",
+      "rel": "governedBy",
+      "to": "BR-mrr-005@v1"
+    },
+    {
+      "from": "AC-mrr-110",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-110"
+    },
+    {
+      "from": "AC-mrr-110",
+      "rel": "governedBy",
+      "to": "BR-mrr-005@v1"
     }
   ]
 }
