@@ -164,6 +164,18 @@ export class RoomsController {
     }
   }
 
+  /** API-025 — delete = archive, for good; the bookings it has stay (STM-mrr-003 · DQ-mrr-003). */
+  @Post(':id/archive')
+  @HttpCode(200)
+  async archive(@CurrentUser() caller: Caller, @Param('id') id: string): Promise<{ message: string }> {
+    if (!UUID.test(id)) throw new NotFoundException('ไม่พบห้อง');
+    try {
+      return await this.admin.archive(caller, id);
+    } catch (err) {
+      answer(err);
+    }
+  }
+
   /** API-024 — ACTIVE ↔ UNDER_MAINTENANCE; the bookings the room has stay as they are (BR-mrr-012). */
   @Post(':id/maintenance')
   @HttpCode(200)

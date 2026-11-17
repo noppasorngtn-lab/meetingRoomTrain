@@ -250,6 +250,22 @@ export class RoomAdminService {
     });
   }
 
+  /**
+   * API-025 — a Room Administrator deletes a room (UC-mrr-015 · BR-mrr-005). Deleting is archiving
+   * (STM-mrr-003): ACTIVE or UNDER_MAINTENANCE becomes ARCHIVED for good — not offered for search or
+   * booking, never opened again; its data and its bookings stay as they were (DQ-mrr-003).
+   */
+  async archive(caller: Caller, roomId: string): Promise<{ message: string }> {
+    return this.db.transaction().execute(async (tx) => {
+      await assertRoomAdministrator(tx, caller, REFUSAL);
+      // Locked, so a second press cannot read the room as still there.
+      const room = await tx.selectFrom('meeting_rooms').select(['id', 'status']).where('id', '=', roomId).forUpdate().executeTakeFirst();
+      if (!room || room.status === 'ARCHIVED') throw new RoomInfoNotFound();
+      await tx.updateTable('meeting_rooms').set({ status: 'ARCHIVED' }).where('id', '=', room.id).execute();
+      return { message: 'ลบห้องแล้ว' };
+    });
+  }
+
   /** API-036 — every facility by name, the ones taken out of use too, so a Room Administrator can bring one back (ACL-041). */
   async listAllFacilities(caller: Caller): Promise<Facility[]> {
     await assertRoomAdministrator(this.db, caller, REFUSAL);
