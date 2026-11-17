@@ -381,7 +381,7 @@ for r in oq:
     out.append("| " + " | ".join(esc(x) for x in r) + " |")
 out.append("\n## Next Actions\n")
 out.append("1. QA review เคสใหม่ตาม CSV (ปัจจุบัน Tag = AI-generated ทั้งหมด)")
-out.append("2. ผู้ใช้ ห้อง นาฬิกา งานตามเวลา อีเมลล่ม และ fixture รายงาน (t1-reports.spec.ts: EX-047–049, 072, 084–087) พร้อมแล้ว · ที่เหลือคือ EX-015 (สร้างห้องใหม่)")
+out.append("2. ผู้ใช้ ห้อง นาฬิกา งานตามเวลา อีเมลล่ม และ fixture รายงาน (t1-reports.spec.ts: EX-047–049, 072, 084–087) พร้อมแล้ว · EX-015 (สร้างห้องใหม่) ทำแล้วใน t1-rooms.spec.ts — E2E ครบทุก EX ยกเว้น EX-031/032 ที่ถูก v2 แทน")
 out.append("3. เริ่มเขียนสคริปต์จากเคส `Automation = Yes` ก่อน (ไม่ต้องรอข้อมูลเพิ่ม)")
 out.append("4. หลังเขียนสคริปต์ ให้รัน T2 อีกครั้ง (Gate G1) แล้วอัปเดต `docs/qa/e2e-ex-map.json`")
 

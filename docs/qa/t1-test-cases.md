@@ -10,7 +10,7 @@
 
 - EX ทั้งหมด **105** รายการ · มีสคริปต์แล้ว **8** (ไม่สร้างซ้ำ) · คลุมบางส่วน **1** · ไม่สร้างเคส **2** (ถูก v2 แทน) · **เคสใหม่ 94**
 - เคสใหม่ตาม Automation: **Yes 14** (เขียนได้ด้วย dev stack ตอนนี้) · **Partial 48** (ต้องเตรียมข้อมูล §C) · **No 32** (ต้องมีกลไกที่ยังไม่มี §D)
-- **เขียนสคริปต์แล้ว 91 จาก 94 เคส** (คอลัมน์ Script ใน CSV · อ่านจากชื่อเคสใน `test/e2e/*.spec.ts`) · ที่เหลือรอกลไกใน §D
+- **เขียนสคริปต์แล้ว 92 จาก 94 เคส** (คอลัมน์ Script ใน CSV · อ่านจากชื่อเคสใน `test/e2e/*.spec.ts`) · ที่เหลือรอกลไกใน §D
 - Priority: Critical 30 · High 40 · Medium 24 · Low 0 — ตาม §3.3 ของ playbook ซึ่งเป็น [Recommended] รอ PO ยืนยัน
 - Data Source: เคสใหม่ทั้งหมดออกแบบเป็น `real` (คุยกับ API/DB จริง) — ไม่มีเคส stub ใหม่ เพราะ stub พิสูจน์ได้แค่หน้าจอ ไม่ใช่กฎ
 - **ข้อควรระวัง:** เคสส่วนใหญ่ต้องการผู้ใช้หลายบทบาทและการควบคุมเวลา ซึ่ง dev stack ตอนนี้ไม่มี (มีผู้ใช้ล็อกอินคนเดียว `tester@mrr.local`) จึงเขียนสคริปต์ได้ทันทีเพียงส่วนน้อย
@@ -130,7 +130,7 @@ EX-mrr-031, 032 (BR-mrr-010@v1): ไม่สร้างเคส — ถูก
 | TC-MYB-UI007-103 | BR-mrr-003@v1 / EX-mrr-011 | Positive | Critical | real | Partial | t1-roles.spec.ts | [alternate] U1 เปิดหน้า My Bookings | [Explicit EX-mrr-011] รายการแสดงเฉพาะการจองห้อง A 10:00–11:00 ที่ U1 สร้างเอง ไม่แสดงการจองห้อง B ของ U2 |
 | TC-APR-UI009-101 | BR-mrr-004@v1 / EX-mrr-013 | Positive | High | real | Partial | t1-roles.spec.ts | [happy] Room Administrator กดอนุมัติการจองนี้ | [Explicit EX-mrr-013] การจองเปลี่ยนเป็นสถานะ 'อนุมัติแล้ว' ใช้ห้องได้ และ Room Administrator เห็นข้อความ 'อนุมัติการจองสำเร็จ' |
 | TC-APR-UI009-102 | BR-mrr-004@v1 / EX-mrr-014 | Negative | High | real | Partial | t1-roles.spec.ts | [exception] U1 ส่งคำสั่งอนุมัติการจองของตัวเอง | [Explicit EX-mrr-014] สถานะยังเป็น 'รออนุมัติ' และแสดงข้อความ 'เฉพาะผู้ดูแลห้องเท่านั้นที่อนุมัติได้' |
-| TC-RMM-UI013-101 | BR-mrr-005@v1 / EX-mrr-015 | Positive | Critical | real | Partial | — | [happy] Room Administrator เพิ่มห้อง C ความจุ 10 คน แล้วกดบันทึก | [Explicit EX-mrr-015] ระบบสร้างห้อง C และแสดงข้อความ 'บันทึกข้อมูลห้องสำเร็จ' |
+| TC-RMM-UI013-101 | BR-mrr-005@v1 / EX-mrr-015 | Positive | Critical | real | Partial | t1-rooms.spec.ts | [happy] Room Administrator เพิ่มห้อง C ความจุ 10 คน แล้วกดบันทึก | [Explicit EX-mrr-015] ระบบสร้างห้อง C และแสดงข้อความ 'บันทึกข้อมูลห้องสำเร็จ' |
 | TC-RMM-UI012-101 | BR-mrr-005@v1 / BR-mrr-012@v1 / EX-mrr-016 | Positive | Critical | real | Partial | t1-roles.spec.ts | [happy] Room Administrator ตั้งห้อง A เป็นปิดปรับปรุง | [Explicit EX-mrr-016] ห้อง A เป็นสถานะปิดปรับปรุง การจองพรุ่งนี้ 10:00–11:00 คงเดิม และแสดงข้อความ 'ตั้งห้องเป็นปิดปรับปรุงแล้ว การจองที่มีอยู่คงเดิม' |
 | TC-RMM-UI013-102 | BR-mrr-005@v1 / EX-mrr-017 | Negative | Critical | real | Yes | t1-yes.spec.ts | [exception] General User ส่งคำสั่งแก้ความจุห้อง A เป็น 12 คน | [Explicit EX-mrr-017] ความจุห้อง A ยังเป็น 8 คน และแสดงข้อความ 'เฉพาะผู้ดูแลห้องเท่านั้นที่จัดการข้อมูลห้องได้' |
 | TC-RMM-UI013-103 | BR-mrr-005@v1 / EX-mrr-018 | Negative | Critical | real | Partial | t1-roles.spec.ts | [exception] System Administrator ส่งคำสั่งแก้ความจุห้อง A เป็น 12 คน | [Explicit EX-mrr-018] ความจุห้อง A ยังเป็น 8 คน และแสดงข้อความ 'เฉพาะผู้ดูแลห้องเท่านั้นที่จัดการข้อมูลห้องได้' |
@@ -254,6 +254,6 @@ EX-mrr-031, 032 (BR-mrr-010@v1): ไม่สร้างเคส — ถูก
 ## Next Actions
 
 1. QA review เคสใหม่ตาม CSV (ปัจจุบัน Tag = AI-generated ทั้งหมด)
-2. ผู้ใช้ ห้อง นาฬิกา งานตามเวลา อีเมลล่ม และ fixture รายงาน (t1-reports.spec.ts: EX-047–049, 072, 084–087) พร้อมแล้ว · ที่เหลือคือ EX-015 (สร้างห้องใหม่)
+2. ผู้ใช้ ห้อง นาฬิกา งานตามเวลา อีเมลล่ม และ fixture รายงาน (t1-reports.spec.ts: EX-047–049, 072, 084–087) พร้อมแล้ว · EX-015 (สร้างห้องใหม่) ทำแล้วใน t1-rooms.spec.ts — E2E ครบทุก EX ยกเว้น EX-031/032 ที่ถูก v2 แทน
 3. เริ่มเขียนสคริปต์จากเคส `Automation = Yes` ก่อน (ไม่ต้องรอข้อมูลเพิ่ม)
 4. หลังเขียนสคริปต์ ให้รัน T2 อีกครั้ง (Gate G1) แล้วอัปเดต `docs/qa/e2e-ex-map.json`

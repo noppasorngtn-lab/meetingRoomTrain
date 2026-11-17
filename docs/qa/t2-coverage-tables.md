@@ -6,10 +6,9 @@ AC in design: **103** · EX in wiki: **105**
 
 | layers citing the AC | ACs |
 |---|---|
-| api + web + e2e | 73 |
+| api + web + e2e | 74 |
 | api + e2e | 26 |
 | web + e2e | 3 |
-| api + web | 1 |
 
 ACs with no test citing them: none
 
@@ -68,6 +67,7 @@ EX with no AC (expected only for superseded rules, e.g. BR-mrr-010@v1): EX-mrr-0
 | EX-mrr-012 | happy | 10, 25 | approval room: PENDING_APPROVAL and its message, real |
 | EX-mrr-013 | happy | TC-APR-UI009-101 | Room Administrator อนุมัติ → อนุมัติแล้ว · real |
 | EX-mrr-014 | exception | TC-APR-UI009-102 | ผู้จองอนุมัติของตัวเอง (ยิงตรง) → ปฏิเสธ ยังรออนุมัติ · real |
+| EX-mrr-015 | happy | TC-RMM-UI013-101 | RA เพิ่มห้อง C ความจุ 10 ผ่านหน้าจอ → ข้อความสำเร็จ + ห้องถูกสร้าง · real (ห้องลบผ่าน API ไม่ได้ DQ-mrr-003 → ใช้รหัสคงที่แล้วลบด้วย SQL ก่อน/หลังเคส) |
 | EX-mrr-016 | happy | TC-RMM-UI012-101 | RA ตั้งห้องเป็นปิดปรับปรุง → การจองที่มีอยู่คงเดิม · real |
 | EX-mrr-017 | exception | TC-RMM-UI013-102 | General User POST /rooms/:id/versions -> 403, capacity unchanged, real |
 | EX-mrr-018 | exception | TC-RMM-UI013-103 | SA แก้ความจุห้อง (ยิงตรง) → ปฏิเสธ ความจุเดิม · real |
