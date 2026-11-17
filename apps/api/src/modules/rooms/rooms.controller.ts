@@ -133,7 +133,8 @@ export class RoomsController {
 }
 
 /**
- * API-002 — the choices for the search filter and the booking form. Only `active=true` is served here.
+ * API-002 — the choices for the search filter and the booking form (`active=true`).
+ * API-036 — every facility, the taken-out ones too (`active=all`), for a Room Administrator.
  * API-026 · API-027 — a Room Administrator adds a facility, renames it or takes it out of use.
  */
 @Controller('facilities')
@@ -143,9 +144,17 @@ export class FacilitiesController {
     private readonly admin: RoomAdminService,
   ) {}
 
+  /** `active=true` is API-002 (anyone signed in); `active=all` is API-036 — every facility, taken-out ones too, for a Room Administrator. */
   @Get()
-  async list(@CurrentUser() _caller: Caller, @Query('active') active: unknown): Promise<FacilityOption[]> {
-    if (active !== 'true') throw new BadRequestException('active ต้องเป็น true');
+  async list(@CurrentUser() caller: Caller, @Query('active') active: unknown): Promise<FacilityOption[] | Facility[]> {
+    if (active === 'all') {
+      try {
+        return await this.admin.listAllFacilities(caller);
+      } catch (err) {
+        answer(err);
+      }
+    }
+    if (active !== 'true') throw new BadRequestException('active ต้องเป็น true หรือ all');
     return this.rooms.activeFacilities();
   }
 

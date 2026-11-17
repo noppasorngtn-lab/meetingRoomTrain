@@ -502,7 +502,7 @@
       "title_th": "ดูปฏิทินการใช้ห้อง — หน้าจอ",
       "app_ref": "frontend-web",
       "type": "command",
-      "origin": "new",
+      "origin": "change",
       "files_planned": [],
       "depends_on": [
         "FE-mrr-022",
@@ -3524,7 +3524,7 @@
       "title_th": "เพิ่มหรือแก้ไขข้อมูลห้อง — ฝั่ง API",
       "app_ref": "api",
       "type": "crud",
-      "origin": "new",
+      "origin": "change",
       "files_planned": [],
       "depends_on": [
         "FE-mrr-037"
@@ -3631,6 +3631,10 @@
         {
           "ref": "AC-mrr-105",
           "hash": "sha256:e8a4da08abeb778d35b3d6d69bc7fa095d8cd48c56a275ad0b7a04b0a21f89b0"
+        },
+        {
+          "ref": "API-036",
+          "hash": "sha256:8279d3395320e545ba3952401358693035ae033f1e92ab8d7b4fe92e6605d56f"
         }
       ],
       "status": "validated",
@@ -3717,7 +3721,7 @@
       "title_th": "เพิ่มหรือแก้ไขข้อมูลห้อง — หน้าจอ",
       "app_ref": "frontend-web",
       "type": "crud",
-      "origin": "new",
+      "origin": "change",
       "files_planned": [],
       "depends_on": [
         "FE-mrr-022",
@@ -3807,6 +3811,10 @@
         {
           "ref": "AC-mrr-105",
           "hash": "sha256:e8a4da08abeb778d35b3d6d69bc7fa095d8cd48c56a275ad0b7a04b0a21f89b0"
+        },
+        {
+          "ref": "API-036",
+          "hash": "sha256:8279d3395320e545ba3952401358693035ae033f1e92ab8d7b4fe92e6605d56f"
         }
       ],
       "status": "validated",
@@ -5952,7 +5960,8 @@
       "validated": 36
     },
     "by_origin": {
-      "new": 36
+      "new": 33,
+      "change": 3
     },
     "by_app": {
       "frontend-web": 16,

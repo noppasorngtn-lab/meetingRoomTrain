@@ -26,9 +26,9 @@ const ROOMS = 'UI-mrr-012';
 const PAGE_SIZE = 50;
 
 /**
- * UI-mrr-014 — a Room Administrator adds a facility (API-026), renames it or takes it out of use
- * (API-027). The rows are the ones still offered (API-002); one taken out of use stays on screen
- * until the page is read again.
+ * UI-mrr-014 — a Room Administrator adds a facility (API-026), renames it, takes it out of use or brings it
+ * back (API-027). The rows are every facility, the taken-out ones too (API-036 · ACL-041 · GAP-mrr-018):
+ * one taken out of use is still here after the page is read again, and can be switched back on.
  */
 export function FacilitiesPage() {
   const navigate = useNavigate();
@@ -37,15 +37,15 @@ export function FacilitiesPage() {
   const [page, setPage] = useState(1);
   const [saving, setSaving] = useState<string | null>(null);
 
-  // UI-mrr-014 unauthorized state (AC-mrr-088 · ACL-031): API-002 answers every role, so the page asks
-  // API-035 who is calling first, and lists nothing until it knows that is a Room Administrator.
+  // UI-mrr-014 unauthorized state (AC-mrr-088 · ACL-031): the page asks API-035 who is calling first, and lists
+  // nothing until it knows that is a Room Administrator (API-036 refuses everybody else as well).
   const fetchRows = useCallback(() => {
     setLoad({ kind: 'loading' });
     getMe()
       .then(async (me) => {
         if (me.role !== 'ROOM_ADMINISTRATOR') return setLoad({ kind: 'forbidden' });
-        const list = await getJson<{ id: string; name: string }[]>('/facilities?active=true');
-        setRows(list.map((f) => ({ key: f.id, id: f.id, name: f.name, active: true, saved: { name: f.name, active: true }, error: null })));
+        const list = await getJson<{ id: string; name: string; active: boolean }[]>('/facilities?active=all');
+        setRows(list.map((f) => ({ key: f.id, id: f.id, name: f.name, active: f.active, saved: { name: f.name, active: f.active }, error: null })));
         setLoad({ kind: 'ready' });
       })
       .catch((err) => setLoad(err instanceof ApiError && err.status === 401 ? { kind: 'unauthorized' } : { kind: 'failed' }));
@@ -109,7 +109,7 @@ export function FacilitiesPage() {
   return (
     <>
       <h1>สิ่งอำนวยความสะดวก</h1>
-      <p className="purpose">Room Administrator เพิ่ม แก้ชื่อ หรือปิดใช้รายการสิ่งอำนวยความสะดวกที่ใช้กรองและเลือกตอนจอง</p>
+      <p className="purpose">Room Administrator เพิ่ม แก้ชื่อ ปิดใช้ หรือเปิดใช้กลับรายการสิ่งอำนวยความสะดวกที่ใช้กรองและเลือกตอนจอง — เห็นรายการทั้งหมดรวมที่ปิดใช้แล้ว</p>
       <div className="actions">
         {load.kind === 'ready' && addButton}
         {back}

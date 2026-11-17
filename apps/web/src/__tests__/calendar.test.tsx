@@ -1,6 +1,7 @@
 import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { AppRoutes } from '../App';
+import { shiftDate } from '../features/calendar/CalendarPage';
 
 const ROOM = '11111111-1111-1111-1111-111111111111';
 
@@ -125,6 +126,52 @@ describe('FE-mrr-002 room calendar page', () => {
     fireEvent.click(screen.getByTestId('ui-mrr-005-book-slot'));
 
     expect(await screen.findByRole('heading', { level: 1, name: 'จองห้องประชุม' })).toBeInTheDocument();
+  });
+
+  it('GAP-mrr-011 previous · next · today move the shown period by a day, a week or a month and ask the API for it', async () => {
+    replies.push(calendar([]), calendar([]), calendar([]), calendar([]));
+    open(`room=${ROOM}&date=2026-10-17&view=week`);
+    await screen.findByText('ช่วงนี้ยังไม่มีการจอง เลือกช่วงเวลาเพื่อจองได้');
+
+    fireEvent.click(screen.getByTestId('ui-mrr-005-next'));
+    await waitFor(() => expect(calls.at(-1)).toBe(`/rooms/${ROOM}/calendar?view=week&date=2026-10-24`));
+    fireEvent.click(screen.getByTestId('ui-mrr-005-previous'));
+    fireEvent.click(screen.getByTestId('ui-mrr-005-previous'));
+    await waitFor(() => expect(calls.at(-1)).toBe(`/rooms/${ROOM}/calendar?view=week&date=2026-10-10`));
+    expect(screen.getByLabelText(/วันที่/)).toHaveValue('2026-10-10');
+  });
+
+  it('GAP-mrr-011 the date field jumps to the chosen day, keeping the view', async () => {
+    replies.push(calendar([]), calendar([]));
+    open(`room=${ROOM}&date=2026-10-17&view=day`);
+    await screen.findByText('ช่วงนี้ยังไม่มีการจอง เลือกช่วงเวลาเพื่อจองได้');
+
+    fireEvent.change(screen.getByLabelText(/วันที่/), { target: { value: '2027-01-05' } });
+    await waitFor(() => expect(calls.at(-1)).toBe(`/rooms/${ROOM}/calendar?view=day&date=2027-01-05`));
+  });
+
+  it('GAP-mrr-011 a date in the URL that is not a date is read as today, not sent to the API', async () => {
+    replies.push(calendar([]));
+    open(`room=${ROOM}&date=banana&view=day`);
+    await screen.findByText('ช่วงนี้ยังไม่มีการจอง เลือกช่วงเวลาเพื่อจองได้');
+    expect(calls[0]).not.toContain('banana');
+    expect(calls[0]).toMatch(/date=\d{4}-\d{2}-\d{2}$/);
+  });
+
+  it('shiftDate: a month step lands on the same day, or the last day of a shorter month; weeks and days cross month ends', () => {
+    expect(shiftDate('2026-01-31', 'month', 1)).toBe('2026-02-28');
+    expect(shiftDate('2026-03-31', 'month', -1)).toBe('2026-02-28');
+    expect(shiftDate('2026-12-15', 'month', 1)).toBe('2027-01-15');
+    expect(shiftDate('2026-10-31', 'day', 1)).toBe('2026-11-01');
+    expect(shiftDate('2026-10-03', 'week', -1)).toBe('2026-09-26');
+  });
+
+  it('GAP-mrr-012 the booking button says it goes to the booking form, and is not offered as picking a slot', async () => {
+    replies.push(calendar([]));
+    open();
+    await screen.findByText('ช่วงนี้ยังไม่มีการจอง เลือกช่วงเวลาเพื่อจองได้');
+    expect(screen.getByTestId('ui-mrr-005-book-slot')).toHaveTextContent('ไปหน้าจองห้อง');
+    expect(screen.queryByText('จองช่วงที่ว่าง')).not.toBeInTheDocument();
   });
 
   it('overflow: a month-view day with five bookings shows three and +2, which opens the rest', async () => {

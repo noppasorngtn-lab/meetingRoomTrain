@@ -21,7 +21,7 @@ interface RoomDetail extends RoomRow {
   facilityIds: string[];
 }
 
-type Field = 'code' | 'name' | 'capacity' | 'photos' | 'facilities' | 'approver';
+type Field = 'code' | 'name' | 'capacity' | 'facilities' | 'approver';
 type Errors = Partial<Record<Field, string>>;
 
 type Load =
@@ -41,7 +41,7 @@ const NAME_MAX = 100;
 
 /** The api's field names (RoomInvalid · request body) mapped to the form's fields. */
 const FIELD_OF: Record<string, Field> = {
-  code: 'code', name: 'name', capacity: 'capacity', photos: 'photos', facilityIds: 'facilities', approverId: 'approver',
+  code: 'code', name: 'name', capacity: 'capacity', facilityIds: 'facilities', approverId: 'approver',
 };
 
 /** The same checks the api makes first, with its words. */
@@ -70,6 +70,8 @@ export function RoomFormPage() {
   const [code, setCode] = useState('');
   const [name, setName] = useState('');
   const [capacity, setCapacity] = useState('');
+  // Photos are not part of this release (ADR-007 · GAP-mrr-016): the field is gone from the form, and a room's photos are carried
+  // through every save untouched so a new version does not drop what an earlier one holds.
   const [photos, setPhotos] = useState<string[]>([]);
   const [chosen, setChosen] = useState<string[]>([]);
   const [requiresApproval, setRequiresApproval] = useState(false);
@@ -240,13 +242,6 @@ export function RoomFormPage() {
               />
               {errorOf('capacity', 'ui-mrr-013-ent-003-capacity')}
             </div>
-          </div>
-          <div className={fieldClass('photos')} data-testid="ui-mrr-013-ent-003-photos">
-            <span className="label">รูปภาพ</span>
-            {/* No upload is declared yet; a room's photos are kept as they are on every save. */}
-            <span className="value">{photos.length ? `${photos.length} รูป` : 'ไม่มีรูปภาพ'}</span>
-            <span className="help">ยังเพิ่มหรือเปลี่ยนรูปภาพจากหน้านี้ไม่ได้</span>
-            {errorOf('photos', 'ui-mrr-013-ent-003-photos')}
           </div>
           <fieldset className="checks" data-testid="ui-mrr-013-ent-005-facility">
             <legend>สิ่งอำนวยความสะดวก</legend>

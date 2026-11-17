@@ -191,4 +191,27 @@ describe('FE-mrr-034 /rooms · /facilities (API-020 · API-021 · API-023 · API
     expect((await http().patch(`/facilities/${id}`).set('x-test-user', ra1).send({ active: 'no' })).status).toBe(400);
     expect((await http().patch('/facilities/00000000-0000-0000-0000-000000000000').set('x-test-user', ra1).send({ active: true })).status).toBe(404);
   });
+
+  it('API-036 GET /facilities?active=all lists every facility by name, the taken-out ones too, for a Room Administrator only — and one taken out can be brought back (GAP-mrr-018)', async () => {
+    const a = (await http().post('/facilities').set('x-test-user', ra1).send({ name: 'บอร์ด' })).body.facility;
+    const b = (await http().post('/facilities').set('x-test-user', ra1).send({ name: 'กล้อง' })).body.facility;
+    await http().patch(`/facilities/${a.id}`).set('x-test-user', ra1).send({ active: false });
+
+    const all = await http().get('/facilities?active=all').set('x-test-user', ra1);
+    expect(all.status).toBe(200);
+    expect(all.body.map((f: { name: string; active: boolean }) => [f.name, f.active])).toEqual([['กล้อง', true], ['บอร์ด', false]]);
+    // API-002 still serves only what is offered
+    expect((await http().get('/facilities?active=true').set('x-test-user', u1)).body.map((f: { name: string }) => f.name)).toEqual(['กล้อง']);
+
+    // not for anybody else (ACL-041)
+    const refused = await http().get('/facilities?active=all').set('x-test-user', u1);
+    expect([refused.status, refused.body.message]).toEqual([403, 'เฉพาะผู้ดูแลห้องเท่านั้นที่จัดการข้อมูลห้องได้']);
+    expect((await http().get('/facilities?active=other').set('x-test-user', ra1)).body).toMatchObject({ statusCode: 400, message: 'active ต้องเป็น true หรือ all' });
+
+    // the one taken out comes back, and is offered again
+    const back = await http().patch(`/facilities/${a.id}`).set('x-test-user', ra1).send({ active: true });
+    expect([back.status, back.body.facility.active]).toEqual([200, true]);
+    expect((await http().get('/facilities?active=true').set('x-test-user', u1)).body.map((f: { name: string }) => f.name)).toEqual(['กล้อง', 'บอร์ด']);
+    expect(b.active).toBe(true);
+  });
 });

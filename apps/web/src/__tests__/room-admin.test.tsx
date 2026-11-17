@@ -25,6 +25,7 @@ const pageOf = (items: object[], page = 1, total = items.length): Reply => ({ st
 
 const LIST = '/rooms?page=1';
 const FACILITIES = '/facilities?active=true';
+const ALL_FACILITIES = '/facilities?active=all';
 const ME = '/auth/me';
 
 beforeEach(() => {
@@ -32,6 +33,7 @@ beforeEach(() => {
   replies = {
     [LIST]: pageOf([row()]),
     [FACILITIES]: { status: 200, body: [PROJECTOR, MIC] },
+    [ALL_FACILITIES]: { status: 200, body: [{ ...PROJECTOR, active: true }, { ...MIC, active: true }] },
     // Who is signed in, as API-035 answers (FE-mrr-038): a Room Administrator unless a test says otherwise.
     [ME]: { status: 200, body: { fullName: 'RA1', role: 'ROOM_ADMINISTRATOR' } },
   };
@@ -184,7 +186,9 @@ describe('FE-mrr-013 room form (UI-mrr-013)', () => {
     expect(screen.getByTestId('ui-mrr-013-ent-003-capacity')).toHaveValue(8);
     expect(screen.getByTestId('ui-mrr-013-ent-003-version-no')).toHaveTextContent('3');
     expect(screen.getByTestId('ui-mrr-013-ent-003-requires-approval')).toBeChecked();
-    expect(screen.getByTestId('ui-mrr-013-ent-003-photos')).toHaveTextContent('1 รูป');
+    // GAP-mrr-016 (B): photos are not offered on the form this release — but are carried through the save (see the body below)
+    expect(screen.queryByTestId('ui-mrr-013-ent-003-photos')).not.toBeInTheDocument();
+    expect(screen.queryByText('รูปภาพ')).not.toBeInTheDocument();
     expect(screen.getByRole('list', { name: 'ผู้อนุมัติประจำห้องที่เลือก' })).toHaveTextContent('RA1');
     expect(await screen.findByLabelText('โปรเจคเตอร์')).toBeChecked();
     expect(screen.getByLabelText('ไมโครโฟน')).not.toBeChecked();
@@ -340,12 +344,32 @@ describe('FE-mrr-013 facilities page (UI-mrr-014)', () => {
   const FACILITY_SAVED = 'บันทึกสิ่งอำนวยความสะดวกสำเร็จ';
   const names = () => screen.getAllByTestId('ui-mrr-014-ent-004-name').map((i) => (i as HTMLInputElement).value);
 
-  it('lists the facilities in use from API-002, each with its name and ใช้งาน', async () => {
+  it('lists the facilities from API-036, each with its name and ใช้งาน', async () => {
     open('/UI-mrr-014');
 
     await screen.findAllByTestId('ui-mrr-014-ent-004-name');
     expect(names()).toEqual(['โปรเจคเตอร์', 'ไมโครโฟน']);
     expect(screen.getAllByTestId('ui-mrr-014-ent-004-active').every((c) => (c as HTMLInputElement).checked)).toBe(true);
+  });
+
+  it('GAP-mrr-018 a facility taken out of use is still listed (unchecked) and can be brought back with API-027', async () => {
+    replies[ALL_FACILITIES] = { status: 200, body: [{ ...PROJECTOR, active: true }, { ...MIC, active: false }] };
+    replies[`PATCH /facilities/${MIC.id}`] = { status: 200, body: { facility: { ...MIC, active: true }, message: FACILITY_SAVED } };
+    open('/UI-mrr-014');
+    await screen.findAllByTestId('ui-mrr-014-ent-004-name');
+
+    expect(names()).toEqual(['โปรเจคเตอร์', 'ไมโครโฟน']);
+    const boxes = screen.getAllByTestId('ui-mrr-014-ent-004-active') as HTMLInputElement[];
+    expect([boxes[0].checked, boxes[1].checked]).toEqual([true, false]);
+    expect(calls.filter((c) => c.url === ALL_FACILITIES)).toHaveLength(1);
+    expect(calls.some((c) => c.url === FACILITIES)).toBe(false);
+
+    fireEvent.click(boxes[1]);
+    fireEvent.click(screen.getAllByTestId('ui-mrr-014-save')[1]);
+
+    expect(await screen.findByRole('status')).toHaveTextContent(FACILITY_SAVED);
+    expect(sent()).toEqual([{ method: 'PATCH', url: `/facilities/${MIC.id}`, body: { active: true } }]);
+    expect((screen.getAllByTestId('ui-mrr-014-ent-004-active')[1] as HTMLInputElement).checked).toBe(true);
   });
 
   it('เพิ่ม adds a row; บันทึก posts it to API-026 and says the api\'s words', async () => {
@@ -438,7 +462,7 @@ describe('FE-mrr-013 facilities page (UI-mrr-014)', () => {
   });
 
   it('empty state — ยังไม่มีสิ่งอำนวยความสะดวก with เพิ่ม', async () => {
-    replies[FACILITIES] = { status: 200, body: [] };
+    replies[ALL_FACILITIES] = { status: 200, body: [] };
     open('/UI-mrr-014');
 
     expect(await screen.findByText('ยังไม่มีสิ่งอำนวยความสะดวก')).toBeInTheDocument();
@@ -446,7 +470,7 @@ describe('FE-mrr-013 facilities page (UI-mrr-014)', () => {
   });
 
   it('overflow state — more than 50 are paged', async () => {
-    replies[FACILITIES] = { status: 200, body: Array.from({ length: 51 }, (_, i) => ({ id: `f${i}`, name: `รายการ ${i}` })) };
+    replies[ALL_FACILITIES] = { status: 200, body: Array.from({ length: 51 }, (_, i) => ({ id: `f${i}`, name: `รายการ ${i}`, active: true })) };
     open('/UI-mrr-014');
 
     expect(await screen.findAllByTestId('ui-mrr-014-ent-004-name')).toHaveLength(50);

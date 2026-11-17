@@ -250,6 +250,12 @@ export class RoomAdminService {
     });
   }
 
+  /** API-036 — every facility by name, the ones taken out of use too, so a Room Administrator can bring one back (ACL-041). */
+  async listAllFacilities(caller: Caller): Promise<Facility[]> {
+    await assertRoomAdministrator(this.db, caller, REFUSAL);
+    return this.db.selectFrom('facilities').select(['id', 'name', 'active']).orderBy('name').execute();
+  }
+
   /** API-026 — a new facility, offered from now on. */
   async createFacility(caller: Caller, input: { name: string }): Promise<{ facility: Facility; message: string }> {
     const name = checkFacilityName(input.name);

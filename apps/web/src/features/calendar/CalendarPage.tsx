@@ -37,6 +37,20 @@ const VIEWS: [View, string][] = [
   ['month', 'รายเดือน'],
 ];
 
+const DATE = /^\d{4}-\d{2}-\d{2}$/;
+
+/** The date one step away in the shown view: a day, a week, or a calendar month (clamped to the month's last day). */
+export function shiftDate(date: string, view: View, direction: 1 | -1): string {
+  const [y, m, d] = date.split('-').map(Number);
+  if (view === 'month') {
+    const target = new Date(Date.UTC(y, m - 1 + direction, 1));
+    const last = new Date(Date.UTC(target.getUTCFullYear(), target.getUTCMonth() + 1, 0)).getUTCDate();
+    target.setUTCDate(Math.min(d, last));
+    return target.toISOString().slice(0, 10);
+  }
+  return new Date(Date.UTC(y, m - 1, d + direction * (view === 'week' ? 7 : 1))).toISOString().slice(0, 10);
+}
+
 /** 401 sends the viewer to sign in · 404 is final · anything else can be tried again. */
 const failureOf = (err: unknown): Load => {
   if (err instanceof ApiError && err.status === 401) return { kind: 'unauthorized' };
@@ -49,7 +63,9 @@ export function CalendarPage() {
   const [params, setParams] = useSearchParams();
   const navigate = useNavigate();
   const room = params.get('room') ?? '';
-  const date = params.get('date') ?? bangkokDate(new Date());
+  const requested = params.get('date');
+  // A date that is not a date is what "no date" means: today.
+  const date = requested && DATE.test(requested) ? requested : bangkokDate(new Date());
   const view = (params.get('view') as View) ?? 'week';
   // The select is the filter's input; the view only changes when switch-view applies it.
   const [chosen, setChosen] = useState<View>(view);
@@ -91,6 +107,20 @@ export function CalendarPage() {
               ))}
             </select>
           </div>
+          <div className="field">
+            {/* design binds this field to no entity, so it has no testid (gate 45): the label is its handle. */}
+            <label htmlFor="ui-mrr-005-calendar-date">
+              วันที่<span className="req" aria-hidden="true">*</span>
+            </label>
+            <input
+              className="input"
+              id="ui-mrr-005-calendar-date"
+              name="วันที่"
+              type="date"
+              value={date}
+              onChange={(e) => e.target.value && setParams({ room, date: e.target.value, view })}
+            />
+          </div>
         </div>
         <div className="actions">
           <button
@@ -103,11 +133,35 @@ export function CalendarPage() {
           </button>
           <button
             type="button"
+            className="btn btn-secondary"
+            data-testid="ui-mrr-005-previous"
+            onClick={() => setParams({ room, date: shiftDate(date, view, -1), view })}
+          >
+            ก่อนหน้า
+          </button>
+          <button
+            type="button"
+            className="btn btn-secondary"
+            data-testid="ui-mrr-005-today"
+            onClick={() => setParams({ room, date: bangkokDate(new Date()), view })}
+          >
+            วันนี้
+          </button>
+          <button
+            type="button"
+            className="btn btn-secondary"
+            data-testid="ui-mrr-005-next"
+            onClick={() => setParams({ room, date: shiftDate(date, view, 1), view })}
+          >
+            ถัดไป
+          </button>
+          <button
+            type="button"
             className="btn btn-primary"
             data-testid="ui-mrr-005-book-slot"
             onClick={() => navigate(`${routeOf(BOOKING_FORM)}?${new URLSearchParams({ room, date })}`)}
           >
-            จองช่วงที่ว่าง
+            ไปหน้าจองห้อง
           </button>
         </div>
       </div>
