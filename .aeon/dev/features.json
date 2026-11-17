@@ -5748,7 +5748,56 @@
           "hash": "sha256:70b3048818d8c6af914931bd01d0fd6ee3282caa12fe7ae99691ab7addcfd0d8"
         }
       ],
-      "status": "draft"
+      "status": "validated",
+      "build": {
+        "iterations": 1,
+        "proof": [
+          {
+            "cmd": "powershell -File scripts/dev-build.ps1 -App api",
+            "result": "tsc -p tsconfig.build.json · exit 0",
+            "at": "2026-11-17"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App api -Filter FE-mrr-041",
+            "result": "Test Suites: 36 skipped, 1 passed, 1 of 37 total · Tests: 427 skipped, 27 passed, 454 total · exit 0",
+            "at": "2026-11-17"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App api",
+            "result": "Test Suites: 37 passed, 37 total · Tests: 454 passed, 454 total · exit 0",
+            "at": "2026-11-17"
+          }
+        ],
+        "last_error": null,
+        "recorded_by": "Noppasorn",
+        "recorded_at": "2026-11-17"
+      },
+      "manifest": {
+        "files": [
+          "apps/api/src/modules/rooms/room-search.service.ts",
+          "apps/api/src/modules/rooms/rooms.controller.ts",
+          "apps/api/src/modules/rooms/rooms.module.ts",
+          "apps/api/test/rooms/room-search.http.spec.ts"
+        ],
+        "unit_tests": [
+          {
+            "file": "apps/api/test/rooms/room-search.http.spec.ts",
+            "calc_ref": null,
+            "gd_ref": null
+          }
+        ],
+        "ui_controls": [],
+        "apis": [
+          {
+            "api_ref": "API-001",
+            "route": "GET /rooms/available",
+            "file": "apps/api/src/modules/rooms/rooms.controller.ts"
+          }
+        ]
+      },
+      "commits": [
+        "35f9f61e84678fa5fe5aeb8951c15fbdb57c8a98"
+      ]
     },
     {
       "id": "FE-mrr-042",
@@ -6232,8 +6281,8 @@
   "rollup": {
     "features_total": 40,
     "by_status": {
-      "validated": 36,
-      "draft": 4
+      "validated": 37,
+      "draft": 3
     },
     "by_origin": {
       "new": 35,
