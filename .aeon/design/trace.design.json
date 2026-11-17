@@ -3393,6 +3393,11 @@
       "from": "API-022",
       "rel": "governedByAcl",
       "to": "ACL-040"
+    },
+    {
+      "from": "UI-mrr-006",
+      "rel": "calls",
+      "to": "API-022"
     }
   ]
 }
