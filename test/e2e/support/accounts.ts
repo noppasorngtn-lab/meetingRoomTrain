@@ -25,4 +25,10 @@ export const ROOMS = [
   { key: 'setapr', code: 'E2E-SETAPR', name: 'E2E Set Approver Room', requiresApproval: true, approver: null },
   { key: 'flip', code: 'E2E-FLIP', name: 'E2E Settings Room', requiresApproval: false, approver: null },
   { key: 'maint', code: 'E2E-MAINT', name: 'E2E Maintenance Room', requiresApproval: false, approver: null },
+  // Report fixture rooms (support/report-fixture.ts): the "rooms A–E" of GD-mrr-001 / EX-mrr-084–087.
+  { key: 'rptA', code: 'E2E-RPT-A', name: 'E2E Rpt A', requiresApproval: false, approver: null },
+  { key: 'rptB', code: 'E2E-RPT-B', name: 'E2E Rpt B', requiresApproval: false, approver: null },
+  { key: 'rptC', code: 'E2E-RPT-C', name: 'E2E Rpt C', requiresApproval: false, approver: null },
+  { key: 'rptD', code: 'E2E-RPT-D', name: 'E2E Rpt D', requiresApproval: false, approver: null },
+  { key: 'rptE', code: 'E2E-RPT-E', name: 'E2E Rpt E', requiresApproval: false, approver: null },
 ] as const;

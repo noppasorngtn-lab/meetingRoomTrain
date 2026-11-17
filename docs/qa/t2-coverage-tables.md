@@ -6,11 +6,10 @@ AC in design: **103** · EX in wiki: **105**
 
 | layers citing the AC | ACs |
 |---|---|
-| api + web + e2e | 68 |
-| api + e2e | 23 |
-| api + web | 6 |
-| api | 3 |
+| api + web + e2e | 73 |
+| api + e2e | 26 |
 | web + e2e | 3 |
+| api + web | 1 |
 
 ACs with no test citing them: none
 
@@ -98,6 +97,9 @@ EX with no AC (expected only for superseded rules, e.g. BR-mrr-010@v1): EX-mrr-0
 | EX-mrr-044 | boundary | TC-APR-UI010-108 | edit during the meeting applies at once (clock moved), real |
 | EX-mrr-045 | happy | TC-APR-UI011-101 | another RA approves the request, real |
 | EX-mrr-046 | exception | TC-APR-UI011-102 | requester cannot approve own request, real |
+| EX-mrr-047 | happy | TC-RPT-RPT001-101 | ออกรายงานเดือนเดิมซ้ำหลังข้อมูลการจองเปลี่ยน → ฉบับใหม่ + ข้อความ · ฉบับเดิมยังอยู่ · real (เปลี่ยนข้อมูลด้วย SQL ไม่ผ่านคำขอแก้ไข) |
+| EX-mrr-048 | exception | TC-RPT-RPT001-102 | สั่งแก้ตัวเลขรายงานที่ออกแล้ว (ยิงตรง) → 409 + ข้อความ ตัวเลขคงเดิม · trigger append-only ของตารางก็ปฏิเสธ · real |
+| EX-mrr-049 | boundary | TC-RPT-RPT001-103 | เปิดฉบับเก่าผ่านหน้าจอหลังข้อมูลเปลี่ยน → ตัวเลขเท่าตอนออก · real |
 | EX-mrr-050 | boundary | TC-APR-JOB-101 | 1 min before start: pending booking untouched, real |
 | EX-mrr-051 | happy | TC-APR-JOB-102 | at start: auto-cancelled, slot released, booker mailed, real |
 | EX-mrr-052 | exception | TC-APR-JOB-103 | mail really down: stays pending; next pass cancels, real |
@@ -120,6 +122,7 @@ EX with no AC (expected only for superseded rules, e.g. BR-mrr-010@v1): EX-mrr-0
 | EX-mrr-069 | happy | TC-CAL-UI005-102 | ผู้เข้าร่วมเห็นรายละเอียดเดียวกัน · real |
 | EX-mrr-070 | exception | TC-CAL-UI005-103 | คนอื่นเห็นแค่ "ไม่ว่าง" ไม่มีผู้จอง/หัวข้อ/ผู้เข้าร่วม · real |
 | EX-mrr-071 | exception | TC-CAL-UI005-104 | ห้องที่ต้องอนุมัติ: การจองรออนุมัติของคนอื่นเห็นแค่ "ไม่ว่าง" ไม่เห็นสถานะ · real |
+| EX-mrr-072 | happy | TC-RPT-RPT001-104 | RA เปิดหน้ารายงาน เห็นรายงานของเดือนพร้อมอันดับ · real |
 | EX-mrr-073 | exception | TC-RPT-RPT001-105 | SA ขอรายงาน (ยิงตรง) → ปฏิเสธ · real |
 | EX-mrr-074 | exception | TC-RPT-RPT001-106 | General User report request -> 403 + message, real |
 | EX-mrr-075 | happy | TC-NTF-JOB-106 | one reminder per recipient, booking marked SENT, real |
@@ -131,6 +134,10 @@ EX with no AC (expected only for superseded rules, e.g. BR-mrr-010@v1): EX-mrr-0
 | EX-mrr-081 | exception | 13, 14, TC-BKG-UI006-028 | 13/14 stub; TC-028 real: maintenance room refuses the booking and creates none |
 | EX-mrr-082 | alternate | TC-BKG-UI008-101 | แก้เวลาการจองเดิมในห้องปิดปรับปรุง → ไม่บันทึก เวลาเดิมคงอยู่ · real |
 | EX-mrr-083 | boundary | TC-RMM-UI012-102 | RA เปิดห้องกลับมา → จองใหม่ได้ทันที · real |
+| EX-mrr-084 | happy | TC-RPT-RPT001-107 | fixture GD-mrr-001: B 66.67% อันดับ 1 · A 33.33% อันดับ 2 · ยกเลิก/รออนุมัติ/ปฏิเสธไม่นับ · real |
+| EX-mrr-085 | boundary | TC-RPT-RPT001-108 | ห้อง C 0.45% นับเฉพาะ 17:00–18:00 ศุกร์ · real |
+| EX-mrr-086 | alternate | TC-RPT-RPT001-109 | ห้อง D ปิดปรับปรุง 19–23 → 50.00% ตัวหาร 10,200 · real |
+| EX-mrr-087 | exception | TC-RPT-RPT001-110 | ห้อง E ปิดทั้งเดือน → "—" ไม่มีอันดับ · real |
 | EX-mrr-088 | exception | TC-APR-UI010-109 | SA: no edit/cancel-on-behalf buttons, direct call 403, real |
 | EX-mrr-089 | exception | TC-APR-UI010-110 | SA: no change-decision button, direct call 403, status unchanged, real |
 | EX-mrr-090 | exception | TC-RMM-UI014-101 | General User on facilities page -> no permission, real |
@@ -159,7 +166,3 @@ EX with no AC (expected only for superseded rules, e.g. BR-mrr-010@v1): EX-mrr-0
 | NFR-mrr-003 | เข้ารหัสข้อมูลการใช้งานผ่าน HTTPS และจำกัดสิทธิ์การเข้าถึงตามระดับผู้ใช้งาน (Role-Based Access Control) | **none** |
 | NFR-mrr-004 | เปิดให้บริการตลอด 24 ชั่วโมง (Uptime 99.9%) | **none** |
 | NFR-mrr-005 | รองรับ Chrome, Safari, Edge, Firefox และแสดงผลได้ดีบนอุปกรณ์เคลื่อนที่ (Responsive Design) | nfr-005-browsers.spec.ts |
-
-## API jest run
-
-suites 36/36 passed · tests 426/426 passed · failed 0 · pending 0
