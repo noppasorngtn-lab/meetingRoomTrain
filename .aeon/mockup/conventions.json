@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "1.4",
+  "schemaVersion": "1.5",
   "producedBy": "mock · scripts/conventions.mjs",
   "project": "mrr",
   "kinds": [
@@ -173,6 +173,13 @@
       "slug": "calendar-view",
       "confirmedBy": "Noppasorn",
       "confirmedAt": "2026-10-19T08:38:27Z"
+    },
+    {
+      "screen": "UI-mrr-005",
+      "name": "วันที่",
+      "slug": "calendar-date",
+      "confirmedBy": "Noppasorn",
+      "confirmedAt": "2026-11-17T13:22:53Z"
     }
   ],
   "screenOptions": [],

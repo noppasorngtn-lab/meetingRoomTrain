@@ -215,6 +215,12 @@
       "name": "มุมมอง"
     },
     {
+      "id": "ui-mrr-005-calendar-date",
+      "type": "field",
+      "key": "calendar-date",
+      "name": "วันที่"
+    },
+    {
       "id": "ui-mrr-005-switch-view",
       "type": "action",
       "key": "switch-view"

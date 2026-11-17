@@ -75,6 +75,7 @@
       "imported": false,
       "testids": [
         "ui-mrr-005-book-slot",
+        "ui-mrr-005-calendar-date",
         "ui-mrr-005-calendar-view",
         "ui-mrr-005-ent-007-booked-by",
         "ui-mrr-005-ent-007-start-at",

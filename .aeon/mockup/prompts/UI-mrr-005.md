@@ -23,7 +23,7 @@
 | ชนิด | ข้อความ | ปลายทาง | `data-testid` |
 |---|---|---|---|
 | field | มุมมอง | — | `ui-mrr-005-calendar-view` |
-| field | วันที่ | — | — ยังไม่มีใครตั้งชื่อ |
+| field | วันที่ | — | `ui-mrr-005-calendar-date` |
 | action | เปลี่ยนมุมมอง | → อยู่ที่หน้าเดิม | `ui-mrr-005-switch-view` |
 | action | ก่อนหน้า | → อยู่ที่หน้าเดิม | `ui-mrr-005-previous` |
 | action | วันนี้ | → อยู่ที่หน้าเดิม | `ui-mrr-005-today` |
@@ -42,6 +42,7 @@
 **ทุก `data-testid` ข้างล่างนี้ต้องกลับมาครบในหน้าที่ส่งกลับ** — id พวกนี้เปลี่ยนไม่ได้หลังเกิด (ประตู 37) และ `qa` ใช้มันเขียนเทส
 
 - `ui-mrr-005-book-slot`
+- `ui-mrr-005-calendar-date`
 - `ui-mrr-005-calendar-view`
 - `ui-mrr-005-ent-007-booked-by`
 - `ui-mrr-005-ent-007-start-at`
