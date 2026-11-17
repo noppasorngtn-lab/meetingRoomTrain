@@ -2,225 +2,64 @@
   "module": "mrr",
   "features": [
     {
-      "id": "FE-mrr-002",
-      "title_th": "ดูปฏิทินการใช้ห้อง — หน้าจอ",
+      "id": "FE-mrr-041",
+      "title_th": "ค้นหาห้องว่าง — ฝั่ง API",
+      "app_ref": "api",
+      "type": "command",
+      "origin": "new",
+      "files_planned": [],
+      "depends_on": ["FE-mrr-034"],
+      "acceptance_refs": ["AC-mrr-106", "AC-mrr-107", "AC-mrr-108"],
+      "traces_up": [
+        { "ref": "UC-mrr-001" }, { "ref": "AC-mrr-106" }, { "ref": "AC-mrr-107" }, { "ref": "AC-mrr-108" },
+        { "ref": "API-001" }, { "ref": "ENT-002" }, { "ref": "ENT-004" }, { "ref": "ENT-006" }, { "ref": "ENT-007" }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "FE-mrr-042",
+      "title_th": "ค้นหาห้องว่าง — หน้าจอ",
+      "app_ref": "frontend-web",
+      "type": "command",
+      "origin": "new",
+      "files_planned": [],
+      "depends_on": ["FE-mrr-022", "FE-mrr-041"],
+      "acceptance_refs": ["AC-mrr-106", "AC-mrr-107", "AC-mrr-108"],
+      "traces_up": [
+        { "ref": "UC-mrr-001" }, { "ref": "AC-mrr-106" }, { "ref": "AC-mrr-107" }, { "ref": "AC-mrr-108" },
+        { "ref": "UI-mrr-004" }, { "ref": "API-001" }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "FE-mrr-043",
+      "title_th": "ลบข้อมูลห้อง — ฝั่ง API",
+      "app_ref": "api",
+      "type": "command",
+      "origin": "change",
+      "files_planned": [],
+      "depends_on": ["FE-mrr-034"],
+      "acceptance_refs": ["AC-mrr-109", "AC-mrr-110"],
+      "traces_up": [
+        { "ref": "UC-mrr-015" }, { "ref": "AC-mrr-109" }, { "ref": "AC-mrr-110" },
+        { "ref": "API-025" }, { "ref": "ENT-002" }, { "ref": "ENT-007" }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "FE-mrr-044",
+      "title_th": "ลบข้อมูลห้อง — หน้าจอ",
       "app_ref": "frontend-web",
       "type": "command",
       "origin": "change",
       "files_planned": [],
-      "depends_on": [
-        "FE-mrr-022",
-        "FE-mrr-023"
-      ],
-      "acceptance_refs": [
-        "AC-mrr-066",
-        "AC-mrr-067",
-        "AC-mrr-068",
-        "AC-mrr-069"
-      ],
+      "depends_on": ["FE-mrr-022", "FE-mrr-013", "FE-mrr-043"],
+      "acceptance_refs": ["AC-mrr-109", "AC-mrr-110"],
       "traces_up": [
-        {
-          "ref": "UC-mrr-002"
-        },
-        {
-          "ref": "AC-mrr-066"
-        },
-        {
-          "ref": "AC-mrr-067"
-        },
-        {
-          "ref": "AC-mrr-068"
-        },
-        {
-          "ref": "AC-mrr-069"
-        },
-        {
-          "ref": "UI-mrr-005"
-        }
+        { "ref": "UC-mrr-015" }, { "ref": "AC-mrr-109" }, { "ref": "AC-mrr-110" },
+        { "ref": "UI-mrr-012" }, { "ref": "API-025" }
       ],
-      "status": "validated"
-    },
-    {
-      "id": "FE-mrr-013",
-      "title_th": "เพิ่มหรือแก้ไขข้อมูลห้อง — หน้าจอ",
-      "app_ref": "frontend-web",
-      "type": "crud",
-      "origin": "change",
-      "files_planned": [],
-      "depends_on": [
-        "FE-mrr-022",
-        "FE-mrr-034",
-        "FE-mrr-038"
-      ],
-      "acceptance_refs": [
-        "AC-mrr-015",
-        "AC-mrr-017",
-        "AC-mrr-018",
-        "AC-mrr-030",
-        "AC-mrr-031",
-        "AC-mrr-032",
-        "AC-mrr-040",
-        "AC-mrr-076",
-        "AC-mrr-077",
-        "AC-mrr-078",
-        "AC-mrr-088",
-        "AC-mrr-104",
-        "AC-mrr-105"
-      ],
-      "traces_up": [
-        {
-          "ref": "UC-mrr-013"
-        },
-        {
-          "ref": "AC-mrr-015"
-        },
-        {
-          "ref": "AC-mrr-017"
-        },
-        {
-          "ref": "AC-mrr-018"
-        },
-        {
-          "ref": "AC-mrr-030"
-        },
-        {
-          "ref": "AC-mrr-031"
-        },
-        {
-          "ref": "AC-mrr-032"
-        },
-        {
-          "ref": "AC-mrr-040"
-        },
-        {
-          "ref": "AC-mrr-076"
-        },
-        {
-          "ref": "AC-mrr-077"
-        },
-        {
-          "ref": "AC-mrr-078"
-        },
-        {
-          "ref": "UI-mrr-012"
-        },
-        {
-          "ref": "UI-mrr-013"
-        },
-        {
-          "ref": "UI-mrr-014"
-        },
-        {
-          "ref": "AC-mrr-088"
-        },
-        {
-          "ref": "AC-mrr-104"
-        },
-        {
-          "ref": "AC-mrr-105"
-        },
-        {
-          "ref": "API-036"
-        }
-      ],
-      "status": "validated"
-    },
-    {
-      "id": "FE-mrr-034",
-      "title_th": "เพิ่มหรือแก้ไขข้อมูลห้อง — ฝั่ง API",
-      "app_ref": "api",
-      "type": "crud",
-      "origin": "change",
-      "files_planned": [],
-      "depends_on": [
-        "FE-mrr-037"
-      ],
-      "acceptance_refs": [
-        "AC-mrr-015",
-        "AC-mrr-017",
-        "AC-mrr-018",
-        "AC-mrr-030",
-        "AC-mrr-031",
-        "AC-mrr-032",
-        "AC-mrr-040",
-        "AC-mrr-076",
-        "AC-mrr-077",
-        "AC-mrr-078",
-        "AC-mrr-104",
-        "AC-mrr-105"
-      ],
-      "traces_up": [
-        {
-          "ref": "UC-mrr-013"
-        },
-        {
-          "ref": "AC-mrr-015"
-        },
-        {
-          "ref": "AC-mrr-017"
-        },
-        {
-          "ref": "AC-mrr-018"
-        },
-        {
-          "ref": "AC-mrr-030"
-        },
-        {
-          "ref": "AC-mrr-031"
-        },
-        {
-          "ref": "AC-mrr-032"
-        },
-        {
-          "ref": "AC-mrr-040"
-        },
-        {
-          "ref": "AC-mrr-076"
-        },
-        {
-          "ref": "AC-mrr-077"
-        },
-        {
-          "ref": "AC-mrr-078"
-        },
-        {
-          "ref": "API-020"
-        },
-        {
-          "ref": "API-021"
-        },
-        {
-          "ref": "API-023"
-        },
-        {
-          "ref": "API-026"
-        },
-        {
-          "ref": "API-027"
-        },
-        {
-          "ref": "ENT-002"
-        },
-        {
-          "ref": "ENT-003"
-        },
-        {
-          "ref": "ENT-004"
-        },
-        {
-          "ref": "ENT-005"
-        },
-        {
-          "ref": "AC-mrr-104"
-        },
-        {
-          "ref": "AC-mrr-105"
-        },
-        {
-          "ref": "API-036"
-        }
-      ],
-      "status": "validated"
+      "status": "draft"
     }
   ]
 }

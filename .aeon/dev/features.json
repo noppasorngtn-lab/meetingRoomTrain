@@ -5694,6 +5694,187 @@
       "commits": [
         "6f4e275aad6cc9f5064b2ee2cb6d66f21be0ba16"
       ]
+    },
+    {
+      "id": "FE-mrr-041",
+      "title_th": "ค้นหาห้องว่าง — ฝั่ง API",
+      "app_ref": "api",
+      "type": "command",
+      "origin": "new",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-034"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-106",
+        "AC-mrr-107",
+        "AC-mrr-108"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-001",
+          "hash": "sha256:eee02d83c5407c0ce6063b6b19d52d927dc0e86eb106f0a8f2a3fcc917b366d9"
+        },
+        {
+          "ref": "AC-mrr-106",
+          "hash": "sha256:edb14bbd693470a8771ef1f7190cdeb91caa823446e0ef4ca42b0a0169e5755e"
+        },
+        {
+          "ref": "AC-mrr-107",
+          "hash": "sha256:f470452a4bf43fe070a84b9f76826e1fb843f292f9b19e19ff6bc9cfda04ea6a"
+        },
+        {
+          "ref": "AC-mrr-108",
+          "hash": "sha256:1344f64ddef1a2b70b2e988c59925ba5ef29bd6ffd1c2e6a7e87c72c2ab59206"
+        },
+        {
+          "ref": "API-001",
+          "hash": "sha256:071f4e9d0fe59b778643b226a32022cc13560cde0cce7397c01ee787e57325c7"
+        },
+        {
+          "ref": "ENT-002",
+          "hash": "sha256:e70f20e6913f4a75f3388af299050d129f93fe894875b5a287874cf578477dfd"
+        },
+        {
+          "ref": "ENT-004",
+          "hash": "sha256:89882498e217530849d0da02a37af7b9f3c3589d31e1b7c7aae27635dcb22036"
+        },
+        {
+          "ref": "ENT-006",
+          "hash": "sha256:b16987f2f64f0070089ddf6f535953f2dcd544a7704c51efd0f5f9f71db33d18"
+        },
+        {
+          "ref": "ENT-007",
+          "hash": "sha256:70b3048818d8c6af914931bd01d0fd6ee3282caa12fe7ae99691ab7addcfd0d8"
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "FE-mrr-042",
+      "title_th": "ค้นหาห้องว่าง — หน้าจอ",
+      "app_ref": "frontend-web",
+      "type": "command",
+      "origin": "new",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-022",
+        "FE-mrr-041"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-106",
+        "AC-mrr-107",
+        "AC-mrr-108"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-001",
+          "hash": "sha256:eee02d83c5407c0ce6063b6b19d52d927dc0e86eb106f0a8f2a3fcc917b366d9"
+        },
+        {
+          "ref": "AC-mrr-106",
+          "hash": "sha256:edb14bbd693470a8771ef1f7190cdeb91caa823446e0ef4ca42b0a0169e5755e"
+        },
+        {
+          "ref": "AC-mrr-107",
+          "hash": "sha256:f470452a4bf43fe070a84b9f76826e1fb843f292f9b19e19ff6bc9cfda04ea6a"
+        },
+        {
+          "ref": "AC-mrr-108",
+          "hash": "sha256:1344f64ddef1a2b70b2e988c59925ba5ef29bd6ffd1c2e6a7e87c72c2ab59206"
+        },
+        {
+          "ref": "UI-mrr-004",
+          "hash": "sha256:24b467f9af188528283c60f28ebdfe01977e3c07df7a6cc70bbb23f78f4dd5e3"
+        },
+        {
+          "ref": "API-001",
+          "hash": "sha256:071f4e9d0fe59b778643b226a32022cc13560cde0cce7397c01ee787e57325c7"
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "FE-mrr-043",
+      "title_th": "ลบข้อมูลห้อง — ฝั่ง API",
+      "app_ref": "api",
+      "type": "command",
+      "origin": "change",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-034"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-109",
+        "AC-mrr-110"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-015",
+          "hash": "sha256:d4c86e79048f3b8f425c8baea8e3a5fd78c467f9fcae38a113d7b4298d2a1828"
+        },
+        {
+          "ref": "AC-mrr-109",
+          "hash": "sha256:2d18ddd71cd8e97051a34725b952f28898701b66aa37be405fcf3c5ec0a232d0"
+        },
+        {
+          "ref": "AC-mrr-110",
+          "hash": "sha256:6d774bbb4145fd19e9ad307d2ab42d80ee15a2b24f840626d5a21622010ee62a"
+        },
+        {
+          "ref": "API-025",
+          "hash": "sha256:e2e0397b028a28eaaffcb450fc7c9cf3550e1240e486a3b7bbdb9d8ceee10dae"
+        },
+        {
+          "ref": "ENT-002",
+          "hash": "sha256:e70f20e6913f4a75f3388af299050d129f93fe894875b5a287874cf578477dfd"
+        },
+        {
+          "ref": "ENT-007",
+          "hash": "sha256:70b3048818d8c6af914931bd01d0fd6ee3282caa12fe7ae99691ab7addcfd0d8"
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "FE-mrr-044",
+      "title_th": "ลบข้อมูลห้อง — หน้าจอ",
+      "app_ref": "frontend-web",
+      "type": "command",
+      "origin": "change",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-022",
+        "FE-mrr-013",
+        "FE-mrr-043"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-109",
+        "AC-mrr-110"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-015",
+          "hash": "sha256:d4c86e79048f3b8f425c8baea8e3a5fd78c467f9fcae38a113d7b4298d2a1828"
+        },
+        {
+          "ref": "AC-mrr-109",
+          "hash": "sha256:2d18ddd71cd8e97051a34725b952f28898701b66aa37be405fcf3c5ec0a232d0"
+        },
+        {
+          "ref": "AC-mrr-110",
+          "hash": "sha256:6d774bbb4145fd19e9ad307d2ab42d80ee15a2b24f840626d5a21622010ee62a"
+        },
+        {
+          "ref": "UI-mrr-012",
+          "hash": "sha256:1aa4200e6ea7d449401b576f15fa3064fdf11b22cb58fe1d3c135ee328141366"
+        },
+        {
+          "ref": "API-025",
+          "hash": "sha256:e2e0397b028a28eaaffcb450fc7c9cf3550e1240e486a3b7bbdb9d8ceee10dae"
+        }
+      ],
+      "status": "draft"
     }
   ],
   "gaps": [
@@ -6049,17 +6230,18 @@
     }
   ],
   "rollup": {
-    "features_total": 36,
+    "features_total": 40,
     "by_status": {
-      "validated": 36
+      "validated": 36,
+      "draft": 4
     },
     "by_origin": {
-      "new": 33,
-      "change": 3
+      "new": 35,
+      "change": 5
     },
     "by_app": {
-      "frontend-web": 16,
-      "api": 20
+      "frontend-web": 18,
+      "api": 22
     },
     "gaps_open": 19,
     "ready_for_phase5": false
