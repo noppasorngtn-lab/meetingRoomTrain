@@ -3478,6 +3478,41 @@
       "from": "AC-mrr-110",
       "rel": "governedBy",
       "to": "BR-mrr-005@v1"
+    },
+    {
+      "from": "FUN-mrr-015",
+      "rel": "realizedBy",
+      "to": "UC-mrr-021"
+    },
+    {
+      "from": "FUN-mrr-015",
+      "rel": "displayedOn",
+      "to": "UI-mrr-003"
+    },
+    {
+      "from": "FUN-mrr-015",
+      "rel": "exposedAs",
+      "to": "API-034"
+    },
+    {
+      "from": "FUN-mrr-015",
+      "rel": "operatesOn",
+      "to": "ENT-014"
+    },
+    {
+      "from": "AC-mrr-111",
+      "rel": "proves",
+      "to": "FUN-mrr-015"
+    },
+    {
+      "from": "AC-mrr-112",
+      "rel": "proves",
+      "to": "FUN-mrr-015"
+    },
+    {
+      "from": "AC-mrr-113",
+      "rel": "proves",
+      "to": "FUN-mrr-015"
     }
   ]
 }

@@ -3,9 +3,9 @@
   "producedBy": "design · scripts/functions.mjs",
   "project": "mrr",
   "module": "mrr",
-  "status": "approved",
-  "approvedAt": "2026-11-17T13:36:43Z",
-  "approvedBy": "Noppasorn",
+  "status": "draft",
+  "approvedAt": null,
+  "approvedBy": null,
   "functions": [
     {
       "id": "FUN-mrr-001",
@@ -240,8 +240,8 @@
     },
     {
       "id": "FUN-mrr-014",
-      "title": "ยืนยันตัวตนด้วยรหัส OTP ทาง Email องค์กร และออกจากระบบ",
-      "description": "ผู้ใช้เข้าสู่ระบบด้วย Email ขององค์กรอย่างเดียว โดยรับรหัส OTP ทาง Email (ไม่ใช้ Active Directory / SSO และไม่มีรหัสผ่าน) และออกจากระบบเพื่อยกเลิก session",
+      "title": "ยืนยันตัวตนด้วยรหัส OTP ทาง Email องค์กร",
+      "description": "ผู้ใช้เข้าสู่ระบบด้วย Email ขององค์กรอย่างเดียว โดยรับรหัส OTP ทาง Email (ไม่ใช้ Active Directory / SSO และไม่มีรหัสผ่าน)",
       "requirements": [
         "REQ-mrr-001"
       ],
@@ -253,9 +253,22 @@
         "BR-mrr-028@v1"
       ],
       "useCases": [
-        "UC-mrr-020",
-        "UC-mrr-021"
+        "UC-mrr-020"
       ]
+    },
+    {
+      "id": "FUN-mrr-015",
+      "title": "ออกจากระบบ",
+      "description": "ผู้ใช้ออกจากระบบเพื่อยกเลิก session ของตน แล้วเห็นหน้า 'ออกจากระบบแล้ว' พร้อมทางเข้าสู่ระบบอีกครั้ง",
+      "requirements": [],
+      "rules": [],
+      "useCases": [
+        "UC-mrr-021"
+      ],
+      "origin": {
+        "kind": "platform",
+        "because": "การออกจากระบบไม่ใช่กฎธุรกิจ — BA/PO ตัดสินเมื่อ 2026-11-17 (docs/qa/req-questions-search-delete-logout.md Q3.1) ว่าเป็นฟังก์ชันของแพลตฟอร์ม ไม่มี requirement หรือกฎของ req ข้อใดขอ"
+      }
     }
   ],
   "useCases": [
@@ -709,7 +722,7 @@
     },
     {
       "id": "UC-mrr-021",
-      "function": "FUN-mrr-014",
+      "function": "FUN-mrr-015",
       "title": "ออกจากระบบ",
       "actor": "ผู้ใช้ (General User, Room Administrator หรือ System Administrator)",
       "preconditions": [
@@ -2293,6 +2306,42 @@
       "given": "ผู้ใช้ล็อกอินเป็นผู้ใช้ทั่วไป (ไม่ใช่ Room Administrator)",
       "when": "ผู้ใช้พยายามลบห้อง A",
       "then": "ระบบไม่ลบห้อง และแสดงข้อความ 'เฉพาะผู้ดูแลห้องเท่านั้นที่จัดการข้อมูลห้องได้' · ห้อง A ไม่เปลี่ยน"
+    },
+    {
+      "id": "AC-mrr-111",
+      "function": "FUN-mrr-015",
+      "rules": [],
+      "useCases": [
+        "UC-mrr-021"
+      ],
+      "title": "กรณีปกติ · ผู้ใช้ออกจากระบบ",
+      "given": "ผู้ใช้เข้าสู่ระบบอยู่",
+      "when": "ผู้ใช้กดออกจากระบบ",
+      "then": "ระบบยกเลิก session ของผู้ใช้ และแสดงหน้า 'ออกจากระบบแล้ว' พร้อมทางเข้าสู่ระบบอีกครั้ง"
+    },
+    {
+      "id": "AC-mrr-112",
+      "function": "FUN-mrr-015",
+      "rules": [],
+      "useCases": [
+        "UC-mrr-021"
+      ],
+      "title": "กรณีผิดพลาด · ยกเลิก session ไม่สำเร็จ",
+      "given": "ผู้ใช้เข้าสู่ระบบอยู่ แต่ระบบยกเลิก session ไม่สำเร็จ",
+      "when": "ผู้ใช้กดออกจากระบบ",
+      "then": "ระบบแสดงข้อความ 'ออกจากระบบไม่สำเร็จ กรุณาลองอีกครั้ง' และยังไม่แสดงว่าออกจากระบบแล้ว"
+    },
+    {
+      "id": "AC-mrr-113",
+      "function": "FUN-mrr-015",
+      "rules": [],
+      "useCases": [
+        "UC-mrr-021"
+      ],
+      "title": "กรณีทางเลือก · ผู้ที่ไม่ได้เข้าสู่ระบบเปิดหน้าออกจากระบบ",
+      "given": "ผู้ใช้ยังไม่ได้เข้าสู่ระบบ",
+      "when": "ผู้ใช้เปิดหน้าออกจากระบบ",
+      "then": "ระบบแสดงหน้า 'ออกจากระบบแล้ว' พร้อมทางเข้าสู่ระบบอีกครั้ง เหมือนกับผู้ที่เพิ่งออกจากระบบ"
     }
   ]
 }
