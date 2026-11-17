@@ -8,6 +8,7 @@ import { ManageBookingPage } from './features/booking/ManageBookingPage';
 import { MyBookingsPage } from './features/booking/MyBookingsPage';
 import { PendingApprovalsPage } from './features/booking/PendingApprovalsPage';
 import { CalendarPage } from './features/calendar/CalendarPage';
+import { RoomSearchPage } from './features/search/RoomSearchPage';
 import { UtilizationReportPage } from './features/reports/UtilizationReportPage';
 import { FacilitiesPage } from './features/rooms/FacilitiesPage';
 import { RoomFormPage } from './features/rooms/RoomFormPage';
@@ -24,6 +25,7 @@ const ENTRY = 'UI-mrr-001';
 const BUILT: Record<string, JSX.Element> = {
   'UI-mrr-001': <RequestCodePage />,
   'UI-mrr-002': <VerifyCodePage />,
+  'UI-mrr-004': <RoomSearchPage />,
   'UI-mrr-005': <CalendarPage />,
   'UI-mrr-006': <BookingPage />,
   'UI-mrr-007': <MyBookingsPage />,
