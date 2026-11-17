@@ -1,0 +1,4 @@
+{ "edges": [
+  { "from": "API-022", "rel": "governedByAcl", "to": "ACL-039" },
+  { "from": "API-022", "rel": "governedByAcl", "to": "ACL-040" }
+] }

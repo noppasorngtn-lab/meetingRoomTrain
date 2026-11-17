@@ -3383,6 +3383,16 @@
       "from": "AC-mrr-105",
       "rel": "governedBy",
       "to": "BR-mrr-010@v2"
+    },
+    {
+      "from": "API-022",
+      "rel": "governedByAcl",
+      "to": "ACL-039"
+    },
+    {
+      "from": "API-022",
+      "rel": "governedByAcl",
+      "to": "ACL-040"
     }
   ]
 }

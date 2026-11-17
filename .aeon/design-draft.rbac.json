@@ -1,0 +1,25 @@
+{
+  "entries": [
+    {
+      "id": "ACL-039",
+      "role": "ROLE-001",
+      "resource": "UC-mrr-003",
+      "action": "อ่านข้อมูลของห้องที่ไม่ได้เลิกใช้งาน (ชื่อ ความจุ ต้องอนุมัติ สถานะ ผู้อนุมัติประจำห้อง) เพื่อใช้ประกอบการจองห้อง — ไม่เห็นรูปภาพ",
+      "scope": "all",
+      "enforceAt": ["api", "domain"],
+      "condition": { "stateMachine": "STM-mrr-003", "state": ["ACTIVE", "UNDER_MAINTENANCE"] }
+    },
+    {
+      "id": "ACL-040",
+      "role": "ROLE-003",
+      "resource": "UI-mrr-010",
+      "action": "อ่านข้อมูลของห้องที่ไม่ได้เลิกใช้งาน (ชื่อ ความจุ ต้องอนุมัติ สถานะ ผู้อนุมัติประจำห้อง) ประกอบการดูร่องรอยการจอง — ไม่เห็นรูปภาพ",
+      "scope": "all",
+      "enforceAt": ["api", "domain"],
+      "condition": { "stateMachine": "STM-mrr-003", "state": ["ACTIVE", "UNDER_MAINTENANCE"] }
+    }
+  ],
+  "fieldRules": [
+    { "entity": "ENT-003", "field": "photos", "visibleTo": ["ROLE-002"] }
+  ]
+}
