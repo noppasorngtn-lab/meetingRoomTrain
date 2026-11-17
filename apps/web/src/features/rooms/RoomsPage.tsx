@@ -40,7 +40,7 @@ const ROOMS = 'UI-mrr-012';
 
 /**
  * UI-mrr-012 — a Room Administrator's rooms (API-020), 20 to a page by code, found by part of a
- * name or a code. ?query=<text>&archived=1&page=<n> keep the search; archived rooms show only
+ * name or a code. ลบห้อง archives a room for good through API-025 after asking (STM-mrr-003). ?query=<text>&archived=1&page=<n> keep the search; archived rooms show only
  * through that filter (overflow state). ปิดปรับปรุง / เปิดใช้งาน flips a room through API-024 right
  * here; the bookings it has stay as they are (BR-mrr-012).
  */
@@ -52,6 +52,7 @@ export function RoomsPage() {
   const archived = params.get('archived') === '1';
   const [text, setText] = useState(query);
   const [load, setLoad] = useState<Load>({ kind: 'loading' });
+  /** The room a toggle or a delete is being sent for — one press at a time, whichever button it was. */
   const [toggling, setToggling] = useState<string | null>(null);
   const [failure, setFailure] = useState<string | null>(null);
 
@@ -84,6 +85,26 @@ export function RoomsPage() {
       // The room's status does not change (UI-mrr-012 error state) — the api says why when it can.
       if (err instanceof ApiError && err.status === 401) return setLoad({ kind: 'unauthorized' });
       setFailure(err instanceof ApiError && err.status !== 500 ? err.message : 'เปลี่ยนสถานะห้องไม่สำเร็จ กรุณากดอีกครั้ง');
+    } finally {
+      setToggling(null);
+    }
+  };
+
+  /** UC-mrr-015 — delete is archive: it cannot be undone, so the person is asked first; the bookings stay. */
+  const archive = async (room: RoomRow) => {
+    if (!window.confirm(`ลบห้อง ${room.name}
+
+การลบจะเลิกใช้ห้องถาวรและเปิดกลับไม่ได้ การจองเดิมคงไว้ ยืนยันลบหรือไม่`)) return;
+    setToggling(room.id);
+    setFailure(null);
+    try {
+      const done = await postJson<{ message: string }>(`/rooms/${room.id}/archive`, {});
+      navigate({ pathname: routeOf(ROOMS), search: params.toString() }, { replace: true, state: { notice: done.message } });
+      fetchPage();
+    } catch (err) {
+      // The room stays as it is (UI-mrr-012 error state) — the api says why when it can.
+      if (err instanceof ApiError && err.status === 401) return setLoad({ kind: 'unauthorized' });
+      setFailure(err instanceof ApiError && err.status !== 500 ? err.message : 'ลบห้องไม่สำเร็จ กรุณากดอีกครั้ง');
     } finally {
       setToggling(null);
     }
@@ -204,6 +225,16 @@ export function RoomsPage() {
                             onClick={() => navigate(`${routeOf(ROOM_FORM)}?room=${r.id}`)}
                           >
                             แก้ไขห้อง
+                          </button>
+                          <button
+                            type="button"
+                            className="more"
+                            data-testid="ui-mrr-012-archive"
+                            disabled={toggling !== null}
+                            aria-busy={toggling === r.id || undefined}
+                            onClick={() => archive(r)}
+                          >
+                            ลบห้อง
                           </button>
                           {/* The half of ปิดปรับปรุง / เปิดใช้งาน that this room's status allows (STM-mrr-003). */}
                           <button
