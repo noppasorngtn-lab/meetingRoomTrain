@@ -3363,6 +3363,26 @@
       "from": "UC-mrr-020",
       "rel": "governedByAcl",
       "to": "ACL-038"
+    },
+    {
+      "from": "AC-mrr-104",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-031"
+    },
+    {
+      "from": "AC-mrr-104",
+      "rel": "governedBy",
+      "to": "BR-mrr-010@v2"
+    },
+    {
+      "from": "AC-mrr-105",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-032"
+    },
+    {
+      "from": "AC-mrr-105",
+      "rel": "governedBy",
+      "to": "BR-mrr-010@v2"
     }
   ]
 }
