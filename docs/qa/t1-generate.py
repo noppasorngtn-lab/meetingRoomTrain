@@ -58,8 +58,8 @@ def m(fn, ui, ds, auto, pre, typ=None, note=""):
 
 U2 = "ต้องมีผู้ใช้ทั่วไปคนที่ 2"
 RA = "ต้องมีผู้ใช้ Room Administrator"
-CLK = "ต้องควบคุมเวลาฝั่งเซิร์ฟเวอร์ [TBD] OQ-T1-01"
-JOB = "ต้องสั่งงานตามเวลาให้รันได้ [TBD] OQ-T1-02"
+CLK = "ควบคุมเวลาด้วย /__test/clock (support/clock.ts) · OQ-T1-01 ปิดแล้ว"
+JOB = "งานตามเวลายังไม่รันใน api (ไม่มี store ต่อ Postgres) [TBD] OQ-T1-02"
 MAILF = "ต้องจำลองอีเมลล่มจริง [TBD] OQ-T1-03"
 API = "ยิงคำสั่งตรงด้วย session ของบทบาทนั้น (ไม่ผ่านปุ่ม) เพราะปุ่มถูกซ่อน"
 
@@ -285,6 +285,14 @@ for ex in sorted(EX):
         "Note": mt["note"] or "",
     })
 
+# ---------- เคสที่เขียนสคริปต์แล้ว: อ่านจากชื่อเคสใน test/e2e/*.spec.ts ----------
+SCRIPTED = {}
+for f in sorted((ROOT / "test" / "e2e").glob("*.spec.ts")):
+    for tc in set(re.findall(r"(TC-[A-Z]+-[A-Z0-9]+-\d+)", f.read_text(encoding="utf-8"))):
+        SCRIPTED[tc] = f.name
+for r in rows:
+    r["Script"] = SCRIPTED.get(r["TC ID"], "")
+
 # ---------- เขียน CSV ----------
 cols = list(rows[0].keys())
 buf = io.StringIO()
@@ -302,9 +310,11 @@ out.append("> **สถานะ: ร่างสำหรับ QA review** — 
 out.append("## 0. สรุป\n")
 n_new = len(rows)
 by_auto = {k: sum(1 for r in rows if r['Automation'] == k) for k in ("Yes", "Partial", "No")}
+n_scripted = sum(1 for r in rows if r["Script"])
 by_pri = {k: sum(1 for r in rows if r['Priority'] == k) for k in RANK}
 out.append(f"- EX ทั้งหมด **{len(EX)}** รายการ · มีสคริปต์แล้ว **{len(EXISTING)}** (ไม่สร้างซ้ำ) · คลุมบางส่วน **{len(PARTIAL_EXISTING)}** · ไม่สร้างเคส **{len(SUPERSEDED)}** (ถูก v2 แทน) · **เคสใหม่ {n_new}**")
 out.append(f"- เคสใหม่ตาม Automation: **Yes {by_auto['Yes']}** (เขียนได้ด้วย dev stack ตอนนี้) · **Partial {by_auto['Partial']}** (ต้องเตรียมข้อมูล §C) · **No {by_auto['No']}** (ต้องมีกลไกที่ยังไม่มี §D)")
+out.append(f"- **เขียนสคริปต์แล้ว {n_scripted} จาก {n_new} เคส** (คอลัมน์ Script ใน CSV · อ่านจากชื่อเคสใน `test/e2e/*.spec.ts`) · ที่เหลือรอกลไกใน §D")
 out.append("- Priority: " + " · ".join(f"{k} {v}" for k, v in by_pri.items()) + " — ตาม §3.3 ของ playbook ซึ่งเป็น [Recommended] รอ PO ยืนยัน")
 out.append("- Data Source: เคสใหม่ทั้งหมดออกแบบเป็น `real` (คุยกับ API/DB จริง) — ไม่มีเคส stub ใหม่ เพราะ stub พิสูจน์ได้แค่หน้าจอ ไม่ใช่กฎ")
 out.append("- **ข้อควรระวัง:** เคสส่วนใหญ่ต้องการผู้ใช้หลายบทบาทและการควบคุมเวลา ซึ่ง dev stack ตอนนี้ไม่มี (มีผู้ใช้ล็อกอินคนเดียว `tester@mrr.local`) จึงเขียนสคริปต์ได้ทันทีเพียงส่วนน้อย\n")
@@ -329,9 +339,9 @@ out.append("")
 out.append(f"EX-mrr-031, 032 (BR-mrr-010@v1): ไม่สร้างเคส — ถูก v2 แทนและไม่มี AC (ตาม t2-coverage-report ข้อ 3)\n")
 out.append(f"### B2. เคสใหม่ ({n_new} เคส)\n")
 out.append("คอลัมน์เต็มอยู่ใน CSV · ตารางนี้แสดงคอลัมน์สำคัญ · Pre-condition/Test Data/Steps/Expected เต็มดูใน CSV\n")
-out.append("| TC ID | Requirement ID | Type | Priority | Data Source | Automation | Scenario (เมื่อ) | Expected Result (ต้องได้) |\n|---|---|---|---|---|---|---|---|")
+out.append("| TC ID | Requirement ID | Type | Priority | Data Source | Automation | Script | Scenario (เมื่อ) | Expected Result (ต้องได้) |\n|---|---|---|---|---|---|---|---|---|")
 for r in rows:
-    out.append(f"| {r['TC ID']} | {esc(r['Requirement ID'])} | {r['Type']} | {r['Priority']} | {r['Data Source']} | {r['Automation']} | {esc(r['Scenario'])} | {esc(r['Expected Result'])} |")
+    out.append(f"| {r['TC ID']} | {esc(r['Requirement ID'])} | {r['Type']} | {r['Priority']} | {r['Data Source']} | {r['Automation']} | {r['Script'] or '—'} | {esc(r['Scenario'])} | {esc(r['Expected Result'])} |")
 out.append("")
 out.append("**นิยาม Automation:** Yes = เขียนสคริปต์ได้ด้วย dev stack ตอนนี้ · Partial = ต้องเตรียมข้อมูล/ผู้ใช้ตาม §C · No = ต้องมีกลไกที่ยังไม่มีตาม §D\n")
 out.append("**หมายเหตุ ID:** เคสใหม่ใช้เลขลำดับตั้งแต่ 101 ต่อท้ายของแต่ละ `TC-<Function>-<Screen>` เพื่อไม่ชนเลขที่ test/README ใช้ไปแล้ว (UI006: 019–027) · `TC-BKG-UI006-022` (EX-004) และ `TC-BKG-UI006-028` (EX-081 แบบ real) สงวนไว้ตาม README\n")
@@ -357,8 +367,8 @@ out.append("\nกติกาข้อมูล: ใช้ข้อมูลส�
 out.append("## D) Open Questions (TBD)\n")
 out.append("| ID | คำถาม | กระทบ | ผู้ตอบที่เสนอ |\n|---|---|---|---|")
 oq = [
-    ("OQ-T1-01", "ฝั่งเซิร์ฟเวอร์ควบคุมเวลาให้เทสต์ได้หรือไม่ (เช่น ตัวแปร/endpoint เฉพาะ dev ให้ตั้ง 'เวลาปัจจุบัน') — Playwright `page.clock` เปลี่ยนเวลาเฉพาะ browser ไม่เปลี่ยนเวลาของ API/DB", f"เคส Automation=No ที่มี 'CLK' — ขอบเขตเวลา 09:59/10:00, อายุรหัส 10 นาที, ตัดสิทธิ์ที่เวลาเริ่มประชุม", "Dev lead"),
-    ("OQ-T1-02", "สั่งงานตามเวลา (เตือน 15 นาที, ยกเลิกอัตโนมัติ) ให้รันตามต้องการจากเทสต์ได้หรือไม่ (endpoint/CLI เฉพาะ dev)", "BR-008, 016, 020, 023 ทั้งหมด (EX-020, 023, 025, 050–053, 066, 067, 075–077)", "Dev lead"),
+    ("OQ-T1-01", "[ปิดแล้ว] ควบคุมเวลาฝั่งเซิร์ฟเวอร์: api มี `POST /__test/clock` (เปิดเฉพาะเมื่อ ENABLE_TEST_CONTROLS=true · dev compose เปิดไว้ ค่าเริ่มต้นปิด) · ใช้ผ่าน test/e2e/support/clock.ts", "เคสที่ใช้เวลาเสร็จแล้ว (ดู t1-clock.spec.ts)", "Dev lead"),
+    ("OQ-T1-02", "**พบช่องว่างของผลิตภัณฑ์:** `ReminderJob` / `AutoCancelJob` มีโค้ดและ unit test แต่ไม่มี store ต่อ Postgres และไม่ได้ลงทะเบียนใน AppModule จึง**ไม่ได้รันจริงใน api** — ยังไม่มีเตือน 15 นาทีและยกเลิกอัตโนมัติ (BR-008, 016, 020, 023) ใครจะต่อ store + ลงทะเบียน? หลังต่อแล้วค่อยเขียนเคส E2E (ใช้ /__test/clock + รอรอบงาน)", "EX-020, 023, 025, 050–053, 066, 067, 075–077", "Dev lead + PO"),
     ("OQ-T1-03", "จำลองอีเมลล่มแบบ real ได้อย่างไร (หยุด mailpit / ตั้ง SMTP ผิดเฉพาะเทสต์) และ transaction boundary เมื่อส่งไม่สำเร็จคืออะไร", "BR-019, 024 (EX-052, 062–065, 092–094) — เกี่ยวกับ DQ-mrr-005 และ DQ-mrr-014 ที่ยัง open", "Dev lead + PO"),
     ("OQ-T1-04", "ผู้ใช้ 'ปุ่มถูกซ่อน' (EX-010, 014, 017, 018, 048, 060, 061, 073, 074) — ยอมรับให้ทดสอบด้วยการยิงคำสั่งตรงผ่าน session ของ browser (Playwright `request`) เป็น E2E หรือควรจัดเป็นระดับ API", "การจัดระดับเคสต่อ Test Level", "QA Lead"),
     ("OQ-T1-05", "EX ที่อ้าง 'ผู้ใช้อีกคน' (EX-003, 004) ยอมรับผู้จองคนเดียวกันได้หรือไม่ เพราะ test/README ใช้ผู้จองคนเดียวมาก่อน", "EX-003, 004 และความหมายของ 'พิสูจน์ข้ามผู้ใช้'", "PO"),
@@ -371,7 +381,7 @@ for r in oq:
     out.append("| " + " | ".join(esc(x) for x in r) + " |")
 out.append("\n## Next Actions\n")
 out.append("1. QA review เคสใหม่ตาม CSV (ปัจจุบัน Tag = AI-generated ทั้งหมด)")
-out.append("2. ตอบ OQ-T1-01, 02 และเตรียมผู้ใช้/ข้อมูลตาม §C — ปลดล็อกเคส Partial/No เป็นส่วนใหญ่")
+out.append("2. ผู้ใช้/ห้อง/นาฬิกา (OQ-T1-01) พร้อมแล้ว · ที่เหลือรอ OQ-T1-02 (งานตามเวลายังไม่รัน) และ OQ-T1-03 (จำลองอีเมลล่ม) กับ fixture รายงาน")
 out.append("3. เริ่มเขียนสคริปต์จากเคส `Automation = Yes` ก่อน (ไม่ต้องรอข้อมูลเพิ่ม)")
 out.append("4. หลังเขียนสคริปต์ ให้รัน T2 อีกครั้ง (Gate G1) แล้วอัปเดต `docs/qa/e2e-ex-map.json`")
 

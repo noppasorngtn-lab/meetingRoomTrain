@@ -5,9 +5,10 @@ import { CalendarModule } from './modules/calendar/calendar.module';
 import { NotificationModule } from './modules/notification/notification.module';
 import { ReportsModule } from './modules/reports/reports.module';
 import { RoomsModule } from './modules/rooms/rooms.module';
+import { TestControlsModule } from './modules/test-controls/test-controls.module';
 import { UsersModule } from './modules/users/users.module';
 
 @Module({
-  imports: [AuthModule, NotificationModule, CalendarModule, BookingModule, UsersModule, RoomsModule, ReportsModule],
+  imports: [AuthModule, NotificationModule, CalendarModule, BookingModule, UsersModule, RoomsModule, ReportsModule, ...TestControlsModule.ifEnabled()],
 })
 export class AppModule {}

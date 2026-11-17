@@ -13,6 +13,10 @@
       "cases": "21",
       "note": "same booker as the pending booking (dev has one signed-in user), real"
     },
+    "EX-mrr-004": {
+      "cases": "TC-BKG-UI006-022",
+      "note": "จองช่วงที่ผู้จองยกเลิกแล้ว → ผู้ใช้อีกคนจองได้ · real"
+    },
     "EX-mrr-005": {
       "cases": "8, 10",
       "note": "happy booking, no equipment, one attendee, real"
@@ -33,29 +37,221 @@
       "cases": "TC-MYB-UI007-101",
       "note": "cancel own booking before start, real"
     },
+    "EX-mrr-010": {
+      "cases": "TC-MYB-UI007-102",
+      "note": "ผู้ใช้อื่นยกเลิกการจองของคนอื่น (ยิงตรง) → ปฏิเสธ การจองคงเดิม · real"
+    },
+    "EX-mrr-011": {
+      "cases": "TC-MYB-UI007-103",
+      "note": "การจองของฉันแสดงเฉพาะที่ตัวเองสร้าง · real"
+    },
     "EX-mrr-012": {
       "cases": "10, 25",
       "note": "approval room: PENDING_APPROVAL and its message, real"
+    },
+    "EX-mrr-013": {
+      "cases": "TC-APR-UI009-101",
+      "note": "Room Administrator อนุมัติ → อนุมัติแล้ว · real"
+    },
+    "EX-mrr-014": {
+      "cases": "TC-APR-UI009-102",
+      "note": "ผู้จองอนุมัติของตัวเอง (ยิงตรง) → ปฏิเสธ ยังรออนุมัติ · real"
+    },
+    "EX-mrr-016": {
+      "cases": "TC-RMM-UI012-101",
+      "note": "RA ตั้งห้องเป็นปิดปรับปรุง → การจองที่มีอยู่คงเดิม · real"
     },
     "EX-mrr-017": {
       "cases": "TC-RMM-UI013-102",
       "note": "General User POST /rooms/:id/versions -> 403, capacity unchanged, real"
     },
+    "EX-mrr-018": {
+      "cases": "TC-RMM-UI013-103",
+      "note": "SA แก้ความจุห้อง (ยิงตรง) → ปฏิเสธ ความจุเดิม · real"
+    },
+    "EX-mrr-019": {
+      "cases": "TC-BKG-UI006-026 + t1-clock",
+      "note": "booker alone gets the booking mail; attendees get none (extension), real"
+    },
+    "EX-mrr-021": {
+      "cases": "TC-NTF-UI008-101",
+      "note": "time change mails booker + attendees, real"
+    },
     "EX-mrr-022": {
       "cases": "TC-NTF-UI008-102",
       "note": "title-only edit, mailpit stays empty, real"
+    },
+    "EX-mrr-024": {
+      "cases": "TC-NTF-UI006-101",
+      "note": "booked <15 min before start: confirmation + immediate reminder (clock moved), real"
+    },
+    "EX-mrr-026": {
+      "cases": "TC-MYB-UI007-104",
+      "note": "cancel 1 min before start (clock moved), real"
+    },
+    "EX-mrr-027": {
+      "cases": "TC-MYB-UI007-105",
+      "note": "cancel at the start instant refused (clock moved), real"
+    },
+    "EX-mrr-028": {
+      "cases": "TC-APR-UI010-101",
+      "note": "RA cancels on behalf once the meeting started (clock moved), real"
+    },
+    "EX-mrr-029": {
+      "cases": "TC-APR-UI010-102",
+      "note": "empty reason refused before the meeting starts; the started-booking case needs a server clock, real"
+    },
+    "EX-mrr-030": {
+      "cases": "TC-BKG-UI006-101",
+      "note": "booking after the room became approval-only is pending, real"
+    },
+    "EX-mrr-033": {
+      "cases": "TC-BKG-UI006-102",
+      "note": "form opened before the change, confirmed after: counted at confirm time (UI), real"
+    },
+    "EX-mrr-034": {
+      "cases": "TC-BKG-UI006-103",
+      "note": "capacity does not limit attendees; old and new booking both fine, real"
+    },
+    "EX-mrr-035": {
+      "cases": "TC-APR-UI010-103",
+      "note": "RA เปลี่ยนผลเป็นปฏิเสธพร้อมเหตุผล → ปฏิเสธแล้ว · real"
+    },
+    "EX-mrr-036": {
+      "cases": "TC-APR-UI010-104",
+      "note": "RA เปลี่ยนผลโดยไม่ใส่เหตุผล → \"กรุณาระบุเหตุผล\" ยังอนุมัติแล้ว · real"
+    },
+    "EX-mrr-037": {
+      "cases": "TC-APR-UI010-105",
+      "note": "change decision 1 min before start (clock moved), real"
+    },
+    "EX-mrr-038": {
+      "cases": "TC-APR-UI010-106",
+      "note": "change decision at the start instant refused (clock moved), real"
+    },
+    "EX-mrr-039": {
+      "cases": "TC-APR-UI009-103",
+      "note": "ห้องกำหนดผู้อนุมัติเป็น RA1 → RA1 อนุมัติได้ · real"
+    },
+    "EX-mrr-040": {
+      "cases": "TC-APR-UI009-104",
+      "note": "ห้องกำหนดผู้อนุมัติเป็น RA1 → RA2 อนุมัติไม่ได้ ยังรออนุมัติ · real"
+    },
+    "EX-mrr-041": {
+      "cases": "TC-APR-UI009-105",
+      "note": "ห้องที่ยังไม่กำหนดผู้อนุมัติ → RA2 อนุมัติได้ · real"
+    },
+    "EX-mrr-042": {
+      "cases": "TC-RMM-UI013-104",
+      "note": "RA กำหนดผู้อนุมัติประจำห้อง → บันทึกสำเร็จ กำหนดทีหลังได้ · real"
+    },
+    "EX-mrr-043": {
+      "cases": "TC-APR-UI010-107",
+      "note": "edit after the end becomes an adjustment request (clock moved), real"
+    },
+    "EX-mrr-044": {
+      "cases": "TC-APR-UI010-108",
+      "note": "edit during the meeting applies at once (clock moved), real"
+    },
+    "EX-mrr-045": {
+      "cases": "TC-APR-UI011-101",
+      "note": "another RA approves the request, real"
+    },
+    "EX-mrr-046": {
+      "cases": "TC-APR-UI011-102",
+      "note": "requester cannot approve own request, real"
+    },
+    "EX-mrr-054": {
+      "cases": "TC-AUD-UI010-102",
+      "note": "approve writes one APPROVE entry (API + shown on UI-mrr-010), real"
+    },
+    "EX-mrr-055": {
+      "cases": "TC-AUD-UI010-102",
+      "note": "cancel on behalf writes one CANCEL_ON_BEHALF entry (clock moved), real"
+    },
+    "EX-mrr-056": {
+      "cases": "TC-AUD-UI010-103",
+      "note": "ผู้จองยกเลิกของตัวเอง → ไม่มีรายการร่องรอยใหม่ · real"
+    },
+    "EX-mrr-057": {
+      "cases": "TC-AUD-UI010-104",
+      "note": "RA ยกเลิกแทนโดยไม่ใส่เหตุผล → ล้มเหลว ไม่มีร่องรอยใหม่ · real"
+    },
+    "EX-mrr-058": {
+      "cases": "TC-AUD-UI010-105, -102",
+      "note": "RA2 reads the CANCEL_ON_BEHALF entry (clock moved); -105 uses an APPROVE entry, real"
+    },
+    "EX-mrr-059": {
+      "cases": "TC-AUD-UI010-106",
+      "note": "SA reads the trail; uses an APPROVE entry, real"
+    },
+    "EX-mrr-060": {
+      "cases": "TC-AUD-UI010-107",
+      "note": "booker reads trail via API -> 403 + message, real"
+    },
+    "EX-mrr-061": {
+      "cases": "TC-AUD-UI010-108",
+      "note": "another general user reads trail via API -> 403 + message, real"
     },
     "EX-mrr-062": {
       "cases": "27",
       "note": "503 answered in the browser (stub); 'no booking created' is not proven here"
     },
+    "EX-mrr-068": {
+      "cases": "TC-CAL-UI005-101",
+      "note": "ผู้จองเห็นผู้จอง หัวข้อ ผู้เข้าร่วมในช่อง · real"
+    },
+    "EX-mrr-069": {
+      "cases": "TC-CAL-UI005-102",
+      "note": "ผู้เข้าร่วมเห็นรายละเอียดเดียวกัน · real"
+    },
+    "EX-mrr-070": {
+      "cases": "TC-CAL-UI005-103",
+      "note": "คนอื่นเห็นแค่ \"ไม่ว่าง\" ไม่มีผู้จอง/หัวข้อ/ผู้เข้าร่วม · real"
+    },
+    "EX-mrr-071": {
+      "cases": "TC-CAL-UI005-104",
+      "note": "ห้องที่ต้องอนุมัติ: การจองรออนุมัติของคนอื่นเห็นแค่ \"ไม่ว่าง\" ไม่เห็นสถานะ · real"
+    },
+    "EX-mrr-073": {
+      "cases": "TC-RPT-RPT001-105",
+      "note": "SA ขอรายงาน (ยิงตรง) → ปฏิเสธ · real"
+    },
     "EX-mrr-074": {
       "cases": "TC-RPT-RPT001-106",
       "note": "General User report request -> 403 + message, real"
     },
+    "EX-mrr-078": {
+      "cases": "TC-RMM-UI013-105",
+      "note": "room becomes approval-only: unstarted bookings go back to pending, no mail, real"
+    },
+    "EX-mrr-079": {
+      "cases": "TC-RMM-UI013-106",
+      "note": "room no longer needs approval: pending booking usable at once + mail, real"
+    },
+    "EX-mrr-080": {
+      "cases": "TC-RMM-UI013-107",
+      "note": "change at the exact start of a booking: that one counts as started (clock moved), real"
+    },
     "EX-mrr-081": {
-      "cases": "13, 14",
-      "note": "maintenance room, stub only"
+      "cases": "13, 14, TC-BKG-UI006-028",
+      "note": "13/14 stub; TC-028 real: maintenance room refuses the booking and creates none"
+    },
+    "EX-mrr-082": {
+      "cases": "TC-BKG-UI008-101",
+      "note": "แก้เวลาการจองเดิมในห้องปิดปรับปรุง → ไม่บันทึก เวลาเดิมคงอยู่ · real"
+    },
+    "EX-mrr-083": {
+      "cases": "TC-RMM-UI012-102",
+      "note": "RA เปิดห้องกลับมา → จองใหม่ได้ทันที · real"
+    },
+    "EX-mrr-088": {
+      "cases": "TC-APR-UI010-109",
+      "note": "SA: no edit/cancel-on-behalf buttons, direct call 403, real"
+    },
+    "EX-mrr-089": {
+      "cases": "TC-APR-UI010-110",
+      "note": "SA: no change-decision button, direct call 403, status unchanged, real"
     },
     "EX-mrr-090": {
       "cases": "TC-RMM-UI014-101",
@@ -65,6 +261,14 @@
       "cases": "TC-AUTH-UI001-101",
       "note": "request code, neutral message + mail with code, real"
     },
+    "EX-mrr-095": {
+      "cases": "TC-AUTH-UI001-105",
+      "note": "re-request 1 s before expiry refused, old code still works (clock moved), real"
+    },
+    "EX-mrr-096": {
+      "cases": "TC-AUTH-UI001-106",
+      "note": "re-request at the exact expiry issues a new code (clock moved), real"
+    },
     "EX-mrr-097": {
       "cases": "TC-AUTH-UI001-107",
       "note": "re-request after code used -> new mail, new code, real"
@@ -73,9 +277,17 @@
       "cases": "TC-AUTH-UI001-108",
       "note": "email not on HR list: same message, no mail, real"
     },
+    "EX-mrr-099": {
+      "cases": "TC-AUTH-UI001-109",
+      "note": "บัญชี HR ที่ไม่ active ขอรหัส → ข้อความเหมือนปกติ แต่ไม่ส่ง Email · real"
+    },
     "EX-mrr-100": {
       "cases": "TC-AUTH-UI002-101",
-      "note": "valid code within lifetime only (10:09:59 edge needs server clock), real"
+      "note": "code accepted 1 s before expiry (clock moved), real"
+    },
+    "EX-mrr-101": {
+      "cases": "TC-AUTH-UI002-102",
+      "note": "code refused at the exact expiry, no session (clock moved), real"
     },
     "EX-mrr-102": {
       "cases": "TC-AUTH-UI002-103",

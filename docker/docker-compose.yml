@@ -40,6 +40,8 @@ services:
       SMTP_FROM: no-reply@mrr.local
       # The magic link in the sign-in email points at the web origin, which forwards /auth to this api.
       APP_BASE_URL: http://localhost:4173
+      # Dev only: opens /__test/clock so the E2E suite can move the app's clock (OQ-T1-01). Never set in production.
+      ENABLE_TEST_CONTROLS: "true"
     ports:
       - "3000:3000"
     depends_on:

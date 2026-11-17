@@ -1,4 +1,5 @@
 import { Logger } from '@nestjs/common';
+import { systemClock } from './clock';
 
 /** Every minute unless the environment says otherwise. */
 export const DEFAULT_INTERVAL_MS = 60_000;
@@ -32,7 +33,7 @@ export class IntervalRunner {
     if (this.running) return;
     this.running = true;
     try {
-      await this.pass(new Date());
+      await this.pass(systemClock.now());
     } catch (err) {
       this.logger.error('scheduled pass failed', err instanceof Error ? err.stack : String(err));
     } finally {

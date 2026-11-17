@@ -6,16 +6,15 @@ AC in design: **103** · EX in wiki: **105**
 
 | layers citing the AC | ACs |
 |---|---|
-| api + web | 55 |
-| api | 23 |
-| api + web + e2e | 19 |
-| api + e2e | 3 |
-| web | 2 |
-| web + e2e | 1 |
+| api + web + e2e | 64 |
+| api | 17 |
+| api + web | 10 |
+| api + e2e | 9 |
+| web + e2e | 3 |
 
 ACs with no test citing them: none
 
-ACs with no API-layer test citing them: AC-mrr-086 (web), AC-mrr-087 (web), AC-mrr-088 (web+e2e)
+ACs with no API-layer test citing them: AC-mrr-086 (web+e2e), AC-mrr-087 (web+e2e), AC-mrr-088 (web+e2e)
 
 EX with no AC (expected only for superseded rules, e.g. BR-mrr-010@v1): EX-mrr-031, EX-mrr-032
 
@@ -59,22 +58,75 @@ EX with no AC (expected only for superseded rules, e.g. BR-mrr-010@v1): EX-mrr-0
 | EX-mrr-001 | happy | 19 | adjacent booking (10:00 after 09:00-10:00), real |
 | EX-mrr-002 | boundary | 9, 20 | 9 = same slot; 20 = 09:59 overlap by one minute, real |
 | EX-mrr-003 | exception | 21 | same booker as the pending booking (dev has one signed-in user), real |
+| EX-mrr-004 | alternate | TC-BKG-UI006-022 | จองช่วงที่ผู้จองยกเลิกแล้ว → ผู้ใช้อีกคนจองได้ · real |
 | EX-mrr-005 | happy | 8, 10 | happy booking, no equipment, one attendee, real |
 | EX-mrr-006 | exception | 4, 23 | title missing, real |
 | EX-mrr-007 | exception | 4, 24 | no attendee, real |
 | EX-mrr-008 | happy | TC-MYB-UI008-101 | edit own booking title, real |
 | EX-mrr-009 | happy | TC-MYB-UI007-101 | cancel own booking before start, real |
+| EX-mrr-010 | exception | TC-MYB-UI007-102 | ผู้ใช้อื่นยกเลิกการจองของคนอื่น (ยิงตรง) → ปฏิเสธ การจองคงเดิม · real |
+| EX-mrr-011 | alternate | TC-MYB-UI007-103 | การจองของฉันแสดงเฉพาะที่ตัวเองสร้าง · real |
 | EX-mrr-012 | happy | 10, 25 | approval room: PENDING_APPROVAL and its message, real |
+| EX-mrr-013 | happy | TC-APR-UI009-101 | Room Administrator อนุมัติ → อนุมัติแล้ว · real |
+| EX-mrr-014 | exception | TC-APR-UI009-102 | ผู้จองอนุมัติของตัวเอง (ยิงตรง) → ปฏิเสธ ยังรออนุมัติ · real |
+| EX-mrr-016 | happy | TC-RMM-UI012-101 | RA ตั้งห้องเป็นปิดปรับปรุง → การจองที่มีอยู่คงเดิม · real |
 | EX-mrr-017 | exception | TC-RMM-UI013-102 | General User POST /rooms/:id/versions -> 403, capacity unchanged, real |
+| EX-mrr-018 | exception | TC-RMM-UI013-103 | SA แก้ความจุห้อง (ยิงตรง) → ปฏิเสธ ความจุเดิม · real |
+| EX-mrr-019 | happy | TC-BKG-UI006-026 + t1-clock | booker alone gets the booking mail; attendees get none (extension), real |
+| EX-mrr-021 | happy | TC-NTF-UI008-101 | time change mails booker + attendees, real |
 | EX-mrr-022 | alternate | TC-NTF-UI008-102 | title-only edit, mailpit stays empty, real |
+| EX-mrr-024 | boundary | TC-NTF-UI006-101 | booked <15 min before start: confirmation + immediate reminder (clock moved), real |
+| EX-mrr-026 | boundary | TC-MYB-UI007-104 | cancel 1 min before start (clock moved), real |
+| EX-mrr-027 | boundary | TC-MYB-UI007-105 | cancel at the start instant refused (clock moved), real |
+| EX-mrr-028 | happy | TC-APR-UI010-101 | RA cancels on behalf once the meeting started (clock moved), real |
+| EX-mrr-029 | exception | TC-APR-UI010-102 | empty reason refused before the meeting starts; the started-booking case needs a server clock, real |
+| EX-mrr-030 | happy | TC-BKG-UI006-101 | booking after the room became approval-only is pending, real |
+| EX-mrr-033 | boundary | TC-BKG-UI006-102 | form opened before the change, confirmed after: counted at confirm time (UI), real |
+| EX-mrr-034 | alternate | TC-BKG-UI006-103 | capacity does not limit attendees; old and new booking both fine, real |
+| EX-mrr-035 | happy | TC-APR-UI010-103 | RA เปลี่ยนผลเป็นปฏิเสธพร้อมเหตุผล → ปฏิเสธแล้ว · real |
+| EX-mrr-036 | exception | TC-APR-UI010-104 | RA เปลี่ยนผลโดยไม่ใส่เหตุผล → "กรุณาระบุเหตุผล" ยังอนุมัติแล้ว · real |
+| EX-mrr-037 | boundary | TC-APR-UI010-105 | change decision 1 min before start (clock moved), real |
+| EX-mrr-038 | boundary | TC-APR-UI010-106 | change decision at the start instant refused (clock moved), real |
+| EX-mrr-039 | happy | TC-APR-UI009-103 | ห้องกำหนดผู้อนุมัติเป็น RA1 → RA1 อนุมัติได้ · real |
+| EX-mrr-040 | exception | TC-APR-UI009-104 | ห้องกำหนดผู้อนุมัติเป็น RA1 → RA2 อนุมัติไม่ได้ ยังรออนุมัติ · real |
+| EX-mrr-041 | alternate | TC-APR-UI009-105 | ห้องที่ยังไม่กำหนดผู้อนุมัติ → RA2 อนุมัติได้ · real |
+| EX-mrr-042 | happy | TC-RMM-UI013-104 | RA กำหนดผู้อนุมัติประจำห้อง → บันทึกสำเร็จ กำหนดทีหลังได้ · real |
+| EX-mrr-043 | boundary | TC-APR-UI010-107 | edit after the end becomes an adjustment request (clock moved), real |
+| EX-mrr-044 | boundary | TC-APR-UI010-108 | edit during the meeting applies at once (clock moved), real |
+| EX-mrr-045 | happy | TC-APR-UI011-101 | another RA approves the request, real |
+| EX-mrr-046 | exception | TC-APR-UI011-102 | requester cannot approve own request, real |
+| EX-mrr-054 | happy | TC-AUD-UI010-102 | approve writes one APPROVE entry (API + shown on UI-mrr-010), real |
+| EX-mrr-055 | happy | TC-AUD-UI010-102 | cancel on behalf writes one CANCEL_ON_BEHALF entry (clock moved), real |
+| EX-mrr-056 | exception | TC-AUD-UI010-103 | ผู้จองยกเลิกของตัวเอง → ไม่มีรายการร่องรอยใหม่ · real |
+| EX-mrr-057 | exception | TC-AUD-UI010-104 | RA ยกเลิกแทนโดยไม่ใส่เหตุผล → ล้มเหลว ไม่มีร่องรอยใหม่ · real |
+| EX-mrr-058 | happy | TC-AUD-UI010-105, -102 | RA2 reads the CANCEL_ON_BEHALF entry (clock moved); -105 uses an APPROVE entry, real |
+| EX-mrr-059 | happy | TC-AUD-UI010-106 | SA reads the trail; uses an APPROVE entry, real |
+| EX-mrr-060 | exception | TC-AUD-UI010-107 | booker reads trail via API -> 403 + message, real |
+| EX-mrr-061 | exception | TC-AUD-UI010-108 | another general user reads trail via API -> 403 + message, real |
 | EX-mrr-062 | exception | 27 | 503 answered in the browser (stub); 'no booking created' is not proven here |
+| EX-mrr-068 | happy | TC-CAL-UI005-101 | ผู้จองเห็นผู้จอง หัวข้อ ผู้เข้าร่วมในช่อง · real |
+| EX-mrr-069 | happy | TC-CAL-UI005-102 | ผู้เข้าร่วมเห็นรายละเอียดเดียวกัน · real |
+| EX-mrr-070 | exception | TC-CAL-UI005-103 | คนอื่นเห็นแค่ "ไม่ว่าง" ไม่มีผู้จอง/หัวข้อ/ผู้เข้าร่วม · real |
+| EX-mrr-071 | exception | TC-CAL-UI005-104 | ห้องที่ต้องอนุมัติ: การจองรออนุมัติของคนอื่นเห็นแค่ "ไม่ว่าง" ไม่เห็นสถานะ · real |
+| EX-mrr-073 | exception | TC-RPT-RPT001-105 | SA ขอรายงาน (ยิงตรง) → ปฏิเสธ · real |
 | EX-mrr-074 | exception | TC-RPT-RPT001-106 | General User report request -> 403 + message, real |
-| EX-mrr-081 | exception | 13, 14 | maintenance room, stub only |
+| EX-mrr-078 | happy | TC-RMM-UI013-105 | room becomes approval-only: unstarted bookings go back to pending, no mail, real |
+| EX-mrr-079 | alternate | TC-RMM-UI013-106 | room no longer needs approval: pending booking usable at once + mail, real |
+| EX-mrr-080 | boundary | TC-RMM-UI013-107 | change at the exact start of a booking: that one counts as started (clock moved), real |
+| EX-mrr-081 | exception | 13, 14, TC-BKG-UI006-028 | 13/14 stub; TC-028 real: maintenance room refuses the booking and creates none |
+| EX-mrr-082 | alternate | TC-BKG-UI008-101 | แก้เวลาการจองเดิมในห้องปิดปรับปรุง → ไม่บันทึก เวลาเดิมคงอยู่ · real |
+| EX-mrr-083 | boundary | TC-RMM-UI012-102 | RA เปิดห้องกลับมา → จองใหม่ได้ทันที · real |
+| EX-mrr-088 | exception | TC-APR-UI010-109 | SA: no edit/cancel-on-behalf buttons, direct call 403, real |
+| EX-mrr-089 | exception | TC-APR-UI010-110 | SA: no change-decision button, direct call 403, status unchanged, real |
 | EX-mrr-090 | exception | TC-RMM-UI014-101 | General User on facilities page -> no permission, real |
 | EX-mrr-091 | happy | TC-AUTH-UI001-101 | request code, neutral message + mail with code, real |
+| EX-mrr-095 | exception | TC-AUTH-UI001-105 | re-request 1 s before expiry refused, old code still works (clock moved), real |
+| EX-mrr-096 | boundary | TC-AUTH-UI001-106 | re-request at the exact expiry issues a new code (clock moved), real |
 | EX-mrr-097 | happy | TC-AUTH-UI001-107 | re-request after code used -> new mail, new code, real |
 | EX-mrr-098 | exception | TC-AUTH-UI001-108 | email not on HR list: same message, no mail, real |
-| EX-mrr-100 | happy | TC-AUTH-UI002-101 | valid code within lifetime only (10:09:59 edge needs server clock), real |
+| EX-mrr-099 | boundary | TC-AUTH-UI001-109 | บัญชี HR ที่ไม่ active ขอรหัส → ข้อความเหมือนปกติ แต่ไม่ส่ง Email · real |
+| EX-mrr-100 | happy | TC-AUTH-UI002-101 | code accepted 1 s before expiry (clock moved), real |
+| EX-mrr-101 | boundary | TC-AUTH-UI002-102 | code refused at the exact expiry, no session (clock moved), real |
 | EX-mrr-102 | exception | TC-AUTH-UI002-103 | used code on second device refused, real |
 | EX-mrr-103 | exception | TC-AUTH-UI002-104 | magic link after code used refused, real |
 | EX-mrr-104 | exception | TC-AUTH-UI002-105 | wrong code refused, no session, real |
@@ -92,4 +144,4 @@ EX with no AC (expected only for superseded rules, e.g. BR-mrr-010@v1): EX-mrr-0
 
 ## API jest run
 
-suites 33/33 passed · tests 410/410 passed · failed 0 · pending 0
+suites 34/34 passed · tests 414/414 passed · failed 0 · pending 0
