@@ -1,22 +1,22 @@
 {
-  "feature": "FE-mrr-044",
+  "feature": "FE-mrr-045",
   "status": "validated",
   "build": {
     "iterations": 1,
     "proof": [
       {
-        "cmd": "powershell -File scripts/dev-build.ps1 -App frontend-web",
-        "result": "tsc --noEmit && vite build · built in 899ms · exit 0",
+        "cmd": "powershell -File scripts/dev-build.ps1 -App api",
+        "result": "tsc -p tsconfig.build.json · exit 0",
         "at": "2026-11-17"
       },
       {
-        "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web -Filter FE-mrr-044",
-        "result": "Test Files 2 passed | 17 skipped (19) · Tests 8 passed | 284 skipped (292) · exit 0",
+        "cmd": "powershell -File scripts/dev-test.ps1 -App api -Filter FE-mrr-045",
+        "result": "Test Suites: 38 skipped, 1 passed, 1 of 39 total · Tests: 464 skipped, 7 passed, 471 total · exit 0",
         "at": "2026-11-17"
       },
       {
-        "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web",
-        "result": "Test Files 19 passed (19) · Tests 292 passed (292) · exit 0",
+        "cmd": "powershell -File scripts/dev-test.ps1 -App api",
+        "result": "Test Suites: 39 passed, 39 total · Tests: 471 passed, 471 total · exit 0",
         "at": "2026-11-17"
       }
     ],
@@ -24,36 +24,26 @@
   },
   "manifest": {
     "files": [
-      "apps/web/src/features/rooms/RoomsPage.tsx",
-      "apps/web/src/__tests__/room-archive.test.tsx",
-      "apps/web/src/__tests__/room-admin.test.tsx"
+      "apps/api/src/modules/auth/auth.controller.ts",
+      "apps/api/src/modules/auth/session.middleware.ts",
+      "apps/api/src/modules/auth/sessions.service.ts",
+      "apps/api/test/auth/logout.http.spec.ts"
     ],
     "unit_tests": [
       {
-        "file": "apps/web/src/__tests__/room-archive.test.tsx",
+        "file": "apps/api/test/auth/logout.http.spec.ts",
         "calc_ref": null,
         "gd_ref": null
       }
     ],
-    "ui_controls": [
-      {
-        "id": "archive",
-        "kind": "action",
-        "dd_ref": null,
-        "testid": "ui-mrr-012-archive",
-        "binding": null,
-        "validation_refs": [],
-        "depends_on": null,
-        "roles": []
-      }
-    ],
+    "ui_controls": [],
     "apis": [
       {
-        "api_ref": "API-025",
-        "route": "POST /rooms/:id/archive",
-        "file": "apps/web/src/features/rooms/RoomsPage.tsx"
+        "api_ref": "API-034",
+        "route": "POST /auth/logout",
+        "file": "apps/api/src/modules/auth/auth.controller.ts"
       }
     ]
   },
-  "commit": "e064c145749d0a14c12769996d94da97bee0bbcf"
+  "commit": "ec732a7b7dbc9f5cf34f618ba70065f3cdf0fc37"
 }

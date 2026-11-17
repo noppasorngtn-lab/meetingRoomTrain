@@ -6241,7 +6241,56 @@
           "hash": "sha256:e0e6111b1d64bab56960ff3006e2b40a85ac1e1615cf29d02b474b31bbbb94ca"
         }
       ],
-      "status": "draft"
+      "status": "validated",
+      "build": {
+        "iterations": 1,
+        "proof": [
+          {
+            "cmd": "powershell -File scripts/dev-build.ps1 -App api",
+            "result": "tsc -p tsconfig.build.json · exit 0",
+            "at": "2026-11-17"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App api -Filter FE-mrr-045",
+            "result": "Test Suites: 38 skipped, 1 passed, 1 of 39 total · Tests: 464 skipped, 7 passed, 471 total · exit 0",
+            "at": "2026-11-17"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App api",
+            "result": "Test Suites: 39 passed, 39 total · Tests: 471 passed, 471 total · exit 0",
+            "at": "2026-11-17"
+          }
+        ],
+        "last_error": null,
+        "recorded_by": "Noppasorn",
+        "recorded_at": "2026-11-17"
+      },
+      "manifest": {
+        "files": [
+          "apps/api/src/modules/auth/auth.controller.ts",
+          "apps/api/src/modules/auth/session.middleware.ts",
+          "apps/api/src/modules/auth/sessions.service.ts",
+          "apps/api/test/auth/logout.http.spec.ts"
+        ],
+        "unit_tests": [
+          {
+            "file": "apps/api/test/auth/logout.http.spec.ts",
+            "calc_ref": null,
+            "gd_ref": null
+          }
+        ],
+        "ui_controls": [],
+        "apis": [
+          {
+            "api_ref": "API-034",
+            "route": "POST /auth/logout",
+            "file": "apps/api/src/modules/auth/auth.controller.ts"
+          }
+        ]
+      },
+      "commits": [
+        "ec732a7b7dbc9f5cf34f618ba70065f3cdf0fc37"
+      ]
     },
     {
       "id": "FE-mrr-046",
@@ -6640,8 +6689,8 @@
   "rollup": {
     "features_total": 42,
     "by_status": {
-      "validated": 40,
-      "draft": 2
+      "validated": 41,
+      "draft": 1
     },
     "by_origin": {
       "new": 37,
