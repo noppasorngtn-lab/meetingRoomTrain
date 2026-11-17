@@ -276,24 +276,21 @@ test.describe.serial('แก้ค่าตั้งห้อง E2E-FLIP (BR-mr
     expect(pending).toContain(second.id);
   });
 
-  // EX-mrr-031 / 032 เขียนตาม BR-mrr-010@v1 (การจองเดิมไม่ถูกย้อนสถานะเมื่อแก้ห้อง) ซึ่งลูกค้าสั่งเปลี่ยนเป็น v2 แล้ว (CHG-mrr-001):
-  // ระบบจริงทำตรงข้าม. สถานการณ์ (given/when) เดียวกัน เคสสองข้อนี้จึงยืนยัน *ผลของ v2* และยืนยันว่าผลของ v1 "ไม่เกิดขึ้น"
-  // — ไม่ได้ยืนยันข้อความ then ของ EX ตามตัวอักษร (ถ้ายืนยันตามนั้นจะขัดกับ EX-078/079 และกฎปัจจุบัน). ดู OQ-T1-06.
-  test('[real] TC-RMM-UI013-108 [superseded v1→v2] จองห้องที่ไม่ต้องอนุมัติแล้วห้องถูกแก้เป็นต้องอนุมัติ → การจองเดิมที่ยังไม่เริ่ม "ถูกย้อน" ไปรออนุมัติ (EX-mrr-031 · BR-mrr-010@v2)', async () => {
-    const b = await book(clients.u1, 'flip', nearSlot(), title('v1 ไม่ย้อน? v2 ย้อน'));
+  // EX-mrr-031 / 032 เดิมเขียนตาม BR-mrr-010@v1 — BA/PO สั่งเขียนใหม่ให้ตรง v2 แล้ว (docs/qa/decision-ex-031-032.md · ทางเลือก B)
+  // given/when ซ้อนกับ EX-078/079 (TC-105/106) แต่ยืนยันตาม then ของ EX ฉบับใหม่ตรงตัวอักษร
+  test('[real] TC-RMM-UI013-108 จองห้องที่ไม่ต้องอนุมัติแล้วห้องถูกแก้เป็นต้องอนุมัติ → การจองเดิมที่ยังไม่เริ่มกลับไปรออนุมัติ อยู่ในรายการรออนุมัติ (EX-mrr-031 · BR-mrr-010@v2)', async () => {
+    const b = await book(clients.u1, 'flip', nearSlot(), title('แก้ห้องแล้วกลับไปรออนุมัติ (031)'));
     expect(b.status).toBe('CONFIRMED');
     await settings({ requiresApproval: true });
-    // v1 (EX-031 then): ไม่อยู่ในรายการรออนุมัติ และใช้ห้องได้ตามเดิม — ไม่เป็นจริงอีกต่อไป
     expect(await pendingIds()).toContain(b.id);
     expect(await statusOf(b.id)).toBe('PENDING_APPROVAL');
   });
 
-  test('[real] TC-RMM-UI013-109 [superseded v1→v2] จองห้องที่ต้องอนุมัติแล้วห้องถูกแก้เป็นไม่ต้องอนุมัติ → การจองที่รออนุมัติใช้ได้เอง ไม่รอผู้อนุมัติ (EX-mrr-032 · BR-mrr-010@v2)', async () => {
+  test('[real] TC-RMM-UI013-109 จองห้องที่ต้องอนุมัติแล้วห้องถูกแก้เป็นไม่ต้องอนุมัติ → การจองที่รออนุมัติใช้ได้ทันที ไม่อยู่ในรายการรออนุมัติ (EX-mrr-032 · BR-mrr-010@v2)', async () => {
     await settings({ requiresApproval: true });
-    const b = await book(clients.u1, 'flip', nearSlot(), title('v1 รอ v2 ปล่อย'));
+    const b = await book(clients.u1, 'flip', nearSlot(), title('แก้ห้องแล้วใช้ได้ทันที (032)'));
     expect(b.status).toBe('PENDING_APPROVAL');
     await settings({ requiresApproval: false });
-    // v1 (EX-032 then): ก่อนกดอนุมัติ ยังอยู่ในรายการรออนุมัติ ไม่ถูกปล่อยเอง — ไม่เป็นจริงอีกต่อไป
     expect(await pendingIds()).not.toContain(b.id);
     expect(await statusOf(b.id)).toBe('CONFIRMED');
   });

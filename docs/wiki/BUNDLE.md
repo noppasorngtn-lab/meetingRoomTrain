@@ -1,13 +1,15 @@
 # สัญญาของ bundle นี้ — อ่านก่อนใช้
 
-bundle นี้เป็น **render ตัวที่สาม** ของ `spec.json` ไม่ใช่ที่เก็บความจริงตัวที่สอง
+bundle นี้เป็น **render ตัวเดียว** ของ `spec.json` ไม่ใช่ที่เก็บความจริงตัวที่สอง
 
 | ชั้น | ที่อยู่ | แก้ได้ไหม |
 |---|---|---|
 | ความจริง | `<state-dir>/spec.json` | ✅ ผ่านคำสั่ง `/req:*` เท่านั้น |
 | ต้นฉบับดิบ | `docs/sources/` | ❌ ห้ามแก้ (check #8 จับ hash) |
-| render ให้คนอ่าน | `docs/requirements/REQ-*.md` | ❌ generate |
-| render ให้ agent อ่าน | `docs/wiki/**` (ที่นี่) | ❌ generate |
+| render ให้คนและ agent อ่าน | `docs/wiki/**` (ที่นี่) | ❌ generate |
+
+> **ประตู 131 (2026-09-22) ยุบสองห้องเป็นห้องเดียว** — เดิมมี `docs/requirements/REQ-*.md` เป็น render ใบที่สองสำหรับคน
+> หน้า `requirements/REQ-*.md` ในนี้ถือเนื้อเต็มภาษาไทยแล้ว · ถ้ายังเห็น `docs/requirements/` ในโปรเจกต์ นั่นคือของค้างจากรุ่นก่อน ลบได้
 
 ## กติกา
 
