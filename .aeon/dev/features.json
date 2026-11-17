@@ -6331,7 +6331,76 @@
           "hash": "sha256:bcb42550479ba0876d98fc3739fd66a1e55df4ab85e8ead3f4fbcaa831a9e420"
         }
       ],
-      "status": "draft"
+      "status": "validated",
+      "build": {
+        "iterations": 1,
+        "proof": [
+          {
+            "cmd": "powershell -File scripts/dev-build.ps1 -App frontend-web",
+            "result": "tsc --noEmit && vite build · built in 856ms · exit 0",
+            "at": "2026-11-17"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web -Filter FE-mrr-046",
+            "result": "Test Files 1 passed | 19 skipped (20) · Tests 7 passed | 292 skipped (299) · exit 0",
+            "at": "2026-11-17"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web",
+            "result": "Test Files 20 passed (20) · Tests 299 passed (299) · exit 0",
+            "at": "2026-11-17"
+          }
+        ],
+        "last_error": null,
+        "recorded_by": "Noppasorn",
+        "recorded_at": "2026-11-17"
+      },
+      "manifest": {
+        "files": [
+          "apps/web/src/features/auth/LogoutPage.tsx",
+          "apps/web/src/App.tsx",
+          "apps/web/src/__tests__/logout.test.tsx"
+        ],
+        "unit_tests": [
+          {
+            "file": "apps/web/src/__tests__/logout.test.tsx",
+            "calc_ref": null,
+            "gd_ref": null
+          }
+        ],
+        "ui_controls": [
+          {
+            "id": "confirmationMessage",
+            "kind": "field",
+            "dd_ref": null,
+            "testid": "ui-mrr-003-confirmation-message",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "signInAgain",
+            "kind": "action",
+            "dd_ref": null,
+            "testid": "ui-mrr-003-sign-in-again",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          }
+        ],
+        "apis": [
+          {
+            "api_ref": "API-034",
+            "route": "POST /auth/logout",
+            "file": "apps/web/src/features/auth/LogoutPage.tsx"
+          }
+        ]
+      },
+      "commits": [
+        "3d38a42398088fb92d0c2443600a0f8a8bb97118"
+      ]
     }
   ],
   "gaps": [
@@ -6689,8 +6758,7 @@
   "rollup": {
     "features_total": 42,
     "by_status": {
-      "validated": 41,
-      "draft": 1
+      "validated": 42
     },
     "by_origin": {
       "new": 37,
