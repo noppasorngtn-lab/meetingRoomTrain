@@ -6,15 +6,16 @@ AC in design: **103** · EX in wiki: **105**
 
 | layers citing the AC | ACs |
 |---|---|
-| api + web | 67 |
-| api | 24 |
-| api + web + e2e | 7 |
-| web | 3 |
-| api + e2e | 2 |
+| api + web | 55 |
+| api | 23 |
+| api + web + e2e | 19 |
+| api + e2e | 3 |
+| web | 2 |
+| web + e2e | 1 |
 
 ACs with no test citing them: none
 
-ACs with no API-layer test citing them: AC-mrr-086 (web), AC-mrr-087 (web), AC-mrr-088 (web)
+ACs with no API-layer test citing them: AC-mrr-086 (web), AC-mrr-087 (web), AC-mrr-088 (web+e2e)
 
 EX with no AC (expected only for superseded rules, e.g. BR-mrr-010@v1): EX-mrr-031, EX-mrr-032
 
@@ -61,9 +62,23 @@ EX with no AC (expected only for superseded rules, e.g. BR-mrr-010@v1): EX-mrr-0
 | EX-mrr-005 | happy | 8, 10 | happy booking, no equipment, one attendee, real |
 | EX-mrr-006 | exception | 4, 23 | title missing, real |
 | EX-mrr-007 | exception | 4, 24 | no attendee, real |
+| EX-mrr-008 | happy | TC-MYB-UI008-101 | edit own booking title, real |
+| EX-mrr-009 | happy | TC-MYB-UI007-101 | cancel own booking before start, real |
 | EX-mrr-012 | happy | 10, 25 | approval room: PENDING_APPROVAL and its message, real |
+| EX-mrr-017 | exception | TC-RMM-UI013-102 | General User POST /rooms/:id/versions -> 403, capacity unchanged, real |
+| EX-mrr-022 | alternate | TC-NTF-UI008-102 | title-only edit, mailpit stays empty, real |
 | EX-mrr-062 | exception | 27 | 503 answered in the browser (stub); 'no booking created' is not proven here |
+| EX-mrr-074 | exception | TC-RPT-RPT001-106 | General User report request -> 403 + message, real |
 | EX-mrr-081 | exception | 13, 14 | maintenance room, stub only |
+| EX-mrr-090 | exception | TC-RMM-UI014-101 | General User on facilities page -> no permission, real |
+| EX-mrr-091 | happy | TC-AUTH-UI001-101 | request code, neutral message + mail with code, real |
+| EX-mrr-097 | happy | TC-AUTH-UI001-107 | re-request after code used -> new mail, new code, real |
+| EX-mrr-098 | exception | TC-AUTH-UI001-108 | email not on HR list: same message, no mail, real |
+| EX-mrr-100 | happy | TC-AUTH-UI002-101 | valid code within lifetime only (10:09:59 edge needs server clock), real |
+| EX-mrr-102 | exception | TC-AUTH-UI002-103 | used code on second device refused, real |
+| EX-mrr-103 | exception | TC-AUTH-UI002-104 | magic link after code used refused, real |
+| EX-mrr-104 | exception | TC-AUTH-UI002-105 | wrong code refused, no session, real |
+| EX-mrr-105 | happy | TC-AUTH-UI002-106 | wrong then right code signs in, real |
 
 ## NFR cited by a test
 

@@ -1,14 +1,97 @@
 {
-  "_comment": "Kept by hand: which EX the Playwright specs (test/e2e/booking.spec.ts) exercise. Update it when a case is added or removed. 'cases' are the case numbers in test/README.md. A [stub] case does not prove the real API behaves that way.",
+  "_comment": "Kept by hand: which EX the Playwright specs (test/e2e/booking.spec.ts and test/e2e/t1-yes.spec.ts) exercise. Update it when a case is added or removed. 'cases' are the case numbers in test/README.md. A [stub] case does not prove the real API behaves that way.",
   "covers": {
-    "EX-mrr-001": { "cases": "19", "note": "adjacent booking (10:00 after 09:00-10:00), real" },
-    "EX-mrr-002": { "cases": "9, 20", "note": "9 = same slot; 20 = 09:59 overlap by one minute, real" },
-    "EX-mrr-003": { "cases": "21", "note": "same booker as the pending booking (dev has one signed-in user), real" },
-    "EX-mrr-005": { "cases": "8, 10", "note": "happy booking, no equipment, one attendee, real" },
-    "EX-mrr-006": { "cases": "4, 23", "note": "title missing, real" },
-    "EX-mrr-007": { "cases": "4, 24", "note": "no attendee, real" },
-    "EX-mrr-012": { "cases": "10, 25", "note": "approval room: PENDING_APPROVAL and its message, real" },
-    "EX-mrr-062": { "cases": "27", "note": "503 answered in the browser (stub); 'no booking created' is not proven here" },
-    "EX-mrr-081": { "cases": "13, 14", "note": "maintenance room, stub only" }
+    "EX-mrr-001": {
+      "cases": "19",
+      "note": "adjacent booking (10:00 after 09:00-10:00), real"
+    },
+    "EX-mrr-002": {
+      "cases": "9, 20",
+      "note": "9 = same slot; 20 = 09:59 overlap by one minute, real"
+    },
+    "EX-mrr-003": {
+      "cases": "21",
+      "note": "same booker as the pending booking (dev has one signed-in user), real"
+    },
+    "EX-mrr-005": {
+      "cases": "8, 10",
+      "note": "happy booking, no equipment, one attendee, real"
+    },
+    "EX-mrr-006": {
+      "cases": "4, 23",
+      "note": "title missing, real"
+    },
+    "EX-mrr-007": {
+      "cases": "4, 24",
+      "note": "no attendee, real"
+    },
+    "EX-mrr-008": {
+      "cases": "TC-MYB-UI008-101",
+      "note": "edit own booking title, real"
+    },
+    "EX-mrr-009": {
+      "cases": "TC-MYB-UI007-101",
+      "note": "cancel own booking before start, real"
+    },
+    "EX-mrr-012": {
+      "cases": "10, 25",
+      "note": "approval room: PENDING_APPROVAL and its message, real"
+    },
+    "EX-mrr-017": {
+      "cases": "TC-RMM-UI013-102",
+      "note": "General User POST /rooms/:id/versions -> 403, capacity unchanged, real"
+    },
+    "EX-mrr-022": {
+      "cases": "TC-NTF-UI008-102",
+      "note": "title-only edit, mailpit stays empty, real"
+    },
+    "EX-mrr-062": {
+      "cases": "27",
+      "note": "503 answered in the browser (stub); 'no booking created' is not proven here"
+    },
+    "EX-mrr-074": {
+      "cases": "TC-RPT-RPT001-106",
+      "note": "General User report request -> 403 + message, real"
+    },
+    "EX-mrr-081": {
+      "cases": "13, 14",
+      "note": "maintenance room, stub only"
+    },
+    "EX-mrr-090": {
+      "cases": "TC-RMM-UI014-101",
+      "note": "General User on facilities page -> no permission, real"
+    },
+    "EX-mrr-091": {
+      "cases": "TC-AUTH-UI001-101",
+      "note": "request code, neutral message + mail with code, real"
+    },
+    "EX-mrr-097": {
+      "cases": "TC-AUTH-UI001-107",
+      "note": "re-request after code used -> new mail, new code, real"
+    },
+    "EX-mrr-098": {
+      "cases": "TC-AUTH-UI001-108",
+      "note": "email not on HR list: same message, no mail, real"
+    },
+    "EX-mrr-100": {
+      "cases": "TC-AUTH-UI002-101",
+      "note": "valid code within lifetime only (10:09:59 edge needs server clock), real"
+    },
+    "EX-mrr-102": {
+      "cases": "TC-AUTH-UI002-103",
+      "note": "used code on second device refused, real"
+    },
+    "EX-mrr-103": {
+      "cases": "TC-AUTH-UI002-104",
+      "note": "magic link after code used refused, real"
+    },
+    "EX-mrr-104": {
+      "cases": "TC-AUTH-UI002-105",
+      "note": "wrong code refused, no session, real"
+    },
+    "EX-mrr-105": {
+      "cases": "TC-AUTH-UI002-106",
+      "note": "wrong then right code signs in, real"
+    }
   }
 }
