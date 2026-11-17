@@ -49,6 +49,21 @@
           "input": true
         },
         {
+          "type": "field",
+          "name": "วันที่",
+          "required": true,
+          "entity": null,
+          "attribute": null,
+          "validation": "วันที่ในรูปแบบวัน/เดือน/ปี · ไม่ระบุ = วันนี้ · ช่วงที่แสดงตามมุมมอง (วัน · สัปดาห์ · เดือน) ของวันที่นี้",
+          "rules": [],
+          "visibleTo": [
+            "ROLE-001",
+            "ROLE-002",
+            "ROLE-003"
+          ],
+          "input": true
+        },
+        {
           "type": "action",
           "key": "switch-view",
           "name": "เปลี่ยนมุมมอง",
@@ -57,6 +72,45 @@
           "placement": "toolbar",
           "container": "inline",
           "accessibleName": "เปลี่ยนมุมมอง",
+          "conventions": [],
+          "destination": "อยู่ที่หน้าเดิม",
+          "rules": []
+        },
+        {
+          "type": "action",
+          "key": "previous",
+          "name": "ก่อนหน้า",
+          "kind": "filter",
+          "presentation": "text",
+          "placement": "toolbar",
+          "container": "inline",
+          "accessibleName": "ก่อนหน้า",
+          "conventions": [],
+          "destination": "อยู่ที่หน้าเดิม",
+          "rules": []
+        },
+        {
+          "type": "action",
+          "key": "today",
+          "name": "วันนี้",
+          "kind": "filter",
+          "presentation": "text",
+          "placement": "toolbar",
+          "container": "inline",
+          "accessibleName": "วันนี้",
+          "conventions": [],
+          "destination": "อยู่ที่หน้าเดิม",
+          "rules": []
+        },
+        {
+          "type": "action",
+          "key": "next",
+          "name": "ถัดไป",
+          "kind": "filter",
+          "presentation": "text",
+          "placement": "toolbar",
+          "container": "inline",
+          "accessibleName": "ถัดไป",
           "conventions": [],
           "destination": "อยู่ที่หน้าเดิม",
           "rules": []
@@ -140,12 +194,12 @@
         {
           "type": "action",
           "key": "book-slot",
-          "name": "จองช่วงที่ว่าง",
+          "name": "ไปหน้าจองห้อง",
           "kind": "navigate",
           "presentation": "text",
           "placement": "calendar",
           "container": "navigate",
-          "accessibleName": "จองช่วงที่ว่าง",
+          "accessibleName": "ไปหน้าจองห้อง",
           "conventions": [],
           "destination": "หน้าจองห้องประชุม",
           "rules": []
@@ -164,6 +218,21 @@
       "id": "ui-mrr-005-switch-view",
       "type": "action",
       "key": "switch-view"
+    },
+    {
+      "id": "ui-mrr-005-previous",
+      "type": "action",
+      "key": "previous"
+    },
+    {
+      "id": "ui-mrr-005-today",
+      "type": "action",
+      "key": "today"
+    },
+    {
+      "id": "ui-mrr-005-next",
+      "type": "action",
+      "key": "next"
     },
     {
       "id": "ui-mrr-005-ent-007-start-at",

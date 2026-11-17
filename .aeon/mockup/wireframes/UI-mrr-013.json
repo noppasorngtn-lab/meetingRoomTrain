@@ -74,19 +74,6 @@
         },
         {
           "type": "field",
-          "name": "รูปภาพ",
-          "required": false,
-          "entity": "ENT-003",
-          "attribute": "photos",
-          "validation": "ไฟล์ภาพ ไม่บังคับ",
-          "rules": [],
-          "visibleTo": [
-            "ROLE-002"
-          ],
-          "input": true
-        },
-        {
-          "type": "field",
           "name": "สิ่งอำนวยความสะดวก",
           "required": false,
           "entity": "ENT-005",
@@ -211,12 +198,6 @@
       "name": "ความจุ"
     },
     {
-      "id": "ui-mrr-013-ent-003-photos",
-      "type": "field",
-      "key": "ent-003-photos",
-      "name": "รูปภาพ"
-    },
-    {
       "id": "ui-mrr-013-ent-005-facility",
       "type": "field",
       "key": "ent-005-facility",
@@ -270,7 +251,7 @@
     },
     "overflow": {
       "occurs": true,
-      "text": "ชื่อเกิน 100 ตัวอักษรไม่รับ · รูปภาพเกินขนาดที่กำหนดไม่รับและแจ้งที่ช่อง"
+      "text": "ชื่อเกิน 100 ตัวอักษรไม่รับ"
     }
   },
   "extensions": {}

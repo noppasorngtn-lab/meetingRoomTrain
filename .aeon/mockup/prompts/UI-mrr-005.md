@@ -23,7 +23,11 @@
 | ชนิด | ข้อความ | ปลายทาง | `data-testid` |
 |---|---|---|---|
 | field | มุมมอง | — | `ui-mrr-005-calendar-view` |
+| field | วันที่ | — | — ยังไม่มีใครตั้งชื่อ |
 | action | เปลี่ยนมุมมอง | → อยู่ที่หน้าเดิม | `ui-mrr-005-switch-view` |
+| action | ก่อนหน้า | → อยู่ที่หน้าเดิม | `ui-mrr-005-previous` |
+| action | วันนี้ | → อยู่ที่หน้าเดิม | `ui-mrr-005-today` |
+| action | ถัดไป | → อยู่ที่หน้าเดิม | `ui-mrr-005-next` |
 
 ### โซน `calendar` (form)
 
@@ -33,7 +37,7 @@
 | field | หัวข้อ | — | `ui-mrr-005-ent-007-title` |
 | field | ผู้จอง | — | `ui-mrr-005-ent-007-booked-by` |
 | field | ผู้เข้าร่วม | — | `ui-mrr-005-ent-008-user` |
-| action | จองช่วงที่ว่าง | → หน้าจองห้องประชุม | `ui-mrr-005-book-slot` |
+| action | ไปหน้าจองห้อง | → หน้าจองห้องประชุม | `ui-mrr-005-book-slot` |
 
 **ทุก `data-testid` ข้างล่างนี้ต้องกลับมาครบในหน้าที่ส่งกลับ** — id พวกนี้เปลี่ยนไม่ได้หลังเกิด (ประตู 37) และ `qa` ใช้มันเขียนเทส
 
@@ -43,7 +47,10 @@
 - `ui-mrr-005-ent-007-start-at`
 - `ui-mrr-005-ent-007-title`
 - `ui-mrr-005-ent-008-user`
+- `ui-mrr-005-next`
+- `ui-mrr-005-previous`
 - `ui-mrr-005-switch-view`
+- `ui-mrr-005-today`
 
 ## 3 · ห้าสถานะ
 

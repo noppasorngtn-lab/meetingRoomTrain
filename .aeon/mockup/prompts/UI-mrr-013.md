@@ -25,7 +25,6 @@
 | field | รหัสห้อง | — | `ui-mrr-013-ent-002-code` |
 | field | ชื่อห้อง | — | `ui-mrr-013-ent-003-name` |
 | field | ความจุ | — | `ui-mrr-013-ent-003-capacity` |
-| field | รูปภาพ | — | `ui-mrr-013-ent-003-photos` |
 | field | สิ่งอำนวยความสะดวก | — | `ui-mrr-013-ent-005-facility` |
 | field | เวอร์ชัน | — | `ui-mrr-013-ent-003-version-no` |
 
@@ -50,7 +49,6 @@
 - `ui-mrr-013-ent-003-approver`
 - `ui-mrr-013-ent-003-capacity`
 - `ui-mrr-013-ent-003-name`
-- `ui-mrr-013-ent-003-photos`
 - `ui-mrr-013-ent-003-requires-approval`
 - `ui-mrr-013-ent-003-version-no`
 - `ui-mrr-013-ent-005-facility`
@@ -64,7 +62,7 @@
 | `loading` | เกิด | ปุ่มบันทึกถูกปิดระหว่างบันทึก |
 | `error` | เกิด | ข้อมูลไม่ครบหรือรหัสซ้ำ — ชี้ช่องที่ผิด ไม่สร้างเวอร์ชันใหม่ |
 | `unauthorized` | เกิด | ไม่ใช่ Room Administrator — 'คุณไม่มีสิทธิ์เข้าหน้านี้' และ API ปฏิเสธ |
-| `overflow` | เกิด | ชื่อเกิน 100 ตัวอักษรไม่รับ · รูปภาพเกินขนาดที่กำหนดไม่รับและแจ้งที่ช่อง |
+| `overflow` | เกิด | ชื่อเกิน 100 ตัวอักษรไม่รับ |
 
 _ข้อความในตารางนี้คัดมาคำต่อคำจากที่ design ประกาศไว้ **ห้ามเขียนใหม่ให้สวยขึ้น**_
 

@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "1.2",
+  "schemaVersion": "1.4",
   "producedBy": "mock · scripts/state.mjs",
   "phase": "mockup",
   "project": "mrr",
@@ -80,7 +80,10 @@
         "ui-mrr-005-ent-007-start-at",
         "ui-mrr-005-ent-007-title",
         "ui-mrr-005-ent-008-user",
-        "ui-mrr-005-switch-view"
+        "ui-mrr-005-next",
+        "ui-mrr-005-previous",
+        "ui-mrr-005-switch-view",
+        "ui-mrr-005-today"
       ]
     },
     {
@@ -199,7 +202,6 @@
         "ui-mrr-013-ent-003-approver",
         "ui-mrr-013-ent-003-capacity",
         "ui-mrr-013-ent-003-name",
-        "ui-mrr-013-ent-003-photos",
         "ui-mrr-013-ent-003-requires-approval",
         "ui-mrr-013-ent-003-version-no",
         "ui-mrr-013-ent-005-facility",
