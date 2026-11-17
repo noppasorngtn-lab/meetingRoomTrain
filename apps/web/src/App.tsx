@@ -1,5 +1,6 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { RequestCodePage } from './features/auth/RequestCodePage';
+import { LogoutPage } from './features/auth/LogoutPage';
 import { VerifyCodePage } from './features/auth/VerifyCodePage';
 import { AdjustmentRequestsPage } from './features/booking/AdjustmentRequestsPage';
 import { BookingPage } from './features/booking/BookingPage';
@@ -25,6 +26,7 @@ const ENTRY = 'UI-mrr-001';
 const BUILT: Record<string, JSX.Element> = {
   'UI-mrr-001': <RequestCodePage />,
   'UI-mrr-002': <VerifyCodePage />,
+  'UI-mrr-003': <LogoutPage />,
   'UI-mrr-004': <RoomSearchPage />,
   'UI-mrr-005': <CalendarPage />,
   'UI-mrr-006': <BookingPage />,
