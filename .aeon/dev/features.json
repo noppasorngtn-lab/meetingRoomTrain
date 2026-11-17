@@ -6054,7 +6054,55 @@
           "hash": "sha256:70b3048818d8c6af914931bd01d0fd6ee3282caa12fe7ae99691ab7addcfd0d8"
         }
       ],
-      "status": "draft"
+      "status": "validated",
+      "build": {
+        "iterations": 1,
+        "proof": [
+          {
+            "cmd": "powershell -File scripts/dev-build.ps1 -App api",
+            "result": "tsc -p tsconfig.build.json · exit 0",
+            "at": "2026-11-17"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App api -Filter FE-mrr-043",
+            "result": "Test Suites: 37 skipped, 1 passed, 1 of 38 total · Tests: 454 skipped, 10 passed, 464 total · exit 0",
+            "at": "2026-11-17"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App api",
+            "result": "Test Suites: 38 passed, 38 total · Tests: 464 passed, 464 total · exit 0",
+            "at": "2026-11-17"
+          }
+        ],
+        "last_error": null,
+        "recorded_by": "Noppasorn",
+        "recorded_at": "2026-11-17"
+      },
+      "manifest": {
+        "files": [
+          "apps/api/src/modules/rooms/room-admin.service.ts",
+          "apps/api/src/modules/rooms/rooms.controller.ts",
+          "apps/api/test/rooms/room-archive.http.spec.ts"
+        ],
+        "unit_tests": [
+          {
+            "file": "apps/api/test/rooms/room-archive.http.spec.ts",
+            "calc_ref": null,
+            "gd_ref": null
+          }
+        ],
+        "ui_controls": [],
+        "apis": [
+          {
+            "api_ref": "API-025",
+            "route": "POST /rooms/:id/archive",
+            "file": "apps/api/src/modules/rooms/rooms.controller.ts"
+          }
+        ]
+      },
+      "commits": [
+        "1a5f8a02caa957fa8ef42ce06813cb56cec80c30"
+      ]
     },
     {
       "id": "FE-mrr-044",
@@ -6452,8 +6500,8 @@
   "rollup": {
     "features_total": 40,
     "by_status": {
-      "validated": 38,
-      "draft": 2
+      "validated": 39,
+      "draft": 1
     },
     "by_origin": {
       "new": 35,
