@@ -31,7 +31,7 @@
 |---|---|---|---|---|---|---|
 | design.state.json | /design:init | done | — | — | — | — |
 | context.json | /design:overview | done | approved | Noppasorn | 2026-10-19T07:59:59Z | — |
-| modules/mrr/functions.json | /design:function | done | draft | — | — | — |
+| modules/mrr/functions.json | /design:function | done | approved | Noppasorn | 2026-11-17T13:36:43Z | — |
 | trace.design.json | /design:function | done | — | — | — | — |
 | datamodel.json | /design:datamodel | done | approved | Noppasorn | 2026-10-22T10:37:18Z | — |
 | modules/mrr/statemachines.json | /design:datamodel | done | approved | Noppasorn | 2026-10-22T10:37:18Z | — |
