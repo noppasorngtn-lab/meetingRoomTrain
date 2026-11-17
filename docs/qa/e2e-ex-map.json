@@ -1,0 +1,14 @@
+{
+  "_comment": "Kept by hand: which EX the Playwright specs (test/e2e/booking.spec.ts) exercise. Update it when a case is added or removed. 'cases' are the case numbers in test/README.md. A [stub] case does not prove the real API behaves that way.",
+  "covers": {
+    "EX-mrr-001": { "cases": "19", "note": "adjacent booking (10:00 after 09:00-10:00), real" },
+    "EX-mrr-002": { "cases": "9, 20", "note": "9 = same slot; 20 = 09:59 overlap by one minute, real" },
+    "EX-mrr-003": { "cases": "21", "note": "same booker as the pending booking (dev has one signed-in user), real" },
+    "EX-mrr-005": { "cases": "8, 10", "note": "happy booking, no equipment, one attendee, real" },
+    "EX-mrr-006": { "cases": "4, 23", "note": "title missing, real" },
+    "EX-mrr-007": { "cases": "4, 24", "note": "no attendee, real" },
+    "EX-mrr-012": { "cases": "10, 25", "note": "approval room: PENDING_APPROVAL and its message, real" },
+    "EX-mrr-062": { "cases": "27", "note": "503 answered in the browser (stub); 'no booking created' is not proven here" },
+    "EX-mrr-081": { "cases": "13, 14", "note": "maintenance room, stub only" }
+  }
+}
