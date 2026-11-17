@@ -15,6 +15,10 @@ export const readCookie = (header: string | undefined, name: string): string | u
 export const sessionCookie = (token: string): string =>
   [`${SESSION_COOKIE}=${token}`, 'Path=/', 'HttpOnly', 'SameSite=Lax', ...(process.env.COOKIE_SECURE === 'true' ? ['Secure'] : [])].join('; ');
 
+/** The cookie that makes the browser forget the session — same name, path and flags, already expired. */
+export const clearedSessionCookie = (): string =>
+  [`${SESSION_COOKIE}=`, 'Path=/', 'HttpOnly', 'SameSite=Lax', 'Max-Age=0', ...(process.env.COOKIE_SECURE === 'true' ? ['Secure'] : [])].join('; ');
+
 /** The sign-in guard: a live session becomes request.user, which CurrentUser reads. */
 @Injectable()
 export class SessionMiddleware implements NestMiddleware {

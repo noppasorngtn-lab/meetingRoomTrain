@@ -44,4 +44,12 @@ export class SessionsService {
     await this.db.updateTable('sessions').set({ last_seen_at: now }).where('id', '=', row.id).execute();
     return row.user_id;
   }
+
+  /**
+   * Ends the one session a token belongs to (UC-mrr-021 · ACL-036 — only the caller's own; the same
+   * user on another device keeps theirs). A token nobody holds is not an error: there is nothing to end.
+   */
+  async close(token: string): Promise<void> {
+    await this.db.deleteFrom('sessions').where('token_hash', '=', hash(token)).execute();
+  }
 }

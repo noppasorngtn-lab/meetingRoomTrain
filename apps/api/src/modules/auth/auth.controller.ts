@@ -7,11 +7,12 @@ import {
   HttpCode,
   Post,
   Query,
+  Req,
   Res,
   ServiceUnavailableException,
   UnauthorizedException,
 } from '@nestjs/common';
-import { sessionCookie } from './session.middleware';
+import { clearedSessionCookie, readCookie, SESSION_COOKIE, sessionCookie } from './session.middleware';
 import { SessionsService } from './sessions.service';
 import { CODE_SENT, CodeNotSent, CodeStillValid, SignInRefused, SignInService } from './sign-in.service';
 
@@ -38,6 +39,19 @@ export class AuthController {
       .verifyCode(String(body?.email ?? ''), String(body?.code ?? ''))
       .catch(asHttp);
     res.setHeader('Set-Cookie', sessionCookie(await this.sessions.open(userId)));
+    return {};
+  }
+
+  /**
+   * API-034 — ends the caller's own session. Someone with no session, or one already ended, gets the
+   * same answer (AC-mrr-113); a session that cannot be ended fails and the cookie stays (AC-mrr-112).
+   */
+  @Post('logout')
+  @HttpCode(200)
+  async logout(@Req() req: any, @Res({ passthrough: true }) res: any): Promise<object> {
+    const token = readCookie(req.headers?.cookie, SESSION_COOKIE);
+    if (token) await this.sessions.close(token);
+    res.setHeader('Set-Cookie', clearedSessionCookie());
     return {};
   }
 
