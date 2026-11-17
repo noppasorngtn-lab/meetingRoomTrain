@@ -149,9 +149,109 @@ test.describe.serial('จองสำเร็จและจองซ้ำ (BR
     await page.getByTestId(T.confirm).click();
     const res = await created;
     expect(res.status()).toBe(201);
-    expect((await res.json()).status).toBe('PENDING_APPROVAL');
+    const body = await res.json();
+    expect(body.status).toBe('PENDING_APPROVAL');
+    expect(body.message).toBe('ส่งคำขอจองแล้ว รอการอนุมัติ'); // TC-BKG-UI006-025 · EX-mrr-012
     await expect(page).toHaveURL(/\/UI-mrr-007/);
+    await expect(page.getByText(body.message, { exact: true })).toBeVisible();
     await expect(page.getByTestId('ui-mrr-007-ent-007-title').filter({ hasText: `E2E รออนุมัติ ${RUN}` })).toBeVisible();
+  });
+});
+
+/** Books through the real form; returns the create response. Used to set up the slots the next case collides with. */
+async function bookOnForm(page: Page, roomId: string, start: string, end: string, title: string) {
+  await openForm(page, roomId);
+  await fillForm(page, { start, end }, title);
+  const created = page.waitForResponse(isCreate);
+  await page.getByTestId(T.confirm).click();
+  return created;
+}
+
+const CONFLICT = 'ห้องนี้ไม่ว่างในช่วงเวลาที่เลือก กรุณาเลือกเวลาอื่น';
+
+// Same booker throughout: the dev data has one signed-in user, so "another user" of EX-mrr-003 is not reproduced.
+test.describe.serial('ขอบเขตเวลาของการจอง BVA (BR-mrr-001 · EX-mrr-001/002)', () => {
+  const day = freeSlot(9).date;
+  const at = (hhmm: string) => `${day}T${hhmm}`;
+
+  test('[real] เตรียมข้อมูล: จอง 09:00–10:00', async ({ page }) => {
+    const res = await bookOnForm(page, open.id, at('09:00'), at('10:00'), `E2E ขอบเขต 09-10 ${RUN}`);
+    expect(res.status()).toBe(201);
+  });
+
+  test('[real] TC-BKG-UI006-020 จอง 09:59–10:30 ทับ 09:00–10:00 แค่ 1 นาที → ไม่ว่าง (EX-mrr-002)', async ({ page }) => {
+    const res = await bookOnForm(page, open.id, at('09:59'), at('10:30'), `E2E ทับ 1 นาที ${RUN}`);
+    expect(res.status()).toBe(409);
+    await expect(page.getByRole('alert')).toContainText(CONFLICT);
+    await expect(page).toHaveURL(/UI-mrr-006/);
+  });
+
+  test('[real] TC-BKG-UI006-019 จอง 10:00–11:00 ต่อท้ายการจองที่จบ 10:00 → สำเร็จ (EX-mrr-001)', async ({ page }) => {
+    const res = await bookOnForm(page, open.id, at('10:00'), at('11:00'), `E2E ต่อท้าย ${RUN}`);
+    expect(res.status()).toBe(201);
+    expect((await res.json()).status).toBe('CONFIRMED');
+  });
+});
+
+test.describe.serial('การจองที่รออนุมัติกันช่วงเวลา (BR-mrr-001 · EX-mrr-003)', () => {
+  const day = freeSlot(9).date;
+  const at = (hhmm: string) => `${day}T${hhmm}`;
+
+  test('[real] TC-BKG-UI006-021 จองทับการจอง PENDING_APPROVAL → ไม่ว่าง', async ({ page }) => {
+    const first = await bookOnForm(page, needsApproval.id, at('11:00'), at('12:00'), `E2E pending ${RUN}`);
+    expect(first.status()).toBe(201);
+    expect((await first.json()).status).toBe('PENDING_APPROVAL');
+    const second = await bookOnForm(page, needsApproval.id, at('11:30'), at('12:30'), `E2E ทับ pending ${RUN}`);
+    expect(second.status()).toBe(409);
+    await expect(page.getByRole('alert')).toContainText(CONFLICT);
+  });
+});
+
+test.describe('ตรวจทีละช่อง (BR-mrr-002 · EX-mrr-006/007)', () => {
+  async function expectOnlyError(page: Page, shown: string, hidden: string[]) {
+    let posted = false;
+    page.on('request', (r) => { if (r.method() === 'POST' && r.url().endsWith('/bookings')) posted = true; });
+    await page.getByTestId(T.confirm).click();
+    await expect(page.getByText(shown)).toBeVisible();
+    for (const h of hidden) await expect(page.getByText(h)).toHaveCount(0);
+    expect(posted).toBe(false);
+  }
+
+  test('[real] TC-BKG-UI006-023 ไม่ใส่หัวข้อ (ช่องอื่นครบ) → แจ้งเฉพาะหัวข้อ', async ({ page }) => {
+    const s = freeSlot(9);
+    await openForm(page, open.id);
+    await page.getByTestId(T.start).fill(s.start);
+    await page.getByTestId(T.end).fill(s.end);
+    await pickAttendee(page);
+    await expectOnlyError(page, 'กรุณาระบุหัวข้อการประชุม', ['กรุณาระบุผู้เข้าร่วมอย่างน้อย 1 คน', 'กรุณาระบุเวลาเริ่ม']);
+  });
+
+  test('[real] TC-BKG-UI006-024 ไม่ใส่ผู้เข้าร่วม (ช่องอื่นครบ) → แจ้งเฉพาะผู้เข้าร่วม', async ({ page }) => {
+    const s = freeSlot(9);
+    await openForm(page, open.id);
+    await page.getByTestId(T.start).fill(s.start);
+    await page.getByTestId(T.end).fill(s.end);
+    await page.getByTestId(T.title).fill('ไม่มีผู้เข้าร่วม');
+    await expectOnlyError(page, 'กรุณาระบุผู้เข้าร่วมอย่างน้อย 1 คน', ['กรุณาระบุหัวข้อการประชุม', 'กรุณาระบุเวลาเริ่ม']);
+  });
+});
+
+test.describe('Email ยืนยันการจอง (BR-mrr-007 ข้อ 1)', () => {
+  test('[real] TC-BKG-UI006-026 จองสำเร็จ → มี Email ถึงผู้จอง หัวเรื่อง [จองห้องประชุม] จองสำเร็จ: <หัวข้อ>', async ({ page }) => {
+    const title = `E2E อีเมลยืนยัน ${RUN}`;
+    const s = freeSlot(17);
+    const res = await bookOnForm(page, open.id, s.start, s.end, title);
+    expect(res.status()).toBe(201);
+
+    let found: { Subject: string; To: { Address: string }[] } | undefined;
+    for (let i = 0; i < 20 && !found; i++) {
+      const list = await (await fetch('http://localhost:8025/api/v1/messages')).json();
+      found = (list.messages ?? []).find((m: { Subject: string }) => m.Subject.includes(title));
+      if (!found) await new Promise((r) => setTimeout(r, 500));
+    }
+    expect(found, 'ไม่พบ Email ใน mailpit').toBeDefined();
+    expect(found!.Subject.startsWith(`[จองห้องประชุม] จองสำเร็จ: ${title} · `)).toBe(true);
+    expect(found!.To.map((t) => t.Address)).toEqual(['tester@mrr.local']);
   });
 });
 
@@ -208,7 +308,21 @@ test.describe('สถานะที่ design ประกาศ', () => {
     expect(body.attendeeIds).toHaveLength(2);
   });
 
-  test('[stub] ส่ง Email ไม่สำเร็จ (500) → แจ้งให้กดใหม่ ข้อมูลในฟอร์มคงไว้ และกดซ้ำได้', async ({ page }) => {
+  test('[stub] TC-BKG-UI006-027 ส่ง Email ไม่สำเร็จ (503 · BR-mrr-019 · EX-mrr-062) → แสดงข้อความของ API ข้อมูลคงไว้ กดซ้ำได้', async ({ page }) => {
+    const message = 'ส่ง Email แจ้งเตือนไม่สำเร็จ กรุณากดใหม่อีกครั้ง';
+    await page.route('**/bookings', (r) =>
+      r.request().method() === 'POST' ? r.fulfill({ status: 503, json: { message } }) : r.fallback());
+    const s = freeSlot(9);
+    await openForm(page, open.id);
+    await fillForm(page, s, 'เมลล้ม 503');
+    await page.getByTestId(T.confirm).click();
+    await expect(page.getByRole('alert')).toContainText(message);
+    await expect(page).toHaveURL(/UI-mrr-006/);
+    await expect(page.getByTestId(T.title)).toHaveValue('เมลล้ม 503');
+    await expect(page.getByTestId(T.confirm)).toBeEnabled();
+  });
+
+  test('[stub] ข้อผิดพลาด 500 ที่ไม่คาดคิด → ข้อความทั่วไป ข้อมูลในฟอร์มคงไว้ และกดซ้ำได้ (fallback ของ BookingPage)', async ({ page }) => {
     await page.route('**/bookings', (r) =>
       r.request().method() === 'POST' ? r.fulfill({ status: 500, json: { message: 'boom' } }) : r.fallback());
     const s = freeSlot(9);

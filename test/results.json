@@ -128,12 +128,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 451,
+                      "duration": 861,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-10-26T10:42:20.081Z",
+                      "startTime": "2026-11-17T04:34:25.524Z",
                       "annotations": [],
                       "attachments": [
                         {
@@ -168,12 +168,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 364,
+                      "duration": 445,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-10-26T10:42:20.642Z",
+                      "startTime": "2026-11-17T04:34:26.502Z",
                       "annotations": [],
                       "attachments": [
                         {
@@ -208,12 +208,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 362,
+                      "duration": 438,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-10-26T10:42:21.018Z",
+                      "startTime": "2026-11-17T04:34:26.958Z",
                       "annotations": [],
                       "attachments": [
                         {
@@ -256,12 +256,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 396,
+                      "duration": 440,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-10-26T10:42:21.389Z",
+                      "startTime": "2026-11-17T04:34:27.407Z",
                       "annotations": [],
                       "attachments": [
                         {
@@ -296,12 +296,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 481,
+                      "duration": 507,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-10-26T10:42:21.795Z",
+                      "startTime": "2026-11-17T04:34:27.857Z",
                       "annotations": [],
                       "attachments": [
                         {
@@ -336,12 +336,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 485,
+                      "duration": 559,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-10-26T10:42:22.287Z",
+                      "startTime": "2026-11-17T04:34:28.373Z",
                       "annotations": [],
                       "attachments": [
                         {
@@ -376,12 +376,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 508,
+                      "duration": 623,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-10-26T10:42:22.783Z",
+                      "startTime": "2026-11-17T04:34:28.944Z",
                       "annotations": [],
                       "attachments": [
                         {
@@ -433,12 +433,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 640,
+                      "duration": 794,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-10-26T10:42:23.303Z",
+                      "startTime": "2026-11-17T04:34:29.590Z",
                       "annotations": [
                         {
                           "type": "serial",
@@ -491,12 +491,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 551,
+                      "duration": 637,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-10-26T10:42:23.972Z",
+                      "startTime": "2026-11-17T04:34:30.394Z",
                       "annotations": [
                         {
                           "type": "serial",
@@ -549,12 +549,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 542,
+                      "duration": 674,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-10-26T10:42:24.534Z",
+                      "startTime": "2026-11-17T04:34:31.041Z",
                       "annotations": [
                         {
                           "type": "serial",
@@ -585,9 +585,393 @@
           ]
         },
         {
+          "title": "ขอบเขตเวลาของการจอง BVA (BR-mrr-001 · EX-mrr-001/002)",
+          "file": "booking.spec.ts",
+          "line": 173,
+          "column": 15,
+          "specs": [
+            {
+              "title": "[real] เตรียมข้อมูล: จอง 09:00–10:00",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "serial",
+                      "location": {
+                        "file": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\e2e\\booking.spec.ts",
+                        "line": 173,
+                        "column": 15
+                      }
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 575,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-17T04:34:31.724Z",
+                      "annotations": [
+                        {
+                          "type": "serial",
+                          "location": {
+                            "file": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\e2e\\booking.spec.ts",
+                            "line": 173,
+                            "column": 15
+                          }
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\booking-ขอบเขตเวลาของการจอ-b8be8-ตรียมข้อมูล-จอง-09-00–10-00\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a3a10f2351dcc49e1cb9-eb8f01d4201f440f54bb",
+              "file": "booking.spec.ts",
+              "line": 177,
+              "column": 3
+            },
+            {
+              "title": "[real] TC-BKG-UI006-020 จอง 09:59–10:30 ทับ 09:00–10:00 แค่ 1 นาที → ไม่ว่าง (EX-mrr-002)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "serial",
+                      "location": {
+                        "file": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\e2e\\booking.spec.ts",
+                        "line": 173,
+                        "column": 15
+                      }
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 552,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-17T04:34:32.311Z",
+                      "annotations": [
+                        {
+                          "type": "serial",
+                          "location": {
+                            "file": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\e2e\\booking.spec.ts",
+                            "line": 173,
+                            "column": 15
+                          }
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\booking-ขอบเขตเวลาของการจอ-361ea--นาที-→-ไม่ว่าง-EX-mrr-002-\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a3a10f2351dcc49e1cb9-500dcfc03f286528ca7b",
+              "file": "booking.spec.ts",
+              "line": 182,
+              "column": 3
+            },
+            {
+              "title": "[real] TC-BKG-UI006-019 จอง 10:00–11:00 ต่อท้ายการจองที่จบ 10:00 → สำเร็จ (EX-mrr-001)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "serial",
+                      "location": {
+                        "file": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\e2e\\booking.spec.ts",
+                        "line": 173,
+                        "column": 15
+                      }
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 563,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-17T04:34:32.871Z",
+                      "annotations": [
+                        {
+                          "type": "serial",
+                          "location": {
+                            "file": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\e2e\\booking.spec.ts",
+                            "line": 173,
+                            "column": 15
+                          }
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\booking-ขอบเขตเวลาของการจอ-c68f6--10-00-→-สำเร็จ-EX-mrr-001-\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a3a10f2351dcc49e1cb9-1aae1776e0c4ab082ce2",
+              "file": "booking.spec.ts",
+              "line": 189,
+              "column": 3
+            }
+          ]
+        },
+        {
+          "title": "การจองที่รออนุมัติกันช่วงเวลา (BR-mrr-001 · EX-mrr-003)",
+          "file": "booking.spec.ts",
+          "line": 196,
+          "column": 15,
+          "specs": [
+            {
+              "title": "[real] TC-BKG-UI006-021 จองทับการจอง PENDING_APPROVAL → ไม่ว่าง",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "serial",
+                      "location": {
+                        "file": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\e2e\\booking.spec.ts",
+                        "line": 196,
+                        "column": 15
+                      }
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 773,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-17T04:34:33.441Z",
+                      "annotations": [
+                        {
+                          "type": "serial",
+                          "location": {
+                            "file": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\e2e\\booking.spec.ts",
+                            "line": 196,
+                            "column": 15
+                          }
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\booking-การจองที่รออนุมัติ-4ae46--PENDING-APPROVAL-→-ไม่ว่าง\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a3a10f2351dcc49e1cb9-302830844b4cda1c73c3",
+              "file": "booking.spec.ts",
+              "line": 200,
+              "column": 3
+            }
+          ]
+        },
+        {
+          "title": "ตรวจทีละช่อง (BR-mrr-002 · EX-mrr-006/007)",
+          "file": "booking.spec.ts",
+          "line": 210,
+          "column": 6,
+          "specs": [
+            {
+              "title": "[real] TC-BKG-UI006-023 ไม่ใส่หัวข้อ (ช่องอื่นครบ) → แจ้งเฉพาะหัวข้อ",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 470,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-17T04:34:34.226Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\booking-ตรวจทีละช่อง-BR-mr-76ba1-องอื่นครบ-→-แจ้งเฉพาะหัวข้อ\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a3a10f2351dcc49e1cb9-164fa83c21e640fe5e6e",
+              "file": "booking.spec.ts",
+              "line": 220,
+              "column": 3
+            },
+            {
+              "title": "[real] TC-BKG-UI006-024 ไม่ใส่ผู้เข้าร่วม (ช่องอื่นครบ) → แจ้งเฉพาะผู้เข้าร่วม",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 424,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-17T04:34:34.706Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\booking-ตรวจทีละช่อง-BR-mr-c55ba-นครบ-→-แจ้งเฉพาะผู้เข้าร่วม\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a3a10f2351dcc49e1cb9-41243a7574589c18d9db",
+              "file": "booking.spec.ts",
+              "line": 229,
+              "column": 3
+            }
+          ]
+        },
+        {
+          "title": "Email ยืนยันการจอง (BR-mrr-007 ข้อ 1)",
+          "file": "booking.spec.ts",
+          "line": 239,
+          "column": 6,
+          "specs": [
+            {
+              "title": "[real] TC-BKG-UI006-026 จองสำเร็จ → มี Email ถึงผู้จอง หัวเรื่อง [จองห้องประชุม] จองสำเร็จ: <หัวข้อ>",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 626,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-17T04:34:35.139Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\booking-Email-ยืนยันการจอง-7bb03-้องประชุม-จองสำเร็จ-หัวข้อ-\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a3a10f2351dcc49e1cb9-7f64fd508636f3d8728a",
+              "file": "booking.spec.ts",
+              "line": 240,
+              "column": 3
+            }
+          ]
+        },
+        {
           "title": "สถานะที่ design ประกาศ",
           "file": "booking.spec.ts",
-          "line": 158,
+          "line": 258,
           "column": 6,
           "specs": [
             {
@@ -606,12 +990,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 358,
+                      "duration": 444,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-10-26T10:42:25.087Z",
+                      "startTime": "2026-11-17T04:34:35.772Z",
                       "annotations": [],
                       "attachments": [
                         {
@@ -627,7 +1011,7 @@
               ],
               "id": "a3a10f2351dcc49e1cb9-ccaef6950f038cad5524",
               "file": "booking.spec.ts",
-              "line": 159,
+              "line": 259,
               "column": 3
             },
             {
@@ -646,12 +1030,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 351,
+                      "duration": 435,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-10-26T10:42:25.456Z",
+                      "startTime": "2026-11-17T04:34:36.224Z",
                       "annotations": [],
                       "attachments": [
                         {
@@ -667,7 +1051,7 @@
               ],
               "id": "a3a10f2351dcc49e1cb9-d68fe9b1ec1bc0386cad",
               "file": "booking.spec.ts",
-              "line": 165,
+              "line": 265,
               "column": 3
             },
             {
@@ -686,12 +1070,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 365,
+                      "duration": 455,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-10-26T10:42:25.818Z",
+                      "startTime": "2026-11-17T04:34:36.667Z",
                       "annotations": [],
                       "attachments": [
                         {
@@ -707,7 +1091,7 @@
               ],
               "id": "a3a10f2351dcc49e1cb9-e3a19bd161138796854a",
               "file": "booking.spec.ts",
-              "line": 173,
+              "line": 273,
               "column": 3
             },
             {
@@ -726,12 +1110,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 514,
+                      "duration": 549,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-10-26T10:42:26.193Z",
+                      "startTime": "2026-11-17T04:34:37.131Z",
                       "annotations": [],
                       "attachments": [
                         {
@@ -747,7 +1131,7 @@
               ],
               "id": "a3a10f2351dcc49e1cb9-15b361da664b9fe7b643",
               "file": "booking.spec.ts",
-              "line": 181,
+              "line": 281,
               "column": 3
             },
             {
@@ -766,12 +1150,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 611,
+                      "duration": 592,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-10-26T10:42:26.719Z",
+                      "startTime": "2026-11-17T04:34:37.687Z",
                       "annotations": [],
                       "attachments": [
                         {
@@ -787,11 +1171,11 @@
               ],
               "id": "a3a10f2351dcc49e1cb9-f4362bf3baeb4e2b5962",
               "file": "booking.spec.ts",
-              "line": 192,
+              "line": 292,
               "column": 3
             },
             {
-              "title": "[stub] ส่ง Email ไม่สำเร็จ (500) → แจ้งให้กดใหม่ ข้อมูลในฟอร์มคงไว้ และกดซ้ำได้",
+              "title": "[stub] TC-BKG-UI006-027 ส่ง Email ไม่สำเร็จ (503 · BR-mrr-019 · EX-mrr-062) → แสดงข้อความของ API ข้อมูลคงไว้ กดซ้ำได้",
               "ok": true,
               "tags": [],
               "tests": [
@@ -806,18 +1190,18 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 522,
+                      "duration": 543,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-10-26T10:42:27.340Z",
+                      "startTime": "2026-11-17T04:34:38.287Z",
                       "annotations": [],
                       "attachments": [
                         {
                           "name": "screenshot",
                           "contentType": "image/png",
-                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\booking-สถานะที่-design-ปร-c42b1-มูลในฟอร์มคงไว้-และกดซ้ำได้\\test-finished-1.png"
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\booking-สถานะที่-design-ปร-9aff1-อง-API-ข้อมูลคงไว้-กดซ้ำได้\\test-finished-1.png"
                         }
                       ]
                     }
@@ -825,9 +1209,49 @@
                   "status": "expected"
                 }
               ],
-              "id": "a3a10f2351dcc49e1cb9-382afbd3b3b2b1576b62",
+              "id": "a3a10f2351dcc49e1cb9-80f50e31ba3501fde11a",
               "file": "booking.spec.ts",
-              "line": 211,
+              "line": 311,
+              "column": 3
+            },
+            {
+              "title": "[stub] ข้อผิดพลาด 500 ที่ไม่คาดคิด → ข้อความทั่วไป ข้อมูลในฟอร์มคงไว้ และกดซ้ำได้ (fallback ของ BookingPage)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 583,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-17T04:34:38.838Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\booking-สถานะที่-design-ปร-d33d3-้-fallback-ของ-BookingPage-\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a3a10f2351dcc49e1cb9-08bd836fbabba6370004",
+              "file": "booking.spec.ts",
+              "line": 325,
               "column": 3
             },
             {
@@ -846,12 +1270,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 539,
+                      "duration": 535,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-10-26T10:42:27.875Z",
+                      "startTime": "2026-11-17T04:34:39.431Z",
                       "annotations": [],
                       "attachments": [
                         {
@@ -867,7 +1291,7 @@
               ],
               "id": "a3a10f2351dcc49e1cb9-6616bdb0263cc3373154",
               "file": "booking.spec.ts",
-              "line": 223,
+              "line": 337,
               "column": 3
             },
             {
@@ -886,12 +1310,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 615,
+                      "duration": 624,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-10-26T10:42:28.425Z",
+                      "startTime": "2026-11-17T04:34:39.974Z",
                       "annotations": [],
                       "attachments": [
                         {
@@ -907,7 +1331,7 @@
               ],
               "id": "a3a10f2351dcc49e1cb9-f1b088860aac5c3abd72",
               "file": "booking.spec.ts",
-              "line": 241,
+              "line": 355,
               "column": 3
             }
           ]
@@ -917,9 +1341,9 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-10-26T10:42:18.646Z",
-    "duration": 10510.911,
-    "expected": 18,
+    "startTime": "2026-11-17T04:34:16.146Z",
+    "duration": 24589.092,
+    "expected": 26,
     "skipped": 0,
     "unexpected": 0,
     "flaky": 0
