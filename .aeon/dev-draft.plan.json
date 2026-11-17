@@ -2,50 +2,33 @@
   "module": "mrr",
   "features": [
     {
-      "id": "FE-mrr-022",
-      "title_th": "เปลือกของแอป frontend-web — แถบบน เมนู และกรอบที่ทุกหน้าถูกวาดข้างใน",
-      "app_ref": "frontend-web",
-      "type": "shell",
+      "id": "FE-mrr-038",
+      "title_th": "ข้อมูลผู้ใช้ปัจจุบัน — ฝั่ง API",
+      "app_ref": "api",
+      "type": "command",
       "origin": "new",
       "files_planned": [],
       "depends_on": [],
-      "acceptance_refs": [],
+      "acceptance_refs": [
+        "AC-mrr-086",
+        "AC-mrr-087",
+        "AC-mrr-088"
+      ],
       "traces_up": [
         {
-          "ref": "RPT-mrr-001"
+          "ref": "UC-mrr-020"
         },
         {
-          "ref": "UI-mrr-004"
+          "ref": "API-035"
         },
         {
-          "ref": "UI-mrr-005"
+          "ref": "AC-mrr-086"
         },
         {
-          "ref": "UI-mrr-006"
+          "ref": "AC-mrr-087"
         },
         {
-          "ref": "UI-mrr-007"
-        },
-        {
-          "ref": "UI-mrr-008"
-        },
-        {
-          "ref": "UI-mrr-009"
-        },
-        {
-          "ref": "UI-mrr-010"
-        },
-        {
-          "ref": "UI-mrr-011"
-        },
-        {
-          "ref": "UI-mrr-012"
-        },
-        {
-          "ref": "UI-mrr-013"
-        },
-        {
-          "ref": "UI-mrr-014"
+          "ref": "AC-mrr-088"
         }
       ],
       "status": "validated"
