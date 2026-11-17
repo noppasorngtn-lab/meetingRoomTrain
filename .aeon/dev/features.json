@@ -204,18 +204,6 @@
           "hash": "sha256:181579287c32cd6a9de1be174d7eb980b3ea0281aa264db75cad1b3ae3037c13"
         },
         {
-          "ref": "UI-mrr-001",
-          "hash": "sha256:771ebf5f42150129e807602f3cbb12445693d915a056b3789b8b11ac8178fc63"
-        },
-        {
-          "ref": "UI-mrr-002",
-          "hash": "sha256:4fd92c33bcb1f80bbc1a268a52fc004e5811e0868ff259098a64a6f84b673ec5"
-        },
-        {
-          "ref": "UI-mrr-003",
-          "hash": "sha256:deae537ce8a634291fb56e034f19cc54719826f96ae53812dae81c35c1fd1514"
-        },
-        {
           "ref": "UI-mrr-004",
           "hash": "sha256:24b467f9af188528283c60f28ebdfe01977e3c07df7a6cc70bbb23f78f4dd5e3"
         },
