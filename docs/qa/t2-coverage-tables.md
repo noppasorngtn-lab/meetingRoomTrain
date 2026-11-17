@@ -6,10 +6,10 @@ AC in design: **103** · EX in wiki: **105**
 
 | layers citing the AC | ACs |
 |---|---|
-| api + web + e2e | 64 |
-| api | 17 |
-| api + web | 10 |
-| api + e2e | 9 |
+| api + web + e2e | 68 |
+| api + e2e | 23 |
+| api + web | 6 |
+| api | 3 |
 | web + e2e | 3 |
 
 ACs with no test citing them: none
@@ -73,9 +73,12 @@ EX with no AC (expected only for superseded rules, e.g. BR-mrr-010@v1): EX-mrr-0
 | EX-mrr-017 | exception | TC-RMM-UI013-102 | General User POST /rooms/:id/versions -> 403, capacity unchanged, real |
 | EX-mrr-018 | exception | TC-RMM-UI013-103 | SA แก้ความจุห้อง (ยิงตรง) → ปฏิเสธ ความจุเดิม · real |
 | EX-mrr-019 | happy | TC-BKG-UI006-026 + t1-clock | booker alone gets the booking mail; attendees get none (extension), real |
+| EX-mrr-020 | happy | TC-NTF-JOB-101 | reminder job at 15 min before: booker + attendees mailed (jobs run on demand), real |
 | EX-mrr-021 | happy | TC-NTF-UI008-101 | time change mails booker + attendees, real |
 | EX-mrr-022 | alternate | TC-NTF-UI008-102 | title-only edit, mailpit stays empty, real |
+| EX-mrr-023 | boundary | TC-NTF-JOB-102 | 16 min before: no reminder, real |
 | EX-mrr-024 | boundary | TC-NTF-UI006-101 | booked <15 min before start: confirmation + immediate reminder (clock moved), real |
+| EX-mrr-025 | exception | TC-NTF-JOB-103 | pending booking is not reminded, real |
 | EX-mrr-026 | boundary | TC-MYB-UI007-104 | cancel 1 min before start (clock moved), real |
 | EX-mrr-027 | boundary | TC-MYB-UI007-105 | cancel at the start instant refused (clock moved), real |
 | EX-mrr-028 | happy | TC-APR-UI010-101 | RA cancels on behalf once the meeting started (clock moved), real |
@@ -95,6 +98,10 @@ EX with no AC (expected only for superseded rules, e.g. BR-mrr-010@v1): EX-mrr-0
 | EX-mrr-044 | boundary | TC-APR-UI010-108 | edit during the meeting applies at once (clock moved), real |
 | EX-mrr-045 | happy | TC-APR-UI011-101 | another RA approves the request, real |
 | EX-mrr-046 | exception | TC-APR-UI011-102 | requester cannot approve own request, real |
+| EX-mrr-050 | boundary | TC-APR-JOB-101 | 1 min before start: pending booking untouched, real |
+| EX-mrr-051 | happy | TC-APR-JOB-102 | at start: auto-cancelled, slot released, booker mailed, real |
+| EX-mrr-052 | exception | TC-APR-JOB-103 | mail really down: stays pending; next pass cancels, real |
+| EX-mrr-053 | alternate | TC-APR-UI009-106 | RA approves after start but before the job: job leaves it approved, real |
 | EX-mrr-054 | happy | TC-AUD-UI010-102 | approve writes one APPROVE entry (API + shown on UI-mrr-010), real |
 | EX-mrr-055 | happy | TC-AUD-UI010-102 | cancel on behalf writes one CANCEL_ON_BEHALF entry (clock moved), real |
 | EX-mrr-056 | exception | TC-AUD-UI010-103 | ผู้จองยกเลิกของตัวเอง → ไม่มีรายการร่องรอยใหม่ · real |
@@ -103,13 +110,21 @@ EX with no AC (expected only for superseded rules, e.g. BR-mrr-010@v1): EX-mrr-0
 | EX-mrr-059 | happy | TC-AUD-UI010-106 | SA reads the trail; uses an APPROVE entry, real |
 | EX-mrr-060 | exception | TC-AUD-UI010-107 | booker reads trail via API -> 403 + message, real |
 | EX-mrr-061 | exception | TC-AUD-UI010-108 | another general user reads trail via API -> 403 + message, real |
-| EX-mrr-062 | exception | 27 | 503 answered in the browser (stub); 'no booking created' is not proven here |
+| EX-mrr-062 | exception | TC-BKG-UI006-027, TC-BKG-UI006-027 (real) | stub in the browser + real: mailpit stopped -> 503, no booking, slot free, real |
+| EX-mrr-063 | exception | TC-NTF-UI008-103 | mail down: time change fails, time unchanged, real |
+| EX-mrr-064 | exception | TC-NTF-UI009-101 | mail down: approve fails, stays pending, real |
+| EX-mrr-065 | alternate | TC-NTF-UI008-104 | mail down: title-only edit still saves, real |
+| EX-mrr-066 | exception | TC-NTF-JOB-104 | reminder send fails: recorded FAILED, booking still usable, real |
+| EX-mrr-067 | exception | TC-NTF-JOB-105 | next pass after mail is back: not resent, still FAILED, real |
 | EX-mrr-068 | happy | TC-CAL-UI005-101 | ผู้จองเห็นผู้จอง หัวข้อ ผู้เข้าร่วมในช่อง · real |
 | EX-mrr-069 | happy | TC-CAL-UI005-102 | ผู้เข้าร่วมเห็นรายละเอียดเดียวกัน · real |
 | EX-mrr-070 | exception | TC-CAL-UI005-103 | คนอื่นเห็นแค่ "ไม่ว่าง" ไม่มีผู้จอง/หัวข้อ/ผู้เข้าร่วม · real |
 | EX-mrr-071 | exception | TC-CAL-UI005-104 | ห้องที่ต้องอนุมัติ: การจองรออนุมัติของคนอื่นเห็นแค่ "ไม่ว่าง" ไม่เห็นสถานะ · real |
 | EX-mrr-073 | exception | TC-RPT-RPT001-105 | SA ขอรายงาน (ยิงตรง) → ปฏิเสธ · real |
 | EX-mrr-074 | exception | TC-RPT-RPT001-106 | General User report request -> 403 + message, real |
+| EX-mrr-075 | happy | TC-NTF-JOB-106 | one reminder per recipient, booking marked SENT, real |
+| EX-mrr-076 | exception | TC-NTF-JOB-107 | later pass skips an already reminded booking, real |
+| EX-mrr-077 | boundary | TC-NTF-JOB-108 | immediate reminder at booking counts as the one reminder, real |
 | EX-mrr-078 | happy | TC-RMM-UI013-105 | room becomes approval-only: unstarted bookings go back to pending, no mail, real |
 | EX-mrr-079 | alternate | TC-RMM-UI013-106 | room no longer needs approval: pending booking usable at once + mail, real |
 | EX-mrr-080 | boundary | TC-RMM-UI013-107 | change at the exact start of a booking: that one counts as started (clock moved), real |
@@ -120,6 +135,9 @@ EX with no AC (expected only for superseded rules, e.g. BR-mrr-010@v1): EX-mrr-0
 | EX-mrr-089 | exception | TC-APR-UI010-110 | SA: no change-decision button, direct call 403, status unchanged, real |
 | EX-mrr-090 | exception | TC-RMM-UI014-101 | General User on facilities page -> no permission, real |
 | EX-mrr-091 | happy | TC-AUTH-UI001-101 | request code, neutral message + mail with code, real |
+| EX-mrr-092 | exception | TC-AUTH-UI001-102 | mail down: code request fails at once, no usable code left, real |
+| EX-mrr-093 | boundary | TC-AUTH-UI001-103 | no retry queue: nothing arrives after mail is back, real |
+| EX-mrr-094 | alternate | TC-AUTH-UI001-104 | request again after failure is not blocked, real |
 | EX-mrr-095 | exception | TC-AUTH-UI001-105 | re-request 1 s before expiry refused, old code still works (clock moved), real |
 | EX-mrr-096 | boundary | TC-AUTH-UI001-106 | re-request at the exact expiry issues a new code (clock moved), real |
 | EX-mrr-097 | happy | TC-AUTH-UI001-107 | re-request after code used -> new mail, new code, real |
@@ -144,4 +162,4 @@ EX with no AC (expected only for superseded rules, e.g. BR-mrr-010@v1): EX-mrr-0
 
 ## API jest run
 
-suites 34/34 passed · tests 414/414 passed · failed 0 · pending 0
+suites 36/36 passed · tests 426/426 passed · failed 0 · pending 0

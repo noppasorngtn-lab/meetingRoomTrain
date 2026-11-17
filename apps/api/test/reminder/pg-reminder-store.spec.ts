@@ -1,0 +1,99 @@
+import { Kysely } from 'kysely';
+import { BookingNotifier } from '../../src/modules/notification/booking-notifier';
+import { MailMessage, MailTransport } from '../../src/modules/notification/mail-transport';
+import { PgReminderStore } from '../../src/modules/reminder/pg-reminder-store';
+import { ReminderJob } from '../../src/modules/reminder/reminder-job';
+import { Database } from '../../src/common/database/schema';
+import { seedBooking, seedRoom, seedUser, startDatabase } from '../support/postgres';
+
+jest.setTimeout(120_000);
+
+class FakeMail implements MailTransport {
+  sent: MailMessage[] = [];
+  down = false;
+  async send(m: MailMessage): Promise<void> {
+    if (this.down) throw new Error('mail server is down');
+    this.sent.push(m);
+  }
+}
+
+/** UC-mrr-018 · BR-mrr-008 · BR-mrr-020 · BR-mrr-023 with the real store: the job reads and writes the bookings table. */
+describe('PgReminderStore + ReminderJob', () => {
+  let db: Kysely<Database>;
+  let stop: () => Promise<void>;
+  let mail: FakeMail;
+  let job: ReminderJob;
+  let u1: string, u2: string, u3: string;
+  let roomOpen: Awaited<ReturnType<typeof seedRoom>>;
+  const T = (hhmm: string) => new Date(`2026-10-17T${hhmm}:00+07:00`);
+
+  beforeAll(async () => {
+    ({ db, stop } = await startDatabase());
+    const admin = await seedUser(db, 'Admin', 'ROOM_ADMINISTRATOR');
+    u1 = await seedUser(db, 'U1');
+    u2 = await seedUser(db, 'U2');
+    u3 = await seedUser(db, 'U3');
+    roomOpen = await seedRoom(db, 'Room A', admin);
+  });
+  afterAll(async () => stop());
+  beforeEach(async () => {
+    await db.deleteFrom('booking_attendees').execute();
+    await db.deleteFrom('bookings').execute();
+    mail = new FakeMail();
+    job = new ReminderJob(new PgReminderStore(db), new BookingNotifier(mail));
+  });
+
+  const seed = (title: string, start = '10:00', status: Database['bookings']['status'] = 'CONFIRMED') =>
+    seedBooking(db, { room: roomOpen, bookedBy: u1, title, startAt: T(start), endAt: T('11:00'), status, attendees: [u2, u3] });
+  const reminded = () => mail.sent.filter((m) => m.subject.includes('ใกล้ถึงเวลาประชุม'));
+  const rowOf = (id: string) => db.selectFrom('bookings').select(['reminder_status', 'reminder_at']).where('id', '=', id).executeTakeFirstOrThrow();
+
+  it('AC EX-mrr-020/075: at 09:45 the booker and every attendee get one reminder, and the booking is marked SENT', async () => {
+    const id = await seed('ประชุมทีม');
+    await job.run(T('09:45'));
+    expect(reminded()).toHaveLength(1);
+    expect(reminded()[0].to.sort()).toEqual(['u1@example.test', 'u2@example.test', 'u3@example.test']);
+    expect(reminded()[0].subject).toBe('[จองห้องประชุม] ใกล้ถึงเวลาประชุม: ประชุมทีม · Room A 17/10 10:00–11:00');
+    const row = await rowOf(id);
+    expect(row.reminder_status).toBe('SENT');
+    expect(row.reminder_at?.getTime()).toBe(T('09:45').getTime());
+  });
+
+  it('EX-mrr-023: at 09:44 (16 minutes before) nobody is reminded and the row is untouched', async () => {
+    const id = await seed('ประชุมทีม');
+    await job.run(T('09:44'));
+    expect(reminded()).toHaveLength(0);
+    expect((await rowOf(id)).reminder_status).toBe('NOT_SENT');
+  });
+
+  it('EX-mrr-076: a later pass does not send it again', async () => {
+    await seed('ประชุมทีม');
+    await job.run(T('09:45'));
+    await job.run(T('09:50'));
+    expect(reminded()).toHaveLength(1);
+  });
+
+  it('EX-mrr-025: a booking still waiting for approval is not reminded', async () => {
+    const id = await seed('ประชุมลูกค้า', '10:00', 'PENDING_APPROVAL');
+    await job.run(T('09:45'));
+    expect(reminded()).toHaveLength(0);
+    expect((await rowOf(id)).reminder_status).toBe('NOT_SENT');
+  });
+
+  it('EX-mrr-066/067: a failed send is recorded FAILED and never retried', async () => {
+    const id = await seed('ประชุมทีม');
+    mail.down = true;
+    await job.run(T('09:45'));
+    expect((await rowOf(id)).reminder_status).toBe('FAILED');
+    mail.down = false;
+    await job.run(T('09:50'));
+    expect(reminded()).toHaveLength(0);
+    expect((await rowOf(id)).reminder_status).toBe('FAILED');
+  });
+
+  it('a booking that has already started is not listed', async () => {
+    await seed('เริ่มไปแล้ว', '09:00');
+    await job.run(T('09:45'));
+    expect(reminded()).toHaveLength(0);
+  });
+});

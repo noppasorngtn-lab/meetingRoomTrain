@@ -15,3 +15,14 @@ async function post(now: string | null) {
 /** Make the app read `at` (a Date or an ISO instant) as "now". */
 export const setClock = (at: Date | string) => post(new Date(at).toISOString());
 export const resetClock = () => post(null);
+
+/**
+ * Runs one reminder pass and one auto-cancel pass now, at the app's clock — the jobs the timers run, scoped to the
+ * bookings whose title contains `titleContains` (/__test/jobs/run refuses to run without a scope). While the clock is
+ * moved the timers stand still, so this is the only pass that happens.
+ */
+export async function runJobs(titleContains: string) {
+  const res = await fetch(`${API}/__test/jobs/run`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ titleContains }) });
+  if (!res.ok) throw new Error(`/__test/jobs/run answered ${res.status} ${await res.text()}`);
+  return (await res.json()) as { now: string };
+}

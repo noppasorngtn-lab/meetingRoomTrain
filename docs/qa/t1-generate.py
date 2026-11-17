@@ -59,8 +59,8 @@ def m(fn, ui, ds, auto, pre, typ=None, note=""):
 U2 = "ต้องมีผู้ใช้ทั่วไปคนที่ 2"
 RA = "ต้องมีผู้ใช้ Room Administrator"
 CLK = "ควบคุมเวลาด้วย /__test/clock (support/clock.ts) · OQ-T1-01 ปิดแล้ว"
-JOB = "งานตามเวลายังไม่รันใน api (ไม่มี store ต่อ Postgres) [TBD] OQ-T1-02"
-MAILF = "ต้องจำลองอีเมลล่มจริง [TBD] OQ-T1-03"
+JOB = "งานตามเวลา: สั่งรันตามต้องการด้วย /__test/jobs/run · OQ-T1-02 ปิดแล้ว"
+MAILF = "อีเมลล่มจริง: หยุด container mailpit (support/mail.ts) · OQ-T1-03 ปิดแล้ว"
 API = "ยิงคำสั่งตรงด้วย session ของบทบาทนั้น (ไม่ผ่านปุ่ม) เพราะปุ่มถูกซ่อน"
 
 META = {
@@ -368,8 +368,8 @@ out.append("## D) Open Questions (TBD)\n")
 out.append("| ID | คำถาม | กระทบ | ผู้ตอบที่เสนอ |\n|---|---|---|---|")
 oq = [
     ("OQ-T1-01", "[ปิดแล้ว] ควบคุมเวลาฝั่งเซิร์ฟเวอร์: api มี `POST /__test/clock` (เปิดเฉพาะเมื่อ ENABLE_TEST_CONTROLS=true · dev compose เปิดไว้ ค่าเริ่มต้นปิด) · ใช้ผ่าน test/e2e/support/clock.ts", "เคสที่ใช้เวลาเสร็จแล้ว (ดู t1-clock.spec.ts)", "Dev lead"),
-    ("OQ-T1-02", "**พบช่องว่างของผลิตภัณฑ์:** `ReminderJob` / `AutoCancelJob` มีโค้ดและ unit test แต่ไม่มี store ต่อ Postgres และไม่ได้ลงทะเบียนใน AppModule จึง**ไม่ได้รันจริงใน api** — ยังไม่มีเตือน 15 นาทีและยกเลิกอัตโนมัติ (BR-008, 016, 020, 023) ใครจะต่อ store + ลงทะเบียน? หลังต่อแล้วค่อยเขียนเคส E2E (ใช้ /__test/clock + รอรอบงาน)", "EX-020, 023, 025, 050–053, 066, 067, 075–077", "Dev lead + PO"),
-    ("OQ-T1-03", "จำลองอีเมลล่มแบบ real ได้อย่างไร (หยุด mailpit / ตั้ง SMTP ผิดเฉพาะเทสต์) และ transaction boundary เมื่อส่งไม่สำเร็จคืออะไร", "BR-019, 024 (EX-052, 062–065, 092–094) — เกี่ยวกับ DQ-mrr-005 และ DQ-mrr-014 ที่ยัง open", "Dev lead + PO"),
+    ("OQ-T1-02", "[ปิดแล้ว] พบว่า ReminderJob / AutoCancelJob ไม่ได้รันจริงใน api (ไม่มี store ต่อ Postgres ไม่ได้ลงทะเบียนใน AppModule) → ต่อแล้ว: PgReminderStore, PgAutoCancelStore และลงทะเบียนใน AppModule · เทสต์สั่งรันรอบหนึ่งผ่าน /__test/jobs/run (จำกัดตามหัวข้อ)", "BR-008, 016, 020, 023 เป็นของจริงแล้ว", "Dev lead"),
+    ("OQ-T1-03", "[ปิดแล้ว] จำลองอีเมลล่มแบบ real ด้วยการหยุด container mailpit (support/mail.ts) · ส่วน transaction boundary ยังเป็น DQ-mrr-005 / DQ-mrr-014 ที่ PO ยังไม่ตอบ (เคสพิสูจน์พฤติกรรมปัจจุบัน: ล้มทั้งการกระทำ ไม่สร้าง/ไม่เปลี่ยนข้อมูล)", "BR-019, 024", "Dev lead + PO"),
     ("OQ-T1-04", "ผู้ใช้ 'ปุ่มถูกซ่อน' (EX-010, 014, 017, 018, 048, 060, 061, 073, 074) — ยอมรับให้ทดสอบด้วยการยิงคำสั่งตรงผ่าน session ของ browser (Playwright `request`) เป็น E2E หรือควรจัดเป็นระดับ API", "การจัดระดับเคสต่อ Test Level", "QA Lead"),
     ("OQ-T1-05", "EX ที่อ้าง 'ผู้ใช้อีกคน' (EX-003, 004) ยอมรับผู้จองคนเดียวกันได้หรือไม่ เพราะ test/README ใช้ผู้จองคนเดียวมาก่อน", "EX-003, 004 และความหมายของ 'พิสูจน์ข้ามผู้ใช้'", "PO"),
     ("OQ-T1-06", "ยืนยันว่า EX-mrr-031/032 (BR-mrr-010@v1 ถูกแทนด้วย v2) ไม่ต้องมีเคส", "EX-031, 032", "BA / PO"),
@@ -381,7 +381,7 @@ for r in oq:
     out.append("| " + " | ".join(esc(x) for x in r) + " |")
 out.append("\n## Next Actions\n")
 out.append("1. QA review เคสใหม่ตาม CSV (ปัจจุบัน Tag = AI-generated ทั้งหมด)")
-out.append("2. ผู้ใช้/ห้อง/นาฬิกา (OQ-T1-01) พร้อมแล้ว · ที่เหลือรอ OQ-T1-02 (งานตามเวลายังไม่รัน) และ OQ-T1-03 (จำลองอีเมลล่ม) กับ fixture รายงาน")
+out.append("2. ผู้ใช้ ห้อง นาฬิกา งานตามเวลา และอีเมลล่มพร้อมแล้ว · ที่เหลือคือ fixture รายงาน (EX-047–049, 072, 084–087) และ EX-015 (สร้างห้องใหม่)")
 out.append("3. เริ่มเขียนสคริปต์จากเคส `Automation = Yes` ก่อน (ไม่ต้องรอข้อมูลเพิ่ม)")
 out.append("4. หลังเขียนสคริปต์ ให้รัน T2 อีกครั้ง (Gate G1) แล้วอัปเดต `docs/qa/e2e-ex-map.json`")
 

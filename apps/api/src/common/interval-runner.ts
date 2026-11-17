@@ -1,5 +1,5 @@
 import { Logger } from '@nestjs/common';
-import { systemClock } from './clock';
+import { clockOffsetMs, systemClock } from './clock';
 
 /** Every minute unless the environment says otherwise. */
 export const DEFAULT_INTERVAL_MS = 60_000;
@@ -30,7 +30,9 @@ export class IntervalRunner {
   }
 
   private async tick(): Promise<void> {
-    if (this.running) return;
+    // While a test has moved the clock (dev-only test controls), the timer stands still: a pass at a borrowed "now"
+    // would touch bookings no test asked about. The tests run passes themselves, scoped (/__test/jobs/run).
+    if (this.running || clockOffsetMs() !== 0) return;
     this.running = true;
     try {
       await this.pass(systemClock.now());

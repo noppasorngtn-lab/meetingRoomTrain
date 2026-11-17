@@ -1,3 +1,4 @@
+import { execFileSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import { expect, test, type Page } from '@playwright/test';
 
@@ -371,4 +372,13 @@ test.describe('สถานะที่ design ประกาศ', () => {
     // The form value is read as Bangkok time and sent with its +07:00 offset.
     expect(body.startAt).toBe(`${s.date}T09:00:00+07:00`);
   });
+});
+
+// The cases above leave their bookings behind; "my bookings" lists 20 to a page, so enough of them push a fresh one
+// off page 1 and the case that looks for it there fails at random. Remove this run's rows (none has an audit entry).
+test.afterAll(() => {
+  const psql = (sql: string) => execFileSync('docker', ['exec', 'mrr-db-1', 'psql', '-U', 'mrr', '-d', 'mrr', '-At', '-c', sql], { encoding: 'utf8' });
+  const mine = `select id from bookings where title like 'E2E%${RUN}' and id not in (select booking_id from booking_audit_entries)`;
+  for (const t of ['booking_attendees', 'booking_equipment_requests', 'booking_adjustment_requests']) psql(`delete from ${t} where booking_id in (${mine})`);
+  psql(`delete from bookings where id in (${mine})`);
 });

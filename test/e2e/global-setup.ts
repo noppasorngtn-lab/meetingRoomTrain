@@ -2,6 +2,7 @@ import { execFileSync } from 'node:child_process';
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { chromium, request, type Browser, type FullConfig } from '@playwright/test';
 import { ACCOUNTS, ROOMS } from './support/accounts';
+import { ensureMailUp } from './support/mail';
 
 const MAILPIT = 'http://localhost:8025';
 const BASE = 'http://localhost:4173';
@@ -48,6 +49,7 @@ const sqlText = (s: string) => `'${s.replace(/'/g, "''")}'`;
 /** Signs in once as the general user (and the T1 role accounts) through the real screens and saves the sessions for the specs. */
 export default async function globalSetup(_config: FullConfig) {
   mkdirSync('.auth', { recursive: true });
+  await ensureMailUp(); // a run that stopped inside a mail-down case leaves mailpit stopped
   // A run that stopped halfway can leave the app's clock moved (support/clock.ts); put it back before signing in.
   await fetch('http://localhost:3000/__test/clock', { method: 'POST', headers: { 'content-type': 'application/json' }, body: '{"now":null}' }).catch(() => undefined);
 
