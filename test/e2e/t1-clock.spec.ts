@@ -286,7 +286,9 @@ test.describe.serial('แก้ค่าตั้งห้อง E2E-FLIP (BR-mr
   test('[real] TC-BKG-UI006-102 เปิดฟอร์มไว้ ห้องถูกแก้เป็นต้องอนุมัติ แล้วกดยืนยัน → นับตามเวลากดยืนยัน ได้รออนุมัติ (EX-mrr-033)', async ({ browser }) => {
     const ctx = await browser.newContext({ storageState: stateOf('u2'), baseURL: 'http://localhost:4173', locale: 'th-TH', timezoneId: 'Asia/Bangkok' });
     const page = await ctx.newPage();
-    const slot = nearSlot();
+    // ฟอร์มจองตรง ๆ ไม่มีการเลื่อนวันเหมือน book() และห้อง E2E-FLIP เก็บการจองไว้ถาวร — เลือกช่วงที่ยังว่างก่อน
+    let slot = nearSlot();
+    while (Number(psql(`select count(*) from bookings where room_id = '${world.rooms.flip}' and status in ('CONFIRMED','APPROVED','PENDING_APPROVAL') and tstzrange(start_at, end_at) && tstzrange('${slot.startAt}', '${slot.endAt}')`)) > 0) slot = nearSlot();
     const local = (iso: string) => iso.slice(0, 16);
     await page.goto(`/UI-mrr-006?room=${room()}`);
     await expect(page.getByTestId('ui-mrr-006-ent-007-room')).not.toHaveText(/กำลังโหลด|—/);

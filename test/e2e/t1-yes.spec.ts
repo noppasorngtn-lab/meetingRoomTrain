@@ -210,7 +210,8 @@ test.describe.serial('เข้าสู่ระบบด้วยรหัส 
     await askCode(page, UNLISTED);
     await expect(page.getByRole('status').filter({ hasText: REQUESTED })).toHaveText(REQUESTED);
     await new Promise((r) => setTimeout(r, 3000));
-    expect(await mails(), 'Email นอกรายชื่อต้องไม่ได้รับรหัส').toHaveLength(0);
+    // เฉพาะจดหมายถึงอีเมลนี้ — กล่องเมลใช้ร่วมกับตัวจับเวลาเตือนของ api (เมลเตือนของการจองอื่นไม่ใช่ความผิดของเคสนี้)
+    expect((await mails()).filter((m) => m.To.some((t) => t.Address === UNLISTED)), 'Email นอกรายชื่อต้องไม่ได้รับรหัส').toHaveLength(0);
     // เข้าสู่ระบบไม่ได้: ไม่มีรหัสให้กรอก ลองรหัสสมมติแล้วต้องไม่ผ่าน
     await verify(page, '123456');
     await expect(page).toHaveURL(/\/UI-mrr-002/);
