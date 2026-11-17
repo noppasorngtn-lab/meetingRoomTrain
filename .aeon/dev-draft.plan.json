@@ -2,62 +2,34 @@
   "module": "mrr",
   "features": [
     {
-      "id": "FE-mrr-041",
-      "title_th": "ค้นหาห้องว่าง — ฝั่ง API",
+      "id": "FE-mrr-045",
+      "title_th": "ออกจากระบบ — ฝั่ง API",
       "app_ref": "api",
-      "type": "command",
+      "type": "platform",
+      "function_ref": "FUN-mrr-015",
       "origin": "new",
       "files_planned": [],
-      "depends_on": ["FE-mrr-034"],
-      "acceptance_refs": ["AC-mrr-106", "AC-mrr-107", "AC-mrr-108"],
+      "depends_on": ["FE-mrr-039"],
+      "acceptance_refs": ["AC-mrr-111", "AC-mrr-112", "AC-mrr-113"],
       "traces_up": [
-        { "ref": "UC-mrr-001" }, { "ref": "AC-mrr-106" }, { "ref": "AC-mrr-107" }, { "ref": "AC-mrr-108" },
-        { "ref": "API-001" }, { "ref": "ENT-002" }, { "ref": "ENT-004" }, { "ref": "ENT-006" }, { "ref": "ENT-007" }
+        { "ref": "AC-mrr-111" }, { "ref": "AC-mrr-112" }, { "ref": "AC-mrr-113" },
+        { "ref": "API-034" }, { "ref": "ENT-014" }
       ],
       "status": "draft"
     },
     {
-      "id": "FE-mrr-042",
-      "title_th": "ค้นหาห้องว่าง — หน้าจอ",
+      "id": "FE-mrr-046",
+      "title_th": "ออกจากระบบ — หน้าจอ",
       "app_ref": "frontend-web",
-      "type": "command",
+      "type": "platform",
+      "function_ref": "FUN-mrr-015",
       "origin": "new",
       "files_planned": [],
-      "depends_on": ["FE-mrr-022", "FE-mrr-041"],
-      "acceptance_refs": ["AC-mrr-106", "AC-mrr-107", "AC-mrr-108"],
+      "depends_on": ["FE-mrr-040", "FE-mrr-045"],
+      "acceptance_refs": ["AC-mrr-111", "AC-mrr-112", "AC-mrr-113"],
       "traces_up": [
-        { "ref": "UC-mrr-001" }, { "ref": "AC-mrr-106" }, { "ref": "AC-mrr-107" }, { "ref": "AC-mrr-108" },
-        { "ref": "UI-mrr-004" }, { "ref": "API-001" }
-      ],
-      "status": "draft"
-    },
-    {
-      "id": "FE-mrr-043",
-      "title_th": "ลบข้อมูลห้อง — ฝั่ง API",
-      "app_ref": "api",
-      "type": "command",
-      "origin": "change",
-      "files_planned": [],
-      "depends_on": ["FE-mrr-034"],
-      "acceptance_refs": ["AC-mrr-109", "AC-mrr-110"],
-      "traces_up": [
-        { "ref": "UC-mrr-015" }, { "ref": "AC-mrr-109" }, { "ref": "AC-mrr-110" },
-        { "ref": "API-025" }, { "ref": "ENT-002" }, { "ref": "ENT-007" }
-      ],
-      "status": "draft"
-    },
-    {
-      "id": "FE-mrr-044",
-      "title_th": "ลบข้อมูลห้อง — หน้าจอ",
-      "app_ref": "frontend-web",
-      "type": "command",
-      "origin": "change",
-      "files_planned": [],
-      "depends_on": ["FE-mrr-022", "FE-mrr-013", "FE-mrr-043"],
-      "acceptance_refs": ["AC-mrr-109", "AC-mrr-110"],
-      "traces_up": [
-        { "ref": "UC-mrr-015" }, { "ref": "AC-mrr-109" }, { "ref": "AC-mrr-110" },
-        { "ref": "UI-mrr-012" }, { "ref": "API-025" }
+        { "ref": "AC-mrr-111" }, { "ref": "AC-mrr-112" }, { "ref": "AC-mrr-113" },
+        { "ref": "UI-mrr-003" }, { "ref": "API-034" }
       ],
       "status": "draft"
     }

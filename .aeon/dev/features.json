@@ -6202,6 +6202,87 @@
       "commits": [
         "e064c145749d0a14c12769996d94da97bee0bbcf"
       ]
+    },
+    {
+      "id": "FE-mrr-045",
+      "title_th": "ออกจากระบบ — ฝั่ง API",
+      "app_ref": "api",
+      "type": "platform",
+      "origin": "new",
+      "function_ref": "FUN-mrr-015",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-039"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-111",
+        "AC-mrr-112",
+        "AC-mrr-113"
+      ],
+      "traces_up": [
+        {
+          "ref": "AC-mrr-111",
+          "hash": "sha256:4bd489e01657b3507a55626ce40f194398a7c0942324fe3abce6018eed8a7e76"
+        },
+        {
+          "ref": "AC-mrr-112",
+          "hash": "sha256:895abd287d1291652d2f09802b611672cafedcabd336714c18653b79e2ccecbe"
+        },
+        {
+          "ref": "AC-mrr-113",
+          "hash": "sha256:55fde21079d9d121bea02b78596673b385619b6c70902297481151edd9de3c23"
+        },
+        {
+          "ref": "API-034",
+          "hash": "sha256:bcb42550479ba0876d98fc3739fd66a1e55df4ab85e8ead3f4fbcaa831a9e420"
+        },
+        {
+          "ref": "ENT-014",
+          "hash": "sha256:e0e6111b1d64bab56960ff3006e2b40a85ac1e1615cf29d02b474b31bbbb94ca"
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "FE-mrr-046",
+      "title_th": "ออกจากระบบ — หน้าจอ",
+      "app_ref": "frontend-web",
+      "type": "platform",
+      "origin": "new",
+      "function_ref": "FUN-mrr-015",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-040",
+        "FE-mrr-045"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-111",
+        "AC-mrr-112",
+        "AC-mrr-113"
+      ],
+      "traces_up": [
+        {
+          "ref": "AC-mrr-111",
+          "hash": "sha256:4bd489e01657b3507a55626ce40f194398a7c0942324fe3abce6018eed8a7e76"
+        },
+        {
+          "ref": "AC-mrr-112",
+          "hash": "sha256:895abd287d1291652d2f09802b611672cafedcabd336714c18653b79e2ccecbe"
+        },
+        {
+          "ref": "AC-mrr-113",
+          "hash": "sha256:55fde21079d9d121bea02b78596673b385619b6c70902297481151edd9de3c23"
+        },
+        {
+          "ref": "UI-mrr-003",
+          "hash": "sha256:deae537ce8a634291fb56e034f19cc54719826f96ae53812dae81c35c1fd1514"
+        },
+        {
+          "ref": "API-034",
+          "hash": "sha256:bcb42550479ba0876d98fc3739fd66a1e55df4ab85e8ead3f4fbcaa831a9e420"
+        }
+      ],
+      "status": "draft"
     }
   ],
   "gaps": [
@@ -6557,17 +6638,18 @@
     }
   ],
   "rollup": {
-    "features_total": 40,
+    "features_total": 42,
     "by_status": {
-      "validated": 40
+      "validated": 40,
+      "draft": 2
     },
     "by_origin": {
-      "new": 35,
+      "new": 37,
       "change": 5
     },
     "by_app": {
-      "frontend-web": 18,
-      "api": 22
+      "frontend-web": 19,
+      "api": 23
     },
     "gaps_open": 19,
     "ready_for_phase5": false
