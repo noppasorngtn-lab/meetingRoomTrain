@@ -558,11 +558,31 @@
             "cmd": "powershell -File scripts/dev-test.ps1",
             "result": "api: Test Suites 5 passed, Tests 35 passed · web: Test Files 2 passed, Tests 30 passed · exit 0",
             "at": "2026-10-20"
+          },
+          {
+            "cmd": "npx tsc --noEmit -p .  (apps/web)",
+            "result": "no output · exit 0",
+            "at": "2026-11-17"
+          },
+          {
+            "cmd": "npx vitest run  (apps/web)",
+            "result": "Test Files 17 passed · Tests 264 passed · exit 0",
+            "at": "2026-11-17"
+          },
+          {
+            "cmd": "docker compose -p mrr -f docker/docker-compose.yml up -d --build api web",
+            "result": "api and web rebuilt · mrr-api-1 and mrr-web-1 healthy",
+            "at": "2026-11-17"
+          },
+          {
+            "cmd": "npx playwright test --project=chromium  (test)",
+            "result": "140 passed · 1 skipped",
+            "at": "2026-11-17"
           }
         ],
         "last_error": null,
-        "recorded_by": "Noppasorn",
-        "recorded_at": "2026-10-20"
+        "recorded_by": "Noppasorn Y",
+        "recorded_at": "2026-11-17"
       },
       "manifest": {
         "files": [
@@ -598,6 +618,36 @@
             "kind": "filter",
             "dd_ref": null,
             "testid": "ui-mrr-005-switch-view",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "previousPeriod",
+            "kind": "filter",
+            "dd_ref": null,
+            "testid": "ui-mrr-005-previous",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "today",
+            "kind": "filter",
+            "dd_ref": null,
+            "testid": "ui-mrr-005-today",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "nextPeriod",
+            "kind": "filter",
+            "dd_ref": null,
+            "testid": "ui-mrr-005-next",
             "binding": null,
             "validation_refs": [],
             "depends_on": null,
@@ -657,7 +707,8 @@
         "apis": []
       },
       "commits": [
-        "f7c9402eb89f8350c0a382fc62902f777983b179"
+        "f7c9402eb89f8350c0a382fc62902f777983b179",
+        "1a4f01ba7c8a534962e55433e0cd9cc5741f0edf"
       ]
     },
     {
@@ -3655,11 +3706,31 @@
             "cmd": "powershell -File scripts/dev-test.ps1",
             "result": "api: Test Suites 31 passed, Tests 388 passed · web: Test Files 12 passed, Tests 180 passed · exit 0",
             "at": "2026-10-21"
+          },
+          {
+            "cmd": "npx jest test/rooms  (apps/api)",
+            "result": "Test Suites 5 passed · Tests 60 passed · exit 0",
+            "at": "2026-11-17"
+          },
+          {
+            "cmd": "npx jest  (apps/api)",
+            "result": "Test Suites 36 passed · Tests 427 passed · exit 0",
+            "at": "2026-11-17"
+          },
+          {
+            "cmd": "docker compose -p mrr -f docker/docker-compose.yml up -d --build api web",
+            "result": "api and web rebuilt · mrr-api-1 and mrr-web-1 healthy",
+            "at": "2026-11-17"
+          },
+          {
+            "cmd": "npx playwright test e2e/t1-adr007.spec.ts --project=chromium  (test)",
+            "result": "6 passed",
+            "at": "2026-11-17"
           }
         ],
         "last_error": null,
-        "recorded_by": "Noppasorn",
-        "recorded_at": "2026-10-21"
+        "recorded_by": "Noppasorn Y",
+        "recorded_at": "2026-11-17"
       },
       "manifest": {
         "files": [
@@ -3709,11 +3780,17 @@
             "api_ref": "API-027",
             "route": "PATCH /facilities/:id",
             "file": "apps/api/src/modules/rooms/rooms.controller.ts"
+          },
+          {
+            "api_ref": "API-036",
+            "route": "GET /facilities?active=all",
+            "file": "apps/api/src/modules/rooms/rooms.controller.ts"
           }
         ]
       },
       "commits": [
-        "bc8b0325b73689c87d8feca248a4d7aa97dac7a8"
+        "bc8b0325b73689c87d8feca248a4d7aa97dac7a8",
+        "1a4f01ba7c8a534962e55433e0cd9cc5741f0edf"
       ]
     },
     {
@@ -3835,11 +3912,31 @@
             "cmd": "powershell -File scripts/dev-test.ps1",
             "result": "api: Test Suites: 32 passed, 32 total · Tests: 394 passed, 394 total · web: Test Files 15 passed (15) · Tests 240 passed (240) · exit 0",
             "at": "2026-10-21"
+          },
+          {
+            "cmd": "npx tsc --noEmit -p .  (apps/web)",
+            "result": "no output · exit 0",
+            "at": "2026-11-17"
+          },
+          {
+            "cmd": "npx vitest run  (apps/web)",
+            "result": "Test Files 17 passed · Tests 264 passed · exit 0",
+            "at": "2026-11-17"
+          },
+          {
+            "cmd": "docker compose -p mrr -f docker/docker-compose.yml up -d --build api web",
+            "result": "api and web rebuilt · mrr-api-1 and mrr-web-1 healthy",
+            "at": "2026-11-17"
+          },
+          {
+            "cmd": "npx playwright test --project=chromium  (test)",
+            "result": "140 passed · 1 skipped",
+            "at": "2026-11-17"
           }
         ],
         "last_error": null,
-        "recorded_by": "Noppasorn",
-        "recorded_at": "2026-10-21"
+        "recorded_by": "Noppasorn Y",
+        "recorded_at": "2026-11-17"
       },
       "manifest": {
         "files": [
@@ -3961,16 +4058,6 @@
             "roles": []
           },
           {
-            "id": "photos",
-            "kind": "field",
-            "dd_ref": null,
-            "testid": "ui-mrr-013-ent-003-photos",
-            "binding": null,
-            "validation_refs": [],
-            "depends_on": null,
-            "roles": []
-          },
-          {
             "id": "chosen",
             "kind": "field",
             "dd_ref": null,
@@ -4081,11 +4168,18 @@
             "roles": []
           }
         ],
-        "apis": []
+        "apis": [
+          {
+            "api_ref": "API-036",
+            "route": "GET /facilities?active=all",
+            "file": "apps/api/src/modules/rooms/rooms.controller.ts"
+          }
+        ]
       },
       "commits": [
         "7f295c030ba1341409956adde0bc5912eb6825da",
-        "bd3175706fb57fd03521c46ad869e2b90de2e253"
+        "bd3175706fb57fd03521c46ad869e2b90de2e253",
+        "1a4f01ba7c8a534962e55433e0cd9cc5741f0edf"
       ]
     },
     {
