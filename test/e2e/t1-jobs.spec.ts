@@ -243,7 +243,7 @@ test.describe('อีเมลล่ม (หยุด mailpit จริง)', ()
   });
 
   test('[real] TC-NTF-UI008-103 เปลี่ยนเวลาแต่ส่งอีเมลไม่สำเร็จ → ล้ม เวลาเดิมคงอยู่ (EX-mrr-063 · BR-mrr-019)', async () => {
-    const slot = nearSlot(10);
+    const slot = nearSlot(10, 6);
     const t = token();
     const b = await book(clients.u1, 'open', slot, `E2E เปลี่ยนเวลาเมลล่ม ${t}`, [world.users.u2.id]);
     await mailDown();

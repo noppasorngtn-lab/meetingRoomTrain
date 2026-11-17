@@ -14,6 +14,8 @@ export const ACCOUNTS: Account[] = [
   { key: 'u4', email: 'e2e.u4@mrr.local', fullName: 'E2E User Four', role: 'GENERAL_USER', active: true, signIn: true, seed: true },
   { key: 'ra2', email: 'e2e.ra2@mrr.local', fullName: 'E2E Room Admin Two', role: 'ROOM_ADMINISTRATOR', active: true, signIn: true, seed: true },
   { key: 'sa', email: 'e2e.sa@mrr.local', fullName: 'E2E System Admin', role: 'SYSTEM_ADMINISTRATOR', active: true, signIn: true, seed: true },
+  // Books the report fixture's past bookings (support/report-fixture.ts): any mail the api's timers send about them goes here, not to u1.
+  { key: 'rpt', email: 'e2e.rptbooker@mrr.local', fullName: 'E2E Report Booker', role: 'GENERAL_USER', active: true, signIn: false, seed: true },
   { key: 'u5', email: 'e2e.u5.inactive@mrr.local', fullName: 'E2E Inactive', role: 'GENERAL_USER', active: false, signIn: false, seed: true },
 ];
 

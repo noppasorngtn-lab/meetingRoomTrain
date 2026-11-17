@@ -44,8 +44,14 @@ EXISTING = {
 }
 # EX-019 ถูกคลุมบางส่วนโดย TC-BKG-UI006-026 (Email ถึงผู้จอง) — ไม่คลุม "U2/U3 ไม่ได้รับ"
 PARTIAL_EXISTING = {"EX-mrr-019": "TC-BKG-UI006-026"}
-# EX ของ BR-mrr-010@v1 ที่ถูก v2 แทน และไม่มีใน AC — ไม่สร้างเคส (ดู Open Question)
-SUPERSEDED = {"EX-mrr-031", "EX-mrr-032"}
+# EX ของ BR-mrr-010@v1 ที่ถูก v2 แทน (CHG-mrr-001) และไม่มีใน AC — then ของ EX เป็นพฤติกรรม v1 ที่ระบบไม่ทำแล้ว
+# จึงสร้างเคสที่ใช้ given/when เดิมแต่ยืนยันผลของ v2 (และว่าผล v1 ไม่เกิด) · ไม่ใช่การยืนยัน then ของ EX ตามตัวอักษร
+SUPERSEDED = {
+    "EX-mrr-031": ("TC-RMM-UI013-108",
+                   "การจองของ U1 วันที่ 18/10 10:00–11:00 กลับไปเป็น 'รออนุมัติ' และอยู่ในรายการ 'รออนุมัติ' — ตรงข้ามกับ then ของ EX-031 (v1: ไม่ย้อน) ซึ่งไม่เป็นจริงแล้ว"),
+    "EX-mrr-032": ("TC-RMM-UI013-109",
+                   "การจองของ U1 ไม่อยู่ในรายการ 'รออนุมัติ' และใช้ห้องได้ทันที (CONFIRMED) ไม่ต้องรอกดอนุมัติ — ตรงข้ามกับ then ของ EX-032 (v1: ยังรออนุมัติ) ซึ่งไม่เป็นจริงแล้ว"),
+}
 
 # ---------- metadata: fn, ui, type|None, data_source, automation, pre-condition, note ----------
 # automation: Yes = เขียนสคริปต์ได้ด้วย dev stack ตอนนี้ · Partial = ต้องเตรียมข้อมูล (ดูส่วน C)
@@ -144,6 +150,8 @@ META = {
     "EX-mrr-072": m("RPT", "RPT001", R, P, "RA ล็อกอิน · มีข้อมูลการจองเดือน ต.ค. 2569", note=RA),
     "EX-mrr-073": m("RPT", "RPT001", R, P, "System Administrator ล็อกอิน", note="ต้องมีผู้ใช้ System Administrator · " + API),
     "EX-mrr-074": m("RPT", "RPT001", R, A, "U1 (General User) ล็อกอิน", note=API),
+    "EX-mrr-031": m("RMM", "UI013", R, A, "U1 จองห้อง A (ไม่ต้องอนุมัติ) 18/10 แล้ว RA แก้ห้อง A เป็นต้องอนุมัติ", note="[superseded v1→v2] " + RA + " · ใช้ห้อง E2E-FLIP"),
+    "EX-mrr-032": m("RMM", "UI013", R, A, "U1 จองห้อง B (ต้องอนุมัติ) 18/10 รออนุมัติ แล้ว RA แก้ห้อง B เป็นไม่ต้องอนุมัติ", note="[superseded v1→v2] " + RA + " · ใช้ห้อง E2E-FLIP"),
     "EX-mrr-084": m("RPT", "RPT001", R, P, "fixture ตาม GD-mrr-001: ห้อง A, B มีการจองหลายสถานะ", note=RA + " · fixture ตาม golden · เทียบตัวเลขกับ GD-mrr-001 (round half up, 2 ตำแหน่ง)"),
     "EX-mrr-085": m("RPT", "RPT001", R, P, "fixture ตาม GD-mrr-001: ห้อง C มีการจอง 17:00–18:00 วันศุกร์ และหลัง 18:00 / วันเสาร์", typ="Boundary", note=RA + " · ชั่วโมงทำการ 13,200 นาที"),
     "EX-mrr-086": m("RPT", "RPT001", R, P, "fixture ตาม GD-mrr-001: ห้อง D ปิดปรับปรุง 3,000 นาที + มีการจอง 21/10 ในช่วงปิด", note=RA),
@@ -257,7 +265,7 @@ def hi_pri(brs):
 rows = []
 seq = {}
 for ex in sorted(EX):
-    if ex in EXISTING or ex in PARTIAL_EXISTING or ex in SUPERSEDED:
+    if ex in EXISTING or ex in PARTIAL_EXISTING:
         continue
     if ex not in META:
         sys.exit(f"ไม่มี metadata สำหรับ {ex}")
@@ -267,19 +275,23 @@ for ex in sorted(EX):
         tcid = "TC-BKG-UI006-022"
     elif ex == "EX-mrr-081":
         tcid = "TC-BKG-UI006-028"
+    elif ex in SUPERSEDED:
+        tcid = SUPERSEDED[ex][0]
     else:
         seq[prefix] = seq.get(prefix, 100) + 1
         tcid = f"{prefix}-{seq[prefix]}"
     typ = mt["typ"] or TYPE_OF[d["kind"]]
     steps = (f"1. เตรียม: {mt['pre']}  2. ทำ: {d['when']}  3. ตรวจ: ผลลัพธ์ตามช่อง Expected "
              f"{'(ส่งผ่าน session ของบทบาทนั้นโดยตรง)' if API in mt['note'] else ''}").strip()
+    if ex in SUPERSEDED:  # v1 rule superseded: the case proves the v2 outcome
+        d = dict(d, brs=["BR-mrr-010@v2"], then=SUPERSEDED[ex][1])
     br_txt = " / ".join(b.replace("@v1", "").replace("@v2", " v2") if False else b for b in d["brs"])
     rows.append({
         "TC ID": tcid, "Requirement ID": f"{br_txt} / {ex}", "Function": mt["fn"],
         "Screen": mt["ui"], "Scenario": f"[{d['kind']}] {d['when']}", "Type": typ,
         "Pre-condition": f"[Inferred] {mt['pre']}",
         "Test Data": "ผู้ใช้/ห้องสังเคราะห์ (หัวข้อขึ้นต้น E2E) · วันที่ใช้วันอนาคตแบบสุ่ม ไม่ใช้วันที่ใน EX · ดู §C",
-        "Steps": steps, "Expected Result": f"[Explicit {ex}] {d['then']}",
+        "Steps": steps, "Expected Result": (f"[Superseded {ex}→BR-mrr-010@v2] " if ex in SUPERSEDED else f"[Explicit {ex}] ") + d['then'],
         "Priority": hi_pri(d["brs"]), "Test Level": "E2E", "Data Source": mt["ds"],
         "Automation": mt["auto"], "Tag": "AI-generated",
         "Note": mt["note"] or "",
@@ -312,7 +324,7 @@ n_new = len(rows)
 by_auto = {k: sum(1 for r in rows if r['Automation'] == k) for k in ("Yes", "Partial", "No")}
 n_scripted = sum(1 for r in rows if r["Script"])
 by_pri = {k: sum(1 for r in rows if r['Priority'] == k) for k in RANK}
-out.append(f"- EX ทั้งหมด **{len(EX)}** รายการ · มีสคริปต์แล้ว **{len(EXISTING)}** (ไม่สร้างซ้ำ) · คลุมบางส่วน **{len(PARTIAL_EXISTING)}** · ไม่สร้างเคส **{len(SUPERSEDED)}** (ถูก v2 แทน) · **เคสใหม่ {n_new}**")
+out.append(f"- EX ทั้งหมด **{len(EX)}** รายการ · มีสคริปต์แล้ว **{len(EXISTING)}** (ไม่สร้างซ้ำ) · คลุมบางส่วน **{len(PARTIAL_EXISTING)}** · ไม่สร้างเคส **{len(SUPERSEDED)}** (ถูก v2 แทน — ทำเคสยืนยันผลของ v2 แทน) · **เคสใหม่ {n_new}**")
 out.append(f"- เคสใหม่ตาม Automation: **Yes {by_auto['Yes']}** (เขียนได้ด้วย dev stack ตอนนี้) · **Partial {by_auto['Partial']}** (ต้องเตรียมข้อมูล §C) · **No {by_auto['No']}** (ต้องมีกลไกที่ยังไม่มี §D)")
 out.append(f"- **เขียนสคริปต์แล้ว {n_scripted} จาก {n_new} เคส** (คอลัมน์ Script ใน CSV · อ่านจากชื่อเคสใน `test/e2e/*.spec.ts`) · ที่เหลือรอกลไกใน §D")
 out.append("- Priority: " + " · ".join(f"{k} {v}" for k, v in by_pri.items()) + " — ตาม §3.3 ของ playbook ซึ่งเป็น [Recommended] รอ PO ยืนยัน")
@@ -336,7 +348,7 @@ for ex, tc in EXISTING.items():
 for ex, tc in PARTIAL_EXISTING.items():
     out.append(f"| {ex} | {tc} (บางส่วน) | เสนอเพิ่ม assertion ใน TC เดิมว่า U2/U3 ไม่ได้รับอีเมล — ต้องมีผู้ใช้ที่สอง/สาม |")
 out.append("")
-out.append(f"EX-mrr-031, 032 (BR-mrr-010@v1): ไม่สร้างเคส — ถูก v2 แทนและไม่มี AC (ตาม t2-coverage-report ข้อ 3)\n")
+out.append("EX-mrr-031, 032 (BR-mrr-010@v1 ถูก v2 แทน): สร้างเคส TC-RMM-UI013-108/109 ที่ใช้ given/when เดิมแต่ยืนยันผลของ v2 และว่าผลของ v1 ไม่เกิด — ไม่ได้ยืนยัน then ของ EX ตามตัวอักษร (จะขัดกับ EX-078/079)\n")
 out.append(f"### B2. เคสใหม่ ({n_new} เคส)\n")
 out.append("คอลัมน์เต็มอยู่ใน CSV · ตารางนี้แสดงคอลัมน์สำคัญ · Pre-condition/Test Data/Steps/Expected เต็มดูใน CSV\n")
 out.append("| TC ID | Requirement ID | Type | Priority | Data Source | Automation | Script | Scenario (เมื่อ) | Expected Result (ต้องได้) |\n|---|---|---|---|---|---|---|---|---|")
@@ -372,7 +384,7 @@ oq = [
     ("OQ-T1-03", "[ปิดแล้ว] จำลองอีเมลล่มแบบ real ด้วยการหยุด container mailpit (support/mail.ts) · ส่วน transaction boundary ยังเป็น DQ-mrr-005 / DQ-mrr-014 ที่ PO ยังไม่ตอบ (เคสพิสูจน์พฤติกรรมปัจจุบัน: ล้มทั้งการกระทำ ไม่สร้าง/ไม่เปลี่ยนข้อมูล)", "BR-019, 024", "Dev lead + PO"),
     ("OQ-T1-04", "ผู้ใช้ 'ปุ่มถูกซ่อน' (EX-010, 014, 017, 018, 048, 060, 061, 073, 074) — ยอมรับให้ทดสอบด้วยการยิงคำสั่งตรงผ่าน session ของ browser (Playwright `request`) เป็น E2E หรือควรจัดเป็นระดับ API", "การจัดระดับเคสต่อ Test Level", "QA Lead"),
     ("OQ-T1-05", "EX ที่อ้าง 'ผู้ใช้อีกคน' (EX-003, 004) ยอมรับผู้จองคนเดียวกันได้หรือไม่ เพราะ test/README ใช้ผู้จองคนเดียวมาก่อน", "EX-003, 004 และความหมายของ 'พิสูจน์ข้ามผู้ใช้'", "PO"),
-    ("OQ-T1-06", "ยืนยันว่า EX-mrr-031/032 (BR-mrr-010@v1 ถูกแทนด้วย v2) ไม่ต้องมีเคส", "EX-031, 032", "BA / PO"),
+    ("OQ-T1-06", "[ปิดแล้ว] EX-031/032 (BR-mrr-010@v1 ถูกแทนด้วย v2): ทำเคส TC-RMM-UI013-108/109 ที่ยืนยันผลของ v2 · ยังควรให้ BA / PO ยืนยันว่าจะเก็บ EX สองข้อนี้ไว้หรือถอด หรือเขียนใหม่ให้ตรง v2", "EX-031, 032", "BA / PO"),
     ("OQ-T1-07", "ตัวเลขรายงานในเคสรายงาน (EX-084–087) ผูกกับ GD-mrr-001 · DQ-mrr-010 (decimal ใน DB) ยัง open — หน้าจอแสดง 2 ตำแหน่งตาม EX แต่ไม่ได้ระบุว่าเก็บกี่ตำแหน่ง", "EX-084–087", "PO"),
     ("OQ-T1-08", "ปฏิทิน: DQ-mrr-011 (หัวหน้าเห็นรายละเอียดลูกน้องไหม) ยัง open — EX-068–071 ไม่คลุมกรณีนี้ จึงไม่เขียนเคส", "BR-021", "PO"),
     ("OQ-T1-09", "NFR-mrr-001–004 (โหลด 200 คน, HTTPS, uptime) ไม่ใช่ระดับ E2E — ไม่อยู่ในขอบเขต T1 รอบนี้ (ดู t2-coverage-report ช่องว่างข้อ 1 และ Q-mrr-004)", "NFR", "PO"),
@@ -381,7 +393,7 @@ for r in oq:
     out.append("| " + " | ".join(esc(x) for x in r) + " |")
 out.append("\n## Next Actions\n")
 out.append("1. QA review เคสใหม่ตาม CSV (ปัจจุบัน Tag = AI-generated ทั้งหมด)")
-out.append("2. ผู้ใช้ ห้อง นาฬิกา งานตามเวลา อีเมลล่ม และ fixture รายงาน (t1-reports.spec.ts: EX-047–049, 072, 084–087) พร้อมแล้ว · EX-015 (สร้างห้องใหม่) ทำแล้วใน t1-rooms.spec.ts — E2E ครบทุก EX ยกเว้น EX-031/032 ที่ถูก v2 แทน")
+out.append("2. ผู้ใช้ ห้อง นาฬิกา งานตามเวลา อีเมลล่ม และ fixture รายงาน (t1-reports.spec.ts: EX-047–049, 072, 084–087) พร้อมแล้ว · EX-015 (สร้างห้องใหม่) ทำแล้วใน t1-rooms.spec.ts — E2E ครบทั้ง 105 EX (EX-031/032 ยืนยันผลของ v2 แทน)")
 out.append("3. เริ่มเขียนสคริปต์จากเคส `Automation = Yes` ก่อน (ไม่ต้องรอข้อมูลเพิ่ม)")
 out.append("4. หลังเขียนสคริปต์ ให้รัน T2 อีกครั้ง (Gate G1) แล้วอัปเดต `docs/qa/e2e-ex-map.json`")
 

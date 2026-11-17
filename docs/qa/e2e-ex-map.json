@@ -121,6 +121,14 @@
       "cases": "TC-BKG-UI006-101",
       "note": "booking after the room became approval-only is pending, real"
     },
+    "EX-mrr-031": {
+      "cases": "TC-RMM-UI013-108",
+      "note": "[superseded] BR-mrr-010@v1 ถูก v2 แทน → ให้ given/when เดิม ยืนยันผลของ v2 (การจองเดิมกลับไปรออนุมัติ) และว่าผล v1 ไม่เกิด · ไม่ได้ยืนยัน then ของ EX ตามตัวอักษร · real"
+    },
+    "EX-mrr-032": {
+      "cases": "TC-RMM-UI013-109",
+      "note": "[superseded] BR-mrr-010@v1 ถูก v2 แทน → ให้ given/when เดิม ยืนยันผลของ v2 (การจองที่รออนุมัติใช้ได้เอง ไม่รอกดอนุมัติ) · ไม่ได้ยืนยัน then ของ EX ตามตัวอักษร · real"
+    },
     "EX-mrr-033": {
       "cases": "TC-BKG-UI006-102",
       "note": "form opened before the change, confirmed after: counted at confirm time (UI), real"

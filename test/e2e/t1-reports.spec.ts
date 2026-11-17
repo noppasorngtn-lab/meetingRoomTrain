@@ -1,7 +1,7 @@
 import { expect, test, type APIRequestContext, type Page } from '@playwright/test';
 import { as, stateOf } from './support/world';
 import {
-  changeIssuesBooking, MONTHS, resetIssuesBooking, ROOM_NAME, seedReportFixture, sql, weekdays,
+  changeIssuesBooking, MONTHS, resetIssuesBooking, ROOM_NAME, seedReportFixture, sql, weekdays, withPendingBooking,
 } from './support/report-fixture';
 
 /**
@@ -67,8 +67,11 @@ test.describe('อัตราการใช้งานรายห้อง',
 
   test('[real] TC-RPT-RPT001-107 เปิดรายงาน → B 66.67% อันดับ 1 · A 33.33% อันดับ 2 · ยกเลิก/รออนุมัติ/ปฏิเสธไม่นับ (EX-mrr-084 · BR-mrr-006)', async ({ page }) => {
     await openReport(page, MONTHS.rank);
-    await page.getByTestId('rpt-mrr-001-issue').click();
-    await expect(cell(page, ROOM_NAME.B, 'utilization-pct')).toHaveText('66.67%');
+    // the pending 6/10 booking exists only while the report is issued (see withPendingBooking)
+    await withPendingBooking(async () => {
+      await page.getByTestId('rpt-mrr-001-issue').click();
+      await expect(cell(page, ROOM_NAME.B, 'utilization-pct')).toHaveText('66.67%');
+    });
     await expect(cell(page, ROOM_NAME.A, 'utilization-pct')).toHaveText('33.33%');
     await expect(cell(page, ROOM_NAME.B, 'rank')).toHaveText('1');
     await expect(cell(page, ROOM_NAME.A, 'rank')).toHaveText('2');

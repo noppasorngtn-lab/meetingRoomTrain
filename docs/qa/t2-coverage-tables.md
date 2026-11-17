@@ -83,6 +83,8 @@ EX with no AC (expected only for superseded rules, e.g. BR-mrr-010@v1): EX-mrr-0
 | EX-mrr-028 | happy | TC-APR-UI010-101 | RA cancels on behalf once the meeting started (clock moved), real |
 | EX-mrr-029 | exception | TC-APR-UI010-102 | empty reason refused before the meeting starts; the started-booking case needs a server clock, real |
 | EX-mrr-030 | happy | TC-BKG-UI006-101 | booking after the room became approval-only is pending, real |
+| EX-mrr-031 | exception | TC-RMM-UI013-108 | [superseded] BR-mrr-010@v1 ถูก v2 แทน → ให้ given/when เดิม ยืนยันผลของ v2 (การจองเดิมกลับไปรออนุมัติ) และว่าผล v1 ไม่เกิด · ไม่ได้ยืนยัน then ของ EX ตามตัวอักษร · real |
+| EX-mrr-032 | exception | TC-RMM-UI013-109 | [superseded] BR-mrr-010@v1 ถูก v2 แทน → ให้ given/when เดิม ยืนยันผลของ v2 (การจองที่รออนุมัติใช้ได้เอง ไม่รอกดอนุมัติ) · ไม่ได้ยืนยัน then ของ EX ตามตัวอักษร · real |
 | EX-mrr-033 | boundary | TC-BKG-UI006-102 | form opened before the change, confirmed after: counted at confirm time (UI), real |
 | EX-mrr-034 | alternate | TC-BKG-UI006-103 | capacity does not limit attendees; old and new booking both fine, real |
 | EX-mrr-035 | happy | TC-APR-UI010-103 | RA เปลี่ยนผลเป็นปฏิเสธพร้อมเหตุผล → ปฏิเสธแล้ว · real |

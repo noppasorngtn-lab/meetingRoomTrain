@@ -203,7 +203,7 @@ test.describe('แจ้งเตือนทาง Email', () => {
   });
 
   test('[real] TC-NTF-UI008-101 เปลี่ยนเวลา → Email ถึงผู้จองและผู้เข้าร่วมทุกคน (EX-mrr-021 · BR-mrr-007)', async () => {
-    const slot = nearSlot(10);
+    const slot = nearSlot(10, 6);
     const t = title('เปลี่ยนเวลา');
     const b = await book(clients.u1, 'open', slot, t, [world.users.u2.id, world.users.u3.id]);
     const later = nearSlot(15);
@@ -263,7 +263,7 @@ test.describe.serial('แก้ค่าตั้งห้อง E2E-FLIP (BR-mr
   });
 
   test('[real] TC-RMM-UI013-107 แก้ห้องตอนเวลาเริ่มของการจองหนึ่งพอดี → รายการนั้นถือว่าเริ่มแล้วไม่กลับไปรออนุมัติ รายการที่เริ่มทีหลังกลับ (EX-mrr-080)', async () => {
-    const slot = nearSlot(10);
+    const slot = nearSlot(10, 3);
     const first = await book(clients.u1, 'flip', slot, title('เริ่มพอดี'));
     const later = { startAt: slot.startAt.replace('T10:', 'T11:'), endAt: slot.endAt.replace('T11:', 'T12:') };
     const second = await book(clients.u2, 'flip', later, title('เริ่มทีหลัง'));
@@ -274,6 +274,28 @@ test.describe.serial('แก้ค่าตั้งห้อง E2E-FLIP (BR-mr
     const pending = await pendingIds();
     expect(pending).not.toContain(first.id);
     expect(pending).toContain(second.id);
+  });
+
+  // EX-mrr-031 / 032 เขียนตาม BR-mrr-010@v1 (การจองเดิมไม่ถูกย้อนสถานะเมื่อแก้ห้อง) ซึ่งลูกค้าสั่งเปลี่ยนเป็น v2 แล้ว (CHG-mrr-001):
+  // ระบบจริงทำตรงข้าม. สถานการณ์ (given/when) เดียวกัน เคสสองข้อนี้จึงยืนยัน *ผลของ v2* และยืนยันว่าผลของ v1 "ไม่เกิดขึ้น"
+  // — ไม่ได้ยืนยันข้อความ then ของ EX ตามตัวอักษร (ถ้ายืนยันตามนั้นจะขัดกับ EX-078/079 และกฎปัจจุบัน). ดู OQ-T1-06.
+  test('[real] TC-RMM-UI013-108 [superseded v1→v2] จองห้องที่ไม่ต้องอนุมัติแล้วห้องถูกแก้เป็นต้องอนุมัติ → การจองเดิมที่ยังไม่เริ่ม "ถูกย้อน" ไปรออนุมัติ (EX-mrr-031 · BR-mrr-010@v2)', async () => {
+    const b = await book(clients.u1, 'flip', nearSlot(), title('v1 ไม่ย้อน? v2 ย้อน'));
+    expect(b.status).toBe('CONFIRMED');
+    await settings({ requiresApproval: true });
+    // v1 (EX-031 then): ไม่อยู่ในรายการรออนุมัติ และใช้ห้องได้ตามเดิม — ไม่เป็นจริงอีกต่อไป
+    expect(await pendingIds()).toContain(b.id);
+    expect(await statusOf(b.id)).toBe('PENDING_APPROVAL');
+  });
+
+  test('[real] TC-RMM-UI013-109 [superseded v1→v2] จองห้องที่ต้องอนุมัติแล้วห้องถูกแก้เป็นไม่ต้องอนุมัติ → การจองที่รออนุมัติใช้ได้เอง ไม่รอผู้อนุมัติ (EX-mrr-032 · BR-mrr-010@v2)', async () => {
+    await settings({ requiresApproval: true });
+    const b = await book(clients.u1, 'flip', nearSlot(), title('v1 รอ v2 ปล่อย'));
+    expect(b.status).toBe('PENDING_APPROVAL');
+    await settings({ requiresApproval: false });
+    // v1 (EX-032 then): ก่อนกดอนุมัติ ยังอยู่ในรายการรออนุมัติ ไม่ถูกปล่อยเอง — ไม่เป็นจริงอีกต่อไป
+    expect(await pendingIds()).not.toContain(b.id);
+    expect(await statusOf(b.id)).toBe('CONFIRMED');
   });
 
   test('[real] TC-BKG-UI006-101 หลังแก้ห้องเป็นต้องอนุมัติ ผู้ใช้อีกคนจอง → รออนุมัติ ใช้ค่าตั้งใหม่ (EX-mrr-030)', async () => {

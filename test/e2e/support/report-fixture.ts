@@ -54,10 +54,9 @@ const everyWeekday = (room: Letter, month: string, from: string, to: string, sta
 function bookings(): Booking[] {
   const M = MONTHS;
   return [
-    // EX-084 — A: 09:00–12:20 on every weekday (200 × 22 = 4,400) + the three that do not count
+    // EX-084 — A: 09:00–12:20 on every weekday (200 × 22 = 4,400) + two of the three that do not count (the pending one: see withPendingBooking)
     ...everyWeekday('A', M.rank, '09:00', '12:20', 'CONFIRMED'),
     { room: 'A', month: M.rank, day: 5, from: '13:00', to: '15:00', status: 'CANCELLED' },
-    { room: 'A', month: M.rank, day: 6, from: '13:00', to: '14:00', status: 'PENDING_APPROVAL' },
     { room: 'A', month: M.rank, day: 7, from: '13:00', to: '14:00', status: 'REJECTED' },
     // B: 08:00–14:40 on every weekday (400 × 22 = 8,800); half of them approved, half needing no approval
     ...everyWeekday('B', M.rank, '08:00', '14:40', 'CONFIRMED').filter((_, i) => i % 2 === 0),
@@ -96,7 +95,7 @@ export function seedReportFixture() {
   );
   psql(
     `insert into bookings (room_id, room_version_id, booked_by, title, start_at, end_at, status) ` +
-      `select r.id, r.current_version_id, ${sqlText(world.users.u1.id)}, ${sqlText(TITLE)}, v.s::timestamptz, v.e::timestamptz, v.st ` +
+      `select r.id, r.current_version_id, ${sqlText(world.users.rpt.id)}, ${sqlText(TITLE)}, v.s::timestamptz, v.e::timestamptz, v.st ` +
       `from (values ${rows.join(',')}) as v(room, s, e, st) join meeting_rooms r on r.id = v.room::uuid`,
   );
   for (const c of closures) {
@@ -125,3 +124,23 @@ export function resetIssuesBooking() {
 
 /** Raw statement for the "the table itself refuses" checks. */
 export const sql = psql;
+
+/**
+ * EX-084's third booking that does not count, 'รออนุมัติ' 6/10 13:00–14:00. A pending booking whose start has passed is
+ * cancelled by the api's own timer within a minute (BR-mrr-016) — and mailed about — so it exists only for the moment
+ * the report is issued: `during` runs with it in place and it is removed afterwards, whatever happens.
+ */
+export async function withPendingBooking<T>(during: () => Promise<T>): Promise<T> {
+  const where = `title = ${sqlText(TITLE)} and room_id = ${sqlText(roomId('A'))} and start_at = ${sqlText(at(MONTHS.rank, 6, '13:00'))}::timestamptz`;
+  psql(`delete from bookings where ${where}`);
+  psql(
+    `insert into bookings (room_id, room_version_id, booked_by, title, start_at, end_at, status) ` +
+      `select r.id, r.current_version_id, ${sqlText(world.users.rpt.id)}, ${sqlText(TITLE)}, ${sqlText(at(MONTHS.rank, 6, '13:00'))}::timestamptz, ` +
+      `${sqlText(at(MONTHS.rank, 6, '14:00'))}::timestamptz, 'PENDING_APPROVAL' from meeting_rooms r where r.id = ${sqlText(roomId('A'))}`,
+  );
+  try {
+    return await during();
+  } finally {
+    psql(`delete from bookings where ${where}`);
+  }
+}

@@ -53,6 +53,15 @@ export default async function globalSetup(_config: FullConfig) {
   // A run that stopped halfway can leave the app's clock moved (support/clock.ts); put it back before signing in.
   await fetch('http://localhost:3000/__test/clock', { method: 'POST', headers: { 'content-type': 'application/json' }, body: '{"now":null}' }).catch(() => undefined);
 
+  // Bookings made by earlier runs cannot be deleted (their audit trail is append-only, BR-mrr-018), so on the E2E rooms
+  // they pile up until no free hour is left — then `book()` has to move days and the cases that set the clock first
+  // break. Cancelling them (a status change; the audit rows stay) gives the hours back. Only synthetic rows (title
+  // starts with E2E), and not the report fixture, which lives in the past and is re-seeded by its own spec.
+  psql(
+    "update bookings set status = 'CANCELLED', cancel_reason = coalesce(cancel_reason, 'E2E cleanup') " +
+      "where title like 'E2E%' and title not like 'E2E RPT%' and end_at > now() and status in ('CONFIRMED', 'APPROVED', 'PENDING_APPROVAL')",
+  );
+
   // Rooms by their settings, not by name: the specs read them from here. The E2E rooms are left out so
   // "the first room" stays what it was before they existed.
   const rooms = psql(
