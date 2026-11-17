@@ -81,7 +81,7 @@
         "rbac.json"
       ],
       "attempts": 1,
-      "updatedAt": "2026-10-22T10:08:08Z"
+      "updatedAt": "2026-11-17T12:32:22Z"
     },
     {
       "id": "nfr",
@@ -109,7 +109,7 @@
         "modules/<module>/screens.json"
       ],
       "attempts": 1,
-      "updatedAt": "2026-10-22T10:17:11Z"
+      "updatedAt": "2026-11-17T12:32:28Z"
     },
     {
       "id": "interface",
@@ -123,7 +123,7 @@
         "interfaces.json"
       ],
       "attempts": 1,
-      "updatedAt": "2026-10-22T08:36:41Z"
+      "updatedAt": "2026-11-17T12:32:46Z"
     },
     {
       "id": "export",

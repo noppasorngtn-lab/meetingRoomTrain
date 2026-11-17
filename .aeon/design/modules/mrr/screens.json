@@ -4,7 +4,7 @@
   "project": "mrr",
   "module": "mrr",
   "status": "approved",
-  "approvedAt": "2026-10-22T10:37:18Z",
+  "approvedAt": "2026-11-17T12:38:32Z",
   "approvedBy": "Noppasorn",
   "screens": [
     {
@@ -371,6 +371,14 @@
           "rules": []
         },
         {
+          "key": "date",
+          "name": "วันที่",
+          "io": "capture",
+          "required": true,
+          "validation": "วันที่ในรูปแบบวัน/เดือน/ปี · ไม่ระบุ = วันนี้ · ช่วงที่แสดงตามมุมมอง (วัน · สัปดาห์ · เดือน) ของวันที่นี้",
+          "rules": []
+        },
+        {
           "key": "slot-time",
           "name": "ช่วงเวลาที่ถูกจอง",
           "io": "display",
@@ -430,10 +438,37 @@
           "rules": []
         },
         {
+          "key": "previous",
+          "name": "ก่อนหน้า",
+          "kind": "filter",
+          "effect": "เลื่อนช่วงที่ดูไปก่อนหน้า 1 วัน · 1 สัปดาห์ · 1 เดือน ตามมุมมองที่เลือก",
+          "destination": "อยู่ที่หน้าเดิม",
+          "destinationRef": "self",
+          "rules": []
+        },
+        {
+          "key": "next",
+          "name": "ถัดไป",
+          "kind": "filter",
+          "effect": "เลื่อนช่วงที่ดูไปถัดไป 1 วัน · 1 สัปดาห์ · 1 เดือน ตามมุมมองที่เลือก",
+          "destination": "อยู่ที่หน้าเดิม",
+          "destinationRef": "self",
+          "rules": []
+        },
+        {
+          "key": "today",
+          "name": "วันนี้",
+          "kind": "filter",
+          "effect": "กลับมาดูช่วงที่มีวันนี้อยู่",
+          "destination": "อยู่ที่หน้าเดิม",
+          "destinationRef": "self",
+          "rules": []
+        },
+        {
           "key": "book-slot",
-          "name": "จองช่วงที่ว่าง",
+          "name": "ไปหน้าจองห้อง",
           "kind": "navigate",
-          "effect": "เปิดฟอร์มจองพร้อมช่วงเวลาที่เลือก",
+          "effect": "เปิดหน้าจองห้องประชุมพร้อมห้องและวันที่ที่กำลังดู — ผู้ใช้เลือกเวลาเริ่มและสิ้นสุดในหน้าจอง",
           "destination": "หน้าจองห้องประชุม",
           "destinationRef": "UI-mrr-006",
           "rules": []
@@ -450,10 +485,14 @@
         {
           "name": "toolbar",
           "fields": [
-            "view"
+            "view",
+            "date"
           ],
           "actions": [
-            "switch-view"
+            "switch-view",
+            "previous",
+            "today",
+            "next"
           ]
         },
         {
@@ -1455,16 +1494,6 @@
           ]
         },
         {
-          "key": "photos",
-          "name": "รูปภาพ",
-          "io": "capture",
-          "required": false,
-          "validation": "ไฟล์ภาพ ไม่บังคับ",
-          "entity": "ENT-003",
-          "attribute": "photos",
-          "rules": []
-        },
-        {
           "key": "facilities",
           "name": "สิ่งอำนวยความสะดวก",
           "io": "capture",
@@ -1539,7 +1568,7 @@
         "loading": "ปุ่มบันทึกถูกปิดระหว่างบันทึก",
         "error": "ข้อมูลไม่ครบหรือรหัสซ้ำ — ชี้ช่องที่ผิด ไม่สร้างเวอร์ชันใหม่",
         "unauthorized": "ไม่ใช่ Room Administrator — 'คุณไม่มีสิทธิ์เข้าหน้านี้' และ API ปฏิเสธ",
-        "overflow": "ชื่อเกิน 100 ตัวอักษรไม่รับ · รูปภาพเกินขนาดที่กำหนดไม่รับและแจ้งที่ช่อง"
+        "overflow": "ชื่อเกิน 100 ตัวอักษรไม่รับ"
       },
       "zones": [
         {
@@ -1548,7 +1577,6 @@
             "code",
             "name",
             "capacity",
-            "photos",
             "facilities",
             "version"
           ],
@@ -1575,7 +1603,7 @@
     {
       "id": "UI-mrr-014",
       "title": "สิ่งอำนวยความสะดวก",
-      "purpose": "Room Administrator เพิ่ม แก้ชื่อ หรือปิดใช้รายการสิ่งอำนวยความสะดวกที่ใช้กรองและเลือกตอนจอง",
+      "purpose": "Room Administrator เพิ่ม แก้ชื่อ ปิดใช้ หรือเปิดใช้กลับรายการสิ่งอำนวยความสะดวกที่ใช้กรองและเลือกตอนจอง — เห็นรายการทั้งหมดรวมที่ปิดใช้แล้ว",
       "dataBearing": true,
       "kind": "master",
       "roles": [
@@ -1597,7 +1625,7 @@
           "name": "ใช้งาน",
           "io": "capture",
           "required": true,
-          "validation": "ปิดแล้วไม่แสดงเป็นตัวเลือกใหม่ ข้อมูลเดิมคงไว้",
+          "validation": "ปิดแล้วไม่แสดงเป็นตัวเลือกใหม่ ข้อมูลเดิมคงไว้ · รายการที่ปิดแล้วยังแสดงในหน้านี้และเปิดใช้งานกลับได้",
           "entity": "ENT-004",
           "attribute": "active",
           "rules": []

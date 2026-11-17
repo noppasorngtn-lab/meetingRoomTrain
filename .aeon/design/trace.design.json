@@ -3398,6 +3398,21 @@
       "from": "UI-mrr-006",
       "rel": "calls",
       "to": "API-022"
+    },
+    {
+      "from": "FUN-mrr-009",
+      "rel": "exposedAs",
+      "to": "API-036"
+    },
+    {
+      "from": "UI-mrr-014",
+      "rel": "calls",
+      "to": "API-036"
+    },
+    {
+      "from": "API-036",
+      "rel": "governedByAcl",
+      "to": "ACL-041"
     }
   ]
 }

@@ -3,7 +3,7 @@
   "producedBy": "design · scripts/rbac.mjs",
   "project": "mrr",
   "status": "approved",
-  "approvedAt": "2026-11-17T12:21:47Z",
+  "approvedAt": "2026-11-17T12:38:32Z",
   "approvedBy": "Noppasorn",
   "defaultEffect": "deny",
   "roles": [
@@ -593,6 +593,17 @@
           "UNDER_MAINTENANCE"
         ]
       }
+    },
+    {
+      "id": "ACL-041",
+      "role": "ROLE-002",
+      "resource": "UI-mrr-014",
+      "action": "อ่านรายการสิ่งอำนวยความสะดวกทั้งหมดรวมที่ปิดใช้แล้ว เพื่อแก้ชื่อหรือเปิดใช้งานกลับ — ผู้ใช้บทบาทอื่นอ่านได้เฉพาะรายการที่ใช้งานอยู่ (ACL-001)",
+      "scope": "all",
+      "enforceAt": [
+        "api",
+        "domain"
+      ]
     }
   ],
   "fieldRules": [
