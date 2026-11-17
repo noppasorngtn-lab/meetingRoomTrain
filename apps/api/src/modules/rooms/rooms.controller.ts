@@ -6,7 +6,9 @@ import { Caller, CurrentUser, UUID } from '../../common/auth/current-user';
 import { NotRoomAdministrator } from '../booking/room-admin';
 import { EmailDeliveryFailed } from '../notification/booking-notifier';
 import { Facility, FacilityNotFound, RoomAdminService, RoomDetail, RoomInvalid, RoomPage, RoomVersionInput } from './room-admin.service';
+import { isCalendarDate } from '../calendar/calendar-range';
 import { RoomMaintenanceService } from './room-maintenance.service';
+import { AvailableRoom, RoomSearch, RoomSearchService } from './room-search.service';
 import { FacilityOption, RoomInfo, RoomInfoNotFound, RoomsService } from './rooms.service';
 
 const invalid = (field: string, message: string) => new BadRequestException({ statusCode: 400, field, message });
@@ -18,6 +20,32 @@ function answer(err: unknown): never {
   if (err instanceof NotRoomAdministrator) throw new ForbiddenException(err.message);
   if (err instanceof EmailDeliveryFailed) throw new ServiceUnavailableException(err.message);
   throw err;
+}
+
+const HH_MM = /^([01]\d|2[0-3]):[0-5]\d$/;
+
+/** The search query as the URL carries it, checked and turned into instants — Bangkok, as the calendar reads a day. */
+function searchOf(q: { date: unknown; start: unknown; end: unknown; attendees: unknown; facilities: unknown }): RoomSearch {
+  if (typeof q.date !== 'string' || !isCalendarDate(q.date)) throw invalid('date', 'date ต้องเป็นวันที่ YYYY-MM-DD');
+  if (typeof q.start !== 'string' || !HH_MM.test(q.start)) throw invalid('start', 'start ต้องเป็นเวลา HH:MM');
+  if (typeof q.end !== 'string' || !HH_MM.test(q.end)) throw invalid('end', 'end ต้องเป็นเวลา HH:MM');
+  const startAt = new Date(`${q.date}T${q.start}:00+07:00`);
+  const endAt = new Date(`${q.date}T${q.end}:00+07:00`);
+  if (endAt <= startAt) throw invalid('end', 'เวลาสิ้นสุดต้องหลังเวลาเริ่ม');
+
+  let attendees: number | undefined;
+  if (q.attendees !== undefined) {
+    if (typeof q.attendees !== 'string' || !/^[1-9]\d*$/.test(q.attendees)) throw invalid('attendees', 'attendees ต้องเป็นจำนวนเต็มตั้งแต่ 1');
+    attendees = Number(q.attendees);
+  }
+
+  let facilityIds: string[] = [];
+  if (q.facilities !== undefined) {
+    const ids = typeof q.facilities === 'string' ? q.facilities.split(',') : [];
+    if (ids.length === 0 || !ids.every((f) => UUID.test(f))) throw invalid('facilities', 'facilities ต้องเป็นรายการ id คั่นด้วย ,');
+    facilityIds = ids;
+  }
+  return { startAt, endAt, attendees, facilityIds };
 }
 
 const STATUSES = ['ACTIVE', 'UNDER_MAINTENANCE', 'ARCHIVED'] as const;
@@ -50,6 +78,7 @@ export class RoomsController {
     private readonly rooms: RoomsService,
     private readonly maintenance: RoomMaintenanceService,
     private readonly admin: RoomAdminService,
+    private readonly search: RoomSearchService,
   ) {}
 
   /** API-020 — 20 to a page, by code; ?status= picks one state, archived rooms only that way. */
@@ -86,6 +115,22 @@ export class RoomsController {
     } catch (err) {
       answer(err);
     }
+  }
+
+  /**
+   * API-001 — the rooms free for a day and time, with seats enough and the facilities asked for (UC-mrr-001).
+   * Declared before `:id`, or "available" would be read as a room id.
+   */
+  @Get('available')
+  async available(
+    @CurrentUser() _caller: Caller,
+    @Query('date') date: unknown,
+    @Query('start') start: unknown,
+    @Query('end') end: unknown,
+    @Query('attendees') attendees: unknown,
+    @Query('facilities') facilities: unknown,
+  ): Promise<AvailableRoom[]> {
+    return this.search.available(searchOf({ date, start, end, attendees, facilities }));
   }
 
   @Get(':id')
