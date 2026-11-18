@@ -1,6 +1,7 @@
 import { execFileSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import { expect, test, type Browser, type Page } from '@playwright/test';
+import { myBookingsPageOf } from './support/my-bookings';
 
 /**
  * เคสจาก T1 (docs/qa/t1-test-cases.csv) ที่ Automation = Yes — เขียนสคริปต์ได้ด้วย dev stack ตอนนี้
@@ -108,15 +109,8 @@ test.describe('General User — การจองของฉัน / ห้อ
     return { id: body.id as string };
   }
 
-  /** หน้าของ "การจองของฉัน" ที่การจองนี้อยู่ (ท้ายรายการ เพราะเรียงเริ่มล่าสุดก่อน) */
-  async function pageOf(page: Page, id: string) {
-    for (let n = 1; n <= 50; n++) {
-      const data = await (await page.request.get(`/me/bookings?page=${n}`)).json();
-      if (data.items.some((b: { id: string }) => b.id === id)) return n;
-      if (n * data.pageSize >= data.total) break;
-    }
-    throw new Error(`ไม่พบการจอง ${id} ใน "การจองของฉัน"`);
-  }
+  /** หน้าของ "การจองของฉัน" ที่การจองนี้อยู่ — เดินทุกหน้าตามจำนวนรวมที่ api บอก (ดู support/my-bookings.ts) */
+  const pageOf = (page: Page, id: string) => myBookingsPageOf(page.request, id);
 
   test('[real] precondition: ผู้ใช้ที่ล็อกอินเป็น General User', async ({ page }) => {
     const me = await (await page.request.get('/auth/me')).json();

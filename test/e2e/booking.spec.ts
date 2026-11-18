@@ -1,6 +1,7 @@
 import { execFileSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import { expect, test, type Page } from '@playwright/test';
+import { myBookingsPageOf } from './support/my-bookings';
 
 /**
  * UI-mrr-006 (create a booking · API-004). Titles carry the design's state or the rule they check.
@@ -129,6 +130,8 @@ test.describe.serial('จองสำเร็จและจองซ้ำ (BR
     expect(body.status).toBe('CONFIRMED');
     await expect(page).toHaveURL(/\/UI-mrr-007/);
     await expect(page.getByText(body.message, { exact: true })).toBeVisible();
+    // "การจองของฉัน" เรียงเริ่มช้าสุดก่อนและสะสมแถวจากรอบก่อน ๆ — ไปหน้าที่การจองนี้อยู่จริง ไม่คาดว่าอยู่หน้า 1
+    await page.goto(`/UI-mrr-007?page=${await myBookingsPageOf(page.request, body.id)}`);
     await expect(page.getByTestId('ui-mrr-007-ent-007-title').filter({ hasText: `E2E จองห้องสำเร็จ ${RUN}` })).toBeVisible();
   });
 
@@ -155,6 +158,8 @@ test.describe.serial('จองสำเร็จและจองซ้ำ (BR
     expect(body.message).toBe('ส่งคำขอจองแล้ว รอการอนุมัติ'); // TC-BKG-UI006-025 · EX-mrr-012
     await expect(page).toHaveURL(/\/UI-mrr-007/);
     await expect(page.getByText(body.message, { exact: true })).toBeVisible();
+    // "การจองของฉัน" เรียงเริ่มช้าสุดก่อนและสะสมแถวจากรอบก่อน ๆ — ไปหน้าที่การจองนี้อยู่จริง ไม่คาดว่าอยู่หน้า 1
+    await page.goto(`/UI-mrr-007?page=${await myBookingsPageOf(page.request, body.id)}`);
     await expect(page.getByTestId('ui-mrr-007-ent-007-title').filter({ hasText: `E2E รออนุมัติ ${RUN}` })).toBeVisible();
   });
 });
