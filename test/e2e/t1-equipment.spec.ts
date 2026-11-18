@@ -40,11 +40,13 @@ async function book(page: Page, title: string, equipment: string[]) {
   return { res: await created, slot: s };
 }
 
-test('[real] TC-BKG-UI006-104 เลือกอุปกรณ์เสริม 1 รายการแล้วจอง → รับการจอง และบันทึกอุปกรณ์ตรงที่เลือก (BR-mrr-002 · [Recommended] ฝั่ง "เลือก" ของ EP)', async ({ page }) => {
+test('[real] TC-BKG-UI006-104 เลือกอุปกรณ์เสริม 1 รายการแล้วจอง → รับการจอง และบันทึกอุปกรณ์ตรงที่เลือก (EX-mrr-119 · BR-mrr-002 · ฝั่ง "เลือก" ของ EP)', async ({ page }) => {
   const title = `E2E อุปกรณ์ 1 ${RUN}`;
   const { res } = await book(page, title, ['E2E Projector']);
   expect(res.status(), await res.text()).toBe(201);
-  expect(((await res.json()) as { status: string }).status).toBe('CONFIRMED'); // E2E Open Room ไม่ต้องอนุมัติ
+  const created = (await res.json()) as { status: string; message: string };
+  expect(created.status).toBe('CONFIRMED'); // E2E Open Room ไม่ต้องอนุมัติ
+  expect(created.message).toBe('จองห้องสำเร็จ'); // EX-mrr-119
   await expect(page).toHaveURL(/\/UI-mrr-007/);
   expect(equipmentOf(title)).toEqual(['E2E Projector']); // บันทึกจริงในฐานข้อมูล ไม่ใช่แค่ส่งไปกับคำขอ
 });
