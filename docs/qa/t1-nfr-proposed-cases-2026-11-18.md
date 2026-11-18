@@ -1,6 +1,6 @@
 # T1 ข้อเสนอเคส NFR-mrr-001–004 และ AC-mrr-115 (2026-11-18)
 
-**สถานะ:** ข้อเสนอ — ยังไม่ผ่าน QA review · ยังไม่ได้เขียนสคริปต์ · ไม่ได้รวมใน `t1-test-cases.csv` · Tag = AI-generated ·
+**สถานะ:** ข้อเสนอ (ปรับตามคำตอบ OQ ข้อ 1–3 เมื่อ 2026-11-18 · ข้อ 4 ยังรอ PO) — ยังไม่ผ่าน QA review · ยังไม่ได้เขียนสคริปต์ · ไม่ได้รวมใน `t1-test-cases.csv` · Tag = AI-generated ·
 ที่มา: T2 พบ AC-mrr-115 ไม่มีเทสอ้างถึง และ NFR-mrr-001–004 ไม่มีเทสอ้างถึง
 
 ## 1) AC-mrr-115 · BR-mrr-020@v2
@@ -13,21 +13,16 @@ T2 นับชั้น e2e จาก `docs/qa/e2e-ex-map.json` (ผูกด�
 | TC ID (เสนอ) | Requirement | Scenario | Type | Pre-condition / Test Data | Steps | Expected Result | Priority | Level | Data Source | Automation | Tag | Note |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
 | TC-NFR-REQ001-101 | NFR-mrr-001 | ไม่มีทางเข้าสู่ระบบแบบ SSO/AD | Negative | หน้า UI-mrr-001 · ผู้ใช้ `tester@mrr.local` | 1. เปิดหน้าเข้าสู่ระบบ 2. ดูทางเข้าทั้งหมด | มีเฉพาะทางเข้าด้วย Email (รหัส/magic link) ไม่มีปุ่ม SSO/AD | Medium | E2E | real | Yes | AI-generated | [Explicit NFR-mrr-001] · ข้อความบนหน้าจอ [TBD] |
-| TC-NFR-REQ001-102 | NFR-mrr-003 | เรียก API โดยไม่มี session | Negative | ไม่ล็อกอิน | 1. เรียก endpoint ที่ต้องมีสิทธิ์ (เช่น แก้ห้อง) | ถูกปฏิเสธ ข้อมูลไม่เปลี่ยน | High | API | real | Yes | AI-generated | [Inferred] · RBAC คลุมบางส่วนแล้วด้วย EX-017/018/090 — ผูก NFR-003 เพิ่มแทนเขียนใหม่ |
-| TC-NFR-REQ001-103 | NFR-mrr-003 | เข้าถึงผ่าน HTTP ธรรมดา | Negative | ระบบบน HTTPS | 1. เรียกด้วย `http://` | ไม่ให้เนื้อหาโดยไม่เข้ารหัส | High | API | real | Partial | AI-generated | [Inferred] · stack dev (localhost:4173) เป็น HTTP · สภาพแวดล้อมที่ตรวจ [TBD] |
-| TC-NFR-REQ001-104 | NFR-mrr-002 | 200 ผู้ใช้พร้อมกัน เปิดตารางห้อง | Boundary | ผู้ใช้สังเคราะห์ 200 บัญชี `loadNNN@mrr.local` | 1. ยิง 200 session พร้อมกัน 2. เปิดตารางห้อง | โหลดเสร็จภายใน 2 วินาที | High | Load | real | Yes | AI-generated | [Explicit NFR-mrr-002] · จุดวัด/เปอร์เซ็นไทล์ [TBD] |
-| TC-NFR-REQ001-105 | NFR-mrr-002 | 201 ผู้ใช้พร้อมกัน (เกินขอบ) | Boundary | เหมือนข้างบน +1 | ยิง 201 session | [TBD] ยังไม่มีเกณฑ์ | Low | Load | real | Partial | AI-generated | [TBD] |
-| TC-NFR-REQ001-106 | NFR-mrr-004 | Uptime 99.9% | — | — | ตรวจจาก monitoring ตามรอบเวลา | ≥ 99.9% | Medium | — | — | No | AI-generated | ทดสอบเชิงฟังก์ชันไม่ได้ · รอบเวลาวัด [TBD] |
+| ~~TC-NFR-REQ001-102~~ | NFR-mrr-003 | ~~เรียก API โดยไม่มี session~~ → **ไม่สร้างเคสใหม่** (OQ 3b ตอบ ก) | — | — | — | ผูก NFR-003 เข้ากับเคสเดิม: TC-RMM-UI013-102 (EX-017), EX-018, TC-RMM-UI014-101 (EX-090) | — | — | — | — | — | [Explicit - OQ 3b] · เคส 'ไม่มี session' ที่เสนอไว้ตัดออก |
+| TC-NFR-REQ001-103 | NFR-mrr-003 | เข้าถึงผ่าน HTTP ธรรมดา | Negative | ระบบบน HTTPS | 1. เรียกด้วย `http://` | ไม่ให้เนื้อหาโดยไม่เข้ารหัส | High | API | real | Yes (หลัง Dev เพิ่ม HTTPS) | AI-generated | [Inferred] · OQ 3a ตอบ (ค): เพิ่ม HTTPS ใน stack dev แล้วตรวจที่นั่น · **รอ Dev** |
+| TC-NFR-REQ001-104 | NFR-mrr-002 | 200 ผู้ใช้พร้อมกัน เปิดตารางห้อง | Boundary | ผู้ใช้สังเคราะห์ 200 บัญชี `loadNNN@mrr.local` | 1. ยิง 200 คำขอเปิดตารางห้องพร้อมกันครั้งเดียว (OQ 1d ข) 2. วัดเวลาจนตารางแสดงข้อมูลครบ (OQ 1a ก) | **ทุกคำขอ** โหลดเสร็จภายใน 2 วินาที (OQ 1b ก — ไม่ใช่ p95/ค่าเฉลี่ย) | High | Load | real | Yes | AI-generated | [Explicit NFR-mrr-002 + OQ ตอบ 2026-11-18] · ค่า 1a/1b/1d ยังไม่อยู่ใน wiki — รอ req |
+| TC-NFR-REQ001-105 | NFR-mrr-002 | 201 ผู้ใช้พร้อมกัน (เกินขอบ) | Boundary | เหมือนข้างบน +1 | ยิง 201 คำขอพร้อมกัน | ระบบ**ไม่ล่ม** (ช้ากว่า 2 วินาทีได้) · ทุกคำขอได้คำตอบ ไม่ใช่ error/ไม่ตอบ | Low | Load | real | Yes | AI-generated | [Explicit - OQ 1c ข] · นิยาม "ไม่ล่ม" เช่น ไม่มี 5xx/timeout และบริการกลับมาปกติหลังจบ — [TBD] ยืนยัน |
+| TC-NFR-REQ001-106 | NFR-mrr-004 | Uptime 99.9% | — | หลังขึ้นระบบจริง | คำนวณจาก log ของระบบ (OQ 2c ข) รายเดือน (OQ 2a ก) ไม่นับช่วงปิดบำรุงรักษาตามแผน (OQ 2b ข) | ≥ 99.9% ต่อเดือน | Medium | — | — | No | AI-generated | [Explicit - OQ 2] · วัดได้หลังขึ้นระบบเท่านั้น ไม่ใช่เคส E2E · log ต้องมีข้อมูลพอ [TBD] |
 
-## Open Questions (TBD - Require Business Confirmation)
-
-| # | คำถาม | ผู้ตอบที่เสนอ |
-|---|---|---|
-| 1 | NFR-002: "โหลดเสร็จ" วัดที่ใด · ใช้ p95 หรือค่าเฉลี่ย · มีเกณฑ์เมื่อเกิน 200 คนหรือไม่ (Q-mrr-004 ยังไม่ครอบคลุม) | PO / BA |
-| 2 | NFR-004: ช่วงเวลาวัด Uptime และนับ maintenance window หรือไม่ | PO / Ops |
-| 3 | NFR-003: ตรวจ HTTPS ในสภาพแวดล้อมไหน (stack dev เป็น HTTP) | Dev / Ops |
-| 4 | NFR-001/003/004 รอบนี้ต้องมีเคสทดสอบ หรือจัดเป็น "พิสูจน์ด้วยวิธีอื่น" (ฟิลด์ "พิสูจน์ด้วย" ใน wiki ว่าง) | PO |
+## Open Questions
+คำตอบข้อ 1–3 อยู่ใน [oq-nfr-questions-2026-11-18.md](oq-nfr-questions-2026-11-18.md) · **ข้อ 4 ยังเปิด** (NFR-001/003/004 รอบนี้ต้องมีเคส หรือพิสูจน์ด้วยวิธีอื่น — ผู้ตอบ: PO) · เคส TC-NFR-REQ001-101 (NFR-001) ยังไม่ได้ทำจนกว่าข้อ 4 ตอบ
 
 ## Next Actions
-1. รอคำตอบ OQ 1–4 ก่อนเขียนสคริปต์ (เคส 104–106 ตัวเลขยังไม่ครบ)
-2. Dev ทำ fixture ผู้รับ U3 ล้ม (OQ-T1-15) แล้วเปลี่ยน TC-NTF-JOB-110 จาก `test.fixme` เป็นเคสจริง · จากนั้นเพิ่ม EX-mrr-112 ใน `e2e-ex-map.json` แล้วรัน T2 ซ้ำ
+1. ขอ req บันทึกค่าที่ตอบ (NFR-002: ทุกคำขอ/ครบข้อมูล/ไม่ล่มเมื่อเกิน/200 พร้อมกันครั้งเดียว · NFR-004: รายเดือน/ไม่นับบำรุงรักษา/จาก log) ผ่าน /req:*
+2. Dev เพิ่ม HTTPS ใน stack dev (TC-103) · ทำ fixture ผู้รับ U3 ล้ม (OQ-T1-15) แล้วเพิ่ม EX-mrr-112 ใน `e2e-ex-map.json` · รัน T2 ซ้ำ
+3. PO ตอบข้อ 4 → จากนั้นเขียนสคริปต์เคส 101, 104, 105 (เคส 106 วัดหลังขึ้นระบบ)
