@@ -155,7 +155,7 @@ test('[real] TC-NTF-UI009-103 RA ปฏิเสธ → ปฏิเสธแล
   await setClock(now);
   const res = await clients.ra1.post(`/bookings/${b.id}/reject`, { data: { reason: REJECT_REASON } });
   expect(res.status(), await res.text()).toBeLessThan(300);
-  expect.soft(await msgOf(res), 'ข้อความที่ RA เห็น (EX)').toBe('ปฏิเสธการจอง');
+  expect(await msgOf(res)).toBe('ปฏิเสธการจองสำเร็จ'); // เจ้าของตอบ 2026-11-18 · EX-118/120 เขียน 'ปฏิเสธการจอง' — req ต้องแก้ EX
   expect(await statusOf(b.id)).toBe('REJECTED');
   const got = await mailsArrived(`${P} ปฏิเสธการจอง:`, t);
   expect(got).toHaveLength(1);
@@ -184,7 +184,7 @@ test.describe('ค่าช่อง "การกระทำ" ของร่�
     await setClock(now);
     const res = await clients.ra1.post(`/bookings/${b.id}/reject`, { data: { reason: REJECT_REASON } });
     expect(res.status(), await res.text()).toBeLessThan(300);
-    expect.soft(await msgOf(res), 'ข้อความที่ RA เห็น (EX)').toBe('ปฏิเสธการจอง');
+    expect(await msgOf(res)).toBe('ปฏิเสธการจองสำเร็จ'); // เจ้าของตอบ 2026-11-18 · EX-118/120 เขียน 'ปฏิเสธการจอง' — req ต้องแก้ EX
     expect(await statusOf(b.id)).toBe('REJECTED');
     const trail = await trailOf(b.id);
     expect(trail).toHaveLength(1);
@@ -221,7 +221,7 @@ test.describe('ค่าช่อง "การกระทำ" ของร่�
     await setClock(at(startOf(slot), 30 * 60_000));
     const res = await clients.ra1.post(`/bookings/${b.id}/admin-edit`, { data: { title: title('ประชุมวางแผน', t), reason: 'ผู้จองพิมพ์หัวข้อผิด' } });
     expect(res.status(), await res.text()).toBeLessThan(300);
-    expect.soft(await msgOf(res), 'ข้อความที่ RA เห็น (EX)').toBe('บันทึกการแก้ไข');
+    expect(await msgOf(res)).toBe('บันทึกการแก้ไขสำเร็จ'); // เจ้าของตอบ 2026-11-18 · EX-122 เขียน 'บันทึกการแก้ไข' — req ต้องแก้ EX
     expect((await (await clients.ra1.get(`/bookings/${b.id}`)).json()).title).toBe(title('ประชุมวางแผน', t));
     const trail = await trailOf(b.id);
     expect(trail).toHaveLength(1);

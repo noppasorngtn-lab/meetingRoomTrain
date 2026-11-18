@@ -467,7 +467,7 @@
     },
     "EX-mrr-118": {
       "cases": "TC-NTF-UI009-103",
-      "note": "RA rejects with reason: expects message 'ปฏิเสธการจอง', mail 'ปฏิเสธการจอง:' to U1/U2, trail with reason, real · only the message assertion fails ('ปฏิเสธการจองสำเร็จ' vs EX 'ปฏิเสธการจอง', awaiting req); mail + trail pass after v2 fix"
+      "note": "RA rejects with reason: expects message 'ปฏิเสธการจอง', mail 'ปฏิเสธการจอง:' to U1/U2, trail with reason, real · PASS after v2 fix (message 'ปฏิเสธการจองสำเร็จ' per owner; EX text lacks 'สำเร็จ' — req to fix EX)"
     },
     "EX-mrr-119": {
       "cases": "TC-BKG-UI006-104",
@@ -475,7 +475,7 @@
     },
     "EX-mrr-120": {
       "cases": "TC-AUD-UI010-109",
-      "note": "RA rejects: expects trail reason + label 'ปฏิเสธการจอง', real · reason + label pass after v2 fix; only the message assertion fails (awaiting req)"
+      "note": "RA rejects: expects trail reason + label 'ปฏิเสธการจอง', real · PASS after v2 fix (message 'ปฏิเสธการจองสำเร็จ' per owner; EX text to be fixed)"
     },
     "EX-mrr-121": {
       "cases": "TC-AUD-UI010-110",
@@ -483,7 +483,7 @@
     },
     "EX-mrr-122": {
       "cases": "TC-AUD-UI010-111",
-      "note": "RA edits title on behalf: trail + label 'แก้แทนผู้จอง' pass, real · FAIL only on message ('บันทึกการแก้ไขสำเร็จ' vs EX 'บันทึกการแก้ไข')"
+      "note": "RA edits title on behalf: trail + label 'แก้แทนผู้จอง' pass, real · PASS (message 'บันทึกการแก้ไขสำเร็จ' per owner; EX text lacks 'สำเร็จ' — req to fix EX)"
     }
   }
 }

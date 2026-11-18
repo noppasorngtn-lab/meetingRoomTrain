@@ -95,10 +95,22 @@ describe('FE-mrr-029 change an approval decision (UC-mrr-008)', () => {
     }]);
   });
 
-  it('approved → rejected sends no mail — BR-mrr-007 names none for a rejection', async () => {
+  it('approved → rejected mails the booker that it was rejected (BR-mrr-007@v2 (3) · owner answer 2026-11-18)', async () => {
     await service.changeDecision({ userId: ra }, booking, { decision: 'REJECTED', reason: 'อนุมัติผิดห้อง' });
 
-    expect(mail.sent).toEqual([]);
+    expect(mail.sent).toEqual([{
+      to: ['u1@example.test'],
+      subject: '[จองห้องประชุม] ปฏิเสธการจอง: ประชุมลูกค้า · ห้อง B 18/10 10:00–11:00',
+      text: '[จองห้องประชุม] ปฏิเสธการจอง: ประชุมลูกค้า · ห้อง B 18/10 10:00–11:00',
+    }]);
+  });
+
+  it('BR-mrr-019 approved → rejected whose mail does not go — still อนุมัติแล้ว, no trail, press again', async () => {
+    mail.down = true;
+
+    await expect(service.changeDecision({ userId: ra }, booking, { decision: 'REJECTED', reason: 'อนุมัติผิดห้อง' })).rejects.toBeInstanceOf(EmailDeliveryFailed);
+    expect(await status()).toBe('APPROVED');
+    expect(await trail()).toEqual([]);
   });
 
   it('rejected → approved mails the booker that it was approved (BR-mrr-007 (1))', async () => {

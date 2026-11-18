@@ -171,11 +171,11 @@ EX with no AC (expected only for superseded rules, e.g. BR-mrr-010@v1): EX-mrr-1
 | EX-mrr-115 | happy | TC-NTF-UI009-102 | RA approves: expects mail 'อนุมัติแล้ว:' to U1 only, real · PASS after v2 fix (notifier subject 'อนุมัติแล้ว') |
 | EX-mrr-116 | happy | TC-NTF-UI008-105 | booker cancels: expects mail 'ยกเลิกการจอง:' to U1/U2/U3, real · PASS after v2 fix (subject 'ยกเลิกการจอง') |
 | EX-mrr-117 | happy | TC-NTF-UI010-101 | RA cancels on behalf at 10:30: expects mail 'ยกเลิกการจอง:' to U1/U2/U3, real · PASS after v2 fix (subject 'ยกเลิกการจอง') |
-| EX-mrr-118 | exception | TC-NTF-UI009-103 | RA rejects with reason: expects message 'ปฏิเสธการจอง', mail 'ปฏิเสธการจอง:' to U1/U2, trail with reason, real · only the message assertion fails ('ปฏิเสธการจองสำเร็จ' vs EX 'ปฏิเสธการจอง', awaiting req); mail + trail pass after v2 fix |
+| EX-mrr-118 | exception | TC-NTF-UI009-103 | RA rejects with reason: expects message 'ปฏิเสธการจอง', mail 'ปฏิเสธการจอง:' to U1/U2, trail with reason, real · PASS after v2 fix (message 'ปฏิเสธการจองสำเร็จ' per owner; EX text lacks 'สำเร็จ' — req to fix EX) |
 | EX-mrr-119 | happy | TC-BKG-UI006-104 | bound to the existing §B4 case (QA decision 2026-11-18): 1 equipment, message 'จองห้องสำเร็จ' asserted, real · PASS · EX says 3 attendees, case uses 1 |
-| EX-mrr-120 | happy | TC-AUD-UI010-109 | RA rejects: expects trail reason + label 'ปฏิเสธการจอง', real · reason + label pass after v2 fix; only the message assertion fails (awaiting req) |
+| EX-mrr-120 | happy | TC-AUD-UI010-109 | RA rejects: expects trail reason + label 'ปฏิเสธการจอง', real · PASS after v2 fix (message 'ปฏิเสธการจองสำเร็จ' per owner; EX text to be fixed) |
 | EX-mrr-121 | happy | TC-AUD-UI010-110 | RA changes decision: expects trail label 'ถอยผล', real · PASS after v2 fix (label 'ถอยผล') |
-| EX-mrr-122 | happy | TC-AUD-UI010-111 | RA edits title on behalf: trail + label 'แก้แทนผู้จอง' pass, real · FAIL only on message ('บันทึกการแก้ไขสำเร็จ' vs EX 'บันทึกการแก้ไข') |
+| EX-mrr-122 | happy | TC-AUD-UI010-111 | RA edits title on behalf: trail + label 'แก้แทนผู้จอง' pass, real · PASS (message 'บันทึกการแก้ไขสำเร็จ' per owner; EX text lacks 'สำเร็จ' — req to fix EX) |
 
 ## NFR cited by a test
 
@@ -189,4 +189,4 @@ EX with no AC (expected only for superseded rules, e.g. BR-mrr-010@v1): EX-mrr-1
 
 ## API jest run
 
-suites 39/39 passed · tests 473/473 passed · failed 0 · pending 0 (รัน 2026-11-18 หลังแก้ตาม v2)
+suites 39/39 passed · tests 474/474 passed · failed 0 · pending 0 (รัน 2026-11-18 หลังแก้ตาม v2)

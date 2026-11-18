@@ -196,7 +196,7 @@ export class BookingApprovalService {
       }
       await recordAudit(tx, { bookingId: id, caller, action: 'CHANGE_DECISION', at: now, reason, detail: { from: current.status, to: input.decision } });
 
-      if (input.decision === 'APPROVED') {
+      {
         const room = await tx
           .selectFrom('meeting_rooms as r')
           .innerJoin('meeting_room_versions as v', 'v.id', 'r.current_version_id')
@@ -208,10 +208,26 @@ export class BookingApprovalService {
           .select('email')
           .where('id', '=', current.booked_by)
           .executeTakeFirstOrThrow();
-        // Approved is approved, however it got there (BR-mrr-007 (1)); a mail that does not go undoes it (BR-mrr-019).
-        await this.notifier.bookingApproved({
-          title: current.title, roomName: room.name, startAt: current.start_at, endAt: current.end_at, bookerEmail, attendeeEmails: [],
-        });
+        // Approved is approved, however it got there (BR-mrr-007 (1)); rejected is rejected too — the booker and every
+        // attendee are told (BR-mrr-007@v2 (3), owner's answer 2026-11-18). A mail that does not go undoes it (BR-mrr-019).
+        if (input.decision === 'APPROVED') {
+          await this.notifier.bookingApproved({
+            title: current.title, roomName: room.name, startAt: current.start_at, endAt: current.end_at, bookerEmail, attendeeEmails: [],
+          });
+        } else {
+          const attendeeEmails = (
+            await tx
+              .selectFrom('booking_attendees as a')
+              .innerJoin('users as u', 'u.id', 'a.user_id')
+              .select('u.email')
+              .where('a.booking_id', '=', id)
+              .orderBy('u.email')
+              .execute()
+          ).map((a) => a.email);
+          await this.notifier.bookingRejected({
+            title: current.title, roomName: room.name, startAt: current.start_at, endAt: current.end_at, bookerEmail, attendeeEmails,
+          });
+        }
       }
       return { message: 'เปลี่ยนผลการอนุมัติสำเร็จ' };
     });
