@@ -44,6 +44,22 @@ for f in sorted((ROOT / "docs" / "wiki" / "examples").glob("EX-mrr-*.md")):
         best[bid] = max(best.get(bid, 0), int(ver or 1))
     EX[f.stem]["brs"] = [f"{k}@v{v}" for k, v in best.items()]
 
+# wiki เป็น source of truth ลำดับสูงกว่า REQ (CLAUDE.md): ถ้า REQ-mrr-00x.md ยังเป็นถ้อยคำเก่า
+# (เช่น EX-031/032 ที่ถูกเขียนใหม่เป็น v2) ให้ใช้ when/then จาก wiki แล้วรายงานรายการที่ต่างกัน
+WIKI_OVERRIDE = []
+for f in sorted((ROOT / "docs" / "wiki" / "examples").glob("EX-mrr-*.md")):
+    if f.stem not in EX or EX[f.stem]["req"] == "wiki":
+        continue
+    t = f.read_text(encoding="utf-8")
+    sec = lambda h: re.search(rf"^## {h}[^\n]*\n(.*?)(?=^## |\Z)", t, re.M | re.S).group(1).strip()
+    for key, head in (("when", "เมื่อ"), ("then", "แล้ว")):
+        w = sec(head)
+        if re.sub(r"\s+", "", w) != re.sub(r"\s+", "", EX[f.stem][key]):
+            WIKI_OVERRIDE.append(f"{f.stem}.{key}")
+            EX[f.stem][key] = w
+if WIKI_OVERRIDE:
+    print("wiki override (REQ ล้าสมัย):", ", ".join(WIKI_OVERRIDE), file=sys.stderr)
+
 # ---------- priority ตาม §3.3 (Recommended) ----------
 PRI = {"BR-mrr-001": "Critical", "BR-mrr-003": "Critical", "BR-mrr-005": "Critical",
        "BR-mrr-018": "Critical", "BR-mrr-021": "Critical", "BR-mrr-022": "Critical",
