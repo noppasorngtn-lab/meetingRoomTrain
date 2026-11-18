@@ -337,7 +337,7 @@ out = []
 out.append("# รายงาน T1 — สร้าง Test Case (E2E) · REQ-mrr-001 ถึง 005\n")
 out.append(f"วันที่: 2026-11-17 (อัปเดตรอบ 2026-11-18 เพิ่ม EX-106–110) · Test Level: E2E · ขอบเขต: ทั้ง 5 REQ (28 BR ที่ใช้อยู่ · {len(EX)} EX) · ใช้ template T1 ของ [qa-playbook.md](qa-playbook.md)\n")
 out.append("ไฟล์ที่เกี่ยวข้อง: [t1-test-cases.csv](t1-test-cases.csv) (นำเข้า Excel/Test Management ได้) · สร้างโดย [t1-generate.py](t1-generate.py) (`python docs/qa/t1-generate.py`)\n")
-out.append("> **สถานะ: ร่างสำหรับ QA review** — ทุกเคส Tag = AI-generated · ต้องมี QA 1 คนตรวจก่อนนำเข้า · เขียนสคริปต์ Playwright ครบแล้วและรันกับระบบจริงเมื่อ 2026-11-18 (ข้อ 0) · ผลรันผ่านไม่ใช่การ review เคส")
+out.append("> **สถานะ: QA review แล้ว (2026-11-18 · ผู้ใช้แจ้งว่า review OK · ไม่ได้ระบุชื่อผู้ review และขอบเขตที่ตรวจ)** — Tag ในคอลัมน์ยังเป็น AI-generated เพราะบอกที่มาของเคส ไม่ใช่สถานะ review · เขียนสคริปต์ Playwright ครบและรันกับระบบจริงแล้ว (ข้อ 0) · ผลรันผ่านไม่ใช่การ review เคส · §B3/B4 เป็นเคส [Recommended] ยังรอ PO ยืนยันว่ารับเป็นเคสนอก BR (B3 ตอบรับแล้ว: OQ-T1-10)")
 out.append("## 0. สรุป\n")
 n_new = len(rows)
 by_auto = {k: sum(1 for r in rows if r['Automation'] == k) for k in ("Yes", "Partial", "No")}
@@ -432,7 +432,7 @@ oq = [
 for r in oq:
     out.append("| " + " | ".join(esc(x) for x in r) + " |")
 out.append("\n## Next Actions\n")
-out.append("1. QA review เคสใหม่ตาม CSV (Tag = AI-generated ทั้งหมด · ยังไม่มีบันทึกว่า review แล้ว — ดู G1 ใน t2-coverage-report.md)")
+out.append("1. QA review เคสใหม่ ✔ เสร็จ 2026-11-18 (ผู้ใช้แจ้งผลว่า OK) · ควรบันทึกชื่อผู้ review ในที่ที่ทีมใช้ติดตาม")
 out.append("2. req: เขียน EX 3 เรื่อง (เวลาสิ้นสุดไม่หลังเวลาเริ่ม · ผลของการกดยกเลิกในขั้นยืนยันลบ · ลบห้องที่มีการจอง) ตาม req-request-ex-validation-delete-2026-11-18.md แล้ว QA ออกแบบเคสเพิ่ม (OQ-T1-11, 12)")
 out.append("3. ออกจากระบบ §B3 เขียนสคริปต์แล้ว · เหลือพิสูจน์ AC-112 กับ API จริง (ต้องมีกลไกบังคับให้ logout ล้ม)")
 out.append("4. เคสอุปกรณ์เสริม §B4 เขียนสคริปต์แล้ว (TC-BKG-UI006-104–106) · รอ OQ-T1-13 ก่อนออกแบบเคสอุปกรณ์ที่เลิกใช้")
