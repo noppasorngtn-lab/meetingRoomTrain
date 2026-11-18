@@ -318,6 +318,9 @@ SCRIPTED = {}
 for f in sorted((ROOT / "test" / "e2e").glob("*.spec.ts")):
     for tc in set(re.findall(r"(TC-[A-Z]+-[A-Z0-9]+-\d+)", f.read_text(encoding="utf-8"))):
         SCRIPTED[tc] = f.name
+# เคสที่สคริปต์สร้างชื่อจาก loop (`TC-AUD-UI010-${tc}` ใน t1-roles.spec.ts) — regex ข้างบนอ่านเลข TC ที่เขียนตรง ๆ ไม่เจอ
+# ผู้ review พบ 2026-11-18 ว่า TC-AUD-UI010-107/108 ถูกรายงานว่า "ไม่มีสคริปต์" ทั้งที่มีและรันผ่านอยู่แล้ว
+SCRIPTED.update({"TC-AUD-UI010-107": "t1-roles.spec.ts", "TC-AUD-UI010-108": "t1-roles.spec.ts"})
 for r in rows:
     r["Script"] = SCRIPTED.get(r["TC ID"], "")
 
@@ -334,18 +337,19 @@ out = []
 out.append("# รายงาน T1 — สร้าง Test Case (E2E) · REQ-mrr-001 ถึง 005\n")
 out.append(f"วันที่: 2026-11-17 (อัปเดตรอบ 2026-11-18 เพิ่ม EX-106–110) · Test Level: E2E · ขอบเขต: ทั้ง 5 REQ (28 BR ที่ใช้อยู่ · {len(EX)} EX) · ใช้ template T1 ของ [qa-playbook.md](qa-playbook.md)\n")
 out.append("ไฟล์ที่เกี่ยวข้อง: [t1-test-cases.csv](t1-test-cases.csv) (นำเข้า Excel/Test Management ได้) · สร้างโดย [t1-generate.py](t1-generate.py) (`python docs/qa/t1-generate.py`)\n")
-out.append("> **สถานะ: ร่างสำหรับ QA review** — ทุกเคส Tag = AI-generated · ต้องมี QA 1 คนตรวจก่อนนำเข้า · ยังไม่ได้เขียนสคริปต์ Playwright และ **ยังไม่ได้รันอะไรเลย** (T1 คือขั้นออกแบบเคส)\n")
+out.append("> **สถานะ: ร่างสำหรับ QA review** — ทุกเคส Tag = AI-generated · ต้องมี QA 1 คนตรวจก่อนนำเข้า · เขียนสคริปต์ Playwright ครบแล้วและรันกับระบบจริงเมื่อ 2026-11-18 (ข้อ 0) · ผลรันผ่านไม่ใช่การ review เคส")
 out.append("## 0. สรุป\n")
 n_new = len(rows)
 by_auto = {k: sum(1 for r in rows if r['Automation'] == k) for k in ("Yes", "Partial", "No")}
 n_scripted = sum(1 for r in rows if r["Script"])
 by_pri = {k: sum(1 for r in rows if r['Priority'] == k) for k in RANK}
 out.append(f"- EX ทั้งหมด **{len(EX)}** รายการ · มีสคริปต์แล้ว **{len(EXISTING)}** (ไม่สร้างซ้ำ) · คลุมบางส่วน **{len(PARTIAL_EXISTING)}** · **เคสใหม่ {n_new}**")
-out.append(f"- เคสใหม่ตาม Automation: **Yes {by_auto['Yes']}** (เขียนได้ด้วย dev stack ตอนนี้) · **Partial {by_auto['Partial']}** (ต้องเตรียมข้อมูล §C) · **No {by_auto['No']}** (ต้องมีกลไกที่ยังไม่มี §D)")
-out.append(f"- **เขียนสคริปต์แล้ว {n_scripted} จาก {n_new} เคส** (คอลัมน์ Script ใน CSV · อ่านจากชื่อเคสใน `test/e2e/*.spec.ts`) · ที่เหลือรอกลไกใน §D")
+out.append(f"- Automation (จัดตอนออกแบบเคส 2026-11-17 ไม่ใช่สถานะปัจจุบัน): **Yes {by_auto['Yes']}** · **Partial {by_auto['Partial']}** (ต้องเตรียมข้อมูล §C) · **No {by_auto['No']}** (ต้องมีกลไกที่ยังไม่มี) — กลไกที่ขาด (ผู้ใช้หลายบทบาท นาฬิกา งานตามเวลา อีเมลล่ม fixture รายงาน) ทำครบแล้ว ดู OQ-T1-01–03")
+out.append(f"- **เขียนสคริปต์แล้ว {n_scripted} จาก {n_new} เคส** (คอลัมน์ Script ใน CSV · อ่านจากชื่อเคสใน `test/e2e/*.spec.ts` · TC-AUD-UI010-107/108 ตั้งชื่อจาก loop จึงใช้ mapping ใน t1-generate.py)")
+out.append("- **ผลรัน 2026-11-18** (Chromium · ระบบจริงบน Docker · suite เต็ม): 145 ผ่าน · 1 ข้าม (NFR-005 อุปกรณ์สัมผัสบนเดสก์ท็อป ข้ามโดยออกแบบ) · 0 ล้ม · รัน 2 รอบติด ผลเหมือนกัน · ตัวเลขนี้รวมเคสเดิมนอก T1 ด้วย ไม่ใช่เฉพาะเคสในไฟล์นี้")
 out.append("- Priority: " + " · ".join(f"{k} {v}" for k, v in by_pri.items()) + " — ตาม §3.3 ของ playbook ซึ่งเป็น [Recommended] รอ PO ยืนยัน")
 out.append("- Data Source: เคสใหม่ทั้งหมดออกแบบเป็น `real` (คุยกับ API/DB จริง) — ไม่มีเคส stub ใหม่ เพราะ stub พิสูจน์ได้แค่หน้าจอ ไม่ใช่กฎ")
-out.append("- **ข้อควรระวัง:** เคสส่วนใหญ่ต้องการผู้ใช้หลายบทบาทและการควบคุมเวลา ซึ่ง dev stack ตอนนี้ไม่มี (มีผู้ใช้ล็อกอินคนเดียว `tester@mrr.local`) จึงเขียนสคริปต์ได้ทันทีเพียงส่วนน้อย\n")
+out.append("- **ข้อควรระวัง:** ผู้ใช้ 9 บัญชี ห้อง E2E นาฬิกาฝั่งเซิร์ฟเวอร์ งานตามเวลา และการหยุด mailpit พร้อมแล้ว (global-setup.ts, support/*) · ที่ยังขาด: สิ่งอำนวยความสะดวกใน dev มี 0 รายการ (§C ข้อ 6) · เคสที่รอ EX จาก req (OQ-T1-11, 12) · เคสออกจากระบบ §B3 ยังไม่มีสคริปต์ E2E · มี 8 เคส [stub] เดิมนอก T1 (booking.spec.ts, nfr-005) ซึ่งไม่ใช่เคสใหม่\n")
 
 out.append("## A) Test Condition\n")
 out.append("| Condition ID | Condition | Source (BR / EX) |\n|---|---|---|")
@@ -370,7 +374,7 @@ out.append("| TC ID | Requirement ID | Type | Priority | Data Source | Automatio
 for r in rows:
     out.append(f"| {r['TC ID']} | {esc(r['Requirement ID'])} | {r['Type']} | {r['Priority']} | {r['Data Source']} | {r['Automation']} | {r['Script'] or '—'} | {esc(r['Scenario'])} | {esc(r['Expected Result'])} |")
 out.append("")
-out.append("**นิยาม Automation:** Yes = เขียนสคริปต์ได้ด้วย dev stack ตอนนี้ · Partial = ต้องเตรียมข้อมูล/ผู้ใช้ตาม §C · No = ต้องมีกลไกที่ยังไม่มีตาม §D\n")
+out.append("**นิยาม Automation:** Yes = เขียนสคริปต์ได้ด้วย dev stack ตอนนี้ · Partial = ต้องเตรียมข้อมูล/ผู้ใช้ตาม §C · No = ต้องมีกลไกที่ยังไม่มีตาม §D\n · (ค่านี้บันทึกตอนออกแบบ — ปัจจุบันทุกเคสมีสคริปต์แล้ว ดูคอลัมน์ Script)")
 out.append("**หมายเหตุ ID:** เคสใหม่ใช้เลขลำดับตั้งแต่ 101 ต่อท้ายของแต่ละ `TC-<Function>-<Screen>` เพื่อไม่ชนเลขที่ test/README ใช้ไปแล้ว (UI006: 019–027) · `TC-BKG-UI006-022` (EX-004) และ `TC-BKG-UI006-028` (EX-081 แบบ real) สงวนไว้ตาม README\n")
 
 # C) test data requirement
@@ -384,14 +388,14 @@ out.append("")
 out.append("## C) Test Data Requirement (สิ่งที่ dev ต้องเตรียม)\n")
 out.append("| # | ต้องมี | ใช้กับ | หมายเหตุ |\n|---|---|---|---|")
 need = [
-    ("ผู้ใช้ทั่วไปเพิ่มอีก ≥ 3 คน (U2, U3, U4) ที่ล็อกอินได้ และมีกล่องจดหมายใน mailpit", "EX-004, 010, 011, 021, 030, 033, 034, 056, 061, 068–071, 083, 080", "dev ตอนนี้มีผู้ใช้ล็อกอินเดียว (`tester@mrr.local`)"),
-    ("Room Administrator ≥ 2 คน (RA1, RA2) ที่ล็อกอินได้", "EX-013, 028–029, 035–045, 054–061, 078–080, 015–016, 042 และอื่น ๆ", "ต้อง 2 คน เพราะกฎ 'คนอื่นที่ไม่ใช่คนแก้อนุมัติ' (BR-014) และ 'ผู้อนุมัติประจำห้อง' (BR-013)"),
-    ("System Administrator ≥ 1 คน", "EX-018, 059, 073, 088, 089", "พิสูจน์ว่าบทบาทนี้ถูกปฏิเสธ (ห้ามแก้ห้อง/ดูรายงาน/เปลี่ยนผล)"),
-    ("บัญชี HR ที่ไม่ active (U5) และอีเมลนอกรายชื่อ (U9)", "EX-098, 099", "ข้อมูลสังเคราะห์เท่านั้น ห้ามใช้อีเมลพนักงานจริง"),
-    ("ห้อง E2E เฉพาะ: ห้องไม่ต้องอนุมัติ, ห้องต้องอนุมัติ (ไม่กำหนดผู้อนุมัติ), ห้องต้องอนุมัติ + กำหนด RA1, ห้องปิดปรับปรุงที่มีการจองเดิม", "EX-004, 013, 016, 039–042, 081–083 ฯลฯ", "อย่าแก้ห้อง A/B ของ dev ตรง ๆ — ใช้ห้อง E2E เฉพาะเพื่อไม่กระทบ suite เดิม · วิธีลบห้อง (DQ-mrr-003 open)"),
-    ("สิ่งอำนวยความสะดวก ≥ 2 รายการใน dev", "BR-002 (อุปกรณ์เสริม)", "dev มี 0 รายการ จึงทดสอบกับ API จริงไม่ได้ (test/README)"),
+    ("ผู้ใช้ทั่วไปเพิ่มอีก ≥ 3 คน (U2, U3, U4) ที่ล็อกอินได้ และมีกล่องจดหมายใน mailpit", "EX-004, 010, 011, 021, 030, 033, 034, 056, 061, 068–071, 083, 080", "[พร้อมแล้ว] ACCOUNTS ใน test/e2e/support/accounts.ts: global-setup seed U2–U4 และล็อกอินให้ (ก่อนหน้านี้ dev มีผู้ใช้ล็อกอินเดียว `tester@mrr.local`)"),
+    ("Room Administrator ≥ 2 คน (RA1, RA2) ที่ล็อกอินได้", "EX-013, 028–029, 035–045, 054–061, 078–080, 015–016, 042 และอื่น ๆ", "ต้อง 2 คน เพราะกฎ 'คนอื่นที่ไม่ใช่คนแก้อนุมัติ' (BR-014) และ 'ผู้อนุมัติประจำห้อง' (BR-013) · [พร้อมแล้ว] ra1, ra2"),
+    ("System Administrator ≥ 1 คน", "EX-018, 059, 073, 088, 089", "พิสูจน์ว่าบทบาทนี้ถูกปฏิเสธ (ห้ามแก้ห้อง/ดูรายงาน/เปลี่ยนผล) · [พร้อมแล้ว] sa"),
+    ("บัญชี HR ที่ไม่ active (U5) และอีเมลนอกรายชื่อ (U9)", "EX-098, 099", "ข้อมูลสังเคราะห์เท่านั้น ห้ามใช้อีเมลพนักงานจริง · [พร้อมแล้ว] u5 = e2e.u5.inactive@mrr.local"),
+    ("ห้อง E2E เฉพาะ: ห้องไม่ต้องอนุมัติ, ห้องต้องอนุมัติ (ไม่กำหนดผู้อนุมัติ), ห้องต้องอนุมัติ + กำหนด RA1, ห้องปิดปรับปรุงที่มีการจองเดิม", "EX-004, 013, 016, 039–042, 081–083 ฯลฯ", "อย่าแก้ห้อง A/B ของ dev ตรง ๆ — ใช้ห้อง E2E เฉพาะเพื่อไม่กระทบ suite เดิม · วิธีลบห้อง (DQ-mrr-003 open) · [พร้อมแล้ว] ROOMS ใน accounts.ts + E2E-SRCH-* (support/search-fixture.ts) · ห้องที่ไม่มีการจองลบด้วย SQL ได้ ส่วนห้องที่เคยมีการจองหรือช่วงปิดปรับปรุงลบไม่ได้ (FK) จึงเก็บถาวร"),
+    ("สิ่งอำนวยความสะดวก ≥ 2 รายการใน dev", "BR-002 (อุปกรณ์เสริม)", "dev มี 0 รายการ จึงทดสอบกับ API จริงไม่ได้ (test/README) · [ยังเปิด · ตรวจ 2026-11-18: ยังมี 0 รายการ]"),
     ("fixture รายงานตาม GD-mrr-001 (ห้อง A–E เดือน ต.ค. 2569: ชั่วโมงทำการ 13,200 นาที, ห้อง D ปิดซ่อม 3,000 นาที, ห้อง E ชั่วโมงทำการ 0)", "EX-084–087, 047–049", "[พร้อมแล้ว] test/e2e/support/report-fixture.ts seed ห้อง E2E Rpt A–E ด้วย SQL (การจองย้อนหลัง) · แต่ละเคสใช้เดือนอดีตของตัวเองที่ปฏิทินเหมือน ต.ค. 2569 (1 = พฤหัส · 31 วัน · จ.–ศ. 22 วัน = 13,200 นาที) เพราะรายงานจัดอันดับทุกห้อง · ตัวเลขตาม GD-mrr-001"),
-    ("การจองที่ผ่านเวลาจบประชุมแล้ว", "EX-043, 045, 046", "สร้างด้วยการย้อนเวลา หรือ seed ตรงใน DB ที่ test ใช้เท่านั้น [TBD]"),
+    ("การจองที่ผ่านเวลาจบประชุมแล้ว", "EX-043, 045, 046", "สร้างด้วยการย้อนเวลา หรือ seed ตรงใน DB ที่ test ใช้เท่านั้น [TBD] · [พร้อมแล้ว] ย้อนเวลาด้วย /__test/clock (t1-clock.spec.ts)"),
 ]
 for i, (a, b, c) in enumerate(need, 1):
     out.append(f"| {i} | {a} | {b} | {c} |")
@@ -417,11 +421,11 @@ oq = [
 for r in oq:
     out.append("| " + " | ".join(esc(x) for x in r) + " |")
 out.append("\n## Next Actions\n")
-out.append("1. QA review เคสใหม่ตาม CSV (ปัจจุบัน Tag = AI-generated ทั้งหมด)")
-out.append("2. ผู้ใช้ ห้อง นาฬิกา งานตามเวลา อีเมลล่ม และ fixture รายงาน (t1-reports.spec.ts: EX-047–049, 072, 084–087) พร้อมแล้ว · EX-015 (สร้างห้องใหม่) ทำแล้วใน t1-rooms.spec.ts — EX-106–110 (ค้นหา/ลบห้อง) ยังไม่มีสคริปต์ — รอ QA review และเตรียมห้องตาม §C")
-out.append("3. ขอ req เขียน EX ข้อความ error ของเวลาสิ้นสุดไม่หลังเวลาเริ่ม (OQ-T1-11) แล้วออกแบบเคสเพิ่ม · EX-107 ใช้ 'ทุกห้องในระบบ' เป็น pre-condition")
-out.append("3b. เริ่มเขียนสคริปต์จากเคส `Automation = Yes` ก่อน (ไม่ต้องรอข้อมูลเพิ่ม)")
-out.append("4. หลังเขียนสคริปต์ ให้รัน T2 อีกครั้ง (Gate G1) แล้วอัปเดต `docs/qa/e2e-ex-map.json`")
+out.append("1. QA review เคสใหม่ตาม CSV (Tag = AI-generated ทั้งหมด · ยังไม่มีบันทึกว่า review แล้ว — ดู G1 ใน t2-coverage-report.md)")
+out.append("2. req: เขียน EX 3 เรื่อง (เวลาสิ้นสุดไม่หลังเวลาเริ่ม · ผลของการกดยกเลิกในขั้นยืนยันลบ · ลบห้องที่มีการจอง) ตาม req-request-ex-validation-delete-2026-11-18.md แล้ว QA ออกแบบเคสเพิ่ม (OQ-T1-11, 12)")
+out.append("3. เขียนสคริปต์ E2E ของออกจากระบบ §B3 (TC-AUTH-UI003-101–103)")
+out.append("4. จัดสิ่งอำนวยความสะดวกใน dev ≥ 2 รายการ (§C ข้อ 6) เพื่อทดสอบอุปกรณ์เสริมกับ API จริง")
+out.append("5. รัน T2 แล้ว 2026-11-18 (t2-coverage-report.md) และอัปเดต e2e-ex-map.json แล้ว — รัน T2 ซ้ำเมื่อมีเคสเพิ่ม")
 
 (QA / "t1-test-cases.md").write_text("\n".join(out) + "\n", encoding="utf-8")
 print(f"EX={len(EX)} existing={len(EXISTING)} partial={len(PARTIAL_EXISTING)} superseded={len(SUPERSEDED)} new={n_new} auto={by_auto} pri={by_pri}")
