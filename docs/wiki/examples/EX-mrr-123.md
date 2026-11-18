@@ -5,12 +5,12 @@ description: การจองคงสถานะ 'รออนุมัต�
 resource: ../rules/BR-mrr-017@v2.md
 tags: [mrr, example, exception]
 id: EX-mrr-123
-status: draft
+status: validated
 kind: exception
 proves: [BR-mrr-017@v2]
 has_ui: true
 timestamp: 2026-11-18T12:30:00+07:00
-spec_hash: sha256:375f5a0c33d83a21a7c50a951e5e5e432905f9a7f9ad3682772b4822d5c9714f
+spec_hash: sha256:0f99225ce3fee3e617c82caefb88f6070963c17bf7414de66ece18499860cd70
 ---
 
 # EX-mrr-123
