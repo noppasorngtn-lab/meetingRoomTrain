@@ -455,19 +455,19 @@
     },
     "EX-mrr-115": {
       "cases": "TC-NTF-UI009-102",
-      "note": "RA approves: expects mail 'อนุมัติแล้ว:' to U1 only, real · FAIL (system still sends 'อนุมัติ:' — v1 wording)"
+      "note": "RA approves: expects mail 'อนุมัติแล้ว:' to U1 only, real · PASS after v2 fix (notifier subject 'อนุมัติแล้ว')"
     },
     "EX-mrr-116": {
       "cases": "TC-NTF-UI008-105",
-      "note": "booker cancels: expects mail 'ยกเลิกการจอง:' to U1/U2/U3, real · FAIL (system sends 'ยกเลิก:')"
+      "note": "booker cancels: expects mail 'ยกเลิกการจอง:' to U1/U2/U3, real · PASS after v2 fix (subject 'ยกเลิกการจอง')"
     },
     "EX-mrr-117": {
       "cases": "TC-NTF-UI010-101",
-      "note": "RA cancels on behalf at 10:30: expects mail 'ยกเลิกการจอง:' to U1/U2/U3, real · FAIL (system sends 'ยกเลิก:')"
+      "note": "RA cancels on behalf at 10:30: expects mail 'ยกเลิกการจอง:' to U1/U2/U3, real · PASS after v2 fix (subject 'ยกเลิกการจอง')"
     },
     "EX-mrr-118": {
       "cases": "TC-NTF-UI009-103",
-      "note": "RA rejects with reason: expects message 'ปฏิเสธการจอง', mail 'ปฏิเสธการจอง:' to U1/U2, trail with reason, real · FAIL (message 'ปฏิเสธการจองสำเร็จ'; no reject mail sent)"
+      "note": "RA rejects with reason: expects message 'ปฏิเสธการจอง', mail 'ปฏิเสธการจอง:' to U1/U2, trail with reason, real · only the message assertion fails ('ปฏิเสธการจองสำเร็จ' vs EX 'ปฏิเสธการจอง', awaiting req); mail + trail pass after v2 fix"
     },
     "EX-mrr-119": {
       "cases": "TC-BKG-UI006-104",
@@ -475,11 +475,11 @@
     },
     "EX-mrr-120": {
       "cases": "TC-AUD-UI010-109",
-      "note": "RA rejects: expects trail reason + label 'ปฏิเสธการจอง', real · FAIL (reason null, message differs; label not reached)"
+      "note": "RA rejects: expects trail reason + label 'ปฏิเสธการจอง', real · reason + label pass after v2 fix; only the message assertion fails (awaiting req)"
     },
     "EX-mrr-121": {
       "cases": "TC-AUD-UI010-110",
-      "note": "RA changes decision: expects trail label 'ถอยผล', real · FAIL (UI shows 'เปลี่ยนผลการอนุมัติ')"
+      "note": "RA changes decision: expects trail label 'ถอยผล', real · PASS after v2 fix (label 'ถอยผล')"
     },
     "EX-mrr-122": {
       "cases": "TC-AUD-UI010-111",
