@@ -51,8 +51,8 @@ e2e = set(e2e_map)
 
 rows = []
 for a in acceptance:
-    layers = tuple(n for n, ok in (('api', a['id'] in api), ('web', a['id'] in web), ('e2e', a['example'] in e2e)) if ok)
-    rows.append({'ac': a['id'], 'ex': a['example'], 'kind': ex_kind.get(a['example'], '?'), 'rules': a['rules'], 'layers': layers})
+    layers = tuple(n for n, ok in (('api', a['id'] in api), ('web', a['id'] in web), ('e2e', a.get('example') in e2e)) if ok)
+    rows.append({'ac': a['id'], 'ex': a.get('example') or '—', 'kind': ex_kind.get(a.get('example'), 'no EX (design-only AC)'), 'rules': a['rules'], 'layers': layers})
 
 out: list[str] = []
 w = out.append
