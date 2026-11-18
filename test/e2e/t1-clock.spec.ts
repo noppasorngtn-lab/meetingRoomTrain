@@ -97,7 +97,7 @@ test.describe('จุดตัดเวลาเริ่มประชุม',
   test('[real] TC-APR-UI010-105 ก่อนเริ่ม 1 นาที RA เปลี่ยนผลได้ (EX-mrr-037 · BR-mrr-011)', async () => {
     const slot = nearSlot();
     const b = await book(clients.u1, 'appr', slot, title('เปลี่ยนผลก่อนเริ่ม 1 นาที'));
-    expect((await clients.ra1.post(`/bookings/${b.id}/reject`)).status()).toBeLessThan(300);
+    expect((await clients.ra1.post(`/bookings/${b.id}/reject`, { data: { reason: 'E2E ห้องไม่เหมาะ' } })).status()).toBeLessThan(300);
     expect(await statusOf(b.id)).toBe('REJECTED');
     await setClock(at(startOf(slot), -60_000));
     const res = await clients.ra1.post(`/bookings/${b.id}/decision`, { data: { decision: 'APPROVED', reason: 'ปฏิเสธผิดคน' } });

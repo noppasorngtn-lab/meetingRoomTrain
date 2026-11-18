@@ -214,6 +214,61 @@ test.describe('ค่าช่อง "การกระทำ" ของร่�
     await v.close();
   });
 
+  // DEF-04 · [Recommended] BR-mrr-017@v2 "การปฏิเสธต้องระบุเหตุผล" · [TBD - Require Business Confirmation] ถ้อยคำ error
+  // ยังไม่มี EX รองรับ · ถ้อยคำ 'กรุณาระบุเหตุผล' เป็นค่าชั่วคราวจนกว่า req/design ยืนยัน (OQ-T1-17)
+  test('[real] TC-AUD-UI010-112 RA ปฏิเสธโดยเว้นเหตุผลว่าง → ล้ม · การจองคงเดิม · ไม่มีร่องรอยใหม่ · ไม่มี Email (DEF-04 · BR-mrr-017@v2) — ถ้อยคำ error ชั่วคราว (OQ-T1-17)', async () => {
+    const t = token();
+    const slot = nearSlot(10);
+    const b = await book(clients.u1, 'appr', slot, title('ปฏิเสธไม่มีเหตุผล', t));
+    await setClock(at(startOf(slot), -(19 * 60 + 50) * 60_000));
+    for (const data of [{}, { reason: '' }, { reason: '   ' }]) {
+      const res = await clients.ra1.post(`/bookings/${b.id}/reject`, { data });
+      expect(res.status(), JSON.stringify(data)).toBeGreaterThanOrEqual(400);
+      expect(await msgOf(res)).toBe('กรุณาระบุเหตุผล'); // [TBD - Require Business Confirmation] ชั่วคราว = ถ้อยคำเดียวกับ EX-mrr-057
+    }
+    expect(await statusOf(b.id)).toBe('PENDING_APPROVAL');
+    expect(await trailOf(b.id)).toHaveLength(0); // การกระทำที่ไม่สำเร็จไม่บันทึกร่องรอย (EX-mrr-057)
+    await settle();
+    expect(await mailsFor(`${P} ปฏิเสธการจอง:`, t)).toHaveLength(0);
+  });
+
+  // DEF-04 ผ่านหน้าจอจริง (UI-mrr-009) — เคส 112 ยิง API ตรง จึงไม่พิสูจน์ว่าหน้าจอมีช่องเหตุผลและส่งค่าไปจริง
+  test('[real] TC-AUD-UI009-101 RA กด "ปฏิเสธ" บน UI-mrr-009: ไม่กรอกเหตุผล → แจ้งและไม่ส่ง · กรอกแล้ว → ปฏิเสธสำเร็จ ร่องรอยมีเหตุผล (DEF-04 · BR-mrr-017@v2)', async ({ browser }) => {
+    const t = token();
+    const slot = nearSlot(10);
+    const b = await book(clients.u1, 'appr', slot, title('ปฏิเสธผ่านหน้าจอ', t));
+    await setClock(at(startOf(slot), -(19 * 60 + 50) * 60_000));
+    // คิวแบ่งหน้าละ 20 รายการ เรียงเริ่มใกล้สุดก่อน — หาหน้าที่การจองนี้อยู่ แทนการเดาว่าอยู่หน้า 1
+    let pageNo = 0;
+    for (let n = 1; n <= 20 && !pageNo; n++) {
+      const list = (await (await clients.ra1.get(`/bookings?status=PENDING_APPROVAL&page=${n}`)).json()) as { items: { id: string }[] };
+      if (list.items.some((x) => x.id === b.id)) pageNo = n;
+      if (!list.items.length) break;
+    }
+    expect(pageNo, 'การจองต้องอยู่ในคิวรออนุมัติ').toBeGreaterThan(0);
+
+    const ctx = await browser.newContext({ storageState: stateOf('ra1'), baseURL: 'http://localhost:4173', locale: 'th-TH', timezoneId: 'Asia/Bangkok' });
+    const page = await ctx.newPage();
+    await page.goto(`/UI-mrr-009?page=${pageNo}`);
+    const row = page.locator('tr', { hasText: title('ปฏิเสธผ่านหน้าจอ', t) }).first();
+    await row.getByTestId('ui-mrr-009-reject').click();
+
+    // เว้นเหตุผล → ข้อความ error · ไม่ยิง API (สถานะยังรออนุมัติ ร่องรอยยังไม่มี)
+    await page.getByTestId('ui-mrr-009-reject-confirm').click();
+    await expect(page.getByTestId('ui-mrr-009-reason-error')).toHaveText('กรุณาระบุเหตุผล');
+    expect(await statusOf(b.id)).toBe('PENDING_APPROVAL');
+    expect(await trailOf(b.id)).toHaveLength(0);
+
+    await page.getByTestId('ui-mrr-009-reason').fill(REJECT_REASON);
+    await page.getByTestId('ui-mrr-009-reject-confirm').click();
+    await expect(page.getByRole('status')).toContainText('ปฏิเสธการจองสำเร็จ');
+    expect(await statusOf(b.id)).toBe('REJECTED');
+    const trail = await trailOf(b.id);
+    expect(trail).toHaveLength(1);
+    expect(trail[0]).toMatchObject({ action: 'REJECT', reason: REJECT_REASON });
+    await ctx.close();
+  });
+
   test('[real] TC-AUD-UI010-111 RA แก้หัวข้อแทนผู้จอง → ร่องรอยใหม่ 1 รายการ การกระทำ "แก้แทนผู้จอง" พร้อมเหตุผล (EX-mrr-122 · BR-mrr-017@v2)', async ({ browser }) => {
     const t = token();
     const slot = nearSlot(10);

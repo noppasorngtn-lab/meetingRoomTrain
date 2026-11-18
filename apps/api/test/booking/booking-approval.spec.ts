@@ -4,6 +4,7 @@ import { Database } from '../../src/common/database/schema';
 import {
   BookingApprovalService, NotPending, NotRoomAdministrator, NotTheApprover,
 } from '../../src/modules/booking/booking-approval.service';
+import { BookingInvalid } from '../../src/modules/booking/booking.service';
 import { BookingNotFound } from '../../src/modules/booking/booking-edit.service';
 import { BookingNotifier, EmailDeliveryFailed } from '../../src/modules/notification/booking-notifier';
 import { MailMessage, MailTransport } from '../../src/modules/notification/mail-transport';
@@ -181,7 +182,7 @@ describe('FE-mrr-028 approve or reject a booking (UC-mrr-007)', () => {
 
   describe('reject (API-012)', () => {
     it('a Room Administrator rejects — REJECTED, ปฏิเสธการจองสำเร็จ, and the booker is mailed ปฏิเสธการจอง (BR-mrr-007@v2 · EX-mrr-118)', async () => {
-      expect(await service.reject({ userId: ra1 }, booking)).toEqual({ message: 'ปฏิเสธการจองสำเร็จ' });
+      expect(await service.reject({ userId: ra1 }, booking, 'ห้องไม่เหมาะกับการประชุมนี้')).toEqual({ message: 'ปฏิเสธการจองสำเร็จ' });
       expect(await status()).toBe('REJECTED');
       expect(mail.sent).toEqual([{
         to: ['u1@example.test'],
@@ -199,13 +200,13 @@ describe('FE-mrr-028 approve or reject a booking (UC-mrr-007)', () => {
     it('BR-mrr-019 a rejection whose mail does not go — still รออนุมัติ, no trail, press again', async () => {
       mail.down = true;
 
-      await expect(service.reject({ userId: ra1 }, booking)).rejects.toBeInstanceOf(EmailDeliveryFailed);
+      await expect(service.reject({ userId: ra1 }, booking, 'ห้องไม่เหมาะกับการประชุมนี้')).rejects.toBeInstanceOf(EmailDeliveryFailed);
       expect(await status()).toBe('PENDING_APPROVAL');
       expect(await trail()).toEqual([]);
     });
 
     it('releases the slot — someone else can book ห้อง B 18/10 10:00–11:00 again', async () => {
-      await service.reject({ userId: ra1 }, booking);
+      await service.reject({ userId: ra1 }, booking, 'ห้องไม่เหมาะกับการประชุมนี้');
       const u2 = await seedUser(db, 'U2');
 
       const again = await seedBooking(db, {
@@ -214,10 +215,19 @@ describe('FE-mrr-028 approve or reject a booking (UC-mrr-007)', () => {
       expect(await status(again)).toBe('PENDING_APPROVAL');
     });
 
-    it('BR-mrr-017 leaves one trail entry: RA1 · 16/10 14:05 · ปฏิเสธ · no reason', async () => {
-      await service.reject({ userId: ra1 }, booking);
+    it('BR-mrr-017@v2 leaves one trail entry: RA1 · 16/10 14:05 · ปฏิเสธ · with the reason', async () => {
+      await service.reject({ userId: ra1 }, booking, 'ห้องไม่เหมาะกับการประชุมนี้');
 
-      expect(await trail()).toEqual([{ actor_id: ra1, action: 'REJECT', reason: null, at: at(16, '14:05') }]);
+      expect(await trail()).toEqual([{ actor_id: ra1, action: 'REJECT', reason: 'ห้องไม่เหมาะกับการประชุมนี้', at: at(16, '14:05') }]);
+    });
+
+    it('DEF-04 · BR-mrr-017@v2 no reason (none, empty or blank) — refused, still รออนุมัติ, no trail, no mail', async () => {
+      for (const r of [undefined, '', '   ']) {
+        await expect(service.reject({ userId: ra1 }, booking, r)).rejects.toThrow(new BookingInvalid('reason', 'กรุณาระบุเหตุผล'));
+      }
+      expect(await status()).toBe('PENDING_APPROVAL');
+      expect(await trail()).toEqual([]);
+      expect(mail.sent).toEqual([]);
     });
 
     it('a General User cannot reject', async () => {

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { Fragment, useCallback, useEffect, useState } from 'react';
 import { Navigate, useNavigate, useSearchParams } from 'react-router-dom';
 import { ApiError, getJson, postJson } from '../../shared/api';
 import { Pager } from '../../shared/Pager';
@@ -44,6 +44,8 @@ const SIGN_IN = 'UI-mrr-001';
 const PENDING = 'UI-mrr-009';
 /** manage's destination in screens.json. */
 const MANAGE = 'UI-mrr-010';
+/** Same words as UI-mrr-010's reason box. Provisional until req/design confirm (OQ-T1-17). */
+const REASON_REQUIRED = 'กรุณาระบุเหตุผล';
 
 /**
  * UI-mrr-009 — a Room Administrator's queue of bookings waiting for approval (API-010), approved
@@ -58,6 +60,10 @@ export function PendingApprovalsPage() {
   const [load, setLoad] = useState<Load>({ kind: 'loading' });
   const [deciding, setDeciding] = useState<string | null>(null);
   const [failure, setFailure] = useState<string | null>(null);
+  // BR-mrr-017@v2 — a rejection needs a reason: the row opens a reason box (provisional wording, DEF-04 · OQ-T1-17).
+  const [rejectingId, setRejectingId] = useState<string | null>(null);
+  const [reason, setReason] = useState('');
+  const [reasonError, setReasonError] = useState<string | null>(null);
 
   const fetchPage = useCallback(() => {
     setLoad({ kind: 'loading' });
@@ -73,11 +79,19 @@ export function PendingApprovalsPage() {
 
   useEffect(fetchPage, [fetchPage]);
 
+  const openReject = (id: string) => {
+    setRejectingId(id);
+    setReason('');
+    setReasonError(null);
+  };
+
   const decide = async (verb: Verb, id: string) => {
+    if (verb === 'reject' && !reason.trim()) return setReasonError(REASON_REQUIRED); // nothing is sent
     setDeciding(id);
     setFailure(null);
     try {
-      const done = await postJson<{ message: string }>(`/bookings/${id}/${verb}`, {});
+      const done = await postJson<{ message: string }>(`/bookings/${id}/${verb}`, verb === 'reject' ? { reason: reason.trim() } : {});
+      setRejectingId(null);
       // Said through the shell's notice; the decided booking leaves the queue on the next read.
       navigate({ pathname: routeOf(PENDING), search: params.toString() }, { replace: true, state: { notice: done.message } });
       fetchPage();
@@ -85,6 +99,7 @@ export function PendingApprovalsPage() {
       // The booking stays pending (UI-mrr-009 error state) — the api says why: not this room's
       // approver, already decided, or the mail did not go and the person should press again.
       if (err instanceof ApiError && err.status === 401) return setLoad({ kind: 'unauthorized' });
+      if (verb === 'reject' && err instanceof ApiError && err.status === 400 && err.field === 'reason') return setReasonError(err.message);
       setFailure(err instanceof ApiError && err.status !== 500 ? err.message : 'บันทึกผลไม่สำเร็จ กรุณากดอีกครั้ง');
     } finally {
       setDeciding(null);
@@ -138,7 +153,8 @@ export function PendingApprovalsPage() {
               </thead>
               <tbody>
                 {load.data.items.map((b) => (
-                  <tr key={b.id}>
+                  <Fragment key={b.id}>
+                  <tr>
                     <td>
                       {/* UIC-001 — row actions in the first column: manage before command. */}
                       <span className="row-actions">
@@ -165,7 +181,7 @@ export function PendingApprovalsPage() {
                           className="more more-danger"
                           data-testid="ui-mrr-009-reject"
                           disabled={!b.canDecide || deciding !== null}
-                          onClick={() => decide('reject', b.id)}
+                          onClick={() => openReject(b.id)}
                         >
                           ปฏิเสธ
                         </button>
@@ -178,6 +194,28 @@ export function PendingApprovalsPage() {
                     {/* Empty means any Room Administrator may decide (BR-mrr-013). */}
                     <td data-testid="ui-mrr-009-ent-003-approver">{b.approver ? b.approver.fullName : 'ไม่กำหนด'}</td>
                   </tr>
+                  {rejectingId === b.id && (
+                    <tr>
+                      <td colSpan={6}>
+                        <label htmlFor="ui-mrr-009-reason">เหตุผลที่ปฏิเสธ</label>
+                        <input
+                          id="ui-mrr-009-reason"
+                          data-testid="ui-mrr-009-reason"
+                          value={reason}
+                          onChange={(e) => { setReason(e.target.value); setReasonError(null); }}
+                          aria-invalid={reasonError ? true : undefined}
+                        />
+                        {reasonError && <p role="alert" className="field-error" data-testid="ui-mrr-009-reason-error">{reasonError}</p>}
+                        <button type="button" className="btn btn-danger" data-testid="ui-mrr-009-reject-confirm" disabled={deciding !== null} onClick={() => decide('reject', b.id)}>
+                          ยืนยันปฏิเสธ
+                        </button>
+                        <button type="button" className="btn btn-secondary" data-testid="ui-mrr-009-reject-cancel" onClick={() => setRejectingId(null)}>
+                          ยกเลิก
+                        </button>
+                      </td>
+                    </tr>
+                  )}
+                  </Fragment>
                 ))}
               </tbody>
             </table>

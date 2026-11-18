@@ -66,7 +66,7 @@ describe('FE-mrr-028 GET /bookings?status=PENDING_APPROVAL · POST /bookings/:id
   });
 
   const decide = (verb: 'approve' | 'reject', user?: string, id = booking) => {
-    const r = request(app.getHttpServer()).post(`/bookings/${id}/${verb}`);
+    const r = request(app.getHttpServer()).post(`/bookings/${id}/${verb}`).send(verb === 'reject' ? { reason: 'ห้องไม่เหมาะกับการประชุมนี้' } : {});
     return user ? r.set('x-test-user', user) : r;
   };
   const list = (query: string, user?: string) => {
@@ -112,6 +112,13 @@ describe('FE-mrr-028 GET /bookings?status=PENDING_APPROVAL · POST /bookings/:id
     const res = await decide('reject', ra1);
 
     expect([res.status, res.body.message]).toEqual([409, 'การจองนี้ไม่ได้รออนุมัติแล้ว']);
+  });
+
+  it('DEF-04 · BR-mrr-017@v2 400 กรุณาระบุเหตุผล when a Room Administrator rejects with no reason — still รออนุมัติ', async () => {
+    const res = await request(app.getHttpServer()).post(`/bookings/${booking}/reject`).set('x-test-user', ra1);
+
+    expect([res.status, res.body.message, res.body.field]).toEqual([400, 'กรุณาระบุเหตุผล', 'reason']);
+    expect(await status()).toBe('PENDING_APPROVAL');
   });
 
   it('200 ปฏิเสธการจองสำเร็จ', async () => {

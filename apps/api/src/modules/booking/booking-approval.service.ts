@@ -131,14 +131,16 @@ export class BookingApprovalService {
    * REJECTED no longer holds time, so the slot is free again the moment this commits (the
    * bookings_no_overlap constraint counts only the states that hold time). The booker and every
    * attendee are mailed inside the transaction (BR-mrr-007@v2 (3)): a mail that does not go undoes
-   * the rejection (BR-mrr-019). The reason is recorded when given (BR-mrr-017@v2 asks for one —
-   * making it mandatory also needs a reason field on UI-mrr-009, not done here).
+   * the rejection (BR-mrr-019). The reason is required (BR-mrr-017@v2) — nothing changes and no
+   * trail entry is written without one; the wording is provisional (DEF-04 · OQ-T1-17).
    */
   async reject(caller: Caller, id: string, rawReason = ''): Promise<{ message: string }> {
     const now = this.clock.now();
-    const reason = rawReason.trim() || null;
+    const reason = rawReason.trim();
     return this.db.transaction().execute(async (tx) => {
       const current = await this.lockDecidable(tx, caller, id, 'ปฏิเสธ');
+      // After the who-may-decide and still-pending checks, so those answers keep winning over this one.
+      if (!reason) throw new BookingInvalid('reason', 'กรุณาระบุเหตุผล');
       await tx.updateTable('bookings').set({ status: 'REJECTED' }).where('id', '=', id).execute();
       await recordAudit(tx, { bookingId: id, caller, action: 'REJECT', at: now, reason });
 
