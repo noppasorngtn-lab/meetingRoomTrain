@@ -20,7 +20,7 @@
 | [requirements/](requirements/index.md) | 5 | ลูกค้าอยากได้อะไร |
 | [rules/](rules/index.md) | 32 | กฎที่ระบบต้องบังคับ (หนึ่งไฟล์ต่อหนึ่งเวอร์ชัน) |
 | [calculations/](calculations/index.md) | 1 | ตัวเลขถูกผลิตยังไง |
-| [examples/](examples/index.md) | 123 | ใครพิสูจน์กฎข้อไหน |
+| [examples/](examples/index.md) | 124 | ใครพิสูจน์กฎข้อไหน |
 | [golden/](golden/index.md) | 1 | เลขเฉลยที่คนยืนยันแล้ว |
 | [changes/](changes/index.md) | 3 | เปลี่ยนอะไร ใครสั่ง เมื่อไหร่ |
 | [glossary/](glossary/index.md) | 13 | คำที่ตกลงกันแล้ว |

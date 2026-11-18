@@ -11,12 +11,12 @@ kind: policy
 is_current: true
 effective_from: 2026-11-18
 test_design: [EP]
-proven_by: [EX-mrr-019, EX-mrr-020, EX-mrr-021, EX-mrr-022, EX-mrr-114, EX-mrr-115, EX-mrr-116, EX-mrr-117, EX-mrr-118]
+proven_by: [EX-mrr-019, EX-mrr-020, EX-mrr-021, EX-mrr-022, EX-mrr-114, EX-mrr-115, EX-mrr-116, EX-mrr-117, EX-mrr-118, EX-mrr-124]
 golden: []
 supersedes: BR-mrr-007@v1
 provenance: [SRC-001, SRC-001, SRC-010, SRC-002, SRC-020, SRC-020, SRC-020, SRC-029, SRC-029, SRC-029]
 timestamp: 2026-11-18T12:30:00+07:00
-spec_hash: sha256:20f61c58dcb0d1c12251942868abe8b944364dca0ec17d2dcafcdcb656434f8e
+spec_hash: sha256:6653acee768822eb3e9fed7aeed0328ed9d4386669f63e9b17d17ff5c750ac21
 ---
 
 # BR-mrr-007@v2
@@ -67,6 +67,7 @@ spec_hash: sha256:20f61c58dcb0d1c12251942868abe8b944364dca0ec17d2dcafcdcb656434f
 - [EX-mrr-116](../examples/EX-mrr-116.md) — happy: ระบบยกเลิกการจอง และแสดงข้อความ 'ยกเลิกการจองสำเร็จ' · U1, U2 และ U3 ได้รับ Email หัวเรื่อง '[จองห้องประชุม] ยกเลิกการจอง: ประชุมทีม · ห้อง A 17/10 10:00–11:00'
 - [EX-mrr-117](../examples/EX-mrr-117.md) — happy: ระบบยกเลิกการจอง และ Room Administrator เห็นข้อความ 'ยกเลิกการจองสำเร็จ' · U1, U2 และ U3 ได้รับ Email หัวเรื่อง '[จองห้องประชุม] ยกเลิกการจอง: ประชุมทีม · ห้อง A 17/10 10:00–11:00'
 - [EX-mrr-118](../examples/EX-mrr-118.md) — exception: การจองเปลี่ยนเป็นสถานะ 'ปฏิเสธแล้ว' · Room Administrator เห็นข้อความ 'ปฏิเสธการจองสำเร็จ' · U1 และ U2 ได้รับ Email หัวเรื่อง '[จองห้องประชุม] ปฏิเสธการจอง: ประชุมลูกค้า · ห้อง B 17/10 10:00–11:00' · ร่องรอยมีรายการใหม่ 1 รายการ: ผู้ทำ Room Administrator · เวลา 16/10 14:10 · การกระทำ 'ปฏิเสธการจอง' · เหตุผล 'ห้องไม่เหมาะกับการประชุมนี้'
+- [EX-mrr-124](../examples/EX-mrr-124.md) — exception: การจองเปลี่ยนเป็นสถานะ 'ปฏิเสธแล้ว' และ Room Administrator เห็นข้อความ 'เปลี่ยนผลการอนุมัติสำเร็จ' · U1 และ U2 ได้รับ Email หัวเรื่อง '[จองห้องประชุม] ปฏิเสธการจอง: ประชุมลูกค้า · ห้อง B 17/10 10:00–11:00'
 
 ## แทนที่
 [BR-mrr-007@v1](BR-mrr-007@v1.md) — *เหตุผล: เจ้าของยืนยันคำของ <เหตุการณ์> ในหัวเรื่อง Email ตอนอนุมัติ (อนุมัติแล้ว) ยกเลิกโดยผู้ใช้หรือ Room Administrator (ยกเลิกการจอง) และปฏิเสธ (ปฏิเสธการจอง) และให้ส่ง Email ตอนปฏิเสธถึงผู้จองและผู้เข้าร่วมทุกคน*

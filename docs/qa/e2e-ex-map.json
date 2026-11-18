@@ -487,7 +487,11 @@
     },
     "EX-mrr-123": {
       "cases": "TC-AUD-UI010-112, TC-AUD-UI009-101",
-      "note": "RA rejects with empty/blank/missing reason: 400 'กรุณาระบุเหตุผล', booking stays PENDING_APPROVAL, no trail entry, no mail; 112 via API, 009-101 via the real UI-mrr-009 reason box, real · PASS · EX-123 is draft in spec (owner to validate)"
+      "note": "RA rejects with empty/blank/missing reason: 400 'กรุณาระบุเหตุผล', booking stays PENDING_APPROVAL, no trail entry, no mail; 112 via API, 009-101 via the real UI-mrr-009 reason box, real · PASS · EX-123 validated in spec"
+    },
+    "EX-mrr-124": {
+      "cases": "TC-NTF-UI010-102",
+      "note": "RA changes decision approved->rejected before start: expects message 'เปลี่ยนผลการอนุมัติสำเร็จ', status REJECTED, mail 'ปฏิเสธการจอง:' to U1/U2, real · PASS · EX-124 validated in spec"
     }
   }
 }

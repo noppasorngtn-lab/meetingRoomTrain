@@ -4,8 +4,12 @@
       "C:\\Program Files\\nodejs\\node.exe",
       "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\node_modules\\@playwright\\test\\cli.js",
       "test",
-      "t1-round2.spec.ts",
-      "--project=chromium"
+      "booking.spec.ts",
+      "t1-yes.spec.ts",
+      "--project=chromium",
+      "--repeat-each=3",
+      "-g",
+      "จองสำเร็จและจองซ้ำ|การจองของฉัน"
     ],
     "configFile": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\playwright.config.ts",
     "rootDir": "C:/04 - Claude-Training/workshop/meetingRoomTrain/test/e2e",
@@ -25,7 +29,7 @@
     "projects": [
       {
         "outputDir": "C:/04 - Claude-Training/workshop/meetingRoomTrain/test/test-results",
-        "repeatEach": 1,
+        "repeatEach": 3,
         "retries": 0,
         "metadata": {
           "actualWorkers": 1
@@ -125,7 +129,7 @@
         "grep": {},
         "grepInvert": null,
         "outputDir": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results",
-        "repeatEach": 1,
+        "repeatEach": 3,
         "retries": 0,
         "metadata": {
           "actualWorkers": 1
@@ -195,335 +199,35 @@
   },
   "suites": [
     {
-      "title": "t1-round2.spec.ts",
-      "file": "t1-round2.spec.ts",
+      "title": "booking.spec.ts",
+      "file": "booking.spec.ts",
       "column": 0,
       "line": 0,
-      "specs": [
+      "specs": [],
+      "suites": [
         {
-          "title": "[real] TC-NTF-JOB-109 งานเตือนส่งสำเร็จ → U1 U2 U3 ได้อีเมลเตือน และบันทึก \"ส่งสำเร็จ\" (EX-mrr-111 · BR-mrr-020@v2)",
-          "ok": true,
-          "tags": [
-            "v2)"
-          ],
-          "tests": [
+          "title": "จองสำเร็จและจองซ้ำ (BR-mrr-001 · BR-mrr-004 · BR-mrr-007)",
+          "file": "booking.spec.ts",
+          "line": 118,
+          "column": 15,
+          "specs": [
             {
-              "timeout": 30000,
-              "annotations": [],
-              "expectedStatus": "passed",
-              "projectId": "chromium",
-              "projectName": "chromium",
-              "results": [
+              "title": "[real] ห้องที่ไม่ต้องอนุมัติ → CONFIRMED แล้วไปหน้าการจองของฉันพร้อมข้อความ",
+              "ok": false,
+              "tags": [],
+              "tests": [
                 {
-                  "workerIndex": 0,
-                  "parallelIndex": 0,
-                  "status": "passed",
-                  "duration": 386,
-                  "errors": [],
-                  "stdout": [],
-                  "stderr": [],
-                  "retry": 0,
-                  "startTime": "2026-11-18T09:46:55.607Z",
-                  "annotations": [],
-                  "attachments": []
-                }
-              ],
-              "status": "expected"
-            }
-          ],
-          "id": "5153c034207a071e6cc3-4267be8d0093e21b936a",
-          "file": "t1-round2.spec.ts",
-          "line": 63,
-          "column": 1
-        },
-        {
-          "title": "[real] TC-NTF-JOB-110 ผู้รับ U3 ส่งไม่สำเร็จ → บันทึก \"ส่งไม่สำเร็จ\" ทั้งการจอง งาน 09:50 ไม่ส่งซ้ำ (EX-mrr-112 · BR-mrr-020@v2) — รอ fixture OQ-T1-15",
-          "ok": true,
-          "tags": [
-            "v2)"
-          ],
-          "tests": [
-            {
-              "timeout": 30000,
-              "annotations": [
-                {
-                  "type": "fixme",
-                  "location": {
-                    "file": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\e2e\\t1-round2.spec.ts",
-                    "line": 76,
-                    "column": 6
-                  }
-                }
-              ],
-              "expectedStatus": "skipped",
-              "projectId": "chromium",
-              "projectName": "chromium",
-              "results": [
-                {
-                  "workerIndex": 0,
-                  "parallelIndex": 0,
-                  "status": "skipped",
-                  "duration": 0,
-                  "errors": [],
-                  "stdout": [],
-                  "stderr": [],
-                  "retry": 0,
-                  "startTime": "2026-11-18T09:46:56.075Z",
+                  "timeout": 30000,
                   "annotations": [
                     {
-                      "type": "fixme",
+                      "type": "serial",
                       "location": {
-                        "file": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\e2e\\t1-round2.spec.ts",
-                        "line": 76,
-                        "column": 6
+                        "file": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\e2e\\booking.spec.ts",
+                        "line": 118,
+                        "column": 15
                       }
                     }
                   ],
-                  "attachments": []
-                }
-              ],
-              "status": "skipped"
-            }
-          ],
-          "id": "5153c034207a071e6cc3-0269cc0c74013b8946ed",
-          "file": "t1-round2.spec.ts",
-          "line": 76,
-          "column": 6
-        },
-        {
-          "title": "[real] TC-BKG-UI006-107 อีเมลปกติ → จองสำเร็จ ไม่มีข้อความ \"ส่ง Email แจ้งเตือนไม่สำเร็จ\" และ U1 ได้อีเมลจองสำเร็จ (EX-mrr-113 · BR-mrr-019)",
-          "ok": true,
-          "tags": [],
-          "tests": [
-            {
-              "timeout": 30000,
-              "annotations": [],
-              "expectedStatus": "passed",
-              "projectId": "chromium",
-              "projectName": "chromium",
-              "results": [
-                {
-                  "workerIndex": 0,
-                  "parallelIndex": 0,
-                  "status": "passed",
-                  "duration": 138,
-                  "errors": [],
-                  "stdout": [],
-                  "stderr": [],
-                  "retry": 0,
-                  "startTime": "2026-11-18T09:46:56.075Z",
-                  "annotations": [],
-                  "attachments": []
-                }
-              ],
-              "status": "expected"
-            }
-          ],
-          "id": "5153c034207a071e6cc3-12dac2b8eae00ed42195",
-          "file": "t1-round2.spec.ts",
-          "line": 83,
-          "column": 1
-        },
-        {
-          "title": "[real] TC-NTF-UI006-102 ห้องต้องอนุมัติ → การจองรออนุมัติ ยังไม่มีใครได้อีเมล \"จองสำเร็จ\" (EX-mrr-114 · BR-mrr-007@v2)",
-          "ok": true,
-          "tags": [
-            "v2)"
-          ],
-          "tests": [
-            {
-              "timeout": 30000,
-              "annotations": [],
-              "expectedStatus": "passed",
-              "projectId": "chromium",
-              "projectName": "chromium",
-              "results": [
-                {
-                  "workerIndex": 0,
-                  "parallelIndex": 0,
-                  "status": "passed",
-                  "duration": 2622,
-                  "errors": [],
-                  "stdout": [],
-                  "stderr": [],
-                  "retry": 0,
-                  "startTime": "2026-11-18T09:46:56.226Z",
-                  "annotations": [],
-                  "attachments": []
-                }
-              ],
-              "status": "expected"
-            }
-          ],
-          "id": "5153c034207a071e6cc3-d504e4287987455d2b06",
-          "file": "t1-round2.spec.ts",
-          "line": 99,
-          "column": 1
-        },
-        {
-          "title": "[real] TC-NTF-UI009-102 RA อนุมัติ → อนุมัติแล้ว · อีเมล \"อนุมัติแล้ว\" ถึง U1 เท่านั้น U2 ไม่ได้รับ (EX-mrr-115 · BR-mrr-007@v2)",
-          "ok": true,
-          "tags": [
-            "v2)"
-          ],
-          "tests": [
-            {
-              "timeout": 30000,
-              "annotations": [],
-              "expectedStatus": "passed",
-              "projectId": "chromium",
-              "projectName": "chromium",
-              "results": [
-                {
-                  "workerIndex": 0,
-                  "parallelIndex": 0,
-                  "status": "passed",
-                  "duration": 232,
-                  "errors": [],
-                  "stdout": [],
-                  "stderr": [],
-                  "retry": 0,
-                  "startTime": "2026-11-18T09:46:58.871Z",
-                  "annotations": [],
-                  "attachments": []
-                }
-              ],
-              "status": "expected"
-            }
-          ],
-          "id": "5153c034207a071e6cc3-f05b81c99e343738a378",
-          "file": "t1-round2.spec.ts",
-          "line": 107,
-          "column": 1
-        },
-        {
-          "title": "[real] TC-NTF-UI008-105 ผู้จองยกเลิกก่อนเริ่ม → ยกเลิก · อีเมล \"ยกเลิกการจอง\" ถึง U1 U2 U3 (EX-mrr-116 · BR-mrr-007@v2)",
-          "ok": true,
-          "tags": [
-            "v2)"
-          ],
-          "tests": [
-            {
-              "timeout": 30000,
-              "annotations": [],
-              "expectedStatus": "passed",
-              "projectId": "chromium",
-              "projectName": "chromium",
-              "results": [
-                {
-                  "workerIndex": 0,
-                  "parallelIndex": 0,
-                  "status": "passed",
-                  "duration": 227,
-                  "errors": [],
-                  "stdout": [],
-                  "stderr": [],
-                  "retry": 0,
-                  "startTime": "2026-11-18T09:46:59.119Z",
-                  "annotations": [],
-                  "attachments": []
-                }
-              ],
-              "status": "expected"
-            }
-          ],
-          "id": "5153c034207a071e6cc3-c5b653fa9a676060048d",
-          "file": "t1-round2.spec.ts",
-          "line": 120,
-          "column": 1
-        },
-        {
-          "title": "[real] TC-NTF-UI010-101 RA ยกเลิกแทนตอน 10:30 (เริ่มไปแล้ว) → ยกเลิก · อีเมล \"ยกเลิกการจอง\" ถึง U1 U2 U3 (EX-mrr-117 · BR-mrr-007@v2)",
-          "ok": true,
-          "tags": [
-            "v2)"
-          ],
-          "tests": [
-            {
-              "timeout": 30000,
-              "annotations": [],
-              "expectedStatus": "passed",
-              "projectId": "chromium",
-              "projectName": "chromium",
-              "results": [
-                {
-                  "workerIndex": 0,
-                  "parallelIndex": 0,
-                  "status": "passed",
-                  "duration": 262,
-                  "errors": [],
-                  "stdout": [],
-                  "stderr": [],
-                  "retry": 0,
-                  "startTime": "2026-11-18T09:46:59.369Z",
-                  "annotations": [],
-                  "attachments": []
-                }
-              ],
-              "status": "expected"
-            }
-          ],
-          "id": "5153c034207a071e6cc3-56c3bf606c33af4c5618",
-          "file": "t1-round2.spec.ts",
-          "line": 133,
-          "column": 1
-        },
-        {
-          "title": "[real] TC-NTF-UI009-103 RA ปฏิเสธ → ปฏิเสธแล้ว · อีเมล \"ปฏิเสธการจอง\" ถึง U1 U2 · ร่องรอย 1 รายการ พร้อมเหตุผล (EX-mrr-118 · BR-mrr-007@v2 · BR-mrr-017@v2)",
-          "ok": true,
-          "tags": [
-            "v2",
-            "v2)"
-          ],
-          "tests": [
-            {
-              "timeout": 30000,
-              "annotations": [],
-              "expectedStatus": "passed",
-              "projectId": "chromium",
-              "projectName": "chromium",
-              "results": [
-                {
-                  "workerIndex": 0,
-                  "parallelIndex": 0,
-                  "status": "passed",
-                  "duration": 210,
-                  "errors": [],
-                  "stdout": [],
-                  "stderr": [],
-                  "retry": 0,
-                  "startTime": "2026-11-18T09:46:59.643Z",
-                  "annotations": [],
-                  "attachments": []
-                }
-              ],
-              "status": "expected"
-            }
-          ],
-          "id": "5153c034207a071e6cc3-c9459fa6f089154e5355",
-          "file": "t1-round2.spec.ts",
-          "line": 150,
-          "column": 1
-        }
-      ],
-      "suites": [
-        {
-          "title": "ค่าช่อง \"การกระทำ\" ของร่องรอย (BR-mrr-017@v2)",
-          "file": "t1-round2.spec.ts",
-          "line": 171,
-          "column": 6,
-          "specs": [
-            {
-              "title": "[real] TC-AUD-UI010-109 RA ปฏิเสธ → ปฏิเสธแล้ว · ร่องรอยใหม่ 1 รายการ การกระทำ \"ปฏิเสธการจอง\" พร้อมเหตุผล (EX-mrr-120 · BR-mrr-017@v2)",
-              "ok": true,
-              "tags": [
-                "v2)",
-                "v2)"
-              ],
-              "tests": [
-                {
-                  "timeout": 30000,
-                  "annotations": [],
                   "expectedStatus": "passed",
                   "projectId": "chromium",
                   "projectName": "chromium",
@@ -531,118 +235,543 @@
                     {
                       "workerIndex": 0,
                       "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 721,
-                      "errors": [],
+                      "status": "failed",
+                      "duration": 5866,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByTestId('ui-mrr-007-ent-007-title').filter({ hasText: 'E2E จองห้องสำเร็จ mwlz6019' })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByTestId('ui-mrr-007-ent-007-title').filter({ hasText: 'E2E จองห้องสำเร็จ mwlz6019' }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByTestId('ui-mrr-007-ent-007-title').filter({ hasText: 'E2E จองห้องสำเร็จ mwlz6019' })\u001b[22m\n",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByTestId('ui-mrr-007-ent-007-title').filter({ hasText: 'E2E จองห้องสำเร็จ mwlz6019' })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByTestId('ui-mrr-007-ent-007-title').filter({ hasText: 'E2E จองห้องสำเร็จ mwlz6019' }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByTestId('ui-mrr-007-ent-007-title').filter({ hasText: 'E2E จองห้องสำเร็จ mwlz6019' })\u001b[22m\n\n    at C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\e2e\\booking.spec.ts:132:112",
+                        "location": {
+                          "file": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\e2e\\booking.spec.ts",
+                          "column": 112,
+                          "line": 132
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 130 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page)\u001b[33m.\u001b[39mtoHaveURL(\u001b[35m/\\/UI-mrr-007/\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 131 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByText(body\u001b[33m.\u001b[39mmessage\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m }))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 132 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByTestId(\u001b[32m'ui-mrr-007-ent-007-title'\u001b[39m)\u001b[33m.\u001b[39mfilter({ hasText\u001b[33m:\u001b[39m \u001b[32m`E2E จองห้องสำเร็จ ${RUN}`\u001b[39m }))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                                                                                                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 133 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 134 |\u001b[39m\n \u001b[90m 135 |\u001b[39m   test(\u001b[32m'[real] จองช่วงเวลาเดิมซ้ำ → ห้องไม่ว่าง และข้อมูลในฟอร์มยังอยู่'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\e2e\\booking.spec.ts",
+                            "column": 112,
+                            "line": 132
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByTestId('ui-mrr-007-ent-007-title').filter({ hasText: 'E2E จองห้องสำเร็จ mwlz6019' })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByTestId('ui-mrr-007-ent-007-title').filter({ hasText: 'E2E จองห้องสำเร็จ mwlz6019' }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByTestId('ui-mrr-007-ent-007-title').filter({ hasText: 'E2E จองห้องสำเร็จ mwlz6019' })\u001b[22m\n\n\n  130 |     await expect(page).toHaveURL(/\\/UI-mrr-007/);\n  131 |     await expect(page.getByText(body.message, { exact: true })).toBeVisible();\n> 132 |     await expect(page.getByTestId('ui-mrr-007-ent-007-title').filter({ hasText: `E2E จองห้องสำเร็จ ${RUN}` })).toBeVisible();\n      |                                                                                                                ^\n  133 |   });\n  134 |\n  135 |   test('[real] จองช่วงเวลาเดิมซ้ำ → ห้องไม่ว่าง และข้อมูลในฟอร์มยังอยู่', async ({ page }) => {\n    at C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\e2e\\booking.spec.ts:132:112"
+                        }
+                      ],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-18T09:46:59.866Z",
-                      "annotations": [],
+                      "startTime": "2026-11-18T10:25:01.121Z",
+                      "annotations": [
+                        {
+                          "type": "serial",
+                          "location": {
+                            "file": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\e2e\\booking.spec.ts",
+                            "line": 118,
+                            "column": 15
+                          }
+                        }
+                      ],
                       "attachments": [
                         {
                           "name": "screenshot",
                           "contentType": "image/png",
-                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\t1-round2-ค่าช่อง-การกระทำ-18459-EX-mrr-120-·-BR-mrr-017-v2--chromium\\test-finished-1.png"
-                        }
-                      ]
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "5153c034207a071e6cc3-bfd246809a9a0bff08d3",
-              "file": "t1-round2.spec.ts",
-              "line": 179,
-              "column": 3
-            },
-            {
-              "title": "[real] TC-AUD-UI010-110 RA เปลี่ยนผลอนุมัติ → ปฏิเสธ · ร่องรอยใหม่ 1 รายการ การกระทำ \"ถอยผล\" พร้อมเหตุผล (EX-mrr-121 · BR-mrr-017@v2)",
-              "ok": true,
-              "tags": [
-                "v2)",
-                "v2)"
-              ],
-              "tests": [
-                {
-                  "timeout": 30000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "chromium",
-                  "projectName": "chromium",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 771,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-11-18T09:47:00.684Z",
-                      "annotations": [],
-                      "attachments": [
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\booking-จองสำเร็จและจองซ้ำ-4c0b5-น้าการจองของฉันพร้อมข้อความ-chromium\\test-failed-1.png"
+                        },
                         {
-                          "name": "screenshot",
-                          "contentType": "image/png",
-                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\t1-round2-ค่าช่อง-การกระทำ-6c272-EX-mrr-121-·-BR-mrr-017-v2--chromium\\test-finished-1.png"
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\booking-จองสำเร็จและจองซ้ำ-4c0b5-น้าการจองของฉันพร้อมข้อความ-chromium\\error-context.md"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\booking-จองสำเร็จและจองซ้ำ-4c0b5-น้าการจองของฉันพร้อมข้อความ-chromium\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\booking-จองสำเร็จและจองซ้ำ-4c0b5-น้าการจองของฉันพร้อมข้อความ-chromium\\trace.zip"
                         }
-                      ]
+                      ],
+                      "errorLocation": {
+                        "file": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\e2e\\booking.spec.ts",
+                        "column": 112,
+                        "line": 132
+                      }
                     }
                   ],
-                  "status": "expected"
+                  "status": "unexpected"
                 }
               ],
-              "id": "5153c034207a071e6cc3-11f077577c37946e8152",
-              "file": "t1-round2.spec.ts",
-              "line": 198,
+              "id": "a3a10f2351dcc49e1cb9-97f553b378490df02920",
+              "file": "booking.spec.ts",
+              "line": 121,
               "column": 3
             },
             {
-              "title": "[real] TC-AUD-UI010-112 RA ปฏิเสธโดยเว้นเหตุผลว่าง → ล้ม · การจองคงเดิม · ไม่มีร่องรอยใหม่ · ไม่มี Email (DEF-04 · BR-mrr-017@v2) — ถ้อยคำ error ชั่วคราว (OQ-T1-17)",
+              "title": "[real] จองช่วงเวลาเดิมซ้ำ → ห้องไม่ว่าง และข้อมูลในฟอร์มยังอยู่",
               "ok": true,
-              "tags": [
-                "v2)",
-                "v2)"
-              ],
+              "tags": [],
               "tests": [
                 {
                   "timeout": 30000,
-                  "annotations": [],
+                  "annotations": [
+                    {
+                      "type": "serial",
+                      "location": {
+                        "file": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\e2e\\booking.spec.ts",
+                        "line": 118,
+                        "column": 15
+                      }
+                    }
+                  ],
                   "expectedStatus": "passed",
                   "projectId": "chromium",
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 2676,
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-18T09:47:01.472Z",
+                      "startTime": "2026-11-18T10:25:07.811Z",
                       "annotations": [],
                       "attachments": []
                     }
                   ],
-                  "status": "expected"
+                  "status": "skipped"
                 }
               ],
-              "id": "5153c034207a071e6cc3-86acee1a8baf2e46d609",
-              "file": "t1-round2.spec.ts",
-              "line": 219,
+              "id": "a3a10f2351dcc49e1cb9-ee5e73e1a8d43921c566",
+              "file": "booking.spec.ts",
+              "line": 135,
               "column": 3
             },
             {
-              "title": "[real] TC-AUD-UI009-101 RA กด \"ปฏิเสธ\" บน UI-mrr-009: ไม่กรอกเหตุผล → แจ้งและไม่ส่ง · กรอกแล้ว → ปฏิเสธสำเร็จ ร่องรอยมีเหตุผล (DEF-04 · BR-mrr-017@v2)",
+              "title": "[real] ห้องที่ต้องอนุมัติ → PENDING_APPROVAL",
               "ok": true,
-              "tags": [
-                "v2)",
-                "v2)"
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "serial",
+                      "location": {
+                        "file": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\e2e\\booking.spec.ts",
+                        "line": 118,
+                        "column": 15
+                      }
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-18T10:25:07.811Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
               ],
+              "id": "a3a10f2351dcc49e1cb9-64caa5e5d3cfa4df085e",
+              "file": "booking.spec.ts",
+              "line": 145,
+              "column": 3
+            },
+            {
+              "title": "[real] ห้องที่ไม่ต้องอนุมัติ → CONFIRMED แล้วไปหน้าการจองของฉันพร้อมข้อความ",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "serial",
+                      "location": {
+                        "file": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\e2e\\booking.spec.ts",
+                        "line": 118,
+                        "column": 15
+                      }
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 5736,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByTestId('ui-mrr-007-ent-007-title').filter({ hasText: 'E2E จองห้องสำเร็จ mwlz6bjo' })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByTestId('ui-mrr-007-ent-007-title').filter({ hasText: 'E2E จองห้องสำเร็จ mwlz6bjo' }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByTestId('ui-mrr-007-ent-007-title').filter({ hasText: 'E2E จองห้องสำเร็จ mwlz6bjo' })\u001b[22m\n",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByTestId('ui-mrr-007-ent-007-title').filter({ hasText: 'E2E จองห้องสำเร็จ mwlz6bjo' })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByTestId('ui-mrr-007-ent-007-title').filter({ hasText: 'E2E จองห้องสำเร็จ mwlz6bjo' }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByTestId('ui-mrr-007-ent-007-title').filter({ hasText: 'E2E จองห้องสำเร็จ mwlz6bjo' })\u001b[22m\n\n    at C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\e2e\\booking.spec.ts:132:112",
+                        "location": {
+                          "file": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\e2e\\booking.spec.ts",
+                          "column": 112,
+                          "line": 132
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 130 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page)\u001b[33m.\u001b[39mtoHaveURL(\u001b[35m/\\/UI-mrr-007/\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 131 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByText(body\u001b[33m.\u001b[39mmessage\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m }))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 132 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByTestId(\u001b[32m'ui-mrr-007-ent-007-title'\u001b[39m)\u001b[33m.\u001b[39mfilter({ hasText\u001b[33m:\u001b[39m \u001b[32m`E2E จองห้องสำเร็จ ${RUN}`\u001b[39m }))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                                                                                                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 133 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 134 |\u001b[39m\n \u001b[90m 135 |\u001b[39m   test(\u001b[32m'[real] จองช่วงเวลาเดิมซ้ำ → ห้องไม่ว่าง และข้อมูลในฟอร์มยังอยู่'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\e2e\\booking.spec.ts",
+                            "column": 112,
+                            "line": 132
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByTestId('ui-mrr-007-ent-007-title').filter({ hasText: 'E2E จองห้องสำเร็จ mwlz6bjo' })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByTestId('ui-mrr-007-ent-007-title').filter({ hasText: 'E2E จองห้องสำเร็จ mwlz6bjo' }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByTestId('ui-mrr-007-ent-007-title').filter({ hasText: 'E2E จองห้องสำเร็จ mwlz6bjo' })\u001b[22m\n\n\n  130 |     await expect(page).toHaveURL(/\\/UI-mrr-007/);\n  131 |     await expect(page.getByText(body.message, { exact: true })).toBeVisible();\n> 132 |     await expect(page.getByTestId('ui-mrr-007-ent-007-title').filter({ hasText: `E2E จองห้องสำเร็จ ${RUN}` })).toBeVisible();\n      |                                                                                                                ^\n  133 |   });\n  134 |\n  135 |   test('[real] จองช่วงเวลาเดิมซ้ำ → ห้องไม่ว่าง และข้อมูลในฟอร์มยังอยู่', async ({ page }) => {\n    at C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\e2e\\booking.spec.ts:132:112"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-18T10:25:16.044Z",
+                      "annotations": [
+                        {
+                          "type": "serial",
+                          "location": {
+                            "file": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\e2e\\booking.spec.ts",
+                            "line": 118,
+                            "column": 15
+                          }
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\booking-จองสำเร็จและจองซ้ำ-4c0b5-น้าการจองของฉันพร้อมข้อความ-chromium-repeat1\\test-failed-1.png"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\booking-จองสำเร็จและจองซ้ำ-4c0b5-น้าการจองของฉันพร้อมข้อความ-chromium-repeat1\\error-context.md"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\booking-จองสำเร็จและจองซ้ำ-4c0b5-น้าการจองของฉันพร้อมข้อความ-chromium-repeat1\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\booking-จองสำเร็จและจองซ้ำ-4c0b5-น้าการจองของฉันพร้อมข้อความ-chromium-repeat1\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\e2e\\booking.spec.ts",
+                        "column": 112,
+                        "line": 132
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "a3a10f2351dcc49e1cb9-72bd552a918780a9eade",
+              "file": "booking.spec.ts",
+              "line": 121,
+              "column": 3
+            },
+            {
+              "title": "[real] จองช่วงเวลาเดิมซ้ำ → ห้องไม่ว่าง และข้อมูลในฟอร์มยังอยู่",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "serial",
+                      "location": {
+                        "file": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\e2e\\booking.spec.ts",
+                        "line": 118,
+                        "column": 15
+                      }
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-18T10:25:22.521Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "a3a10f2351dcc49e1cb9-e5e51dd70e404e8c2ec0",
+              "file": "booking.spec.ts",
+              "line": 135,
+              "column": 3
+            },
+            {
+              "title": "[real] ห้องที่ต้องอนุมัติ → PENDING_APPROVAL",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "serial",
+                      "location": {
+                        "file": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\e2e\\booking.spec.ts",
+                        "line": 118,
+                        "column": 15
+                      }
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": -1,
+                      "parallelIndex": -1,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-18T10:25:22.521Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "a3a10f2351dcc49e1cb9-0387ce255e9b65aa3e88",
+              "file": "booking.spec.ts",
+              "line": 145,
+              "column": 3
+            },
+            {
+              "title": "[real] ห้องที่ไม่ต้องอนุมัติ → CONFIRMED แล้วไปหน้าการจองของฉันพร้อมข้อความ",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "serial",
+                      "location": {
+                        "file": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\e2e\\booking.spec.ts",
+                        "line": 118,
+                        "column": 15
+                      }
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 709,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-18T10:25:30.616Z",
+                      "annotations": [
+                        {
+                          "type": "serial",
+                          "location": {
+                            "file": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\e2e\\booking.spec.ts",
+                            "line": 118,
+                            "column": 15
+                          }
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\booking-จองสำเร็จและจองซ้ำ-4c0b5-น้าการจองของฉันพร้อมข้อความ-chromium-repeat2\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a3a10f2351dcc49e1cb9-50f14769fc3619ca13f6",
+              "file": "booking.spec.ts",
+              "line": 121,
+              "column": 3
+            },
+            {
+              "title": "[real] จองช่วงเวลาเดิมซ้ำ → ห้องไม่ว่าง และข้อมูลในฟอร์มยังอยู่",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "serial",
+                      "location": {
+                        "file": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\e2e\\booking.spec.ts",
+                        "line": 118,
+                        "column": 15
+                      }
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 548,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-18T10:25:31.419Z",
+                      "annotations": [
+                        {
+                          "type": "serial",
+                          "location": {
+                            "file": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\e2e\\booking.spec.ts",
+                            "line": 118,
+                            "column": 15
+                          }
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\booking-จองสำเร็จและจองซ้ำ-accd4-่าง-และข้อมูลในฟอร์มยังอยู่-chromium-repeat2\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a3a10f2351dcc49e1cb9-a4b5608f81e714218ab3",
+              "file": "booking.spec.ts",
+              "line": 135,
+              "column": 3
+            },
+            {
+              "title": "[real] ห้องที่ต้องอนุมัติ → PENDING_APPROVAL",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "serial",
+                      "location": {
+                        "file": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\e2e\\booking.spec.ts",
+                        "line": 118,
+                        "column": 15
+                      }
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 589,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-18T10:25:31.984Z",
+                      "annotations": [
+                        {
+                          "type": "serial",
+                          "location": {
+                            "file": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\e2e\\booking.spec.ts",
+                            "line": 118,
+                            "column": 15
+                          }
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\booking-จองสำเร็จและจองซ้ำ-b64a9-งอนุมัติ-→-PENDING-APPROVAL-chromium-repeat2\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a3a10f2351dcc49e1cb9-890430f68ee4a11c7141",
+              "file": "booking.spec.ts",
+              "line": 145,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "t1-yes.spec.ts",
+      "file": "t1-yes.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "General User — การจองของฉัน / ห้อง / รายงาน",
+          "file": "t1-yes.spec.ts",
+          "line": 86,
+          "column": 6,
+          "specs": [
+            {
+              "title": "[real] precondition: ผู้ใช้ที่ล็อกอินเป็น General User",
+              "ok": true,
+              "tags": [],
               "tests": [
                 {
                   "timeout": 30000,
@@ -652,21 +781,21 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 0,
+                      "workerIndex": 1,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 837,
+                      "duration": 191,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-18T09:47:04.159Z",
+                      "startTime": "2026-11-18T10:25:08.244Z",
                       "annotations": [],
                       "attachments": [
                         {
                           "name": "screenshot",
                           "contentType": "image/png",
-                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\t1-round2-ค่าช่อง-การกระทำ-9cb9c-ุผล-DEF-04-·-BR-mrr-017-v2--chromium\\test-finished-1.png"
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\t1-yes-General-User-—-การจ-c9b9d-ที่ล็อกอินเป็น-General-User-chromium\\test-finished-1.png"
                         }
                       ]
                     }
@@ -674,18 +803,15 @@
                   "status": "expected"
                 }
               ],
-              "id": "5153c034207a071e6cc3-a7b09b8bef43702397b0",
-              "file": "t1-round2.spec.ts",
-              "line": 236,
+              "id": "2b6fefe3ae0a49ed369b-adaf762b6a527c6e6d4c",
+              "file": "t1-yes.spec.ts",
+              "line": 121,
               "column": 3
             },
             {
-              "title": "[real] TC-AUD-UI010-111 RA แก้หัวข้อแทนผู้จอง → ร่องรอยใหม่ 1 รายการ การกระทำ \"แก้แทนผู้จอง\" พร้อมเหตุผล (EX-mrr-122 · BR-mrr-017@v2)",
+              "title": "[real] TC-MYB-UI008-101 แก้หัวข้อการจองของตัวเอง → บันทึกสำเร็จ (EX-mrr-008 · BR-mrr-003)",
               "ok": true,
-              "tags": [
-                "v2)",
-                "v2)"
-              ],
+              "tags": [],
               "tests": [
                 {
                   "timeout": 30000,
@@ -695,21 +821,21 @@
                   "projectName": "chromium",
                   "results": [
                     {
-                      "workerIndex": 0,
+                      "workerIndex": 1,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 600,
+                      "duration": 641,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-18T09:47:05.009Z",
+                      "startTime": "2026-11-18T10:25:08.529Z",
                       "annotations": [],
                       "attachments": [
                         {
                           "name": "screenshot",
                           "contentType": "image/png",
-                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\t1-round2-ค่าช่อง-การกระทำ-105e7-EX-mrr-122-·-BR-mrr-017-v2--chromium\\test-finished-1.png"
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\t1-yes-General-User-—-การจ-98767-็จ-EX-mrr-008-·-BR-mrr-003--chromium\\test-finished-1.png"
                         }
                       ]
                     }
@@ -717,9 +843,769 @@
                   "status": "expected"
                 }
               ],
-              "id": "5153c034207a071e6cc3-e7aef53c5cd1eab13caa",
-              "file": "t1-round2.spec.ts",
-              "line": 272,
+              "id": "2b6fefe3ae0a49ed369b-d0c7c1416eebaf9e55d6",
+              "file": "t1-yes.spec.ts",
+              "line": 126,
+              "column": 3
+            },
+            {
+              "title": "[real] TC-NTF-UI008-102 แก้เฉพาะหัวข้อ → บันทึกสำเร็จ และไม่มีใครได้รับ Email (EX-mrr-022 · BR-mrr-007)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 3623,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-18T10:25:09.184Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\t1-yes-General-User-—-การจ-ea4bc-il-EX-mrr-022-·-BR-mrr-007--chromium\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2b6fefe3ae0a49ed369b-2aa22dc92ba29a25d1d4",
+              "file": "t1-yes.spec.ts",
+              "line": 140,
+              "column": 3
+            },
+            {
+              "title": "[real] TC-MYB-UI007-101 ผู้จองยกเลิกการจองของตัวเองก่อนเริ่ม → ยกเลิกสำเร็จ (EX-mrr-009 · BR-mrr-003)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 860,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-18T10:25:12.815Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\t1-yes-General-User-—-การจ-998a5-็จ-EX-mrr-009-·-BR-mrr-003--chromium\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2b6fefe3ae0a49ed369b-2e9d607f5734de84316d",
+              "file": "t1-yes.spec.ts",
+              "line": 152,
+              "column": 3
+            },
+            {
+              "title": "[real] TC-RMM-UI013-102 General User ส่งคำสั่งแก้ความจุห้อง → ถูกปฏิเสธ ความจุเดิมคงอยู่ (EX-mrr-017 · BR-mrr-005)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 115,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-18T10:25:13.684Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\t1-yes-General-User-—-การจ-981e1-ู่-EX-mrr-017-·-BR-mrr-005--chromium\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2b6fefe3ae0a49ed369b-130c8a5e42a9db16ca3f",
+              "file": "t1-yes.spec.ts",
+              "line": 165,
+              "column": 3
+            },
+            {
+              "title": "[real] TC-RMM-UI014-101 General User เปิดหน้าสิ่งอำนวยความสะดวก → ไม่มีสิทธิ์ ไม่เห็นรายการ (EX-mrr-090 · BR-mrr-005)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 396,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-18T10:25:13.807Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\t1-yes-General-User-—-การจ-eeaf1-าร-EX-mrr-090-·-BR-mrr-005--chromium\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2b6fefe3ae0a49ed369b-9e19a0c9fedc6f79d94a",
+              "file": "t1-yes.spec.ts",
+              "line": 176,
+              "column": 3
+            },
+            {
+              "title": "[real] TC-RPT-RPT001-106 General User ขอรายงานการใช้ห้อง → ถูกปฏิเสธ ไม่เห็นตัวเลข (EX-mrr-074 · BR-mrr-022)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 521,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-18T10:25:14.214Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\t1-yes-General-User-—-การจ-70e32-ลข-EX-mrr-074-·-BR-mrr-022--chromium\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2b6fefe3ae0a49ed369b-2ecdf8af8995cafcfdf8",
+              "file": "t1-yes.spec.ts",
+              "line": 183,
+              "column": 3
+            },
+            {
+              "title": "[real] precondition: ผู้ใช้ที่ล็อกอินเป็น General User",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 227,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-18T10:25:22.988Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\t1-yes-General-User-—-การจ-c9b9d-ที่ล็อกอินเป็น-General-User-chromium-repeat1\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2b6fefe3ae0a49ed369b-239493f061d1def18469",
+              "file": "t1-yes.spec.ts",
+              "line": 121,
+              "column": 3
+            },
+            {
+              "title": "[real] TC-MYB-UI008-101 แก้หัวข้อการจองของตัวเอง → บันทึกสำเร็จ (EX-mrr-008 · BR-mrr-003)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 611,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-18T10:25:23.313Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\t1-yes-General-User-—-การจ-98767-็จ-EX-mrr-008-·-BR-mrr-003--chromium-repeat1\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2b6fefe3ae0a49ed369b-800618625e8242dc49b8",
+              "file": "t1-yes.spec.ts",
+              "line": 126,
+              "column": 3
+            },
+            {
+              "title": "[real] TC-NTF-UI008-102 แก้เฉพาะหัวข้อ → บันทึกสำเร็จ และไม่มีใครได้รับ Email (EX-mrr-022 · BR-mrr-007)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 3615,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-18T10:25:23.936Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\t1-yes-General-User-—-การจ-ea4bc-il-EX-mrr-022-·-BR-mrr-007--chromium-repeat1\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2b6fefe3ae0a49ed369b-a0fbe18d3d5ef792ed5e",
+              "file": "t1-yes.spec.ts",
+              "line": 140,
+              "column": 3
+            },
+            {
+              "title": "[real] TC-MYB-UI007-101 ผู้จองยกเลิกการจองของตัวเองก่อนเริ่ม → ยกเลิกสำเร็จ (EX-mrr-009 · BR-mrr-003)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 918,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-18T10:25:27.560Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\t1-yes-General-User-—-การจ-998a5-็จ-EX-mrr-009-·-BR-mrr-003--chromium-repeat1\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2b6fefe3ae0a49ed369b-9ced1f714616e457cf40",
+              "file": "t1-yes.spec.ts",
+              "line": 152,
+              "column": 3
+            },
+            {
+              "title": "[real] TC-RMM-UI013-102 General User ส่งคำสั่งแก้ความจุห้อง → ถูกปฏิเสธ ความจุเดิมคงอยู่ (EX-mrr-017 · BR-mrr-005)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 109,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-18T10:25:28.489Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\t1-yes-General-User-—-การจ-981e1-ู่-EX-mrr-017-·-BR-mrr-005--chromium-repeat1\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2b6fefe3ae0a49ed369b-32a4a0772846854a8123",
+              "file": "t1-yes.spec.ts",
+              "line": 165,
+              "column": 3
+            },
+            {
+              "title": "[real] TC-RMM-UI014-101 General User เปิดหน้าสิ่งอำนวยความสะดวก → ไม่มีสิทธิ์ ไม่เห็นรายการ (EX-mrr-090 · BR-mrr-005)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 396,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-18T10:25:28.606Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\t1-yes-General-User-—-การจ-eeaf1-าร-EX-mrr-090-·-BR-mrr-005--chromium-repeat1\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2b6fefe3ae0a49ed369b-886cce912c66d620c996",
+              "file": "t1-yes.spec.ts",
+              "line": 176,
+              "column": 3
+            },
+            {
+              "title": "[real] TC-RPT-RPT001-106 General User ขอรายงานการใช้ห้อง → ถูกปฏิเสธ ไม่เห็นตัวเลข (EX-mrr-074 · BR-mrr-022)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 440,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-18T10:25:29.011Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\t1-yes-General-User-—-การจ-70e32-ลข-EX-mrr-074-·-BR-mrr-022--chromium-repeat1\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2b6fefe3ae0a49ed369b-44141dfa85a218bfa68d",
+              "file": "t1-yes.spec.ts",
+              "line": 183,
+              "column": 3
+            },
+            {
+              "title": "[real] precondition: ผู้ใช้ที่ล็อกอินเป็น General User",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 109,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-18T10:25:33.171Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\t1-yes-General-User-—-การจ-c9b9d-ที่ล็อกอินเป็น-General-User-chromium-repeat2\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2b6fefe3ae0a49ed369b-a6b0db18f8e55af187cb",
+              "file": "t1-yes.spec.ts",
+              "line": 121,
+              "column": 3
+            },
+            {
+              "title": "[real] TC-MYB-UI008-101 แก้หัวข้อการจองของตัวเอง → บันทึกสำเร็จ (EX-mrr-008 · BR-mrr-003)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 532,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-18T10:25:33.289Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\t1-yes-General-User-—-การจ-98767-็จ-EX-mrr-008-·-BR-mrr-003--chromium-repeat2\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2b6fefe3ae0a49ed369b-82a260d076782d57f29c",
+              "file": "t1-yes.spec.ts",
+              "line": 126,
+              "column": 3
+            },
+            {
+              "title": "[real] TC-NTF-UI008-102 แก้เฉพาะหัวข้อ → บันทึกสำเร็จ และไม่มีใครได้รับ Email (EX-mrr-022 · BR-mrr-007)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 3571,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-18T10:25:33.830Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\t1-yes-General-User-—-การจ-ea4bc-il-EX-mrr-022-·-BR-mrr-007--chromium-repeat2\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2b6fefe3ae0a49ed369b-cdb07fc756cf9ae48ac2",
+              "file": "t1-yes.spec.ts",
+              "line": 140,
+              "column": 3
+            },
+            {
+              "title": "[real] TC-MYB-UI007-101 ผู้จองยกเลิกการจองของตัวเองก่อนเริ่ม → ยกเลิกสำเร็จ (EX-mrr-009 · BR-mrr-003)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 877,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-18T10:25:37.411Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\t1-yes-General-User-—-การจ-998a5-็จ-EX-mrr-009-·-BR-mrr-003--chromium-repeat2\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2b6fefe3ae0a49ed369b-a4c4b5662518cb205b7d",
+              "file": "t1-yes.spec.ts",
+              "line": 152,
+              "column": 3
+            },
+            {
+              "title": "[real] TC-RMM-UI013-102 General User ส่งคำสั่งแก้ความจุห้อง → ถูกปฏิเสธ ความจุเดิมคงอยู่ (EX-mrr-017 · BR-mrr-005)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 116,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-18T10:25:38.313Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\t1-yes-General-User-—-การจ-981e1-ู่-EX-mrr-017-·-BR-mrr-005--chromium-repeat2\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2b6fefe3ae0a49ed369b-2ac7ac70ec78a2237e04",
+              "file": "t1-yes.spec.ts",
+              "line": 165,
+              "column": 3
+            },
+            {
+              "title": "[real] TC-RMM-UI014-101 General User เปิดหน้าสิ่งอำนวยความสะดวก → ไม่มีสิทธิ์ ไม่เห็นรายการ (EX-mrr-090 · BR-mrr-005)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 430,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-18T10:25:38.437Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\t1-yes-General-User-—-การจ-eeaf1-าร-EX-mrr-090-·-BR-mrr-005--chromium-repeat2\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2b6fefe3ae0a49ed369b-5af141724e50bd9c3669",
+              "file": "t1-yes.spec.ts",
+              "line": 176,
+              "column": 3
+            },
+            {
+              "title": "[real] TC-RPT-RPT001-106 General User ขอรายงานการใช้ห้อง → ถูกปฏิเสธ ไม่เห็นตัวเลข (EX-mrr-074 · BR-mrr-022)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 460,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-18T10:25:38.877Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\t1-yes-General-User-—-การจ-70e32-ลข-EX-mrr-074-·-BR-mrr-022--chromium-repeat2\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2b6fefe3ae0a49ed369b-26b6dfc1b685315f8ba8",
+              "file": "t1-yes.spec.ts",
+              "line": 183,
               "column": 3
             }
           ]
@@ -729,11 +1615,11 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-11-18T09:46:42.041Z",
-    "duration": 24100.881,
-    "expected": 12,
-    "skipped": 1,
-    "unexpected": 0,
+    "startTime": "2026-11-18T10:24:49.466Z",
+    "duration": 50647.208,
+    "expected": 24,
+    "skipped": 4,
+    "unexpected": 2,
     "flaky": 0
   }
 }

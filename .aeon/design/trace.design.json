@@ -3758,6 +3758,16 @@
       "from": "AC-mrr-126",
       "rel": "governedBy",
       "to": "BR-mrr-017@v2"
+    },
+    {
+      "from": "AC-mrr-127",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-124"
+    },
+    {
+      "from": "AC-mrr-127",
+      "rel": "governedBy",
+      "to": "BR-mrr-007@v2"
     }
   ]
 }
