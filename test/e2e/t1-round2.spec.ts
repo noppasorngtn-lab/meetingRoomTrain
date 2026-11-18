@@ -155,7 +155,7 @@ test('[real] TC-NTF-UI009-103 RA ปฏิเสธ → ปฏิเสธแล
   await setClock(now);
   const res = await clients.ra1.post(`/bookings/${b.id}/reject`, { data: { reason: REJECT_REASON } });
   expect(res.status(), await res.text()).toBeLessThan(300);
-  expect(await msgOf(res)).toBe('ปฏิเสธการจองสำเร็จ'); // เจ้าของตอบ 2026-11-18 · EX-118/120 เขียน 'ปฏิเสธการจอง' — req ต้องแก้ EX
+  expect(await msgOf(res)).toBe('ปฏิเสธการจองสำเร็จ'); // เจ้าของตอบ 2026-11-18 · EX-118/120 แก้เป็นถ้อยคำนี้แล้ว
   expect(await statusOf(b.id)).toBe('REJECTED');
   const got = await mailsArrived(`${P} ปฏิเสธการจอง:`, t);
   expect(got).toHaveLength(1);
@@ -166,6 +166,23 @@ test('[real] TC-NTF-UI009-103 RA ปฏิเสธ → ปฏิเสธแล
   expect(trail[0].actor.id).toBe(world.users.ra1.id);
   expect(trail[0].reason).toBe(REJECT_REASON);
   expect(Math.abs(Date.parse(trail[0].at) - now.getTime())).toBeLessThan(120_000);
+});
+
+test('[real] TC-NTF-UI010-102 RA เปลี่ยนผลอนุมัติ → ปฏิเสธ · อีเมล "ปฏิเสธการจอง" ถึง U1 U2 (EX-mrr-124 · BR-mrr-007@v2)', async () => {
+  const t = token();
+  const slot = nearSlot(10);
+  const b = await book(clients.u1, 'appr', slot, title('ประชุมลูกค้า', t), [world.users.u2.id]);
+  expect((await clients.ra1.post(`/bookings/${b.id}/approve`)).status()).toBeLessThan(300);
+  await settle(); // อีเมลอนุมัติ (ถึง U1) ผ่านไปแล้ว ไม่ปนกับอีเมลปฏิเสธที่จะตรวจ
+  await setClock(at(startOf(slot), -(19 * 60) * 60_000)); // ยังไม่ถึงเวลาเริ่ม (EX: 16/10 15:00 ก่อน 17/10 10:00)
+  const res = await clients.ra1.post(`/bookings/${b.id}/decision`, { data: { decision: 'REJECTED', reason: 'อนุมัติผิดห้อง' } });
+  expect(res.status(), await res.text()).toBeLessThan(300);
+  expect(await msgOf(res)).toBe('เปลี่ยนผลการอนุมัติสำเร็จ');
+  expect(await statusOf(b.id)).toBe('REJECTED');
+  const got = await mailsArrived(`${P} ปฏิเสธการจอง:`, t);
+  expect(got).toHaveLength(1);
+  expect(got[0].Subject.startsWith(`${P} ปฏิเสธการจอง: ${title('ประชุมลูกค้า', t)} · `)).toBe(true);
+  expect(addresses(got[0])).toEqual(emails('u1', 'u2'));
 });
 
 test.describe('ค่าช่อง "การกระทำ" ของร่องรอย (BR-mrr-017@v2)', () => {
@@ -184,7 +201,7 @@ test.describe('ค่าช่อง "การกระทำ" ของร่�
     await setClock(now);
     const res = await clients.ra1.post(`/bookings/${b.id}/reject`, { data: { reason: REJECT_REASON } });
     expect(res.status(), await res.text()).toBeLessThan(300);
-    expect(await msgOf(res)).toBe('ปฏิเสธการจองสำเร็จ'); // เจ้าของตอบ 2026-11-18 · EX-118/120 เขียน 'ปฏิเสธการจอง' — req ต้องแก้ EX
+    expect(await msgOf(res)).toBe('ปฏิเสธการจองสำเร็จ'); // เจ้าของตอบ 2026-11-18 · EX-118/120 แก้เป็นถ้อยคำนี้แล้ว
     expect(await statusOf(b.id)).toBe('REJECTED');
     const trail = await trailOf(b.id);
     expect(trail).toHaveLength(1);
