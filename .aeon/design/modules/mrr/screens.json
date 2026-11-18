@@ -3,9 +3,9 @@
   "producedBy": "design · scripts/screens.mjs",
   "project": "mrr",
   "module": "mrr",
-  "status": "approved",
-  "approvedAt": "2026-11-17T12:38:32Z",
-  "approvedBy": "Noppasorn",
+  "status": "draft",
+  "approvedAt": null,
+  "approvedBy": null,
   "screens": [
     {
       "id": "UI-mrr-001",
@@ -954,6 +954,18 @@
           "rules": [
             "BR-mrr-013@v1"
           ]
+        },
+        {
+          "key": "reason",
+          "name": "เหตุผลที่ปฏิเสธ",
+          "io": "capture",
+          "required": true,
+          "validation": "ต้องระบุเมื่อปฏิเสธ — เว้นว่างหรือมีแต่ช่องว่างไม่ได้ · ช่องนี้แสดงใต้แถวเมื่อกด ปฏิเสธ",
+          "entity": "ENT-010",
+          "attribute": "reason",
+          "rules": [
+            "BR-mrr-017@v2"
+          ]
         }
       ],
       "actions": [
@@ -974,14 +986,36 @@
         {
           "key": "reject",
           "name": "ปฏิเสธ",
-          "kind": "command",
-          "effect": "เปลี่ยนเป็น REJECTED บันทึกร่องรอย และปล่อยช่วงเวลาคืน",
+          "kind": "other",
+          "effect": "เปิดช่องเหตุผลใต้แถวนั้น ยังไม่เปลี่ยนสถานะจนกว่าจะกดยืนยันปฏิเสธ",
           "destination": "อยู่ที่หน้าเดิม",
           "destinationRef": "self",
           "rules": [
             "BR-mrr-004@v1",
-            "BR-mrr-017@v1"
+            "BR-mrr-017@v2"
           ]
+        },
+        {
+          "key": "confirm-reject",
+          "name": "ยืนยันปฏิเสธ",
+          "kind": "command",
+          "effect": "ต้องมีเหตุผล — เปลี่ยนเป็น REJECTED บันทึกร่องรอยพร้อมเหตุผล ปล่อยช่วงเวลาคืน และส่ง Email ถึงผู้จองและผู้เข้าร่วม — ส่งไม่สำเร็จไม่เปลี่ยนสถานะ · ไม่ระบุเหตุผล ไม่ส่งคำขอ",
+          "destination": "อยู่ที่หน้าเดิม",
+          "destinationRef": "self",
+          "rules": [
+            "BR-mrr-004@v1",
+            "BR-mrr-017@v2",
+            "BR-mrr-019@v1"
+          ]
+        },
+        {
+          "key": "cancel-reject",
+          "name": "ยกเลิก",
+          "kind": "other",
+          "effect": "ปิดช่องเหตุผลโดยไม่ปฏิเสธ การจองคงเดิม",
+          "destination": "อยู่ที่หน้าเดิม",
+          "destinationRef": "self",
+          "rules": []
         },
         {
           "key": "manage",
@@ -996,7 +1030,7 @@
       "states": {
         "empty": "ไม่มีการจองรออนุมัติ — แสดง 'ไม่มีรายการรออนุมัติ'",
         "loading": "แสดงตัวบอกกำลังโหลดแทนรายการ",
-        "error": "โหลดไม่สำเร็จ — ปุ่มโหลดใหม่ · อนุมัติไม่สำเร็จเพราะ Email — 'ส่ง Email แจ้งเตือนไม่สำเร็จ กรุณากดใหม่อีกครั้ง'",
+        "error": "โหลดไม่สำเร็จ — ปุ่มโหลดใหม่ · อนุมัติไม่สำเร็จเพราะ Email — 'ส่ง Email แจ้งเตือนไม่สำเร็จ กรุณากดใหม่อีกครั้ง' · ปฏิเสธโดยไม่ระบุเหตุผล — ใต้ช่องเหตุผลแสดง 'กรุณาระบุเหตุผล' การจองคงเดิม ไม่บันทึกร่องรอย (DEF-04)",
         "unauthorized": "ไม่ใช่ Room Administrator — แสดง 'คุณไม่มีสิทธิ์เข้าหน้านี้' · ห้องที่มีผู้อนุมัติประจำห้องเป็นคนอื่น — ปุ่มอนุมัติ/ปฏิเสธถูกปิดและ API ปฏิเสธ",
         "overflow": "มากกว่า 20 รายการ — แบ่งหน้า เรียงตามเวลาเริ่มที่ใกล้ที่สุดก่อน"
       },
@@ -1008,11 +1042,14 @@
             "time",
             "title",
             "booker",
-            "approver"
+            "approver",
+            "reason"
           ],
           "actions": [
             "approve",
             "reject",
+            "confirm-reject",
+            "cancel-reject",
             "manage"
           ]
         }

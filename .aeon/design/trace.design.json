@@ -3513,6 +3513,241 @@
       "from": "AC-mrr-113",
       "rel": "proves",
       "to": "FUN-mrr-015"
+    },
+    {
+      "from": "FUN-mrr-005",
+      "rel": "governedBy",
+      "to": "BR-mrr-017@v2"
+    },
+    {
+      "from": "FUN-mrr-003",
+      "rel": "governedBy",
+      "to": "BR-mrr-007@v2"
+    },
+    {
+      "from": "FUN-mrr-004",
+      "rel": "governedBy",
+      "to": "BR-mrr-007@v2"
+    },
+    {
+      "from": "FUN-mrr-005",
+      "rel": "governedBy",
+      "to": "BR-mrr-007@v2"
+    },
+    {
+      "from": "FUN-mrr-006",
+      "rel": "governedBy",
+      "to": "BR-mrr-017@v2"
+    },
+    {
+      "from": "FUN-mrr-006",
+      "rel": "governedBy",
+      "to": "BR-mrr-007@v2"
+    },
+    {
+      "from": "FUN-mrr-007",
+      "rel": "governedBy",
+      "to": "BR-mrr-017@v2"
+    },
+    {
+      "from": "FUN-mrr-008",
+      "rel": "governedBy",
+      "to": "BR-mrr-017@v2"
+    },
+    {
+      "from": "FUN-mrr-011",
+      "rel": "governedBy",
+      "to": "BR-mrr-007@v2"
+    },
+    {
+      "from": "FUN-mrr-012",
+      "rel": "governedBy",
+      "to": "BR-mrr-020@v2"
+    },
+    {
+      "from": "FUN-mrr-012",
+      "rel": "governedBy",
+      "to": "BR-mrr-007@v2"
+    },
+    {
+      "from": "FUN-mrr-013",
+      "rel": "governedBy",
+      "to": "BR-mrr-007@v2"
+    },
+    {
+      "from": "AC-mrr-019",
+      "rel": "governedBy",
+      "to": "BR-mrr-007@v2"
+    },
+    {
+      "from": "AC-mrr-020",
+      "rel": "governedBy",
+      "to": "BR-mrr-007@v2"
+    },
+    {
+      "from": "AC-mrr-021",
+      "rel": "governedBy",
+      "to": "BR-mrr-007@v2"
+    },
+    {
+      "from": "AC-mrr-022",
+      "rel": "governedBy",
+      "to": "BR-mrr-007@v2"
+    },
+    {
+      "from": "AC-mrr-052",
+      "rel": "governedBy",
+      "to": "BR-mrr-017@v2"
+    },
+    {
+      "from": "AC-mrr-053",
+      "rel": "governedBy",
+      "to": "BR-mrr-017@v2"
+    },
+    {
+      "from": "AC-mrr-054",
+      "rel": "governedBy",
+      "to": "BR-mrr-017@v2"
+    },
+    {
+      "from": "AC-mrr-055",
+      "rel": "governedBy",
+      "to": "BR-mrr-017@v2"
+    },
+    {
+      "from": "AC-mrr-064",
+      "rel": "governedBy",
+      "to": "BR-mrr-020@v2"
+    },
+    {
+      "from": "AC-mrr-065",
+      "rel": "governedBy",
+      "to": "BR-mrr-020@v2"
+    },
+    {
+      "from": "AC-mrr-114",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-111"
+    },
+    {
+      "from": "AC-mrr-114",
+      "rel": "governedBy",
+      "to": "BR-mrr-020@v2"
+    },
+    {
+      "from": "AC-mrr-115",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-112"
+    },
+    {
+      "from": "AC-mrr-115",
+      "rel": "governedBy",
+      "to": "BR-mrr-020@v2"
+    },
+    {
+      "from": "AC-mrr-116",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-113"
+    },
+    {
+      "from": "AC-mrr-116",
+      "rel": "governedBy",
+      "to": "BR-mrr-019@v1"
+    },
+    {
+      "from": "AC-mrr-117",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-114"
+    },
+    {
+      "from": "AC-mrr-117",
+      "rel": "governedBy",
+      "to": "BR-mrr-007@v2"
+    },
+    {
+      "from": "AC-mrr-118",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-115"
+    },
+    {
+      "from": "AC-mrr-118",
+      "rel": "governedBy",
+      "to": "BR-mrr-007@v2"
+    },
+    {
+      "from": "AC-mrr-119",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-116"
+    },
+    {
+      "from": "AC-mrr-119",
+      "rel": "governedBy",
+      "to": "BR-mrr-007@v2"
+    },
+    {
+      "from": "AC-mrr-120",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-117"
+    },
+    {
+      "from": "AC-mrr-120",
+      "rel": "governedBy",
+      "to": "BR-mrr-007@v2"
+    },
+    {
+      "from": "AC-mrr-121",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-118"
+    },
+    {
+      "from": "AC-mrr-121",
+      "rel": "governedBy",
+      "to": "BR-mrr-007@v2"
+    },
+    {
+      "from": "AC-mrr-121",
+      "rel": "governedBy",
+      "to": "BR-mrr-017@v2"
+    },
+    {
+      "from": "AC-mrr-122",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-119"
+    },
+    {
+      "from": "AC-mrr-122",
+      "rel": "governedBy",
+      "to": "BR-mrr-002@v1"
+    },
+    {
+      "from": "AC-mrr-123",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-120"
+    },
+    {
+      "from": "AC-mrr-123",
+      "rel": "governedBy",
+      "to": "BR-mrr-017@v2"
+    },
+    {
+      "from": "AC-mrr-124",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-121"
+    },
+    {
+      "from": "AC-mrr-124",
+      "rel": "governedBy",
+      "to": "BR-mrr-017@v2"
+    },
+    {
+      "from": "AC-mrr-125",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-122"
+    },
+    {
+      "from": "AC-mrr-125",
+      "rel": "governedBy",
+      "to": "BR-mrr-017@v2"
     }
   ]
 }

@@ -2,9 +2,9 @@
   "schemaVersion": "1.0",
   "producedBy": "design · scripts/datamodel.mjs",
   "project": "mrr",
-  "status": "approved",
-  "approvedAt": "2026-10-22T10:37:18Z",
-  "approvedBy": "Noppasorn",
+  "status": "draft",
+  "approvedAt": null,
+  "approvedBy": null,
   "entities": [
     {
       "id": "ENT-001",
@@ -460,7 +460,7 @@
       "glossaryTerms": [],
       "stateful": false,
       "invariants": [
-        "BR-mrr-017@v1"
+        "BR-mrr-017@v2"
       ],
       "attributes": [
         {
@@ -497,11 +497,12 @@
           "name": "reason",
           "type": "text",
           "required": false,
-          "validation": "เหตุผล · บังคับสำหรับ CHANGE_DECISION · EDIT_ON_BEHALF · CANCEL_ON_BEHALF · CREATE_ADJUSTMENT",
+          "validation": "เหตุผล · บังคับสำหรับ REJECT · CHANGE_DECISION · EDIT_ON_BEHALF · CANCEL_ON_BEHALF · CREATE_ADJUSTMENT · ไม่มีเหตุผลสำหรับ REJECT ระบบไม่รับคำสั่ง (DEF-04 · ADR-010)",
           "rules": [
             "BR-mrr-009@v1",
             "BR-mrr-011@v1",
-            "BR-mrr-014@v1"
+            "BR-mrr-014@v1",
+            "BR-mrr-017@v2"
           ]
         },
         {
