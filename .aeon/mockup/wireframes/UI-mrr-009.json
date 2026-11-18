@@ -27,7 +27,7 @@
     },
     {
       "name": "queue",
-      "kind": "columns",
+      "kind": "form",
       "kindSource": "derived",
       "source": "design",
       "items": [
@@ -99,6 +99,21 @@
           "input": false
         },
         {
+          "type": "field",
+          "name": "เหตุผลที่ปฏิเสธ",
+          "required": true,
+          "entity": "ENT-010",
+          "attribute": "reason",
+          "validation": "ต้องระบุเมื่อปฏิเสธ — เว้นว่างหรือมีแต่ช่องว่างไม่ได้ · ช่องนี้แสดงใต้แถวเมื่อกด ปฏิเสธ",
+          "rules": [
+            "BR-mrr-017@v2"
+          ],
+          "visibleTo": [
+            "ROLE-002"
+          ],
+          "input": true
+        },
+        {
           "type": "action",
           "key": "approve",
           "name": "อนุมัติ",
@@ -123,11 +138,27 @@
           "type": "action",
           "key": "reject",
           "name": "ปฏิเสธ",
+          "kind": "other",
+          "presentation": "text",
+          "placement": "queue",
+          "container": "inline",
+          "accessibleName": "ปฏิเสธ",
+          "conventions": [],
+          "destination": "อยู่ที่หน้าเดิม",
+          "rules": [
+            "BR-mrr-004@v1",
+            "BR-mrr-017@v2"
+          ]
+        },
+        {
+          "type": "action",
+          "key": "confirm-reject",
+          "name": "ยืนยันปฏิเสธ",
           "kind": "command",
           "presentation": "text",
           "placement": "first-column",
           "container": "inline",
-          "accessibleName": "ปฏิเสธ",
+          "accessibleName": "ยืนยันปฏิเสธ",
           "conventions": [
             "UIC-001",
             "UIC-002"
@@ -135,8 +166,22 @@
           "destination": "อยู่ที่หน้าเดิม",
           "rules": [
             "BR-mrr-004@v1",
-            "BR-mrr-017@v1"
+            "BR-mrr-017@v2",
+            "BR-mrr-019@v1"
           ]
+        },
+        {
+          "type": "action",
+          "key": "cancel-reject",
+          "name": "ยกเลิก",
+          "kind": "other",
+          "presentation": "text",
+          "placement": "queue",
+          "container": "inline",
+          "accessibleName": "ยกเลิก",
+          "conventions": [],
+          "destination": "อยู่ที่หน้าเดิม",
+          "rules": []
         },
         {
           "type": "action",
@@ -186,6 +231,12 @@
       "name": "ผู้อนุมัติประจำห้อง"
     },
     {
+      "id": "ui-mrr-009-ent-010-reason",
+      "type": "field",
+      "key": "ent-010-reason",
+      "name": "เหตุผลที่ปฏิเสธ"
+    },
+    {
       "id": "ui-mrr-009-approve",
       "type": "action",
       "key": "approve"
@@ -194,6 +245,16 @@
       "id": "ui-mrr-009-reject",
       "type": "action",
       "key": "reject"
+    },
+    {
+      "id": "ui-mrr-009-confirm-reject",
+      "type": "action",
+      "key": "confirm-reject"
+    },
+    {
+      "id": "ui-mrr-009-cancel-reject",
+      "type": "action",
+      "key": "cancel-reject"
     },
     {
       "id": "ui-mrr-009-manage",
@@ -212,7 +273,7 @@
     },
     "error": {
       "occurs": true,
-      "text": "โหลดไม่สำเร็จ — ปุ่มโหลดใหม่ · อนุมัติไม่สำเร็จเพราะ Email — 'ส่ง Email แจ้งเตือนไม่สำเร็จ กรุณากดใหม่อีกครั้ง'"
+      "text": "โหลดไม่สำเร็จ — ปุ่มโหลดใหม่ · อนุมัติไม่สำเร็จเพราะ Email — 'ส่ง Email แจ้งเตือนไม่สำเร็จ กรุณากดใหม่อีกครั้ง' · ปฏิเสธโดยไม่ระบุเหตุผล — ใต้ช่องเหตุผลแสดง 'กรุณาระบุเหตุผล' การจองคงเดิม ไม่บันทึกร่องรอย (DEF-04)"
     },
     "unauthorized": {
       "occurs": true,

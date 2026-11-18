@@ -136,11 +136,14 @@
       "imported": false,
       "testids": [
         "ui-mrr-009-approve",
+        "ui-mrr-009-cancel-reject",
+        "ui-mrr-009-confirm-reject",
         "ui-mrr-009-ent-003-approver",
         "ui-mrr-009-ent-007-booked-by",
         "ui-mrr-009-ent-007-room",
         "ui-mrr-009-ent-007-start-at",
         "ui-mrr-009-ent-007-title",
+        "ui-mrr-009-ent-010-reason",
         "ui-mrr-009-manage",
         "ui-mrr-009-reject"
       ]
