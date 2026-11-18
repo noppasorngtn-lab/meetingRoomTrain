@@ -252,6 +252,17 @@
 | TC-BKG-UI006-105 | [Recommended] BR-mrr-002@v1 | Positive | เลือกอุปกรณ์เสริมทั้ง 2 รายการ | รับการจอง · บันทึกครบทั้งสอง | real | t1-equipment.spec.ts |
 | TC-BKG-UI006-106 | [Recommended] BR-mrr-002@v1 · [TBD] OQ-T1-13 | Negative | ส่งอุปกรณ์เสริมที่ไม่มีอยู่ (ยิงตรง) | 400 "ไม่พบอุปกรณ์เสริมบางรายการ" (ข้อความจากโค้ด) · ไม่เกิดการจอง | real | t1-equipment.spec.ts |
 
+### B5. [Recommended] ร่าง EX A/B/C — ตรวจเวลาค้นหาและข้อความยืนยันลบห้อง (ยังไม่มี EX จาก req)
+
+ประโยคมาจากคำตัดสินของ PO/BA 2026-11-18 (ตามโค้ด) · ร่าง EX อยู่ใน req-request-ex-validation-delete-2026-11-18.md · สคริปต์ `t1-draft-ex.spec.ts` · เมื่อ req ออก EX ให้ผูก TC เข้ากับ EX นั้นและเปลี่ยน Tag เป็น [Explicit] · ร่าง D (กดไม่ยืนยันตอนลบ) และ E (ลบห้องที่มีการจอง) **ไม่มีเคส** เพราะยังไม่มีคำตอบ (OQ-T1-12)
+
+| TC ID | Source | Type | Scenario | Expected Result | Data Source | Script |
+|---|---|---|---|---|---|---|
+| TC-BKG-UI004-104 | [Recommended] ร่าง EX A · BR [TBD] OQ-T1-11 | Negative | ค้นหาโดยเวลาสิ้นสุดก่อนเวลาเริ่ม (14:00 → 13:00) | ไม่ค้นหา · ไม่มีคำขอไป API · แสดง 'เวลาสิ้นสุดต้องหลังเวลาเริ่ม' · API ยิงตรงตอบ 400 ประโยคเดียวกัน | real | t1-draft-ex.spec.ts |
+| TC-BKG-UI004-105 | [Recommended] ร่าง EX B · BR [TBD] OQ-T1-11 | Boundary | เวลาเริ่มเท่ากับเวลาสิ้นสุด (14:00 → 14:00) | เหมือน 104 (ตอบแล้วว่าเท่ากันถูกปฏิเสธ) | real | t1-draft-ex.spec.ts |
+| TC-BKG-UI004-106 | [Recommended] ขอบ BVA ฝั่งผ่านของ ร่าง EX B | Boundary | สิ้นสุดมากกว่าเริ่ม 1 นาที (14:00 → 14:01) | ค้นหาได้ ไม่มีข้อความตรวจเวลา · [Inferred] จาก 'ต้องมากกว่า' | real | t1-draft-ex.spec.ts |
+| TC-RMM-UI013-112 | [Recommended] ร่าง EX C · OQ-T1-12 | Positive | RA กดลบห้อง | ถามด้วย 'ลบห้อง <ชื่อห้อง>' + 'การลบจะเลิกใช้ห้องถาวรและเปิดกลับไม่ได้ การจองเดิมคงไว้ ยืนยันลบหรือไม่' ตรงตัวอักษร · ตอนถามห้องยัง ACTIVE | real | t1-draft-ex.spec.ts |
+
 ## C) Test Data Requirement (สิ่งที่ dev ต้องเตรียม)
 
 | # | ต้องมี | ใช้กับ | หมายเหตุ |
