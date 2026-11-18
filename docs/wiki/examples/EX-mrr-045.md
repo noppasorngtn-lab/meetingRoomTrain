@@ -5,12 +5,12 @@ description: หัวข้อของการจองเปลี่ยน�
 resource: ../rules/BR-mrr-014@v1.md
 tags: [mrr, example, happy]
 id: EX-mrr-045
-status: draft
+status: validated
 kind: happy
 proves: [BR-mrr-014@v1]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:48b6bf59eee8076965454082af5551593acf1e85b4965fb041bf647e588e4920
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:052b8d0bfaedbb9a06652be4e2e234d5bdf6e8194f0751a03d7af52634096cbf
 ---
 
 # EX-mrr-045

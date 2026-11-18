@@ -5,12 +5,12 @@ description: U1, U2 และ U3 ไม่ได้รับ Email หัวเ�
 resource: ../rules/BR-mrr-020@v1.md
 tags: [mrr, example, exception]
 id: EX-mrr-066
-status: draft
+status: validated
 kind: exception
-proves: [BR-mrr-020@v1]
+proves: [BR-mrr-020@v1, BR-mrr-020@v2]
 has_ui: false
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:0f9a5cdac81f7d3958ad32653df69f30028f5835f33a63761e1423f7d67ca54f
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:ddc3627e8701cfb210e1c80ef2131eafcfa81a16f076b6664f898a069700da73
 ---
 
 # EX-mrr-066
@@ -26,4 +26,5 @@ U1, U2 และ U3 ไม่ได้รับ Email หัวเรื่อ�
 
 ## พิสูจน์กฎ
 
-- [BR-mrr-020@v1](../rules/BR-mrr-020@v1.md) ✅ ปัจจุบัน — ถ้างานตามเวลาส่ง Email เตือนก่อนเริ่มประชุมไม่สำเร็จ ไม่ส่งซ้ำ — บันทึกว่าส่งไม่สำเร็จ
+- [BR-mrr-020@v1](../rules/BR-mrr-020@v1.md) ❄️ — ถ้างานตามเวลาส่ง Email เตือนก่อนเริ่มประชุมไม่สำเร็จ ไม่ส่งซ้ำ — บันทึกว่าส่งไม่สำเร็จ
+- [BR-mrr-020@v2](../rules/BR-mrr-020@v2.md) ✅ ปัจจุบัน — ถ้างานตามเวลาส่ง Email เตือนก่อนเริ่มประชุมไม่สำเร็จ (รวมกรณีผู้รับบางคนส่งไม่สำเร็จ — นับเป็นไม่สำเร็จทั้งการจอง) ไม่ส่งซ้ำ — บันทึกว่าส่งไม่สำเร็จ · ถ้าส่งสำเร็จ บันทึกว่าส่งสำเร็จ

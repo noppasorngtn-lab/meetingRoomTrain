@@ -5,12 +5,12 @@ description: สถานะยังเป็น 'อนุมัติแล�
 resource: ../rules/BR-mrr-011@v1.md
 tags: [mrr, example, boundary]
 id: EX-mrr-038
-status: draft
+status: validated
 kind: boundary
 proves: [BR-mrr-011@v1]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:488908dc324fd34046c3864d0ed686ef1e634e52f08c9a4fef453cdbe7542f31
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:400274f3134acc5128faaa5b6b0c320099df1a662be7b198f1830b1a4b947e9b
 ---
 
 # EX-mrr-038

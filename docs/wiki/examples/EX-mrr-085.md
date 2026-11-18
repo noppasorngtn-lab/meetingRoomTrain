@@ -5,12 +5,12 @@ description: ห้อง C แสดง '0.45%' — นับเฉพาะ 17
 resource: ../rules/BR-mrr-006@v1.md
 tags: [mrr, example, boundary]
 id: EX-mrr-085
-status: draft
+status: validated
 kind: boundary
 proves: [BR-mrr-006@v1]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:8fc24b22144b5ab8832691cde1b8a3475c0bd0d7a1adfeb7a27cb35d2284bb0e
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:cf9437bf6bccf1f4b48fafc22fb953c35d25e7852da8c06fc122b48fa4263fc9
 ---
 
 # EX-mrr-085

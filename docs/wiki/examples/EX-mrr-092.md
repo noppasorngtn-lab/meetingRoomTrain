@@ -5,12 +5,12 @@ description: แสดงข้อความ 'ส่งรหัสไม่�
 resource: ../rules/BR-mrr-024@v1.md
 tags: [mrr, example, exception]
 id: EX-mrr-092
-status: draft
+status: validated
 kind: exception
 proves: [BR-mrr-024@v1]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:baa9a86667db853ea7d0b5abfa8d40c4d618f5d26bc7d70d781881bbf0e1d026
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:7a7fa779141a9e6b0b3ac0b2a76074d41ccd5a483c6dd92ab9caacad828d0882
 ---
 
 # EX-mrr-092

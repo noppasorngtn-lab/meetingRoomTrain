@@ -5,12 +5,12 @@ description: ห้อง E แสดง '—' ไม่มีเลขอัน
 resource: ../rules/BR-mrr-006@v1.md
 tags: [mrr, example, exception]
 id: EX-mrr-087
-status: draft
+status: validated
 kind: exception
 proves: [BR-mrr-006@v1]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:a78c9838a689887fa4317cc34589f83b1b2dd634d8823c26a74e24416a57281b
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:1c67220224c7acf2914dfacaad5158ddeb7c9c789613a0e024652c5736f0e533
 ---
 
 # EX-mrr-087

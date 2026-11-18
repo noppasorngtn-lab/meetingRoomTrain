@@ -5,12 +5,12 @@ description: U1 ไม่เห็นรายงานและสถิติ 
 resource: ../rules/BR-mrr-022@v1.md
 tags: [mrr, example, exception]
 id: EX-mrr-074
-status: draft
+status: validated
 kind: exception
 proves: [BR-mrr-022@v1]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:c52207350e88d9f6263de4537b1a5694841d39611c9a9d9399611026afad35b0
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:44430d0cc8446d638631c933e0e7b13d118d489f5b8f8aa19e4c6ef557d3c082
 ---
 
 # EX-mrr-074

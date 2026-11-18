@@ -5,12 +5,12 @@ description: ไม่มีใครได้รับ Email หัวเรื
 resource: ../rules/BR-mrr-008@v1.md
 tags: [mrr, example, exception]
 id: EX-mrr-025
-status: draft
+status: validated
 kind: exception
 proves: [BR-mrr-008@v1]
 has_ui: false
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:4a3228697341d3a58ed6f909f2e876378fcfe18353b410861e30d7d64b99361a
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:7d1a9e532626bacbaabd04bd036106559232495d6d24b72c8417c6f58ea6161f
 ---
 
 # EX-mrr-025

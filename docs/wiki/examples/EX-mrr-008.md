@@ -5,12 +5,12 @@ description: ระบบบันทึกการแก้ไข และแ
 resource: ../rules/BR-mrr-003@v1.md
 tags: [mrr, example, happy]
 id: EX-mrr-008
-status: draft
+status: validated
 kind: happy
 proves: [BR-mrr-003@v1]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:e8356fc96ba862527c38aa9946ee9689c23152141feae9c111f25ee0fe61ae20
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:204bafe887720ff5ddaea947a4f5c52656f12b8325227d12acad42cee71d18a5
 ---
 
 # EX-mrr-008

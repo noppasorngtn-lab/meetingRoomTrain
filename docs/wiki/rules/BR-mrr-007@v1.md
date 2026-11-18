@@ -5,16 +5,17 @@ description: ระบบส่งแจ้งเตือนทาง Email เ
 resource: ../requirements/REQ-mrr-005.md
 tags: [mrr, policy]
 id: BR-mrr-007@v1
-status: draft
+status: superseded
 belongs_to: REQ-mrr-005
 kind: policy
-is_current: true
+is_current: false
 test_design: [EP]
 proven_by: [EX-mrr-019, EX-mrr-020, EX-mrr-021, EX-mrr-022]
 golden: []
+superseded_by: BR-mrr-007@v2
 provenance: [SRC-001, SRC-001, SRC-010, SRC-002, SRC-020, SRC-020, SRC-020]
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:2f403468af33f8595f24a133154c85e5d1353cc4e271546ee2b74dff74c43ac4
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:4a64d4670f82c8ba544bef07c74e73b15b65167c7bb0ec5c9dbafcc7691f0bf6
 ---
 
 # BR-mrr-007@v1
@@ -56,4 +57,5 @@ spec_hash: sha256:2f403468af33f8595f24a133154c85e5d1353cc4e271546ee2b74dff74c43a
 
 | เวอร์ชัน | มีผลตั้งแต่ | เหตุผล | change set |
 |---|---|---|---|
-| **BR-mrr-007@v1** (หน้านี้) ✅ | — | ตั้งต้น | — |
+| **BR-mrr-007@v1** (หน้านี้) ❄️ | — | ตั้งต้น | — |
+| [BR-mrr-007@v2](BR-mrr-007@v2.md) ✅ | 2026-11-18 | เจ้าของยืนยันคำของ <เหตุการณ์> ในหัวเรื่อง Email ตอนอนุมัติ (อนุมัติแล้ว) ยกเลิกโดยผู้ใช้หรือ Room Administrator (ยกเลิกการจอง) และปฏิเสธ (ปฏิเสธการจอง) และให้ส่ง Email ตอนปฏิเสธถึงผู้จองและผู้เข้าร่วมทุกคน | [CHG-mrr-003](../changes/CHG-mrr-003.md) |

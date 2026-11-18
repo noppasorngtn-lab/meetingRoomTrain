@@ -5,12 +5,12 @@ description: U2 ไม่เห็นร่องรอย และแสดง
 resource: ../rules/BR-mrr-018@v1.md
 tags: [mrr, example, exception]
 id: EX-mrr-061
-status: draft
+status: validated
 kind: exception
 proves: [BR-mrr-018@v1]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:3c9b3225f6764f464cd0fd5aeb1b9c77f4eb57dbcf1995d1cd3169eb90cc2cd1
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:63237892b05281ca267501b3c7200646ed4a3c02196e00348ac75b6e6f1838a1
 ---
 
 # EX-mrr-061

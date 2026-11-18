@@ -5,7 +5,7 @@ description: ระหว่างที่รหัสเข้าสู่ร�
 resource: ../requirements/REQ-mrr-001.md
 tags: [mrr, constraint]
 id: BR-mrr-025@v1
-status: draft
+status: validated
 belongs_to: REQ-mrr-001
 kind: constraint
 is_current: true
@@ -13,8 +13,8 @@ test_design: [BVA]
 proven_by: [EX-mrr-095, EX-mrr-096, EX-mrr-097]
 golden: []
 provenance: [SRC-026, SRC-027]
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:f8b93565a29948d5f8da175bd624958d8a4a26b1eb825f6fa5b1e2755ca35b20
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:77742b8f2be77365c9a71bdc5415220d186833a6ebf6e3e2ad7b9cc8c9247d9c
 ---
 
 # BR-mrr-025@v1

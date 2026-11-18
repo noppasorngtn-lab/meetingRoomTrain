@@ -5,12 +5,12 @@ description: แสดงข้อความ 'หากเป็น Email ใ�
 resource: ../rules/BR-mrr-026@v1.md
 tags: [mrr, example, exception]
 id: EX-mrr-098
-status: draft
+status: validated
 kind: exception
 proves: [BR-mrr-026@v1]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:c8a3a5ed65839f6aeab570fa4f4ef758dc4efb5ed322605c3f0db1dfb9637645
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:b99d35952a44e51fbd2503ddd515766c9ec6a16f2daddec002e4fd6e14dac148
 ---
 
 # EX-mrr-098

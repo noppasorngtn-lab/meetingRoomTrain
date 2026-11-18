@@ -5,7 +5,7 @@ description: แจ้งเตือนใกล้ถึงเวลาปร�
 resource: ../requirements/REQ-mrr-005.md
 tags: [mrr, constraint]
 id: BR-mrr-008@v1
-status: draft
+status: validated
 belongs_to: REQ-mrr-005
 kind: constraint
 is_current: true
@@ -13,8 +13,8 @@ test_design: [BVA]
 proven_by: [EX-mrr-023, EX-mrr-024, EX-mrr-025, EX-mrr-020]
 golden: []
 provenance: [SRC-001, SRC-021, SRC-021]
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:2e1aa42f251b22466bd92c90df6eed1b21e150d93a522a3fb4a492e2d6d5a561
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:5492a2f88fb8d499a6bfaddb42434380c45308f693504cff11217dddc8390aec
 ---
 
 # BR-mrr-008@v1

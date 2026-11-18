@@ -5,12 +5,12 @@ description: U1, U2 และ U3 ได้รับ Email หัวเรื่�
 resource: ../rules/BR-mrr-023@v1.md
 tags: [mrr, example, happy]
 id: EX-mrr-075
-status: draft
+status: validated
 kind: happy
 proves: [BR-mrr-023@v1]
 has_ui: false
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:44ed8485cff373a5d199f8a7159c312a131577ac6b2df77c469c55aadf032199
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:ff1fb0aba9f7b416cea736a328b103af0144d9a9a98fbadbcda041b888719ba7
 ---
 
 # EX-mrr-075

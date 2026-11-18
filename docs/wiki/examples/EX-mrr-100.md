@@ -5,12 +5,12 @@ description: U1 เข้าสู่ระบบได้ และถูกพ
 resource: ../rules/BR-mrr-027@v1.md
 tags: [mrr, example, happy]
 id: EX-mrr-100
-status: draft
+status: validated
 kind: happy
 proves: [BR-mrr-027@v1]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:b4caed5b04ededbeb52c0a330ce0ea77f60ec338321fec4326dba28faac30e0f
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:339de913d504d7a7ddbfc1dc7d73fe78f507e6937b609ee54019de9fc1a1d981
 ---
 
 # EX-mrr-100

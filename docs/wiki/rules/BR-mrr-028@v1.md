@@ -5,7 +5,7 @@ description: รหัสที่ผิด หมดอายุ หรือ�
 resource: ../requirements/REQ-mrr-001.md
 tags: [mrr, policy]
 id: BR-mrr-028@v1
-status: draft
+status: validated
 belongs_to: REQ-mrr-001
 kind: policy
 is_current: true
@@ -13,8 +13,8 @@ test_design: [decision_table]
 proven_by: [EX-mrr-101, EX-mrr-102, EX-mrr-104, EX-mrr-105]
 golden: []
 provenance: [SRC-027, SRC-027]
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:6b2ee839c25d418faefaabe454d83383e27bc8f899f5fdb00b5c037b1689d3ce
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:68169dd44f43dc68a513d897a03aa70d9d6ad13c0a975180369b524d6184e595
 ---
 
 # BR-mrr-028@v1

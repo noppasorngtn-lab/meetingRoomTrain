@@ -5,12 +5,12 @@ description: แสดงข้อความ 'รหัสหรือลิ�
 resource: ../rules/BR-mrr-027@v1.md
 tags: [mrr, example, exception]
 id: EX-mrr-103
-status: draft
+status: validated
 kind: exception
 proves: [BR-mrr-027@v1]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:481974035f3cb0d8d409ce0fa0a502cfaa1999593bb60668e80c4e36bd1b5e6a
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:5e43a43e6ba1b9280d11e8c28c74e0f95964904e2941bdd6ae418ac7672d7a67
 ---
 
 # EX-mrr-103

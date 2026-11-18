@@ -5,12 +5,12 @@ description: ห้อง A เป็นสถานะปิดปรับป�
 resource: ../rules/BR-mrr-005@v1.md
 tags: [mrr, example, happy]
 id: EX-mrr-016
-status: draft
+status: validated
 kind: happy
 proves: [BR-mrr-005@v1, BR-mrr-012@v1]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:4a57eced326ce00c39d52a9fe4ac857773004a7404a4b29575121bcd51b80418
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:d35f1e126cef3b18a39782bd526e6dcb92fad2a39d149d175d12e1340fef425b
 ---
 
 # EX-mrr-016

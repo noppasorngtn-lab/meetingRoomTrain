@@ -5,7 +5,7 @@ description: แต่ละห้องที่ต้องอนุมัต�
 resource: ../requirements/REQ-mrr-002.md
 tags: [mrr, policy]
 id: BR-mrr-013@v1
-status: draft
+status: validated
 belongs_to: REQ-mrr-002
 kind: policy
 is_current: true
@@ -13,8 +13,8 @@ test_design: [decision_table]
 proven_by: [EX-mrr-039, EX-mrr-040, EX-mrr-041, EX-mrr-042]
 golden: []
 provenance: [SRC-007, SRC-007]
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:c7cfac7fe9f43048465560a7d7ad1fcc3f642e98f16f8b346920d92e85278f42
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:c62852d2c05748ad8517e539e6a5d9c4c1268a24884c487476bb232782b3807b
 ---
 
 # BR-mrr-013@v1

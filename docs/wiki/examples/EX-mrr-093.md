@@ -5,12 +5,12 @@ description: U1 ไม่ได้รับ Email รหัสเข้าสู
 resource: ../rules/BR-mrr-024@v1.md
 tags: [mrr, example, boundary]
 id: EX-mrr-093
-status: draft
+status: validated
 kind: boundary
 proves: [BR-mrr-024@v1]
 has_ui: false
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:0bf19ba68fb2476bc75f0604e5a11b30326237f69a3dc2acb40469ce29614956
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:3d90c5b2686b485ad5e4f5bf38bb2ecc87801702822d1958189f9b75efd74870
 ---
 
 # EX-mrr-093

@@ -5,12 +5,12 @@ description: รายการแสดงเฉพาะการจองห�
 resource: ../rules/BR-mrr-003@v1.md
 tags: [mrr, example, alternate]
 id: EX-mrr-011
-status: draft
+status: validated
 kind: alternate
 proves: [BR-mrr-003@v1]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:097577805d92adf9b38874ca9edeb6d7b968a70546229175537051e6ad2b08c1
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:fd0d8a17dfca73665c7e260511066aeabec869ae66488c770a34b7c8b3d6a2c5
 ---
 
 # EX-mrr-011

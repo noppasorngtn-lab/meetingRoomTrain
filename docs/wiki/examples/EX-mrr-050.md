@@ -5,12 +5,12 @@ description: การจองยังเป็นสถานะ 'รออ�
 resource: ../rules/BR-mrr-016@v1.md
 tags: [mrr, example, boundary]
 id: EX-mrr-050
-status: draft
+status: validated
 kind: boundary
 proves: [BR-mrr-016@v1]
 has_ui: false
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:86cdc01cdfddce855b407f1618bc687fc54c6d6ef5ac433c7bb558b97a7a34c5
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:65fb5cd9520fa40886587137d88c880b67a2f3cdc222bc7b06cd52a507a5dbe7
 ---
 
 # EX-mrr-050

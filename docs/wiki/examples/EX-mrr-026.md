@@ -5,12 +5,12 @@ description: ระบบยกเลิกการจอง และแสด
 resource: ../rules/BR-mrr-009@v1.md
 tags: [mrr, example, boundary]
 id: EX-mrr-026
-status: draft
+status: validated
 kind: boundary
 proves: [BR-mrr-009@v1]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:904868a0fcd65c1ebc9d02035cbc0418e7e20331dee19ae04ac594c47fcda857
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:769ff4c6bb0c168d22adbcb97e09aefd910a881e6381438936a867a448aeb831
 ---
 
 # EX-mrr-026

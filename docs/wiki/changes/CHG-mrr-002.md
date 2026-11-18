@@ -11,8 +11,8 @@ effective_from: 2026-10-22
 affects: [BR-mrr-024@v1, BR-mrr-025@v1, BR-mrr-026@v1, BR-mrr-027@v1, BR-mrr-028@v1]
 invalidates: []
 triggered_by: [SRC-026, SRC-027]
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:d7c30c98ffb09874131e26a6f0b1560274ff866ef29b3f7bc0cacea0bc3664d2
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:977012e3e0a4ead1f7fe8aae37acc2f02072e58950c5a52a34950776a19b6b89
 ---
 
 # CHG-mrr-002

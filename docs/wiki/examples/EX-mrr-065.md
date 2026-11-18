@@ -5,12 +5,12 @@ description: ระบบบันทึกการแก้ไข และแ
 resource: ../rules/BR-mrr-019@v1.md
 tags: [mrr, example, alternate]
 id: EX-mrr-065
-status: draft
+status: validated
 kind: alternate
 proves: [BR-mrr-019@v1]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:3d53ff740c3686a464f1322bea707cdee1176c158f88548e7faf04931f2521e3
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:d8157ca8b2f8b50ca1be457b94290234fc3dc9c3da81cf2ba4825b7950e32d4a
 ---
 
 # EX-mrr-065

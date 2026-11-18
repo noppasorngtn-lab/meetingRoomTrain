@@ -5,12 +5,12 @@ description: การจองยังเป็น 10:00–11:00 ตามเ�
 resource: ../rules/BR-mrr-019@v1.md
 tags: [mrr, example, exception]
 id: EX-mrr-063
-status: draft
+status: validated
 kind: exception
 proves: [BR-mrr-019@v1]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:b932e02a859f795f00a0a852cb2e0d7e1b58f76c3e5169048c95359ebcdd2f2d
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:69230118541537e5246adbd0f533fb49b8dae4eb4188b8fa0042ce23cdecf2c1
 ---
 
 # EX-mrr-063

@@ -5,12 +5,12 @@ description: ระบบสร้างรายงานฉบับที่ 
 resource: ../rules/BR-mrr-015@v1.md
 tags: [mrr, example, happy]
 id: EX-mrr-047
-status: draft
+status: validated
 kind: happy
 proves: [BR-mrr-015@v1]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:9ef504e4c0a7e4cb71c17b484538b83196aeda570271a911ac969f3ff7ba3925
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:94d8fef80203c119130d67db23e67f0dd984170a3a3e861cf72fdcaff5a3d0cd
 ---
 
 # EX-mrr-047

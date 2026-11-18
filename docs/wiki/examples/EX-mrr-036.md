@@ -5,12 +5,12 @@ description: สถานะยังเป็น 'อนุมัติแล�
 resource: ../rules/BR-mrr-011@v1.md
 tags: [mrr, example, exception]
 id: EX-mrr-036
-status: draft
+status: validated
 kind: exception
 proves: [BR-mrr-011@v1]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:844c091cf80d1301de14e61c15013085b4ab66e8a72fae0903c831d107d83893
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:d00aef90b733007bd27e764082dc478943fc5cbb16586c60ca242464c8788144
 ---
 
 # EX-mrr-036

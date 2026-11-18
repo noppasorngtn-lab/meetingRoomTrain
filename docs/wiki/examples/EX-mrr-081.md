@@ -5,12 +5,12 @@ description: ระบบไม่สร้างการจอง และแ
 resource: ../rules/BR-mrr-012@v1.md
 tags: [mrr, example, exception]
 id: EX-mrr-081
-status: draft
+status: validated
 kind: exception
 proves: [BR-mrr-012@v1]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:05540940f86a6d4390fa8e69e147c7b107aabc4c1a7c1feda00b2ea067fa292f
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:6114e392cafef900cd39d701394cd974e2f2ad1960959e49eb581a37d6524b58
 ---
 
 # EX-mrr-081

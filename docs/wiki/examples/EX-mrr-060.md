@@ -5,12 +5,12 @@ description: U1 ไม่เห็นร่องรอย และแสดง
 resource: ../rules/BR-mrr-018@v1.md
 tags: [mrr, example, exception]
 id: EX-mrr-060
-status: draft
+status: validated
 kind: exception
 proves: [BR-mrr-018@v1]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:d8ddb832aa021729f9e8dd74aeb433e848eb616b683eaf2427d28462e4a6f259
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:e6dd1c85ab745418247447e35f2533d51ce7d451806fcceae764ff332f17e0d0
 ---
 
 # EX-mrr-060

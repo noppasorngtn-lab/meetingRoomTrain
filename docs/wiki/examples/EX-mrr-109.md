@@ -5,12 +5,12 @@ description: ระบบแสดงข้อความ 'ลบห้อง�
 resource: ../rules/BR-mrr-005@v1.md
 tags: [mrr, example, happy]
 id: EX-mrr-109
-status: draft
+status: validated
 kind: happy
 proves: [BR-mrr-005@v1]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:1e4db3e38991d76d066214a052bd99794960c47a5acb4d113e9428fc1d72c50e
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:04cbac1aec9c1a4bf7db01f1d6643758a2549ed3abad28b3b52e364d1cd75f68
 ---
 
 # EX-mrr-109

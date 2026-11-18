@@ -5,7 +5,7 @@ description: ห้องเดียวกันห้ามมีการจ�
 resource: ../requirements/REQ-mrr-001.md
 tags: [mrr, invariant]
 id: BR-mrr-001@v1
-status: draft
+status: validated
 belongs_to: REQ-mrr-001
 kind: invariant
 is_current: true
@@ -13,8 +13,8 @@ test_design: [BVA]
 proven_by: [EX-mrr-001, EX-mrr-002, EX-mrr-003, EX-mrr-004]
 golden: []
 provenance: [SRC-001, SRC-001, SRC-005, SRC-007, SRC-011]
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:cf8b0c8d59a3828a46f16e52a812a07823a507c276856e5421bbb0301aaa743b
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:7576919468e678e518bfa0423f8edbfcad5179e05b6461bab7e903e2652150f7
 ---
 
 # BR-mrr-001@v1

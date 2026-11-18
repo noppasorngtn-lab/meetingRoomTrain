@@ -5,7 +5,7 @@ description: ถ้าส่ง Email รหัสเข้าสู่ระบ
 resource: ../requirements/REQ-mrr-001.md
 tags: [mrr, policy]
 id: BR-mrr-024@v1
-status: draft
+status: validated
 belongs_to: REQ-mrr-001
 kind: policy
 is_current: true
@@ -13,8 +13,8 @@ test_design: [decision_table]
 proven_by: [EX-mrr-091, EX-mrr-092, EX-mrr-093, EX-mrr-094]
 golden: []
 provenance: [SRC-026]
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:a3599e0b8bb117cb39fd62b4e520e32665d2c449915bf081f1d87b37980964aa
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:574a272bf30f0d528086625bfc6641f216e532af0e664f760cdbd2be9256e443
 ---
 
 # BR-mrr-024@v1

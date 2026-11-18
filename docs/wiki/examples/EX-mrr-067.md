@@ -5,12 +5,12 @@ description: ยังไม่มีใครได้รับ Email หัว
 resource: ../rules/BR-mrr-020@v1.md
 tags: [mrr, example, exception]
 id: EX-mrr-067
-status: draft
+status: validated
 kind: exception
-proves: [BR-mrr-020@v1]
+proves: [BR-mrr-020@v1, BR-mrr-020@v2]
 has_ui: false
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:163d2c2b2d1519e98dfd24cd7f2180a0012183227248e9432969660d25ae1c55
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:765ad7fca614fa4131b4c2c53b3d1a1dedd5a76e4e75102eacb25351289efab8
 ---
 
 # EX-mrr-067
@@ -26,4 +26,5 @@ spec_hash: sha256:163d2c2b2d1519e98dfd24cd7f2180a0012183227248e9432969660d25ae1c
 
 ## พิสูจน์กฎ
 
-- [BR-mrr-020@v1](../rules/BR-mrr-020@v1.md) ✅ ปัจจุบัน — ถ้างานตามเวลาส่ง Email เตือนก่อนเริ่มประชุมไม่สำเร็จ ไม่ส่งซ้ำ — บันทึกว่าส่งไม่สำเร็จ
+- [BR-mrr-020@v1](../rules/BR-mrr-020@v1.md) ❄️ — ถ้างานตามเวลาส่ง Email เตือนก่อนเริ่มประชุมไม่สำเร็จ ไม่ส่งซ้ำ — บันทึกว่าส่งไม่สำเร็จ
+- [BR-mrr-020@v2](../rules/BR-mrr-020@v2.md) ✅ ปัจจุบัน — ถ้างานตามเวลาส่ง Email เตือนก่อนเริ่มประชุมไม่สำเร็จ (รวมกรณีผู้รับบางคนส่งไม่สำเร็จ — นับเป็นไม่สำเร็จทั้งการจอง) ไม่ส่งซ้ำ — บันทึกว่าส่งไม่สำเร็จ · ถ้าส่งสำเร็จ บันทึกว่าส่งสำเร็จ

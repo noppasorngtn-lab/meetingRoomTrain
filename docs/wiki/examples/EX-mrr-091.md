@@ -5,12 +5,12 @@ description: แสดงข้อความ 'หากเป็น Email ใ�
 resource: ../rules/BR-mrr-024@v1.md
 tags: [mrr, example, happy]
 id: EX-mrr-091
-status: draft
+status: validated
 kind: happy
 proves: [BR-mrr-024@v1, BR-mrr-026@v1]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:b6a64ad018601a47c558244d1a17b7b68b7aee7856d1963a33a1493158c0b137
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:ff395024d887e10070b815b9bed80a1b0c8e411054ee1519863e6bf8713a3bd9
 ---
 
 # EX-mrr-091

@@ -5,12 +5,12 @@ description: แสดงข้อความ 'รหัสหรือลิ�
 resource: ../rules/BR-mrr-027@v1.md
 tags: [mrr, example, boundary]
 id: EX-mrr-101
-status: draft
+status: validated
 kind: boundary
 proves: [BR-mrr-027@v1, BR-mrr-028@v1]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:c0ace13c95e2dae5b025f2b91455d8ec87c14b21751a3dbb0285aa15e32900d5
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:1e04f02f1fd35f51c2b1c7b2082239a827d53e66fcb4d70b1a188e26f9d99f89
 ---
 
 # EX-mrr-101

@@ -5,12 +5,12 @@ description: การจองเปลี่ยนเป็นสถานะ 
 resource: ../rules/BR-mrr-011@v1.md
 tags: [mrr, example, boundary]
 id: EX-mrr-037
-status: draft
+status: validated
 kind: boundary
 proves: [BR-mrr-011@v1]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:0fb1ec8faff22e60c3f986238368c012a2c49541e3a38c528923077e844ee704
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:ced5cde8f2157f666e9ba7be2528171cdc8b98e46207d38e59398cf02e366d10
 ---
 
 # EX-mrr-037

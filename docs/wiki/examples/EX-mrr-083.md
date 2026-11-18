@@ -5,12 +5,12 @@ description: Room Administrator เห็นข้อความ 'เปิด�
 resource: ../rules/BR-mrr-012@v1.md
 tags: [mrr, example, boundary]
 id: EX-mrr-083
-status: draft
+status: validated
 kind: boundary
 proves: [BR-mrr-012@v1]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:05b4706867f5ec27ed4866daf88f7cdc2035a5124321086623f8eaff5bdf1cdf
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:7186955a110aed2d61118dfa619b1e4e31b2c74f997f89495bbc8745e9abe254
 ---
 
 # EX-mrr-083

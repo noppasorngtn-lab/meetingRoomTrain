@@ -5,7 +5,7 @@ description: การจองที่ยังรออนุมัติเ�
 resource: ../requirements/REQ-mrr-002.md
 tags: [mrr, policy]
 id: BR-mrr-016@v1
-status: draft
+status: validated
 belongs_to: REQ-mrr-002
 kind: policy
 is_current: true
@@ -13,8 +13,8 @@ test_design: [state_transition, BVA]
 proven_by: [EX-mrr-050, EX-mrr-051, EX-mrr-052, EX-mrr-053]
 golden: []
 provenance: [SRC-008, SRC-011, SRC-011]
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:334e0fc9a61640b3af731ec1f88f40666e40cf640c8f910c99e88c3afdfdb9ad
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:4046f1edeb47ab5d62396562feb817f269a31fe625694db2c1c26a9c216bebae
 ---
 
 # BR-mrr-016@v1

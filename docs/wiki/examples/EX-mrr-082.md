@@ -5,12 +5,12 @@ description: ระบบไม่บันทึกการแก้ไข แ
 resource: ../rules/BR-mrr-012@v1.md
 tags: [mrr, example, alternate]
 id: EX-mrr-082
-status: draft
+status: validated
 kind: alternate
 proves: [BR-mrr-012@v1]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:f1e3b64ba517c1dc4517eebe1bd6cc5062e3fd4ed560ebde211dca8301551bde
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:e8c59556b6154943b93d8cc117a7630e1988f5bd9e9cc1dd9406a6746576b501
 ---
 
 # EX-mrr-082

@@ -5,12 +5,12 @@ description: RA2 เห็นร่องรอย 1 รายการ: ผู�
 resource: ../rules/BR-mrr-018@v1.md
 tags: [mrr, example, happy]
 id: EX-mrr-058
-status: draft
+status: validated
 kind: happy
 proves: [BR-mrr-018@v1]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:8a836f3c41112106349f8d0dc5514a1b0876c9544dae96bd486528d25a0489bd
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:ea3e7c791cc3b7768ed57091f4cc5d7d784968967562ab6714ce9b43b3c04694
 ---
 
 # EX-mrr-058

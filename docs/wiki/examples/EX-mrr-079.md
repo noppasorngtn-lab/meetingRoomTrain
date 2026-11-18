@@ -5,12 +5,12 @@ description: Room Administrator เห็นข้อความ 'บันท�
 resource: ../rules/BR-mrr-010@v2.md
 tags: [mrr, example, alternate]
 id: EX-mrr-079
-status: draft
+status: validated
 kind: alternate
 proves: [BR-mrr-010@v2]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:6d97d5c3757cc494181502f4a5d6fcce3cfff495ababb99f8438b92a8ca8442f
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:c5d10460696634076245c072c59edb9d13af5488ca9a644e221701e6857f3626
 ---
 
 # EX-mrr-079

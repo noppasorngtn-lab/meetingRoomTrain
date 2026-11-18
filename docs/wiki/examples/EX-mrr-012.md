@@ -5,12 +5,12 @@ description: การจองมีสถานะ 'รออนุมัต�
 resource: ../rules/BR-mrr-004@v1.md
 tags: [mrr, example, happy]
 id: EX-mrr-012
-status: draft
+status: validated
 kind: happy
 proves: [BR-mrr-004@v1]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:b62cbc52565ee307be50937c8713cf34e91af2443b1b98646ff01d200024d52a
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:019f2a4b057d6301b2ad67bf0ae4ff206ac33ab9ce7e97d58dd9ee3346708100
 ---
 
 # EX-mrr-012

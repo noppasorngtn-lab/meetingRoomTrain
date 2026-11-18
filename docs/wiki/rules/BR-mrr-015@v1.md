@@ -5,7 +5,7 @@ description: รายงานการใช้ห้องที่ออก�
 resource: ../requirements/REQ-mrr-004.md
 tags: [mrr, invariant]
 id: BR-mrr-015@v1
-status: draft
+status: validated
 belongs_to: REQ-mrr-004
 kind: invariant
 is_current: true
@@ -13,8 +13,8 @@ test_design: [state_transition]
 proven_by: [EX-mrr-047, EX-mrr-048, EX-mrr-049]
 golden: []
 provenance: [SRC-008]
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:1aecaab387680e97a7748aa3fdce7b2ecbb5842ef158cca51e1dc65c320fa311
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:09fd19d68a8f283e1b1b63ba5154ea9fa334e2986a442b40da181733f6a5f375
 ---
 
 # BR-mrr-015@v1

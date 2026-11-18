@@ -5,12 +5,12 @@ description: แสดงข้อความ 'คุณไม่มีสิ�
 resource: ../rules/BR-mrr-005@v1.md
 tags: [mrr, example, exception]
 id: EX-mrr-090
-status: draft
+status: validated
 kind: exception
 proves: [BR-mrr-005@v1]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:6e8026c333ca9b63a0839e97b9e3a0f52a13aef7b2381a6c270d737bc0f97a2e
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:5af7ac5d25cbfd12daf181963d7e01e8198eb840f81a4a2181d82639e01e3e18
 ---
 
 # EX-mrr-090

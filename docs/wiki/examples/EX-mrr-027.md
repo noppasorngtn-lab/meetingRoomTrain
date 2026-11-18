@@ -5,12 +5,12 @@ description: การจองคงเดิม และแสดงข้อ
 resource: ../rules/BR-mrr-009@v1.md
 tags: [mrr, example, boundary]
 id: EX-mrr-027
-status: draft
+status: validated
 kind: boundary
 proves: [BR-mrr-009@v1]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:d7b14807786a3799a21b745bc72d06c6208601c923d7b4fc38b76a4edea1fc4a
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:61b6f594d99a2300b0fde6c374e6069f23c126eae5f35ac11d971a2f5828f0fa
 ---
 
 # EX-mrr-027

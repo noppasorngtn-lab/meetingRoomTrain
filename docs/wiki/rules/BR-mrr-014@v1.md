@@ -5,7 +5,7 @@ description: หลังเวลาจบประชุม การแก้
 resource: ../requirements/REQ-mrr-001.md
 tags: [mrr, policy]
 id: BR-mrr-014@v1
-status: draft
+status: validated
 belongs_to: REQ-mrr-001
 kind: policy
 is_current: true
@@ -13,8 +13,8 @@ test_design: [state_transition, decision_table]
 proven_by: [EX-mrr-043, EX-mrr-044, EX-mrr-045, EX-mrr-046]
 golden: []
 provenance: [SRC-008, SRC-008, SRC-009]
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:54ed42caaa6c18d58f9f8d2099c7c688296ff79271334ef5b7572375138d0c81
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:4763b5c77da555fe3baf5b1346b0bc3cc81d4a3ba870e29755aed11395d04ad3
 ---
 
 # BR-mrr-014@v1

@@ -5,16 +5,16 @@ description: ถ้าส่ง Email แจ้งเตือนไม่สำ
 resource: ../requirements/REQ-mrr-005.md
 tags: [mrr, policy]
 id: BR-mrr-019@v1
-status: draft
+status: validated
 belongs_to: REQ-mrr-005
 kind: policy
 is_current: true
 test_design: [decision_table]
-proven_by: [EX-mrr-062, EX-mrr-063, EX-mrr-064, EX-mrr-065]
+proven_by: [EX-mrr-062, EX-mrr-063, EX-mrr-064, EX-mrr-065, EX-mrr-113]
 golden: []
 provenance: [SRC-010]
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:f91435e81805a026abb7655728dd1e40de0a3782ae67bc0c8009488d0936c0c4
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:15e7cd18046f95fd3bb01a7c723e110fbc2cfa9b3562ab36c0bfaf8b655dcb5f
 ---
 
 # BR-mrr-019@v1
@@ -33,6 +33,7 @@ spec_hash: sha256:f91435e81805a026abb7655728dd1e40de0a3782ae67bc0c8009488d0936c0
 - [EX-mrr-063](../examples/EX-mrr-063.md) — exception: การจองยังเป็น 10:00–11:00 ตามเดิม และแสดงข้อความ 'ส่ง Email แจ้งเตือนไม่สำเร็จ กรุณากดใหม่อีกครั้ง'
 - [EX-mrr-064](../examples/EX-mrr-064.md) — exception: สถานะยังเป็น 'รออนุมัติ' และ Room Administrator เห็นข้อความ 'ส่ง Email แจ้งเตือนไม่สำเร็จ กรุณากดใหม่อีกครั้ง'
 - [EX-mrr-065](../examples/EX-mrr-065.md) — alternate: ระบบบันทึกการแก้ไข และแสดงข้อความ 'บันทึกการแก้ไขสำเร็จ' — การกระทำนี้ไม่ส่ง Email จึงไม่ล้มตาม
+- [EX-mrr-113](../examples/EX-mrr-113.md) — happy: ระบบสร้างการจอง ห้อง A ช่วง 13:00–14:00 เป็นของ U1 และแสดงข้อความ 'จองห้องสำเร็จ' · U1 ได้รับ Email หัวเรื่อง '[จองห้องประชุม] จองสำเร็จ: ประชุมทีม · ห้อง A 17/10 13:00–14:00' — ไม่แสดงข้อความ 'ส่ง Email แจ้งเตือนไม่สำเร็จ กรุณากดใหม่อีกครั้ง'
 
 ## ประวัติ
 

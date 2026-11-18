@@ -5,12 +5,12 @@ description: การจองของ U1 วันที่ 18/10 10:00–11:
 resource: ../rules/BR-mrr-010@v2.md
 tags: [mrr, example, exception]
 id: EX-mrr-031
-status: draft
+status: validated
 kind: exception
 proves: [BR-mrr-010@v2]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:1c6097a40e014fd38091fa94866353f453fc575f19eb7bc428c221e94eb0ce1a
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:e4ff66480bad3861502a6edf794941974ae008edb201ee08dcf291e8cfaca0c2
 ---
 
 # EX-mrr-031

@@ -5,12 +5,12 @@ description: System Administrator เห็นร่องรอย 1 ราย�
 resource: ../rules/BR-mrr-018@v1.md
 tags: [mrr, example, happy]
 id: EX-mrr-059
-status: draft
+status: validated
 kind: happy
 proves: [BR-mrr-018@v1]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:7a31bdc41cbc6ff64565063645755de77a200f659d777767c741d6b4e452ff3b
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:23f4fe912213d38e9825bb2e06b1e1b8cef188ad1c10218889d36e43bb4bf4d3
 ---
 
 # EX-mrr-059

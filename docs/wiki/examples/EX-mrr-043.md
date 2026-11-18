@@ -5,12 +5,12 @@ description: ระบบสร้างคำขอแก้ไข หัวข
 resource: ../rules/BR-mrr-014@v1.md
 tags: [mrr, example, boundary]
 id: EX-mrr-043
-status: draft
+status: validated
 kind: boundary
 proves: [BR-mrr-014@v1]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:29e1e498bef0cd9a2ce646df5858d42775115a663ea621bbcc5904a8cc853da2
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:d9c4c7592903916666d4c45d3e49c20e424e99c51604772011e44ef0923fa482
 ---
 
 # EX-mrr-043

@@ -5,16 +5,16 @@ description: การจองต้องระบุหัวข้อกา�
 resource: ../requirements/REQ-mrr-001.md
 tags: [mrr, constraint]
 id: BR-mrr-002@v1
-status: draft
+status: validated
 belongs_to: REQ-mrr-001
 kind: constraint
 is_current: true
 test_design: [EP]
-proven_by: [EX-mrr-005, EX-mrr-006, EX-mrr-007]
+proven_by: [EX-mrr-005, EX-mrr-006, EX-mrr-007, EX-mrr-119]
 golden: []
 provenance: [SRC-001, SRC-016]
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:f8dae257987d5179be7543e8a472107cc84cea47636c5212f0c0fa1c18d033ac
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:550aa9a36329c1beab43cc16d50a31e2417815b04916342d6df1c9878a755681
 ---
 
 # BR-mrr-002@v1
@@ -35,6 +35,7 @@ spec_hash: sha256:f8dae257987d5179be7543e8a472107cc84cea47636c5212f0c0fa1c18d033
 - [EX-mrr-005](../examples/EX-mrr-005.md) — happy: ระบบรับการจอง และแสดงข้อความ 'จองห้องสำเร็จ' — อุปกรณ์เสริมไม่บังคับ
 - [EX-mrr-006](../examples/EX-mrr-006.md) — exception: ระบบไม่รับการจอง และแสดงข้อความ 'กรุณาระบุหัวข้อการประชุม'
 - [EX-mrr-007](../examples/EX-mrr-007.md) — exception: ระบบไม่รับการจอง และแสดงข้อความ 'กรุณาระบุผู้เข้าร่วมอย่างน้อย 1 คน'
+- [EX-mrr-119](../examples/EX-mrr-119.md) — happy: ระบบรับการจอง และแสดงข้อความ 'จองห้องสำเร็จ' — การจองบันทึกอุปกรณ์เสริมที่เลือกไว้ 1 รายการ
 
 ## ประวัติ
 

@@ -5,7 +5,7 @@ description: เข้าสู่ระบบได้เฉพาะพนั�
 resource: ../requirements/REQ-mrr-001.md
 tags: [mrr, policy]
 id: BR-mrr-026@v1
-status: draft
+status: validated
 belongs_to: REQ-mrr-001
 kind: policy
 is_current: true
@@ -13,8 +13,8 @@ test_design: [decision_table]
 proven_by: [EX-mrr-091, EX-mrr-098, EX-mrr-099]
 golden: []
 provenance: [SRC-026]
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:ee2461e07ed6572e2ef361a6f95f64cb9ac3bd4b7db63235a4b716287635f58c
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:b8461c5aafffa299dd9e37a899a437513a70c69b3854afd7b2ba6a74e7459612
 ---
 
 # BR-mrr-026@v1

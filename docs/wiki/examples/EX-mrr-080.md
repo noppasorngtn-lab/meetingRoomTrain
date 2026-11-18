@@ -5,12 +5,12 @@ description: การจองของ U1 (เริ่ม 10:00 = เวล�
 resource: ../rules/BR-mrr-010@v2.md
 tags: [mrr, example, boundary]
 id: EX-mrr-080
-status: draft
+status: validated
 kind: boundary
 proves: [BR-mrr-010@v2]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:713fc38494710afbd5ec8e875d150239f038a281fc75b41980109b1bd0e9cb93
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:11ea5c79c1e565e4c77adf73c769056edb9df4727a2147c4be25908521665bdf
 ---
 
 # EX-mrr-080

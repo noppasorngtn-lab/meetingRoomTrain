@@ -5,16 +5,17 @@ description: ทุกการกระทำของ Room Administrator ต�
 resource: ../requirements/REQ-mrr-002.md
 tags: [mrr, invariant]
 id: BR-mrr-017@v1
-status: draft
+status: superseded
 belongs_to: REQ-mrr-002
 kind: invariant
-is_current: true
+is_current: false
 test_design: [decision_table]
 proven_by: [EX-mrr-054, EX-mrr-055, EX-mrr-056, EX-mrr-057]
 golden: []
+superseded_by: BR-mrr-017@v2
 provenance: [SRC-009, SRC-009]
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:b920a411e30d576d06ecf437def5fb9cf9252682fa6261a7f2e500165d89b704
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:996b48d09d91d801b4b03c38afc7203b7f5634a56557c5daf860d6d0cb1caedd
 ---
 
 # BR-mrr-017@v1
@@ -41,4 +42,5 @@ spec_hash: sha256:b920a411e30d576d06ecf437def5fb9cf9252682fa6261a7f2e500165d89b7
 
 | เวอร์ชัน | มีผลตั้งแต่ | เหตุผล | change set |
 |---|---|---|---|
-| **BR-mrr-017@v1** (หน้านี้) ✅ | — | ตั้งต้น | — |
+| **BR-mrr-017@v1** (หน้านี้) ❄️ | — | ตั้งต้น | — |
+| [BR-mrr-017@v2](BR-mrr-017@v2.md) ✅ | 2026-11-18 | เจ้าของระบุค่าในช่อง การกระทำ ของร่องรอย (ปฏิเสธการจอง · ถอยผล · แก้แทนผู้จอง) และยืนยันว่าการปฏิเสธต้องระบุเหตุผล | [CHG-mrr-003](../changes/CHG-mrr-003.md) |

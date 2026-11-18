@@ -8,7 +8,7 @@ id: DQ-mrr-016
 state: answered
 raised_by: BR-mrr-025@v1
 answer_phase: screen
-timestamp: 2026-10-22T10:30:00+07:00
+timestamp: 2026-11-18T12:30:00+07:00
 spec_hash: sha256:dd635274b018ea3e7cd41da938af43c86818b1321bbba9da9a73c5086ad85df8
 ---
 

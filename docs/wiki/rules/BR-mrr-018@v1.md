@@ -5,7 +5,7 @@ description: ร่องรอยการกระทำดูได้เฉ�
 resource: ../requirements/REQ-mrr-002.md
 tags: [mrr, policy]
 id: BR-mrr-018@v1
-status: draft
+status: validated
 belongs_to: REQ-mrr-002
 kind: policy
 is_current: true
@@ -13,8 +13,8 @@ test_design: [decision_table]
 proven_by: [EX-mrr-058, EX-mrr-059, EX-mrr-060, EX-mrr-061]
 golden: []
 provenance: [SRC-009, SRC-009]
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:aa359ba8d03ef68767b775d24b67d38dc1bff14738fb467b5ff886fb6922a706
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:1b2b965a53fbbae2104dafaaa844e9273ae81dbd9d311882e309a8d41691c6b4
 ---
 
 # BR-mrr-018@v1

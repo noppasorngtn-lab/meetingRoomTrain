@@ -5,12 +5,12 @@ description: ระบบรับการจอง และแสดงข้
 resource: ../rules/BR-mrr-001@v1.md
 tags: [mrr, example, alternate]
 id: EX-mrr-004
-status: draft
+status: validated
 kind: alternate
 proves: [BR-mrr-001@v1]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:721c62ed009eccec2d54fdcee5780fbca4ae70870c93015c7076535ddb508754
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:dd44f1c64406b46d1876cab94c873d50114a3afae30584bc65bebca2e4204ad4
 ---
 
 # EX-mrr-004

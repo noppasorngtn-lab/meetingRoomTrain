@@ -5,7 +5,7 @@ description: รายงานและสถิติการใช้ห้�
 resource: ../requirements/REQ-mrr-004.md
 tags: [mrr, policy]
 id: BR-mrr-022@v1
-status: draft
+status: validated
 belongs_to: REQ-mrr-004
 kind: policy
 is_current: true
@@ -13,8 +13,8 @@ test_design: [decision_table]
 proven_by: [EX-mrr-072, EX-mrr-073, EX-mrr-074]
 golden: []
 provenance: [SRC-013]
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:d745e1f6356ab92d751fa63505ba6b599b67dfa939b47edd34f6c93c031b195b
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:3d6a1d382b3a4deb335b10cff3f8f20f8ad28de1d616f05bf4d640690dfeb10d
 ---
 
 # BR-mrr-022@v1

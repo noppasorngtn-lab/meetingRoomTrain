@@ -5,7 +5,7 @@ description: รหัสเข้าสู่ระบบเป็นตัว�
 resource: ../requirements/REQ-mrr-001.md
 tags: [mrr, constraint]
 id: BR-mrr-027@v1
-status: draft
+status: validated
 belongs_to: REQ-mrr-001
 kind: constraint
 is_current: true
@@ -13,8 +13,8 @@ test_design: [BVA]
 proven_by: [EX-mrr-100, EX-mrr-101, EX-mrr-102, EX-mrr-103]
 golden: []
 provenance: [SRC-027, SRC-027, SRC-027, SRC-027]
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:8ca5e6e797c0ad3879f026210ea6f9c315f7d41364a7f1e7a92480aa50c7a9ba
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:de692abcfe0f77ceecd31f57b1e436da682d91b0123204a007b2b74b228bd158
 ---
 
 # BR-mrr-027@v1

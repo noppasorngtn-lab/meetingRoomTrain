@@ -5,12 +5,12 @@ description: ระบบไม่ลบห้อง และแสดงข้
 resource: ../rules/BR-mrr-005@v1.md
 tags: [mrr, example, exception]
 id: EX-mrr-110
-status: draft
+status: validated
 kind: exception
 proves: [BR-mrr-005@v1]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:448735ee075c723098b726bfed7ef302e595e8fa4d419f09f69ffdcbb291dd0c
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:b6504b948f3568f0ce4a4daf32cf4bc5d34252c3f950a8be9b43c6cec4a8acbf
 ---
 
 # EX-mrr-110

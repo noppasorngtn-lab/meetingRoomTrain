@@ -5,7 +5,7 @@ description: เมื่อถึงเวลาเริ่มประชุ�
 resource: ../requirements/REQ-mrr-001.md
 tags: [mrr, policy]
 id: BR-mrr-009@v1
-status: draft
+status: validated
 belongs_to: REQ-mrr-001
 kind: policy
 is_current: true
@@ -13,8 +13,8 @@ test_design: [BVA, decision_table]
 proven_by: [EX-mrr-026, EX-mrr-027, EX-mrr-028, EX-mrr-029, EX-mrr-088]
 golden: []
 provenance: [SRC-004, SRC-004, SRC-022]
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:c938bf1941a3b362be7bf878faa1d455995806b0b68749b3f465c45c7821b913
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:408b6cf8056f044ef0c6fa8ccca90c316500541526fb9321b4c36ea27219430b
 ---
 
 # BR-mrr-009@v1

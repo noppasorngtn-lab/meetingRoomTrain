@@ -5,12 +5,12 @@ description: ตัวเลขในฉบับที่ 1 คงเดิม 
 resource: ../rules/BR-mrr-015@v1.md
 tags: [mrr, example, exception]
 id: EX-mrr-048
-status: draft
+status: validated
 kind: exception
 proves: [BR-mrr-015@v1]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:eb01d535c01e5c414e14424dee317777c2d6395a19ac65e3b349f7b32f33fabc
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:d3d74d8f3eb3326dbc0eda2770f6d14dc4303fa923de7045beb19f8fa3661c71
 ---
 
 # EX-mrr-048

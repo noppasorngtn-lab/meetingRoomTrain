@@ -5,12 +5,12 @@ description: ฉบับที่ 1 แสดงตัวเลขทุกค�
 resource: ../rules/BR-mrr-015@v1.md
 tags: [mrr, example, boundary]
 id: EX-mrr-049
-status: draft
+status: validated
 kind: boundary
 proves: [BR-mrr-015@v1]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:f24ba4c25067fc30c8758b29e63b544b3e79d850845d99b6ac1b9a9b04f2e760
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:3d77bf8d542342ba8bf657ea71c52ce13597ba17f95a568905f548907d7428f8
 ---
 
 # EX-mrr-049

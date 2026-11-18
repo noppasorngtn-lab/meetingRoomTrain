@@ -5,12 +5,12 @@ description: ระบบสร้างห้อง C และแสดงข�
 resource: ../rules/BR-mrr-005@v1.md
 tags: [mrr, example, happy]
 id: EX-mrr-015
-status: draft
+status: validated
 kind: happy
 proves: [BR-mrr-005@v1]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:05342cdb4c26306e1ef633b4eb4bed128b3c4ebd18c0bdd7457d59b554dc7f08
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:736a3dafc6dab2d6ece791bb6f2c0a5b6d58889ed407d4c9ff038ab66c844036
 ---
 
 # EX-mrr-015

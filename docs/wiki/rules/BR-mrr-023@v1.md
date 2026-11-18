@@ -5,7 +5,7 @@ description: Email เตือนก่อนเริ่มประชุม�
 resource: ../requirements/REQ-mrr-005.md
 tags: [mrr, invariant]
 id: BR-mrr-023@v1
-status: draft
+status: validated
 belongs_to: REQ-mrr-005
 kind: invariant
 is_current: true
@@ -13,8 +13,8 @@ test_design: [state_transition]
 proven_by: [EX-mrr-075, EX-mrr-076, EX-mrr-077]
 golden: []
 provenance: [SRC-013]
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:c2b087e23e6925d395efaae45ef76eed22a2396412eabd6ac76df611b51891ef
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:af4c48806e868613f24d2b901c8634ce1e59cc4f275be12a19aaa8f2d0971b8e
 ---
 
 # BR-mrr-023@v1

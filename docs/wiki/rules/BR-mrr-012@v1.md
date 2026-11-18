@@ -5,7 +5,7 @@ description: ห้องที่ตั้งเป็นปิดปรับ�
 resource: ../requirements/REQ-mrr-003.md
 tags: [mrr, constraint]
 id: BR-mrr-012@v1
-status: draft
+status: validated
 belongs_to: REQ-mrr-003
 kind: constraint
 is_current: true
@@ -13,8 +13,8 @@ test_design: [state_transition, decision_table]
 proven_by: [EX-mrr-016, EX-mrr-081, EX-mrr-082, EX-mrr-083]
 golden: []
 provenance: [SRC-006]
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:161073513778dd6099a03a5da364824b90d96305db8f0edddc6c7ba0a463225e
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:adbc3e21273ae061badfe9aed61d2ed27c7211b76cd2e888056d7217a621c510
 ---
 
 # BR-mrr-012@v1

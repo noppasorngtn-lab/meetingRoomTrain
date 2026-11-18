@@ -5,12 +5,12 @@ description: แสดงข้อความ 'รหัสไม่ถูก�
 resource: ../rules/BR-mrr-028@v1.md
 tags: [mrr, example, exception]
 id: EX-mrr-104
-status: draft
+status: validated
 kind: exception
 proves: [BR-mrr-028@v1]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:2acb1c4de1be80ea28c93d0b5c9715c60e0c69253459c8526759d1615ba12204
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:178fd78fbe4dcbba94141553ed5f25d94ee3a3144e0eb847f5f1c8b6ebc27689
 ---
 
 # EX-mrr-104

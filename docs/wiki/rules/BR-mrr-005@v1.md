@@ -5,7 +5,7 @@ description: การเพิ่ม แก้ไข ปิดปรับป�
 resource: ../requirements/REQ-mrr-003.md
 tags: [mrr, policy]
 id: BR-mrr-005@v1
-status: draft
+status: validated
 belongs_to: REQ-mrr-003
 kind: policy
 is_current: true
@@ -13,8 +13,8 @@ test_design: [decision_table]
 proven_by: [EX-mrr-015, EX-mrr-016, EX-mrr-017, EX-mrr-018, EX-mrr-090]
 golden: []
 provenance: [SRC-001, SRC-001]
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:4ca1d7c597d0e17c71f82bbe835d216c01730d547437cf0a3f296102e059529e
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:576da16852a1b38613f89cd223e9f742e7127aa5a34121b5486c7cda6a8d0043
 ---
 
 # BR-mrr-005@v1

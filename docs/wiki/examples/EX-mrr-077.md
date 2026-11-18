@@ -5,12 +5,12 @@ description: ไม่มีใครได้รับ Email หัวเรื
 resource: ../rules/BR-mrr-023@v1.md
 tags: [mrr, example, boundary]
 id: EX-mrr-077
-status: draft
+status: validated
 kind: boundary
 proves: [BR-mrr-023@v1]
 has_ui: false
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:145783e495ee9b154657155eb9ac5550ce03a7672b99fbde11c11091976c675c
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:e95259dffc5c852057901292b47e4707bfc65d57a513f46897915d285dccbc58
 ---
 
 # EX-mrr-077

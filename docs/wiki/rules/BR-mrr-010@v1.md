@@ -14,8 +14,8 @@ proven_by: [EX-mrr-030, EX-mrr-031, EX-mrr-032, EX-mrr-033, EX-mrr-034]
 golden: []
 superseded_by: BR-mrr-010@v2
 provenance: [SRC-005]
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:ea5382f18e8b6bf6b8ec91c25105f7d97994c130b5aa0d93ef30cb11225a9e5a
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:bdcc42b3d7c4a6467ee0586d6cd7d2ff6423be215f15f2fa786134ecee1edb24
 ---
 
 # BR-mrr-010@v1

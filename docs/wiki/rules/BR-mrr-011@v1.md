@@ -5,7 +5,7 @@ description: Room Administrator เปลี่ยนผลการอนุม
 resource: ../requirements/REQ-mrr-002.md
 tags: [mrr, policy]
 id: BR-mrr-011@v1
-status: draft
+status: validated
 belongs_to: REQ-mrr-002
 kind: policy
 is_current: true
@@ -13,8 +13,8 @@ test_design: [state_transition, BVA]
 proven_by: [EX-mrr-035, EX-mrr-036, EX-mrr-037, EX-mrr-038, EX-mrr-089]
 golden: []
 provenance: [SRC-006, SRC-006]
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:0d0809daaa94af57212c3a31baabe7c766c5565b5feb014d4a4cb76fa1d9bd16
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:52b22f39034159a594272805b97f73b6728dc8632fc0bfb9d848fa6551af0d76
 ---
 
 # BR-mrr-011@v1

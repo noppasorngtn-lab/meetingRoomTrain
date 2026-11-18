@@ -9,7 +9,7 @@ status: draft
 term_th: magic link
 term_en: MagicLink
 not_to_confuse_with: []
-timestamp: 2026-10-22T10:30:00+07:00
+timestamp: 2026-11-18T12:30:00+07:00
 spec_hash: sha256:6fef05e101dfb019aff41680b2e7e25a7ccacfcce88d2827306f3b1dde57bede
 ---
 

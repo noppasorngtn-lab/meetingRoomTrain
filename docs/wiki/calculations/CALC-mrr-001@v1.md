@@ -11,8 +11,8 @@ is_current: true
 numeric_type: decimal
 rounding_mode: HALF_UP
 golden: [GD-mrr-001]
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:db9432cdb80455556588fad607616b329ef7d91563509203592ed06981009504
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:af408168f2d50c269500075616d2b63e6c07ccab194c06ac7c2dc0aad7202514
 ---
 
 # CALC-mrr-001@v1

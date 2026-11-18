@@ -5,12 +5,12 @@ description: ช่อง 10:00–11:00 ของห้อง B แสดงแ�
 resource: ../rules/BR-mrr-021@v1.md
 tags: [mrr, example, exception]
 id: EX-mrr-071
-status: draft
+status: validated
 kind: exception
 proves: [BR-mrr-021@v1]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:13672d0a33eeae5ca9f16eb6651a7261c826819e026e944481c1325f7eaec9e5
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:c2bb38f920220885894e3a27d9dee41537e634872d696e736a2ec82fea3dff7d
 ---
 
 # EX-mrr-071

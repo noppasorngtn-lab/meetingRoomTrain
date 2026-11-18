@@ -5,12 +5,12 @@ description: เห็นรายงานเดือน ต.ค. 2569 พร�
 resource: ../rules/BR-mrr-022@v1.md
 tags: [mrr, example, happy]
 id: EX-mrr-072
-status: draft
+status: validated
 kind: happy
 proves: [BR-mrr-022@v1]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:8f3dd91db6c46d19f3208646a481dbcdb105301c2f6dab33152f2cc2373c10c0
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:61371251365d5a7aa4e5a4fb748a3da61d144de7aff7ed318076bcaab18cfad3
 ---
 
 # EX-mrr-072

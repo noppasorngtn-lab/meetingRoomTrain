@@ -5,12 +5,12 @@ description: ห้อง D แสดง '50.00%' — ตัวหารเห�
 resource: ../rules/BR-mrr-006@v1.md
 tags: [mrr, example, alternate]
 id: EX-mrr-086
-status: draft
+status: validated
 kind: alternate
 proves: [BR-mrr-006@v1]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:057b0dabb092b335def54fc45dbf045e6ad4d75933f9d423bf6c5beb9f11b2c7
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:87fcfedfc1d4c5c83242dd2f21996f2b051df69e002fc94ed828393a32c67d64
 ---
 
 # EX-mrr-086

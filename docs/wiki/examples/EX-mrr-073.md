@@ -5,12 +5,12 @@ description: System Administrator ไม่เห็นรายงานแล�
 resource: ../rules/BR-mrr-022@v1.md
 tags: [mrr, example, exception]
 id: EX-mrr-073
-status: draft
+status: validated
 kind: exception
 proves: [BR-mrr-022@v1]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:1fcf3d5a0eea0e9909a084492e46eb634b9b47295c72aaa9aade93256db34731
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:a56783bb71d3de57b0f8b32ed91abfb0c4f05df0d860ebae03248bdbad48fa92
 ---
 
 # EX-mrr-073

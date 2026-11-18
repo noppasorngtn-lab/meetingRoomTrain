@@ -5,12 +5,12 @@ description: ระบบไม่รับการจอง และแสด
 resource: ../rules/BR-mrr-001@v1.md
 tags: [mrr, example, exception]
 id: EX-mrr-003
-status: draft
+status: validated
 kind: exception
 proves: [BR-mrr-001@v1]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:93fcdea49fb7fe6ba312a1b6156cc4ecc38d2ba5e6581351b3a03c3f03dc4699
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:5d071dea0506958a251e9a82f74cd9118106d3c3d9790f3b4ee577d8260b4202
 ---
 
 # EX-mrr-003

@@ -5,7 +5,7 @@ description: การแก้ค่าตั้งของห้อง (เ�
 resource: ../requirements/REQ-mrr-003.md
 tags: [mrr, policy]
 id: BR-mrr-010@v2
-status: draft
+status: validated
 belongs_to: REQ-mrr-003
 kind: policy
 is_current: true
@@ -15,8 +15,8 @@ proven_by: [EX-mrr-030, EX-mrr-033, EX-mrr-034, EX-mrr-078, EX-mrr-079, EX-mrr-0
 golden: []
 supersedes: BR-mrr-010@v1
 provenance: [SRC-023]
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:f586176bea36569d1fa638b67f26b400b0d446ac6e5289598d52e25c2e079be4
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:0cafb647130d4683769091fe1b376d7b192170ccb9d96b68b5505e47f75a5c95
 ---
 
 # BR-mrr-010@v2

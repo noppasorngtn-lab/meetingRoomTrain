@@ -5,12 +5,12 @@ description: หัวข้อของการจองยังเป็น 
 resource: ../rules/BR-mrr-014@v1.md
 tags: [mrr, example, exception]
 id: EX-mrr-046
-status: draft
+status: validated
 kind: exception
 proves: [BR-mrr-014@v1]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:e1ac76af2189484b7660e0a24da87caea61d36d83ccc8443c2f00a4472b0bb91
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:e1f7ff103a960c77a5330b6cf969bf138daf784a5989e241798d6dc88e9ef53b
 ---
 
 # EX-mrr-046

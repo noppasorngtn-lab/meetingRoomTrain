@@ -5,12 +5,12 @@ description: การจองคงเดิม และแสดงข้อ
 resource: ../rules/BR-mrr-009@v1.md
 tags: [mrr, example, exception]
 id: EX-mrr-029
-status: draft
+status: validated
 kind: exception
 proves: [BR-mrr-009@v1]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:8b8ab758afcfb6bf6c9a2941deed9f895f8007bbe3c66a79993cc3145dc50810
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:41103427ba253b541506369dc852aff869406e936e9f9eb837398af4676430f0
 ---
 
 # EX-mrr-029

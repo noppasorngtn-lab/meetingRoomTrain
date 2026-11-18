@@ -5,7 +5,7 @@ description: ผู้ใช้ดูประวัติ แก้ไข ห�
 resource: ../requirements/REQ-mrr-001.md
 tags: [mrr, policy]
 id: BR-mrr-003@v1
-status: draft
+status: validated
 belongs_to: REQ-mrr-001
 kind: policy
 is_current: true
@@ -13,8 +13,8 @@ test_design: [decision_table]
 proven_by: [EX-mrr-008, EX-mrr-009, EX-mrr-010, EX-mrr-011]
 golden: []
 provenance: [SRC-001, SRC-004]
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:6288be1ed643fd2a128f311ce35d01c3db84c8f874eff68e1b813a1d97975504
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:71b461b235d04fb611eef83917a44c3b1f69993f9e55e4be8e6b28b7ad82fd13
 ---
 
 # BR-mrr-003@v1

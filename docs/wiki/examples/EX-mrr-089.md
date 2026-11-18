@@ -5,12 +5,12 @@ description: System Administrator เห็นข้อมูลการจอ�
 resource: ../rules/BR-mrr-011@v1.md
 tags: [mrr, example, exception]
 id: EX-mrr-089
-status: draft
+status: validated
 kind: exception
 proves: [BR-mrr-011@v1]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:576d6b3d6a7924c81caa2f3e916ca8cd2401563552fc2e57150c0e83e70c22a3
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:0ce495d04f6821f59fbe3e30b6cfbc75faa8101952e79cfec8e49aaffdf19f86
 ---
 
 # EX-mrr-089

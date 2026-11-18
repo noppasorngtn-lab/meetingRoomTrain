@@ -5,12 +5,12 @@ description: ผู้อนุมัติประจำห้อง B เป�
 resource: ../rules/BR-mrr-013@v1.md
 tags: [mrr, example, happy]
 id: EX-mrr-042
-status: draft
+status: validated
 kind: happy
 proves: [BR-mrr-013@v1]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:b0a805415e49032c1cc18c8e2527c0d54c29fa3c9b8a883b9811b09f26297482
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:785094be90ca8025704b9d86557a79ff0030f20ed1d9eb5c92304006dc70c00c
 ---
 
 # EX-mrr-042

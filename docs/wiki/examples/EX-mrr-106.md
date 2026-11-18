@@ -5,12 +5,12 @@ description: ระบบแสดงห้อง A พร้อมชื่อ 
 resource: ../rules/BR-mrr-001@v1.md
 tags: [mrr, example, happy]
 id: EX-mrr-106
-status: draft
+status: validated
 kind: happy
 proves: [BR-mrr-001@v1, BR-mrr-012@v1]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:ee019b2b1c244eca5f1346c487bd275ea2ce2d30de37c1f7eafea35a3ea360ee
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:ccadec4078eca7dd40b23b84648f4abe987fc631c0d25e86dcd9e2748029e2f3
 ---
 
 # EX-mrr-106

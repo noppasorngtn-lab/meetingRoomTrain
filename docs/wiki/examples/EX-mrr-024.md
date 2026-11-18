@@ -5,12 +5,12 @@ description: U1 ได้รับ Email หัวเรื่อง '[จอง
 resource: ../rules/BR-mrr-008@v1.md
 tags: [mrr, example, boundary]
 id: EX-mrr-024
-status: draft
+status: validated
 kind: boundary
 proves: [BR-mrr-008@v1]
 has_ui: false
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:50f09f185a890934857f8ba2649c9dd67552ff38fcc08a1ab78dc9d89454d5d8
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:807658c84bddc74aeb147b8e5611d4243bdde9b226f21916ceaf181ef12e74c8
 ---
 
 # EX-mrr-024

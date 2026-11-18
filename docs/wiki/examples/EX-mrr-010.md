@@ -5,12 +5,12 @@ description: ระบบไม่ยกเลิก การจองคงเ
 resource: ../rules/BR-mrr-003@v1.md
 tags: [mrr, example, exception]
 id: EX-mrr-010
-status: draft
+status: validated
 kind: exception
 proves: [BR-mrr-003@v1]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:61a542df965a72972a5440145a9cdabea408fc825b067385bd35071d2893fa44
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:2311cf00850a29e51228b9073cf97d23b2490bb115ef67fe00409a1a7cdaffeb
 ---
 
 # EX-mrr-010

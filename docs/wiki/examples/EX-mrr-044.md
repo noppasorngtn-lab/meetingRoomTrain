@@ -5,12 +5,12 @@ description: หัวข้อของการจองเปลี่ยน�
 resource: ../rules/BR-mrr-014@v1.md
 tags: [mrr, example, boundary]
 id: EX-mrr-044
-status: draft
+status: validated
 kind: boundary
 proves: [BR-mrr-014@v1]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:4a0b29864173dfb6361a9b3be180ffe6b93a300b5c06a0903b0c69c617495191
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:a2bb8217f9915b8d54b51a3f2a3c6a8f5c352d5b5cc8e4b83f25ce9cd4cb7bb7
 ---
 
 # EX-mrr-044

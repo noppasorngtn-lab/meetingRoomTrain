@@ -5,12 +5,12 @@ description: อันดับ 1 ห้อง B '66.67%' · อันดับ 
 resource: ../rules/BR-mrr-006@v1.md
 tags: [mrr, example, happy]
 id: EX-mrr-084
-status: draft
+status: validated
 kind: happy
 proves: [BR-mrr-006@v1]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:fb82f02de9d4a8f0eeb1c6f9ccda731504dd58efeebdb8faa25a1ed0355c68d7
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:470e0c6ffe8cc29c381e8f8493321200563892c26cdf4274823f0530424125b2
 ---
 
 # EX-mrr-084

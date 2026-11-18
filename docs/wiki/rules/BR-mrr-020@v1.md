@@ -5,16 +5,17 @@ description: ถ้างานตามเวลาส่ง Email เตือ
 resource: ../requirements/REQ-mrr-005.md
 tags: [mrr, policy]
 id: BR-mrr-020@v1
-status: draft
+status: superseded
 belongs_to: REQ-mrr-005
 kind: policy
-is_current: true
+is_current: false
 test_design: [decision_table]
 proven_by: [EX-mrr-066, EX-mrr-067]
 golden: []
+superseded_by: BR-mrr-020@v2
 provenance: [SRC-011]
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:680d8a3ee3691c8b55a63af8725cbb383e6f2f2782a7f7772df2f20794f6cc71
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:fd70cf4251801c6505890eafdac5bc3ebbd644f89dbdc57ed07b7ccdcc4ee382
 ---
 
 # BR-mrr-020@v1
@@ -36,4 +37,5 @@ spec_hash: sha256:680d8a3ee3691c8b55a63af8725cbb383e6f2f2782a7f7772df2f20794f6cc
 
 | เวอร์ชัน | มีผลตั้งแต่ | เหตุผล | change set |
 |---|---|---|---|
-| **BR-mrr-020@v1** (หน้านี้) ✅ | — | ตั้งต้น | — |
+| **BR-mrr-020@v1** (หน้านี้) ❄️ | — | ตั้งต้น | — |
+| [BR-mrr-020@v2](BR-mrr-020@v2.md) ✅ | 2026-11-18 | เจ้าของยืนยันว่าส่ง Email เตือนสำเร็จให้บันทึกว่า ส่งสำเร็จ และผู้รับบางคนส่งไม่สำเร็จนับเป็นส่งไม่สำเร็จทั้งการจอง | [CHG-mrr-003](../changes/CHG-mrr-003.md) |

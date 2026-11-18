@@ -5,12 +5,12 @@ description: ระบบรับการจองของ U2 และแส
 resource: ../rules/BR-mrr-010@v1.md
 tags: [mrr, example, alternate]
 id: EX-mrr-034
-status: draft
+status: validated
 kind: alternate
 proves: [BR-mrr-010@v1, BR-mrr-010@v2]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:463be80ce2322b4d01a0b56cb17e9b40f785f6ec925cd414826ffb03d7e47fa6
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:b0cef6bb210092efd16b6903cb94d361b2954131e15cdb38bd4a4fde82ea6280
 ---
 
 # EX-mrr-034

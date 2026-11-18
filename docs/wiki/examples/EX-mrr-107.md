@@ -5,12 +5,12 @@ description: ระบบแสดง 'ไม่พบห้องว่าง' 
 resource: ../rules/BR-mrr-001@v1.md
 tags: [mrr, example, exception]
 id: EX-mrr-107
-status: draft
+status: validated
 kind: exception
 proves: [BR-mrr-001@v1, BR-mrr-012@v1]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:6e3fcd50581c8b4e5f96c8a8d207e11803dd3bd93edf4658325fcd81589065be
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:14339315b477f82fbadab903aeb5b09f859d6890c24275419a707abf6488c8e1
 ---
 
 # EX-mrr-107

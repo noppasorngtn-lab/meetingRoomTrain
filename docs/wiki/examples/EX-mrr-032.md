@@ -5,12 +5,12 @@ description: การจองของ U1 ไม่อยู่ในราย
 resource: ../rules/BR-mrr-010@v2.md
 tags: [mrr, example, exception]
 id: EX-mrr-032
-status: draft
+status: validated
 kind: exception
 proves: [BR-mrr-010@v2]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:5e24a400ae3ab859b199ec7ecdd4851e130f779fd99b2bbfe4d30a0eda3f2324
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:3040db7802a1da5e12eae956ff5088542ee1f706d9479e340210f6b02732f052
 ---
 
 # EX-mrr-032

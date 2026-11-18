@@ -5,7 +5,7 @@ description: อัตราการใช้งานรายห้อง = �
 resource: ../requirements/REQ-mrr-004.md
 tags: [mrr, calculation]
 id: BR-mrr-006@v1
-status: draft
+status: validated
 belongs_to: REQ-mrr-004
 kind: calculation
 is_current: true
@@ -14,8 +14,8 @@ constrained_by: CALC-mrr-001@v1
 proven_by: [EX-mrr-084, EX-mrr-085, EX-mrr-086, EX-mrr-087]
 golden: [GD-mrr-001]
 provenance: [SRC-001, SRC-012, SRC-012, SRC-012]
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:de607de88db4ef83fb1e69bba510c70f323d51fff9007d430072300c94aa4d47
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:6de53df5b85eec9e7a45d8703f2139f460fff18e4133aa07d8f26c2eb6fbcd75
 ---
 
 # BR-mrr-006@v1

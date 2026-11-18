@@ -5,12 +5,12 @@ description: ระบบยกเลิกการจอง และแสด
 resource: ../rules/BR-mrr-003@v1.md
 tags: [mrr, example, happy]
 id: EX-mrr-009
-status: draft
+status: validated
 kind: happy
 proves: [BR-mrr-003@v1]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:a3192a57eeca8cc22287c7a105bfc775cb94db54f16e2671d92d236db9c7e26a
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:27b008eeca743b2bdbdb31b15eb4d21b306af55331455d0a5874293aed7d21b7
 ---
 
 # EX-mrr-009

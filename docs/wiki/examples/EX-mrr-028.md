@@ -5,12 +5,12 @@ description: ระบบยกเลิกการจอง และ Room Adm
 resource: ../rules/BR-mrr-009@v1.md
 tags: [mrr, example, happy]
 id: EX-mrr-028
-status: draft
+status: validated
 kind: happy
 proves: [BR-mrr-009@v1]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:10ca0bd15ac8951bef0f18e1689636df3a635c47d2fa618eda4725efcd442b65
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:ddbacab2d9ed41fe7b5e583d1631dc15aa8f06d422669d707d1065595f7e324c
 ---
 
 # EX-mrr-028

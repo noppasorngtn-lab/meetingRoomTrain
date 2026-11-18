@@ -5,12 +5,12 @@ description: ความจุห้อง A ยังเป็น 8 คน แ
 resource: ../rules/BR-mrr-005@v1.md
 tags: [mrr, example, exception]
 id: EX-mrr-018
-status: draft
+status: validated
 kind: exception
 proves: [BR-mrr-005@v1]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:4a5412b933b3fe10165d8fe4853685e56944762de4086be0c447956740c6d535
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:59feff4d96f755e81c77c43e9df798f34b6bf9ee919646c10e2bdc877589a95c
 ---
 
 # EX-mrr-018

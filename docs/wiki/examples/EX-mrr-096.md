@@ -5,12 +5,12 @@ description: แสดงข้อความ 'หากเป็น Email ใ�
 resource: ../rules/BR-mrr-025@v1.md
 tags: [mrr, example, boundary]
 id: EX-mrr-096
-status: draft
+status: validated
 kind: boundary
 proves: [BR-mrr-025@v1]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:0fd3a4bac0ff957dc4fc5ae5a41dc27c911f343a5a64992c356eae37e2915501
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:12021a302f558b2928f980a04bf04ae5db5d4fb00090327b40b749bc5cec4d1d
 ---
 
 # EX-mrr-096

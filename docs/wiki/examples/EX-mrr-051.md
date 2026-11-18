@@ -5,12 +5,12 @@ description: การจองเปลี่ยนเป็นสถานะ 
 resource: ../rules/BR-mrr-016@v1.md
 tags: [mrr, example, happy]
 id: EX-mrr-051
-status: draft
+status: validated
 kind: happy
 proves: [BR-mrr-016@v1]
 has_ui: false
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:f22ab6c18b54a0d4741e8cefaf9bb25e1c2c3348540f67c6d51a6e235abc050a
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:2841e3f3b3cf109469a812997729048195cbf43ec884a5309058e2834e6e44ce
 ---
 
 # EX-mrr-051

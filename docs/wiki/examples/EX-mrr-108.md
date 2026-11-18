@@ -5,12 +5,12 @@ description: ระบบไม่แสดงห้อง B เพราะไ�
 resource: ../rules/BR-mrr-001@v1.md
 tags: [mrr, example, boundary]
 id: EX-mrr-108
-status: draft
+status: validated
 kind: boundary
 proves: [BR-mrr-001@v1, BR-mrr-012@v1]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:360f51382411ab8bd9b50181fdd725d44901a0eaf258ffe5bea90b063702dc4e
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:3c2d558cb45743aa7cf5e82aa8644a0f7dbe6c5d9e81e536deaac03b5ee81016
 ---
 
 # EX-mrr-108

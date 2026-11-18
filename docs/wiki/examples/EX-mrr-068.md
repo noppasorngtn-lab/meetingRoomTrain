@@ -5,12 +5,12 @@ description: ช่อง 10:00–11:00 ของห้อง A แสดงผ�
 resource: ../rules/BR-mrr-021@v1.md
 tags: [mrr, example, happy]
 id: EX-mrr-068
-status: draft
+status: validated
 kind: happy
 proves: [BR-mrr-021@v1]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:1562dd9871a023309974d55f7c69dbf16e8f6d608bc789ab74a2698fb78a3cdf
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:88c94f75f6dd4b06f3b4c34a35208488b05579bc090387265e6d400ef6013e5f
 ---
 
 # EX-mrr-068

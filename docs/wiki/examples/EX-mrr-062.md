@@ -5,12 +5,12 @@ description: ระบบไม่สร้างการจอง ห้อง
 resource: ../rules/BR-mrr-019@v1.md
 tags: [mrr, example, exception]
 id: EX-mrr-062
-status: draft
+status: validated
 kind: exception
 proves: [BR-mrr-019@v1]
 has_ui: true
-timestamp: 2026-10-22T10:30:00+07:00
-spec_hash: sha256:09ca480a81bd8cb01052cf05014db127f91fac2f69132fb0b1f91e86e1c2c0ac
+timestamp: 2026-11-18T12:30:00+07:00
+spec_hash: sha256:f6a08d6ee63f7acb3b02af15399b429aaccc4c61264fb6bf0de634634a2b5d09
 ---
 
 # EX-mrr-062
