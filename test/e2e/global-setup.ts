@@ -1,7 +1,7 @@
 import { execFileSync } from 'node:child_process';
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { chromium, request, type Browser, type FullConfig } from '@playwright/test';
-import { ACCOUNTS, ROOMS } from './support/accounts';
+import { ACCOUNTS, FACILITIES, ROOMS } from './support/accounts';
 import { ensureMailUp } from './support/mail';
 
 const MAILPIT = 'http://localhost:8025';
@@ -105,6 +105,13 @@ export default async function globalSetup(_config: FullConfig) {
       id = psql(`select id from meeting_rooms where code = ${sqlText(r.code)}`);
     }
     roomIds[r.key] = id;
+  }
+  // Facilities for the cases that need equipment (BR-mrr-002; docs/qa/t1-test-cases.md §C item 6). Dev has none of its own, and a
+  // facility cannot be deleted — only taken out of use — so these two stay. Made once by name, through the admin API as ra1.
+  for (const name of FACILITIES) {
+    if (psql(`select count(*) from facilities where name = ${sqlText(name)}`) !== '0') continue;
+    const res = await admin.post('/facilities', { data: { name } });
+    if (res.status() >= 300) throw new Error(`could not create facility ${name}: ${res.status()} ${await res.text()}`);
   }
   await admin.dispose();
   writeFileSync('.auth/world.json', JSON.stringify({ users, rooms: roomIds }));

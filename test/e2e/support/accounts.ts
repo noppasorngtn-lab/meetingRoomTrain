@@ -34,3 +34,6 @@ export const ROOMS = [
   { key: 'rptD', code: 'E2E-RPT-D', name: 'E2E Rpt D', requiresApproval: false, approver: null },
   { key: 'rptE', code: 'E2E-RPT-E', name: 'E2E Rpt E', requiresApproval: false, approver: null },
 ] as const;
+
+/** Synthetic facilities (equipment): dev has none, and one cannot be deleted. Names are ASCII like the rooms. */
+export const FACILITIES = ['E2E Projector', 'E2E Whiteboard'];
