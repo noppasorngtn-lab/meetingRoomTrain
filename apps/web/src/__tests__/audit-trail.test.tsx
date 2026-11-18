@@ -86,7 +86,7 @@ describe('FE-mrr-012 a booking\'s trail on the admin page (UI-mrr-010)', () => {
     await screen.findAllByTestId('ui-mrr-010-ent-010-action');
     // The latest first.
     expect(screen.getAllByTestId('ui-mrr-010-ent-010-action').map((a) => a.textContent)).toEqual([
-      'ปฏิเสธคำขอ', 'อนุมัติคำขอ', 'สร้างคำขอแก้ไข', 'ยกเลิกแทนผู้จอง', 'แก้แทนผู้จอง', 'เปลี่ยนผลการอนุมัติ', 'ปฏิเสธ', 'อนุมัติ',
+      'ปฏิเสธคำขอ', 'อนุมัติคำขอ', 'สร้างคำขอแก้ไข', 'ยกเลิกแทนผู้จอง', 'แก้แทนผู้จอง', 'ถอยผล', 'ปฏิเสธการจอง', 'อนุมัติ',
     ]);
   });
 
@@ -140,7 +140,7 @@ describe('FE-mrr-012 a booking\'s trail on the admin page (UI-mrr-010)', () => {
     fireEvent.change(screen.getByTestId('ui-mrr-010-ent-010-reason'), { target: { value: 'อนุมัติผิดห้อง' } });
     fireEvent.click(screen.getByTestId('ui-mrr-010-change-decision'));
 
-    expect(await screen.findByTestId('ui-mrr-010-ent-010-action')).toHaveTextContent('เปลี่ยนผลการอนุมัติ');
+    expect(await screen.findByTestId('ui-mrr-010-ent-010-action')).toHaveTextContent('ถอยผล');
     expect(screen.getByTestId('ui-mrr-010-ent-010-actor')).toHaveTextContent('RA2');
     expect(calls.filter((c) => c.url === AUDIT)).toHaveLength(2);
   });

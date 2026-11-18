@@ -14,6 +14,8 @@ beforeEach(() => {
   release = undefined;
   vi.stubGlobal('fetch', vi.fn(async (url: string, init?: RequestInit) => {
     calls.push({ method: init?.method ?? 'GET', url });
+    // The sign-in-again click can land on a page that asks for the facility list: answer it with a list, not the logout reply.
+    if (url.startsWith('/facilities')) return new Response('[]', { status: 200, headers: { 'content-type': 'application/json' } });
     if (reply === 'network-down') throw new TypeError('Failed to fetch');
     if (reply === 'pending') return new Promise<Response>((res) => { release = res; });
     return new Response(reply.body === undefined ? null : JSON.stringify(reply.body), { status: reply.status, headers: { 'content-type': 'application/json' } });

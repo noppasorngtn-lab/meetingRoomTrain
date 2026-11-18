@@ -124,8 +124,8 @@ describe('FE-mrr-028 approve or reject a booking (UC-mrr-007)', () => {
 
     expect(mail.sent).toEqual([{
       to: ['u1@example.test'],
-      subject: '[จองห้องประชุม] อนุมัติ: ประชุมลูกค้า · ห้อง B 18/10 10:00–11:00',
-      text: '[จองห้องประชุม] อนุมัติ: ประชุมลูกค้า · ห้อง B 18/10 10:00–11:00',
+      subject: '[จองห้องประชุม] อนุมัติแล้ว: ประชุมลูกค้า · ห้อง B 18/10 10:00–11:00',
+      text: '[จองห้องประชุม] อนุมัติแล้ว: ประชุมลูกค้า · ห้อง B 18/10 10:00–11:00',
     }]);
   });
 
@@ -180,10 +180,28 @@ describe('FE-mrr-028 approve or reject a booking (UC-mrr-007)', () => {
   });
 
   describe('reject (API-012)', () => {
-    it('a Room Administrator rejects — REJECTED, ปฏิเสธการจองสำเร็จ, and no mail (BR-mrr-007 names none)', async () => {
+    it('a Room Administrator rejects — REJECTED, ปฏิเสธการจองสำเร็จ, and the booker is mailed ปฏิเสธการจอง (BR-mrr-007@v2 · EX-mrr-118)', async () => {
       expect(await service.reject({ userId: ra1 }, booking)).toEqual({ message: 'ปฏิเสธการจองสำเร็จ' });
       expect(await status()).toBe('REJECTED');
-      expect(mail.sent).toEqual([]);
+      expect(mail.sent).toEqual([{
+        to: ['u1@example.test'],
+        subject: '[จองห้องประชุม] ปฏิเสธการจอง: ประชุมลูกค้า · ห้อง B 18/10 10:00–11:00',
+        text: '[จองห้องประชุม] ปฏิเสธการจอง: ประชุมลูกค้า · ห้อง B 18/10 10:00–11:00',
+      }]);
+    });
+
+    it('BR-mrr-017@v2 records the reason when one is given (EX-mrr-120)', async () => {
+      await service.reject({ userId: ra1 }, booking, ' ห้องไม่เหมาะกับการประชุมนี้ ');
+
+      expect(await trail()).toEqual([{ actor_id: ra1, action: 'REJECT', reason: 'ห้องไม่เหมาะกับการประชุมนี้', at: at(16, '14:05') }]);
+    });
+
+    it('BR-mrr-019 a rejection whose mail does not go — still รออนุมัติ, no trail, press again', async () => {
+      mail.down = true;
+
+      await expect(service.reject({ userId: ra1 }, booking)).rejects.toBeInstanceOf(EmailDeliveryFailed);
+      expect(await status()).toBe('PENDING_APPROVAL');
+      expect(await trail()).toEqual([]);
     });
 
     it('releases the slot — someone else can book ห้อง B 18/10 10:00–11:00 again', async () => {

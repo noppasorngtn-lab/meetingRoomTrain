@@ -66,13 +66,19 @@ export class BookingNotifier {
 
   /** A Room Administrator approved it — the booker only (BR-mrr-007 (1) · UC-mrr-007). */
   async bookingApproved(booking: BookingSnapshot): Promise<void> {
-    const s = subject('อนุมัติ', booking);
+    const s = subject('อนุมัติแล้ว', booking);
     await this.transport.send({ to: [booking.bookerEmail], subject: s, text: s });
   }
 
   /** The booker cancelled before the start — the booker and every attendee (BR-mrr-007 (3) · UC-mrr-005). */
   async bookingCancelled(booking: BookingSnapshot): Promise<void> {
-    const s = subject('ยกเลิก', booking);
+    const s = subject('ยกเลิกการจอง', booking);
+    await this.transport.send({ to: [booking.bookerEmail, ...booking.attendeeEmails], subject: s, text: s });
+  }
+
+  /** A Room Administrator rejected it — the booker and every attendee (BR-mrr-007@v2 (3) · EX-mrr-118). */
+  async bookingRejected(booking: BookingSnapshot): Promise<void> {
+    const s = subject('ปฏิเสธการจอง', booking);
     await this.transport.send({ to: [booking.bookerEmail, ...booking.attendeeEmails], subject: s, text: s });
   }
 

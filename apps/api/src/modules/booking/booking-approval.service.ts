@@ -129,15 +129,36 @@ export class BookingApprovalService {
 
   /**
    * REJECTED no longer holds time, so the slot is free again the moment this commits (the
-   * bookings_no_overlap constraint counts only the states that hold time). No mail: BR-mrr-007
-   * names no event for a rejection.
+   * bookings_no_overlap constraint counts only the states that hold time). The booker and every
+   * attendee are mailed inside the transaction (BR-mrr-007@v2 (3)): a mail that does not go undoes
+   * the rejection (BR-mrr-019). The reason is recorded when given (BR-mrr-017@v2 asks for one —
+   * making it mandatory also needs a reason field on UI-mrr-009, not done here).
    */
-  async reject(caller: Caller, id: string): Promise<{ message: string }> {
+  async reject(caller: Caller, id: string, rawReason = ''): Promise<{ message: string }> {
     const now = this.clock.now();
+    const reason = rawReason.trim() || null;
     return this.db.transaction().execute(async (tx) => {
-      await this.lockDecidable(tx, caller, id, 'ปฏิเสธ');
+      const current = await this.lockDecidable(tx, caller, id, 'ปฏิเสธ');
       await tx.updateTable('bookings').set({ status: 'REJECTED' }).where('id', '=', id).execute();
-      await recordAudit(tx, { bookingId: id, caller, action: 'REJECT', at: now });
+      await recordAudit(tx, { bookingId: id, caller, action: 'REJECT', at: now, reason });
+
+      const { email: bookerEmail } = await tx
+        .selectFrom('users')
+        .select('email')
+        .where('id', '=', current.booked_by)
+        .executeTakeFirstOrThrow();
+      const attendeeEmails = (
+        await tx
+          .selectFrom('booking_attendees as a')
+          .innerJoin('users as u', 'u.id', 'a.user_id')
+          .select('u.email')
+          .where('a.booking_id', '=', id)
+          .orderBy('u.email')
+          .execute()
+      ).map((a) => a.email);
+      await this.notifier.bookingRejected({
+        title: current.title, roomName: current.roomName, startAt: current.start_at, endAt: current.end_at, bookerEmail, attendeeEmails,
+      });
       return { message: 'ปฏิเสธการจองสำเร็จ' };
     });
   }

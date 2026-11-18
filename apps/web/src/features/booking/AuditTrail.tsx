@@ -30,8 +30,8 @@ type Load =
  */
 const ACTION_LABEL: Record<AuditAction, string> = {
   APPROVE: 'อนุมัติ',
-  REJECT: 'ปฏิเสธ',
-  CHANGE_DECISION: 'เปลี่ยนผลการอนุมัติ',
+  REJECT: 'ปฏิเสธการจอง',
+  CHANGE_DECISION: 'ถอยผล',
   EDIT_ON_BEHALF: 'แก้แทนผู้จอง',
   CANCEL_ON_BEHALF: 'ยกเลิกแทนผู้จอง',
   CREATE_ADJUSTMENT: 'สร้างคำขอแก้ไข',

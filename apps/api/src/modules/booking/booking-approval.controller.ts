@@ -58,10 +58,14 @@ export class BookingApprovalController {
 
   @Post(':id/reject')
   @HttpCode(200)
-  async reject(@CurrentUser() caller: Caller, @Param('id') id: string): Promise<{ message: string }> {
+  async reject(
+    @CurrentUser() caller: Caller,
+    @Param('id') id: string,
+    @Body() body: Record<string, unknown> = {},
+  ): Promise<{ message: string }> {
     if (!UUID.test(id)) throw new NotFoundException('ไม่พบการจอง');
     try {
-      return await this.approvals.reject(caller, id);
+      return await this.approvals.reject(caller, id, typeof body?.reason === 'string' ? body.reason : '');
     } catch (err) {
       answer(err);
     }
