@@ -420,6 +420,26 @@
     "EX-mrr-105": {
       "cases": "TC-AUTH-UI002-106",
       "note": "wrong then right code signs in, real"
+    },
+    "EX-mrr-106": {
+      "cases": "TC-BKG-UI004-101",
+      "note": "search 6 attendees: room A (cap 10) shown with 'ไปหน้าจอง', room B (cap 4) hidden, real"
+    },
+    "EX-mrr-107": {
+      "cases": "TC-BKG-UI004-102",
+      "note": "every ACTIVE room of the system held for the slot, search shows 'ไม่พบห้องว่าง' + hint, real"
+    },
+    "EX-mrr-108": {
+      "cases": "TC-BKG-UI004-103",
+      "note": "PENDING_APPROVAL booking blocks room B, maintenance room C hidden, room A still shown, real"
+    },
+    "EX-mrr-109": {
+      "cases": "TC-RMM-UI013-110",
+      "note": "RA deletes a fresh room via UI-mrr-012 (confirm text per code), ARCHIVED, not in search, booking refused, real"
+    },
+    "EX-mrr-110": {
+      "cases": "TC-RMM-UI013-111",
+      "note": "General User POST /rooms/:id/archive refused with BR-005 sentence, room stays ACTIVE, real (direct call: button hidden)"
     }
   }
 }
