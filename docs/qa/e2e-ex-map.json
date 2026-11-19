@@ -492,6 +492,18 @@
     "EX-mrr-124": {
       "cases": "TC-NTF-UI010-102",
       "note": "RA changes decision approved->rejected before start: expects message 'เปลี่ยนผลการอนุมัติสำเร็จ', status REJECTED, mail 'ปฏิเสธการจอง:' to U1/U2, real · PASS · EX-124 validated in spec"
+    },
+    "EX-mrr-125": {
+      "cases": "TC-RPT-RPT001-111",
+      "note": "rooms A, B 60 min each -> both rank 1, D (0.00%) rank 3 (1,1,3); UI cells + API rank, real · PASS 2026-11-19 · EX-125 validated in spec · negative check: expecting rank 2 for D fails with Received 3"
+    },
+    "EX-mrr-126": {
+      "cases": "TC-RPT-RPT001-112",
+      "note": "F 60 min and G 59 min both 0.45% rank 1 (tie after rounding), H 58 min 0.44% rank 3; UI cells + API rank, real · PASS 2026-11-19 · EX-126 validated in spec"
+    },
+    "EX-mrr-127": {
+      "cases": "TC-RPT-RPT001-113",
+      "note": "A, B rank 1, C 0.00% rank 3, E closed all month shows em dash with no rank (api rank null) and takes no number; real · PASS 2026-11-19 · EX-127 validated in spec"
     }
   }
 }

@@ -8,14 +8,14 @@ AC in design: **130** · EX in wiki: **127**
 |---|---|
 | api + web + e2e | 78 |
 | api + e2e | 27 |
-| e2e | 15 |
-| **none** | 4 |
+| e2e | 18 |
 | web + e2e | 3 |
 | api + web | 3 |
+| **none** | 1 |
 
-ACs with no test citing them: AC-mrr-115, AC-mrr-128, AC-mrr-129, AC-mrr-130
+ACs with no test citing them: AC-mrr-115
 
-ACs with no API-layer test citing them: AC-mrr-086 (web+e2e), AC-mrr-087 (web+e2e), AC-mrr-088 (web+e2e), AC-mrr-104 (e2e), AC-mrr-105 (e2e), AC-mrr-114 (e2e), AC-mrr-115 (), AC-mrr-116 (e2e), AC-mrr-117 (e2e), AC-mrr-118 (e2e), AC-mrr-119 (e2e), AC-mrr-120 (e2e), AC-mrr-121 (e2e), AC-mrr-122 (e2e), AC-mrr-123 (e2e), AC-mrr-124 (e2e), AC-mrr-125 (e2e), AC-mrr-126 (e2e), AC-mrr-127 (e2e), AC-mrr-128 (), AC-mrr-129 (), AC-mrr-130 ()
+ACs with no API-layer test citing them: AC-mrr-086 (web+e2e), AC-mrr-087 (web+e2e), AC-mrr-088 (web+e2e), AC-mrr-104 (e2e), AC-mrr-105 (e2e), AC-mrr-114 (e2e), AC-mrr-115 (), AC-mrr-116 (e2e), AC-mrr-117 (e2e), AC-mrr-118 (e2e), AC-mrr-119 (e2e), AC-mrr-120 (e2e), AC-mrr-121 (e2e), AC-mrr-122 (e2e), AC-mrr-123 (e2e), AC-mrr-124 (e2e), AC-mrr-125 (e2e), AC-mrr-126 (e2e), AC-mrr-127 (e2e), AC-mrr-128 (e2e), AC-mrr-129 (e2e), AC-mrr-130 (e2e)
 
 EX with no AC (expected only for superseded rules, e.g. BR-mrr-010@v1): none
 
@@ -28,7 +28,7 @@ EX with no AC (expected only for superseded rules, e.g. BR-mrr-010@v1): none
 | BR-mrr-003@v1 | 4/4 | alternate, exception, happy | — | — |
 | BR-mrr-004@v1 | 4/4 | exception, happy | — | — |
 | BR-mrr-005@v1 | 7/7 | exception, happy | — | — |
-| BR-mrr-006@v2 | 4/7 | alternate, boundary, exception, happy | — | AC-mrr-128, AC-mrr-129, AC-mrr-130 |
+| BR-mrr-006@v2 | 7/7 | alternate, boundary, exception, happy | — | — |
 | BR-mrr-007@v2 | 10/10 | alternate, exception, happy | — | — |
 | BR-mrr-008@v1 | 4/4 | boundary, exception, happy | — | — |
 | BR-mrr-009@v1 | 5/5 | boundary, exception, happy | — | — |
@@ -179,6 +179,9 @@ EX with no AC (expected only for superseded rules, e.g. BR-mrr-010@v1): none
 | EX-mrr-122 | happy | TC-AUD-UI010-111 | RA edits title on behalf: trail + label 'แก้แทนผู้จอง' pass, real · PASS (message 'บันทึกการแก้ไขสำเร็จ' per owner; EX-122 corrected in spec 2026-11-18) |
 | EX-mrr-123 | exception | TC-AUD-UI010-112, TC-AUD-UI009-101 | RA rejects with empty/blank/missing reason: 400 'กรุณาระบุเหตุผล', booking stays PENDING_APPROVAL, no trail entry, no mail; 112 via API, 009-101 via the real UI-mrr-009 reason box, real · PASS · EX-123 validated in spec |
 | EX-mrr-124 | exception | TC-NTF-UI010-102 | RA changes decision approved->rejected before start: expects message 'เปลี่ยนผลการอนุมัติสำเร็จ', status REJECTED, mail 'ปฏิเสธการจอง:' to U1/U2, real · PASS · EX-124 validated in spec |
+| EX-mrr-125 | happy | TC-RPT-RPT001-111 | rooms A, B 60 min each -> both rank 1, D (0.00%) rank 3 (1,1,3); UI cells + API rank, real · PASS 2026-11-19 · EX-125 validated in spec · negative check: expecting rank 2 for D fails with Received 3 |
+| EX-mrr-126 | boundary | TC-RPT-RPT001-112 | F 60 min and G 59 min both 0.45% rank 1 (tie after rounding), H 58 min 0.44% rank 3; UI cells + API rank, real · PASS 2026-11-19 · EX-126 validated in spec |
+| EX-mrr-127 | exception | TC-RPT-RPT001-113 | A, B rank 1, C 0.00% rank 3, E closed all month shows em dash with no rank (api rank null) and takes no number; real · PASS 2026-11-19 · EX-127 validated in spec |
 
 ## NFR cited by a test
 
