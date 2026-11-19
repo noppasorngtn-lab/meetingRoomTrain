@@ -5,17 +5,18 @@ description: อัตราการใช้งานรายห้อง = �
 resource: ../requirements/REQ-mrr-004.md
 tags: [mrr, calculation]
 id: BR-mrr-006@v1
-status: validated
+status: superseded
 belongs_to: REQ-mrr-004
 kind: calculation
-is_current: true
+is_current: false
 test_design: [BVA]
 constrained_by: CALC-mrr-001@v1
 proven_by: [EX-mrr-084, EX-mrr-085, EX-mrr-086, EX-mrr-087]
 golden: [GD-mrr-001]
+superseded_by: BR-mrr-006@v2
 provenance: [SRC-001, SRC-012, SRC-012, SRC-012]
 timestamp: 2026-11-18T12:30:00+07:00
-spec_hash: sha256:6de53df5b85eec9e7a45d8703f2139f460fff18e4133aa07d8f26c2eb6fbcd75
+spec_hash: sha256:415989e1da809133f654572885eb613c1c83aec15d8fdd716fb155cdae4b523f
 ---
 
 # BR-mrr-006@v1
@@ -51,4 +52,5 @@ spec_hash: sha256:6de53df5b85eec9e7a45d8703f2139f460fff18e4133aa07d8f26c2eb6fbcd
 
 | เวอร์ชัน | มีผลตั้งแต่ | เหตุผล | change set |
 |---|---|---|---|
-| **BR-mrr-006@v1** (หน้านี้) ✅ | — | ตั้งต้น | — |
+| **BR-mrr-006@v1** (หน้านี้) ❄️ | — | ตั้งต้น | — |
+| [BR-mrr-006@v2](BR-mrr-006@v2.md) ✅ | 2026-11-19 | เจ้าของตอบ Q-mrr-005 เมื่อ 2026-11-19: ห้องที่อัตราการใช้งานเท่ากันให้อันดับเท่ากัน (competition ranking: 1, 1, 3) | [CHG-mrr-004](../changes/CHG-mrr-004.md) |

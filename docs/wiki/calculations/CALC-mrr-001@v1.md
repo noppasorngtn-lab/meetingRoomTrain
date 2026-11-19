@@ -12,7 +12,7 @@ numeric_type: decimal
 rounding_mode: HALF_UP
 golden: [GD-mrr-001]
 timestamp: 2026-11-18T12:30:00+07:00
-spec_hash: sha256:af408168f2d50c269500075616d2b63e6c07ccab194c06ac7c2dc0aad7202514
+spec_hash: sha256:58794e4edc04c53273072c6d2022d6204fce18b40bc222ccfb2c563623a7c8d1
 ---
 
 # CALC-mrr-001@v1
