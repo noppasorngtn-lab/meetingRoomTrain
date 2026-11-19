@@ -10,7 +10,7 @@ proves: [BR-mrr-006@v1, BR-mrr-006@v2, CALC-mrr-001@v1]
 verified_by: Noppasorn
 verified_at: 2026-11-19T14:00+07:00
 timestamp: 2026-11-18T12:30:00+07:00
-spec_hash: sha256:7eb1dd853ad8fe0abb6f7988219125e08d43ecdf4a79d7b532e37de4132d782d
+spec_hash: sha256:78c95873fbc94bc500e7728aab43fe8f08914e78280e16903f8da8bde0a233bb
 ---
 
 # GD-mrr-001
