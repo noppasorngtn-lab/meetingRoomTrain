@@ -5127,7 +5127,9 @@
       "id": "Q-mrr-005",
       "question": "BR-mrr-006@v1 ใช้อัตราการใช้งานจัดอันดับห้อง — เมื่อห้องตั้งแต่สองห้องขึ้นไปมีอัตราเท่ากัน (หลังปัดตาม CALC-mrr-001@v1 เหลือทศนิยม 2 ตำแหน่ง) จะจัดอันดับอย่างไร: อันดับเท่ากัน / เรียงตามชื่อห้อง / อื่น ๆ",
       "raised_by": "SRC-032",
-      "state": "open"
+      "state": "answered",
+      "answer": "อันดับเท่ากัน (competition ranking: ห้องที่อัตราเท่ากันได้เลขอันดับเดียวกัน ห้องถัดไปข้ามเลข เช่น 1, 1, 3) · ตัดสินโดยผู้ใช้ในเซสชัน QA เมื่อ 2026-11-19 · เป็นการเปลี่ยน BR-mrr-006@v1 → ต้องผ่าน /req:change ก่อนมีผลกับตัวกฎ",
+      "answered_at": "2026-11-19T12:30+07:00"
     }
   ],
   "deferred_questions": [
@@ -5328,9 +5330,9 @@
     "rules_total": 28,
     "rules_with_example": 28,
     "rules_with_green_test": 0,
-    "open_questions": 1,
+    "open_questions": 0,
     "open_deferred": 10,
     "rule_coverage": 1,
-    "ready_for_next_step": false
+    "ready_for_next_step": true
   }
 }
