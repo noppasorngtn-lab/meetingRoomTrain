@@ -19,13 +19,20 @@ export const MONTHS = {
   maintenance: '2020-10', // EX-086 — room D
   closed: '2019-08', // EX-087 — room E
   issues: '2018-03', // EX-047–049 · 072 — rooms A, B
+  // BR-mrr-006@v2 (CHG-mrr-004): rooms with the same percentage share a rank. Each month starts on a Thursday and has 31 days,
+  // like Oct 2026, so "5/<month>" is a Monday and the 22 weekdays / 13,200 operating minutes hold.
+  tieTop: '2007-03', // EX-125 — rooms A, B (60 min each), D (nothing)
+  tieBoundary: '2008-05', // EX-126 — rooms F (60 min), G (59), H (58)
+  tieClosed: '2010-07', // EX-127 — rooms A, B (60 min each), C (nothing), E closed all month
 } as const;
 
 const psql = (sql: string) =>
   execFileSync('docker', ['exec', 'mrr-db-1', 'psql', '-U', 'mrr', '-d', 'mrr', '-At', '-c', sql], { encoding: 'utf8' }).trim();
 
 const TITLE = 'E2E RPT fixture';
-export const ROOM_NAME = { A: 'E2E Rpt A', B: 'E2E Rpt B', C: 'E2E Rpt C', D: 'E2E Rpt D', E: 'E2E Rpt E' } as const;
+export const ROOM_NAME = {
+  A: 'E2E Rpt A', B: 'E2E Rpt B', C: 'E2E Rpt C', D: 'E2E Rpt D', E: 'E2E Rpt E', F: 'E2E Rpt F', G: 'E2E Rpt G', H: 'E2E Rpt H',
+} as const;
 type Letter = keyof typeof ROOM_NAME;
 const roomKey = (l: Letter) => `rpt${l}`;
 
@@ -72,6 +79,16 @@ function bookings(): Booking[] {
     // EX-047–049 · 072 — A one hour, B four hours (so B stays rank 1 whatever case 047/049 do to A)
     { room: 'A', month: M.issues, day: 15, from: '10:00', to: '11:00', status: 'CONFIRMED' },
     { room: 'B', month: M.issues, day: 15, from: '10:00', to: '14:00', status: 'CONFIRMED' },
+    // EX-125 — A 5th 10:00–11:00 and B 6th 10:00–11:00 (60 min each = 0.45%); D has no booking (0.00%)
+    { room: 'A', month: M.tieTop, day: 5, from: '10:00', to: '11:00', status: 'CONFIRMED' },
+    { room: 'B', month: M.tieTop, day: 6, from: '10:00', to: '11:00', status: 'CONFIRMED' },
+    // EX-126 — F 60, G 59, H 58 minutes on the 5th: 0.4545 and 0.4469 both round to 0.45, 0.4393 to 0.44
+    { room: 'F', month: M.tieBoundary, day: 5, from: '10:00', to: '11:00', status: 'CONFIRMED' },
+    { room: 'G', month: M.tieBoundary, day: 5, from: '10:00', to: '10:59', status: 'CONFIRMED' },
+    { room: 'H', month: M.tieBoundary, day: 5, from: '10:00', to: '10:58', status: 'CONFIRMED' },
+    // EX-127 — A and B 60 minutes each; C nothing; E is closed all month (below) and has no booking
+    { room: 'A', month: M.tieClosed, day: 5, from: '10:00', to: '11:00', status: 'CONFIRMED' },
+    { room: 'B', month: M.tieClosed, day: 5, from: '10:00', to: '11:00', status: 'CONFIRMED' },
   ];
 }
 
@@ -79,13 +96,14 @@ function bookings(): Booking[] {
 const closures = [
   { room: 'D' as Letter, from: `${MONTHS.maintenance}-19 00:00:00+07`, to: `${MONTHS.maintenance}-24 00:00:00+07` }, // 19–23, Mon–Fri
   { room: 'E' as Letter, from: `${MONTHS.closed}-01 00:00:00+07`, to: `2019-09-01 00:00:00+07` }, // the whole month
+  { room: 'E' as Letter, from: `${MONTHS.tieClosed}-01 00:00:00+07`, to: `2010-08-01 00:00:00+07` }, // EX-127: the whole month
 ];
 
 const roomId = (l: Letter) => world.rooms[roomKey(l)];
 
 /** Puts the fixture back to its starting data. Safe to run again and again. */
 export function seedReportFixture() {
-  const rooms = (['A', 'B', 'C', 'D', 'E'] as Letter[]).map((l) => sqlText(roomId(l))).join(',');
+  const rooms = (['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'] as Letter[]).map((l) => sqlText(roomId(l))).join(',');
   psql(`delete from bookings where room_id in (${rooms}) and title = ${sqlText(TITLE)}`);
   psql(`delete from room_maintenance_periods where room_id in (${rooms})`);
 

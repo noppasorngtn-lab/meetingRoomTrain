@@ -33,6 +33,9 @@ export const ROOMS = [
   { key: 'rptC', code: 'E2E-RPT-C', name: 'E2E Rpt C', requiresApproval: false, approver: null },
   { key: 'rptD', code: 'E2E-RPT-D', name: 'E2E Rpt D', requiresApproval: false, approver: null },
   { key: 'rptE', code: 'E2E-RPT-E', name: 'E2E Rpt E', requiresApproval: false, approver: null },
+  { key: 'rptF', code: 'E2E-RPT-F', name: 'E2E Rpt F', requiresApproval: false, approver: null },
+  { key: 'rptG', code: 'E2E-RPT-G', name: 'E2E Rpt G', requiresApproval: false, approver: null },
+  { key: 'rptH', code: 'E2E-RPT-H', name: 'E2E Rpt H', requiresApproval: false, approver: null },
 ] as const;
 
 /** Synthetic facilities (equipment): dev has none, and one cannot be deleted. Names are ASCII like the rooms. */

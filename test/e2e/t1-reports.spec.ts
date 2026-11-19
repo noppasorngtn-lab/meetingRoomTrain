@@ -120,6 +120,55 @@ test.describe('อัตราการใช้งานรายห้อง',
   });
 });
 
+// ------------------------------------------------------------------ อันดับเท่ากัน (BR-mrr-006@v2 · CHG-mrr-004 · EX-mrr-125–127)
+// ห้องที่อัตราการใช้งานเท่ากัน (เทียบหลังปัด 2 ตำแหน่ง) ได้อันดับเดียวกัน ห้องถัดไปข้ามเลข (1, 1, 3) · ห้องที่ไม่ได้คำนวณไม่มีอันดับและไม่ร่วมการข้ามเลข
+// ผลจริงของระบบยังไม่เคยรัน (OQ-T1-18): ถ้าล้ม = ระบบไม่ตาม BR-mrr-006@v2 ไม่ใช่ความผิดของสคริปต์จนกว่าจะพิสูจน์
+test.describe('อันดับเท่ากัน (BR-mrr-006@v2)', () => {
+  test('[real] TC-RPT-RPT001-111 ห้อง A, B จอง 60 นาทีเท่ากัน → อันดับ 1 ทั้งคู่ · ห้อง D (ไม่มีการจอง) อันดับ 3 ไม่ใช่ 2 (EX-mrr-125 · BR-mrr-006@v2)', async ({ page }) => {
+    await openReport(page, MONTHS.tieTop);
+    await page.getByTestId('rpt-mrr-001-issue').click();
+    await expect(cell(page, ROOM_NAME.A, 'utilization-pct')).toHaveText('0.45%');
+    await expect(cell(page, ROOM_NAME.B, 'utilization-pct')).toHaveText('0.45%');
+    await expect(cell(page, ROOM_NAME.D, 'utilization-pct')).toHaveText('0.00%');
+    await expect(cell(page, ROOM_NAME.A, 'rank')).toHaveText('1');
+    await expect(cell(page, ROOM_NAME.B, 'rank')).toHaveText('1');
+    await expect(cell(page, ROOM_NAME.D, 'rank')).toHaveText('3'); // ห้องถัดไปข้ามเลข ไม่ใช่ 2
+    // The api says the same — rank is a number there, and the two tied rooms hold the same one.
+    const r = await view(MONTHS.tieTop);
+    expect([lineOf(r, ROOM_NAME.A).rank, lineOf(r, ROOM_NAME.B).rank, lineOf(r, ROOM_NAME.D).rank]).toEqual([1, 1, 3]);
+  });
+
+  test('[real] TC-RPT-RPT001-112 ห้อง F 60 นาที · G 59 นาที → 0.45% เท่ากันหลังปัด อันดับ 1 ทั้งคู่ · H 58 นาที 0.44% อันดับ 3 (EX-mrr-126 · BR-mrr-006@v2)', async ({ page }) => {
+    await openReport(page, MONTHS.tieBoundary);
+    await page.getByTestId('rpt-mrr-001-issue').click();
+    await expect(cell(page, ROOM_NAME.F, 'booked-minutes')).toHaveText('60');
+    await expect(cell(page, ROOM_NAME.G, 'booked-minutes')).toHaveText('59');
+    await expect(cell(page, ROOM_NAME.H, 'booked-minutes')).toHaveText('58');
+    await expect(cell(page, ROOM_NAME.F, 'utilization-pct')).toHaveText('0.45%');
+    await expect(cell(page, ROOM_NAME.G, 'utilization-pct')).toHaveText('0.45%'); // 59 ÷ 13,200 = 0.4469… → 0.45
+    await expect(cell(page, ROOM_NAME.H, 'utilization-pct')).toHaveText('0.44%'); // 58 ÷ 13,200 = 0.4393… → 0.44
+    await expect(cell(page, ROOM_NAME.F, 'rank')).toHaveText('1');
+    await expect(cell(page, ROOM_NAME.G, 'rank')).toHaveText('1'); // นาทีต่างกัน แต่เท่ากันหลังปัด
+    await expect(cell(page, ROOM_NAME.H, 'rank')).toHaveText('3');
+    const r = await view(MONTHS.tieBoundary);
+    expect([lineOf(r, ROOM_NAME.F).rank, lineOf(r, ROOM_NAME.G).rank, lineOf(r, ROOM_NAME.H).rank]).toEqual([1, 1, 3]);
+  });
+
+  test('[real] TC-RPT-RPT001-113 ห้อง A, B อันดับ 1 · C (0.00%) อันดับ 3 · E ปิดทั้งเดือนแสดง "—" ไม่มีอันดับและไม่ร่วมการข้ามเลข (EX-mrr-127 · BR-mrr-006@v2)', async ({ page }) => {
+    await openReport(page, MONTHS.tieClosed);
+    await page.getByTestId('rpt-mrr-001-issue').click();
+    await expect(cell(page, ROOM_NAME.A, 'rank')).toHaveText('1');
+    await expect(cell(page, ROOM_NAME.B, 'rank')).toHaveText('1');
+    await expect(cell(page, ROOM_NAME.C, 'utilization-pct')).toHaveText('0.00%');
+    await expect(cell(page, ROOM_NAME.C, 'rank')).toHaveText('3');
+    await expect(cell(page, ROOM_NAME.E, 'utilization-pct')).toHaveText('—');
+    await expect(cell(page, ROOM_NAME.E, 'rank')).toHaveText('');
+    const r = await view(MONTHS.tieClosed);
+    expect([lineOf(r, ROOM_NAME.A).rank, lineOf(r, ROOM_NAME.B).rank, lineOf(r, ROOM_NAME.C).rank]).toEqual([1, 1, 3]);
+    expect(lineOf(r, ROOM_NAME.E)).toMatchObject({ utilizationPct: null, display: '—', rank: null });
+  });
+});
+
 // ------------------------------------------------------------------ หน้ารายงาน (BR-mrr-022) และรายงานที่ออกแล้วแก้ไม่ได้ (BR-mrr-015)
 test.describe('หน้ารายงานและฉบับที่ออกแล้ว', () => {
   test('[real] TC-RPT-RPT001-104 Room Administrator เปิดหน้ารายงาน → เห็นรายงานของเดือนพร้อมอันดับห้องที่ใช้สูงสุด (EX-mrr-072 · BR-mrr-022)', async ({ page }) => {
