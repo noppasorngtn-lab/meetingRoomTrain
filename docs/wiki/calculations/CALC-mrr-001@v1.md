@@ -12,7 +12,7 @@ numeric_type: decimal
 rounding_mode: HALF_UP
 golden: [GD-mrr-001]
 timestamp: 2026-11-18T12:30:00+07:00
-spec_hash: sha256:58794e4edc04c53273072c6d2022d6204fce18b40bc222ccfb2c563623a7c8d1
+spec_hash: sha256:766bb2039f07c17c37a028209786c9b8eb3013640999de516d493aee678b160e
 ---
 
 # CALC-mrr-001@v1
@@ -51,7 +51,7 @@ utilization_pct = booked_minutes ÷ operating_minutes × 100
 
 ## เลขเฉลย
 
-- [GD-mrr-001](../golden/GD-mrr-001.md) — 14 แถว · ✅ Adisorn
+- [GD-mrr-001](../golden/GD-mrr-001.md) — 16 แถว · ✅ Noppasorn
 
 ## คำถามที่ผูกอยู่
 

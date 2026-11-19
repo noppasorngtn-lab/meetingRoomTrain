@@ -13,11 +13,11 @@ effective_from: 2026-11-19
 test_design: [BVA]
 constrained_by: CALC-mrr-001@v1
 proven_by: [EX-mrr-084, EX-mrr-085, EX-mrr-086, EX-mrr-087, EX-mrr-125, EX-mrr-126, EX-mrr-127]
-golden: []
+golden: [GD-mrr-001]
 supersedes: BR-mrr-006@v1
 provenance: [SRC-001, SRC-012, SRC-012, SRC-012, SRC-032, SRC-033]
 timestamp: 2026-11-18T12:30:00+07:00
-spec_hash: sha256:200ebba2d7a6ac0dedd597cdb9b4259a2da1db7d61fc1347fa972cdebcfe0640
+spec_hash: sha256:534b91009c6e122e37f27ff30bca6399de5d31ace5dbc00e1d4122038375c877
 ---
 
 # BR-mrr-006@v2
@@ -56,6 +56,7 @@ spec_hash: sha256:200ebba2d7a6ac0dedd597cdb9b4259a2da1db7d61fc1347fa972cdebcfe06
 - [EX-mrr-125](../examples/EX-mrr-125.md) — happy: ห้อง A แสดง '0.45%' และห้อง B แสดง '0.45%' ได้อันดับ 1 ทั้งคู่ · ห้อง D แสดง '0.00%' ได้อันดับ 3 (ไม่ใช่อันดับ 2 เพราะห้องถัดไปข้ามเลข) · 60 ÷ 13,200 × 100 = 0.4545… ปัดแบบ round half up เป็น 0.45
 - [EX-mrr-126](../examples/EX-mrr-126.md) — boundary: ห้อง F แสดง '0.45%' และห้อง G แสดง '0.45%' ได้อันดับ 1 ทั้งคู่ แม้จำนวนนาทีต่างกัน เพราะเทียบกันหลังปัดเหลือทศนิยม 2 ตำแหน่ง (59 ÷ 13,200 × 100 = 0.4469… ปัดเป็น 0.45) · ห้อง H แสดง '0.44%' (58 ÷ 13,200 × 100 = 0.4393… ปัดเป็น 0.44) ได้อันดับ 3
 - [EX-mrr-127](../examples/EX-mrr-127.md) — exception: ห้อง A และห้อง B ได้อันดับ 1 ทั้งคู่ · ห้อง C แสดง '0.00%' ได้อันดับ 3 · ห้อง E แสดง '—' ไม่มีเลขอันดับ และไม่ถูกนับเป็นอันดับถัดไป (ห้องที่ไม่ถูกจัดอันดับไม่ร่วมการข้ามเลข)
+- [GD-mrr-001](../golden/GD-mrr-001.md) — เลขเฉลย 16 แถว · ✅ Noppasorn 2026-11-19
 
 ## แทนที่
 [BR-mrr-006@v1](BR-mrr-006@v1.md) — *เหตุผล: เจ้าของตอบ Q-mrr-005 เมื่อ 2026-11-19: ห้องที่อัตราการใช้งานเท่ากันให้อันดับเท่ากัน (competition ranking: 1, 1, 3)*

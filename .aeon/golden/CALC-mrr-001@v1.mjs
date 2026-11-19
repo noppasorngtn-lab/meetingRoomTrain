@@ -104,6 +104,11 @@ const CASES = [
     maintenance: [...weekdaysOct.filter((d) => d < 29).map(fullDay), { day: 29, start: "08:00", end: "14:40" }],
     bookings: [{ day: 30, start: "08:00", end: "14:41", status: "approved" }],
     note: "HALF_UP — ตัวหาร 800 ตัวตั้ง 401 = 50.125 พอดี · HALF_UP ได้ 50.13 (half-even จะได้ 50.12)" },
+  // เพิ่ม 2026-11-19 (CHG-mrr-004 · BR-mrr-006@v2 · EX-mrr-126): ขอบของการเสมอ — เทียบอันดับหลังปัด 2 ตำแหน่ง
+  { ...OCT, bookings: [{ day: 5, start: "10:00", end: "10:59", status: "no_approval" }],
+    note: "ขอบการเสมอ — 59 นาที ÷ 13,200 = 0.4469… ปัดเป็น 0.45 เท่ากับแถว 60 นาที (0.4545… → 0.45) ทั้งที่นาทีต่างกัน" },
+  { ...OCT, bookings: [{ day: 5, start: "10:00", end: "10:58", status: "no_approval" }],
+    note: "ขอบการเสมอ — 58 นาที ÷ 13,200 = 0.4393… ปัดเป็น 0.44 ต่างจากแถว 60 และ 59 นาที (0.45)" },
 ];
 
 if (process.argv[1]?.endsWith("CALC-mrr-001@v1.mjs")) {

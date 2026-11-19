@@ -3142,6 +3142,744 @@
   ],
   "codeSources": [],
   "calculations": [],
-  "goldenDatasets": [],
+  "goldenDatasets": [
+    {
+      "id": "GD-mrr-001",
+      "proves": [
+        "BR-mrr-006@v1",
+        "BR-mrr-006@v2",
+        "CALC-mrr-001@v1"
+      ],
+      "status": "validated",
+      "computedAt": "2026-11-19T14:00+07:00",
+      "verifiedBy": "Noppasorn",
+      "verifiedAt": "2026-11-19T14:00+07:00",
+      "mismatches": [],
+      "rows": [
+        {
+          "input": {
+            "year": 2026,
+            "month": 10,
+            "bookings": [
+              {
+                "day": 1,
+                "start": "08:00",
+                "end": "18:00",
+                "status": "approved"
+              }
+            ]
+          },
+          "expected": {
+            "booked_minutes": 600,
+            "operating_minutes": 13200,
+            "utilization_pct": "4.55",
+            "display": "4.55%",
+            "ranked": true
+          }
+        },
+        {
+          "input": {
+            "year": 2026,
+            "month": 10,
+            "bookings": [
+              {
+                "day": 1,
+                "start": "08:00",
+                "end": "18:00",
+                "status": "no_approval"
+              }
+            ]
+          },
+          "expected": {
+            "booked_minutes": 600,
+            "operating_minutes": 13200,
+            "utilization_pct": "4.55",
+            "display": "4.55%",
+            "ranked": true
+          }
+        },
+        {
+          "input": {
+            "year": 2026,
+            "month": 10,
+            "bookings": [
+              {
+                "day": 1,
+                "start": "08:00",
+                "end": "18:00",
+                "status": "cancelled"
+              }
+            ]
+          },
+          "expected": {
+            "booked_minutes": 0,
+            "operating_minutes": 13200,
+            "utilization_pct": "0.00",
+            "display": "0.00%",
+            "ranked": true
+          }
+        },
+        {
+          "input": {
+            "year": 2026,
+            "month": 10,
+            "bookings": [
+              {
+                "day": 1,
+                "start": "08:00",
+                "end": "18:00",
+                "status": "rejected"
+              }
+            ]
+          },
+          "expected": {
+            "booked_minutes": 0,
+            "operating_minutes": 13200,
+            "utilization_pct": "0.00",
+            "display": "0.00%",
+            "ranked": true
+          }
+        },
+        {
+          "input": {
+            "year": 2026,
+            "month": 10,
+            "bookings": [
+              {
+                "day": 1,
+                "start": "08:00",
+                "end": "18:00",
+                "status": "pending"
+              }
+            ]
+          },
+          "expected": {
+            "booked_minutes": 0,
+            "operating_minutes": 13200,
+            "utilization_pct": "0.00",
+            "display": "0.00%",
+            "ranked": true
+          }
+        },
+        {
+          "input": {
+            "year": 2026,
+            "month": 10,
+            "bookings": [
+              {
+                "day": 30,
+                "start": "17:00",
+                "end": "19:00",
+                "status": "no_approval"
+              }
+            ]
+          },
+          "expected": {
+            "booked_minutes": 60,
+            "operating_minutes": 13200,
+            "utilization_pct": "0.45",
+            "display": "0.45%",
+            "ranked": true
+          }
+        },
+        {
+          "input": {
+            "year": 2026,
+            "month": 10,
+            "bookings": [
+              {
+                "day": 5,
+                "start": "07:00",
+                "end": "09:00",
+                "status": "no_approval"
+              }
+            ]
+          },
+          "expected": {
+            "booked_minutes": 60,
+            "operating_minutes": 13200,
+            "utilization_pct": "0.45",
+            "display": "0.45%",
+            "ranked": true
+          }
+        },
+        {
+          "input": {
+            "year": 2026,
+            "month": 10,
+            "bookings": [
+              {
+                "day": 31,
+                "start": "10:00",
+                "end": "12:00",
+                "status": "no_approval"
+              }
+            ]
+          },
+          "expected": {
+            "booked_minutes": 0,
+            "operating_minutes": 13200,
+            "utilization_pct": "0.00",
+            "display": "0.00%",
+            "ranked": true
+          }
+        },
+        {
+          "input": {
+            "year": 2026,
+            "month": 10,
+            "bookings": [
+              {
+                "day": 1,
+                "start": "07:00",
+                "end": "19:00",
+                "status": "approved"
+              },
+              {
+                "day": 2,
+                "start": "07:00",
+                "end": "19:00",
+                "status": "approved"
+              },
+              {
+                "day": 5,
+                "start": "07:00",
+                "end": "19:00",
+                "status": "approved"
+              },
+              {
+                "day": 6,
+                "start": "07:00",
+                "end": "19:00",
+                "status": "approved"
+              },
+              {
+                "day": 7,
+                "start": "07:00",
+                "end": "19:00",
+                "status": "approved"
+              },
+              {
+                "day": 8,
+                "start": "07:00",
+                "end": "19:00",
+                "status": "approved"
+              },
+              {
+                "day": 9,
+                "start": "07:00",
+                "end": "19:00",
+                "status": "approved"
+              },
+              {
+                "day": 12,
+                "start": "07:00",
+                "end": "19:00",
+                "status": "approved"
+              },
+              {
+                "day": 13,
+                "start": "07:00",
+                "end": "19:00",
+                "status": "approved"
+              },
+              {
+                "day": 14,
+                "start": "07:00",
+                "end": "19:00",
+                "status": "approved"
+              },
+              {
+                "day": 15,
+                "start": "07:00",
+                "end": "19:00",
+                "status": "approved"
+              },
+              {
+                "day": 16,
+                "start": "07:00",
+                "end": "19:00",
+                "status": "approved"
+              },
+              {
+                "day": 19,
+                "start": "07:00",
+                "end": "19:00",
+                "status": "approved"
+              },
+              {
+                "day": 20,
+                "start": "07:00",
+                "end": "19:00",
+                "status": "approved"
+              },
+              {
+                "day": 21,
+                "start": "07:00",
+                "end": "19:00",
+                "status": "approved"
+              },
+              {
+                "day": 22,
+                "start": "07:00",
+                "end": "19:00",
+                "status": "approved"
+              },
+              {
+                "day": 23,
+                "start": "07:00",
+                "end": "19:00",
+                "status": "approved"
+              },
+              {
+                "day": 26,
+                "start": "07:00",
+                "end": "19:00",
+                "status": "approved"
+              },
+              {
+                "day": 27,
+                "start": "07:00",
+                "end": "19:00",
+                "status": "approved"
+              },
+              {
+                "day": 28,
+                "start": "07:00",
+                "end": "19:00",
+                "status": "approved"
+              },
+              {
+                "day": 29,
+                "start": "07:00",
+                "end": "19:00",
+                "status": "approved"
+              },
+              {
+                "day": 30,
+                "start": "07:00",
+                "end": "19:00",
+                "status": "approved"
+              }
+            ]
+          },
+          "expected": {
+            "booked_minutes": 13200,
+            "operating_minutes": 13200,
+            "utilization_pct": "100.00",
+            "display": "100.00%",
+            "ranked": true
+          }
+        },
+        {
+          "input": {
+            "year": 2026,
+            "month": 10,
+            "bookings": [
+              {
+                "day": 23,
+                "start": "10:00",
+                "end": "11:00",
+                "status": "no_approval"
+              }
+            ]
+          },
+          "expected": {
+            "booked_minutes": 60,
+            "operating_minutes": 13200,
+            "utilization_pct": "0.45",
+            "display": "0.45%",
+            "ranked": true
+          }
+        },
+        {
+          "input": {
+            "year": 2026,
+            "month": 10,
+            "maintenance": [
+              {
+                "day": 19,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 20,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 21,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 22,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 23,
+                "start": "08:00",
+                "end": "18:00"
+              }
+            ],
+            "bookings": [
+              {
+                "day": 21,
+                "start": "10:00",
+                "end": "11:00",
+                "status": "no_approval"
+              },
+              {
+                "day": 5,
+                "start": "10:00",
+                "end": "11:00",
+                "status": "no_approval"
+              }
+            ]
+          },
+          "expected": {
+            "booked_minutes": 60,
+            "operating_minutes": 10200,
+            "utilization_pct": "0.59",
+            "display": "0.59%",
+            "ranked": true
+          }
+        },
+        {
+          "input": {
+            "year": 2026,
+            "month": 10,
+            "maintenance": [
+              {
+                "day": 5,
+                "start": "10:00",
+                "end": "12:00"
+              }
+            ],
+            "bookings": [
+              {
+                "day": 5,
+                "start": "09:00",
+                "end": "11:00",
+                "status": "no_approval"
+              }
+            ]
+          },
+          "expected": {
+            "booked_minutes": 60,
+            "operating_minutes": 13080,
+            "utilization_pct": "0.46",
+            "display": "0.46%",
+            "ranked": true
+          }
+        },
+        {
+          "input": {
+            "year": 2026,
+            "month": 10,
+            "maintenance": [
+              {
+                "day": 1,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 2,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 5,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 6,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 7,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 8,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 9,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 12,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 13,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 14,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 15,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 16,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 19,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 20,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 21,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 22,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 23,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 26,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 27,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 28,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 29,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 30,
+                "start": "08:00",
+                "end": "18:00"
+              }
+            ],
+            "bookings": [
+              {
+                "day": 5,
+                "start": "10:00",
+                "end": "11:00",
+                "status": "no_approval"
+              }
+            ]
+          },
+          "expected": {
+            "booked_minutes": 0,
+            "operating_minutes": 0,
+            "utilization_pct": null,
+            "display": "—",
+            "ranked": false
+          }
+        },
+        {
+          "input": {
+            "year": 2026,
+            "month": 10,
+            "maintenance": [
+              {
+                "day": 1,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 2,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 5,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 6,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 7,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 8,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 9,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 12,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 13,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 14,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 15,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 16,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 19,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 20,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 21,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 22,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 23,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 26,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 27,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 28,
+                "start": "08:00",
+                "end": "18:00"
+              },
+              {
+                "day": 29,
+                "start": "08:00",
+                "end": "14:40"
+              }
+            ],
+            "bookings": [
+              {
+                "day": 30,
+                "start": "08:00",
+                "end": "14:41",
+                "status": "approved"
+              }
+            ]
+          },
+          "expected": {
+            "booked_minutes": 401,
+            "operating_minutes": 800,
+            "utilization_pct": "50.13",
+            "display": "50.13%",
+            "ranked": true
+          }
+        },
+        {
+          "input": {
+            "year": 2026,
+            "month": 10,
+            "bookings": [
+              {
+                "day": 5,
+                "start": "10:00",
+                "end": "10:59",
+                "status": "no_approval"
+              }
+            ]
+          },
+          "expected": {
+            "booked_minutes": 59,
+            "operating_minutes": 13200,
+            "utilization_pct": "0.45",
+            "display": "0.45%",
+            "ranked": true
+          }
+        },
+        {
+          "input": {
+            "year": 2026,
+            "month": 10,
+            "bookings": [
+              {
+                "day": 5,
+                "start": "10:00",
+                "end": "10:58",
+                "status": "no_approval"
+              }
+            ]
+          },
+          "expected": {
+            "booked_minutes": 58,
+            "operating_minutes": 13200,
+            "utilization_pct": "0.44",
+            "display": "0.44%",
+            "ranked": true
+          }
+        }
+      ],
+      "extensions": {}
+    }
+  ],
   "extensions": {}
 }

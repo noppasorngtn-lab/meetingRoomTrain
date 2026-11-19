@@ -43,9 +43,9 @@ const inputOf = ({ input: i }: GoldenRow) => ({
 });
 
 describe('FE-mrr-036 CALC-mrr-001@v1 utilization against GD-mrr-001', () => {
-  it('the answer key is there, all 14 rows of it', () => {
+  it('the answer key is there, all 16 rows of it', () => {
     expect(golden).toBeDefined();
-    expect(golden!.rows).toHaveLength(14);
+    expect(golden!.rows).toHaveLength(16);
     expect(Object.values(STATUS)).toHaveLength(5);
     for (const row of golden!.rows) for (const b of row.input.bookings ?? []) expect(STATUS[b.status]).toBeDefined();
   });

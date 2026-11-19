@@ -4,4 +4,4 @@
 
 | ชุดเลข | พิสูจน์ | แถว | ใครเซ็น |
 |---|---|---|---|
-| [GD-mrr-001](GD-mrr-001.md) | BR-mrr-006@v1 · CALC-mrr-001@v1 | 14 | ✅ Adisorn 2026-10-19 |
+| [GD-mrr-001](GD-mrr-001.md) | BR-mrr-006@v1 · BR-mrr-006@v2 · CALC-mrr-001@v1 | 16 | ✅ Noppasorn 2026-11-19 |

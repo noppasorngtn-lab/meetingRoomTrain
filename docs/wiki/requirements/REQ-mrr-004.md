@@ -9,7 +9,7 @@ actor: Room Administrator
 rules: [BR-mrr-006, BR-mrr-015, BR-mrr-022]
 domain_concepts: [UL-mrr-001, UL-mrr-008, UL-mrr-012]
 timestamp: 2026-11-18T12:30:00+07:00
-spec_hash: sha256:eabc7b71aa7f20c58a916025f1b4f29d68714fde5ccd62984b5cd7013989cac9
+spec_hash: sha256:d24a92805fe2a845f288a9b57baf95b634e1364f1dbe11309844c23fb5854044
 ---
 
 # REQ-mrr-004
@@ -47,6 +47,7 @@ spec_hash: sha256:eabc7b71aa7f20c58a916025f1b4f29d68714fde5ccd62984b5cd7013989ca
 - **ที่มา:** [SRC-032](../sources/SRC-032.md) บรรทัด 1 — *"เมื่อห้องตั้งแต่สองห้องขึ้นไปมีอัตราการใช้งาน ... เท่ากัน จะจัดอันดับอย่างไร"*
 - **ที่มา:** [SRC-033](../sources/SRC-033.md) บรรทัด 1 — *"ห้องที่อัตราการใช้งานเท่ากันให้ อันดับเท่ากัน (competition ranking ... เช่น 1, 1, 3)"*
 - **สัญญาการคำนวณ:** [CALC-mrr-001@v1](../calculations/CALC-mrr-001@v1.md)
+- **เลขเฉลย:** [GD-mrr-001](../golden/GD-mrr-001.md) — 16 แถว · ✅ Noppasorn ยืนยัน 2026-11-19
 - **บังคับที่:** *(ยังไม่มีใครผูกกับโค้ด — เฟส 2 เป็นคนตอบ)*
 - **พิสูจน์โดย:** [EX-mrr-084](../examples/EX-mrr-084.md), [EX-mrr-085](../examples/EX-mrr-085.md), [EX-mrr-086](../examples/EX-mrr-086.md), [EX-mrr-087](../examples/EX-mrr-087.md), [EX-mrr-125](../examples/EX-mrr-125.md), [EX-mrr-126](../examples/EX-mrr-126.md), [EX-mrr-127](../examples/EX-mrr-127.md)
 - **เทสต์:** *(ยังไม่มี)* 🔴
