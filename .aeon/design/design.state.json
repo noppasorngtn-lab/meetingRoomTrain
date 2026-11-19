@@ -101,7 +101,7 @@
     {
       "id": "sitemap",
       "command": "/design:sitemap",
-      "status": "stale",
+      "status": "done",
       "requires": [
         "function",
         "rbac"
@@ -110,8 +110,8 @@
         "sitemap.json",
         "modules/<module>/screens.json"
       ],
-      "attempts": 0,
-      "updatedAt": "2026-11-19T09:46:04Z",
+      "attempts": 1,
+      "updatedAt": "2026-11-19T09:53:51Z",
       "staleBecause": "CHG-mrr-004"
     },
     {
