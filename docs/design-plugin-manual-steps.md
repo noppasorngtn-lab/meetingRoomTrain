@@ -20,3 +20,20 @@
 
 **ที่แก้:** เพิ่ม 1 แถวใน `REFERENCE_POSITIONS` ของ `plugins/design/scripts/check.mjs` (`design.state.json` · `steps[n].staleBecause` · อนุญาต `CHG`, `ADR`) — แคบโดยเจตนา ตามแบบของ `changes.json` · ตรวจบนสำเนา: ใส่ stale ด้วย `CHG-mrr-003` แล้ว S2 ไม่ล้าง
 **ข้อควรระวัง:** plugin ไม่อยู่ใน git ไม่มีประวัติ — สำรองไฟล์เดิมไว้ที่ scratchpad ของเซสชัน (จะหายได้) · ถ้า plugin ถูกอัปเดตทับ การแก้นี้หายและ S2 กลับมา · ควรส่งเป็น patch ให้เจ้าของ plugin
+
+## 3. `/mock:wireframe` ลบบันทึกส่งมอบ L2 (`deliveredPages`) ทิ้งเมื่อ wireframe เปลี่ยน — คืนด้วย `/mock:html --write` (2026-11-19)
+
+พบระหว่างทำ CHG-mrr-004 (BR-mrr-006@v2) · เป็นของ plugin `mock` (`aeon-marketplace-day15/plugins/mock`) ไม่ใช่ของ `design` · ยังไม่ได้แจ้งเจ้าของ plugin
+
+**อาการ:** `/mock:sync` ตอบ `nothing moved upstream` และ `/mock:check` ผ่าน หลังจาก design ทำใหม่ครบและ absorb change แล้ว ทั้งที่เนื้อหาของหน้า `RPT-mrr-001` ใน `screens.json` เปลี่ยน (ข้อความ validation ของช่อง `rank` และการอ้าง `BR-mrr-006@v1` → `@v2`) · สัญญาณของ sync คือขั้น design ที่ stale กับ change ที่ยังไม่ absorb เท่านั้น จึงไม่เห็นการเปลี่ยนเนื้อหาที่เกิดและปิดไปก่อนแล้ว · **ต้องไล่ดูเองว่าหน้าไหนของ mock ได้รับผลกระทบ** (จากรายงานผลกระทบของ `/design:change`)
+
+**ผลข้างเคียงที่ตามมา:** สั่ง `/mock:wireframe <หน้า>` ใหม่ → ตัวเขียนอัปเดต `wireframes/<หน้า>.json` ถูกต้อง แต่ **ลบ `deliveredPages`** (hash ของหน้า L2 ที่ส่งมอบไว้ทุกสถานะ) ของ `MCK-` นั้นใน `mockup-map.json` ออก ในขณะที่ `coverage.json` ยังเป็น `L2` และตัวตรวจ `/mock:check` ยังผ่าน — บันทึกส่งมอบหายเงียบ ๆ
+
+**วิธี manual:**
+1. หลัง `/mock:wireframe <หน้า>` ให้รัน `/mock:html --write --screen <หน้า>` (ถ้าหน้า L2 ไม่ต้องวาดใหม่ ไฟล์ใน `mockups/<หน้า>/` ไม่ถูกแตะ สคริปต์แค่ตรวจแล้วบันทึกกลับ) — ครั้งนี้ hash ที่ได้เหมือนเดิมทุกไบต์ (เพราะ wireframe ใหม่ต่างกันแค่ข้อความ validation กับเลขเวอร์ชันกฎ ซึ่งไม่ปรากฏในหน้า L2)
+2. ตรวจ diff ของ `mockup-map.json` ว่ามีแต่การคืน `deliveredPages` กลับมา
+3. ถ้า wireframe เปลี่ยนจนหน้าต้องวาดใหม่จริง ให้วาดตามกติกาของ `/mock:html` ก่อนขั้น 1
+
+**ข้อควรระวังอีกข้อ:** `html.mjs --validate --screen <หน้า>` (แบบแคบ) รายงาน `MV4 … is missing` ของหน้าอื่นที่ไฟล์มีอยู่จริงบนดิสก์ รวม 23 รายการ ทั้งที่ `html.mjs --validate` แบบเต็มให้ `PASS` — ใช้แบบเต็มตัดสิน อย่าเชื่อแบบแคบ (ยังไม่ทราบสาเหตุ ไม่ได้ตรวจต้นทาง)
+
+เสนอเป็น patch ให้เจ้าของ plugin: (ก) `/mock:wireframe` ไม่ควรลบ `deliveredPages` เงียบ ๆ ควรทำเครื่องหมายว่าหน้า L2 ตกรุ่น (ข) `/mock:sync` ควรเห็นหน้า design ที่เนื้อหา `screens.json` เปลี่ยนหลัง wireframe ถูกวาด
