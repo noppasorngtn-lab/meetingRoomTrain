@@ -504,6 +504,10 @@
     "EX-mrr-127": {
       "cases": "TC-RPT-RPT001-113",
       "note": "A, B rank 1, C 0.00% rank 3, E closed all month shows em dash with no rank (api rank null) and takes no number; real · PASS 2026-11-19 · EX-127 validated in spec"
+    },
+    "EX-mrr-128": {
+      "cases": "TC-RPT-RPT001-114",
+      "note": "51 rooms (E2E Rpt P01-P51, ACTIVE only while the case runs): P50 last row of page 1 and P51 first row of page 2 both 0.45% rank 50; next room 0.00% rank 52 (no 51); UI cells + api ranks, real · PASS 2026-11-19 · EX-128 validated in spec · negative check: expecting rank 51 for P51 fails with Received 50 · 3/3 repeat pass · full chromium suite 172 pass 0 fail"
     }
   }
 }

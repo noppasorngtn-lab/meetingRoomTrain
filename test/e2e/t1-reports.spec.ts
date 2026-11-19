@@ -1,7 +1,8 @@
 import { expect, test, type APIRequestContext, type Page } from '@playwright/test';
 import { as, stateOf } from './support/world';
 import {
-  changeIssuesBooking, MONTHS, resetIssuesBooking, ROOM_NAME, seedReportFixture, sql, weekdays, withPendingBooking,
+  changeIssuesBooking, MONTHS, pagingName, preparePagingFixture, releasePagingRooms, resetIssuesBooking, ROOM_NAME, seedReportFixture, sql,
+  weekdays, withPendingBooking,
 } from './support/report-fixture';
 
 /**
@@ -169,6 +170,46 @@ test.describe('อันดับเท่ากัน (BR-mrr-006@v2)', () => {
   });
 });
 
+// อันดับเท่ากันคร่อมรอยต่อหน้า (EX-mrr-128 · OQ-T1-19) — ตารางแสดงหน้าละ 50 ห้อง · ห้อง E2E Rpt P01–P51 เปิดใช้เฉพาะระหว่างเคสนี้
+test.describe('อันดับเท่ากันข้ามหน้า (BR-mrr-006@v2)', () => {
+  test.beforeAll(async () => {
+    test.setTimeout(120_000);
+    await preparePagingFixture(ra);
+  });
+  test.afterAll(() => releasePagingRooms());
+
+  test('[real] TC-RPT-RPT001-114 ห้อง P50 (แถวสุดท้ายหน้า 1) กับ P51 (แถวแรกหน้า 2) 0.45% เท่ากัน → อันดับ 50 ทั้งคู่ · ห้องที่ไม่มีการจองอันดับ 52 ข้ามเลข 51 (EX-mrr-128 · BR-mrr-006@v2)', async ({ page }) => {
+    test.setTimeout(90_000);
+    await openReport(page, MONTHS.tiePaging);
+    await page.getByTestId('rpt-mrr-001-issue').click();
+
+    // หน้า 1: 50 แถว — แถวสุดท้ายคือ P50
+    const names = page.getByTestId('rpt-mrr-001-ent-013-room');
+    const ranks = page.getByTestId('rpt-mrr-001-ent-013-rank');
+    await expect(page.getByText(/หน้า 1 จาก \d+/)).toBeVisible();
+    await expect(names).toHaveCount(50);
+    await expect(names.last()).toHaveText(pagingName(50));
+    await expect(ranks.last()).toHaveText('50');
+    await expect(cell(page, pagingName(50), 'utilization-pct')).toHaveText('0.45%');
+
+    // หน้า 2: แถวแรกคือ P51 — เลขอันดับยังเป็น 50 แม้อยู่คนละหน้า
+    await page.getByRole('button', { name: 'หน้าถัดไป' }).click();
+    await expect(page.getByText(/หน้า 2 จาก \d+/)).toBeVisible();
+    await expect(names.first()).toHaveText(pagingName(51));
+    await expect(ranks.first()).toHaveText('50');
+    await expect(cell(page, pagingName(51), 'utilization-pct')).toHaveText('0.45%');
+    // ห้องถัดไป (ไม่มีการจอง 0.00%) ได้อันดับ 52 — ข้ามเลข 51
+    await expect(ranks.nth(1)).toHaveText('52');
+
+    // The api: ranks 1–49 are all different, P50 and P51 share 50, and every room with nothing booked holds 52.
+    const r = await view(MONTHS.tiePaging);
+    expect(lineOf(r, pagingName(50)).rank).toBe(50);
+    expect(lineOf(r, pagingName(51)).rank).toBe(50);
+    expect(r.lines.filter((l) => l.utilizationPct === '0.00').every((l) => l.rank === 52)).toBe(true);
+    expect(r.lines.some((l) => l.rank === 51)).toBe(false);
+  });
+});
+
 // ------------------------------------------------------------------ หน้ารายงาน (BR-mrr-022) และรายงานที่ออกแล้วแก้ไม่ได้ (BR-mrr-015)
 test.describe('หน้ารายงานและฉบับที่ออกแล้ว', () => {
   test('[real] TC-RPT-RPT001-104 Room Administrator เปิดหน้ารายงาน → เห็นรายงานของเดือนพร้อมอันดับห้องที่ใช้สูงสุด (EX-mrr-072 · BR-mrr-022)', async ({ page }) => {

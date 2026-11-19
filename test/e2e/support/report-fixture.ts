@@ -1,4 +1,5 @@
 import { execFileSync } from 'node:child_process';
+import type { APIRequestContext } from '@playwright/test';
 import { world } from './world';
 
 /**
@@ -24,6 +25,7 @@ export const MONTHS = {
   tieTop: '2007-03', // EX-125 — rooms A, B (60 min each), D (nothing)
   tieBoundary: '2008-05', // EX-126 — rooms F (60 min), G (59), H (58)
   tieClosed: '2010-07', // EX-127 — rooms A, B (60 min each), C (nothing), E closed all month
+  tiePaging: '2011-12', // EX-128 — 51 rooms E2E Rpt P01–P51 (made on demand, see preparePagingFixture), starts on a Thursday with 31 days too
 } as const;
 
 const psql = (sql: string) =>
@@ -161,4 +163,49 @@ export async function withPendingBooking<T>(during: () => Promise<T>): Promise<T
   } finally {
     psql(`delete from bookings where ${where}`);
   }
+}
+
+// ------------------------------------------------------------------ EX-mrr-128 — a tie across the report's page break (BR-mrr-006@v2)
+//
+// The report table shows 50 rooms to a page (UtilizationReportPage.tsx PAGE_SIZE) and lists every room that is not ARCHIVED.
+// To put two rooms with the same percentage on both sides of the break, 51 rooms hold bookings: P01–P49 each a different
+// percentage above 0.45% (60 + 2·n minutes — two minutes apart is 0.0152 points, more than the 0.01 the percentage is rounded to,
+// so no two of them collide), P50 and P51 exactly 60 minutes (0.45%). Every other room has nothing booked (0.00%) and comes after.
+// Rank 1–49, then 50 and 50, then the rest at 52 — the 50th row (page 1) and the 51st (page 2) are P50 and P51.
+//
+// The 51 rooms are made ACTIVE only while the case runs. 20 rooms is the page size of the room search, and a case elsewhere
+// (EX-107) books every ACTIVE room and reads page 1 of it: 51 more ACTIVE rooms would break that case for the wrong reason. So they
+// are ARCHIVED the rest of the time — here after the case, and by global-setup at the start of a run that stopped halfway.
+export const PAGING_ROOMS = 51;
+const pgNo = (n: number) => String(n).padStart(2, '0');
+export const pagingName = (n: number) => `E2E Rpt P${pgNo(n)}`;
+const pagingCode = (n: number) => `E2E-PGR-${pgNo(n)}`;
+const pagingMinutes = (n: number) => (n <= 49 ? 60 + 2 * n : 60);
+
+export async function preparePagingFixture(admin: APIRequestContext) {
+  for (let n = 1; n <= PAGING_ROOMS; n++) {
+    if (psql(`select count(*) from meeting_rooms where code = ${sqlText(pagingCode(n))}`) === '0') {
+      const res = await admin.post('/rooms', {
+        data: { code: pagingCode(n), name: pagingName(n), capacity: 99, photos: [], facilityIds: [], requiresApproval: false, approverId: null },
+      });
+      if (res.status() >= 300) throw new Error(`could not create room ${pagingCode(n)}: ${res.status()} ${await res.text()}`);
+    }
+  }
+  psql(`update meeting_rooms set status = 'ACTIVE' where code like 'E2E-PGR-%'`);
+  psql(`delete from bookings where title = ${sqlText(TITLE)} and room_id in (select id from meeting_rooms where code like 'E2E-PGR-%')`);
+  const rows = Array.from({ length: PAGING_ROOMS }, (_, i) => i + 1).map((n) => {
+    const end = 10 * 60 + pagingMinutes(n);
+    const to = `${pad(Math.floor(end / 60))}:${pad(end % 60)}`;
+    return `(${sqlText(pagingCode(n))}, ${sqlText(at(MONTHS.tiePaging, 5, '10:00'))}, ${sqlText(at(MONTHS.tiePaging, 5, to))}, 'CONFIRMED')`;
+  });
+  psql(
+    `insert into bookings (room_id, room_version_id, booked_by, title, start_at, end_at, status) ` +
+      `select r.id, r.current_version_id, ${sqlText(world.users.rpt.id)}, ${sqlText(TITLE)}, v.s::timestamptz, v.e::timestamptz, v.st ` +
+      `from (values ${rows.join(',')}) as v(code, s, e, st) join meeting_rooms r on r.code = v.code`,
+  );
+}
+
+/** Back out of the report's room list — see the note above. */
+export function releasePagingRooms() {
+  psql(`update meeting_rooms set status = 'ARCHIVED' where code like 'E2E-PGR-%'`);
 }

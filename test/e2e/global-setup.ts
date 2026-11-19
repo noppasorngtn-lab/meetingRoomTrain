@@ -53,6 +53,9 @@ export default async function globalSetup(_config: FullConfig) {
   // A run that stopped halfway can leave the app's clock moved (support/clock.ts); put it back before signing in.
   await fetch('http://localhost:3000/__test/clock', { method: 'POST', headers: { 'content-type': 'application/json' }, body: '{"now":null}' }).catch(() => undefined);
 
+  // The 51 report-paging rooms (support/report-fixture.ts, EX-mrr-128) are ACTIVE only while their case runs; a run that stopped halfway
+  // would leave them ACTIVE and push other cases' room lists past one page.
+  psql("update meeting_rooms set status = 'ARCHIVED' where code like 'E2E-PGR-%'");
   // Bookings made by earlier runs cannot be deleted (their audit trail is append-only, BR-mrr-018), so on the E2E rooms
   // they pile up until no free hour is left — then `book()` has to move days and the cases that set the clock first
   // break. Cancelling them (a status change; the audit rows stay) gives the hours back. Only synthetic rows (title

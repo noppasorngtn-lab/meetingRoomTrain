@@ -189,7 +189,7 @@
         {
           "title": "อัตราการใช้งานรายห้อง",
           "file": "t1-reports.spec.ts",
-          "line": 63,
+          "line": 64,
           "column": 6,
           "specs": [
             {
@@ -209,7 +209,7 @@
               ],
               "id": "418b18aa6957af8dcb30-3b9a1215decd0b9c1fc3",
               "file": "t1-reports.spec.ts",
-              "line": 64,
+              "line": 65,
               "column": 3
             },
             {
@@ -229,7 +229,7 @@
               ],
               "id": "418b18aa6957af8dcb30-1637daba4c96cb8e2a21",
               "file": "t1-reports.spec.ts",
-              "line": 68,
+              "line": 69,
               "column": 3
             },
             {
@@ -249,7 +249,7 @@
               ],
               "id": "418b18aa6957af8dcb30-a9194b381990fd3085ed",
               "file": "t1-reports.spec.ts",
-              "line": 86,
+              "line": 87,
               "column": 3
             },
             {
@@ -269,7 +269,7 @@
               ],
               "id": "418b18aa6957af8dcb30-354453ee3338eeffccb9",
               "file": "t1-reports.spec.ts",
-              "line": 95,
+              "line": 96,
               "column": 3
             },
             {
@@ -289,7 +289,7 @@
               ],
               "id": "418b18aa6957af8dcb30-ad6d8d7dc12b43290831",
               "file": "t1-reports.spec.ts",
-              "line": 104,
+              "line": 105,
               "column": 3
             }
           ]
@@ -297,7 +297,7 @@
         {
           "title": "อันดับเท่ากัน (BR-mrr-006@v2)",
           "file": "t1-reports.spec.ts",
-          "line": 126,
+          "line": 127,
           "column": 6,
           "specs": [
             {
@@ -320,7 +320,7 @@
               ],
               "id": "418b18aa6957af8dcb30-847b4f076d1db42141f1",
               "file": "t1-reports.spec.ts",
-              "line": 127,
+              "line": 128,
               "column": 3
             },
             {
@@ -343,7 +343,7 @@
               ],
               "id": "418b18aa6957af8dcb30-1da4dd46d30bda5c6721",
               "file": "t1-reports.spec.ts",
-              "line": 141,
+              "line": 142,
               "column": 3
             },
             {
@@ -366,7 +366,38 @@
               ],
               "id": "418b18aa6957af8dcb30-4095647dac20bef47dc4",
               "file": "t1-reports.spec.ts",
-              "line": 157,
+              "line": 158,
+              "column": 3
+            }
+          ]
+        },
+        {
+          "title": "อันดับเท่ากันข้ามหน้า (BR-mrr-006@v2)",
+          "file": "t1-reports.spec.ts",
+          "line": 175,
+          "column": 6,
+          "specs": [
+            {
+              "title": "[real] TC-RPT-RPT001-114 ห้อง P50 (แถวสุดท้ายหน้า 1) กับ P51 (แถวแรกหน้า 2) 0.45% เท่ากัน → อันดับ 50 ทั้งคู่ · ห้องที่ไม่มีการจองอันดับ 52 ข้ามเลข 51 (EX-mrr-128 · BR-mrr-006@v2)",
+              "ok": true,
+              "tags": [
+                "v2)",
+                "v2)"
+              ],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "418b18aa6957af8dcb30-ecf424573506420ae403",
+              "file": "t1-reports.spec.ts",
+              "line": 189,
               "column": 3
             }
           ]
@@ -374,7 +405,7 @@
         {
           "title": "หน้ารายงานและฉบับที่ออกแล้ว",
           "file": "t1-reports.spec.ts",
-          "line": 173,
+          "line": 254,
           "column": 6,
           "specs": [
             {
@@ -394,7 +425,7 @@
               ],
               "id": "418b18aa6957af8dcb30-a04a1adca458a3ddced2",
               "file": "t1-reports.spec.ts",
-              "line": 174,
+              "line": 255,
               "column": 3
             },
             {
@@ -414,7 +445,7 @@
               ],
               "id": "418b18aa6957af8dcb30-d753745cdc3c8971d06e",
               "file": "t1-reports.spec.ts",
-              "line": 186,
+              "line": 267,
               "column": 3
             },
             {
@@ -434,7 +465,7 @@
               ],
               "id": "418b18aa6957af8dcb30-c7111ce3fe9b9aa31596",
               "file": "t1-reports.spec.ts",
-              "line": 204,
+              "line": 285,
               "column": 3
             },
             {
@@ -454,7 +485,7 @@
               ],
               "id": "418b18aa6957af8dcb30-7b89a4900ab802f13ab6",
               "file": "t1-reports.spec.ts",
-              "line": 220,
+              "line": 301,
               "column": 3
             }
           ]
@@ -464,10 +495,10 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-11-19T10:08:23.008Z",
-    "duration": 290.71299999999997,
+    "startTime": "2026-11-19T10:56:56.617Z",
+    "duration": 325.77000000000004,
     "expected": 0,
-    "skipped": 12,
+    "skipped": 13,
     "unexpected": 0,
     "flaky": 0
   }
