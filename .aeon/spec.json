@@ -4299,7 +4299,7 @@
     {
       "id": "EX-mrr-125",
       "kind": "happy",
-      "status": "draft",
+      "status": "validated",
       "has_ui": true,
       "proves": [
         "BR-mrr-006@v2"
@@ -4311,7 +4311,7 @@
     {
       "id": "EX-mrr-126",
       "kind": "boundary",
-      "status": "draft",
+      "status": "validated",
       "has_ui": true,
       "proves": [
         "BR-mrr-006@v2"
@@ -4323,7 +4323,7 @@
     {
       "id": "EX-mrr-127",
       "kind": "exception",
-      "status": "draft",
+      "status": "validated",
       "has_ui": true,
       "proves": [
         "BR-mrr-006@v2"

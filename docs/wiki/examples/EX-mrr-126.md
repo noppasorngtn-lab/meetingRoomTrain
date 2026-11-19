@@ -5,12 +5,12 @@ description: ห้อง F แสดง '0.45%' และห้อง G แส�
 resource: ../rules/BR-mrr-006@v2.md
 tags: [mrr, example, boundary]
 id: EX-mrr-126
-status: draft
+status: validated
 kind: boundary
 proves: [BR-mrr-006@v2]
 has_ui: true
 timestamp: 2026-11-18T12:30:00+07:00
-spec_hash: sha256:7b7a3b8a1b2abeb8911baf7b0362fd3c8d84e090b3e38323ad94762895ec42af
+spec_hash: sha256:79c5fb8924331d8bab1a6e0734ff7848fa85565f3aaf768fb71562a21a4bb1da
 ---
 
 # EX-mrr-126

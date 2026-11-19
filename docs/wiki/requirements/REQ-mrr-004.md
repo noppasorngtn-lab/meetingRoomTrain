@@ -9,7 +9,7 @@ actor: Room Administrator
 rules: [BR-mrr-006, BR-mrr-015, BR-mrr-022]
 domain_concepts: [UL-mrr-001, UL-mrr-008, UL-mrr-012]
 timestamp: 2026-11-18T12:30:00+07:00
-spec_hash: sha256:776d0fabcb5c95ba18728a41e43787a6ba6034611c8c671e4ae643c869a6f313
+spec_hash: sha256:eabc7b71aa7f20c58a916025f1b4f29d68714fde5ccd62984b5cd7013989cac9
 ---
 
 # REQ-mrr-004

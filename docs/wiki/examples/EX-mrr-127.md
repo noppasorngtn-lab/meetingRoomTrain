@@ -5,12 +5,12 @@ description: ห้อง A และห้อง B ได้อันดับ 
 resource: ../rules/BR-mrr-006@v2.md
 tags: [mrr, example, exception]
 id: EX-mrr-127
-status: draft
+status: validated
 kind: exception
 proves: [BR-mrr-006@v2]
 has_ui: true
 timestamp: 2026-11-18T12:30:00+07:00
-spec_hash: sha256:0621a9a3d24b97b8ab550864ff61ccd5dc2ae508e03d94f2466773fd6a66169a
+spec_hash: sha256:dbb8717b1eb269c7542a2a2de4544482fe396511aa5ce1809923d562c87fcece
 ---
 
 # EX-mrr-127

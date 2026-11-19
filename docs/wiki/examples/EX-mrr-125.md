@@ -5,12 +5,12 @@ description: ห้อง A แสดง '0.45%' และห้อง B แส�
 resource: ../rules/BR-mrr-006@v2.md
 tags: [mrr, example, happy]
 id: EX-mrr-125
-status: draft
+status: validated
 kind: happy
 proves: [BR-mrr-006@v2]
 has_ui: true
 timestamp: 2026-11-18T12:30:00+07:00
-spec_hash: sha256:e558898ff3121f75397ad2327295538774af84b04d01051c49b06caa7d8bb5bb
+spec_hash: sha256:0a398456c499389b68dc740ed4f34da17c118a3d2efa1d6a75f08054aab06bda
 ---
 
 # EX-mrr-125
