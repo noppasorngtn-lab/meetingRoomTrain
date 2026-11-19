@@ -1,5 +1,6 @@
 import { expect, test, type APIRequestContext } from '@playwright/test';
 import { as, book, nearSlot, stateOf, world } from './support/world';
+import { myBookingIds } from './support/my-bookings';
 
 /**
  * เคสจาก T1 (docs/qa/t1-test-cases.csv) ที่เคยเป็น Partial เพราะต้องมีหลายบทบาท — ตอนนี้ global-setup
@@ -52,12 +53,7 @@ test.describe('ผู้ใช้หลายคน (BR-mrr-001 · BR-mrr-003)',
   test('[real] TC-MYB-UI007-103 การจองของฉันแสดงเฉพาะที่ตัวเองสร้าง (EX-mrr-011 · BR-mrr-003)', async () => {
     const mineB = await book(clients.u1, 'open', nearSlot(), title('ของ U1'));
     const theirs = await book(clients.u2, 'open', nearSlot(), title('ของ U2'), [world.users.u1.id]); // U1 เป็นผู้เข้าร่วม ไม่ใช่ผู้จอง
-    const seen = new Set<string>();
-    for (let n = 1; n <= 50; n++) {
-      const data = await (await clients.u1.get(`/me/bookings?page=${n}`)).json();
-      data.items.forEach((x: { id: string }) => seen.add(x.id));
-      if (n * data.pageSize >= data.total) break;
-    }
+    const seen = await myBookingIds(clients.u1); // ทุกหน้าที่ api บอก ไม่หยุดที่จำนวนหน้าตายตัว (เดิมหยุดที่ 50 หน้า = 1,000 แถว แต่ U1 มี 1,267)
     expect(seen.has(mineB.id)).toBe(true);
     expect(seen.has(theirs.id), 'การจองที่ตนเป็นแค่ผู้เข้าร่วมต้องไม่อยู่ในรายการ').toBe(false);
   });
