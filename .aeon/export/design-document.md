@@ -31,7 +31,7 @@
 | ADR-010 | design · added | 2026-11-18T16:20:40+07:00 | กฎการปฏิเสธต้องระบุเหตุผล (BR-mrr-017@v2) แต่หน้ารายการรออนุมัติ (UI-mrr-009) ไม่มีช่องให้กรอกเหตุผล และคำสั่งปฏิเสธ (API-012) ไม่ตรวจ — Room Administrator ปฏิเสธได้โดยไม่ระบุเหตุผล ร่องรอยจึงขาดเหตุผล (DEF-04) · ฝั่ง dev/qa ทำไปก่อนแล้วในรูปช่องเหตุผลใต้แถวที่กด ปฏิเสธ พร้อมปุ่ม ยืนยันปฏิเสธ / ยกเลิก และ API คืน 400 กรุณาระบุเหตุผล เมื่อไม่มีเหตุผล — ถ้อยคำ กรุณาระบุเหตุผล ยืมจาก EX-mrr-057 ยังไม่ได้รับการยืนยันจากเจ้าของ (OQ-T1-17) และรูปแบบช่อง (ใต้แถว / dialog / ไปหน้า UI-mrr-010) ต้องให้ design ตัดสิน · ไม่เพิ่มหรือลบปุ่มหรือปลายทางอื่น | รับเข้าแล้ว 2026-11-18T09:38:31Z |
 | ADR-011 | design · added | 2026-11-18T16:45:45+07:00 | req เพิ่มตัวอย่าง EX-mrr-123 (ปฏิเสธโดยเว้นเหตุผลว่าง) ใต้กฎ BR-mrr-017@v2 โดยไม่ขึ้นเวอร์ชัน จึงไม่มี change set — Room Administrator ปฏิเสธการจองโดยไม่ระบุเหตุผลแล้วต้องเห็น กรุณาระบุเหตุผล การจองคงเดิม และไม่มีร่องรอย · design ต้องเขียนเกณฑ์รับที่คัดลอกตัวอย่างนี้คำต่อคำ (S16) ต่อจาก ADR-010 ที่เพิ่มช่องเหตุผลบน UI-mrr-009 แล้ว | รับเข้าแล้ว 2026-11-18T09:45:46Z |
 | ADR-012 | design · added | 2026-11-18T17:16:30+07:00 | req เพิ่มตัวอย่าง EX-mrr-124 ใต้กฎ BR-mrr-007@v2 โดยไม่ขึ้นเวอร์ชัน จึงไม่มี change set — เมื่อ Room Administrator เปลี่ยนผลการอนุมัติเป็นปฏิเสธ ผู้จองและผู้เข้าร่วมต้องได้ Email หัวเรื่อง ปฏิเสธการจอง (คำตอบเจ้าของ 2026-11-18 ข้อ 3) · ระบบทำแล้ว แต่ UC-mrr-008 ยังไม่พูดถึง Email และไม่มีเกณฑ์รับ — design ต้องเพิ่มเส้นทางส่ง Email ใน UC-mrr-008 และเขียนเกณฑ์รับที่คัดลอกตัวอย่างคำต่อคำ (S16) | รับเข้าแล้ว 2026-11-18T10:16:37Z |
-| CHG-mrr-004 | design · revised | 2026-11-19T14:30:00+07:00 | เจ้าของ (Noppasorn) ตอบ Q-mrr-005 มีผลตั้งแต่ 2026-11-19: ห้องที่อัตราการใช้งานเท่ากัน (เทียบหลังปัดเหลือทศนิยม 2 ตำแหน่ง) ได้อันดับเดียวกัน และห้องถัดไปข้ามเลข เช่น 1, 1, 3 (BR-mrr-006@v2) · req เพิ่มตัวอย่าง EX-mrr-125 · 126 · 127 และแถว golden 15–16 ของ GD-mrr-001 · design ยังผูกกฎนี้ที่ @v1 และยังไม่มีเกณฑ์รับของกรณีอันดับเท่ากัน (gate S13 ล้ม) | ยังไม่ปิด |
+| CHG-mrr-004 | design · revised | 2026-11-19T14:30:00+07:00 | เจ้าของ (Noppasorn) ตอบ Q-mrr-005 มีผลตั้งแต่ 2026-11-19: ห้องที่อัตราการใช้งานเท่ากัน (เทียบหลังปัดเหลือทศนิยม 2 ตำแหน่ง) ได้อันดับเดียวกัน และห้องถัดไปข้ามเลข เช่น 1, 1, 3 (BR-mrr-006@v2) · req เพิ่มตัวอย่าง EX-mrr-125 · 126 · 127 และแถว golden 15–16 ของ GD-mrr-001 · design ยังผูกกฎนี้ที่ @v1 และยังไม่มีเกณฑ์รับของกรณีอันดับเท่ากัน (gate S13 ล้ม) | รับเข้าแล้ว 2026-11-19T09:58:06Z |
 
 ### สถานะการอนุมัติรายไฟล์
 
@@ -39,15 +39,15 @@
 |---|---|---|---|---|---|---|
 | design.state.json | /design:init | done | — | — | — | — |
 | context.json | /design:overview | done | approved | Noppasorn | 2026-10-19T07:59:59Z | — |
-| modules/mrr/functions.json | /design:function | done | draft | — | — | ค้างเพราะ CHG-mrr-004 |
-| trace.design.json | /design:function | done | — | — | — | ค้างเพราะ CHG-mrr-004 |
-| datamodel.json | /design:datamodel | done | draft | — | — | ค้างเพราะ CHG-mrr-004 |
-| modules/mrr/statemachines.json | /design:datamodel | done | approved | Noppasorn | 2026-11-18T10:02:29Z | ค้างเพราะ CHG-mrr-004 |
+| modules/mrr/functions.json | /design:function | done | approved | Noppasorn | 2026-11-19T10:40:50Z | — |
+| trace.design.json | /design:function | done | — | — | — | — |
+| datamodel.json | /design:datamodel | done | approved | Noppasorn | 2026-11-19T10:40:50Z | — |
+| modules/mrr/statemachines.json | /design:datamodel | done | approved | Noppasorn | 2026-11-18T10:02:29Z | — |
 | rbac.json | /design:rbac | done | approved | Noppasorn | 2026-11-17T12:38:32Z | — |
 | nfr.json | /design:nfr | done | approved | Noppasorn | 2026-10-19T07:59:59Z | — |
-| sitemap.json | /design:sitemap | done | approved | Noppasorn | 2026-11-18T10:02:29Z | ค้างเพราะ CHG-mrr-004 |
-| modules/mrr/screens.json | /design:sitemap | done | draft | — | — | ค้างเพราะ CHG-mrr-004 |
-| interfaces.json | /design:interface | done | draft | — | — | ค้างเพราะ CHG-mrr-004 |
+| sitemap.json | /design:sitemap | done | approved | Noppasorn | 2026-11-18T10:02:29Z | — |
+| modules/mrr/screens.json | /design:sitemap | done | approved | Noppasorn | 2026-11-19T10:40:50Z | — |
+| interfaces.json | /design:interface | done | approved | Noppasorn | 2026-11-19T10:40:50Z | — |
 
 > ℹ️ **ข้อจำกัดของข้อมูลชุดนี้** — "สถานะขั้น" มาจากไฟล์สถานะ ส่วน "สถานะเอกสาร" มาจากตัวไฟล์เอง — ขั้นที่ค้างจะเห็นได้ที่คอลัมน์แรกเท่านั้น เพราะเครื่องหมายค้างถูกเก็บที่ขั้น ไม่ใช่ในเนื้อหาที่อนุมัติไปแล้ว
 

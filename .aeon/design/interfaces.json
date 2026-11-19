@@ -2,9 +2,9 @@
   "schemaVersion": "1.0",
   "producedBy": "design · scripts/interfaces.mjs",
   "project": "mrr",
-  "status": "draft",
-  "approvedAt": null,
-  "approvedBy": null,
+  "status": "approved",
+  "approvedAt": "2026-11-19T10:40:50Z",
+  "approvedBy": "Noppasorn",
   "integrations": [
     {
       "id": "INT-001",
