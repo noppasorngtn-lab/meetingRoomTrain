@@ -1,38 +1,40 @@
 # ข้อมูลสำหรับ req: เคสทดสอบของแต่ละ BR (ไว้เติมช่อง "เทสต์" ใน REQ wiki)
 
-ที่มา: `docs/qa/e2e-ex-map.json` + `docs/qa/t1-test-cases.csv` + หัวข้อ "พิสูจน์โดย" ของแต่ละ BR · สร้างเมื่อ 2026-11-18 · BR เวอร์ชันปัจจุบัน 28 ข้อ
+สร้างโดย `docs/qa/req-handoff-links.py` (อย่าแก้ด้วยมือ) · แหล่ง: `proves:` ของ EX · `e2e-ex-map.json` · `t1-test-cases.csv` · ชื่อเคสใน `test/e2e/*.spec.ts` · AC จาก `functions.json`
 
-ช่อง "เทสต์" ของทุก BR ใน `docs/wiki/requirements/REQ-mrr-001–005.md` ยังเป็น *(ยังไม่มี)* 🔴 (เกณฑ์ G1) wiki สร้างจาก `.aeon/req` ด้วยเครื่องมือของ req และมีลายเซ็น จึงไม่ได้แก้ด้วยมือ — ตารางนี้ให้ req ใช้เติมผ่านเครื่องมือของ req
+ช่อง "เทสต์" ของทุก BR ใน `docs/wiki/requirements/REQ-mrr-001–005.md` ยังเป็น *(ยังไม่มี)* 🔴 (เกณฑ์ G1) · wiki สร้างจาก `.aeon/req` ด้วยเครื่องมือของ req และมีลายเซ็น จึงไม่แก้ด้วยมือ — ตารางนี้ให้ req ใช้เติมผ่านเครื่องมือของ req
 
-| BR | EX ที่พิสูจน์ | จำนวน TC | TC ID |
-|---|---|---|---|
-| BR-mrr-001@v1 | 001, 002, 003, 004, 106, 107, 108 | 8 | TC-BKG-UI004-101, TC-BKG-UI004-102, TC-BKG-UI004-103, TC-BKG-UI006-019, TC-BKG-UI006-020, TC-BKG-UI006-021, TC-BKG-UI006-022, booking.spec.ts #9 |
-| BR-mrr-002@v1 | 005, 006, 007 | 5 | TC-BKG-UI006-023, TC-BKG-UI006-024, booking.spec.ts #10, booking.spec.ts #4, booking.spec.ts #8 |
-| BR-mrr-003@v1 | 008, 009, 010, 011 | 4 | TC-MYB-UI007-101, TC-MYB-UI007-102, TC-MYB-UI007-103, TC-MYB-UI008-101 |
-| BR-mrr-004@v1 | 001, 012, 013, 014 | 5 | TC-APR-UI009-101, TC-APR-UI009-102, TC-BKG-UI006-019, TC-BKG-UI006-025, booking.spec.ts #10 |
-| BR-mrr-005@v1 | 015, 016, 017, 018, 090, 109, 110 | 7 | TC-RMM-UI012-101, TC-RMM-UI013-101, TC-RMM-UI013-102, TC-RMM-UI013-103, TC-RMM-UI013-110, TC-RMM-UI013-111, TC-RMM-UI014-101 |
-| BR-mrr-006@v1 | 084, 085, 086, 087 | 4 | TC-RPT-RPT001-107, TC-RPT-RPT001-108, TC-RPT-RPT001-109, TC-RPT-RPT001-110 |
-| BR-mrr-007@v1 | 019, 020, 021, 022 | 4 | TC-BKG-UI006-026, TC-NTF-JOB-101, TC-NTF-UI008-101, TC-NTF-UI008-102 |
-| BR-mrr-008@v1 | 020, 023, 024, 025 | 4 | TC-NTF-JOB-101, TC-NTF-JOB-102, TC-NTF-JOB-103, TC-NTF-UI006-101 |
-| BR-mrr-009@v1 | 026, 027, 028, 029, 088 | 5 | TC-APR-UI010-101, TC-APR-UI010-102, TC-APR-UI010-109, TC-MYB-UI007-104, TC-MYB-UI007-105 |
-| BR-mrr-010@v2 | 030, 031, 032, 033, 034, 078, 079, 080 | 8 | TC-BKG-UI006-101, TC-BKG-UI006-102, TC-BKG-UI006-103, TC-RMM-UI013-105, TC-RMM-UI013-106, TC-RMM-UI013-107, TC-RMM-UI013-108, TC-RMM-UI013-109 |
-| BR-mrr-011@v1 | 035, 036, 037, 038, 089 | 5 | TC-APR-UI010-103, TC-APR-UI010-104, TC-APR-UI010-105, TC-APR-UI010-106, TC-APR-UI010-110 |
-| BR-mrr-012@v1 | 016, 081, 082, 083, 106, 107, 108 | 7 | TC-BKG-UI004-101, TC-BKG-UI004-102, TC-BKG-UI004-103, TC-BKG-UI006-028, TC-BKG-UI008-101, TC-RMM-UI012-101, TC-RMM-UI012-102 |
-| BR-mrr-013@v1 | 039, 040, 041, 042 | 4 | TC-APR-UI009-103, TC-APR-UI009-104, TC-APR-UI009-105, TC-RMM-UI013-104 |
-| BR-mrr-014@v1 | 043, 044, 045, 046 | 4 | TC-APR-UI010-107, TC-APR-UI010-108, TC-APR-UI011-101, TC-APR-UI011-102 |
-| BR-mrr-015@v1 | 047, 048, 049 | 3 | TC-RPT-RPT001-101, TC-RPT-RPT001-102, TC-RPT-RPT001-103 |
-| BR-mrr-016@v1 | 050, 051, 052, 053 | 4 | TC-APR-JOB-101, TC-APR-JOB-102, TC-APR-JOB-103, TC-APR-UI009-106 |
-| BR-mrr-017@v1 | 054, 055, 056, 057 | 4 | TC-AUD-UI010-101, TC-AUD-UI010-102, TC-AUD-UI010-103, TC-AUD-UI010-104 |
-| BR-mrr-018@v1 | 058, 059, 060, 061 | 4 | TC-AUD-UI010-105, TC-AUD-UI010-106, TC-AUD-UI010-107, TC-AUD-UI010-108 |
-| BR-mrr-019@v1 | 062, 063, 064, 065 | 4 | TC-BKG-UI006-027, TC-NTF-UI008-103, TC-NTF-UI008-104, TC-NTF-UI009-101 |
-| BR-mrr-020@v1 | 066, 067 | 2 | TC-NTF-JOB-104, TC-NTF-JOB-105 |
-| BR-mrr-021@v1 | 068, 069, 070, 071 | 4 | TC-CAL-UI005-101, TC-CAL-UI005-102, TC-CAL-UI005-103, TC-CAL-UI005-104 |
-| BR-mrr-022@v1 | 072, 073, 074 | 3 | TC-RPT-RPT001-104, TC-RPT-RPT001-105, TC-RPT-RPT001-106 |
-| BR-mrr-023@v1 | 075, 076, 077 | 3 | TC-NTF-JOB-106, TC-NTF-JOB-107, TC-NTF-JOB-108 |
-| BR-mrr-024@v1 | 091, 092, 093, 094 | 4 | TC-AUTH-UI001-101, TC-AUTH-UI001-102, TC-AUTH-UI001-103, TC-AUTH-UI001-104 |
-| BR-mrr-025@v1 | 095, 096, 097 | 3 | TC-AUTH-UI001-105, TC-AUTH-UI001-106, TC-AUTH-UI001-107 |
-| BR-mrr-026@v1 | 091, 098, 099 | 3 | TC-AUTH-UI001-101, TC-AUTH-UI001-108, TC-AUTH-UI001-109 |
-| BR-mrr-027@v1 | 100, 101, 102, 103 | 4 | TC-AUTH-UI002-101, TC-AUTH-UI002-102, TC-AUTH-UI002-103, TC-AUTH-UI002-104 |
-| BR-mrr-028@v1 | 101, 102, 104, 105 | 4 | TC-AUTH-UI002-102, TC-AUTH-UI002-103, TC-AUTH-UI002-105, TC-AUTH-UI002-106 |
+| BR (ปัจจุบัน) | EX ที่พิสูจน์ | เคส E2E [real] (TC ID) | เทสชั้น API / web (อ้าง AC) | หมายเหตุ |
+|---|---|---|---|---|
+| BR-mrr-001@v1 | 001, 002, 003, 004, 106, 107, 108 | 10: TC-BKG-UI004-101, TC-BKG-UI004-102, TC-BKG-UI004-103, TC-BKG-UI006-019, TC-BKG-UI006-020, TC-BKG-UI006-022, booking.spec.ts #9, booking.spec.ts #19, booking.spec.ts #20, booking.spec.ts #21 | 4 ไฟล์: booking.service.spec.ts, booking.test.tsx, room-search.http.spec.ts, room-search.test.tsx | — |
+| BR-mrr-002@v1 | 005, 006, 007, 119 | 6: TC-BKG-UI006-104, booking.spec.ts #4, booking.spec.ts #8, booking.spec.ts #10, booking.spec.ts #23, booking.spec.ts #24 | 3 ไฟล์: booking.service.spec.ts, booking.test.tsx, room-info.http.spec.ts | AC ไม่มีเทสอ้าง: AC-mrr-122 |
+| BR-mrr-003@v1 | 008, 009, 010, 011 | 4: TC-MYB-UI007-101, TC-MYB-UI007-102, TC-MYB-UI007-103, TC-MYB-UI008-101 | 6 ไฟล์: booking-cancel.spec.ts, booking-edit.service.spec.ts, cancel-booking.test.tsx, edit-booking.test.tsx, my-bookings.spec.ts, my-bookings.test.tsx | — |
+| BR-mrr-004@v1 | 001, 012, 013, 014 | 7: TC-APR-UI009-101, TC-APR-UI009-102, TC-BKG-UI006-019, TC-BKG-UI006-025, booking.spec.ts #10, booking.spec.ts #19, booking.spec.ts #25 | 5 ไฟล์: booking-approval.http.spec.ts, booking-approval.spec.ts, booking.service.spec.ts, booking.test.tsx, pending-approvals.test.tsx | — |
+| BR-mrr-005@v1 | 015, 016, 017, 018, 090, 109, 110 | 7: TC-RMM-UI012-101, TC-RMM-UI013-101, TC-RMM-UI013-102, TC-RMM-UI013-103, TC-RMM-UI013-110, TC-RMM-UI013-111, TC-RMM-UI014-101 | 8 ไฟล์: room-admin.http.spec.ts, room-admin.spec.ts, room-admin.test.tsx, room-archive.http.spec.ts, room-archive.test.tsx, room-maintenance.http.spec.ts … | — |
+| BR-mrr-006@v1 | 084, 085, 086, 087 | 4: TC-RPT-RPT001-107, TC-RPT-RPT001-108, TC-RPT-RPT001-109, TC-RPT-RPT001-110 | 2 ไฟล์: utilization-report.spec.ts, utilization-report.test.tsx | — |
+| BR-mrr-007@v2 | 019, 020, 021, 022, 114, 115, 116, 117, 118, 124 | 10: TC-BKG-UI006-026, TC-NTF-JOB-101, TC-NTF-UI006-102, TC-NTF-UI008-101, TC-NTF-UI008-102, TC-NTF-UI008-105, TC-NTF-UI009-102, TC-NTF-UI009-103, TC-NTF-UI010-101, TC-NTF-UI010-102 | 6 ไฟล์: booking-edit.service.spec.ts, booking-notifier.spec.ts, booking.service.spec.ts, booking.test.tsx, edit-booking.test.tsx, reminder-job.spec.ts | AC ไม่มีเทสอ้าง: AC-mrr-117, AC-mrr-118, AC-mrr-119, AC-mrr-120, AC-mrr-121, AC-mrr-127 |
+| BR-mrr-008@v1 | 020, 023, 024, 025 | 4: TC-NTF-JOB-101, TC-NTF-JOB-102, TC-NTF-JOB-103, TC-NTF-UI006-101 | 3 ไฟล์: booking-notifier.spec.ts, booking.service.spec.ts, reminder-job.spec.ts | — |
+| BR-mrr-009@v1 | 026, 027, 028, 029, 088 | 5: TC-APR-UI010-101, TC-APR-UI010-102, TC-APR-UI010-109, TC-MYB-UI007-104, TC-MYB-UI007-105 | 5 ไฟล์: booking-admin.http.spec.ts, booking-admin.spec.ts, booking-cancel.spec.ts, cancel-booking.test.tsx, on-behalf.test.tsx | — |
+| BR-mrr-010@v2 | 030, 031, 032, 033, 034, 078, 079, 080 | 8: TC-BKG-UI006-101, TC-BKG-UI006-102, TC-BKG-UI006-103, TC-RMM-UI013-105, TC-RMM-UI013-106, TC-RMM-UI013-107, TC-RMM-UI013-108, TC-RMM-UI013-109 | 6 ไฟล์: booking.service.spec.ts, booking.test.tsx, room-admin.http.spec.ts, room-admin.spec.ts, room-admin.test.tsx, room-info.http.spec.ts | AC ไม่มีเทสอ้าง: AC-mrr-104, AC-mrr-105 |
+| BR-mrr-011@v1 | 035, 036, 037, 038, 089 | 5: TC-APR-UI010-103, TC-APR-UI010-104, TC-APR-UI010-105, TC-APR-UI010-106, TC-APR-UI010-110 | 3 ไฟล์: booking-decision.http.spec.ts, booking-decision.spec.ts, change-decision.test.tsx | — |
+| BR-mrr-012@v1 | 016, 081, 082, 083, 106, 107, 108 | 9: TC-BKG-UI004-101, TC-BKG-UI004-102, TC-BKG-UI004-103, TC-BKG-UI006-028, TC-BKG-UI008-101, TC-RMM-UI012-101, TC-RMM-UI012-102, booking.spec.ts #13, booking.spec.ts #14 | 9 ไฟล์: booking-edit.service.spec.ts, booking.service.spec.ts, booking.test.tsx, edit-booking.test.tsx, room-maintenance.http.spec.ts, room-maintenance.spec.ts … | — |
+| BR-mrr-013@v1 | 039, 040, 041, 042 | 4: TC-APR-UI009-103, TC-APR-UI009-104, TC-APR-UI009-105, TC-RMM-UI013-104 | 5 ไฟล์: booking-approval.http.spec.ts, booking-approval.spec.ts, pending-approvals.test.tsx, room-admin.spec.ts, room-admin.test.tsx | — |
+| BR-mrr-014@v1 | 043, 044, 045, 046 | 4: TC-APR-UI010-107, TC-APR-UI010-108, TC-APR-UI011-101, TC-APR-UI011-102 | 9 ไฟล์: adjustment-decision.http.spec.ts, adjustment-decision.spec.ts, adjustment-requests.test.tsx, booking-adjustment.http.spec.ts, booking-adjustment.spec.ts, booking-adjustment.test.tsx … | — |
+| BR-mrr-015@v1 | 047, 048, 049 | 3: TC-RPT-RPT001-101, TC-RPT-RPT001-102, TC-RPT-RPT001-103 | 3 ไฟล์: utilization-report.http.spec.ts, utilization-report.spec.ts, utilization-report.test.tsx | — |
+| BR-mrr-016@v1 | 050, 051, 052, 053 | 4: TC-APR-JOB-101, TC-APR-JOB-102, TC-APR-JOB-103, TC-APR-UI009-106 | 3 ไฟล์: auto-cancel-job.spec.ts, booking-approval.spec.ts, pending-approvals.test.tsx | — |
+| BR-mrr-017@v2 | 054, 055, 056, 057, 118, 120, 121, 122, 123 | 10: TC-AUD-UI009-101, TC-AUD-UI010-101, TC-AUD-UI010-102, TC-AUD-UI010-103, TC-AUD-UI010-104, TC-AUD-UI010-109, TC-AUD-UI010-110, TC-AUD-UI010-111, TC-AUD-UI010-112, TC-NTF-UI009-103 | 7 ไฟล์: audit-trail.test.tsx, booking-admin.spec.ts, booking-approval.spec.ts, booking-audit.http.spec.ts, cancel-booking.test.tsx, on-behalf.test.tsx … | AC ไม่มีเทสอ้าง: AC-mrr-121, AC-mrr-123, AC-mrr-124, AC-mrr-125, AC-mrr-126 |
+| BR-mrr-018@v1 | 058, 059, 060, 061 | 5: TC-AUD-UI010-102, TC-AUD-UI010-105, TC-AUD-UI010-106, TC-AUD-UI010-107, TC-AUD-UI010-108 | 3 ไฟล์: audit-trail.test.tsx, booking-audit.http.spec.ts, booking-audit.spec.ts | — |
+| BR-mrr-019@v1 | 062, 063, 064, 065, 113 | 5: TC-BKG-UI006-027, TC-BKG-UI006-107, TC-NTF-UI008-103, TC-NTF-UI008-104, TC-NTF-UI009-101 | 8 ไฟล์: booking-approval.http.spec.ts, booking-approval.spec.ts, booking-edit.service.spec.ts, booking-notifier.spec.ts, booking.service.spec.ts, booking.test.tsx … | AC ไม่มีเทสอ้าง: AC-mrr-116 |
+| BR-mrr-020@v2 | 066, 067, 111, 112 | 4: TC-NTF-JOB-104, TC-NTF-JOB-105, TC-NTF-JOB-109, TC-NTF-JOB-110 | 1 ไฟล์: reminder-job.spec.ts | ข้าม (test.fixme): TC-NTF-JOB-110; AC ไม่มีเทสอ้าง: AC-mrr-114, AC-mrr-115 |
+| BR-mrr-021@v1 | 068, 069, 070, 071 | 4: TC-CAL-UI005-101, TC-CAL-UI005-102, TC-CAL-UI005-103, TC-CAL-UI005-104 | 2 ไฟล์: calendar.service.spec.ts, calendar.test.tsx | — |
+| BR-mrr-022@v1 | 072, 073, 074 | 3: TC-RPT-RPT001-104, TC-RPT-RPT001-105, TC-RPT-RPT001-106 | 3 ไฟล์: utilization-report.http.spec.ts, utilization-report.spec.ts, utilization-report.test.tsx | — |
+| BR-mrr-023@v1 | 075, 076, 077 | 3: TC-NTF-JOB-106, TC-NTF-JOB-107, TC-NTF-JOB-108 | 2 ไฟล์: booking-notifier.spec.ts, reminder-job.spec.ts | — |
+| BR-mrr-024@v1 | 091, 092, 093, 094 | 4: TC-AUTH-UI001-101, TC-AUTH-UI001-102, TC-AUTH-UI001-103, TC-AUTH-UI001-104 | 2 ไฟล์: sign-in.http.spec.ts, sign-in.test.tsx | — |
+| BR-mrr-025@v1 | 095, 096, 097 | 3: TC-AUTH-UI001-105, TC-AUTH-UI001-106, TC-AUTH-UI001-107 | 2 ไฟล์: sign-in.http.spec.ts, sign-in.test.tsx | — |
+| BR-mrr-026@v1 | 091, 098, 099 | 3: TC-AUTH-UI001-101, TC-AUTH-UI001-108, TC-AUTH-UI001-109 | 2 ไฟล์: sign-in.http.spec.ts, sign-in.test.tsx | — |
+| BR-mrr-027@v1 | 100, 101, 102, 103 | 4: TC-AUTH-UI002-101, TC-AUTH-UI002-102, TC-AUTH-UI002-103, TC-AUTH-UI002-104 | 2 ไฟล์: sign-in.http.spec.ts, sign-in.test.tsx | — |
+| BR-mrr-028@v1 | 101, 102, 104, 105 | 4: TC-AUTH-UI002-102, TC-AUTH-UI002-103, TC-AUTH-UI002-105, TC-AUTH-UI002-106 | 2 ไฟล์: sign-in.http.spec.ts, sign-in.test.tsx | — |
 
-หมายเหตุ: `booking.spec.ts #N` = เคสเลขเดิมในไฟล์ booking.spec.ts / test/README (ยังไม่มี TC ID แบบ TC-…) · เคส `[Recommended]` ที่ไม่ผูก EX: TC-BKG-UI006-104–106 (BR-mrr-002) และ TC-AUTH-UI003-101–103 (AC-mrr-111–113 ไม่มี BR) ดู t1-test-cases.md §B3, §B4
+BR ปัจจุบัน 28 ข้อ · BR ที่ไม่มีเคส E2E ผ่าน EX/CSV: ไม่มี
+
+หมายเหตุ: `booking.spec.ts #N` = เคสเลขเดิมใน booking.spec.ts / test/README (ยังไม่มี TC ID แบบ TC-…) · เคสที่เป็น `[stub]` ไม่พิสูจน์ API จริง ดู t2-coverage-report.md ข้อ 2 · เคส `[Recommended]` ที่ไม่ผูก EX: TC-BKG-UI006-104–106 (BR-mrr-002) และ TC-AUTH-UI003-101–103 (AC-mrr-111–113 ไม่มี BR)
