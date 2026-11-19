@@ -263,6 +263,14 @@
       "captured_by": "/req:example BR-mrr-017",
       "content": "การปฏิเสธการจองโดย Room Administrator ต้องระบุเหตุผล\nข้อความบนหน้าจอหลังปฏิเสธการจองคือ 'ปฏิเสธการจอง'\nข้อความบนหน้าจอหลัง Room Administrator แก้การจองแทนผู้จองคือ 'บันทึกการแก้ไข' (ขยาย BR-mrr-017 @v1 ทับ ยังเป็น draft)",
       "hash_at_import": "sha256:58f5b8bbb7dac33250144e9fcc40314abf69c25d475459bea56ee43e150d8419"
+    },
+    {
+      "id": "SRC-032",
+      "kind": "chat",
+      "captured_at": "2026-11-19T12:00+07:00",
+      "captured_by": "/req:capture mrr (QA request: tie ranking)",
+      "content": "เมื่อห้องตั้งแต่สองห้องขึ้นไปมีอัตราการใช้งาน (utilization_pct ตาม CALC-mrr-001@v1 ของ BR-mrr-006@v1) เท่ากัน จะจัดอันดับอย่างไร — อันดับเท่ากัน / เรียงตามชื่อห้อง / อื่น ๆ\nที่มา: หมายเหตุของ GD-mrr-001 \"ยังไม่ครอบคลุมการจัดอันดับเมื่ออัตราเท่ากัน (ยังไม่มีกฎ)\"\nผู้ตอบที่เสนอ: PO · ผู้ขอ: QA (T2 รอบ 4, docs/qa/t2-coverage-report.md ข้อ 21)",
+      "hash_at_import": "sha256:04bfc82285fb95c77f52e83f989640dd7615418bd9e6e49a79f1354ee390f3f4"
     }
   ],
   "glossary": [
@@ -5114,6 +5122,12 @@
       "state": "answered",
       "answer": "200 คน",
       "answered_at": "2026-10-16T11:40+07:00"
+    },
+    {
+      "id": "Q-mrr-005",
+      "question": "BR-mrr-006@v1 ใช้อัตราการใช้งานจัดอันดับห้อง — เมื่อห้องตั้งแต่สองห้องขึ้นไปมีอัตราเท่ากัน (หลังปัดตาม CALC-mrr-001@v1 เหลือทศนิยม 2 ตำแหน่ง) จะจัดอันดับอย่างไร: อันดับเท่ากัน / เรียงตามชื่อห้อง / อื่น ๆ",
+      "raised_by": "SRC-032",
+      "state": "open"
     }
   ],
   "deferred_questions": [
@@ -5314,9 +5328,9 @@
     "rules_total": 28,
     "rules_with_example": 28,
     "rules_with_green_test": 0,
-    "open_questions": 0,
+    "open_questions": 1,
     "open_deferred": 10,
     "rule_coverage": 1,
-    "ready_for_next_step": true
+    "ready_for_next_step": false
   }
 }
