@@ -296,15 +296,7 @@
         "Button",
         "Table",
         "TextField"
-      ],
-      "deliveredPages": {
-        "default": "sha256:a02f40fee78f479c23d4ed2d7ab08de9f2b5c0377278c1ed77d30d6ec69030da",
-        "empty": "sha256:4991b05107dfe0ed3ae5f21a437e6a42e9c2f973ba28253ea27a41f163da646f",
-        "error": "sha256:f7b3b1ff364fa7875b440a0f598ddc64f1bf2453c3bc4ea3ac54eb0987ba0b6f",
-        "loading": "sha256:55e09543c83f46c67abe59489b1e3d397481e8a6dddc4c54ee98f5dd26bb6599",
-        "overflow": "sha256:f057104c1dcc36599e99f09f244d8ddbe1b424ef06677b80c464df74c267fe2d",
-        "unauthorized": "sha256:2327931d396167ad10a6c5d02965908d5fbca85b1796205ec4ab072889805380"
-      }
+      ]
     },
     {
       "id": "MCK-mrr-015",
