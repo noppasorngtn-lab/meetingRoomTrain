@@ -5,12 +5,12 @@ description: ห้อง R50 แสดง '0.45%' อันดับ 50 อย�
 resource: ../rules/BR-mrr-006@v2.md
 tags: [mrr, example, boundary]
 id: EX-mrr-128
-status: draft
+status: validated
 kind: boundary
 proves: [BR-mrr-006@v2]
 has_ui: true
 timestamp: 2026-11-18T12:30:00+07:00
-spec_hash: sha256:19b416959e30806a778503574c378a86ae96593c08a90e7ade096c5712bfc38b
+spec_hash: sha256:8a42a5e964e5bbb434901319ff3bb22563cb1348cd7fc09eb1f432d7acd388ba
 ---
 
 # EX-mrr-128
