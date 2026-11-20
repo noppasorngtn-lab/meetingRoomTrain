@@ -1,6 +1,6 @@
 # รายงาน T2 — Coverage & Gap Review (ทั้งระบบ)
 
-วันที่: 2026-11-19 (รอบ 4 · ตัวเลขทั้งฉบับเป็นปัจจุบัน ณ วันนี้ · ประวัติของแต่ละรอบอยู่ในข้อ 4b–4d) · ขอบเขต: เทสทั้งหมดใน repo เทียบกับ AC/BR/EX/NFR · ใช้ template T2 ของ [qa-playbook.md](qa-playbook.md)
+วันที่: 2026-11-20 (รอบ 4 · ตัวเลขทั้งฉบับเป็นปัจจุบัน ณ วันนี้ · ประวัติของแต่ละรอบอยู่ในข้อ 4b–4d) · ขอบเขต: เทสทั้งหมดใน repo เทียบกับ AC/BR/EX/NFR · ใช้ template T2 ของ [qa-playbook.md](qa-playbook.md)
 
 ตารางตัวเลขทั้งหมดสร้างโดยสคริปต์ [t2-coverage.py](t2-coverage.py) ลงใน [t2-coverage-tables.md](t2-coverage-tables.md)
 (รันซ้ำ: `python docs/qa/t2-coverage.py --write` · เติมผล jest: `--jest <ไฟล์ json จาก npx jest --json>`)
