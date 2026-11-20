@@ -9,7 +9,7 @@
 > **สถานะรอบ 1: QA review เสร็จสมบูรณ์ (completed) · ผู้ review: QA_Noppasorn · 2026-11-18 · ขอบเขต: ทุกเคส (CSV 101 เคส + §B3 ออกจากระบบ + §B4 อุปกรณ์เสริม)** — Tag ในคอลัมน์ยังเป็น AI-generated เพราะบอกที่มาของเคส ไม่ใช่สถานะ review · เขียนสคริปต์ Playwright ครบและรันกับระบบจริงแล้ว (เฉพาะเคสรอบ 1 · ข้อ 0) · ผลรันผ่านไม่ใช่การ review เคส · §B3/B4 เป็นเคส [Recommended] นอก BR (B3 PO รับแล้ว: OQ-T1-10)
 >
 > **review ซ้ำ TC-RMM-UI013-108/109 (EX-031/032): เสร็จแล้ว 2026-11-18** (QA แจ้ง) — Expected ถูกแก้ให้ตรง wiki v2 หลังรอบ review ที่ปิดไป (REQ-mrr-003 ซิงก์เป็น v2 แล้ว 2026-11-18 · commit e01d23c · คำขอ: [req-request-sync-req003-ex031-032-2026-11-18.md](req-request-sync-req003-ex031-032-2026-11-18.md)) · ผลการ review (ผ่าน/แก้) ไม่ได้ระบุมา — ไม่บันทึกเป็นผลลัพธ์
-> **รอบ 4 (EX-125–127, CHG-mrr-004 · BR-mrr-006@v2 อันดับเท่ากัน 1,1,3): เคสใหม่ 4 เคส (111–114) · ยังไม่ผ่าน QA review · เขียนสคริปต์แล้วทั้ง 4 (`t1-reports.spec.ts` + fixture ใน `support/report-fixture.ts`, ห้อง E2E Rpt F/G/H ใน `support/accounts.ts`) **รันกับระบบจริงแล้ว 2026-11-19 (Chromium · Docker stack mrr): ผ่าน 3/3 · ทั้งไฟล์ t1-reports.spec.ts 12/12** — พิสูจน์ว่า assertion จับผิดได้: ตั้งให้ห้อง D คาดหวังอันดับ 2 แล้วล้ม (Received 3) · ยังไม่ผ่าน QA review · ผูก EX-125–127 ใน e2e-ex-map.json แล้ว · ค่าที่ใช้ใน EX รันจาก CALC-mrr-001@v1.mjs แล้ว**
+> **รอบ 4 (EX-125–127, CHG-mrr-004 · BR-mrr-006@v2 อันดับเท่ากัน 1,1,3): เคสใหม่ 4 เคส (111–114) · **QA review เสร็จ (completed) โดย QA_Noppasorn 2026-11-20 ดู §B7** · เขียนสคริปต์แล้วทั้ง 4 (`t1-reports.spec.ts` + fixture ใน `support/report-fixture.ts`, ห้อง E2E Rpt F/G/H ใน `support/accounts.ts`) **รันกับระบบจริงแล้ว 2026-11-19 (Chromium · Docker stack mrr): ผ่าน 3/3 · ทั้งไฟล์ t1-reports.spec.ts 12/12** — พิสูจน์ว่า assertion จับผิดได้: ตั้งให้ห้อง D คาดหวังอันดับ 2 แล้วล้ม (Received 3) · ยังไม่ผ่าน QA review · ผูก EX-125–127 ใน e2e-ex-map.json แล้ว · ค่าที่ใช้ใน EX รันจาก CALC-mrr-001@v1.mjs แล้ว**
 >
 ## 0. สรุป
 
@@ -325,7 +325,7 @@
 
 ### B7. Review เคสรอบ 4 (TC-RPT-RPT001-111–114 · EX-mrr-125–128)
 
-**สถานะ: AI pre-review เสร็จ 2026-11-20 · ยังไม่ completed — รอผู้ review ที่เป็นคนยืนยันและลงชื่อ** (รอบ 1 ลงชื่อ QA_Noppasorn; ผมไม่ลงชื่อแทน) · ผลล่าสุดของการ review ไม่ใช่ผลรัน
+**สถานะ: QA review เสร็จสมบูรณ์ (completed) · ผู้ review: QA_Noppasorn · 2026-11-20 · ขอบเขต: TC-RPT-RPT001-111–114 (EX-mrr-125–128)** — AI pre-review ทำก่อน (ตาราง R1–R9) แล้วเจ้าของงานอ่านและสั่งลงชื่อในเซสชัน QA · ข้อ R9 (เคสเดิม 107–110) ไม่อยู่ในขอบเขตและยังเปิดอยู่ · ผลรันไม่ใช่การ review
 
 | # | สิ่งที่ตรวจ | ผล | สถานะ |
 |---|---|---|---|
