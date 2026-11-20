@@ -225,7 +225,7 @@ test.describe('อีเมลล่ม (หยุด mailpit จริง)', ()
     });
   });
 
-  test('[real] TC-BKG-UI006-027 (real) ส่งอีเมลไม่สำเร็จตอนจอง → ไม่สร้างการจอง ช่วงเวลายังว่าง (EX-mrr-062 · BR-mrr-019)', async () => {
+  test('[real] TC-BKG-UI006-109 ส่งอีเมลไม่สำเร็จตอนจอง → ไม่สร้างการจอง ช่วงเวลายังว่าง (EX-mrr-062 · BR-mrr-019)', async () => {
     const slot = nearSlot();
     const t = token();
     await mailDown();

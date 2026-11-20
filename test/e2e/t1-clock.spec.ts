@@ -194,7 +194,7 @@ test.describe('แจ้งเตือนทาง Email', () => {
     expect(addressesOf(reminder!)).toEqual([world.users.u1.email, world.users.u2.email].sort());
   });
 
-  test('[real] ส่วนที่ TC-BKG-UI006-026 ยังไม่คลุม: จองสำเร็จ → Email ถึงผู้จองคนเดียว ผู้เข้าร่วมไม่ได้รับ (EX-mrr-019 · BR-mrr-007)', async () => {
+  test('[real] TC-BKG-UI006-108 จองสำเร็จ → Email ถึงผู้จองคนเดียว ผู้เข้าร่วมไม่ได้รับ (EX-mrr-019 · BR-mrr-007)', async () => {
     const t = title('จองสำเร็จถึงผู้จองเท่านั้น');
     await book(clients.u1, 'open', nearSlot(), t, [world.users.u2.id, world.users.u3.id]);
     const m = await waitMail((x) => x.Subject.startsWith(`[จองห้องประชุม] จองสำเร็จ: ${t}`));
@@ -362,7 +362,7 @@ test.describe('อายุรหัสเข้าสู่ระบบ', () =>
     return /(\d{6})/.exec((await (await fetch(`http://localhost:8025/api/v1/message/${m!.ID}`)).json()).Text as string)![1];
   }
 
-  test('[real] TC-AUTH-UI002-101 กรอกรหัสก่อนหมดอายุ 1 วินาที → เข้าสู่ระบบได้ (EX-mrr-100 · BR-mrr-027)', async () => {
+  test('[real] TC-AUTH-UI002-107 กรอกรหัสก่อนหมดอายุ 1 วินาที → เข้าสู่ระบบได้ (EX-mrr-100 · BR-mrr-027)', async () => {
     expect((await ask()).status()).toBeLessThan(300);
     const code = await codeFromMail();
     await setClock(at(expiryOfLatest(), -1000));

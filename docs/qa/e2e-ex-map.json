@@ -74,7 +74,7 @@
       "note": "SA แก้ความจุห้อง (ยิงตรง) → ปฏิเสธ ความจุเดิม · real"
     },
     "EX-mrr-019": {
-      "cases": "TC-BKG-UI006-026 + t1-clock",
+      "cases": "TC-BKG-UI006-026, TC-BKG-UI006-108",
       "note": "booker alone gets the booking mail; attendees get none (extension), real"
     },
     "EX-mrr-020": {
@@ -214,7 +214,7 @@
       "note": "RA approves after start but before the job: job leaves it approved, real"
     },
     "EX-mrr-054": {
-      "cases": "TC-AUD-UI010-102",
+      "cases": "TC-AUD-UI010-113",
       "note": "approve writes one APPROVE entry (API + shown on UI-mrr-010), real"
     },
     "EX-mrr-055": {
@@ -246,7 +246,7 @@
       "note": "another general user reads trail via API -> 403 + message, real"
     },
     "EX-mrr-062": {
-      "cases": "TC-BKG-UI006-027, TC-BKG-UI006-027 (real)",
+      "cases": "TC-BKG-UI006-027, TC-BKG-UI006-109",
       "note": "stub in the browser + real: mailpit stopped -> 503, no booking, slot free, real"
     },
     "EX-mrr-063": {
@@ -398,7 +398,7 @@
       "note": "บัญชี HR ที่ไม่ active ขอรหัส → ข้อความเหมือนปกติ แต่ไม่ส่ง Email · real"
     },
     "EX-mrr-100": {
-      "cases": "TC-AUTH-UI002-101",
+      "cases": "TC-AUTH-UI002-101, TC-AUTH-UI002-107",
       "note": "code accepted 1 s before expiry (clock moved), real"
     },
     "EX-mrr-101": {

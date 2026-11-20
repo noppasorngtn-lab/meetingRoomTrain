@@ -175,7 +175,7 @@ test.describe('ร่องรอยการกระทำ (BR-mrr-017 · BR-m
     expect(Number.isNaN(Date.parse(body[0].at))).toBe(false);
   });
 
-  test('[real] TC-AUD-UI010-102 รายการอนุมัติของ RA แสดงบนหน้า UI-mrr-010 (EX-mrr-054 · BR-mrr-017 · ส่วนหน้าจอ; "ยกเลิกแทน" ของ EX-055 ต้องรอ OQ-T1-01)', async ({ browser }) => {
+  test('[real] TC-AUD-UI010-113 รายการอนุมัติของ RA แสดงบนหน้า UI-mrr-010 (EX-mrr-054 · BR-mrr-017 · ส่วนหน้าจอ; "ยกเลิกแทน" ของ EX-055 ต้องรอ OQ-T1-01)', async ({ browser }) => {
     const b = await book(clients.u1, 'appr', nearSlot(), title('ร่องรอยบนหน้าจอ'));
     expect((await clients.ra1.post(`/bookings/${b.id}/approve`)).status()).toBeLessThan(300);
     const ctx = await browser.newContext({ storageState: stateOf('ra1'), baseURL: 'http://localhost:4173', locale: 'th-TH', timezoneId: 'Asia/Bangkok' });
