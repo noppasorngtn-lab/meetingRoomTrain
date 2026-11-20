@@ -2,13 +2,14 @@ import { execFileSync } from 'node:child_process';
 import { expect, test, type APIRequestContext } from '@playwright/test';
 import { resetClock, runJobs, setClock } from './support/clock';
 import { ensureMailUp } from './support/mail';
+import { deliveredByFixture, rejectedByFixture, startPartialRejectMail, stopPartialRejectMail } from './support/partial-reject-mail';
 import { as, book, nearSlot, stateOf, world } from './support/world';
 
 /**
  * T1 รอบ 2 (CHG-mrr-003 · EX-mrr-111–122) — BR-mrr-007@v2 · 017@v2 · 019 · 020@v2.
  * ทุกเคส [real]. ข้อความ/หัวเรื่อง/ค่าช่อง "การกระทำ" ตรวจตามถ้อยคำของ EX ตรง ๆ (แหล่งความจริง) ไม่ใช่ตามโค้ดปัจจุบัน:
  * ถ้าโค้ดยังเป็นถ้อยคำของ v1 เคสจะล้ม และนั่นคือผลที่ต้องรายงาน (ไม่ปรับ assertion ให้ผ่าน).
- * EX-mrr-112 (ผู้รับล้มเฉพาะ U3) ยังไม่มี fixture → test.fixme (OQ-T1-15).
+ * EX-mrr-112 (ผู้รับล้มเฉพาะ U3) ใช้ SMTP fixture support/partial-reject-mail.ts (OQ-T1-15).
  * หัวข้อการจองขึ้นต้น E2E และมี token ต่อเคส; แถวที่มีร่องรอยลบไม่ได้ (trigger BR-mrr-018) จึงค้างในห้อง E2E.
  */
 const RUN = Date.now().toString(36);
@@ -73,10 +74,25 @@ test('[real] TC-NTF-JOB-109 งานเตือนส่งสำเร็จ 
   expect(reminderOf(b.id)).toBe('SENT'); // OQ-T1-14: "บันทึก" = คอลัมน์ bookings.reminder_status
 });
 
-test.fixme('[real] TC-NTF-JOB-110 ผู้รับ U3 ส่งไม่สำเร็จ → บันทึก "ส่งไม่สำเร็จ" ทั้งการจอง งาน 09:50 ไม่ส่งซ้ำ (EX-mrr-112 · BR-mrr-020@v2) — รอ fixture OQ-T1-15', async () => {
-  // ต้องทำให้ SMTP ปฏิเสธเฉพาะผู้รับ U3 (mailpit ที่ใช้อยู่ล้มทั้งตัวเท่านั้น → ซ้ำกับ TC-NTF-JOB-104).
-  // เมื่อมี fixture: ตั้งนาฬิกา -15 นาที · runJobs · expect(reminderOf(id)).toBe('FAILED') · expect(status).toBe('CONFIRMED')
-  //                 แล้ว setClock -10 นาที · runJobs · ไม่มีอีเมลเตือนเพิ่มให้ใคร · ยังเป็น 'FAILED'.
+test('[real] TC-NTF-JOB-110 ผู้รับ U3 ส่งไม่สำเร็จ → บันทึก "ส่งไม่สำเร็จ" ทั้งการจอง งาน 09:50 ไม่ส่งซ้ำ (EX-mrr-112 · BR-mrr-020@v2) — fixture OQ-T1-15', async () => {
+  const t = token();
+  const slot = nearSlot();
+  const b = await book(clients.u1, 'open', slot, title('ประชุมทีม', t), both);
+  try {
+    startPartialRejectMail(world.users.u3.email); // SMTP ที่ปฏิเสธเฉพาะ U3 แทน mailpit
+    await setClock(at(startOf(slot), -15 * 60_000));
+    await runJobs(t);
+    expect(rejectedByFixture()).toEqual([world.users.u3.email]); // ล้มเพราะ U3 ถูกปฏิเสธจริง ไม่ใช่เพราะต่อ SMTP ไม่ติด
+    expect(reminderOf(b.id)).toBe('FAILED'); // EX-112: ผู้รับบางคนล้ม = ล้มทั้งการจอง
+    expect(await statusOf(b.id)).toBe('CONFIRMED');
+    const sentAfterFirst = deliveredByFixture().length;
+    await setClock(at(startOf(slot), -10 * 60_000));
+    await runJobs(t);
+    expect(deliveredByFixture()).toHaveLength(sentAfterFirst); // งาน 09:50 ไม่ส่งซ้ำให้ใคร
+    expect(reminderOf(b.id)).toBe('FAILED');
+  } finally {
+    stopPartialRejectMail();
+  }
 });
 
 // ------------------------------------------------------------------ BR-mrr-019 / BR-mrr-007@v2 Email ตามเหตุการณ์
