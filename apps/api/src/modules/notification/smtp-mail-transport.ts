@@ -38,6 +38,12 @@ export class SmtpMailTransport implements MailTransport {
   }
 
   async send(message: MailMessage): Promise<void> {
-    await this.transporter.sendMail({ from: this.config.from, ...message });
+    const info = await this.transporter.sendMail({ from: this.config.from, ...message });
+    // nodemailer resolves as long as at least one recipient was accepted; a partly refused message is
+    // "not sent" for the whole booking (BR-mrr-020@v2 · EX-mrr-112), so refusal of any recipient rejects.
+    const rejected = (info?.rejected ?? []).map((r: string | { address: string }) => (typeof r === 'string' ? r : r.address));
+    if (rejected.length > 0) {
+      throw new Error(`SMTP refused ${rejected.length} recipient(s): ${rejected.join(', ')}`);
+    }
   }
 }
