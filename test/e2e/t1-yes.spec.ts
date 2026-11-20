@@ -99,11 +99,18 @@ test.describe('General User — การจองของฉัน / ห้อ
   async function createBooking(page: Page, title: string) {
     const users = await (await page.request.get('/users?query=admin')).json();
     expect(users.length, 'dev ต้องมีผู้ใช้อย่างน้อยหนึ่งคนให้เลือกเป็นผู้เข้าร่วม').toBeGreaterThan(0);
-    const s = nearSlot();
-    const res = await page.request.post('/bookings', {
-      data: { roomId: open.id, startAt: s.startAt, endAt: s.endAt, title, attendeeIds: [users[0].id], equipmentIds: [] },
-    });
-    expect(res.status()).toBe(201);
+    // A random slot can land on one an earlier run or another case already holds: on "room not free" (409) take a new
+    // slot and try again, as `book()` in support/world.ts does. Any other answer fails the test with the response body.
+    let res;
+    for (let attempt = 1; ; attempt++) {
+      const s = nearSlot();
+      res = await page.request.post('/bookings', {
+        data: { roomId: open.id, startAt: s.startAt, endAt: s.endAt, title, attendeeIds: [users[0].id], equipmentIds: [] },
+      });
+      if (res.status() === 409 && attempt < 10 && (await res.text()).includes('ไม่ว่าง')) continue;
+      break;
+    }
+    expect(res.status(), await res.text()).toBe(201);
     const body = await res.json();
     expect(body.id).toBeTruthy();
     return { id: body.id as string };
