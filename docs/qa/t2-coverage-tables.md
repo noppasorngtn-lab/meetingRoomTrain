@@ -74,7 +74,7 @@ EX with no AC (expected only for superseded rules, e.g. BR-mrr-010@v1): none
 | EX-mrr-016 | happy | TC-RMM-UI012-101 | RA ตั้งห้องเป็นปิดปรับปรุง → การจองที่มีอยู่คงเดิม · real |
 | EX-mrr-017 | exception | TC-RMM-UI013-102 | General User POST /rooms/:id/versions -> 403, capacity unchanged, real |
 | EX-mrr-018 | exception | TC-RMM-UI013-103 | SA แก้ความจุห้อง (ยิงตรง) → ปฏิเสธ ความจุเดิม · real |
-| EX-mrr-019 | happy | TC-BKG-UI006-026, TC-BKG-UI006-108 | booker alone gets the booking mail; attendees get none (extension), real |
+| EX-mrr-019 | happy | TC-BKG-UI006-026, TC-BKG-UI006-108 | booker alone gets the booking mail; attendees get none (extension), real · negative check 2026-11-20: expecting u1+u2 as recipients fails with Received only tester@mrr.local (TC-BKG-UI006-108) |
 | EX-mrr-020 | happy | TC-NTF-JOB-101 | reminder job at 15 min before: booker + attendees mailed (jobs run on demand), real |
 | EX-mrr-021 | happy | TC-NTF-UI008-101 | time change mails booker + attendees, real |
 | EX-mrr-022 | alternate | TC-NTF-UI008-102 | title-only edit, mailpit stays empty, real |
@@ -109,7 +109,7 @@ EX with no AC (expected only for superseded rules, e.g. BR-mrr-010@v1): none
 | EX-mrr-051 | happy | TC-APR-JOB-102 | at start: auto-cancelled, slot released, booker mailed, real |
 | EX-mrr-052 | exception | TC-APR-JOB-103 | mail really down: stays pending; next pass cancels, real |
 | EX-mrr-053 | alternate | TC-APR-UI009-106 | RA approves after start but before the job: job leaves it approved, real |
-| EX-mrr-054 | happy | TC-AUD-UI010-113 | approve writes one APPROVE entry (API + shown on UI-mrr-010), real |
+| EX-mrr-054 | happy | TC-AUD-UI010-113 | approve writes one APPROVE entry (API + shown on UI-mrr-010), real · negative check 2026-11-20: expecting action text ปฏิเสธ fails with Received อนุมัติ (TC-AUD-UI010-113) |
 | EX-mrr-055 | happy | TC-AUD-UI010-102 | cancel on behalf writes one CANCEL_ON_BEHALF entry (clock moved), real |
 | EX-mrr-056 | exception | TC-AUD-UI010-103 | ผู้จองยกเลิกของตัวเอง → ไม่มีรายการร่องรอยใหม่ · real |
 | EX-mrr-057 | exception | TC-AUD-UI010-104 | RA ยกเลิกแทนโดยไม่ใส่เหตุผล → ล้มเหลว ไม่มีร่องรอยใหม่ · real |
@@ -117,7 +117,7 @@ EX with no AC (expected only for superseded rules, e.g. BR-mrr-010@v1): none
 | EX-mrr-059 | happy | TC-AUD-UI010-106 | SA reads the trail; uses an APPROVE entry, real |
 | EX-mrr-060 | exception | TC-AUD-UI010-107 | booker reads trail via API -> 403 + message, real |
 | EX-mrr-061 | exception | TC-AUD-UI010-108 | another general user reads trail via API -> 403 + message, real |
-| EX-mrr-062 | exception | TC-BKG-UI006-027, TC-BKG-UI006-109 | stub in the browser + real: mailpit stopped -> 503, no booking, slot free, real |
+| EX-mrr-062 | exception | TC-BKG-UI006-027, TC-BKG-UI006-109 | stub in the browser + real: mailpit stopped -> 503, no booking, slot free, real · negative check 2026-11-20: expecting 201 fails with Received 503 (TC-BKG-UI006-109) |
 | EX-mrr-063 | exception | TC-NTF-UI008-103 | mail down: time change fails, time unchanged, real |
 | EX-mrr-064 | exception | TC-NTF-UI009-101 | mail down: approve fails, stays pending, real |
 | EX-mrr-065 | alternate | TC-NTF-UI008-104 | mail down: title-only edit still saves, real |
@@ -155,7 +155,7 @@ EX with no AC (expected only for superseded rules, e.g. BR-mrr-010@v1): none
 | EX-mrr-097 | happy | TC-AUTH-UI001-107 | re-request after code used -> new mail, new code, real |
 | EX-mrr-098 | exception | TC-AUTH-UI001-108 | email not on HR list: same message, no mail, real |
 | EX-mrr-099 | boundary | TC-AUTH-UI001-109 | บัญชี HR ที่ไม่ active ขอรหัส → ข้อความเหมือนปกติ แต่ไม่ส่ง Email · real |
-| EX-mrr-100 | happy | TC-AUTH-UI002-101, TC-AUTH-UI002-107 | code accepted 1 s before expiry (clock moved), real |
+| EX-mrr-100 | happy | TC-AUTH-UI002-101, TC-AUTH-UI002-107 | code accepted 1 s before expiry (clock moved), real · negative check 2026-11-20: expecting /auth/me 401 fails with Received 200 (TC-AUTH-UI002-107) |
 | EX-mrr-101 | boundary | TC-AUTH-UI002-102 | code refused at the exact expiry, no session (clock moved), real |
 | EX-mrr-102 | exception | TC-AUTH-UI002-103 | used code on second device refused, real |
 | EX-mrr-103 | exception | TC-AUTH-UI002-104 | magic link after code used refused, real |

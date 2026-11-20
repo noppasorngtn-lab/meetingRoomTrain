@@ -75,7 +75,7 @@
     },
     "EX-mrr-019": {
       "cases": "TC-BKG-UI006-026, TC-BKG-UI006-108",
-      "note": "booker alone gets the booking mail; attendees get none (extension), real"
+      "note": "booker alone gets the booking mail; attendees get none (extension), real · negative check 2026-11-20: expecting u1+u2 as recipients fails with Received only tester@mrr.local (TC-BKG-UI006-108)"
     },
     "EX-mrr-020": {
       "cases": "TC-NTF-JOB-101",
@@ -215,7 +215,7 @@
     },
     "EX-mrr-054": {
       "cases": "TC-AUD-UI010-113",
-      "note": "approve writes one APPROVE entry (API + shown on UI-mrr-010), real"
+      "note": "approve writes one APPROVE entry (API + shown on UI-mrr-010), real · negative check 2026-11-20: expecting action text ปฏิเสธ fails with Received อนุมัติ (TC-AUD-UI010-113)"
     },
     "EX-mrr-055": {
       "cases": "TC-AUD-UI010-102",
@@ -247,7 +247,7 @@
     },
     "EX-mrr-062": {
       "cases": "TC-BKG-UI006-027, TC-BKG-UI006-109",
-      "note": "stub in the browser + real: mailpit stopped -> 503, no booking, slot free, real"
+      "note": "stub in the browser + real: mailpit stopped -> 503, no booking, slot free, real · negative check 2026-11-20: expecting 201 fails with Received 503 (TC-BKG-UI006-109)"
     },
     "EX-mrr-063": {
       "cases": "TC-NTF-UI008-103",
@@ -399,7 +399,7 @@
     },
     "EX-mrr-100": {
       "cases": "TC-AUTH-UI002-101, TC-AUTH-UI002-107",
-      "note": "code accepted 1 s before expiry (clock moved), real"
+      "note": "code accepted 1 s before expiry (clock moved), real · negative check 2026-11-20: expecting /auth/me 401 fails with Received 200 (TC-AUTH-UI002-107)"
     },
     "EX-mrr-101": {
       "cases": "TC-AUTH-UI002-102",
