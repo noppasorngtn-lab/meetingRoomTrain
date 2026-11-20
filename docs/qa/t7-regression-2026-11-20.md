@@ -108,3 +108,11 @@
 ## Next Actions
 1. ~~รันชุด Core + changed-area~~ ทำแล้ว (ดูผลรัน) · QA ตรวจรายการคัดเคสและผลรัน
 2. ถ้า Dev แก้ DEF-05 → รัน T7 ใหม่ด้วย run type Extended (ผ่าน `SmtpMailTransport` กระทบทุกเมล INT-001)
+
+## ภาคผนวก — ตรวจ build `2a64d70` (2026-11-20 · หลังรัน T1–T5)
+
+เทียบ `73550c7` → `2a64d70` ด้วย `git diff --name-only`: จำนวนไฟล์ที่เปลี่ยนใน `apps/` · `docker/` · `.aeon/` · `docs/wiki` · `docs/requirements` · `test/e2e` · `test/fixtures` · `test/playwright.config.ts` = **0 ทุกที่** · ที่เปลี่ยนคือ `docs/qa/*` (เอกสาร QA, `t1-generate.py`, CSV/MD ของ T1) และ `test/results.json` (ผลรัน)
+
+- ไม่มีการเปลี่ยนโค้ดระบบ ค่าตั้งห้อง สูตรรายงาน (ไม่มี GD ใหม่) migration หรือสคริปต์เทส → ไม่มี BR/function ที่ได้รับผลกระทบเพิ่ม · **selection ข้างต้น (Core + changed-area) ยังใช้ได้ตามเดิม**
+- ผลรัน Playwright chromium ทั้งชุดบน build เดียวกันนี้ (T3 [2026-11-20](t3-results-2026-11-20.md), `16c3eb6`): 173 ผ่าน · 1 ล้ม (TC-NTF-JOB-110 / DEF-05) · 1 ข้าม — ครอบเคส Core ทั้งหมดแล้ว จึงไม่รันชุดเลือกซ้ำ [Recommended]
+- ความเสี่ยงที่ยังเหลือเหมือนเดิม: TC-MYB-UI007-103 (flaky · ข้อมูลสะสมของ U1) ผ่านในรันนี้แต่ต้นเหตุยังไม่แก้ · เมื่อ Dev แก้ DEF-05 จะกระทบทุกอย่างที่ใช้ `SmtpMailTransport` ต้องทำ T7 ใหม่ตอนนั้น
