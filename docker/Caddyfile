@@ -1,0 +1,9 @@
+{
+	# no :80 listener and no automatic redirect: a plain-HTTP request to :4443 must get no application content
+	auto_https disable_redirects
+}
+
+https://localhost:4443 {
+	tls internal
+	reverse_proxy web:4173
+}

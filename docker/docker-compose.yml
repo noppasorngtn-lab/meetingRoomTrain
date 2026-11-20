@@ -75,5 +75,19 @@ services:
       timeout: 3s
       retries: 12
 
+  # Dev TLS front (NFR-mrr-003): https://localhost:4443 -> web. Caddy makes its own throw-away local CA and certificate
+  # (`tls internal`), so no key or certificate is ever committed. Plain :4173 and :3000 stay HTTP for the E2E suite.
+  tls-proxy:
+    image: caddy:2.8.4-alpine
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+    ports:
+      - "4443:4443"
+    depends_on:
+      web:
+        condition: service_healthy
+
 volumes:
   db-data:
+  caddy-data:
