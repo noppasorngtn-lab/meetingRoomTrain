@@ -190,6 +190,6 @@ EX with no AC (expected only for superseded rules, e.g. BR-mrr-010@v1): none
 |---|---|---|
 | NFR-mrr-001 | เข้าสู่ระบบด้วย Email ขององค์กรอย่างเดียว — ไม่เชื่อม Active Directory (SSO) ในรอบนี้ (SRC-010) | **none** |
 | NFR-mrr-002 | รองรับผู้ใช้งานพร้อมกัน 200 คน และหน้าจอตารางห้องประชุมโหลดเสร็จภายใน 2 วินาที (เอกสารเขียน "อย่างน้อย 100-200 คน" — เจ้าของเลือก 200 ดู Q-mrr-004) | **none** |
-| NFR-mrr-003 | เข้ารหัสข้อมูลการใช้งานผ่าน HTTPS และจำกัดสิทธิ์การเข้าถึงตามระดับผู้ใช้งาน (Role-Based Access Control) | **none** |
+| NFR-mrr-003 | เข้ารหัสข้อมูลการใช้งานผ่าน HTTPS และจำกัดสิทธิ์การเข้าถึงตามระดับผู้ใช้งาน (Role-Based Access Control) | t1-nfr-https.spec.ts |
 | NFR-mrr-004 | เปิดให้บริการตลอด 24 ชั่วโมง (Uptime 99.9%) | **none** |
 | NFR-mrr-005 | รองรับ Chrome, Safari, Edge, Firefox และแสดงผลได้ดีบนอุปกรณ์เคลื่อนที่ (Responsive Design) | nfr-005-browsers.spec.ts |
