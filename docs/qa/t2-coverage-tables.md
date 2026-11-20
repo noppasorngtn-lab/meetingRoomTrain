@@ -11,11 +11,11 @@ AC in design: **131** · EX in wiki: **128**
 | e2e | 19 |
 | web + e2e | 3 |
 | api + web | 3 |
-| **none** | 1 |
+| api | 1 |
 
-ACs with no test citing them: AC-mrr-115
+ACs with no test citing them: none
 
-ACs with no API-layer test citing them: AC-mrr-086 (web+e2e), AC-mrr-087 (web+e2e), AC-mrr-088 (web+e2e), AC-mrr-104 (e2e), AC-mrr-105 (e2e), AC-mrr-114 (e2e), AC-mrr-115 (), AC-mrr-116 (e2e), AC-mrr-117 (e2e), AC-mrr-118 (e2e), AC-mrr-119 (e2e), AC-mrr-120 (e2e), AC-mrr-121 (e2e), AC-mrr-122 (e2e), AC-mrr-123 (e2e), AC-mrr-124 (e2e), AC-mrr-125 (e2e), AC-mrr-126 (e2e), AC-mrr-127 (e2e), AC-mrr-128 (e2e), AC-mrr-129 (e2e), AC-mrr-130 (e2e), AC-mrr-131 (e2e)
+ACs with no API-layer test citing them: AC-mrr-086 (web+e2e), AC-mrr-087 (web+e2e), AC-mrr-088 (web+e2e), AC-mrr-104 (e2e), AC-mrr-105 (e2e), AC-mrr-114 (e2e), AC-mrr-116 (e2e), AC-mrr-117 (e2e), AC-mrr-118 (e2e), AC-mrr-119 (e2e), AC-mrr-120 (e2e), AC-mrr-121 (e2e), AC-mrr-122 (e2e), AC-mrr-123 (e2e), AC-mrr-124 (e2e), AC-mrr-125 (e2e), AC-mrr-126 (e2e), AC-mrr-127 (e2e), AC-mrr-128 (e2e), AC-mrr-129 (e2e), AC-mrr-130 (e2e), AC-mrr-131 (e2e)
 
 EX with no AC (expected only for superseded rules, e.g. BR-mrr-010@v1): none
 
@@ -42,7 +42,7 @@ EX with no AC (expected only for superseded rules, e.g. BR-mrr-010@v1): none
 | BR-mrr-017@v2 | 9/9 | exception, happy | — | — |
 | BR-mrr-018@v1 | 4/4 | exception, happy | — | — |
 | BR-mrr-019@v1 | 5/5 | alternate, exception, happy | — | — |
-| BR-mrr-020@v2 | 3/4 | exception, happy | boundary | AC-mrr-115 |
+| BR-mrr-020@v2 | 4/4 | boundary, exception, happy | — | — |
 | BR-mrr-021@v1 | 4/4 | exception, happy | — | — |
 | BR-mrr-022@v1 | 3/3 | exception, happy | — | — |
 | BR-mrr-023@v1 | 3/3 | boundary, exception, happy | — | — |
@@ -196,4 +196,4 @@ EX with no AC (expected only for superseded rules, e.g. BR-mrr-010@v1): none
 
 ## API jest run
 
-suites 39/39 passed · tests 478/478 passed · failed 0 · pending 0
+suites 40/40 passed · tests 482/482 passed · failed 0 · pending 0
