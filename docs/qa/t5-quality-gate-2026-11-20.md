@@ -2,7 +2,7 @@
 
 Round: ทั้งระบบ (REQ-mrr-001–005 · 28 BR · EX-001–128) · Period: 2026-11-17 ถึง 2026-11-20 · ร่างโดย AI ให้ QA ตรวจก่อนนำไปใช้ · **ตัวเลข Gate ใน playbook §3.4 และ Severity §3.3 เป็น [Recommended] รอ PO ยืนยัน · AI ไม่ตัดสิน Go/No-Go**
 
-Input: [t2-coverage-report.md](t2-coverage-report.md) (+ tables) · [t3-results-2026-11-19.md](t3-results-2026-11-19.md) · [t4-defects-2026-11-18.md](t4-defects-2026-11-18.md) · ผลรันเต็มชุดวันนี้ (Playwright chromium · jest · vitest) · การเปลี่ยนสูตรรายงาน: **Yes** (BR-mrr-006@v2 อันดับเท่ากัน 1,1,3 · GD-mrr-001 16 แถว) · ค่าตั้งห้อง: ไม่มีการเปลี่ยนในรอบนี้ [ไม่ได้ตรวจย้อนทุก commit]
+Input: [t2-coverage-report.md](t2-coverage-report.md) (+ tables) · [t3-results-2026-11-20.md](t3-results-2026-11-20.md) (+ [2026-11-19](t3-results-2026-11-19.md) เป็นรอบก่อน) · [t4-def-05-2026-11-20.md](t4-def-05-2026-11-20.md) · [t4-defects-2026-11-18.md](t4-defects-2026-11-18.md) · ผลรันเต็มชุดวันนี้ (Playwright chromium รันซ้ำและตรวจใน T3 · jest/vitest ตามตัวเลขใน T2 ไม่ได้รันใหม่ใน T3) · การเปลี่ยนสูตรรายงาน: **Yes** (BR-mrr-006@v2 อันดับเท่ากัน 1,1,3 · GD-mrr-001 16 แถว) · ค่าตั้งห้อง: ไม่มีการเปลี่ยนในรอบนี้ [ไม่ได้ตรวจย้อนทุก commit]
 
 ## A) Executive Summary
 
@@ -19,10 +19,10 @@ Input: [t2-coverage-report.md](t2-coverage-report.md) (+ tables) · [t3-results-
 | G0 Story Ready | REQ มีกฎและตัวอย่างครบ · ไม่มี red card ค้าง · test data สังเคราะห์ | BR 28/28 มี EX · EX 128 ทั้งหมด `validated` · test data สังเคราะห์ (E2E…) · **DQ-mrr 10 ข้อยังเป็น 🛑 open สถานะ "เลื่อนไป"** (DQ-002–006, 010–012, 014, 015) | **[TBD] ตัดสินไม่ได้** | `docs/wiki/questions/index.md` · ผมไม่ทราบว่า DQ ที่เลื่อนไปนับเป็น red card ของ REQ ใดหรือไม่ — TBD - Require Business Confirmation |
 | G1 Test Design | ทุก BR มีเคส ≥ 1 · ช่อง "เทสต์" ใน REQ ไม่เป็น 🔴 · review เคส 100% | BR มีเคส 28/28 (ผ่าน) · ช่อง "เทสต์" 🔴 **28 จุด** (ไม่ผ่าน) · เคสที่ยังไม่ review: เคส NFR ที่เสนอใหม่ รวม TC-NFR-REQ001-103 และ TC-NTF-JOB-110 ที่เปลี่ยนจาก fixme (ไม่ผ่านชั่วคราว) | **Fail** (เหลือ 2 ข้อ) | T2 §6 · `t2-coverage-tables.md` |
 | G2 Build Quality | unit/API ใน `apps/api/test/*` ผ่าน 100% | jest **478/478** (39 suite) · vitest 300/300 | **Pass** | รันวันนี้ · `t2-coverage-tables.md` หัวข้อ API jest run |
-| G3 Sprint Exit | (1) รันครบ 100% | 175 เคส · รัน 174 · ข้าม 1 (NFR-005 อุปกรณ์สัมผัสบนเดสก์ท็อป ข้ามโดยออกแบบ) | **ไม่ผ่านตามตัวอักษร** — ยกเว้น (Waived) ได้เฉพาะ PO | รันเต็มชุดวันนี้ |
+| G3 Sprint Exit | (1) รันครบ 100% | 175 เคส · รัน 174 · ข้าม 1 (NFR-005 อุปกรณ์สัมผัสบนเดสก์ท็อป ข้ามโดยออกแบบ) | **ไม่ผ่านตามตัวอักษร** — ยกเว้น (Waived) ได้เฉพาะ PO | `test/results.json` (`16c3eb6`) · T3 รอบสอง (รอบแรกที่รันทับกันทิ้ง) |
 | | (2) pass rate ≥ 95% | 173/174 = **99.4%** (นับ chromium [real] ที่รัน) | Pass | |
 | | (3) Critical/High เปิดอยู่ = 0 | Critical 0 · **High 1 (DEF-05)** | **Fail** | t4 DEF-05 |
-| | (4) ทุก failure ถูก triage | TC-NTF-JOB-110 → Product Bug DEF-05 (มี root cause และ repro) | Pass | t4 · finding-partial-recipient-reject |
+| | (4) ทุก failure ถูก triage | TC-NTF-JOB-110 → Product Bug DEF-05 (มี root cause และ repro) | Pass | t3-2026-11-20 · t4-def-05-2026-11-20 · finding-partial-recipient-reject |
 
 หมายเหตุ: Pass rate นับเฉพาะ chromium ไม่รวม project อื่น (firefox, webkit, edge, mobile ที่รันเฉพาะ NFR-005 รอบนี้ **ไม่ได้รัน**) · ไม่ได้แยก [stub] ออกจากตัวเลข (ยังมี [stub] เดิม 9 เคสนอก T1 ตามรายงาน T2) — [stub] ผ่านไม่พิสูจน์ว่า API จริงทำตามนั้น
 
@@ -37,7 +37,7 @@ Input: [t2-coverage-report.md](t2-coverage-report.md) (+ tables) · [t3-results-
 | Defect density | 5 ต่อ 175 เคส E2E ≈ 2.9 ต่อ 100 เคส | ตัวส่วนเป็นการเลือกของผม ไม่มีนิยามใน playbook — ใช้เทียบข้ามรอบเมื่อใช้ตัวส่วนเดียวกันเท่านั้น |
 | % เคสที่ AI สร้างแล้วใช้ได้โดยไม่แก้ | **ไม่มีข้อมูล** | ไม่เคยบันทึกจำนวนเคสที่ QA แก้ตอน review (มีเพียงกรณี TC-RPT-RPT001-107–110 ที่แก้ข้อความ) — ไม่เดา |
 
-## เปรียบเทียบกับรอบก่อน (T3 รอบ 2026-11-19)
+## เปรียบเทียบกับรอบก่อน (T3 รอบ 2026-11-19 → [2026-11-20](t3-results-2026-11-20.md))
 
 | ตัวชี้วัด | 2026-11-19 | 2026-11-20 |
 |---|---|---|
