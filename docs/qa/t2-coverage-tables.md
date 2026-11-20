@@ -193,3 +193,7 @@ EX with no AC (expected only for superseded rules, e.g. BR-mrr-010@v1): none
 | NFR-mrr-003 | เข้ารหัสข้อมูลการใช้งานผ่าน HTTPS และจำกัดสิทธิ์การเข้าถึงตามระดับผู้ใช้งาน (Role-Based Access Control) | t1-nfr-https.spec.ts |
 | NFR-mrr-004 | เปิดให้บริการตลอด 24 ชั่วโมง (Uptime 99.9%) | **none** |
 | NFR-mrr-005 | รองรับ Chrome, Safari, Edge, Firefox และแสดงผลได้ดีบนอุปกรณ์เคลื่อนที่ (Responsive Design) | nfr-005-browsers.spec.ts |
+
+## API jest run
+
+suites 39/39 passed · tests 478/478 passed · failed 0 · pending 0
