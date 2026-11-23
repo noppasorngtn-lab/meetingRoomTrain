@@ -255,7 +255,7 @@
     {
       "id": "wireframe",
       "command": "/mock:wireframe",
-      "status": "stale",
+      "status": "done",
       "requires": [
         "convention"
       ],
@@ -266,9 +266,8 @@
         "mockup-map.json",
         "trace.mockup.json"
       ],
-      "attempts": 0,
-      "updatedAt": "2026-11-23T12:10:00Z",
-      "staleBecause": "ADR-016"
+      "attempts": 1,
+      "updatedAt": "2026-11-23T09:03:45Z"
     },
     {
       "id": "theme",

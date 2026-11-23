@@ -39,7 +39,7 @@
           "required": true,
           "entity": null,
           "attribute": null,
-          "validation": "วันที่วันนี้หรืออนาคต",
+          "validation": "วันที่วันนี้หรืออนาคต · แสดงและกรอกเป็น วว/ดด/ปปปป (ปี ค.ศ.) เหมือนกันทุกเครื่อง ไม่ขึ้นกับภาษาของเครื่องผู้ใช้",
           "rules": [],
           "visibleTo": [
             "ROLE-001",
@@ -54,7 +54,7 @@
           "required": true,
           "entity": null,
           "attribute": null,
-          "validation": "รูปแบบ HH:MM",
+          "validation": "รูปแบบ HH:MM แบบ 24 ชั่วโมง เหมือนกันทุกเครื่อง ไม่ขึ้นกับภาษาของเครื่องผู้ใช้",
           "rules": [],
           "visibleTo": [
             "ROLE-001",
@@ -69,7 +69,7 @@
           "required": true,
           "entity": null,
           "attribute": null,
-          "validation": "ต้องหลังเวลาเริ่ม",
+          "validation": "ต้องหลังเวลาเริ่ม · รูปแบบ HH:MM แบบ 24 ชั่วโมง เหมือนกันทุกเครื่อง ไม่ขึ้นกับภาษาของเครื่องผู้ใช้",
           "rules": [],
           "visibleTo": [
             "ROLE-001",

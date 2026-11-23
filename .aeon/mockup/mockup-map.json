@@ -62,15 +62,7 @@
         "Button",
         "Table",
         "TextField"
-      ],
-      "deliveredPages": {
-        "default": "sha256:0ceb831e508b3978cbe1460cbb3bdc972661a6fba423e19ef96b68ef73ce3558",
-        "empty": "sha256:af5b4843a0499f823049d0717beb457e766f9e2e945ee39de2d30ea0d35a7cbb",
-        "error": "sha256:9f076d326e03054b99808919e6e6314d149de4c1b7c8f3d40ff213015dc787d3",
-        "loading": "sha256:cc69dfd742290f8fd5ad1ee58a44b5f0d3a3577d5ad3d42d9fc4292941d53b81",
-        "overflow": "sha256:3a59916e09c6980f60df8e4867dd6d598185d26e1086b9a45a423df36f44b419",
-        "unauthorized": "sha256:7e3ef6ba2274cd4af36efa61438aa588debc20d986d6cb553997db3ab5ccaf68"
-      }
+      ]
     },
     {
       "id": "MCK-mrr-004",
@@ -90,15 +82,7 @@
         "Alert",
         "Button",
         "TextField"
-      ],
-      "deliveredPages": {
-        "default": "sha256:2bb630251c2ac26c164cc706ac7645df8213cf2b66fcc4560a65d49befc955a1",
-        "empty": "sha256:ca8a7a0d4ea5d20ad704a67da7d3873ef1f086d73326e1886737c61b31c2f767",
-        "error": "sha256:e614edb1361d5f29e3403e1bafd4c52b0e6db54b0d49557c4254eb74a857b555",
-        "loading": "sha256:22d0a79d498ea04fa1ca745eb51e9c429658868bd6c83fa502f30d5eef348f2a",
-        "overflow": "sha256:3016eabcd81d89e41fbb0e9e69eedde44533af011511c37f8b4a3723a057e838",
-        "unauthorized": "sha256:357b096c438e683f155fd8676c250d493bc8f651ed1f84495821ec4c1c0f8985"
-      }
+      ]
     },
     {
       "id": "MCK-mrr-005",
@@ -118,15 +102,7 @@
         "Alert",
         "Button",
         "TextField"
-      ],
-      "deliveredPages": {
-        "default": "sha256:26cf2ee7812eaf6dbc82df9488301ba2ead7c51e46a4e0790c180e1d4a542a47",
-        "empty": "sha256:415cb2f9327b9cd4164c3a9ef86ba0e9928d61dc211f32669ec29da4aa4981ad",
-        "error": "sha256:f363004acf196602a22f589ade1980d38db68d0d2a6ea45ef410a414a08b455a",
-        "loading": "sha256:139363920bebdb7a2bd6198a5d78a200c8a373117277a070650215e607f4bcbe",
-        "overflow": "sha256:01f3849083073816ec12e4486bc0a4e314d72830b7f21387c3fd683e088812cc",
-        "unauthorized": "sha256:127e750ae41abe225b24605ad216163d1f5dbcc9077cd9a49bae8a11b7937f7f"
-      }
+      ]
     },
     {
       "id": "MCK-mrr-006",
