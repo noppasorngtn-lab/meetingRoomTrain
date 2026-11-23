@@ -4,6 +4,8 @@ Staging-like stack on Docker — **not the real staging** (its address, owner an
 Data size follows the design (`.aeon/design/nfr.json`, NFR-mrr-002 condition): 50 rooms, ~50,000 bookings over 2 years (seed: 50,400; current week 60% full). The real staging's size is [TBD]. API/DB limits (1 CPU / 512 MB each) are QA assumptions [TBD].
 The design's NFR-002/004 text conflicts with what req recorded (p95 vs every request; sustained 30 min vs one burst) - see docs/qa/req-design-request-nfr002-nfr004-conflict-2026-11-23.md. These scripts follow req.
 Measure point = API response of `GET /rooms/:id/calendar?view=week` (Dev decision 2026-11-23); browser render time is not included.
+The business measure point is the **screen** (owner answer 1a "the room table shows complete data" + design "on screen"), so case 104 at the API is **partial proof only** (Dev answer, item 2 of the conflict request).
+Planned: **104b** - while the 200-request k6 burst runs, a few real browsers (Playwright, e.g. 5) open the weekly calendar and time until the slots or the empty state are shown; every probe must be <= 2 s. Not written yet. Blocked on: PO accepting a browser sample in place of 200 browsers, and design declaring a "data loaded" testid (gate 45).
 
 ```bash
 docker compose -f docker/docker-compose.staging.yml --env-file docker/.env up -d --build   # ports: api 3100
