@@ -1,6 +1,7 @@
 import { execFileSync } from 'node:child_process';
 import { expect, test, type Page } from '@playwright/test';
 import { as, stateOf, world } from './support/world';
+import { uiDateTime } from './support/ui-format';
 
 /**
  * BR-mrr-002@v1 — อุปกรณ์เสริม "เลือกหรือไม่เลือกก็ได้" (technique: EP). EX-mrr-005 (ไม่เลือก) มีเคส real แล้วใน booking.spec.ts;
@@ -29,8 +30,8 @@ test.use({ storageState: stateOf('u1') });
 async function book(page: Page, title: string, equipment: string[]) {
   const s = farSlot(10 + Math.floor(Math.random() * 8));
   await page.goto(`/UI-mrr-006?room=${world.rooms.open}`);
-  await page.getByTestId('ui-mrr-006-ent-007-start-at').fill(s.start);
-  await page.getByTestId('ui-mrr-006-ent-007-end-at').fill(s.end);
+  await page.getByTestId('ui-mrr-006-ent-007-start-at').fill(uiDateTime(s.start));
+  await page.getByTestId('ui-mrr-006-ent-007-end-at').fill(uiDateTime(s.end));
   await page.getByTestId('ui-mrr-006-ent-007-title').fill(title);
   await page.getByTestId('ui-mrr-006-ent-008-user').fill('admin');
   await page.getByRole('list', { name: 'ผลการค้นหาผู้ใช้' }).getByRole('button').first().click();

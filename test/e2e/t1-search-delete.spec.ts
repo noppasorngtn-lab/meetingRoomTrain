@@ -2,6 +2,7 @@ import { execFileSync } from 'node:child_process';
 import { expect, test, type Page } from '@playwright/test';
 import { as, nearSlot, stateOf } from './support/world';
 import { SEARCH_ROOMS as R, ensureRoom, holdEveryRoom, holdSlot, roomStatus, setMaintenance } from './support/search-fixture';
+import { uiDate } from './support/ui-format';
 
 /**
  * T1 round 2026-11-18 — room search (UC-mrr-001 · UI-mrr-004 · EX-mrr-106..108) and room delete (UC-mrr-015 · UI-mrr-012 ·
@@ -18,7 +19,7 @@ const name = (n: string) => new RegExp(`^${n}$`);
 
 async function search(page: Page, slot: { date?: string }, attendees: number) {
   await page.goto('/UI-mrr-004');
-  await page.getByTestId('ui-mrr-004-search-date').fill(slot.date!);
+  await page.getByTestId('ui-mrr-004-search-date').fill(uiDate(slot.date!));
   await page.getByTestId('ui-mrr-004-search-start-time').fill('13:00');
   await page.getByTestId('ui-mrr-004-search-end-time').fill('14:00');
   await page.getByTestId('ui-mrr-004-attendee-count').fill(String(attendees));

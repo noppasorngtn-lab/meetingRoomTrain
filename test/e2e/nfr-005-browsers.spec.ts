@@ -67,9 +67,9 @@ test.describe('หน้าที่ต้องเข้าสู่ระบ�
       return r.fulfill({ status: 201, json: { id: 'x', status: 'CONFIRMED', message: 'จองสำเร็จ' } });
     });
     await page.goto(`/UI-mrr-006?room=${open.id}`);
-    await page.getByTestId(T.start).fill('2031-03-05T09:00');
-    await page.getByTestId(T.end).fill('2031-03-05T10:00');
-    await expect(page.getByTestId(T.start)).toHaveValue('2031-03-05T09:00');
+    await page.getByTestId(T.start).fill('05/03/2031 09:00');
+    await page.getByTestId(T.end).fill('05/03/2031 10:00');
+    await expect(page.getByTestId(T.start)).toHaveValue('05/03/2031 09:00');
     await page.getByTestId(T.title).fill('ทดสอบเบราว์เซอร์');
     await page.getByTestId(T.attendee).fill('admin');
     await page.getByRole('list', { name: 'ผลการค้นหาผู้ใช้' }).getByRole('button').first().click();

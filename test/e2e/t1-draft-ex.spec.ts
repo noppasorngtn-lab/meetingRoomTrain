@@ -1,6 +1,7 @@
 import { execFileSync } from 'node:child_process';
 import { expect, test } from '@playwright/test';
 import { as, nearSlot, stateOf } from './support/world';
+import { uiDate } from './support/ui-format';
 
 /**
  * ร่าง EX A, B, C ใน docs/qa/req-request-ex-validation-delete-2026-11-18.md — ทุกเคส [Recommended]: req ยังไม่ได้ออก EX
@@ -17,7 +18,7 @@ test.describe('ค้นหาห้องว่าง: ตรวจเวลา
 
   async function fill(page: import('@playwright/test').Page, date: string, start: string, end: string) {
     await page.goto('/UI-mrr-004');
-    await page.getByTestId('ui-mrr-004-search-date').fill(date);
+    await page.getByTestId('ui-mrr-004-search-date').fill(uiDate(date));
     await page.getByTestId('ui-mrr-004-search-start-time').fill(start);
     await page.getByTestId('ui-mrr-004-search-end-time').fill(end);
     await page.getByTestId('ui-mrr-004-attendee-count').fill('1');

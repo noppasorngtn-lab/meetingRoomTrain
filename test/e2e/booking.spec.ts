@@ -2,6 +2,7 @@ import { execFileSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import { expect, test, type Page } from '@playwright/test';
 import { myBookingsPageOf } from './support/my-bookings';
+import { uiDateTime } from './support/ui-format';
 
 /**
  * UI-mrr-006 (create a booking · API-004). Titles carry the design's state or the rule they check.
@@ -45,8 +46,8 @@ async function pickAttendee(page: Page, query = 'admin') {
 }
 
 async function fillForm(page: Page, slot: { start: string; end: string }, title: string) {
-  await page.getByTestId(T.start).fill(slot.start);
-  await page.getByTestId(T.end).fill(slot.end);
+  await page.getByTestId(T.start).fill(uiDateTime(slot.start));
+  await page.getByTestId(T.end).fill(uiDateTime(slot.end));
   await page.getByTestId(T.title).fill(title);
   await pickAttendee(page);
 }
@@ -59,8 +60,8 @@ test.describe('ฟอร์มเปิดขึ้น (empty)', () => {
     await openForm(page, open.id, { date: '2031-03-05', startTime: '10:00', endTime: '11:00' });
     await expect(page.getByRole('heading', { name: 'จองห้องประชุม', level: 1 })).toBeVisible();
     await expect(page.getByTestId('ui-mrr-006-ent-007-room')).not.toHaveText(/กำลังโหลด|—/);
-    await expect(page.getByTestId(T.start)).toHaveValue('2031-03-05T10:00');
-    await expect(page.getByTestId(T.end)).toHaveValue('2031-03-05T11:00');
+    await expect(page.getByTestId(T.start)).toHaveValue('05/03/2031 10:00');
+    await expect(page.getByTestId(T.end)).toHaveValue('05/03/2031 11:00');
     await expect(page.getByTestId(T.title)).toHaveValue('');
     await expect(page.getByTestId(T.confirm)).toBeEnabled();
   });
@@ -141,7 +142,7 @@ test.describe.serial('จองสำเร็จและจองซ้ำ (BR
     await page.getByTestId(T.confirm).click();
     await expect(page.getByRole('alert')).toContainText('ห้องนี้ไม่ว่างในช่วงเวลาที่เลือก กรุณาเลือกเวลาอื่น');
     await expect(page.getByTestId(T.title)).toHaveValue(`E2E จองซ้ำ ${RUN}`);
-    await expect(page.getByTestId(T.start)).toHaveValue(slot.start);
+    await expect(page.getByTestId(T.start)).toHaveValue(uiDateTime(slot.start));
     await expect(page.getByTestId(T.confirm)).toBeEnabled();
   });
 
@@ -226,8 +227,8 @@ test.describe('ตรวจทีละช่อง (BR-mrr-002 · EX-mrr-006/00
   test('[real] TC-BKG-UI006-023 ไม่ใส่หัวข้อ (ช่องอื่นครบ) → แจ้งเฉพาะหัวข้อ', async ({ page }) => {
     const s = freeSlot(9);
     await openForm(page, open.id);
-    await page.getByTestId(T.start).fill(s.start);
-    await page.getByTestId(T.end).fill(s.end);
+    await page.getByTestId(T.start).fill(uiDateTime(s.start));
+    await page.getByTestId(T.end).fill(uiDateTime(s.end));
     await pickAttendee(page);
     await expectOnlyError(page, 'กรุณาระบุหัวข้อการประชุม', ['กรุณาระบุผู้เข้าร่วมอย่างน้อย 1 คน', 'กรุณาระบุเวลาเริ่ม']);
   });
@@ -235,8 +236,8 @@ test.describe('ตรวจทีละช่อง (BR-mrr-002 · EX-mrr-006/00
   test('[real] TC-BKG-UI006-024 ไม่ใส่ผู้เข้าร่วม (ช่องอื่นครบ) → แจ้งเฉพาะผู้เข้าร่วม', async ({ page }) => {
     const s = freeSlot(9);
     await openForm(page, open.id);
-    await page.getByTestId(T.start).fill(s.start);
-    await page.getByTestId(T.end).fill(s.end);
+    await page.getByTestId(T.start).fill(uiDateTime(s.start));
+    await page.getByTestId(T.end).fill(uiDateTime(s.end));
     await page.getByTestId(T.title).fill('ไม่มีผู้เข้าร่วม');
     await expectOnlyError(page, 'กรุณาระบุผู้เข้าร่วมอย่างน้อย 1 คน', ['กรุณาระบุหัวข้อการประชุม', 'กรุณาระบุเวลาเริ่ม']);
   });

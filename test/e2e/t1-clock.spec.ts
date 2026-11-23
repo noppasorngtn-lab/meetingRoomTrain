@@ -2,6 +2,7 @@ import { execFileSync } from 'node:child_process';
 import { expect, request, test, type APIRequestContext } from '@playwright/test';
 import { resetClock, setClock } from './support/clock';
 import { as, book, nearSlot, stateOf, world } from './support/world';
+import { uiDateTime } from './support/ui-format';
 
 /**
  * เคสจาก T1 ที่ต้องควบคุมเวลา (OQ-T1-01) — ใช้ /__test/clock ของ api (เปิดเฉพาะ dev stack · support/clock.ts).
@@ -312,8 +313,8 @@ test.describe.serial('แก้ค่าตั้งห้อง E2E-FLIP (BR-mr
     await page.goto(`/UI-mrr-006?room=${room()}`);
     await expect(page.getByTestId('ui-mrr-006-ent-007-room')).not.toHaveText(/กำลังโหลด|—/);
     await settings({ requiresApproval: true }); // แก้ระหว่างที่ฟอร์มเปิดอยู่
-    await page.getByTestId('ui-mrr-006-ent-007-start-at').fill(local(slot.startAt));
-    await page.getByTestId('ui-mrr-006-ent-007-end-at').fill(local(slot.endAt));
+    await page.getByTestId('ui-mrr-006-ent-007-start-at').fill(uiDateTime(local(slot.startAt)));
+    await page.getByTestId('ui-mrr-006-ent-007-end-at').fill(uiDateTime(local(slot.endAt)));
     await page.getByTestId('ui-mrr-006-ent-007-title').fill(title('ประชุมย่อย'));
     await page.getByTestId('ui-mrr-006-ent-008-user').fill('admin');
     await page.getByRole('list', { name: 'ผลการค้นหาผู้ใช้' }).getByRole('button').first().click();

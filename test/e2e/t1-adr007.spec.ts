@@ -1,6 +1,7 @@
 import { execFileSync } from 'node:child_process';
 import { expect, test, type APIRequestContext } from '@playwright/test';
 import { as, stateOf, world } from './support/world';
+import { uiDate } from './support/ui-format';
 
 /**
  * ADR-007 (GAP-mrr-011 · 012 · 016 · 018) — คำตัดสิน: ปฏิทินเลื่อนวันได้ · ปุ่มจองบอกว่าไปหน้าจอง · ไม่มีรูปภาพในฟอร์มห้อง ·
@@ -42,25 +43,25 @@ test.describe('ปฏิทินห้อง (UI-mrr-005)', () => {
   test('[real] ADR7-011 ก่อนหน้า · ถัดไป · วันนี้ เลื่อนช่วงที่ดูตามมุมมอง และถามช่วงนั้นจาก API (GAP-mrr-011)', async ({ page }) => {
     const urls = asked(page);
     await page.goto(url('2026-10-17'));
-    await expect(page.getByLabel(/วันที่/)).toHaveValue('2026-10-17');
+    await expect(page.getByLabel(/วันที่/)).toHaveValue('17/10/2026');
 
     await page.getByTestId('ui-mrr-005-next').click();
-    await expect(page.getByLabel(/วันที่/)).toHaveValue('2026-10-24'); // สัปดาห์ = +7 วัน
+    await expect(page.getByLabel(/วันที่/)).toHaveValue('24/10/2026'); // สัปดาห์ = +7 วัน
     await page.getByTestId('ui-mrr-005-previous').click();
     await page.getByTestId('ui-mrr-005-previous').click();
-    await expect(page.getByLabel(/วันที่/)).toHaveValue('2026-10-10');
+    await expect(page.getByLabel(/วันที่/)).toHaveValue('10/10/2026');
     expect(urls.at(-1)).toBe('?view=week&date=2026-10-10');
 
     await page.getByTestId('ui-mrr-005-today').click();
     const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Bangkok' }).format(new Date());
-    await expect(page.getByLabel(/วันที่/)).toHaveValue(today);
+    await expect(page.getByLabel(/วันที่/)).toHaveValue(uiDate(today));
   });
 
   test('[real] ADR7-011b เลือกวันจากช่องวันที่ และมุมมองเดือนเลื่อนทีละเดือน (GAP-mrr-011)', async ({ page }) => {
     await page.goto(url('2026-01-31', 'month'));
     await page.getByTestId('ui-mrr-005-next').click();
-    await expect(page.getByLabel(/วันที่/)).toHaveValue('2026-02-28'); // 31 ม.ค. + 1 เดือน = สิ้นเดือน ก.พ.
-    await page.getByLabel(/วันที่/).fill('2027-03-09');
+    await expect(page.getByLabel(/วันที่/)).toHaveValue('28/02/2026'); // 31 ม.ค. + 1 เดือน = สิ้นเดือน ก.พ.
+    await page.getByLabel(/วันที่/).fill('09/03/2027');
     await expect(page).toHaveURL(/date=2027-03-09/);
     await expect(page).toHaveURL(/view=month/);
   });
