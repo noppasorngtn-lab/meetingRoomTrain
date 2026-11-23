@@ -286,7 +286,7 @@
     {
       "id": "html",
       "command": "/mock:html",
-      "status": "stale",
+      "status": "done",
       "requires": [
         "wireframe",
         "theme"
@@ -294,9 +294,8 @@
       "artifacts": [
         "../../mockups/<UI-id>/<state>.html"
       ],
-      "attempts": 0,
-      "updatedAt": "2026-11-23T12:10:00Z",
-      "staleBecause": "ADR-016"
+      "attempts": 1,
+      "updatedAt": "2026-11-23T09:07:10Z"
     },
     {
       "id": "handoff",
