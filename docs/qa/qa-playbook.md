@@ -3,10 +3,151 @@
 ดัดแปลงจาก *Claude QA Playbook – Project Instructions & Prompt Templates* (โปรเจกต์ Automate Collection Workflow)
 โครงสร้างและ template T1–T7 คงเดิม · เปลี่ยนบริบทธนาคาร/Collection เป็นระบบจองห้องประชุม
 
+> เพิ่งเริ่ม? อ่าน **ส่วนที่ 0** ก่อน (ภาพรวม + เริ่มใน 5 ขั้น)
+>
 > วิธีใช้: วาง **ส่วนที่ 2** ลงใน Project Instructions (หรือ CLAUDE.md ของโฟลเดอร์ `test/`) ครั้งเดียว
 > แล้วเรียก template **ส่วนที่ 4** ทีละขั้นตาม **ส่วนที่ 1** · เติมค่าที่อยู่ใน `{{...}}`
 
-## 1. ลำดับการใช้งาน
+## 0. คู่มือเริ่มต้น (อ่านส่วนนี้ก่อน)
+
+### 0.1 Playbook นี้คืออะไร
+
+ชุด prompt สำเร็จรูป 7 ใบ (T1–T7) ที่ให้ AI ช่วยทำงาน QA ทีละขั้น ตั้งแต่ออกแบบเทสต์ → ตรวจผล → สรุปว่าพร้อมปล่อยหรือยัง
+**AI เป็นผู้ร่าง · คนเป็นผู้ตรวจและตัดสิน** (QA ตรวจเอกสาร · PO ตัดสิน Go/No-Go)
+
+### 0.2 ภาพรวม Workflow
+
+ไล่จากบนลงล่าง — แต่ละขั้นส่งผลลัพธ์ให้ขั้นถัดไป
+
+| ขั้น | ทำอะไร | ใครทำ | ผ่านแล้วไปต่อ | ถ้าไม่ผ่าน |
+|---|---|---|---|---|
+| ตั้งต้น | requirement (BR / EX / REQ) พร้อม | BA / PO | → T1 | ติด [TBD] ถามคำถามก่อน |
+| 1. **T1** | ออกแบบ test case | AI ร่าง · QA ตรวจ | → T2 | — |
+| 2. **T2** | ตรวจ coverage (ประตู **G1**) | AI ร่าง · QA ตรวจ | G1 ผ่าน → รันเทสต์ | เติมเคสที่ขาด แล้วกลับ T1 |
+| 3. รันเทสต์ | Playwright + unit test | **คนรันเอง** | → T3 | แก้ environment แล้วรันใหม่ |
+| 4. **T3** | ตรวจผล + triage | AI ร่าง · QA ตรวจ | ไม่มีเคสล้ม → T5 | เคสล้มแยกตามหมวด (ดูด้านล่าง) |
+| 5. **T4** | ร่าง defect | AI ร่าง · QA ส่ง dev | dev แก้แล้ว → T7 | — |
+| 6. **T7** | เลือก regression เฉพาะที่กระทบ | AI ร่าง · QA รัน | กลับไปรันเทสต์ (ขั้น 3) | — |
+| 7. **T5** | สรุป Quality Gate G0–G3 | AI ร่าง | → PO | — |
+| 8. ตัดสิน | Go / Conditional Go / No-Go | **PO เท่านั้น** | ปล่อย | กลับไปแก้ |
+
+(T6 ใช้เฉพาะช่วง SIT/UAT)
+
+**ทางแยกหลัง T3 — เคสล้มเพราะอะไร:**
+
+| ล้มเพราะ | ทำต่อ |
+|---|---|
+| Product Bug | T4 → dev แก้ → T7 → รันซ้ำ |
+| Automation Bug | แก้ script แล้วรันซ้ำ |
+| Environment / Test Data Issue | แก้ stack หรือล้างข้อมูล `E2E…` แล้วรันซ้ำ |
+| No Defect | แก้ Expected ของ test case |
+| To Investigate | หาหลักฐานเพิ่ม ห้ามเดา |
+
+หลักการสั้น ๆ: **ออกแบบ → ตรวจครบ → รัน → ตรวจผล → แก้ → รันซ้ำเฉพาะที่กระทบ → สรุป**
+
+#### แผนภาพ: ทีละขั้นพร้อมคำสั่งที่พิมพ์จริง
+
+> แผนภาพ Mermaid แสดงได้บน GitHub/GitLab · ใน VS Code ต้องติดตั้ง extension
+> *Markdown Preview Mermaid Support* · ถ้าไม่แสดง ให้ดูตาราง "ลำดับคำสั่ง" ต่อท้ายซึ่งมีเนื้อหาเดียวกัน
+
+```mermaid
+flowchart TD
+    A([เริ่มรอบงาน]) --> B["เปิด Docker Desktop<br/>cd docker && docker compose up -d"]
+    B --> C["T1 สร้าง test case<br/>วาง prompt T1 + REQ/BR/EX"]
+    C --> D["T2 ตรวจ coverage"]
+    D --> G1{"G1 ผ่านไหม"}
+    G1 -- ไม่ผ่าน เติมเคสที่ขาด --> C
+    G1 -- ผ่าน --> E["คนรันเทสต์เอง<br/>cd test && npx playwright test --project=chromium<br/>powershell -File scripts/dev-test.ps1"]
+    E --> F["T3 ตรวจผล + triage<br/>ส่ง test/results.json + test-results/"]
+    F --> H{"มีเคสล้มไหม"}
+    H -- ไม่มี --> K
+    H -- Automation Bug / Test Data Issue --> E
+    H -- No Defect --> C
+    H -- Product Bug --> I["T4 ร่าง defect<br/>1 defect ต่อ 1 root cause"]
+    I --> J["dev แก้โค้ด"]
+    J --> R["T7 เลือก regression<br/>เฉพาะเคสที่กระทบ"]
+    R --> E
+    K["T5 สรุป Quality Gate G0-G3"] --> L{{"PO ตัดสิน<br/>Go / Conditional Go / No-Go"}}
+    L --> M["docker compose stop"]
+    M --> Z([จบรอบงาน])
+```
+
+#### ตาราง: ลำดับคำสั่ง (เนื้อหาเดียวกับแผนภาพ)
+
+| ลำดับ | พิมพ์/ทำอะไร | ได้อะไร | แล้วไปไหน |
+|---|---|---|---|
+| 1 | `cd docker && docker compose up -d` (เปิด Docker Desktop ก่อน) | stack `mrr-*` พร้อม | ขั้น 2 |
+| 2 | วาง prompt **T1** (เติม `{{...}}`) | test case + คำถาม [TBD] | ขั้น 3 |
+| 3 | วาง prompt **T2** | traceability + สถานะ **G1** | G1 ผ่าน → ขั้น 4 · ไม่ผ่าน → กลับขั้น 2 |
+| 4 | `cd test && npx playwright test --project=chromium` และ `powershell -File scripts/dev-test.ps1` | `test/results.json`, `test-results/` | ขั้น 5 |
+| 5 | วาง prompt **T3** + ไฟล์ผลรัน | ตาราง triage ต่อเคสล้ม | ไม่มีเคสล้ม → ขั้น 9 · Automation Bug / Test Data Issue → กลับขั้น 4 · No Defect → แก้ Expected แล้วกลับขั้น 2 · Product Bug → ขั้น 6 |
+| 6 | วาง prompt **T4** | defect draft | ขั้น 7 |
+| 7 | dev แก้โค้ด | build ใหม่ | ขั้น 8 |
+| 8 | วาง prompt **T7** | รายการ regression | กลับขั้น 4 |
+| 9 | วาง prompt **T5** | ตาราง Gate G0–G3 + ข้อเสนอ | ขั้น 10 |
+| 10 | PO ตัดสิน → `cd docker && docker compose stop` | ปิดรอบงาน | จบ |
+
+### 0.3 เริ่มใช้ใน 5 ขั้น
+
+| # | ทำอะไร | ทำอย่างไร |
+|---|---|---|
+| 1 | ตั้ง context ให้ AI (ครั้งเดียว) | วาง **ส่วนที่ 2** ลง Project Instructions หรือ `test/CLAUDE.md` |
+| 2 | เตรียมสภาพแวดล้อม | เปิด Docker Desktop → `cd docker && docker compose up -d` (stack ชื่อ `mrr-*` · เมลดูที่ mailpit :8025) |
+| 3 | เรียก template ตามลำดับ | คัดลอกจาก **ส่วนที่ 4** → เติมค่าใน `{{...}}` → ส่งให้ AI |
+| 4 | รันเทสต์เอง (AI ไม่รันแทนใน T3) | `cd test && npx playwright test --project=chromium` (ใช้ ~4 นาที) · unit: `powershell -File scripts/dev-test.ps1` |
+| 5 | ตรวจ → ส่งต่อ | QA ตรวจผลลัพธ์ของ AI ก่อนเสมอ → ค่อยนำเข้า Test Management tool / ส่งให้ PO |
+
+เสร็จงานแล้วหยุด stack: `cd docker && docker compose stop`
+
+### 0.4 เลือก template ยังไง — ถามตัวเองว่า "ตอนนี้ฉันมีอะไรอยู่ในมือ"
+
+| สถานการณ์ | ใช้ | ผลที่ได้ |
+|---|---|---|
+| มี requirement ใหม่ ยังไม่มีเทสต์ | **T1** | test case + test data + คำถามที่ติด [TBD] |
+| เขียนเทสต์แล้ว อยากรู้ว่าครบทุกกฎไหม | **T2** | ตารางสืบย้อน BR↔เทสต์ + gap + สถานะ G1 |
+| รันเสร็จ มีเคสล้ม | **T3** | แยกว่าล้มเพราะอะไร (บั๊กจริง / script / environment / ข้อมูล) |
+| T3 บอกว่าเป็น Product Bug | **T4** | defect 1 ฉบับต่อ 1 root cause |
+| dev แก้โค้ดแล้ว ไม่อยากรันทั้งชุด | **T7** | รายการเคสที่ควรรันซ้ำ พร้อมเหตุผล |
+| จบรอบ ต้องสรุปให้ PO | **T5** | ตาราง Gate G0–G3 + ความเสี่ยง + ข้อเสนอ Go/No-Go |
+| ถึงช่วง SIT / UAT | **T6** | สรุป exit criteria + ช่องเซ็น (เว้นว่างให้คนกรอก) |
+
+### 0.5 กติกา 6 ข้อที่ต้องจำ
+
+1. **ไม่เดา** — ข้อมูลที่ BR/EX ไม่ระบุ ให้ติด `[TBD]` แล้วถาม BA/PO
+2. **ติดป้ายทุกข้อความ** — `[Explicit]` ระบุในกฎ · `[Inferred]` อนุมานจากโครงสร้าง · `[Recommended]` QA เสนอเพิ่ม · `[TBD]` ยังขาด
+3. **ทุกเคสต้องผูก BR** — BR ที่ไม่มีเคสคือ gap
+4. **แยก [real] กับ [stub]** — ผ่านด้วย stub ไม่ได้พิสูจน์ว่า API จริงถูก
+5. **ใช้ข้อมูลสังเคราะห์เท่านั้น** (เช่น `tester@mrr.local`, ชื่อเรื่องขึ้นต้น `E2E`) ถ้าเจอข้อมูลพนักงานจริงให้หยุดและขอให้ปิดบัง
+6. **ลายเซ็น/การ review เป็นของคน** — AI ทำ pre-review และเขียน findings ได้ แต่ห้ามเซ็นหรือเขียนว่า "review เสร็จแล้ว" แทนคน · AI ไม่ตัดสิน Go/No-Go
+
+### 0.6 ตัวอย่างการเรียกใช้จริง (T3)
+
+```
+[T3 - Verify Test Results & Triage]
+Run ID / Date: 2026-11-20   Environment / Build: 5c2dc48, docker stack ปกติ
+Input:
+- Test cases + Expected Result: docs/qa/t1-test-cases.csv
+- Execution result: test/results.json
+- Evidence: test/test-results/**
+- Known defects: DEF-05
+(ที่เหลือใช้ตามส่วนที่ 4 — T3)
+```
+
+ผลลัพธ์จริงของแต่ละขั้นดูได้ในโฟลเดอร์นี้ เช่น `t2-coverage-report.md` (T2) · `t3-results-*.md` (T3) · `t4-def-*.md` (T4) · `t5-quality-gate-*.md` (T5) · `t7-regression-*.md` (T7)
+
+### 0.7 ปัญหาที่เจอบ่อย
+
+| อาการ | สาเหตุที่พบบ่อย | ทางแก้ |
+|---|---|---|
+| เคสล้มหลายสิบเคสทันทีหลังเปิด Docker | stack ยังไม่พร้อม / container ปิดไปตอนปิด Docker | `docker compose up -d` แล้วรอจน healthy · รันซ้ำ |
+| จองห้องแล้วชน 409 "room not free" | ข้อมูล `E2E…` ค้างจากรอบก่อน / สุ่มวันซ้ำ | จัดเป็น Test Data Issue (§3.2) ไม่ใช่ Product Bug |
+| เคสผ่านแต่ดูน่าสงสัย | assertion อ่อน · ตรวจแค่หน้าแรกของรายการ · เป็น stub | ให้ T3 ขึ้น Result Mismatch |
+| AI ตอบว่า "ผ่าน Gate" | ตัวเลข Gate เป็น [Recommended] | ให้ PO ยืนยันเกณฑ์ก่อนใช้จริง |
+| แก้ไฟล์ `.py` / spec แล้ว diff ทั้งไฟล์ | ไฟล์ผสม CRLF/LF | เปิดไฟล์แบบคงตัวท้ายบรรทัดเดิม แล้วเช็ก `git diff --stat` |
+
+---
+
+## 1. ลำดับการใช้งาน (ตารางอ้างอิงละเอียด)
 
 | ขั้น | Template | ใช้เมื่อ | Input หลัก | Output |
 |---|---|---|---|---|
