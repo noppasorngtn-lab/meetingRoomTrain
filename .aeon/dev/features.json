@@ -619,6 +619,21 @@
             "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web",
             "result": "Test Files 21 passed (21) · Tests 308 passed (308) — incl. date-format.test.tsx: 29/02 leap/non-leap, 31/04, 24:00, 2-digit year, empty, D/M padding, half-typed text kept",
             "at": "2026-11-23"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-build.ps1 -App frontend-web",
+            "result": "tsc --noEmit + vite build ok (built in 1.05s) · calendar date box left empty (blur) shows today — screens.json UI-mrr-005 date \"ไม่ระบุ = วันนี้\" (user 2026-11-23)",
+            "at": "2026-11-23"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web -Filter FE-mrr-002",
+            "result": "Test Files 2 passed | 19 skipped (21) · Tests 25 passed | 284 skipped (309)",
+            "at": "2026-11-23"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web",
+            "result": "Test Files 21 passed (21) · Tests 309 passed (309)",
+            "at": "2026-11-23"
           }
         ],
         "last_error": null,

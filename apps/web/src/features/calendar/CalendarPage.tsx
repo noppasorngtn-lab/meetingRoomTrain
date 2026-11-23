@@ -120,6 +120,8 @@ export function CalendarPage() {
               value={date}
               placeholder="วว/ดด/ปปปป (ไม่ระบุ = วันนี้)"
               onChange={(v) => v && setParams({ room, date: v, view })}
+              // screens.json UI-mrr-005 date: "ไม่ระบุ = วันนี้" — a box left empty shows today.
+              onLeftEmpty={() => setParams({ room, date: bangkokDate(new Date()), view })}
             />
           </div>
         </div>

@@ -2,6 +2,7 @@ import { fireEvent, render, screen, waitFor, within } from '@testing-library/rea
 import { MemoryRouter } from 'react-router-dom';
 import { AppRoutes } from '../App';
 import { shiftDate } from '../features/calendar/CalendarPage';
+import { bangkokDate, displayDate } from '../shared/time';
 
 const ROOM = '11111111-1111-1111-1111-111111111111';
 
@@ -148,6 +149,20 @@ describe('FE-mrr-002 room calendar page', () => {
 
     fireEvent.change(screen.getByLabelText(/วันที่/), { target: { value: '05/01/2027' } });
     await waitFor(() => expect(calls.at(-1)).toBe(`/rooms/${ROOM}/calendar?view=day&date=2027-01-05`));
+  });
+
+  it('ADR-016 the date field left empty shows today ("ไม่ระบุ = วันนี้"), keeping the view', async () => {
+    replies.push(calendar([]), calendar([]));
+    open(`room=${ROOM}&date=2026-10-17&view=week`);
+    await screen.findByText('ช่วงนี้ยังไม่มีการจอง เลือกช่วงเวลาเพื่อจองได้');
+    const today = bangkokDate(new Date());
+
+    const box = screen.getByLabelText(/วันที่/);
+    fireEvent.change(box, { target: { value: '' } });
+    expect(calls.at(-1)).toBe(`/rooms/${ROOM}/calendar?view=week&date=2026-10-17`); // nothing moves while typing
+    fireEvent.blur(box);
+    await waitFor(() => expect(calls.at(-1)).toBe(`/rooms/${ROOM}/calendar?view=week&date=${today}`));
+    expect(box).toHaveValue(displayDate(today));
   });
 
   it('GAP-mrr-011 a date in the URL that is not a date is read as today, not sent to the API', async () => {

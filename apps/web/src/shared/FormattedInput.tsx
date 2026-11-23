@@ -30,8 +30,10 @@ export function FormattedInput(props: {
   required?: boolean;
   placeholder?: string;
   errorId?: string;
+  /** Called when the box is left empty (on blur) — a screen whose design gives "empty" a meaning answers it here. */
+  onLeftEmpty?: () => void;
 }) {
-  const { id, name, kind, value, onChange, required, placeholder, errorId } = props;
+  const { id, name, kind, value, onChange, required, placeholder, errorId, onLeftEmpty } = props;
   const f = FORMAT[kind];
   const [text, setText] = useState(() => f.display(value));
 
@@ -56,6 +58,13 @@ export function FormattedInput(props: {
         onChange={(e) => {
           setText(e.target.value);
           onChange(f.parse(e.target.value) ?? '');
+        }}
+        onBlur={() => {
+          if (onLeftEmpty && !text.trim()) {
+            onLeftEmpty();
+            // The value may not move (it already was that day), so the box is refilled here rather than by the effect.
+            if (value) setText(f.display(value));
+          }
         }}
         required={required}
         aria-invalid={errorId ? true : undefined}
