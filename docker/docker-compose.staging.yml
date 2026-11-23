@@ -1,0 +1,68 @@
+# Staging-like stack for the NFR-mrr-002 load cases (TC-NFR-REQ001-104 / 105). NOT the real staging:
+# the real staging's address, owner and machine spec are still [TBD] (docs/qa/t1-nfr-2026-11-23.md).
+# Separate project name + volume, so it never touches the dev stack or its database (E2E data).
+# Differences from docker-compose.yml: no ENABLE_TEST_CONTROLS, no web / TLS front (the load cases measure the API),
+# CPU/memory limits (values below are QA assumptions [TBD] - override with STG_API_CPUS etc.).
+# Run:  docker compose -f docker/docker-compose.staging.yml --env-file docker/.env up -d --build
+name: mrr-staging
+
+services:
+  db:
+    image: postgres:16.4-alpine
+    environment:
+      POSTGRES_DB: mrr
+      POSTGRES_USER: mrr
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in docker/.env}
+    volumes:
+      - stg-db-data:/var/lib/postgresql/data
+    deploy:
+      resources:
+        limits:
+          cpus: ${STG_DB_CPUS:-1.0}
+          memory: ${STG_DB_MEM:-512m}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mrr -d mrr"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+
+  mailpit:
+    image: axllent/mailpit:v1.21.8
+    healthcheck:
+      test: ["CMD", "/mailpit", "readyz"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+
+  api:
+    build:
+      context: ..
+      dockerfile: apps/api/Dockerfile
+    environment:
+      PORT: "3000"
+      DATABASE_URL: postgres://mrr:${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in docker/.env}@db:5432/mrr
+      SMTP_HOST: mailpit
+      SMTP_PORT: "1025"
+      SMTP_FROM: no-reply@mrr.local
+      APP_BASE_URL: http://localhost:4174
+    ports:
+      - "3100:3000"
+    deploy:
+      resources:
+        limits:
+          cpus: ${STG_API_CPUS:-1.0}
+          memory: ${STG_API_MEM:-512m}
+    depends_on:
+      db:
+        condition: service_healthy
+      mailpit:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:3000/auth/me').then((r)=>process.exit(r.status===401?0:1)).catch(()=>process.exit(1))"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+      start_period: 10s
+
+volumes:
+  stg-db-data:
