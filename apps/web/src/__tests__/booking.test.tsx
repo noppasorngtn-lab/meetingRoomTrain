@@ -61,8 +61,8 @@ describe('FE-mrr-003 booking form (UI-mrr-006)', () => {
     open();
     await loaded();
 
-    expect(screen.getByTestId('ui-mrr-006-ent-007-start-at')).toHaveValue('2026-10-17T10:00');
-    expect(screen.getByTestId('ui-mrr-006-ent-007-end-at')).toHaveValue('2026-10-17T11:00');
+    expect(screen.getByTestId('ui-mrr-006-ent-007-start-at')).toHaveValue('17/10/2026 10:00');
+    expect(screen.getByTestId('ui-mrr-006-ent-007-end-at')).toHaveValue('17/10/2026 11:00');
     expect(screen.getByTestId('ui-mrr-006-ent-007-title')).toHaveValue('');
     expect(within(screen.getByTestId('ui-mrr-006-ent-009-facility')).getByRole('checkbox', { name: 'โปรเจคเตอร์' })).not.toBeChecked();
   });

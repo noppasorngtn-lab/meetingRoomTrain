@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Navigate, useNavigate, useSearchParams } from 'react-router-dom';
 import { ApiError, getJson } from '../../shared/api';
+import { FormattedInput } from '../../shared/FormattedInput';
 import { routeOf } from '../../shared/sitemap';
 import { bangkokDate, slotLabel } from '../../shared/time';
 
@@ -108,17 +109,17 @@ export function CalendarPage() {
             </select>
           </div>
           <div className="field">
-            {/* design binds this field to no entity, so it has no testid (gate 45): the label is its handle. */}
+            {/* design binds this field to no entity; mock named it calendar-date (conventions fieldMap, 9a71161). */}
             <label htmlFor="ui-mrr-005-calendar-date">
               วันที่<span className="req" aria-hidden="true">*</span>
             </label>
-            <input
-              className="input"
+            <FormattedInput
               id="ui-mrr-005-calendar-date"
               name="วันที่"
-              type="date"
+              kind="date"
               value={date}
-              onChange={(e) => e.target.value && setParams({ room, date: e.target.value, view })}
+              placeholder="วว/ดด/ปปปป (ไม่ระบุ = วันนี้)"
+              onChange={(v) => v && setParams({ room, date: v, view })}
             />
           </div>
         </div>

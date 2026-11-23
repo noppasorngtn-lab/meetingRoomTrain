@@ -138,7 +138,7 @@ describe('FE-mrr-002 room calendar page', () => {
     fireEvent.click(screen.getByTestId('ui-mrr-005-previous'));
     fireEvent.click(screen.getByTestId('ui-mrr-005-previous'));
     await waitFor(() => expect(calls.at(-1)).toBe(`/rooms/${ROOM}/calendar?view=week&date=2026-10-10`));
-    expect(screen.getByLabelText(/วันที่/)).toHaveValue('2026-10-10');
+    expect(screen.getByLabelText(/วันที่/)).toHaveValue('10/10/2026');
   });
 
   it('GAP-mrr-011 the date field jumps to the chosen day, keeping the view', async () => {
@@ -146,7 +146,7 @@ describe('FE-mrr-002 room calendar page', () => {
     open(`room=${ROOM}&date=2026-10-17&view=day`);
     await screen.findByText('ช่วงนี้ยังไม่มีการจอง เลือกช่วงเวลาเพื่อจองได้');
 
-    fireEvent.change(screen.getByLabelText(/วันที่/), { target: { value: '2027-01-05' } });
+    fireEvent.change(screen.getByLabelText(/วันที่/), { target: { value: '05/01/2027' } });
     await waitFor(() => expect(calls.at(-1)).toBe(`/rooms/${ROOM}/calendar?view=day&date=2027-01-05`));
   });
 

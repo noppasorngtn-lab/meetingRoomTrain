@@ -563,7 +563,7 @@
       ],
       "status": "validated",
       "build": {
-        "iterations": 0,
+        "iterations": 1,
         "proof": [
           {
             "cmd": "powershell -File scripts/dev-build.ps1 -App frontend-web",
@@ -599,11 +599,31 @@
             "cmd": "npx playwright test --project=chromium  (test)",
             "result": "140 passed · 1 skipped",
             "at": "2026-11-17"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web",
+            "result": "red after the ADR-016 change, before the tests: 21 failed in calendar/booking/edit-booking/room-search — each typed or expected the old browser-input value (YYYY-MM-DD / YYYY-MM-DDTHH:MM); ADR-016 moved the value a person sees and types to DD/MM/YYYY [HH:MM], so those test inputs/expected screen values were rewritten to the new format (not loosened: URL and api assertions unchanged)",
+            "at": "2026-11-23"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-build.ps1 -App frontend-web",
+            "result": "tsc --noEmit + vite build ok (built in 1.05s)",
+            "at": "2026-11-23"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web -Filter FE-mrr-002",
+            "result": "Test Files 2 passed | 19 skipped (21)  Tests 24 passed | 284 skipped (308)",
+            "at": "2026-11-23"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web",
+            "result": "Test Files 21 passed (21) · Tests 308 passed (308) — incl. date-format.test.tsx: 29/02 leap/non-leap, 31/04, 24:00, 2-digit year, empty, D/M padding, half-typed text kept",
+            "at": "2026-11-23"
           }
         ],
         "last_error": null,
-        "recorded_by": "Noppasorn Y",
-        "recorded_at": "2026-11-17"
+        "recorded_by": "Noppasorn",
+        "recorded_at": "2026-11-23"
       },
       "manifest": {
         "files": [
@@ -614,11 +634,18 @@
           "apps/web/src/shared/time.ts",
           "apps/web/src/shared/components.css",
           "apps/web/src/features/calendar/CalendarPage.tsx",
-          "apps/web/src/__tests__/calendar.test.tsx"
+          "apps/web/src/__tests__/calendar.test.tsx",
+          "apps/web/src/shared/FormattedInput.tsx",
+          "apps/web/src/__tests__/date-format.test.tsx"
         ],
         "unit_tests": [
           {
             "file": "apps/web/src/__tests__/calendar.test.tsx",
+            "calc_ref": null,
+            "gd_ref": null
+          },
+          {
+            "file": "apps/web/src/__tests__/date-format.test.tsx",
             "calc_ref": null,
             "gd_ref": null
           }
@@ -719,6 +746,16 @@
             "kind": "field",
             "dd_ref": null,
             "testid": "ui-mrr-005-ent-008-user",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "calendarDate",
+            "kind": "field",
+            "dd_ref": null,
+            "testid": "ui-mrr-005-calendar-date",
             "binding": null,
             "validation_refs": [],
             "depends_on": null,
@@ -1041,7 +1078,7 @@
       ],
       "status": "validated",
       "build": {
-        "iterations": 2,
+        "iterations": 1,
         "proof": [
           {
             "cmd": "powershell -File scripts/dev-build.ps1 -App frontend-web",
@@ -1057,11 +1094,31 @@
             "cmd": "powershell -File scripts/dev-test.ps1",
             "result": "api: Test Suites 8 passed, Tests 83 passed · web: Test Files 3 passed, Tests 48 passed · exit 0",
             "at": "2026-10-20"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web",
+            "result": "red after the ADR-016 change, before the tests: 21 failed in calendar/booking/edit-booking/room-search — each typed or expected the old browser-input value (YYYY-MM-DD / YYYY-MM-DDTHH:MM); ADR-016 moved the value a person sees and types to DD/MM/YYYY [HH:MM], so those test inputs/expected screen values were rewritten to the new format (not loosened: URL and api assertions unchanged)",
+            "at": "2026-11-23"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-build.ps1 -App frontend-web",
+            "result": "tsc --noEmit + vite build ok (built in 1.05s)",
+            "at": "2026-11-23"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web -Filter FE-mrr-003",
+            "result": "Test Files 2 passed | 19 skipped (21)  Tests 26 passed | 282 skipped (308)",
+            "at": "2026-11-23"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web",
+            "result": "Test Files 21 passed (21) · Tests 308 passed (308) — incl. date-format.test.tsx: 29/02 leap/non-leap, 31/04, 24:00, 2-digit year, empty, D/M padding, half-typed text kept",
+            "at": "2026-11-23"
           }
         ],
         "last_error": null,
         "recorded_by": "Noppasorn",
-        "recorded_at": "2026-10-20"
+        "recorded_at": "2026-11-23"
       },
       "manifest": {
         "files": [
@@ -1074,11 +1131,19 @@
           "apps/web/src/features/booking/BookingPage.tsx",
           "apps/web/src/__tests__/booking.test.tsx",
           "apps/web/src/__tests__/calendar.test.tsx",
-          "apps/web/src/__tests__/shell.test.tsx"
+          "apps/web/src/__tests__/shell.test.tsx",
+          "apps/web/src/features/booking/fields.tsx",
+          "apps/web/src/shared/FormattedInput.tsx",
+          "apps/web/src/__tests__/date-format.test.tsx"
         ],
         "unit_tests": [
           {
             "file": "apps/web/src/__tests__/booking.test.tsx",
+            "calc_ref": null,
+            "gd_ref": null
+          },
+          {
+            "file": "apps/web/src/__tests__/date-format.test.tsx",
             "calc_ref": null,
             "gd_ref": null
           }
@@ -1357,7 +1422,7 @@
       ],
       "status": "validated",
       "build": {
-        "iterations": 0,
+        "iterations": 1,
         "proof": [
           {
             "cmd": "powershell -File scripts/dev-build.ps1 -App frontend-web",
@@ -1373,11 +1438,31 @@
             "cmd": "powershell -File scripts/dev-test.ps1",
             "result": "api: Test Suites 10 passed, Tests 109 passed · web: Test Files 4 passed, Tests 65 passed · exit 0",
             "at": "2026-10-20"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web",
+            "result": "red after the ADR-016 change, before the tests: 21 failed in calendar/booking/edit-booking/room-search — each typed or expected the old browser-input value (YYYY-MM-DD / YYYY-MM-DDTHH:MM); ADR-016 moved the value a person sees and types to DD/MM/YYYY [HH:MM], so those test inputs/expected screen values were rewritten to the new format (not loosened: URL and api assertions unchanged)",
+            "at": "2026-11-23"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-build.ps1 -App frontend-web",
+            "result": "tsc --noEmit + vite build ok (built in 1.05s)",
+            "at": "2026-11-23"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web -Filter FE-mrr-004",
+            "result": "Test Files 2 passed | 19 skipped (21)  Tests 25 passed | 283 skipped (308)",
+            "at": "2026-11-23"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web",
+            "result": "Test Files 21 passed (21) · Tests 308 passed (308) — incl. date-format.test.tsx: 29/02 leap/non-leap, 31/04, 24:00, 2-digit year, empty, D/M padding, half-typed text kept",
+            "at": "2026-11-23"
           }
         ],
         "last_error": null,
         "recorded_by": "Noppasorn",
-        "recorded_at": "2026-10-20"
+        "recorded_at": "2026-11-23"
       },
       "manifest": {
         "files": [
@@ -1387,11 +1472,18 @@
           "apps/web/src/features/booking/fields.tsx",
           "apps/web/src/features/booking/BookingPage.tsx",
           "apps/web/src/features/booking/EditBookingPage.tsx",
-          "apps/web/src/__tests__/edit-booking.test.tsx"
+          "apps/web/src/__tests__/edit-booking.test.tsx",
+          "apps/web/src/shared/FormattedInput.tsx",
+          "apps/web/src/__tests__/date-format.test.tsx"
         ],
         "unit_tests": [
           {
             "file": "apps/web/src/__tests__/edit-booking.test.tsx",
+            "calc_ref": null,
+            "gd_ref": null
+          },
+          {
+            "file": "apps/web/src/__tests__/date-format.test.tsx",
             "calc_ref": null,
             "gd_ref": null
           }
@@ -5880,21 +5972,49 @@
             "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web",
             "result": "Test Files 18 passed (18) · Tests 285 passed (285) · exit 0",
             "at": "2026-11-17"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web",
+            "result": "red after the ADR-016 change, before the tests: 21 failed in calendar/booking/edit-booking/room-search — each typed or expected the old browser-input value (YYYY-MM-DD / YYYY-MM-DDTHH:MM); ADR-016 moved the value a person sees and types to DD/MM/YYYY [HH:MM], so those test inputs/expected screen values were rewritten to the new format (not loosened: URL and api assertions unchanged)",
+            "at": "2026-11-23"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-build.ps1 -App frontend-web",
+            "result": "tsc --noEmit + vite build ok (built in 1.05s)",
+            "at": "2026-11-23"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web -Filter FE-mrr-042",
+            "result": "Test Files 2 passed | 19 skipped (21)  Tests 29 passed | 279 skipped (308)",
+            "at": "2026-11-23"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web",
+            "result": "Test Files 21 passed (21) · Tests 308 passed (308) — incl. date-format.test.tsx: 29/02 leap/non-leap, 31/04, 24:00, 2-digit year, empty, D/M padding, half-typed text kept",
+            "at": "2026-11-23"
           }
         ],
         "last_error": null,
         "recorded_by": "Noppasorn",
-        "recorded_at": "2026-11-17"
+        "recorded_at": "2026-11-23"
       },
       "manifest": {
         "files": [
           "apps/web/src/features/search/RoomSearchPage.tsx",
           "apps/web/src/App.tsx",
-          "apps/web/src/__tests__/room-search.test.tsx"
+          "apps/web/src/__tests__/room-search.test.tsx",
+          "apps/web/src/shared/FormattedInput.tsx",
+          "apps/web/src/shared/time.ts",
+          "apps/web/src/__tests__/date-format.test.tsx"
         ],
         "unit_tests": [
           {
             "file": "apps/web/src/__tests__/room-search.test.tsx",
+            "calc_ref": null,
+            "gd_ref": null
+          },
+          {
+            "file": "apps/web/src/__tests__/date-format.test.tsx",
             "calc_ref": null,
             "gd_ref": null
           }

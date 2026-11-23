@@ -41,7 +41,7 @@ const open = () =>
 
 const type = (testid: string, value: string) => fireEvent.change(screen.getByTestId(testid), { target: { value } });
 const fill = (v: { date?: string; start?: string; end?: string; attendees?: string } = {}) => {
-  type('ui-mrr-004-search-date', v.date ?? '2099-10-18');
+  type('ui-mrr-004-search-date', v.date ?? '18/10/2099');
   type('ui-mrr-004-search-start-time', v.start ?? '13:00');
   type('ui-mrr-004-search-end-time', v.end ?? '14:00');
   type('ui-mrr-004-attendee-count', v.attendees ?? '6');
@@ -159,7 +159,7 @@ describe('FE-mrr-042 free room search page', () => {
     ])('refuses %s', async (_what, v, message) => {
       open();
       // A future date keeps every other example about the one field it names.
-      fill({ date: '2099-01-01', ...v });
+      fill({ date: '01/01/2099', ...v });
       press();
 
       expect(await screen.findByText(message)).toBeInTheDocument();

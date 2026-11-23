@@ -61,8 +61,8 @@ describe('FE-mrr-004 edit booking page (UI-mrr-008)', () => {
     open();
     await loaded();
 
-    expect(screen.getByTestId('ui-mrr-008-ent-007-start-at')).toHaveValue('2099-10-17T10:00');
-    expect(screen.getByTestId('ui-mrr-008-ent-007-end-at')).toHaveValue('2099-10-17T11:00');
+    expect(screen.getByTestId('ui-mrr-008-ent-007-start-at')).toHaveValue('17/10/2099 10:00');
+    expect(screen.getByTestId('ui-mrr-008-ent-007-end-at')).toHaveValue('17/10/2099 11:00');
     expect(screen.getByRole('list', { name: 'ผู้เข้าร่วมที่เลือก' })).toHaveTextContent('U2');
     expect(screen.getByTestId('ui-mrr-008-ent-007-status')).toHaveTextContent('จองสำเร็จ (ห้องไม่ต้องอนุมัติ)');
     expect(calls[0]).toEqual({ method: 'GET', url: `/bookings/${BOOKING}`, body: undefined });
@@ -90,8 +90,8 @@ describe('FE-mrr-004 edit booking page (UI-mrr-008)', () => {
   it('AC-mrr-021 sends the new time as Bangkok time', async () => {
     open();
     await loaded();
-    type('ui-mrr-008-ent-007-start-at', '2099-10-17T14:00');
-    type('ui-mrr-008-ent-007-end-at', '2099-10-17T15:00');
+    type('ui-mrr-008-ent-007-start-at', '17/10/2099 14:00');
+    type('ui-mrr-008-ent-007-end-at', '17/10/2099 15:00');
 
     save();
 
@@ -133,13 +133,13 @@ describe('FE-mrr-004 edit booking page (UI-mrr-008)', () => {
     saveReply = { status, body: { statusCode: status, message } };
     open();
     await loaded();
-    type('ui-mrr-008-ent-007-start-at', '2099-10-17T14:00');
-    type('ui-mrr-008-ent-007-end-at', '2099-10-17T15:00');
+    type('ui-mrr-008-ent-007-start-at', '17/10/2099 14:00');
+    type('ui-mrr-008-ent-007-end-at', '17/10/2099 15:00');
 
     save();
 
     expect(await screen.findByRole('alert')).toHaveTextContent(message);
-    expect(screen.getByTestId('ui-mrr-008-ent-007-start-at')).toHaveValue('2099-10-17T14:00');
+    expect(screen.getByTestId('ui-mrr-008-ent-007-start-at')).toHaveValue('17/10/2099 14:00');
     expect(screen.getByTestId('ui-mrr-008-save')).toBeEnabled();
   });
 

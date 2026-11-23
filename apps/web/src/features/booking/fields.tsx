@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import { ApiError, getJson } from '../../shared/api';
+import { FormattedInput } from '../../shared/FormattedInput';
 
 /** The fields a booking form captures — shared by create (UI-mrr-006) and edit (UI-mrr-008). */
 
@@ -51,17 +52,14 @@ export function TimeField(props: { id: string; label: string; value: string; onC
       <label htmlFor={id}>
         {label}<span className="req" aria-hidden="true">*</span>
       </label>
-      <input
-        className="input"
+      <FormattedInput
         id={id}
-        type="datetime-local"
         name={label}
-        data-testid={id}
+        kind="datetime"
         value={value}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={onChange}
         required
-        aria-invalid={error ? true : undefined}
-        aria-describedby={error ? `${id}-error` : undefined}
+        errorId={error ? `${id}-error` : undefined}
       />
       {error && <span className="errtext" id={`${id}-error`}>{error}</span>}
     </div>

@@ -1,6 +1,7 @@
 import { FormEvent, useEffect, useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { ApiError, getJson } from '../../shared/api';
+import { FormattedInput } from '../../shared/FormattedInput';
 import { Pager } from '../../shared/Pager';
 import { routeOf } from '../../shared/sitemap';
 import { bangkokDate } from '../../shared/time';
@@ -208,6 +209,7 @@ function TextField(props: {
       <label htmlFor={id}>
         {label}<span className="req" aria-hidden="true">*</span>
       </label>
+      {type === 'number' ? (
       <input
         className="input"
         id={id}
@@ -222,6 +224,10 @@ function TextField(props: {
         aria-invalid={error ? true : undefined}
         aria-describedby={error ? `${id}-error` : undefined}
       />
+      ) : (
+        // ADR-016: dates and times read and type วว/ดด/ปปปป · HH:MM on every machine, not the browser's own inputs.
+        <FormattedInput id={id} name={label} kind={type} value={value} onChange={onChange} required errorId={error ? `${id}-error` : undefined} />
+      )}
       {error && <span className="errtext" id={`${id}-error`}>{error}</span>}
     </div>
   );
