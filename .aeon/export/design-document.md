@@ -47,7 +47,7 @@
 | datamodel.json | /design:datamodel | done | approved | Noppasorn | 2026-11-19T10:40:50Z | — |
 | modules/mrr/statemachines.json | /design:datamodel | done | approved | Noppasorn | 2026-11-18T10:02:29Z | — |
 | rbac.json | /design:rbac | done | approved | Noppasorn | 2026-11-17T12:38:32Z | — |
-| nfr.json | /design:nfr | done | draft | — | — | — |
+| nfr.json | /design:nfr | done | approved | Noppasorn | 2026-11-23T08:01:07Z | — |
 | sitemap.json | /design:sitemap | done | approved | Noppasorn | 2026-11-18T10:02:29Z | — |
 | modules/mrr/screens.json | /design:sitemap | done | approved | Noppasorn | 2026-11-19T10:40:50Z | — |
 | interfaces.json | /design:interface | done | approved | Noppasorn | 2026-11-19T10:40:50Z | — |
