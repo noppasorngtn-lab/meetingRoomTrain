@@ -235,6 +235,19 @@
       "recordedAt": "2026-11-19T16:00:00+07:00",
       "absorbed": true,
       "absorbedAt": "2026-11-19T10:54:36Z"
+    },
+    {
+      "id": "ADR-014",
+      "origin": "design",
+      "kind": "revised",
+      "moved": [
+        "NFR-mrr-002",
+        "NFR-mrr-004"
+      ],
+      "reason": "ค่าใน nfr.json (ลงนาม 2026-10-19) design ร่างไว้ก่อนเจ้าของตอบค่าวัด และไม่ตรงกับที่ req บันทึกแล้ว — NFR-mrr-002: เจ้าของเลือก 'ทุกคำขอ' ไม่ใช่ p95 และ '200 คนกดพร้อมกันครั้งเดียว' ไม่ใช่ต่อเนื่อง 30 นาที · เกิน 200 คนต้องไม่ล่ม (SRC-034, SRC-035) · NFR-mrr-004: วัดจาก log ของระบบ ไม่ใช่ monitoring ภายนอก · ปิดปรับปรุงตามแผนต้องแจ้งล่วงหน้า 7 วันทำการ (เดิม 3) และแจ้งไม่ถึงก็ยังไม่นับเป็น downtime (SRC-036, SRC-037) · req แก้ NFR ผ่าน /req:capture ซึ่งไม่ออก change set (/req:change รับเฉพาะ BR/CALC) design จึงเปิดเอง · ที่มา: docs/qa/req-design-request-nfr002-nfr004-conflict-2026-11-23.md ข้อ 1–4",
+      "recordedAt": "2026-11-23T17:00:00+07:00",
+      "absorbed": true,
+      "absorbedAt": "2026-11-23T07:44:55Z"
     }
   ]
 }
