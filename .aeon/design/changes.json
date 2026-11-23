@@ -248,6 +248,18 @@
       "recordedAt": "2026-11-23T17:00:00+07:00",
       "absorbed": true,
       "absorbedAt": "2026-11-23T07:44:55Z"
+    },
+    {
+      "id": "ADR-015",
+      "origin": "design",
+      "kind": "revised",
+      "moved": [
+        "NFR-mrr-002"
+      ],
+      "reason": "PO ยอมรับเมื่อ 2026-11-23 ให้สุ่มวัดด้วยเบราว์เซอร์จริงจำนวนหนึ่งระหว่างที่ k6 ยิง 200 คำขอ แทนการเปิดเบราว์เซอร์ 200 ตัว (ข้อ 2 ของ docs/qa/req-design-request-nfr002-nfr004-conflict-2026-11-23.md) — measuredBy ของ NFR-mrr-002 ที่ ADR-014 เขียนไว้ว่า \"รอ PO ยอมรับ\" จึงล้าสมัย · แก้เฉพาะถ้อยคำ measuredBy · metric target condition ไม่เปลี่ยน",
+      "recordedAt": "2026-11-23T18:00:00+07:00",
+      "absorbed": true,
+      "absorbedAt": "2026-11-23T08:00:33Z"
     }
   ]
 }
