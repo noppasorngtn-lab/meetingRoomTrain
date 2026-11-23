@@ -9,7 +9,7 @@ actor: General User
 rules: [BR-mrr-001, BR-mrr-002, BR-mrr-003, BR-mrr-009, BR-mrr-014, BR-mrr-021, BR-mrr-024, BR-mrr-025, BR-mrr-026, BR-mrr-027, BR-mrr-028]
 domain_concepts: [UL-mrr-001, UL-mrr-002, UL-mrr-003, UL-mrr-005, UL-mrr-011, UL-mrr-013, UL-mrr-014]
 timestamp: 2026-11-18T12:30:00+07:00
-spec_hash: sha256:d121ce0d8e836a58efbf44ad2957d51f8c6351bb44015247abefb4c1c81d4c84
+spec_hash: sha256:5b9874f06a7d23fcb7bd4a54f409db99b8aadc4423d70f16585f0a17a4f4b5f8
 ---
 
 # REQ-mrr-001
@@ -51,6 +51,7 @@ spec_hash: sha256:d121ce0d8e836a58efbf44ad2957d51f8c6351bb44015247abefb4c1c81d4c
 | [SRC-010](../sources/SRC-010.md) | chat | — | บรรทัด 2 | *"เข้าสู่ระบบด้วย Email ขององค์กรอย่างเดียว — ไม่เชื่อม Active Directory (SSO) ในรอบนี้"* | — |
 | [SRC-034](../sources/SRC-034.md) | file | `docs/qa/oq-nfr-questions-2026-11-18.md` | บรรทัด 12 | *"1a ตารางห้องแสดงข้อมูลครบ · 1b ทุกคำขอ · 1c เกิน 200 ต้องไม่ล่ม · 1d 200 คนกดพร้อมกันครั้งเดียว · 2a รายเดือน · 2b ไม่นับบำรุงรักษาตามแผน · 2c วัดจาก log ของระบบ"* | — |
 | [SRC-035](../sources/SRC-035.md) | chat | — | บรรทัด 1 | *""ไม่ล่ม" = ไม่มี 5xx/timeout และกลับมาปกติหลังจบ"* | — |
+| [SRC-036](../sources/SRC-036.md) | chat | — | บรรทัด 1 | *"verified_by ของ NFR-mrr-004 = log_analysis"* | — |
 
 ## กฎ (11 ข้อที่ใช้อยู่)
 

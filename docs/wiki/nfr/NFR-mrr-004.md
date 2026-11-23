@@ -7,8 +7,9 @@ tags: [mrr, nfr, availability]
 id: NFR-mrr-004
 kind: availability
 belongs_to: REQ-mrr-001
+verified_by: log_analysis
 timestamp: 2026-11-18T12:30:00+07:00
-spec_hash: sha256:e396c5cc8b850b94d840727e0b64f8d0504043c29ad2694542b09e5c0b2332f8
+spec_hash: sha256:fd50346d5d785f30d540da6b5fffc0325cd2eff7eba8f60172ca16247f0cdf8f
 ---
 
 # NFR-mrr-004
@@ -19,5 +20,5 @@ spec_hash: sha256:e396c5cc8b850b94d840727e0b64f8d0504043c29ad2694542b09e5c0b2332
 | เรื่อง | ค่า |
 |---|---|
 | ชนิด | availability |
-| พิสูจน์ด้วย | — |
+| พิสูจน์ด้วย | log_analysis |
 | อยู่ใต้ | [REQ-mrr-001](../requirements/REQ-mrr-001.md) |
