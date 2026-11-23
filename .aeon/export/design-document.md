@@ -50,7 +50,7 @@
 | rbac.json | /design:rbac | done | approved | Noppasorn | 2026-11-17T12:38:32Z | — |
 | nfr.json | /design:nfr | done | approved | Noppasorn | 2026-11-23T08:01:07Z | — |
 | sitemap.json | /design:sitemap | done | approved | Noppasorn | 2026-11-18T10:02:29Z | — |
-| modules/mrr/screens.json | /design:sitemap | done | draft | — | — | — |
+| modules/mrr/screens.json | /design:sitemap | done | approved | Noppasorn | 2026-11-23T09:02:15Z | — |
 | interfaces.json | /design:interface | done | approved | Noppasorn | 2026-11-19T10:40:50Z | — |
 
 > ℹ️ **ข้อจำกัดของข้อมูลชุดนี้** — "สถานะขั้น" มาจากไฟล์สถานะ ส่วน "สถานะเอกสาร" มาจากตัวไฟล์เอง — ขั้นที่ค้างจะเห็นได้ที่คอลัมน์แรกเท่านั้น เพราะเครื่องหมายค้างถูกเก็บที่ขั้น ไม่ใช่ในเนื้อหาที่อนุมัติไปแล้ว
