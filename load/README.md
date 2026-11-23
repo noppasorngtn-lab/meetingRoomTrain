@@ -27,6 +27,6 @@ node load/seed-staging.mjs --sessions-only
 docker run --rm -i --network mrr-staging_default -v "<repo>/load:/load" -e WEB_URL=http://$WEBIP:4173 grafana/k6:2.4.0-with-browser run /load/nfr002-104b.k6.js
 docker compose -f docker/docker-compose.staging.yml stop
 ```
-The page loads its fonts from Google Fonts (internet); without internet access the screen time changes.
+Fonts are served by the app itself since 2026-11-23 (`@fontsource`, FE-mrr-022) - the page makes no internet request.
 On Git Bash for Windows set `MSYS_NO_PATHCONV=1`. Resource limits: `STG_API_CPUS`, `STG_API_MEM`, `STG_DB_CPUS`, `STG_DB_MEM`.
 A run on this stack does not prove the real staging or production meets NFR-mrr-002.

@@ -276,11 +276,31 @@
             "cmd": "docker compose -f docker/docker-compose.yml up -d --build --wait ; curl :4173/auth/me /me/bookings /reports/utilization /adjustment-requests /rooms ; down",
             "result": "all five 401 application/json from the api (was 200 text/html for the first four) · / 200 text/html · up/down exit 0",
             "at": "2026-10-21"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-build.ps1 -App frontend-web",
+            "result": "tsc + vite build ok (built in 1.01s) · IBM Plex Sans Thai/Mono woff2 bundled under dist/assets · Google Fonts link removed from index.html (self-host fonts, docs/qa/nfr002-load-run-2026-11-23.md)",
+            "at": "2026-11-23"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web -Filter FE-mrr-022",
+            "result": "Test Files 2 passed | 18 skipped (20) · Tests 22 passed | 278 skipped (300)",
+            "at": "2026-11-23"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web",
+            "result": "Test Files 20 passed (20) · Tests 300 passed (300)",
+            "at": "2026-11-23"
+          },
+          {
+            "cmd": "k6 grafana/k6:2.4.0-with-browser run load/nfr002-104b.k6.js (staging-like stack, normal + dense)",
+            "result": "exit 0 both · every page request served by the app (no fonts.googleapis/gstatic) · screen max 1.10 s normal / 1.22 s dense · only failed browser request = favicon.ico 404",
+            "at": "2026-11-23"
           }
         ],
         "last_error": null,
         "recorded_by": "Noppasorn",
-        "recorded_at": "2026-10-21"
+        "recorded_at": "2026-11-23"
       },
       "manifest": {
         "files": [
