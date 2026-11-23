@@ -445,6 +445,10 @@
       "cases": "TC-NTF-JOB-109",
       "note": "reminder job 09:45: mail to U1/U2/U3, bookings.reminder_status = SENT, real · PASS"
     },
+    "EX-mrr-112": {
+      "cases": "TC-NTF-JOB-110",
+      "note": "SMTP fixture refuses U3 only (support/partial-reject-mail.ts): reminder_status = FAILED for the whole booking, booking stays CONFIRMED, 09:50 pass sends nothing again, real · PASS after DEF-05 fix (a8818eb 2026-11-20, T3 2026-11-23)"
+    },
     "EX-mrr-113": {
       "cases": "TC-BKG-UI006-107",
       "note": "book with healthy mail: 201 'จองห้องสำเร็จ', no failed-mail text, booker gets 'จองสำเร็จ' mail, real · PASS"
