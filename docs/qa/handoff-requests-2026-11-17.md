@@ -32,6 +32,8 @@
 
 10. **(เพิ่ม 2026-11-23) `verified_by` ของ NFR-mrr-004 (และ NFR-001/003/005) ว่าง · ต้องตัดสินเรื่องลงนาม Phase 1 ใหม่** — ค่าวัดของ NFR-002/004 ขึ้น wiki แล้ว (92b3ead) แต่ไม่มี CHG และลายเซ็นเป็นของ 2026-11-18 · รายละเอียด: [req-request-nfr004-verified-by-and-resign-2026-11-23.md](req-request-nfr004-verified-by-and-resign-2026-11-23.md)
 
+11. **(เพิ่ม 2026-11-23) NFR-mrr-002/004 ใน `.aeon/design/nfr.json` ขัดกับค่าที่ req บันทึก (p95 กับทุกคำขอ · ต่อเนื่อง 30 นาทีกับกดพร้อมกันครั้งเดียว · monitoring ภายนอกกับ log ของระบบ)** — `/design:check` ผ่านแต่เนื้อหาไม่ตรงกัน · รายละเอียด: [req-design-request-nfr002-nfr004-conflict-2026-11-23.md](req-design-request-nfr002-nfr004-conflict-2026-11-23.md)
+
 ---
 
 ## ถึง design

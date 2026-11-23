@@ -1,7 +1,8 @@
 # Load cases NFR-mrr-002 (TC-NFR-REQ001-104 / 105)
 
 Staging-like stack on Docker — **not the real staging** (its address, owner and machine spec are still [TBD]).
-Sizes (20 rooms, ~60% of one-hour slots taken for the week, API/DB limited to 1 CPU / 512 MB each) are QA assumptions [TBD].
+Data size follows the design (`.aeon/design/nfr.json`, NFR-mrr-002 condition): 50 rooms, ~50,000 bookings over 2 years (seed: 50,400; current week 60% full). The real staging's size is [TBD]. API/DB limits (1 CPU / 512 MB each) are QA assumptions [TBD].
+The design's NFR-002/004 text conflicts with what req recorded (p95 vs every request; sustained 30 min vs one burst) - see docs/qa/req-design-request-nfr002-nfr004-conflict-2026-11-23.md. These scripts follow req.
 Measure point = API response of `GET /rooms/:id/calendar?view=week` (Dev decision 2026-11-23); browser render time is not included.
 
 ```bash
