@@ -1,7 +1,7 @@
 # Staging-like stack for the NFR-mrr-002 load cases (TC-NFR-REQ001-104 / 105). NOT the real staging:
 # the real staging's address, owner and machine spec are still [TBD] (docs/qa/t1-nfr-2026-11-23.md).
 # Separate project name + volume, so it never touches the dev stack or its database (E2E data).
-# Differences from docker-compose.yml: no ENABLE_TEST_CONTROLS, no web / TLS front (the load cases measure the API),
+# Differences from docker-compose.yml: no ENABLE_TEST_CONTROLS, no TLS front; web only serves case 104b's browser probes,
 # CPU/memory limits (values below are QA assumptions [TBD] - override with STG_API_CPUS etc.).
 # Run:  docker compose -f docker/docker-compose.staging.yml --env-file docker/.env up -d --build
 name: mrr-staging
@@ -63,6 +63,24 @@ services:
       timeout: 3s
       retries: 12
       start_period: 10s
+
+  # Pages for case 104b (load/nfr002-104b.k6.js): vite preview serves the built app and forwards the api paths to api.
+  web:
+    build:
+      context: ..
+      dockerfile: apps/web/Dockerfile
+    environment:
+      API_URL: http://api:3000
+    ports:
+      - "4174:4173"
+    depends_on:
+      api:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:4173/').then((r)=>process.exit(r.status===200?0:1)).catch(()=>process.exit(1))"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
 
 volumes:
   stg-db-data:
