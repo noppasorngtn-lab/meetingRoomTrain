@@ -304,6 +304,14 @@
       "captured_by": "/req:capture mrr (verified_by ของ NFR-mrr-004)",
       "content": "เจ้าของเลือกค่า verified_by ของ NFR-mrr-004 = log_analysis (วัด uptime รายเดือนจาก log ของระบบ) เมื่อ 2026-11-23 · ใส่เฉพาะ NFR-004 ก่อน ยังไม่ใส่ให้ NFR-001/003/005 (ผู้ใช้ในเซสชัน QA ไม่ได้ระบุชื่อ)",
       "hash_at_import": "sha256:9ac217e0932051bee2899f56a763d1ef1d63125dd9998117c5c71edae5e6852a"
+    },
+    {
+      "id": "SRC-037",
+      "kind": "chat",
+      "captured_at": "2026-11-23T16:00+07:00",
+      "captured_by": "/req:capture mrr (แหล่งวัดและการแจ้งล่วงหน้าของ NFR-mrr-004)",
+      "content": "แหล่งวัด uptime ของ NFR-mrr-004 = log ของระบบ · ปิดปรับปรุงตามแผนต้องแจ้งล่วงหน้า 7 วันทำการ · ถ้าแจ้งล่วงหน้าน้อยกว่า 7 วันทำการ ช่วงนั้นก็ยังไม่นับเป็น downtime — ผู้ใช้ตอบในเซสชันเมื่อ 2026-11-23 (ข้อ 3 ของ docs/qa/req-design-request-nfr002-nfr004-conflict-2026-11-23.md · วันทำการ/ผลของการแจ้งไม่ถึง 7 วัน ยืนยันในรอบคำถามของ /req:capture · ไม่ได้ระบุชื่อหรือบทบาท)",
+      "hash_at_import": "sha256:43acff81f96b9084f48c9ab68ee3f1ba9b18427578e82827b85982f8ff4362c0"
     }
   ],
   "glossary": [
@@ -837,6 +845,14 @@
           },
           "quote": "verified_by ของ NFR-mrr-004 = log_analysis",
           "confidence": 1
+        },
+        {
+          "source": "SRC-037",
+          "locator": {
+            "line": 1
+          },
+          "quote": "NFR-mrr-004 วัดจาก log ของระบบ · ปิดปรับปรุงตามแผนแจ้งล่วงหน้า 7 วันทำการ · แจ้งไม่ถึงก็ยังไม่นับเป็น downtime",
+          "confidence": 1
         }
       ],
       "nfr": [
@@ -859,7 +875,7 @@
         {
           "id": "NFR-mrr-004",
           "kind": "availability",
-          "statement": "เปิดให้บริการตลอด 24 ชั่วโมง (Uptime 99.9%) วัดรายเดือนจาก log ของระบบ ไม่นับช่วงบำรุงรักษาตามแผนเป็น downtime (ค่าวัด: SRC-034)",
+          "statement": "เปิดให้บริการตลอด 24 ชั่วโมง (Uptime 99.9%) วัดรายเดือนจาก log ของระบบ ไม่นับช่วงบำรุงรักษาตามแผนเป็น downtime · ปิดบำรุงรักษาตามแผนต้องแจ้งล่วงหน้า 7 วันทำการ (แจ้งน้อยกว่านั้นก็ยังไม่นับเป็น downtime) (ค่าวัด: SRC-034, SRC-037)",
           "verified_by": "log_analysis"
         },
         {

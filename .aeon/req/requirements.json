@@ -54,7 +54,7 @@
         {
           "id": "NFR-mrr-004",
           "kind": "availability",
-          "statement": "เปิดให้บริการตลอด 24 ชั่วโมง (Uptime 99.9%) วัดรายเดือนจาก log ของระบบ ไม่นับช่วงบำรุงรักษาตามแผนเป็น downtime (ค่าวัด: SRC-034)",
+          "statement": "เปิดให้บริการตลอด 24 ชั่วโมง (Uptime 99.9%) วัดรายเดือนจาก log ของระบบ ไม่นับช่วงบำรุงรักษาตามแผนเป็น downtime · ปิดบำรุงรักษาตามแผนต้องแจ้งล่วงหน้า 7 วันทำการ (แจ้งน้อยกว่านั้นก็ยังไม่นับเป็น downtime) (ค่าวัด: SRC-034, SRC-037)",
           "verifiedBy": "log_analysis",
           "extensions": {}
         },
@@ -568,6 +568,14 @@
             "line": 1
           },
           "quote": "verified_by ของ NFR-mrr-004 = log_analysis",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-037",
+          "locator": {
+            "line": 1
+          },
+          "quote": "NFR-mrr-004 วัดจาก log ของระบบ · ปิดปรับปรุงตามแผนแจ้งล่วงหน้า 7 วันทำการ · แจ้งไม่ถึงก็ยังไม่นับเป็น downtime",
           "confidence": 1
         }
       ],
