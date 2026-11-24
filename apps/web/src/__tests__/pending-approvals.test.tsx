@@ -107,8 +107,8 @@ describe('FE-mrr-007 pending approvals page (UI-mrr-009)', () => {
     open();
 
     fireEvent.click(await screen.findByTestId('ui-mrr-009-reject'));
-    fireEvent.change(await screen.findByTestId('ui-mrr-009-reason'), { target: { value: 'ห้องไม่เหมาะกับการประชุมนี้' } });
-    fireEvent.click(screen.getByTestId('ui-mrr-009-reject-confirm'));
+    fireEvent.change(await screen.findByTestId('ui-mrr-009-ent-010-reason'), { target: { value: 'ห้องไม่เหมาะกับการประชุมนี้' } });
+    fireEvent.click(screen.getByTestId('ui-mrr-009-confirm-reject'));
 
     expect(await screen.findByRole('status')).toHaveTextContent('ปฏิเสธการจองสำเร็จ');
     expect(posts()).toEqual([{ method: 'POST', url: `/bookings/${BOOKING}/reject` }]);
@@ -117,8 +117,8 @@ describe('FE-mrr-007 pending approvals page (UI-mrr-009)', () => {
   it('DEF-04 · BR-mrr-017@v2 ปฏิเสธโดยเว้นเหตุผล — แจ้งกรุณาระบุเหตุผล และไม่ส่งคำขอ', async () => {
     open();
     fireEvent.click(await screen.findByTestId('ui-mrr-009-reject'));
-    fireEvent.change(await screen.findByTestId('ui-mrr-009-reason'), { target: { value: '   ' } });
-    fireEvent.click(screen.getByTestId('ui-mrr-009-reject-confirm'));
+    fireEvent.change(await screen.findByTestId('ui-mrr-009-ent-010-reason'), { target: { value: '   ' } });
+    fireEvent.click(screen.getByTestId('ui-mrr-009-confirm-reject'));
 
     expect(await screen.findByTestId('ui-mrr-009-reason-error')).toHaveTextContent('กรุณาระบุเหตุผล');
     expect(posts()).toEqual([]);
@@ -171,8 +171,8 @@ describe('FE-mrr-007 pending approvals page (UI-mrr-009)', () => {
     replies[`POST /bookings/${BOOKING}/reject`] = { status: 500 };
     open();
     fireEvent.click(await screen.findByTestId('ui-mrr-009-reject'));
-    fireEvent.change(await screen.findByTestId('ui-mrr-009-reason'), { target: { value: 'ห้องไม่เหมาะกับการประชุมนี้' } });
-    fireEvent.click(screen.getByTestId('ui-mrr-009-reject-confirm'));
+    fireEvent.change(await screen.findByTestId('ui-mrr-009-ent-010-reason'), { target: { value: 'ห้องไม่เหมาะกับการประชุมนี้' } });
+    fireEvent.click(screen.getByTestId('ui-mrr-009-confirm-reject'));
 
     expect(await screen.findByRole('alert')).toHaveTextContent('บันทึกผลไม่สำเร็จ กรุณากดอีกครั้ง');
   });

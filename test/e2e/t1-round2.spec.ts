@@ -287,13 +287,13 @@ test.describe('ค่าช่อง "การกระทำ" ของร่�
     await row.getByTestId('ui-mrr-009-reject').click();
 
     // เว้นเหตุผล → ข้อความ error · ไม่ยิง API (สถานะยังรออนุมัติ ร่องรอยยังไม่มี)
-    await page.getByTestId('ui-mrr-009-reject-confirm').click();
+    await page.getByTestId('ui-mrr-009-confirm-reject').click();
     await expect(page.getByTestId('ui-mrr-009-reason-error')).toHaveText('กรุณาระบุเหตุผล');
     expect(await statusOf(b.id)).toBe('PENDING_APPROVAL');
     expect(await trailOf(b.id)).toHaveLength(0);
 
-    await page.getByTestId('ui-mrr-009-reason').fill(REJECT_REASON);
-    await page.getByTestId('ui-mrr-009-reject-confirm').click();
+    await page.getByTestId('ui-mrr-009-ent-010-reason').fill(REJECT_REASON);
+    await page.getByTestId('ui-mrr-009-confirm-reject').click();
     await expect(page.getByRole('status')).toContainText('ปฏิเสธการจองสำเร็จ');
     expect(await statusOf(b.id)).toBe('REJECTED');
     const trail = await trailOf(b.id);

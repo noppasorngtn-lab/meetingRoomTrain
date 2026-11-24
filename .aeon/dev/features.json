@@ -2202,7 +2202,7 @@
       "title_th": "อนุมัติหรือปฏิเสธการจอง — หน้าจอ",
       "app_ref": "frontend-web",
       "type": "command",
-      "origin": "new",
+      "origin": "change",
       "files_planned": [],
       "depends_on": [
         "FE-mrr-022",
@@ -2221,7 +2221,7 @@
       "traces_up": [
         {
           "ref": "UC-mrr-007",
-          "hash": "sha256:8cb2dfb740525b09c84c4cf0a92a910b6d94d09256a35e6b110baf74b1bfd439"
+          "hash": "sha256:c2a084fc6d75bd5608aa8f7f54352f9bae9a35a54018f3b1f3532b5fc702acb4"
         },
         {
           "ref": "AC-mrr-013",
@@ -2249,7 +2249,7 @@
         },
         {
           "ref": "AC-mrr-052",
-          "hash": "sha256:b2496ef3c55c3ef7fcc06b35b850adbfc047c9334af5d934716df95d4ee9b5d5"
+          "hash": "sha256:2b2ee3f680bb34beed34508503600828a7f30ba1228728d44fccbfb27aac9f0b"
         },
         {
           "ref": "AC-mrr-062",
@@ -2278,11 +2278,26 @@
             "cmd": "powershell -File scripts/dev-test.ps1",
             "result": "api: Test Suites 14 passed, Tests 173 passed · web: Test Files 7 passed, Tests 104 passed · exit 0",
             "at": "2026-10-20"
+          },
+          {
+            "cmd": "powershell -NoProfile -File scripts/dev-build.ps1 -App frontend-web",
+            "result": "tsc --noEmit + vite build · built in 907ms · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -NoProfile -File scripts/dev-test.ps1 -App frontend-web -Filter FE-mrr-007",
+            "result": "pending-approvals.test.tsx 19 passed · Test Files 1 passed | 20 skipped (21) · Tests 19 passed | 290 skipped (309) · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "cd test && npx playwright test e2e/t1-round2.spec.ts --project=chromium -g \"TC-AUD-UI009-101|TC-AUD-UI010-112\" --reporter=list",
+            "result": "2 passed (15.7s) · [real] against docker stack mrr-* rebuilt from this tree · selectors renamed to the wireframe ids, assertions unchanged",
+            "at": "2026-11-24"
           }
         ],
         "last_error": null,
         "recorded_by": "Noppasorn",
-        "recorded_at": "2026-10-20"
+        "recorded_at": "2026-11-24"
       },
       "manifest": {
         "files": [
@@ -2376,6 +2391,36 @@
             "kind": "navigate",
             "dd_ref": null,
             "testid": "ui-mrr-009-manage",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "rejectReason",
+            "kind": "field",
+            "dd_ref": null,
+            "testid": "ui-mrr-009-ent-010-reason",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "confirmReject",
+            "kind": "command",
+            "dd_ref": null,
+            "testid": "ui-mrr-009-confirm-reject",
+            "binding": null,
+            "validation_refs": [],
+            "depends_on": null,
+            "roles": []
+          },
+          {
+            "id": "cancelReject",
+            "kind": "command",
+            "dd_ref": null,
+            "testid": "ui-mrr-009-cancel-reject",
             "binding": null,
             "validation_refs": [],
             "depends_on": null,
@@ -6973,8 +7018,8 @@
       "validated": 42
     },
     "by_origin": {
-      "new": 33,
-      "change": 9
+      "new": 32,
+      "change": 10
     },
     "by_app": {
       "frontend-web": 19,

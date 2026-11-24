@@ -200,16 +200,16 @@ export function PendingApprovalsPage() {
                         <label htmlFor="ui-mrr-009-reason">เหตุผลที่ปฏิเสธ</label>
                         <input
                           id="ui-mrr-009-reason"
-                          data-testid="ui-mrr-009-reason"
+                          data-testid="ui-mrr-009-ent-010-reason"
                           value={reason}
                           onChange={(e) => { setReason(e.target.value); setReasonError(null); }}
                           aria-invalid={reasonError ? true : undefined}
                         />
                         {reasonError && <p role="alert" className="field-error" data-testid="ui-mrr-009-reason-error">{reasonError}</p>}
-                        <button type="button" className="btn btn-danger" data-testid="ui-mrr-009-reject-confirm" disabled={deciding !== null} onClick={() => decide('reject', b.id)}>
+                        <button type="button" className="btn btn-danger" data-testid="ui-mrr-009-confirm-reject" disabled={deciding !== null} onClick={() => decide('reject', b.id)}>
                           ยืนยันปฏิเสธ
                         </button>
-                        <button type="button" className="btn btn-secondary" data-testid="ui-mrr-009-reject-cancel" onClick={() => setRejectingId(null)}>
+                        <button type="button" className="btn btn-secondary" data-testid="ui-mrr-009-cancel-reject" onClick={() => setRejectingId(null)}>
                           ยกเลิก
                         </button>
                       </td>
