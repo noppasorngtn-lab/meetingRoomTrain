@@ -63,6 +63,29 @@ describe('FE-mrr-030 edit or cancel on behalf of the booker (UC-mrr-009)', () =>
   const row = (id = booking) =>
     db.selectFrom('bookings').select(['status', 'title', 'start_at', 'end_at', 'cancel_reason']).where('id', '=', id).executeTakeFirstOrThrow();
 
+  // GAP-mrr-026 · EX-mrr-117 / EX-mrr-122 — the meeting under way at 10:30 (the examples' 17/10 and 18/10
+  // are the same situation: a Room Administrator acting during the meeting).
+  describe('BR-mrr-007@v2 · BR-mrr-017@v2 criteria for acting on behalf', () => {
+    it('AC-mrr-120 10:30 RA cancels for U1 with ห้องต้องใช้จัดงานด่วน — ยกเลิกการจองสำเร็จ, and U1, U2 and U3 are mailed ยกเลิกการจอง', async () => {
+      const u3 = await seedUser(db, 'U3');
+      await db.insertInto('booking_attendees').values({ booking_id: booking, user_id: u3 }).execute();
+
+      expect(await service.adminCancel({ userId: ra1 }, booking, 'ห้องต้องใช้จัดงานด่วน')).toEqual({ message: 'ยกเลิกการจองสำเร็จ' });
+
+      expect(await row()).toMatchObject({ status: 'CANCELLED' });
+      expect(mail.sent).toHaveLength(1);
+      expect([...mail.sent[0].to].sort()).toEqual(['u1@example.test', 'u2@example.test', 'u3@example.test']);
+      expect(mail.sent[0].subject).toBe('[จองห้องประชุม] ยกเลิกการจอง: ประชุมทีม · ห้อง A 18/10 10:00–11:00');
+    });
+
+    it('AC-mrr-125 18/10 10:30 RA1 edits the title to ประชุมวางแผน for U1 — บันทึกการแก้ไขสำเร็จ, and one entry RA1 · 18/10 10:30 · EDIT_ON_BEHALF (แก้แทนผู้จอง) · ผู้จองพิมพ์หัวข้อผิด', async () => {
+      expect(await service.adminEdit({ userId: ra1 }, booking, { title: 'ประชุมวางแผน' }, 'ผู้จองพิมพ์หัวข้อผิด')).toEqual({ message: 'บันทึกการแก้ไขสำเร็จ' });
+
+      expect(await row()).toMatchObject({ title: 'ประชุมวางแผน' });
+      expect((await trail()).map((e) => [e.actor_id, e.at, e.action, e.reason])).toEqual([[ra1, at(18, '10:30'), 'EDIT_ON_BEHALF', 'ผู้จองพิมพ์หัวข้อผิด']]);
+    });
+  });
+
   describe('edit on behalf (API-014)', () => {
     const edit = (input: object, reason = 'ผู้จองพิมพ์หัวข้อผิด', by = ra1) => service.adminEdit({ userId: by }, booking, input, reason);
 

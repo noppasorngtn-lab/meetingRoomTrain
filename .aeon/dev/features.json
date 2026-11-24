@@ -2810,7 +2810,7 @@
       "title_th": "แก้ไขหรือยกเลิกการจองแทนผู้จอง — ฝั่ง API",
       "app_ref": "api",
       "type": "command",
-      "origin": "new",
+      "origin": "change",
       "files_planned": [],
       "depends_on": [
         "FE-mrr-017"
@@ -2820,7 +2820,9 @@
         "AC-mrr-029",
         "AC-mrr-042",
         "AC-mrr-053",
-        "AC-mrr-055"
+        "AC-mrr-055",
+        "AC-mrr-120",
+        "AC-mrr-125"
       ],
       "traces_up": [
         {
@@ -2841,11 +2843,19 @@
         },
         {
           "ref": "AC-mrr-053",
-          "hash": "sha256:aaa19b2087d9e507a469048cf6cd45a2173f4b243a314f250aab285c1476f98d"
+          "hash": "sha256:892af8f4e29d8f9d8590d1d0ac114c31a7a3fc67eed82a8ba166245aac62300a"
         },
         {
           "ref": "AC-mrr-055",
-          "hash": "sha256:c9bc509cb6a666dff9d38bd0daf0b174adb929232974af5081f48473058cb99f"
+          "hash": "sha256:0e070a5816c939a4c09996924b78403c95614bf1dda379072f978fede9cd6db9"
+        },
+        {
+          "ref": "AC-mrr-120",
+          "hash": "sha256:e875c47358c2d4098fc6a868a7e53c740c6f0b54b221ba746ea23c4660df18de"
+        },
+        {
+          "ref": "AC-mrr-125",
+          "hash": "sha256:e6749ba4554fdb461c9f6e3ae669432c1e4af12fdac2ac47f9f68959afc5ae09"
         },
         {
           "ref": "API-007",
@@ -2865,7 +2875,7 @@
         },
         {
           "ref": "ENT-010",
-          "hash": "sha256:fb41b9378eaf8f1f19c7e0cb570aad7582f05713eab16d4c5f2f9d57de03f3fc"
+          "hash": "sha256:3fae91d443acad5bf74c36b488badb406749178e7eb06711b4cf2e76315e5020"
         }
       ],
       "status": "validated",
@@ -2886,11 +2896,26 @@
             "cmd": "powershell -File scripts/dev-test.ps1",
             "result": "api: Test Suites 18 passed, Tests 247 passed · web: Test Files 8 passed, Tests 123 passed · exit 0",
             "at": "2026-10-20"
+          },
+          {
+            "cmd": "powershell -NoProfile -File scripts/dev-build.ps1 -App api",
+            "result": "tsc -p tsconfig.build.json · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -NoProfile -File scripts/dev-test.ps1 -App api -Filter FE-mrr-030",
+            "result": "booking-admin.spec.ts · booking-admin.http.spec.ts PASS · Test Suites: 38 skipped, 2 passed, 2 of 40 total · Tests: 459 skipped, 47 passed, 506 total · exit 0 (AC-mrr-120 cancel on behalf mails ยกเลิกการจอง to U1 U2 U3 · 125 edit on behalf: ประชุมวางแผน + one EDIT_ON_BEHALF entry at 18/10 10:30)",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "cd test && npx playwright test e2e/t1-round2.spec.ts --project=chromium -g \"TC-NTF-UI010-101|TC-AUD-UI010-111\" --reporter=list",
+            "result": "2 passed (12.7s) · [real] TC-NTF-UI010-101 (EX-mrr-117) · TC-AUD-UI010-111 (EX-mrr-122) against docker stack mrr-* rebuilt from HEAD",
+            "at": "2026-11-24"
           }
         ],
         "last_error": null,
         "recorded_by": "Noppasorn",
-        "recorded_at": "2026-10-20"
+        "recorded_at": "2026-11-24"
       },
       "manifest": {
         "files": [
@@ -7358,8 +7383,8 @@
       "validated": 42
     },
     "by_origin": {
-      "new": 20,
-      "change": 22
+      "new": 19,
+      "change": 23
     },
     "by_app": {
       "frontend-web": 19,
