@@ -81,9 +81,9 @@
         "command": "/mock:coverage",
         "why": "the answer is about what a screen shows or how it behaves once the data model is settled"
       },
-      "state": "open",
-      "answer": null,
-      "answeredAt": null,
+      "state": "answered",
+      "answer": "ไม่ต้อง — หน้าจัดการห้องแสดงแค่เลขเวอร์ชันปัจจุบัน ไม่มีหน้าประวัติเวอร์ชัน (ระบบยังเก็บทุกเวอร์ชันตาม DQ-mrr-002) (SRC-039)",
+      "answeredAt": "2026-11-24T19:00+07:00",
       "resultedIn": [],
       "extensions": {}
     },
@@ -100,10 +100,12 @@
         "command": null,
         "why": "the answer is a build decision — sequencing, migration, rollout"
       },
-      "state": "open",
-      "answer": null,
-      "answeredAt": null,
-      "resultedIn": [],
+      "state": "answered",
+      "answer": "rollback ทั้งรายการ — ส่ง Email ไม่สำเร็จแล้วไม่มีข้อมูลค้างครึ่งทาง ผู้ใช้กดใหม่ได้ ตาม BR-mrr-019@v1 (SRC-039)",
+      "answeredAt": "2026-11-24T19:00+07:00",
+      "resultedIn": [
+        "BR-mrr-019@v1"
+      ],
       "extensions": {}
     },
     {
@@ -280,10 +282,12 @@
         "command": null,
         "why": "the answer is a build decision — sequencing, migration, rollout"
       },
-      "state": "open",
-      "answer": null,
-      "answeredAt": null,
-      "resultedIn": [],
+      "state": "answered",
+      "answer": "rollback — ส่ง Email รหัสไม่สำเร็จแล้วไม่เหลือรหัสที่ใช้ได้ค้าง ผู้ใช้ขอใหม่ได้ทันที ตาม BR-mrr-024@v1 (SRC-039)",
+      "answeredAt": "2026-11-24T19:00+07:00",
+      "resultedIn": [
+        "BR-mrr-024@v1"
+      ],
       "extensions": {}
     },
     {

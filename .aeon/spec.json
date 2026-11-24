@@ -320,6 +320,14 @@
       "captured_by": "/req:ask mrr (GAP-mrr-014 · GAP-mrr-016 · T5 F#9)",
       "content": "คำตอบของเจ้าของ (Noppasorn) ใน /req:ask เมื่อ 2026-11-24 สามข้อ: (1) GAP-mrr-014 / T5 F#10 — ร่องรอยของคำขอแก้ไขหลังจบประชุมใช้ค่าช่อง การกระทำ ว่า สร้างคำขอแก้ไข · อนุมัติคำขอ · ปฏิเสธคำขอ ตามที่หน้าร่องรอยแสดงอยู่ และให้เพิ่มเข้า BR-mrr-017 · (2) T5 F#9 — การปฏิเสธคำขอแก้ไขหลังจบประชุม (REJECT_ADJUSTMENT) ไม่บังคับเหตุผล ตามระบบตอนนี้ คำว่า การปฏิเสธต้องระบุเหตุผล ใน BR-mrr-017 หมายถึงการปฏิเสธการจองเท่านั้น ให้เขียนให้ชัด · (3) GAP-mrr-016 — ยอมรับที่ design ตัดช่องรูปภาพห้องออกจากฟอร์มในรอบนี้ (ADR-007 · 2026-11-17) รูปภาพห้องไว้รอบถัดไป",
       "hash_at_import": "sha256:55295f4dd745e0439ee986bd27fc7219da874452e6f1121a960109d36af21550"
+    },
+    {
+      "id": "SRC-039",
+      "kind": "chat",
+      "captured_at": "2026-11-24T19:00+07:00",
+      "captured_by": "/req:ask mrr (DQ-mrr-004 · DQ-mrr-005 · DQ-mrr-014)",
+      "content": "คำตอบของเจ้าของ (Noppasorn) ใน /req:ask เมื่อ 2026-11-24 สามข้อ (คำถามค้างที่ทำให้ CP2 ยังไม่ผ่าน): (1) DQ-mrr-004 — หน้าจัดการห้องไม่ต้องแสดงประวัติเวอร์ชันของห้อง แสดงแค่เลขเวอร์ชันปัจจุบัน (ระบบยังเก็บทุกเวอร์ชันไว้ตาม DQ-mrr-002 เพื่อให้การจองเก่าอ้างได้) · (2) DQ-mrr-005 — เมื่อส่ง Email แจ้งเตือนไม่สำเร็จ ข้อมูลที่เขียนไปแล้ว (การจอง สถานะ ร่องรอย) rollback ทั้งรายการ ไม่ค้างครึ่งทาง ผู้ใช้กดใหม่ได้ ตาม BR-mrr-019@v1 · (3) DQ-mrr-014 — เมื่อส่ง Email รหัสเข้าสู่ระบบไม่สำเร็จ rollback รหัสที่ออกไว้ ไม่เหลือรหัสที่ใช้ได้ค้าง ผู้ใช้ขอใหม่ได้ทันที ตาม BR-mrr-024@v1",
+      "hash_at_import": "sha256:04cbed1d84e6a25d211b295936125156fb09e6529544fa374340f00b32361d50"
     }
   ],
   "glossary": [
@@ -5760,11 +5768,12 @@
       "question": "หน้าจอจัดการห้องต้องแสดงประวัติเวอร์ชันของห้องไหม",
       "blocked_until": "entity:MeetingRoom",
       "answer_phase": "screen",
-      "state": "open",
-      "answer": null,
-      "answered_at": null,
+      "state": "answered",
+      "answer": "ไม่ต้อง — หน้าจัดการห้องแสดงแค่เลขเวอร์ชันปัจจุบัน ไม่มีหน้าประวัติเวอร์ชัน (ระบบยังเก็บทุกเวอร์ชันตาม DQ-mrr-002) (SRC-039)",
+      "answered_at": "2026-11-24T19:00+07:00",
       "raised_by": "BR-mrr-010@v1",
-      "category": "temporal"
+      "category": "temporal",
+      "resulted_in": []
     },
     {
       "id": "DQ-mrr-005",
@@ -5773,9 +5782,12 @@
       "category": "integration",
       "blocked_until": "entity:Booking",
       "answer_phase": "plan",
-      "state": "open",
-      "answer": null,
-      "answered_at": null
+      "state": "answered",
+      "answer": "rollback ทั้งรายการ — ส่ง Email ไม่สำเร็จแล้วไม่มีข้อมูลค้างครึ่งทาง ผู้ใช้กดใหม่ได้ ตาม BR-mrr-019@v1 (SRC-039)",
+      "answered_at": "2026-11-24T19:00+07:00",
+      "resulted_in": [
+        "BR-mrr-019@v1"
+      ]
     },
     {
       "id": "DQ-mrr-006",
@@ -5884,9 +5896,12 @@
       "raised_by": "BR-mrr-024@v1",
       "category": "integration",
       "answer_phase": "plan",
-      "state": "open",
-      "answer": null,
-      "answered_at": null
+      "state": "answered",
+      "answer": "rollback — ส่ง Email รหัสไม่สำเร็จแล้วไม่เหลือรหัสที่ใช้ได้ค้าง ผู้ใช้ขอใหม่ได้ทันที ตาม BR-mrr-024@v1 (SRC-039)",
+      "answered_at": "2026-11-24T19:00+07:00",
+      "resulted_in": [
+        "BR-mrr-024@v1"
+      ]
     },
     {
       "id": "DQ-mrr-015",
@@ -5919,7 +5934,7 @@
     "rules_with_example": 28,
     "rules_with_green_test": 0,
     "open_questions": 0,
-    "open_deferred": 3,
+    "open_deferred": 0,
     "rule_coverage": 1,
     "ready_for_next_step": true
   }
