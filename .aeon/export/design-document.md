@@ -50,9 +50,9 @@
 | context.json | /design:overview | done | approved | Noppasorn | 2026-10-19T07:59:59Z | — |
 | modules/mrr/functions.json | /design:function | done | approved | Noppasorn | 2026-11-24T08:51:13Z | — |
 | trace.design.json | /design:function | done | — | — | — | — |
-| datamodel.json | /design:datamodel | done | draft | — | — | — |
-| modules/mrr/statemachines.json | /design:datamodel | done | draft | — | — | — |
-| rbac.json | /design:rbac | done | draft | — | — | — |
+| datamodel.json | /design:datamodel | done | approved | Noppasorn | 2026-11-24T10:37:27Z | — |
+| modules/mrr/statemachines.json | /design:datamodel | done | approved | Noppasorn | 2026-11-24T10:37:27Z | — |
+| rbac.json | /design:rbac | done | approved | Noppasorn | 2026-11-24T10:37:27Z | — |
 | nfr.json | /design:nfr | done | approved | Noppasorn | 2026-11-23T08:01:07Z | — |
 | sitemap.json | /design:sitemap | done | approved | Noppasorn | 2026-11-24T08:51:13Z | — |
 | modules/mrr/screens.json | /design:sitemap | done | approved | Noppasorn | 2026-11-24T08:51:13Z | — |
