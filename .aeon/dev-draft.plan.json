@@ -2,56 +2,44 @@
   "module": "mrr",
   "features": [
     {
-      "id": "FE-mrr-033",
-      "title_th": "ดูร่องรอยการกระทำต่อการจอง — ฝั่ง API",
+      "id": "FE-mrr-032",
+      "title_th": "อนุมัติคำขอแก้ไขการจอง — ฝั่ง API",
       "app_ref": "api",
       "type": "command",
       "origin": "change",
       "files_planned": [],
       "depends_on": [],
       "acceptance_refs": [
-        "AC-mrr-052",
-        "AC-mrr-053",
-        "AC-mrr-054",
-        "AC-mrr-055",
-        "AC-mrr-056",
-        "AC-mrr-057",
-        "AC-mrr-058",
-        "AC-mrr-059"
+        "AC-mrr-043",
+        "AC-mrr-044"
       ],
       "traces_up": [
         {
-          "ref": "UC-mrr-012"
+          "ref": "UC-mrr-011"
         },
         {
-          "ref": "AC-mrr-052"
+          "ref": "AC-mrr-043"
         },
         {
-          "ref": "AC-mrr-053"
+          "ref": "AC-mrr-044"
         },
         {
-          "ref": "AC-mrr-054"
+          "ref": "API-017"
         },
         {
-          "ref": "AC-mrr-055"
+          "ref": "API-018"
         },
         {
-          "ref": "AC-mrr-056"
+          "ref": "API-019"
         },
         {
-          "ref": "AC-mrr-057"
-        },
-        {
-          "ref": "AC-mrr-058"
-        },
-        {
-          "ref": "AC-mrr-059"
-        },
-        {
-          "ref": "API-016"
+          "ref": "ENT-007"
         },
         {
           "ref": "ENT-010"
+        },
+        {
+          "ref": "ENT-011"
         }
       ],
       "status": "draft"
