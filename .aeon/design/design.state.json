@@ -44,7 +44,7 @@
     {
       "id": "datamodel",
       "command": "/design:datamodel",
-      "status": "done",
+      "status": "stale",
       "requires": [
         "function"
       ],
@@ -52,8 +52,9 @@
         "datamodel.json",
         "modules/<module>/statemachines.json"
       ],
-      "attempts": 1,
-      "updatedAt": "2026-11-24T08:43:24Z"
+      "attempts": 0,
+      "updatedAt": "2026-11-24T10:27:58Z",
+      "staleBecause": "ADR-017"
     },
     {
       "id": "scenario",
