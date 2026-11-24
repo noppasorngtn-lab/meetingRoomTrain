@@ -2,76 +2,47 @@
   "module": "mrr",
   "features": [
     {
-      "id": "FE-mrr-012",
-      "title_th": "ดูร่องรอยการกระทำต่อการจอง — หน้าจอ",
-      "app_ref": "frontend-web",
+      "id": "FE-mrr-041",
+      "title_th": "ค้นหาห้องว่าง — ฝั่ง API",
+      "app_ref": "api",
       "type": "command",
       "origin": "change",
       "files_planned": [],
       "depends_on": [
-        "FE-mrr-022",
-        "FE-mrr-033"
+        "FE-mrr-034"
       ],
       "acceptance_refs": [
-        "AC-mrr-052",
-        "AC-mrr-053",
-        "AC-mrr-054",
-        "AC-mrr-055",
-        "AC-mrr-056",
-        "AC-mrr-057",
-        "AC-mrr-058",
-        "AC-mrr-059",
-        "AC-mrr-121",
-        "AC-mrr-123",
-        "AC-mrr-124",
-        "AC-mrr-125",
-        "AC-mrr-126"
+        "AC-mrr-106",
+        "AC-mrr-107",
+        "AC-mrr-108"
       ],
       "traces_up": [
         {
-          "ref": "UC-mrr-012"
+          "ref": "UC-mrr-001"
         },
         {
-          "ref": "AC-mrr-052"
+          "ref": "AC-mrr-106"
         },
         {
-          "ref": "AC-mrr-053"
+          "ref": "AC-mrr-107"
         },
         {
-          "ref": "AC-mrr-054"
+          "ref": "AC-mrr-108"
         },
         {
-          "ref": "AC-mrr-055"
+          "ref": "API-001"
         },
         {
-          "ref": "AC-mrr-056"
+          "ref": "ENT-002"
         },
         {
-          "ref": "AC-mrr-057"
+          "ref": "ENT-004"
         },
         {
-          "ref": "AC-mrr-058"
+          "ref": "ENT-006"
         },
         {
-          "ref": "AC-mrr-059"
-        },
-        {
-          "ref": "AC-mrr-121"
-        },
-        {
-          "ref": "AC-mrr-123"
-        },
-        {
-          "ref": "AC-mrr-124"
-        },
-        {
-          "ref": "AC-mrr-125"
-        },
-        {
-          "ref": "AC-mrr-126"
-        },
-        {
-          "ref": "UI-mrr-010"
+          "ref": "ENT-007"
         }
       ]
     }

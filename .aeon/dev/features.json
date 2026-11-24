@@ -4806,7 +4806,7 @@
       "title_th": "ปิดปรับปรุงหรือเปิดใช้งานห้อง — ฝั่ง API",
       "app_ref": "api",
       "type": "command",
-      "origin": "new",
+      "origin": "change",
       "files_planned": [],
       "depends_on": [],
       "acceptance_refs": [
@@ -4836,7 +4836,7 @@
         },
         {
           "ref": "ENT-006",
-          "hash": "sha256:b16987f2f64f0070089ddf6f535953f2dcd544a7704c51efd0f5f9f71db33d18"
+          "hash": "sha256:c5a47563cd962b54972ee05d36f6bdd954fde0c348a63403af5b814439e3d2be"
         },
         {
           "ref": "ENT-007",
@@ -4861,11 +4861,26 @@
             "cmd": "powershell -File scripts/dev-test.ps1",
             "result": "api: Test Suites 26 passed, Tests 313 passed · web: Test Files 11 passed, Tests 164 passed · exit 0",
             "at": "2026-10-21"
+          },
+          {
+            "cmd": "powershell -NoProfile -File scripts/dev-build.ps1 -App api",
+            "result": "tsc -p tsconfig.build.json · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -NoProfile -File scripts/dev-test.ps1 -App api -Filter FE-mrr-035",
+            "result": "room-maintenance.spec.ts · room-maintenance.http.spec.ts PASS · Test Suites: 38 skipped, 2 passed, 2 of 40 total · Tests: 496 skipped, 11 passed, 507 total · exit 0 (ENT-006 endAt now cites CALC-mrr-001@v2, CHG-mrr-005 — no behaviour moved)",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "cd test && npx playwright test e2e/t1-roles.spec.ts --project=chromium -g \"TC-RMM-UI012-10[12]\" --reporter=list",
+            "result": "2 passed · [real] TC-RMM-UI012-101 · TC-RMM-UI012-102 (EX-mrr-083) against docker stack mrr-*",
+            "at": "2026-11-24"
           }
         ],
         "last_error": null,
         "recorded_by": "Noppasorn",
-        "recorded_at": "2026-10-21"
+        "recorded_at": "2026-11-24"
       },
       "manifest": {
         "files": [
@@ -6474,7 +6489,7 @@
       "title_th": "ค้นหาห้องว่าง — ฝั่ง API",
       "app_ref": "api",
       "type": "command",
-      "origin": "new",
+      "origin": "change",
       "files_planned": [],
       "depends_on": [
         "FE-mrr-034"
@@ -6515,7 +6530,7 @@
         },
         {
           "ref": "ENT-006",
-          "hash": "sha256:b16987f2f64f0070089ddf6f535953f2dcd544a7704c51efd0f5f9f71db33d18"
+          "hash": "sha256:c5a47563cd962b54972ee05d36f6bdd954fde0c348a63403af5b814439e3d2be"
         },
         {
           "ref": "ENT-007",
@@ -6524,7 +6539,7 @@
       ],
       "status": "validated",
       "build": {
-        "iterations": 1,
+        "iterations": 0,
         "proof": [
           {
             "cmd": "powershell -File scripts/dev-build.ps1 -App api",
@@ -6540,11 +6555,26 @@
             "cmd": "powershell -File scripts/dev-test.ps1 -App api",
             "result": "Test Suites: 37 passed, 37 total · Tests: 454 passed, 454 total · exit 0",
             "at": "2026-11-17"
+          },
+          {
+            "cmd": "powershell -NoProfile -File scripts/dev-build.ps1 -App api",
+            "result": "tsc -p tsconfig.build.json · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -NoProfile -File scripts/dev-test.ps1 -App api -Filter FE-mrr-041",
+            "result": "room-search.http.spec.ts PASS · Test Suites: 39 skipped, 1 passed, 1 of 40 total · Tests: 480 skipped, 27 passed, 507 total · exit 0 (ENT-006 endAt now cites CALC-mrr-001@v2, CHG-mrr-005 — no behaviour moved)",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "cd test && npx playwright test e2e/t1-search-delete.spec.ts --project=chromium -g \"TC-BKG-UI004-10[123]\" --reporter=list",
+            "result": "3 passed · [real] TC-BKG-UI004-101..103 (EX-mrr-106..108) against docker stack mrr-*",
+            "at": "2026-11-24"
           }
         ],
         "last_error": null,
         "recorded_by": "Noppasorn",
-        "recorded_at": "2026-11-17"
+        "recorded_at": "2026-11-24"
       },
       "manifest": {
         "files": [
@@ -7586,8 +7616,8 @@
       "validated": 42
     },
     "by_origin": {
-      "new": 18,
-      "change": 24
+      "new": 16,
+      "change": 26
     },
     "by_app": {
       "frontend-web": 19,
