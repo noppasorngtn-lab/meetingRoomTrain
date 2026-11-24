@@ -30,7 +30,7 @@
     {
       "id": "function",
       "command": "/design:function",
-      "status": "done",
+      "status": "stale",
       "requires": [
         "overview"
       ],
@@ -38,13 +38,14 @@
         "modules/<module>/functions.json",
         "trace.design.json"
       ],
-      "attempts": 1,
-      "updatedAt": "2026-11-24T06:40:05Z"
+      "attempts": 0,
+      "updatedAt": "2026-11-24T08:38:07Z",
+      "staleBecause": "CHG-mrr-006"
     },
     {
       "id": "datamodel",
       "command": "/design:datamodel",
-      "status": "done",
+      "status": "stale",
       "requires": [
         "function"
       ],
@@ -52,8 +53,9 @@
         "datamodel.json",
         "modules/<module>/statemachines.json"
       ],
-      "attempts": 1,
-      "updatedAt": "2026-11-24T06:41:23Z"
+      "attempts": 0,
+      "updatedAt": "2026-11-24T08:38:07Z",
+      "staleBecause": "CHG-mrr-006"
     },
     {
       "id": "scenario",
@@ -99,7 +101,7 @@
     {
       "id": "sitemap",
       "command": "/design:sitemap",
-      "status": "done",
+      "status": "stale",
       "requires": [
         "function",
         "rbac"
@@ -108,13 +110,14 @@
         "sitemap.json",
         "modules/<module>/screens.json"
       ],
-      "attempts": 1,
-      "updatedAt": "2026-11-23T09:00:37Z"
+      "attempts": 0,
+      "updatedAt": "2026-11-24T08:38:07Z",
+      "staleBecause": "CHG-mrr-006"
     },
     {
       "id": "interface",
       "command": "/design:interface",
-      "status": "done",
+      "status": "stale",
       "requires": [
         "function",
         "datamodel"
@@ -122,13 +125,14 @@
       "artifacts": [
         "interfaces.json"
       ],
-      "attempts": 1,
-      "updatedAt": "2026-11-24T06:41:54Z"
+      "attempts": 0,
+      "updatedAt": "2026-11-24T08:38:07Z",
+      "staleBecause": "CHG-mrr-006"
     },
     {
       "id": "export",
       "command": "/design:export",
-      "status": "done",
+      "status": "stale",
       "requires": [
         "overview",
         "function",
@@ -142,8 +146,9 @@
       "artifacts": [
         "../export/design-document.md"
       ],
-      "attempts": 1,
-      "updatedAt": "2026-11-24T06:42:48Z"
+      "attempts": 0,
+      "updatedAt": "2026-11-24T08:38:07Z",
+      "staleBecause": "CHG-mrr-006"
     }
   ],
   "openQuestions": []
