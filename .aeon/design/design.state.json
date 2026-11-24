@@ -132,7 +132,7 @@
     {
       "id": "export",
       "command": "/design:export",
-      "status": "stale",
+      "status": "done",
       "requires": [
         "overview",
         "function",
@@ -146,8 +146,8 @@
       "artifacts": [
         "../export/design-document.md"
       ],
-      "attempts": 0,
-      "updatedAt": "2026-11-24T08:38:07Z",
+      "attempts": 1,
+      "updatedAt": "2026-11-24T08:46:28Z",
       "staleBecause": "CHG-mrr-006"
     }
   ],
