@@ -2,14 +2,15 @@
   "module": "mrr",
   "features": [
     {
-      "id": "FE-mrr-025",
-      "title_th": "แก้ไขการจองของตนเอง — ฝั่ง API",
-      "app_ref": "api",
+      "id": "FE-mrr-004",
+      "title_th": "แก้ไขการจองของตนเอง — หน้าจอ",
+      "app_ref": "frontend-web",
       "type": "command",
       "origin": "change",
       "files_planned": [],
       "depends_on": [
-        "FE-mrr-017"
+        "FE-mrr-022",
+        "FE-mrr-025"
       ],
       "acceptance_refs": [
         "AC-mrr-008",
@@ -42,19 +43,7 @@
           "ref": "AC-mrr-080"
         },
         {
-          "ref": "API-007"
-        },
-        {
-          "ref": "API-008"
-        },
-        {
-          "ref": "ENT-007"
-        },
-        {
-          "ref": "ENT-008"
-        },
-        {
-          "ref": "ENT-009"
+          "ref": "UI-mrr-008"
         }
       ],
       "status": "draft"
