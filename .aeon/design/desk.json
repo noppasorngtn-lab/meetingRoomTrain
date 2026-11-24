@@ -187,17 +187,6 @@
       "extensions": {}
     },
     {
-      "card": "GAP-mrr-014",
-      "raiser": "dev",
-      "as": "forward",
-      "answer": "ป้ายของการกระทำในร่องรอยเป็นของกฎ BR-mrr-017@v2 ซึ่งระบุไว้ 5 ค่า (อนุมัติ · ปฏิเสธการจอง · ถอยผล · แก้แทนผู้จอง · ยกเลิกแทนผู้จอง) และไม่มีค่าของ CREATE_ADJUSTMENT · design ไม่ตั้งป้ายเองเพราะจะเป็นการเขียนกฎซ้ำ · ส่งต่อให้ req ถามเจ้าของว่าใช้คำใด (dev ใช้ 'สร้างคำขอแก้ไข' ไว้ก่อน)",
-      "to": "/req:ask",
-      "answeredByNode": null,
-      "by": "Noppasorn",
-      "at": "2026-11-24T16:00:00+07:00",
-      "extensions": {}
-    },
-    {
       "card": "GAP-mrr-017",
       "raiser": "dev",
       "as": "answer",
@@ -294,6 +283,17 @@
       "answeredByNode": "UI-mrr-002",
       "by": "Noppasorn",
       "at": "2026-11-24T16:00:00+07:00",
+      "extensions": {}
+    },
+    {
+      "card": "GAP-mrr-014",
+      "raiser": "dev",
+      "as": "answer",
+      "answer": "เจ้าของตอบผ่าน /req:ask เมื่อ 2026-11-24 (SRC-038) และ req ขึ้นกฎเป็น BR-mrr-017@v3 (CHG-mrr-006): ป้ายของ CREATE_ADJUSTMENT ในร่องรอยคือ 'สร้างคำขอแก้ไข' (ตรงกับที่ dev ใช้ไว้) · APPROVE_ADJUSTMENT คือ 'อนุมัติคำขอ' · REJECT_ADJUSTMENT คือ 'ปฏิเสธคำขอ' · design รับแล้วเป็น AC-mrr-132/133/134 · คำตอบ forward เดิม (2026-11-24 16:00 ส่งต่อ /req:ask) ถูกถอนเพราะ req ตอบแล้ว",
+      "to": null,
+      "answeredByNode": "AC-mrr-132",
+      "by": "Noppasorn",
+      "at": "2026-11-24T18:30:00+07:00",
       "extensions": {}
     }
   ]

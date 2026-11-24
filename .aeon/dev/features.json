@@ -7652,10 +7652,10 @@
       "question_th": "ENT-010 action มีค่า CREATE_ADJUSTMENT แต่ไม่มีปุ่มหรือชื่อที่ design ประกาศให้มัน (ค่าอื่นทุกค่ามีชื่อ action บน UI-mrr-009/010/011) · ร่องรอยบน UI-mrr-010 (FE-mrr-012) จึงต้องเขียนเป็นคำไทยเอง · dev ตั้งต้นไว้ว่า 'สร้างคำขอแก้ไข' · ขอให้ design ระบุคำที่ใช้แสดงการกระทำนี้ในร่องรอย",
       "found_at": "2026-10-21",
       "found_by": "/dev:plan",
-      "status": "open",
-      "answer_th": null,
-      "answered_in": null,
-      "closed_by": null,
+      "status": "answered",
+      "answer_th": "เจ้าของตอบผ่าน /req:ask เมื่อ 2026-11-24 (SRC-038) และ req ขึ้นกฎเป็น BR-mrr-017@v3 (CHG-mrr-006): ป้ายของ CREATE_ADJUSTMENT ในร่องรอยคือ 'สร้างคำขอแก้ไข' (ตรงกับที่ dev ใช้ไว้) · APPROVE_ADJUSTMENT คือ 'อนุมัติคำขอ' · REJECT_ADJUSTMENT คือ 'ปฏิเสธคำขอ' · design รับแล้วเป็น AC-mrr-132/133/134 · คำตอบ forward เดิม (2026-11-24 16:00 ส่งต่อ /req:ask) ถูกถอนเพราะ req ตอบแล้ว",
+      "answered_in": "AC-mrr-132",
+      "closed_by": "Noppasorn",
       "blocks": []
     },
     {
@@ -7850,7 +7850,7 @@
       "frontend-web": 19,
       "api": 23
     },
-    "gaps_open": 7,
+    "gaps_open": 6,
     "ready_for_phase5": false
   },
   "deploy": {
