@@ -1817,7 +1817,8 @@
         "AC-mrr-010",
         "AC-mrr-026",
         "AC-mrr-027",
-        "AC-mrr-054"
+        "AC-mrr-054",
+        "AC-mrr-119"
       ],
       "traces_up": [
         {
@@ -1843,6 +1844,10 @@
         {
           "ref": "AC-mrr-054",
           "hash": "sha256:08077334fcbb8a0b98a0b42501dd54d719995865b2d3ab5cc672491d7ff06bdd"
+        },
+        {
+          "ref": "AC-mrr-119",
+          "hash": "sha256:ab985c3537013679ec1565076abf697645bf69a83e0ed13198711f044576c401"
         },
         {
           "ref": "UI-mrr-007",
@@ -1876,6 +1881,21 @@
           {
             "cmd": "powershell -NoProfile -File scripts/dev-test.ps1 -App frontend-web -Filter FE-mrr-005",
             "result": "cancel-booking.test.tsx 10 passed · Test Files 1 passed | 20 skipped (21) · Tests 10 passed | 299 skipped (309) · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -NoProfile -File scripts/dev-build.ps1 -App frontend-web",
+            "result": "tsc --noEmit + vite build · built in 920ms · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -NoProfile -File scripts/dev-test.ps1 -App frontend-web -Filter FE-mrr-005",
+            "result": "cancel-booking.test.tsx 11 passed · Test Files 1 passed | 20 skipped (21) · Tests 11 passed | 306 skipped (317) · exit 0 (AC-mrr-119 one POST, ยกเลิกการจองสำเร็จ, shows ยกเลิกแล้ว)",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "cd test && npx playwright test e2e/t1-round2.spec.ts --project=chromium -g \"TC-NTF-UI008-105\" --reporter=list",
+            "result": "1 passed (11.3s) · [real] TC-NTF-UI008-105 (EX-mrr-116) against docker stack mrr-* rebuilt from HEAD",
             "at": "2026-11-24"
           }
         ],

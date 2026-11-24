@@ -75,6 +75,16 @@ describe('FE-mrr-005 cancel own booking (UI-mrr-007 cancel)', () => {
     expect(screen.queryByRole('alert')).not.toBeInTheDocument();
   });
 
+  it('AC-mrr-119 U1 cancels before the start — one POST, ยกเลิกการจองสำเร็จ, the booking shows ยกเลิกแล้ว (GAP-mrr-026; the mail to U1 U2 U3 is the api\'s, FE-mrr-026)', async () => {
+    open();
+    await cancel();
+
+    expect(await screen.findByRole('status')).toHaveTextContent('ยกเลิกการจองสำเร็จ');
+    expect(cancels()).toEqual([{ method: 'POST', url: CANCEL_URL }]);
+    await waitFor(() => expect(screen.getByTestId('ui-mrr-007-ent-007-status')).toHaveTextContent('ยกเลิกแล้ว'));
+    expect(screen.queryByText('ส่ง Email แจ้งเตือนไม่สำเร็จ กรุณากดใหม่อีกครั้ง')).toBeNull();
+  });
+
   it('AC-mrr-010 a refused cancel says เฉพาะผู้จองเท่านั้นที่แก้ไขหรือยกเลิกได้ and the booking stays', async () => {
     cancelReply = { status: 403, body: { message: 'เฉพาะผู้จองเท่านั้นที่แก้ไขหรือยกเลิกได้' } };
     open();
