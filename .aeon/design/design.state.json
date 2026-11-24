@@ -116,7 +116,7 @@
     {
       "id": "interface",
       "command": "/design:interface",
-      "status": "stale",
+      "status": "done",
       "requires": [
         "function",
         "datamodel"
@@ -124,8 +124,8 @@
       "artifacts": [
         "interfaces.json"
       ],
-      "attempts": 0,
-      "updatedAt": "2026-11-24T06:33:46Z",
+      "attempts": 1,
+      "updatedAt": "2026-11-24T06:41:54Z",
       "staleBecause": "CHG-mrr-005"
     },
     {

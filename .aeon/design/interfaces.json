@@ -498,7 +498,14 @@
       "enforceAt": [
         "domain"
       ],
-      "note": "จัดอันดับตาม BR-mrr-006@v2 ที่ชั้น domain: เทียบ utilizationPct ที่ปัดแล้วตาม CALC-mrr-001@v1 ห้องที่เท่ากันได้อันดับเดียวกัน ห้องถัดไปข้ามเลข (1, 1, 3) ห้องที่ไม่ได้คำนวณไม่มีอันดับ · นับเฉพาะ CONFIRMED และ APPROVED · api เพียงส่งค่า rank ที่คำนวณแล้ว และ db ต้องไม่มี unique บน rank"
+      "note": "จัดอันดับตาม BR-mrr-006@v2 ที่ชั้น domain: เทียบ utilizationPct ที่ปัดแล้วตาม CALC-mrr-001@v2 ห้องที่เท่ากันได้อันดับเดียวกัน ห้องถัดไปข้ามเลข (1, 1, 3) ห้องที่ไม่ได้คำนวณไม่มีอันดับ · นับเฉพาะ CONFIRMED และ APPROVED · api เพียงส่งค่า rank ที่คำนวณแล้ว และ db ต้องไม่มี unique บน rank"
+    },
+    {
+      "rule": "CALC-mrr-001@v2",
+      "enforceAt": [
+        "domain"
+      ],
+      "note": "คำนวณด้วย decimal ปัด HALF_UP 2 ตำแหน่ง เก็บ decimal(5,2)"
     }
   ]
 }
