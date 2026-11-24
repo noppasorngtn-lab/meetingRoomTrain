@@ -2222,8 +2222,8 @@
       "id": "BR-mrr-017@v2",
       "base_id": "BR-mrr-017",
       "version": 2,
-      "is_current": true,
-      "status": "validated",
+      "is_current": false,
+      "status": "superseded",
       "belongs_to": "REQ-mrr-002",
       "statement": "ทุกการกระทำของ Room Administrator ต่อการจอง (อนุมัติ · ปฏิเสธ · ถอยผล · แก้หรือยกเลิกแทนผู้จอง) ต้องบันทึกร่องรอย: ใคร · เมื่อไหร่ · ทำอะไร · เหตุผล · ค่าในช่อง 'การกระทำ': 'อนุมัติ' 'ปฏิเสธการจอง' 'ถอยผล' 'แก้แทนผู้จอง' 'ยกเลิกแทนผู้จอง' · การปฏิเสธต้องระบุเหตุผล",
       "kind": "invariant",
@@ -2310,14 +2310,123 @@
         }
       ],
       "supersedes": "BR-mrr-017@v1",
-      "superseded_by": null,
-      "superseded_at": null,
+      "superseded_by": "BR-mrr-017@v3",
+      "superseded_at": "2026-11-24T17:00+07:00",
       "change_reason": "เจ้าของระบุค่าในช่อง การกระทำ ของร่องรอย (ปฏิเสธการจอง · ถอยผล · แก้แทนผู้จอง) และยืนยันว่าการปฏิเสธต้องระบุเหตุผล",
       "traces_down": {
         "features": [],
         "test_cases": []
       },
       "effective_from": "2026-11-18"
+    },
+    {
+      "id": "BR-mrr-017@v3",
+      "base_id": "BR-mrr-017",
+      "version": 3,
+      "is_current": true,
+      "status": "validated",
+      "belongs_to": "REQ-mrr-002",
+      "statement": "ทุกการกระทำของ Room Administrator ต่อการจอง (อนุมัติ · ปฏิเสธ · ถอยผล · แก้หรือยกเลิกแทนผู้จอง · สร้าง อนุมัติ หรือปฏิเสธคำขอแก้ไขหลังจบประชุม) ต้องบันทึกร่องรอย: ใคร · เมื่อไหร่ · ทำอะไร · เหตุผล · ค่าในช่อง 'การกระทำ': 'อนุมัติ' 'ปฏิเสธการจอง' 'ถอยผล' 'แก้แทนผู้จอง' 'ยกเลิกแทนผู้จอง' 'สร้างคำขอแก้ไข' 'อนุมัติคำขอ' 'ปฏิเสธคำขอ' · การปฏิเสธการจองต้องระบุเหตุผล (การปฏิเสธคำขอแก้ไขไม่บังคับเหตุผล)",
+      "kind": "invariant",
+      "enforced_by": [],
+      "examples": [
+        "EX-mrr-054",
+        "EX-mrr-055",
+        "EX-mrr-056",
+        "EX-mrr-057",
+        "EX-mrr-120",
+        "EX-mrr-121",
+        "EX-mrr-122",
+        "EX-mrr-118",
+        "EX-mrr-123"
+      ],
+      "questions": [],
+      "test_design": [
+        "decision_table"
+      ],
+      "provenance": [
+        {
+          "source": "SRC-009",
+          "locator": {
+            "line": 2
+          },
+          "quote": "บันทึกร่องรอย (ใคร · เมื่อไหร่ · ทำอะไร · เหตุผล) เฉพาะการกระทำของ Room Administrator: อนุมัติ · ปฏิเสธ · ถอยผล · แก้/ยกเลิกแทนผู้จอง",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-009",
+          "locator": {
+            "line": 4
+          },
+          "quote": "กฎร่องรอยวางไว้ใต้ REQ-mrr-002",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-030",
+          "locator": {
+            "line": 1
+          },
+          "quote": "ร่องรอย ช่อง 'การกระทำ' ของการปฏิเสธการจองโดย Room Administrator ใช้คำว่า 'ปฏิเสธการจอง'",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-030",
+          "locator": {
+            "line": 2
+          },
+          "quote": "ร่องรอย ช่อง 'การกระทำ' ของการเปลี่ยนผลการอนุมัติ ใช้คำว่า 'ถอยผล'",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-030",
+          "locator": {
+            "line": 3
+          },
+          "quote": "ร่องรอย ช่อง 'การกระทำ' ของการที่ Room Administrator แก้การจองแทนผู้จอง ใช้คำว่า 'แก้แทนผู้จอง'",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-031",
+          "locator": {
+            "line": 1
+          },
+          "quote": "การปฏิเสธการจองโดย Room Administrator ต้องระบุเหตุผล",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-031",
+          "locator": {
+            "line": 2
+          },
+          "quote": "ข้อความบนหน้าจอหลังปฏิเสธการจองคือ 'ปฏิเสธการจอง'",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-031",
+          "locator": {
+            "line": 3
+          },
+          "quote": "ข้อความบนหน้าจอหลัง Room Administrator แก้การจองแทนผู้จองคือ 'บันทึกการแก้ไข'",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-038",
+          "locator": {
+            "line": 1
+          },
+          "quote": "ร่องรอยของคำขอแก้ไขหลังจบประชุมใช้ค่าช่อง การกระทำ ว่า สร้างคำขอแก้ไข · อนุมัติคำขอ · ปฏิเสธคำขอ · การปฏิเสธคำขอแก้ไขไม่บังคับเหตุผล",
+          "confidence": 1
+        }
+      ],
+      "supersedes": "BR-mrr-017@v2",
+      "superseded_by": null,
+      "superseded_at": null,
+      "change_reason": "เจ้าของตอบ GAP-mrr-014 และ T5 F#9 เมื่อ 2026-11-24 (SRC-038): ร่องรอยครอบการกระทำของคำขอแก้ไขหลังจบประชุมด้วย ค่าในช่อง การกระทำ เพิ่ม สร้างคำขอแก้ไข · อนุมัติคำขอ · ปฏิเสธคำขอ ตามที่หน้าร่องรอยแสดงอยู่ · การปฏิเสธที่ต้องระบุเหตุผลคือการปฏิเสธการจองเท่านั้น การปฏิเสธคำขอแก้ไขไม่บังคับเหตุผล",
+      "traces_down": {
+        "features": [],
+        "test_cases": []
+      },
+      "effective_from": "2026-11-24"
     },
     {
       "id": "BR-mrr-018@v1",
@@ -3507,7 +3616,8 @@
       "id": "EX-mrr-054",
       "proves": [
         "BR-mrr-017@v1",
-        "BR-mrr-017@v2"
+        "BR-mrr-017@v2",
+        "BR-mrr-017@v3"
       ],
       "kind": "happy",
       "status": "validated",
@@ -3520,7 +3630,8 @@
       "id": "EX-mrr-055",
       "proves": [
         "BR-mrr-017@v1",
-        "BR-mrr-017@v2"
+        "BR-mrr-017@v2",
+        "BR-mrr-017@v3"
       ],
       "kind": "happy",
       "status": "validated",
@@ -3533,7 +3644,8 @@
       "id": "EX-mrr-056",
       "proves": [
         "BR-mrr-017@v1",
-        "BR-mrr-017@v2"
+        "BR-mrr-017@v2",
+        "BR-mrr-017@v3"
       ],
       "kind": "exception",
       "status": "validated",
@@ -3546,7 +3658,8 @@
       "id": "EX-mrr-057",
       "proves": [
         "BR-mrr-017@v1",
-        "BR-mrr-017@v2"
+        "BR-mrr-017@v2",
+        "BR-mrr-017@v3"
       ],
       "kind": "exception",
       "status": "validated",
@@ -4291,7 +4404,8 @@
       "id": "EX-mrr-118",
       "proves": [
         "BR-mrr-007@v2",
-        "BR-mrr-017@v2"
+        "BR-mrr-017@v2",
+        "BR-mrr-017@v3"
       ],
       "kind": "exception",
       "status": "validated",
@@ -4315,7 +4429,8 @@
     {
       "id": "EX-mrr-120",
       "proves": [
-        "BR-mrr-017@v2"
+        "BR-mrr-017@v2",
+        "BR-mrr-017@v3"
       ],
       "kind": "happy",
       "status": "validated",
@@ -4327,7 +4442,8 @@
     {
       "id": "EX-mrr-121",
       "proves": [
-        "BR-mrr-017@v2"
+        "BR-mrr-017@v2",
+        "BR-mrr-017@v3"
       ],
       "kind": "happy",
       "status": "validated",
@@ -4339,7 +4455,8 @@
     {
       "id": "EX-mrr-122",
       "proves": [
-        "BR-mrr-017@v2"
+        "BR-mrr-017@v2",
+        "BR-mrr-017@v3"
       ],
       "kind": "happy",
       "status": "validated",
@@ -4351,7 +4468,8 @@
     {
       "id": "EX-mrr-123",
       "proves": [
-        "BR-mrr-017@v2"
+        "BR-mrr-017@v2",
+        "BR-mrr-017@v3"
       ],
       "kind": "exception",
       "status": "validated",
@@ -5506,6 +5624,22 @@
       "invalidates": [],
       "effective_from": "2026-11-19",
       "notes": "ต่อจาก CHG-mrr-004 ซึ่งตัดสินว่าสูตรไม่เปลี่ยน — ใบนี้ไม่เปลี่ยนเนื้อหาของสัญญา ย้ายเฉพาะกฎที่พิน · GD-mrr-001 ไม่ถูกทำให้เป็นโมฆะ (สูตรเดิม ค่าทุกแถวยังถูก) แต่ proves ยังชี้ CALC-mrr-001@v1 — ต่อไป /req:golden ให้ครอบ @v2 · พบจาก /dev:build FE-mrr-036 ที่ build.mjs ปฏิเสธ calc_ref เพราะสัญญาไม่มี CALC (GAP-mrr-026 รอบผูก AC-mrr-128..131) · ไม่มี SRC ใหม่ — เจ้าของอนุมัติในการสนทนา 2026-11-24"
+    },
+    {
+      "id": "CHG-mrr-006",
+      "at": "2026-11-24T17:00+07:00",
+      "requested_by": "Noppasorn",
+      "approved_by": "Noppasorn",
+      "triggered_by": [
+        "SRC-038"
+      ],
+      "reason": "เจ้าของตอบ GAP-mrr-014 และ T5 F#9 เมื่อ 2026-11-24 (SRC-038): ร่องรอยครอบการกระทำของคำขอแก้ไขหลังจบประชุมด้วย ค่าในช่อง การกระทำ เพิ่ม สร้างคำขอแก้ไข · อนุมัติคำขอ · ปฏิเสธคำขอ ตามที่หน้าร่องรอยแสดงอยู่ · การปฏิเสธที่ต้องระบุเหตุผลคือการปฏิเสธการจองเท่านั้น การปฏิเสธคำขอแก้ไขไม่บังคับเหตุผล",
+      "affects": [
+        "BR-mrr-017@v3"
+      ],
+      "invalidates": [],
+      "effective_from": "2026-11-24",
+      "notes": "ที่มา: /req:ask 2026-11-24 (GAP-mrr-014 จาก dev ซึ่ง design ส่งต่อด้วย /req:ask · T5 F#9 และ F#10 ใน docs/qa/t5-quality-gate-2026-11-24.md) · ตัวอย่างเดิม 9 ข้อ (EX-mrr-054..057 · 118 · 120..123) เจ้าของยืนยันทีละข้อว่ายังพิสูจน์ @v3 · ยังไม่มีตัวอย่างของการกระทำคำขอแก้ไขทั้งสามค่าใหม่ และไม่มีตัวอย่างการปฏิเสธคำขอแก้ไขโดยไม่ระบุเหตุผล — ต่อไป /req:example BR-mrr-017@v3 · ไม่มี CALC หรือ GD ผูกกับกฎนี้"
     }
   ],
   "questions": [

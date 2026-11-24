@@ -5,18 +5,19 @@ description: ทุกการกระทำของ Room Administrator ต�
 resource: ../requirements/REQ-mrr-002.md
 tags: [mrr, invariant]
 id: BR-mrr-017@v2
-status: validated
+status: superseded
 belongs_to: REQ-mrr-002
 kind: invariant
-is_current: true
+is_current: false
 effective_from: 2026-11-18
 test_design: [decision_table]
 proven_by: [EX-mrr-054, EX-mrr-055, EX-mrr-056, EX-mrr-057, EX-mrr-120, EX-mrr-121, EX-mrr-122, EX-mrr-118, EX-mrr-123]
 golden: []
 supersedes: BR-mrr-017@v1
+superseded_by: BR-mrr-017@v3
 provenance: [SRC-009, SRC-009, SRC-030, SRC-030, SRC-030, SRC-031, SRC-031, SRC-031]
 timestamp: 2026-11-18T12:30:00+07:00
-spec_hash: sha256:d26aa109b98125a3ad6f1fab77492c1d01ea8abe1e1331c04806445797fd45fe
+spec_hash: sha256:8360818170989654f6bd21b97e0ff15d8a765ad0b290a593477fff315eceae2b
 ---
 
 # BR-mrr-017@v2
@@ -72,4 +73,5 @@ spec_hash: sha256:d26aa109b98125a3ad6f1fab77492c1d01ea8abe1e1331c04806445797fd45
 | เวอร์ชัน | มีผลตั้งแต่ | เหตุผล | change set |
 |---|---|---|---|
 | [BR-mrr-017@v1](BR-mrr-017@v1.md) ❄️ | — | ตั้งต้น | — |
-| **BR-mrr-017@v2** (หน้านี้) ✅ | 2026-11-18 | เจ้าของระบุค่าในช่อง การกระทำ ของร่องรอย (ปฏิเสธการจอง · ถอยผล · แก้แทนผู้จอง) และยืนยันว่าการปฏิเสธต้องระบุเหตุผล | [CHG-mrr-003](../changes/CHG-mrr-003.md) |
+| **BR-mrr-017@v2** (หน้านี้) ❄️ | 2026-11-18 | เจ้าของระบุค่าในช่อง การกระทำ ของร่องรอย (ปฏิเสธการจอง · ถอยผล · แก้แทนผู้จอง) และยืนยันว่าการปฏิเสธต้องระบุเหตุผล | [CHG-mrr-003](../changes/CHG-mrr-003.md) |
+| [BR-mrr-017@v3](BR-mrr-017@v3.md) ✅ | 2026-11-24 | เจ้าของตอบ GAP-mrr-014 และ T5 F#9 เมื่อ 2026-11-24 (SRC-038): ร่องรอยครอบการกระทำของคำขอแก้ไขหลังจบประชุมด้วย ค่าในช่อง การกระทำ เพิ่ม สร้างคำขอแก้ไข · อนุมัติคำขอ · ปฏิเสธคำขอ ตามที่หน้าร่องรอยแสดงอยู่ · การปฏิเสธที่ต้องระบุเหตุผลคือการปฏิเสธการจองเท่านั้น การปฏิเสธคำขอแก้ไขไม่บังคับเหตุผล | [CHG-mrr-006](../changes/CHG-mrr-006.md) |

@@ -753,12 +753,12 @@
           "extensions": {}
         },
         {
-          "id": "BR-mrr-017@v2",
+          "id": "BR-mrr-017@v3",
           "baseId": "BR-mrr-017",
-          "version": 2,
+          "version": 3,
           "status": "validated",
           "kind": "invariant",
-          "statement": "ทุกการกระทำของ Room Administrator ต่อการจอง (อนุมัติ · ปฏิเสธ · ถอยผล · แก้หรือยกเลิกแทนผู้จอง) ต้องบันทึกร่องรอย: ใคร · เมื่อไหร่ · ทำอะไร · เหตุผล · ค่าในช่อง 'การกระทำ': 'อนุมัติ' 'ปฏิเสธการจอง' 'ถอยผล' 'แก้แทนผู้จอง' 'ยกเลิกแทนผู้จอง' · การปฏิเสธต้องระบุเหตุผล",
+          "statement": "ทุกการกระทำของ Room Administrator ต่อการจอง (อนุมัติ · ปฏิเสธ · ถอยผล · แก้หรือยกเลิกแทนผู้จอง · สร้าง อนุมัติ หรือปฏิเสธคำขอแก้ไขหลังจบประชุม) ต้องบันทึกร่องรอย: ใคร · เมื่อไหร่ · ทำอะไร · เหตุผล · ค่าในช่อง 'การกระทำ': 'อนุมัติ' 'ปฏิเสธการจอง' 'ถอยผล' 'แก้แทนผู้จอง' 'ยกเลิกแทนผู้จอง' 'สร้างคำขอแก้ไข' 'อนุมัติคำขอ' 'ปฏิเสธคำขอ' · การปฏิเสธการจองต้องระบุเหตุผล (การปฏิเสธคำขอแก้ไขไม่บังคับเหตุผล)",
           "examples": [
             "EX-mrr-054",
             "EX-mrr-055",
@@ -772,7 +772,7 @@
           ],
           "questions": [],
           "constrainedBy": null,
-          "effectiveFrom": "2026-11-18",
+          "effectiveFrom": "2026-11-24",
           "provenance": [
             {
               "source": "SRC-009",
@@ -836,6 +836,14 @@
                 "line": 3
               },
               "quote": "ข้อความบนหน้าจอหลัง Room Administrator แก้การจองแทนผู้จองคือ 'บันทึกการแก้ไข'",
+              "confidence": 1
+            },
+            {
+              "source": "SRC-038",
+              "locator": {
+                "line": 1
+              },
+              "quote": "ร่องรอยของคำขอแก้ไขหลังจบประชุมใช้ค่าช่อง การกระทำ ว่า สร้างคำขอแก้ไข · อนุมัติคำขอ · ปฏิเสธคำขอ · การปฏิเสธคำขอแก้ไขไม่บังคับเหตุผล",
               "confidence": 1
             }
           ],
@@ -2197,7 +2205,8 @@
       "id": "EX-mrr-054",
       "proves": [
         "BR-mrr-017@v1",
-        "BR-mrr-017@v2"
+        "BR-mrr-017@v2",
+        "BR-mrr-017@v3"
       ],
       "kind": "happy",
       "status": "validated",
@@ -2211,7 +2220,8 @@
       "id": "EX-mrr-055",
       "proves": [
         "BR-mrr-017@v1",
-        "BR-mrr-017@v2"
+        "BR-mrr-017@v2",
+        "BR-mrr-017@v3"
       ],
       "kind": "happy",
       "status": "validated",
@@ -2225,7 +2235,8 @@
       "id": "EX-mrr-056",
       "proves": [
         "BR-mrr-017@v1",
-        "BR-mrr-017@v2"
+        "BR-mrr-017@v2",
+        "BR-mrr-017@v3"
       ],
       "kind": "exception",
       "status": "validated",
@@ -2239,7 +2250,8 @@
       "id": "EX-mrr-057",
       "proves": [
         "BR-mrr-017@v1",
-        "BR-mrr-017@v2"
+        "BR-mrr-017@v2",
+        "BR-mrr-017@v3"
       ],
       "kind": "exception",
       "status": "validated",
@@ -3045,7 +3057,8 @@
       "id": "EX-mrr-118",
       "proves": [
         "BR-mrr-007@v2",
-        "BR-mrr-017@v2"
+        "BR-mrr-017@v2",
+        "BR-mrr-017@v3"
       ],
       "kind": "exception",
       "status": "validated",
@@ -3071,7 +3084,8 @@
     {
       "id": "EX-mrr-120",
       "proves": [
-        "BR-mrr-017@v2"
+        "BR-mrr-017@v2",
+        "BR-mrr-017@v3"
       ],
       "kind": "happy",
       "status": "validated",
@@ -3084,7 +3098,8 @@
     {
       "id": "EX-mrr-121",
       "proves": [
-        "BR-mrr-017@v2"
+        "BR-mrr-017@v2",
+        "BR-mrr-017@v3"
       ],
       "kind": "happy",
       "status": "validated",
@@ -3097,7 +3112,8 @@
     {
       "id": "EX-mrr-122",
       "proves": [
-        "BR-mrr-017@v2"
+        "BR-mrr-017@v2",
+        "BR-mrr-017@v3"
       ],
       "kind": "happy",
       "status": "validated",
@@ -3110,7 +3126,8 @@
     {
       "id": "EX-mrr-123",
       "proves": [
-        "BR-mrr-017@v2"
+        "BR-mrr-017@v2",
+        "BR-mrr-017@v3"
       ],
       "kind": "exception",
       "status": "validated",

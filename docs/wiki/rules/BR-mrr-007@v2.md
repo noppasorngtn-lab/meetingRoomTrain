@@ -16,7 +16,7 @@ golden: []
 supersedes: BR-mrr-007@v1
 provenance: [SRC-001, SRC-001, SRC-010, SRC-002, SRC-020, SRC-020, SRC-020, SRC-029, SRC-029, SRC-029]
 timestamp: 2026-11-18T12:30:00+07:00
-spec_hash: sha256:6653acee768822eb3e9fed7aeed0328ed9d4386669f63e9b17d17ff5c750ac21
+spec_hash: sha256:771aeae3f64f1c197b2853a462a821a567d4e2e5adacfa76e43111136db542bc
 ---
 
 # BR-mrr-007@v2

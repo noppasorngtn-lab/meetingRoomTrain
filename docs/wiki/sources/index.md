@@ -12,7 +12,7 @@
 | [SRC-006](SRC-006.md) | chat | — | 2 |
 | [SRC-007](SRC-007.md) | chat | — | 2 |
 | [SRC-008](SRC-008.md) | chat | — | 3 |
-| [SRC-009](SRC-009.md) | chat | — | 4 |
+| [SRC-009](SRC-009.md) | chat | — | 5 |
 | [SRC-010](SRC-010.md) | chat | — | 4 |
 | [SRC-011](SRC-011.md) | chat | — | 4 |
 | [SRC-012](SRC-012.md) | chat | — | 2 |
@@ -33,12 +33,12 @@
 | [SRC-027](SRC-027.md) | chat | — | 4 |
 | [SRC-028](SRC-028.md) | chat | — | 2 |
 | [SRC-029](SRC-029.md) | chat | — | 2 |
-| [SRC-030](SRC-030.md) | chat | — | 2 |
-| [SRC-031](SRC-031.md) | chat | — | 2 |
+| [SRC-030](SRC-030.md) | chat | — | 3 |
+| [SRC-031](SRC-031.md) | chat | — | 3 |
 | [SRC-032](SRC-032.md) | chat | — | 2 |
 | [SRC-033](SRC-033.md) | chat | — | 2 |
 | [SRC-034](SRC-034.md) | file | docs/qa/oq-nfr-questions-2026-11-18.md | 1 |
 | [SRC-035](SRC-035.md) | chat | — | 1 |
 | [SRC-036](SRC-036.md) | chat | — | 1 |
 | [SRC-037](SRC-037.md) | chat | — | 1 |
-| [SRC-038](SRC-038.md) | chat | — | ⚠️ 0 |
+| [SRC-038](SRC-038.md) | chat | — | 2 |
