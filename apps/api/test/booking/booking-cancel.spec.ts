@@ -102,6 +102,15 @@ describe('FE-mrr-026 cancel own booking (UC-mrr-005)', () => {
     }]);
   });
 
+  it('AC-mrr-119 U1 cancels before the start — ยกเลิกการจองสำเร็จ, cancelled, and U1, U2 and U3 get ยกเลิกการจอง (GAP-mrr-026 · BR-mrr-007@v2)', async () => {
+    expect(await cancel()).toEqual({ message: 'ยกเลิกการจองสำเร็จ' });
+
+    expect(await status()).toBe('CANCELLED');
+    expect(mail.sent.map((m) => [m.to, m.subject])).toEqual([
+      [['u1@example.test', 'u2@example.test', 'u3@example.test'], '[จองห้องประชุม] ยกเลิกการจอง: ประชุมทีม · ห้อง A 18/10 10:00–11:00'],
+    ]);
+  });
+
   it('gives the slot back — someone else can book it at once', async () => {
     await cancel();
 

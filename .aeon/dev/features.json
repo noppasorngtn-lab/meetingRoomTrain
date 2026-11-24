@@ -1649,7 +1649,7 @@
       "title_th": "ยกเลิกการจองของตนเอง — ฝั่ง API",
       "app_ref": "api",
       "type": "command",
-      "origin": "new",
+      "origin": "change",
       "files_planned": [],
       "depends_on": [
         "FE-mrr-017"
@@ -1659,7 +1659,8 @@
         "AC-mrr-010",
         "AC-mrr-026",
         "AC-mrr-027",
-        "AC-mrr-054"
+        "AC-mrr-054",
+        "AC-mrr-119"
       ],
       "traces_up": [
         {
@@ -1684,7 +1685,11 @@
         },
         {
           "ref": "AC-mrr-054",
-          "hash": "sha256:4783571d101b49b35b959f71c32fca93aa5ccd38fddb5122173736cf0ce44d65"
+          "hash": "sha256:08077334fcbb8a0b98a0b42501dd54d719995865b2d3ab5cc672491d7ff06bdd"
+        },
+        {
+          "ref": "AC-mrr-119",
+          "hash": "sha256:ab985c3537013679ec1565076abf697645bf69a83e0ed13198711f044576c401"
         },
         {
           "ref": "API-009",
@@ -1697,7 +1702,7 @@
       ],
       "status": "validated",
       "build": {
-        "iterations": 1,
+        "iterations": 0,
         "proof": [
           {
             "cmd": "powershell -File scripts/dev-build.ps1 -App api",
@@ -1713,11 +1718,26 @@
             "cmd": "powershell -File scripts/dev-test.ps1",
             "result": "api: Test Suites 11 passed, Tests 124 passed · web: Test Files 4 passed, Tests 65 passed · exit 0",
             "at": "2026-10-20"
+          },
+          {
+            "cmd": "powershell -NoProfile -File scripts/dev-build.ps1 -App api",
+            "result": "tsc -p tsconfig.build.json · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -NoProfile -File scripts/dev-test.ps1 -App api -Filter FE-mrr-026",
+            "result": "booking-cancel.spec.ts PASS · Test Suites: 39 skipped, 1 passed, 1 of 40 total · Tests: 491 skipped, 16 passed, 507 total · exit 0 (AC-mrr-119 ยกเลิกการจองสำเร็จ + CANCELLED + ยกเลิกการจอง to U1 U2 U3)",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "cd test && npx playwright test e2e/t1-round2.spec.ts --project=chromium -g \"TC-NTF-UI008-105\" --reporter=list",
+            "result": "1 passed (12.1s) · [real] TC-NTF-UI008-105 (EX-mrr-116) against docker stack mrr-* rebuilt from HEAD",
+            "at": "2026-11-24"
           }
         ],
         "last_error": null,
         "recorded_by": "Noppasorn",
-        "recorded_at": "2026-10-20"
+        "recorded_at": "2026-11-24"
       },
       "manifest": {
         "files": [
@@ -7384,8 +7404,8 @@
       "validated": 42
     },
     "by_origin": {
-      "new": 19,
-      "change": 23
+      "new": 18,
+      "change": 24
     },
     "by_app": {
       "frontend-web": 19,
