@@ -7673,10 +7673,10 @@
       "question_th": "testid nav-ui-mrr-004 ของลิงก์เมนูไป UI-mrr-004 มินต์โดย mock (wireframes.mjs navControlId) และอยู่ในหน้า L2 ทุกหน้า แต่ไม่อยู่ใน controls[] ของ wireframe ใด ๆ และ design ไม่ได้ประกาศ — roster ของ dev (testidRoster) จึงมองไม่เห็น และ DV17 นับเป็น Class B · ขอให้ mock ประกาศ control ของเมนูในที่ที่ dev อ่านได้ (เช่น wireframe controls[] หรือไฟล์ shell) หรือยืนยันว่า id นี้คือสัญญา",
       "found_at": "2026-10-20",
       "found_by": "/dev:plan",
-      "status": "open",
-      "answer_th": null,
-      "answered_in": null,
-      "closed_by": null,
+      "status": "answered",
+      "answer_th": "mock ตอบในสคริปต์ของตัวเองแล้ว (gate 117 · task 93): id ของลิงก์เมนูคือ navControlId = nav-<id ของหน้าปลายทางตัวพิมพ์เล็ก> สร้างจาก node ของ sitemap.json ของ design และ \"NAV LINKS ARE NOT STORED ANYWHERE\" (html.mjs shellControlRoster) — id นี้จึงเป็นสัญญา ไม่ต้องประกาศใน controls[] ของ wireframe · dev อ่าน id ชุดเดียวกันจาก sitemap ผ่าน build.mjs shellControls และ DV17 ไม่นับเป็น Class B แล้ว",
+      "answered_in": "mock · scripts/wireframes.mjs navControlId · scripts/html.mjs shellControlRoster (gate 117) — derived from design/sitemap.json nodes",
+      "closed_by": "Noppasorn",
       "blocks": [
         "FE-mrr-022"
       ]
@@ -7688,10 +7688,10 @@
       "question_th": "testid nav-ui-mrr-007 ของลิงก์เมนูไป UI-mrr-007 มินต์โดย mock (wireframes.mjs navControlId) และอยู่ในหน้า L2 ทุกหน้า แต่ไม่อยู่ใน controls[] ของ wireframe ใด ๆ และ design ไม่ได้ประกาศ — roster ของ dev (testidRoster) จึงมองไม่เห็น และ DV17 นับเป็น Class B · ขอให้ mock ประกาศ control ของเมนูในที่ที่ dev อ่านได้ (เช่น wireframe controls[] หรือไฟล์ shell) หรือยืนยันว่า id นี้คือสัญญา",
       "found_at": "2026-10-20",
       "found_by": "/dev:plan",
-      "status": "open",
-      "answer_th": null,
-      "answered_in": null,
-      "closed_by": null,
+      "status": "answered",
+      "answer_th": "mock ตอบในสคริปต์ของตัวเองแล้ว (gate 117 · task 93): id ของลิงก์เมนูคือ navControlId = nav-<id ของหน้าปลายทางตัวพิมพ์เล็ก> สร้างจาก node ของ sitemap.json ของ design และ \"NAV LINKS ARE NOT STORED ANYWHERE\" (html.mjs shellControlRoster) — id นี้จึงเป็นสัญญา ไม่ต้องประกาศใน controls[] ของ wireframe · dev อ่าน id ชุดเดียวกันจาก sitemap ผ่าน build.mjs shellControls และ DV17 ไม่นับเป็น Class B แล้ว",
+      "answered_in": "mock · scripts/wireframes.mjs navControlId · scripts/html.mjs shellControlRoster (gate 117) — derived from design/sitemap.json nodes",
+      "closed_by": "Noppasorn",
       "blocks": [
         "FE-mrr-022"
       ]
@@ -7703,10 +7703,10 @@
       "question_th": "testid nav-ui-mrr-009 ของลิงก์เมนูไป UI-mrr-009 มินต์โดย mock (wireframes.mjs navControlId) และอยู่ในหน้า L2 ทุกหน้า แต่ไม่อยู่ใน controls[] ของ wireframe ใด ๆ และ design ไม่ได้ประกาศ — roster ของ dev (testidRoster) จึงมองไม่เห็น และ DV17 นับเป็น Class B · ขอให้ mock ประกาศ control ของเมนูในที่ที่ dev อ่านได้ (เช่น wireframe controls[] หรือไฟล์ shell) หรือยืนยันว่า id นี้คือสัญญา",
       "found_at": "2026-10-20",
       "found_by": "/dev:plan",
-      "status": "open",
-      "answer_th": null,
-      "answered_in": null,
-      "closed_by": null,
+      "status": "answered",
+      "answer_th": "mock ตอบในสคริปต์ของตัวเองแล้ว (gate 117 · task 93): id ของลิงก์เมนูคือ navControlId = nav-<id ของหน้าปลายทางตัวพิมพ์เล็ก> สร้างจาก node ของ sitemap.json ของ design และ \"NAV LINKS ARE NOT STORED ANYWHERE\" (html.mjs shellControlRoster) — id นี้จึงเป็นสัญญา ไม่ต้องประกาศใน controls[] ของ wireframe · dev อ่าน id ชุดเดียวกันจาก sitemap ผ่าน build.mjs shellControls และ DV17 ไม่นับเป็น Class B แล้ว",
+      "answered_in": "mock · scripts/wireframes.mjs navControlId · scripts/html.mjs shellControlRoster (gate 117) — derived from design/sitemap.json nodes",
+      "closed_by": "Noppasorn",
       "blocks": [
         "FE-mrr-022"
       ]
@@ -7718,10 +7718,10 @@
       "question_th": "testid nav-ui-mrr-012 ของลิงก์เมนูไป UI-mrr-012 มินต์โดย mock (wireframes.mjs navControlId) และอยู่ในหน้า L2 ทุกหน้า แต่ไม่อยู่ใน controls[] ของ wireframe ใด ๆ และ design ไม่ได้ประกาศ — roster ของ dev (testidRoster) จึงมองไม่เห็น และ DV17 นับเป็น Class B · ขอให้ mock ประกาศ control ของเมนูในที่ที่ dev อ่านได้ (เช่น wireframe controls[] หรือไฟล์ shell) หรือยืนยันว่า id นี้คือสัญญา",
       "found_at": "2026-10-20",
       "found_by": "/dev:plan",
-      "status": "open",
-      "answer_th": null,
-      "answered_in": null,
-      "closed_by": null,
+      "status": "answered",
+      "answer_th": "mock ตอบในสคริปต์ของตัวเองแล้ว (gate 117 · task 93): id ของลิงก์เมนูคือ navControlId = nav-<id ของหน้าปลายทางตัวพิมพ์เล็ก> สร้างจาก node ของ sitemap.json ของ design และ \"NAV LINKS ARE NOT STORED ANYWHERE\" (html.mjs shellControlRoster) — id นี้จึงเป็นสัญญา ไม่ต้องประกาศใน controls[] ของ wireframe · dev อ่าน id ชุดเดียวกันจาก sitemap ผ่าน build.mjs shellControls และ DV17 ไม่นับเป็น Class B แล้ว",
+      "answered_in": "mock · scripts/wireframes.mjs navControlId · scripts/html.mjs shellControlRoster (gate 117) — derived from design/sitemap.json nodes",
+      "closed_by": "Noppasorn",
       "blocks": [
         "FE-mrr-022"
       ]
@@ -7733,10 +7733,10 @@
       "question_th": "testid nav-rpt-mrr-001 ของลิงก์เมนูไป RPT-mrr-001 มินต์โดย mock (wireframes.mjs navControlId) และอยู่ในหน้า L2 ทุกหน้า แต่ไม่อยู่ใน controls[] ของ wireframe ใด ๆ และ design ไม่ได้ประกาศ — roster ของ dev (testidRoster) จึงมองไม่เห็น และ DV17 นับเป็น Class B · ขอให้ mock ประกาศ control ของเมนูในที่ที่ dev อ่านได้ (เช่น wireframe controls[] หรือไฟล์ shell) หรือยืนยันว่า id นี้คือสัญญา",
       "found_at": "2026-10-20",
       "found_by": "/dev:plan",
-      "status": "open",
-      "answer_th": null,
-      "answered_in": null,
-      "closed_by": null,
+      "status": "answered",
+      "answer_th": "mock ตอบในสคริปต์ของตัวเองแล้ว (gate 117 · task 93): id ของลิงก์เมนูคือ navControlId = nav-<id ของหน้าปลายทางตัวพิมพ์เล็ก> สร้างจาก node ของ sitemap.json ของ design และ \"NAV LINKS ARE NOT STORED ANYWHERE\" (html.mjs shellControlRoster) — id นี้จึงเป็นสัญญา ไม่ต้องประกาศใน controls[] ของ wireframe · dev อ่าน id ชุดเดียวกันจาก sitemap ผ่าน build.mjs shellControls และ DV17 ไม่นับเป็น Class B แล้ว",
+      "answered_in": "mock · scripts/wireframes.mjs navControlId · scripts/html.mjs shellControlRoster (gate 117) — derived from design/sitemap.json nodes",
+      "closed_by": "Noppasorn",
       "blocks": [
         "FE-mrr-022"
       ]
@@ -7748,10 +7748,10 @@
       "question_th": "testid nav-ui-mrr-003 ของลิงก์เมนูไป UI-mrr-003 มินต์โดย mock (wireframes.mjs navControlId) และอยู่ในหน้า L2 ทุกหน้า แต่ไม่อยู่ใน controls[] ของ wireframe ใด ๆ และ design ไม่ได้ประกาศ — roster ของ dev (testidRoster) จึงมองไม่เห็น และ DV17 นับเป็น Class B · ขอให้ mock ประกาศ control ของเมนูในที่ที่ dev อ่านได้ (เช่น wireframe controls[] หรือไฟล์ shell) หรือยืนยันว่า id นี้คือสัญญา",
       "found_at": "2026-10-20",
       "found_by": "/dev:plan",
-      "status": "open",
-      "answer_th": null,
-      "answered_in": null,
-      "closed_by": null,
+      "status": "answered",
+      "answer_th": "mock ตอบในสคริปต์ของตัวเองแล้ว (gate 117 · task 93): id ของลิงก์เมนูคือ navControlId = nav-<id ของหน้าปลายทางตัวพิมพ์เล็ก> สร้างจาก node ของ sitemap.json ของ design และ \"NAV LINKS ARE NOT STORED ANYWHERE\" (html.mjs shellControlRoster) — id นี้จึงเป็นสัญญา ไม่ต้องประกาศใน controls[] ของ wireframe · dev อ่าน id ชุดเดียวกันจาก sitemap ผ่าน build.mjs shellControls และ DV17 ไม่นับเป็น Class B แล้ว · ข้อสังเกต: UI-mrr-003 (ออกจากระบบ) เป็นหน้า kind auth ลิงก์ nav-ui-mrr-003 ได้มาจาก sitemap ด้วยกติกาเดียวกัน",
+      "answered_in": "mock · scripts/wireframes.mjs navControlId · scripts/html.mjs shellControlRoster (gate 117) — derived from design/sitemap.json nodes",
+      "closed_by": "Noppasorn",
       "blocks": [
         "FE-mrr-022"
       ]
@@ -8000,8 +8000,8 @@
       "frontend-web": 19,
       "api": 23
     },
-    "gaps_open": 6,
-    "ready_for_phase5": false
+    "gaps_open": 0,
+    "ready_for_phase5": true
   },
   "deploy": {
     "env": "dev",
