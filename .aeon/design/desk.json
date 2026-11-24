@@ -97,6 +97,204 @@
       "by": "Noppasorn",
       "at": "2026-11-24T13:30:00+07:00",
       "extensions": {}
+    },
+    {
+      "card": "GAP-mrr-001",
+      "raiser": "dev",
+      "as": "answer",
+      "answer": "design ตอบด้วย ADR-008 (ปิดแล้ว): เกณฑ์รับ AC-mrr-106 · AC-mrr-107 · AC-mrr-108 (คัดจาก EX-mrr-106..108 คำต่อคำ) ผูกกับ UC-mrr-001 ใน functions.json acceptance[].useCases แล้ว",
+      "to": null,
+      "answeredByNode": "AC-mrr-106",
+      "by": "Noppasorn",
+      "at": "2026-11-24T16:00:00+07:00",
+      "extensions": {}
+    },
+    {
+      "card": "GAP-mrr-002",
+      "raiser": "dev",
+      "as": "answer",
+      "answer": "design ตอบด้วย ADR-008 (ปิดแล้ว): เกณฑ์รับ AC-mrr-109 · AC-mrr-110 (คัดจาก EX-mrr-109/110 คำต่อคำ) ผูกกับ UC-mrr-015 แล้ว · ลบ = archive (STM-mrr-003, DQ-mrr-003)",
+      "to": null,
+      "answeredByNode": "AC-mrr-109",
+      "by": "Noppasorn",
+      "at": "2026-11-24T16:00:00+07:00",
+      "extensions": {}
+    },
+    {
+      "card": "GAP-mrr-004",
+      "raiser": "dev",
+      "as": "answer",
+      "answer": "design ตอบด้วย ADR-009 (ปิดแล้ว): การออกจากระบบเป็นฟังก์ชันแพลตฟอร์ม FUN-mrr-015 · UC-mrr-021 ย้ายไปที่นั่น · เกณฑ์รับ AC-mrr-111 · AC-mrr-112 · AC-mrr-113 ยึดกับ FUN-mrr-015 (ปกติ · ยกเลิก session ไม่สำเร็จ · ผู้ที่ไม่ได้เข้าสู่ระบบ)",
+      "to": null,
+      "answeredByNode": "AC-mrr-111",
+      "by": "Noppasorn",
+      "at": "2026-11-24T16:00:00+07:00",
+      "extensions": {}
+    },
+    {
+      "card": "GAP-mrr-011",
+      "raiser": "dev",
+      "as": "answer",
+      "answer": "design ตอบด้วย ADR-007 (ปิดแล้ว): UI-mrr-005 มีช่องวันที่ และ action previous 'ก่อนหน้า' · next 'ถัดไป' · today 'วันนี้' (ปลายทาง self) ให้เลื่อนวันได้",
+      "to": null,
+      "answeredByNode": "UI-mrr-005",
+      "by": "Noppasorn",
+      "at": "2026-11-24T16:00:00+07:00",
+      "extensions": {}
+    },
+    {
+      "card": "GAP-mrr-012",
+      "raiser": "dev",
+      "as": "answer",
+      "answer": "design ตอบด้วย ADR-007 (ปิดแล้ว): action book-slot เปลี่ยนชื่อเป็น 'ไปหน้าจองห้อง' ส่งห้องกับวันที่ไป UI-mrr-006 · ผู้ใช้เลือกเวลาในฟอร์มจอง ไม่ได้เลือกช่วงเวลาที่หน้าปฏิทิน",
+      "to": null,
+      "answeredByNode": "UI-mrr-005",
+      "by": "Noppasorn",
+      "at": "2026-11-24T16:00:00+07:00",
+      "extensions": {}
+    },
+    {
+      "card": "GAP-mrr-013",
+      "raiser": "dev",
+      "as": "answer",
+      "answer": "design ตอบด้วย ADR-006 (ปิดแล้ว): ACL-039 (ROLE-001) และ ACL-040 (ROLE-003) อ่าน API-022 ได้เฉพาะห้องที่ไม่ใช่ ARCHIVED · เห็นชื่อ · ความจุ · ต้องอนุมัติ · สถานะ · ผู้อนุมัติประจำห้อง · ไม่เห็นรูปภาพ (รูปภาพเห็นเฉพาะผู้ดูแลห้อง ACL-014)",
+      "to": null,
+      "answeredByNode": "ACL-039",
+      "by": "Noppasorn",
+      "at": "2026-11-24T16:00:00+07:00",
+      "extensions": {}
+    },
+    {
+      "card": "GAP-mrr-016",
+      "raiser": "dev",
+      "as": "answer",
+      "answer": "design ตอบด้วย ADR-007 (ปิดแล้ว): รูปภาพห้องยังไม่อยู่ในขอบเขตรอบนี้ ตัดช่องรูปภาพออกจากฟอร์ม UI-mrr-013 แล้ว จึงไม่มี API อัปโหลด · หมายเหตุ: เป็นการลดขอบเขตเทียบกับที่ req อธิบายไว้ และ req ยังไม่ได้รับแจ้ง",
+      "to": null,
+      "answeredByNode": "UI-mrr-013",
+      "by": "Noppasorn",
+      "at": "2026-11-24T16:00:00+07:00",
+      "extensions": {}
+    },
+    {
+      "card": "GAP-mrr-018",
+      "raiser": "dev",
+      "as": "answer",
+      "answer": "design ตอบด้วย ADR-007 (ปิดแล้ว): API-036 GET /facilities?active=all ให้ Room Administrator เห็นรายการทั้งหมดรวมที่ปิดใช้ (ACL-041) · UI-mrr-014 ประกาศว่ารายการที่ปิดแล้วยังแสดงในหน้านี้และเปิดใช้งานกลับได้",
+      "to": null,
+      "answeredByNode": "API-036",
+      "by": "Noppasorn",
+      "at": "2026-11-24T16:00:00+07:00",
+      "extensions": {}
+    },
+    {
+      "card": "GAP-mrr-014",
+      "raiser": "dev",
+      "as": "forward",
+      "answer": "ป้ายของการกระทำในร่องรอยเป็นของกฎ BR-mrr-017@v2 ซึ่งระบุไว้ 5 ค่า (อนุมัติ · ปฏิเสธการจอง · ถอยผล · แก้แทนผู้จอง · ยกเลิกแทนผู้จอง) และไม่มีค่าของ CREATE_ADJUSTMENT · design ไม่ตั้งป้ายเองเพราะจะเป็นการเขียนกฎซ้ำ · ส่งต่อให้ req ถามเจ้าของว่าใช้คำใด (dev ใช้ 'สร้างคำขอแก้ไข' ไว้ก่อน)",
+      "to": "/req:ask",
+      "answeredByNode": null,
+      "by": "Noppasorn",
+      "at": "2026-11-24T16:00:00+07:00",
+      "extensions": {}
+    },
+    {
+      "card": "GAP-mrr-017",
+      "raiser": "dev",
+      "as": "answer",
+      "answer": "ยืนยันพฤติกรรมปัจจุบัน: เวอร์ชันใหม่ของห้องมีได้เฉพาะ facility ที่ active ตามคำประกาศ 'เลือกจาก Facility ที่ active' ของ UI-mrr-013 · facility ที่ถูกปิดใช้ทีหลังหลุดจากเวอร์ชันใหม่ และฟอร์มแจ้งก่อนบันทึกว่า 'สิ่งอำนวยความสะดวกที่ปิดใช้แล้ว N รายการจะไม่อยู่ในเวอร์ชันใหม่' · เวอร์ชันเดิมไม่เปลี่ยน",
+      "to": null,
+      "answeredByNode": "UI-mrr-013",
+      "by": "Noppasorn",
+      "at": "2026-11-24T16:00:00+07:00",
+      "extensions": {}
+    },
+    {
+      "card": "GAP-mrr-019",
+      "raiser": "dev",
+      "as": "answer",
+      "answer": "ยืนยันพฤติกรรมปัจจุบัน: ช่องผู้อนุมัติประจำห้องค้นผ่าน API-005 ได้ทุกบทบาท และ API-023 ปฏิเสธที่ช่องว่า 'ผู้อนุมัติประจำห้องต้องเป็นผู้ดูแลห้อง' ถ้าเลือกคนที่ไม่ใช่ Room Administrator · ไม่เพิ่มตัวกรองบทบาท เพราะกฎบังคับที่ API อยู่แล้ว",
+      "to": null,
+      "answeredByNode": "UI-mrr-013",
+      "by": "Noppasorn",
+      "at": "2026-11-24T16:00:00+07:00",
+      "extensions": {}
+    },
+    {
+      "card": "GAP-mrr-022",
+      "raiser": "dev",
+      "as": "answer",
+      "answer": "ยืนยันพฤติกรรมปัจจุบัน: หน้าตัดสินชุดคำสั่งตอนเปิด · ถ้าเปิดค้างไว้ข้ามเวลาเริ่มหรือเวลาจบแล้วกดคำสั่งชุดเดิม API ปฏิเสธและหน้าแสดงข้อความของ API ข้อมูลไม่เปลี่ยน · หน้าไม่ต้องเปลี่ยนคำสั่งเองเมื่อถึงเวลา",
+      "to": null,
+      "answeredByNode": "UI-mrr-010",
+      "by": "Noppasorn",
+      "at": "2026-11-24T16:00:00+07:00",
+      "extensions": {}
+    },
+    {
+      "card": "GAP-mrr-023",
+      "raiser": "dev",
+      "as": "answer",
+      "answer": "ยืนยันใช้ข้อความเดิม: เมื่ออ่านบทบาทจาก API-035 ไม่สำเร็จ หน้าแสดง 'โหลดการจองไม่สำเร็จ' พร้อมปุ่ม 'โหลดใหม่' และไม่แสดงคำสั่งใด ๆ (ค่าเริ่มต้นคือไม่ให้สิทธิ์) · ไม่เพิ่มถ้อยคำใหม่ใน screens.json",
+      "to": null,
+      "answeredByNode": "UI-mrr-010",
+      "by": "Noppasorn",
+      "at": "2026-11-24T16:00:00+07:00",
+      "extensions": {}
+    },
+    {
+      "card": "GAP-mrr-003",
+      "raiser": "dev",
+      "as": "answer",
+      "answer": "design รับ CHG-mrr-002 (กฎ BR-mrr-024..028@v1 จาก req) แล้วเขียน AC-mrr-089..103 ผูก UC-mrr-020 คัดข้อความจาก EX-mrr-091..105 คำต่อคำ พร้อม SCN-mrr-097..100 และชั้นที่บังคับใน interfaces.json · เซ็นโดย Noppasorn 2026-10-22 (commit 16460a8)",
+      "to": null,
+      "answeredByNode": "AC-mrr-089",
+      "by": "Noppasorn",
+      "at": "2026-11-24T16:00:00+07:00",
+      "extensions": {}
+    },
+    {
+      "card": "GAP-mrr-015",
+      "raiser": "dev",
+      "as": "answer",
+      "answer": "design ตอบด้วย ADR-002 (ปิดแล้ว): API-035 GET /auth/me ส่งชื่อและบทบาทของเจ้าของ session · ACL-037 ทุกบทบาทอ่านได้เฉพาะของตน (scope own · api/domain) · UI-mrr-010 และ UI-mrr-014 calls API-035 · interfaces.json กับ rbac.json เซ็นใหม่โดย Noppasorn 2026-10-21",
+      "to": null,
+      "answeredByNode": "API-035",
+      "by": "Noppasorn",
+      "at": "2026-11-24T16:00:00+07:00",
+      "extensions": {}
+    },
+    {
+      "card": "GAP-mrr-020",
+      "raiser": "dev",
+      "as": "answer",
+      "answer": "design ตอบด้วย ADR-002 (ปิดแล้ว): API-035 GET /auth/me ส่งชื่อและบทบาทของเจ้าของ session · ACL-037 ทุกบทบาทอ่านได้เฉพาะของตน (scope own · api/domain) · UI-mrr-010 และ UI-mrr-014 calls API-035 · interfaces.json กับ rbac.json เซ็นใหม่โดย Noppasorn 2026-10-21",
+      "to": null,
+      "answeredByNode": "API-035",
+      "by": "Noppasorn",
+      "at": "2026-11-24T16:00:00+07:00",
+      "extensions": {}
+    },
+    {
+      "card": "GAP-mrr-024",
+      "raiser": "dev",
+      "as": "answer",
+      "answer": "design ตอบด้วย ADR-004: ENT-014 LoginCode (รหัส/magic link หนึ่งแถวต่อ Email หนึ่งฉบับ เก็บค่าแฮช เวลาออก/หมดอายุ/ใช้) + STM-mrr-004 ISSUED → USED | EXPIRED · การขอซ้ำนับต่อบัญชีผู้ใช้ (DQ-mrr-015) · ACL-038 ให้ใช้รหัสของตนเองขณะ ISSUED · session เป็นเรื่องเทคนิคของ dev และอายุ session ยังไม่มีใครตัดสิน · เซ็นโดย Noppasorn 2026-10-22 (e4a6bc5)",
+      "to": null,
+      "answeredByNode": "ENT-014",
+      "by": "Noppasorn",
+      "at": "2026-11-24T16:00:00+07:00",
+      "extensions": {}
+    },
+    {
+      "card": "GAP-mrr-025",
+      "raiser": "dev",
+      "as": "answer",
+      "answer": "design แก้ screens.json ด้วย ADR-004: UI-mrr-001/002 ใช้ข้อความตรงตัวตาม AC-mrr-089..103 แยกสามเหตุบน UI-mrr-002 เพิ่มกรณีขอรหัสซ้ำบน UI-mrr-001 และปุ่มขอรหัสใหม่ทำได้เมื่อรหัสเดิมหมดอายุหรือถูกใช้แล้วเท่านั้น · mock วาด wireframe UI-mrr-001/002 และหน้า L2 error ของ UI-mrr-001 ใหม่ testid เดิม",
+      "to": null,
+      "answeredByNode": "UI-mrr-002",
+      "by": "Noppasorn",
+      "at": "2026-11-24T16:00:00+07:00",
+      "extensions": {}
     }
   ]
 }
