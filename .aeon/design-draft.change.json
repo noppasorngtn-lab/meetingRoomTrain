@@ -1,0 +1,13 @@
+{
+  "changes": [
+    {
+      "id": "CHG-mrr-005",
+      "origin": "req",
+      "kind": "revised",
+      "moved": ["CALC-mrr-001@v2", "CALC-mrr-001@v1"],
+      "reason": "เจ้าของ (Noppasorn) อนุมัติเมื่อ 2026-11-24 ให้สัญญาการคำนวณอัตราการใช้งาน CALC-mrr-001 ขึ้นเป็น @v2 เพื่อพินกฎปัจจุบัน BR-mrr-006@v2 (เดิม @v1 พินกฎ BR-mrr-006@v1 ที่ถูกแทนที่โดย CHG-mrr-004 สัญญาจึงไม่ถูกส่งมาถึง design/dev ตั้งแต่ 2026-11-19) · สูตร ชนิดตัวเลข การปัด และขอบทุกข้อเหมือน @v1 ไม่เปลี่ยน · ชุดเฉลย GD-mrr-001 รันใหม่ตรงเดิมทุกแถวและเซ็นใหม่แล้ว · design ยังอ้าง CALC-mrr-001@v1 ใน datamodel.json · interfaces.json · functions.json และเส้น governedBy ใน trace.design.json",
+      "recordedAt": "2026-11-24T15:00:00+07:00",
+      "absorbed": false
+    }
+  ]
+}
