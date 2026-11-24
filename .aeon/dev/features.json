@@ -2848,7 +2848,7 @@
       "title_th": "แก้ไขหรือยกเลิกการจองแทนผู้จอง — หน้าจอ",
       "app_ref": "frontend-web",
       "type": "command",
-      "origin": "new",
+      "origin": "change",
       "files_planned": [],
       "depends_on": [
         "FE-mrr-022",
@@ -2882,11 +2882,11 @@
         },
         {
           "ref": "AC-mrr-053",
-          "hash": "sha256:aaa19b2087d9e507a469048cf6cd45a2173f4b243a314f250aab285c1476f98d"
+          "hash": "sha256:892af8f4e29d8f9d8590d1d0ac114c31a7a3fc67eed82a8ba166245aac62300a"
         },
         {
           "ref": "AC-mrr-055",
-          "hash": "sha256:c9bc509cb6a666dff9d38bd0daf0b174adb929232974af5081f48473058cb99f"
+          "hash": "sha256:0e070a5816c939a4c09996924b78403c95614bf1dda379072f978fede9cd6db9"
         },
         {
           "ref": "UI-mrr-010",
@@ -2915,11 +2915,21 @@
             "cmd": "powershell -File scripts/dev-test.ps1",
             "result": "api: Test Suites: 32 passed, 32 total · Tests: 394 passed, 394 total · web: Test Files 15 passed (15) · Tests 241 passed (241) · exit 0",
             "at": "2026-10-21"
+          },
+          {
+            "cmd": "powershell -NoProfile -File scripts/dev-build.ps1 -App frontend-web",
+            "result": "tsc --noEmit + vite build · built in 926ms · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -NoProfile -File scripts/dev-test.ps1 -App frontend-web -Filter FE-mrr-009",
+            "result": "on-behalf.test.tsx 15 passed · booking-adjustment.test.tsx 1 passed (11 skipped) · Test Files 2 passed | 19 skipped (21) · Tests 16 passed | 293 skipped (309) · exit 0",
+            "at": "2026-11-24"
           }
         ],
         "last_error": null,
         "recorded_by": "Noppasorn",
-        "recorded_at": "2026-10-21"
+        "recorded_at": "2026-11-24"
       },
       "manifest": {
         "files": [
@@ -7030,8 +7040,8 @@
       "validated": 42
     },
     "by_origin": {
-      "new": 31,
-      "change": 11
+      "new": 30,
+      "change": 12
     },
     "by_app": {
       "frontend-web": 19,

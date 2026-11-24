@@ -2,45 +2,49 @@
   "module": "mrr",
   "features": [
     {
-      "id": "FE-mrr-008",
-      "title_th": "เปลี่ยนผลการอนุมัติ — หน้าจอ",
+      "id": "FE-mrr-009",
+      "title_th": "แก้ไขหรือยกเลิกการจองแทนผู้จอง — หน้าจอ",
       "app_ref": "frontend-web",
       "type": "command",
       "origin": "change",
       "files_planned": [],
       "depends_on": [
         "FE-mrr-022",
-        "FE-mrr-029",
+        "FE-mrr-030",
         "FE-mrr-038"
       ],
       "acceptance_refs": [
-        "AC-mrr-033",
-        "AC-mrr-034",
-        "AC-mrr-035",
-        "AC-mrr-036",
-        "AC-mrr-087"
+        "AC-mrr-028",
+        "AC-mrr-029",
+        "AC-mrr-042",
+        "AC-mrr-053",
+        "AC-mrr-055",
+        "AC-mrr-086"
       ],
       "traces_up": [
         {
-          "ref": "UC-mrr-008"
+          "ref": "UC-mrr-009"
         },
         {
-          "ref": "AC-mrr-033"
+          "ref": "AC-mrr-028"
         },
         {
-          "ref": "AC-mrr-034"
+          "ref": "AC-mrr-029"
         },
         {
-          "ref": "AC-mrr-035"
+          "ref": "AC-mrr-042"
         },
         {
-          "ref": "AC-mrr-036"
+          "ref": "AC-mrr-053"
+        },
+        {
+          "ref": "AC-mrr-055"
         },
         {
           "ref": "UI-mrr-010"
         },
         {
-          "ref": "AC-mrr-087"
+          "ref": "AC-mrr-086"
         }
       ],
       "status": "draft"
