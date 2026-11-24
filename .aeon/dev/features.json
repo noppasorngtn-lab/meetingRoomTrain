@@ -2356,7 +2356,11 @@
         "AC-mrr-039",
         "AC-mrr-051",
         "AC-mrr-052",
-        "AC-mrr-062"
+        "AC-mrr-062",
+        "AC-mrr-118",
+        "AC-mrr-121",
+        "AC-mrr-123",
+        "AC-mrr-126"
       ],
       "traces_up": [
         {
@@ -2396,6 +2400,22 @@
           "hash": "sha256:82c7637ccff37073e9787ccdd9c83eabd7d706580dc83e575ac177fd13d06f07"
         },
         {
+          "ref": "AC-mrr-118",
+          "hash": "sha256:7af1490e2d3a4af083207e143ae197c0c39b2a28a1cdcb53728e08769f519df3"
+        },
+        {
+          "ref": "AC-mrr-121",
+          "hash": "sha256:df8ad168ed036937bb3c524c8f7c9b67e9953a13b049853d1e21557856bd354d"
+        },
+        {
+          "ref": "AC-mrr-123",
+          "hash": "sha256:af1ea89cc0855f02e562644fac1960abebc333cca6cf2a3c88783f42d0171c58"
+        },
+        {
+          "ref": "AC-mrr-126",
+          "hash": "sha256:bd8d073c9755ce15cc56d1eb018584301e5235cdf76055f26a9b4e0d5fb4b81a"
+        },
+        {
           "ref": "UI-mrr-009",
           "hash": "sha256:6446f319b837c86604116b51ad046409f8a7b921566cbc2b2d3a027a5d105545"
         }
@@ -2432,6 +2452,21 @@
           {
             "cmd": "cd test && npx playwright test e2e/t1-round2.spec.ts --project=chromium -g \"TC-AUD-UI009-101|TC-AUD-UI010-112\" --reporter=list",
             "result": "2 passed (15.7s) · [real] against docker stack mrr-* rebuilt from this tree · selectors renamed to the wireframe ids, assertions unchanged",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -NoProfile -File scripts/dev-build.ps1 -App frontend-web",
+            "result": "tsc --noEmit + vite build · built in 905ms · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -NoProfile -File scripts/dev-test.ps1 -App frontend-web -Filter FE-mrr-007",
+            "result": "pending-approvals.test.tsx 22 passed · Test Files 1 passed | 20 skipped (21) · Tests 22 passed | 298 skipped (320) · exit 0 (AC-mrr-118 อนุมัติการจองสำเร็จ · 121/123 reason sent as typed + ปฏิเสธการจองสำเร็จ · 126 empty reason: กรุณาระบุเหตุผล, nothing sent, still listed)",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "cd test && npx playwright test e2e/t1-round2.spec.ts --project=chromium -g \"TC-NTF-UI009-10[23]|TC-AUD-UI010-109|TC-AUD-UI010-112\" --reporter=list",
+            "result": "4 passed (15.3s) · [real] TC-NTF-UI009-102 (EX-mrr-115) · TC-NTF-UI009-103 (EX-mrr-118) · TC-AUD-UI010-109 (EX-mrr-120) · TC-AUD-UI010-112 (EX-mrr-123) against docker stack mrr-* rebuilt from HEAD",
             "at": "2026-11-24"
           }
         ],

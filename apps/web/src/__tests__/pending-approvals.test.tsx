@@ -124,6 +124,46 @@ describe('FE-mrr-007 pending approvals page (UI-mrr-009)', () => {
     expect(posts()).toEqual([]);
   });
 
+  // GAP-mrr-026 · what this page shows and sends for EX-mrr-115 / 118 / 120 / 123. Who is mailed and the
+  // trail entry are the api's (FE-mrr-017 · FE-mrr-028 · FE-mrr-033).
+  const bodyOf = (url: string) => {
+    const hit = vi.mocked(fetch).mock.calls.find(([u, init]) => u === url && init?.method === 'POST');
+    return hit?.[1]?.body ? JSON.parse(String(hit[1].body)) : undefined;
+  };
+
+  it('AC-mrr-118 RA approves ประชุมลูกค้า — อนุมัติการจองสำเร็จ and it leaves the queue', async () => {
+    replies[`POST /bookings/${BOOKING}/approve`] = decidedThen('อนุมัติการจองสำเร็จ');
+    open();
+
+    fireEvent.click(await screen.findByTestId('ui-mrr-009-approve'));
+
+    expect(await screen.findByRole('status')).toHaveTextContent('อนุมัติการจองสำเร็จ');
+    expect(await screen.findByText('ไม่มีรายการรออนุมัติ')).toBeInTheDocument();
+  });
+
+  it('AC-mrr-121 · AC-mrr-123 RA rejects with ห้องไม่เหมาะกับการประชุมนี้ — the reason is sent as typed and the page says ปฏิเสธการจองสำเร็จ', async () => {
+    replies[`POST /bookings/${BOOKING}/reject`] = decidedThen('ปฏิเสธการจองสำเร็จ');
+    open();
+
+    fireEvent.click(await screen.findByTestId('ui-mrr-009-reject'));
+    fireEvent.change(await screen.findByTestId('ui-mrr-009-ent-010-reason'), { target: { value: 'ห้องไม่เหมาะกับการประชุมนี้' } });
+    fireEvent.click(screen.getByTestId('ui-mrr-009-confirm-reject'));
+
+    expect(await screen.findByRole('status')).toHaveTextContent('ปฏิเสธการจองสำเร็จ');
+    expect(bodyOf(`/bookings/${BOOKING}/reject`)).toEqual({ reason: 'ห้องไม่เหมาะกับการประชุมนี้' });
+  });
+
+  it('AC-mrr-126 RA rejects with the reason left empty — กรุณาระบุเหตุผล, nothing is sent, the booking is still waiting in the list', async () => {
+    open();
+    fireEvent.click(await screen.findByTestId('ui-mrr-009-reject'));
+    fireEvent.change(await screen.findByTestId('ui-mrr-009-ent-010-reason'), { target: { value: '' } });
+    fireEvent.click(screen.getByTestId('ui-mrr-009-confirm-reject'));
+
+    expect(await screen.findByTestId('ui-mrr-009-reason-error')).toHaveTextContent('กรุณาระบุเหตุผล');
+    expect(posts()).toEqual([]);
+    expect(screen.getAllByTestId('ui-mrr-009-ent-007-title').map((t) => t.textContent)).toEqual(['ประชุมลูกค้า']);
+  });
+
   it('AC-mrr-038 unauthorized state — a room whose approver is someone else shows อนุมัติ and ปฏิเสธ disabled', async () => {
     replies[LIST] = pageOf([row({ approver: RA1, canDecide: false })]);
     open();

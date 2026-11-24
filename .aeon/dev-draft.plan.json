@@ -2,49 +2,72 @@
   "module": "mrr",
   "features": [
     {
-      "id": "FE-mrr-005",
-      "title_th": "ยกเลิกการจองของตนเอง — หน้าจอ",
+      "id": "FE-mrr-007",
+      "title_th": "อนุมัติหรือปฏิเสธการจอง — หน้าจอ",
       "app_ref": "frontend-web",
       "type": "command",
       "origin": "change",
       "files_planned": [],
       "depends_on": [
         "FE-mrr-022",
-        "FE-mrr-026",
-        "FE-mrr-006"
+        "FE-mrr-028"
       ],
       "acceptance_refs": [
-        "AC-mrr-009",
-        "AC-mrr-010",
-        "AC-mrr-026",
-        "AC-mrr-027",
-        "AC-mrr-054",
-        "AC-mrr-119"
+        "AC-mrr-013",
+        "AC-mrr-014",
+        "AC-mrr-037",
+        "AC-mrr-038",
+        "AC-mrr-039",
+        "AC-mrr-051",
+        "AC-mrr-052",
+        "AC-mrr-062",
+        "AC-mrr-118",
+        "AC-mrr-121",
+        "AC-mrr-123",
+        "AC-mrr-126"
       ],
       "traces_up": [
         {
-          "ref": "UC-mrr-005"
+          "ref": "UC-mrr-007"
         },
         {
-          "ref": "AC-mrr-009"
+          "ref": "AC-mrr-013"
         },
         {
-          "ref": "AC-mrr-010"
+          "ref": "AC-mrr-014"
         },
         {
-          "ref": "AC-mrr-026"
+          "ref": "AC-mrr-037"
         },
         {
-          "ref": "AC-mrr-027"
+          "ref": "AC-mrr-038"
         },
         {
-          "ref": "AC-mrr-054"
+          "ref": "AC-mrr-039"
         },
         {
-          "ref": "AC-mrr-119"
+          "ref": "AC-mrr-051"
         },
         {
-          "ref": "UI-mrr-007"
+          "ref": "AC-mrr-052"
+        },
+        {
+          "ref": "AC-mrr-062"
+        },
+        {
+          "ref": "AC-mrr-118"
+        },
+        {
+          "ref": "AC-mrr-121"
+        },
+        {
+          "ref": "AC-mrr-123"
+        },
+        {
+          "ref": "AC-mrr-126"
+        },
+        {
+          "ref": "UI-mrr-009"
         }
       ]
     }
