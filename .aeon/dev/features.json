@@ -1774,6 +1774,16 @@
             "cmd": "powershell -File scripts/dev-test.ps1 -App api -Filter FE-mrr-026",
             "result": "Test Suites: 39 skipped, 1 passed, 1 of 40 total · Tests: 497 skipped, 16 passed, 513 total · exit 0",
             "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App api",
+            "result": "Test Suites: 40 passed, 40 total · Tests: 513 passed, 513 total · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "cd docker && docker compose up -d; cd ../test && npx playwright test --project=chromium",
+            "result": "E2E [real] against the local stack (images built after the last application change): 183 passed, 1 skipped (nfr-005 touch-only check) of 184 · 4.2m · exit 0",
+            "at": "2026-11-24"
           }
         ],
         "last_error": null,
@@ -1917,6 +1927,16 @@
           {
             "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web -Filter FE-mrr-005",
             "result": "Test Files 1 passed | 20 skipped (21) · Tests 11 passed | 322 skipped (333) · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web",
+            "result": "Test Files 21 passed (21) · Tests 333 passed (333) · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "cd docker && docker compose up -d; cd ../test && npx playwright test --project=chromium",
+            "result": "E2E [real] against the local stack (images built after the last application change): 183 passed, 1 skipped (nfr-005 touch-only check) of 184 · 4.2m · exit 0",
             "at": "2026-11-24"
           }
         ],
@@ -2316,6 +2336,16 @@
             "cmd": "powershell -File scripts/dev-test.ps1 -App api -Filter FE-mrr-028",
             "result": "Test Suites: 38 skipped, 2 passed, 2 of 40 total · Tests: 464 skipped, 49 passed, 513 total · exit 0",
             "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App api",
+            "result": "Test Suites: 40 passed, 40 total · Tests: 513 passed, 513 total · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "cd docker && docker compose up -d; cd ../test && npx playwright test --project=chromium",
+            "result": "E2E [real] against the local stack (images built after the last application change): 183 passed, 1 skipped (nfr-005 touch-only check) of 184 · 4.2m · exit 0",
+            "at": "2026-11-24"
           }
         ],
         "last_error": null,
@@ -2510,6 +2540,16 @@
           {
             "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web -Filter FE-mrr-007",
             "result": "Test Files 1 passed | 20 skipped (21) · Tests 22 passed | 311 skipped (333) · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web",
+            "result": "Test Files 21 passed (21) · Tests 333 passed (333) · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "cd docker && docker compose up -d; cd ../test && npx playwright test --project=chromium",
+            "result": "E2E [real] against the local stack (images built after the last application change): 183 passed, 1 skipped (nfr-005 touch-only check) of 184 · 4.2m · exit 0",
             "at": "2026-11-24"
           }
         ],
@@ -2757,6 +2797,16 @@
             "cmd": "powershell -File scripts/dev-test.ps1 -App api -Filter FE-mrr-029",
             "result": "Test Suites: 38 skipped, 2 passed, 2 of 40 total · Tests: 481 skipped, 32 passed, 513 total · exit 0",
             "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App api",
+            "result": "Test Suites: 40 passed, 40 total · Tests: 513 passed, 513 total · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "cd docker && docker compose up -d; cd ../test && npx playwright test --project=chromium",
+            "result": "E2E [real] against the local stack (images built after the last application change): 183 passed, 1 skipped (nfr-005 touch-only check) of 184 · 4.2m · exit 0",
+            "at": "2026-11-24"
           }
         ],
         "last_error": null,
@@ -2908,6 +2958,16 @@
           {
             "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web -Filter FE-mrr-008",
             "result": "Test Files 1 passed | 20 skipped (21) · Tests 22 passed | 311 skipped (333) · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web",
+            "result": "Test Files 21 passed (21) · Tests 333 passed (333) · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "cd docker && docker compose up -d; cd ../test && npx playwright test --project=chromium",
+            "result": "E2E [real] against the local stack (images built after the last application change): 183 passed, 1 skipped (nfr-005 touch-only check) of 184 · 4.2m · exit 0",
             "at": "2026-11-24"
           }
         ],
@@ -3122,6 +3182,16 @@
             "cmd": "powershell -File scripts/dev-test.ps1 -App api -Filter FE-mrr-030",
             "result": "Test Suites: 38 skipped, 2 passed, 2 of 40 total · Tests: 466 skipped, 47 passed, 513 total · exit 0",
             "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App api",
+            "result": "Test Suites: 40 passed, 40 total · Tests: 513 passed, 513 total · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "cd docker && docker compose up -d; cd ../test && npx playwright test --project=chromium",
+            "result": "E2E [real] against the local stack (images built after the last application change): 183 passed, 1 skipped (nfr-005 touch-only check) of 184 · 4.2m · exit 0",
+            "at": "2026-11-24"
           }
         ],
         "last_error": null,
@@ -3290,6 +3360,16 @@
           {
             "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web -Filter FE-mrr-009",
             "result": "Test Files 2 passed | 19 skipped (21) · Tests 18 passed | 315 skipped (333) · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web",
+            "result": "Test Files 21 passed (21) · Tests 333 passed (333) · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "cd docker && docker compose up -d; cd ../test && npx playwright test --project=chromium",
+            "result": "E2E [real] against the local stack (images built after the last application change): 183 passed, 1 skipped (nfr-005 touch-only check) of 184 · 4.2m · exit 0",
             "at": "2026-11-24"
           }
         ],
@@ -3481,6 +3561,16 @@
             "cmd": "powershell -File scripts/dev-test.ps1 -App api -Filter FE-mrr-031",
             "result": "Test Suites: 38 skipped, 2 passed, 2 of 40 total · Tests: 493 skipped, 20 passed, 513 total · exit 0",
             "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App api",
+            "result": "Test Suites: 40 passed, 40 total · Tests: 513 passed, 513 total · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "cd docker && docker compose up -d; cd ../test && npx playwright test --project=chromium",
+            "result": "E2E [real] against the local stack (images built after the last application change): 183 passed, 1 skipped (nfr-005 touch-only check) of 184 · 4.2m · exit 0",
+            "at": "2026-11-24"
           }
         ],
         "last_error": null,
@@ -3583,6 +3673,16 @@
           {
             "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web -Filter FE-mrr-010",
             "result": "Test Files 1 passed | 20 skipped (21) · Tests 13 passed | 320 skipped (333) · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web",
+            "result": "Test Files 21 passed (21) · Tests 333 passed (333) · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "cd docker && docker compose up -d; cd ../test && npx playwright test --project=chromium",
+            "result": "E2E [real] against the local stack (images built after the last application change): 183 passed, 1 skipped (nfr-005 touch-only check) of 184 · 4.2m · exit 0",
             "at": "2026-11-24"
           }
         ],
@@ -3770,6 +3870,16 @@
             "cmd": "powershell -File scripts/dev-test.ps1 -App api -Filter FE-mrr-032",
             "result": "Test Suites: 38 skipped, 2 passed, 2 of 40 total · Tests: 491 skipped, 22 passed, 513 total · exit 0",
             "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App api",
+            "result": "Test Suites: 40 passed, 40 total · Tests: 513 passed, 513 total · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "cd docker && docker compose up -d; cd ../test && npx playwright test --project=chromium",
+            "result": "E2E [real] against the local stack (images built after the last application change): 183 passed, 1 skipped (nfr-005 touch-only check) of 184 · 4.2m · exit 0",
+            "at": "2026-11-24"
           }
         ],
         "last_error": null,
@@ -3891,6 +4001,16 @@
           {
             "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web -Filter FE-mrr-011",
             "result": "Test Files 1 passed | 20 skipped (21) · Tests 19 passed | 314 skipped (333) · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web",
+            "result": "Test Files 21 passed (21) · Tests 333 passed (333) · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "cd docker && docker compose up -d; cd ../test && npx playwright test --project=chromium",
+            "result": "E2E [real] against the local stack (images built after the last application change): 183 passed, 1 skipped (nfr-005 touch-only check) of 184 · 4.2m · exit 0",
             "at": "2026-11-24"
           }
         ],
@@ -4142,6 +4262,16 @@
             "cmd": "powershell -File scripts/dev-test.ps1 -App api -Filter FE-mrr-033",
             "result": "Test Suites: 38 skipped, 2 passed, 2 of 40 total · Tests: 491 skipped, 22 passed, 513 total · exit 0",
             "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App api",
+            "result": "Test Suites: 40 passed, 40 total · Tests: 513 passed, 513 total · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "cd docker && docker compose up -d; cd ../test && npx playwright test --project=chromium",
+            "result": "E2E [real] against the local stack (images built after the last application change): 183 passed, 1 skipped (nfr-005 touch-only check) of 184 · 4.2m · exit 0",
+            "at": "2026-11-24"
           }
         ],
         "last_error": null,
@@ -4339,6 +4469,16 @@
           {
             "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web -Filter FE-mrr-012",
             "result": "Test Files 1 passed | 20 skipped (21) · Tests 20 passed | 313 skipped (333) · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web",
+            "result": "Test Files 21 passed (21) · Tests 333 passed (333) · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "cd docker && docker compose up -d; cd ../test && npx playwright test --project=chromium",
+            "result": "E2E [real] against the local stack (images built after the last application change): 183 passed, 1 skipped (nfr-005 touch-only check) of 184 · 4.2m · exit 0",
             "at": "2026-11-24"
           }
         ],
@@ -5843,6 +5983,16 @@
           {
             "cmd": "powershell -File scripts/dev-test.ps1 -App api -Filter FE-mrr-017",
             "result": "Test Suites: 39 skipped, 1 passed, 1 of 40 total · Tests: 502 skipped, 11 passed, 513 total · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App api",
+            "result": "Test Suites: 40 passed, 40 total · Tests: 513 passed, 513 total · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "cd docker && docker compose up -d; cd ../test && npx playwright test --project=chromium",
+            "result": "E2E [real] against the local stack (images built after the last application change): 183 passed, 1 skipped (nfr-005 touch-only check) of 184 · 4.2m · exit 0",
             "at": "2026-11-24"
           }
         ],
