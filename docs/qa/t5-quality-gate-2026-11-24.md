@@ -96,6 +96,7 @@ Input: [t3-results-2026-11-23.md](t3-results-2026-11-23.md) · [t2-coverage-repo
 | 5 | เคส HTTPS ต้องรวม Secure cookie และ HSTS หรือไม่ | PO |
 | 6 | req จะเพิ่ม EX/ปรับ BR-mrr-019 เมื่อไร และเคส DEF-05 ×5 (review แล้ว) จะเข้า T1 CSV เมื่อไร | req / QA |
 | 7 | ผู้ตัดสิน Q1–Q3 ของ DEF-05 เป็น PO ตามบทบาทหรือไม่ (ยังไม่ได้ระบุในบันทึก) | PO |
+| 8 | การ์ด DEC-005 (`.aeon/design/context.json`) ยังไม่มีใครเลือก: ระบบส่ง Email (แจ้งเตือน + รหัสเข้าสู่ระบบ) ผ่าน SMTP server ขององค์กร หรือบริการภายนอก (เช่น Amazon SES, SendGrid) · ระบบเป็น on-premise (DEC-004) · เกี่ยวกับ DQ-mrr-005/014 และ NFR-004 · E2E ปัจจุบันใช้ mailpit แทน ยังไม่ได้เทสกับบริการจริง · ปิดผ่าน `/design:overview` (design:check S18 warn) — TBD - Require Business Confirmation | PO / IT องค์กร |
 
 ## ข้อมูลที่ขาด (ไม่เดา)
 
