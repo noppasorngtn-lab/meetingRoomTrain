@@ -90,6 +90,46 @@ describe('FE-mrr-033 a Room or System Administrator reads a booking\'s trail (UC
     expect(trail[1].detail).toEqual({ before: { title: 'ประชุม' }, after: { title: 'ประชุมทีม' } });
   });
 
+  // GAP-mrr-026 · BR-mrr-017@v2 — the READ half of AC-mrr-121/123/124/125: once the action has written its
+  // entry, the trail shows actor · time · action · reason. The entries are seeded in the shape the action
+  // services write (booking-approval.service.ts REJECT / CHANGE_DECISION · booking-edit.service.ts
+  // EDIT_ON_BEHALF); that each action writes exactly one is proved with the action (FE-mrr-028/029/030).
+  // The Thai words ปฏิเสธการจอง · ถอยผล · แก้แทนผู้จอง are the screen's labels for these values (FE-mrr-012).
+  describe('BR-mrr-017@v2 · the trail after reject, change of decision and edit on behalf', () => {
+    let roomB: Awaited<ReturnType<typeof seedRoom>>;
+    beforeEach(async () => {
+      roomB = await seedRoom(db, 'ห้อง B', ra1, { requiresApproval: true });
+    });
+    const fresh = (status: Database['bookings']['status'], title = 'ประชุมลูกค้า', room = roomB) =>
+      seedBooking(db, { room, bookedBy: u1, title, startAt: at(18, '10:00'), endAt: at(18, '11:00'), status });
+    const write = (id: string, e: { action: Database['booking_audit_entries']['action']; reason: string; at: Date; detail?: unknown }) =>
+      db.insertInto('booking_audit_entries').values({
+        booking_id: id, actor_id: ra1, action: e.action, reason: e.reason, detail: e.detail === undefined ? null : JSON.stringify(e.detail), at: e.at,
+      }).execute();
+    const row = async (id: string) => (await service.list({ userId: ra1 }, id)).map((e) => [e.actor.fullName, e.at, e.action, e.reason]);
+
+    it('AC-mrr-121 · AC-mrr-123 rejected at 16/10 14:10 — one entry: RA1 · 16/10 14:10 · REJECT (ปฏิเสธการจอง) · ห้องไม่เหมาะกับการประชุมนี้', async () => {
+      const id = await fresh('REJECTED');
+      await write(id, { action: 'REJECT', reason: 'ห้องไม่เหมาะกับการประชุมนี้', at: at(16, '14:10') });
+
+      expect(await row(id)).toEqual([['RA1', at(16, '14:10').toISOString(), 'REJECT', 'ห้องไม่เหมาะกับการประชุมนี้']]);
+    });
+
+    it('AC-mrr-124 decision changed at 16/10 15:00 — one entry: RA1 · 16/10 15:00 · CHANGE_DECISION (ถอยผล) · อนุมัติผิดห้อง', async () => {
+      const id = await fresh('REJECTED');
+      await write(id, { action: 'CHANGE_DECISION', reason: 'อนุมัติผิดห้อง', at: at(16, '15:00'), detail: { from: 'APPROVED', to: 'REJECTED' } });
+
+      expect(await row(id)).toEqual([['RA1', at(16, '15:00').toISOString(), 'CHANGE_DECISION', 'อนุมัติผิดห้อง']]);
+    });
+
+    it('AC-mrr-125 title edited on behalf at 18/10 10:30 — one entry: RA1 · 18/10 10:30 · EDIT_ON_BEHALF (แก้แทนผู้จอง) · ผู้จองพิมพ์หัวข้อผิด', async () => {
+      const id = await fresh('CONFIRMED', 'ประชุมวางแผน', await seedRoom(db, 'ห้อง C', ra1));
+      await write(id, { action: 'EDIT_ON_BEHALF', reason: 'ผู้จองพิมพ์หัวข้อผิด', at: at(18, '10:30'), detail: { before: { title: 'ประชุมทีม' }, after: { title: 'ประชุมวางแผน' } } });
+
+      expect(await row(id)).toEqual([['RA1', at(18, '10:30').toISOString(), 'EDIT_ON_BEHALF', 'ผู้จองพิมพ์หัวข้อผิด']]);
+    });
+  });
+
   it('a booking with nothing done to it has an empty trail', async () => {
     const other = await seedBooking(db, {
       room: await seedRoom(db, 'ห้อง B', ra1), bookedBy: u1, title: 'ประชุมลูกค้า', startAt: at(19, '10:00'), endAt: at(19, '11:00'),

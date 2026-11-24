@@ -3595,7 +3595,11 @@
         "AC-mrr-056",
         "AC-mrr-057",
         "AC-mrr-058",
-        "AC-mrr-059"
+        "AC-mrr-059",
+        "AC-mrr-121",
+        "AC-mrr-123",
+        "AC-mrr-124",
+        "AC-mrr-125"
       ],
       "traces_up": [
         {
@@ -3635,6 +3639,22 @@
           "hash": "sha256:12b55036d10bad99a5d3f271de0257361fdb610bf2c2cf58ef570b5bc2e8c3e2"
         },
         {
+          "ref": "AC-mrr-121",
+          "hash": "sha256:df8ad168ed036937bb3c524c8f7c9b67e9953a13b049853d1e21557856bd354d"
+        },
+        {
+          "ref": "AC-mrr-123",
+          "hash": "sha256:af1ea89cc0855f02e562644fac1960abebc333cca6cf2a3c88783f42d0171c58"
+        },
+        {
+          "ref": "AC-mrr-124",
+          "hash": "sha256:f26234e6462f036a942a73a646025c7d54dc43ebffc1f24b1fc6507ca2186d3d"
+        },
+        {
+          "ref": "AC-mrr-125",
+          "hash": "sha256:e6749ba4554fdb461c9f6e3ae669432c1e4af12fdac2ac47f9f68959afc5ae09"
+        },
+        {
           "ref": "API-016",
           "hash": "sha256:35cc7ae07ce48343a02fe2581430b66e692c63898787ed6171efc7e5303a3672"
         },
@@ -3670,6 +3690,21 @@
           {
             "cmd": "powershell -NoProfile -File scripts/dev-test.ps1 -App api -Filter FE-mrr-033",
             "result": "PASS booking-audit.spec.ts · PASS booking-audit.http.spec.ts · Test Suites: 38 skipped, 2 passed, 2 of 40 total · Tests: 466 skipped, 16 passed, 482 total · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -NoProfile -File scripts/dev-build.ps1 -App api",
+            "result": "tsc -p tsconfig.build.json · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -NoProfile -File scripts/dev-test.ps1 -App api -Filter FE-mrr-033",
+            "result": "booking-audit.spec.ts · booking-audit.http.spec.ts PASS · Test Suites: 38 skipped, 2 passed, 2 of 40 total · Tests: 479 skipped, 19 passed, 498 total · exit 0 (read half of AC-mrr-121/123 REJECT · 124 CHANGE_DECISION · 125 EDIT_ON_BEHALF: actor · time · action · reason)",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "cd test && npx playwright test e2e/ --project=chromium -g \"EX-mrr-12[0-3]\b|EX-mrr-118\" --reporter=list",
+            "result": "4 passed (14.9s) · [real] TC-NTF-UI009-103 (EX-mrr-118) · TC-AUD-UI010-109 (EX-mrr-120) · TC-AUD-UI010-110 (EX-mrr-121) · TC-AUD-UI010-111 (EX-mrr-122) against docker stack mrr-* rebuilt from HEAD",
             "at": "2026-11-24"
           }
         ],
