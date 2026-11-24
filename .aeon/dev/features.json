@@ -5126,7 +5126,7 @@
       "title_th": "ส่ง Email แจ้งเหตุการณ์การจอง",
       "app_ref": "api",
       "type": "command",
-      "origin": "new",
+      "origin": "change",
       "files_planned": [],
       "depends_on": [],
       "acceptance_refs": [
@@ -5137,7 +5137,13 @@
         "AC-mrr-060",
         "AC-mrr-061",
         "AC-mrr-062",
-        "AC-mrr-063"
+        "AC-mrr-063",
+        "AC-mrr-116",
+        "AC-mrr-118",
+        "AC-mrr-119",
+        "AC-mrr-120",
+        "AC-mrr-121",
+        "AC-mrr-127"
       ],
       "traces_up": [
         {
@@ -5146,15 +5152,15 @@
         },
         {
           "ref": "AC-mrr-019",
-          "hash": "sha256:a4f1199ac980be8d6c50d9f1068603b446298483a1dc983ab88504bb51c9d4d5"
+          "hash": "sha256:4e34573b4aeb4884273590dda709143e628ca3dbaa57ec27ffe5ce5710f13a21"
         },
         {
           "ref": "AC-mrr-021",
-          "hash": "sha256:ecc1f3687efce668a9c2ba4794e26f3f7023d274c064dc845ce877cb41fe2e13"
+          "hash": "sha256:68d65cc9c74a11d853041dcbc9fb0112dc0210e30d69371143ad9b080add0ffd"
         },
         {
           "ref": "AC-mrr-022",
-          "hash": "sha256:f881013eef4cfd5baf9849f03a32cccf62fff94382ba3ef602d64da46cf16940"
+          "hash": "sha256:700e14320ade5803a607611ba062027c364138e65e3177043c3c3c3cc3bae5ac"
         },
         {
           "ref": "AC-mrr-024",
@@ -5175,6 +5181,30 @@
         {
           "ref": "AC-mrr-063",
           "hash": "sha256:f404d68e09c37ab7c53e109af5702505146a89c2e6fa795508317f2ab066091a"
+        },
+        {
+          "ref": "AC-mrr-116",
+          "hash": "sha256:e0cd485c5c003f978f19b29d0afa46050717bcbe4f4f48163a3e0ed4ebc81201"
+        },
+        {
+          "ref": "AC-mrr-118",
+          "hash": "sha256:7af1490e2d3a4af083207e143ae197c0c39b2a28a1cdcb53728e08769f519df3"
+        },
+        {
+          "ref": "AC-mrr-119",
+          "hash": "sha256:ab985c3537013679ec1565076abf697645bf69a83e0ed13198711f044576c401"
+        },
+        {
+          "ref": "AC-mrr-120",
+          "hash": "sha256:e875c47358c2d4098fc6a868a7e53c740c6f0b54b221ba746ea23c4660df18de"
+        },
+        {
+          "ref": "AC-mrr-121",
+          "hash": "sha256:df8ad168ed036937bb3c524c8f7c9b67e9953a13b049853d1e21557856bd354d"
+        },
+        {
+          "ref": "AC-mrr-127",
+          "hash": "sha256:ba23bf171705a84bce6cb103743bec8f324d6027a720e8c1cf899986413c845e"
         },
         {
           "ref": "ENT-001",
@@ -5202,11 +5232,26 @@
             "cmd": "powershell -File scripts/dev-test.ps1 -App api -Filter FE-mrr-017",
             "result": "Test Suites: 1 passed, 1 total · Tests: 7 passed, 7 total · exit 0",
             "at": "2026-10-20"
+          },
+          {
+            "cmd": "powershell -NoProfile -File scripts/dev-build.ps1 -App api",
+            "result": "tsc -p tsconfig.build.json · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -NoProfile -File scripts/dev-test.ps1 -App api -Filter FE-mrr-017",
+            "result": "booking-notifier.spec.ts PASS · Test Suites: 39 skipped, 1 passed, 1 of 40 total · Tests: 481 skipped, 11 passed, 492 total · exit 0 (AC-mrr-116 จองสำเร็จ to U1 · 118 อนุมัติแล้ว to U1 only · 119/120 ยกเลิกการจอง to U1 U2 U3 · 121/127 ปฏิเสธการจอง to U1 U2)",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "cd test && npx playwright test e2e/t1-round2.spec.ts --project=chromium -g \"TC-BKG-UI006-107|TC-NTF-UI006-102|TC-NTF-UI009-10[23]|TC-NTF-UI008-105|TC-NTF-UI010-10[12]\" --reporter=list",
+            "result": "7 passed (18.9s) · [real] TC-BKG-UI006-107 (EX-mrr-113) · TC-NTF-UI006-102 (EX-mrr-114) · TC-NTF-UI009-102 (EX-mrr-115) · TC-NTF-UI008-105 (EX-mrr-116) · TC-NTF-UI010-101 (EX-mrr-117) · TC-NTF-UI009-103 (EX-mrr-118) · TC-NTF-UI010-102 (EX-mrr-124) against docker stack mrr-* rebuilt from HEAD",
+            "at": "2026-11-24"
           }
         ],
         "last_error": null,
         "recorded_by": "Noppasorn",
-        "recorded_at": "2026-10-20"
+        "recorded_at": "2026-11-24"
       },
       "manifest": {
         "files": [
@@ -7183,8 +7228,8 @@
       "validated": 42
     },
     "by_origin": {
-      "new": 24,
-      "change": 18
+      "new": 23,
+      "change": 19
     },
     "by_app": {
       "frontend-web": 19,

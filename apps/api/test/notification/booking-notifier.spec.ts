@@ -81,6 +81,39 @@ describe('FE-mrr-017 BookingNotifier', () => {
     expect(result).toEqual({ reminderSent: true });
   });
 
+  // GAP-mrr-026 · the BR-mrr-007@v2 / BR-mrr-019@v1 criteria whose mail this notifier writes. Whether a
+  // pending booking mails at all (AC-mrr-117) is the booking service's call, not this class's — it is
+  // proved where the service decides it (FE-mrr-024).
+  const B = { title: 'ประชุมลูกค้า', roomName: 'ห้อง B', attendeeEmails: [U2] };
+
+  it('AC-mrr-116 U1 books ห้อง A 13:00–14:00 — U1 gets จองสำเร็จ and no retry message is raised', async () => {
+    await expect(notifier.bookingCreated(meeting({ startAt: at('13:00'), endAt: at('14:00'), attendeeEmails: [U2] }), at('08:00'))).resolves.toEqual({ reminderSent: false });
+
+    expect(transport.subjectsFor(U1)).toEqual(['[จองห้องประชุม] จองสำเร็จ: ประชุมทีม · ห้อง A 17/10 13:00–14:00']);
+    expect(transport.subjectsFor(U2)).toEqual([]);
+  });
+
+  it('AC-mrr-118 approving ห้อง B mails อนุมัติแล้ว to U1 only — U2 gets nothing', async () => {
+    await notifier.bookingApproved(meeting(B));
+
+    expect(transport.subjectsFor(U1)).toEqual(['[จองห้องประชุม] อนุมัติแล้ว: ประชุมลูกค้า · ห้อง B 17/10 10:00–11:00']);
+    expect(transport.subjectsFor(U2)).toEqual([]);
+  });
+
+  it('AC-mrr-119 · AC-mrr-120 a cancellation — by U1 or by a Room Administrator on U1\'s behalf — mails ยกเลิกการจอง to U1, U2 and U3', async () => {
+    await notifier.bookingCancelled(meeting());
+
+    for (const u of [U1, U2, U3]) expect(transport.subjectsFor(u)).toEqual(['[จองห้องประชุม] ยกเลิกการจอง: ประชุมทีม · ห้อง A 17/10 10:00–11:00']);
+    expect(transport.sent).toHaveLength(1);
+  });
+
+  it('AC-mrr-121 · AC-mrr-127 a rejection — of a pending booking or by changing an approval — mails ปฏิเสธการจอง to U1 and U2', async () => {
+    await notifier.bookingRejected(meeting(B));
+
+    for (const u of [U1, U2]) expect(transport.subjectsFor(u)).toEqual(['[จองห้องประชุม] ปฏิเสธการจอง: ประชุมลูกค้า · ห้อง B 17/10 10:00–11:00']);
+    expect(transport.sent).toHaveLength(1);
+  });
+
   describe('when the mail server is down', () => {
     class DownTransport implements MailTransport {
       attempts = 0;

@@ -2,60 +2,77 @@
   "module": "mrr",
   "features": [
     {
-      "id": "FE-mrr-018",
-      "title_th": "เตือนก่อนเริ่มประชุม 15 นาที",
+      "id": "FE-mrr-017",
+      "title_th": "ส่ง Email แจ้งเหตุการณ์การจอง",
       "app_ref": "api",
-      "type": "batch",
+      "type": "command",
       "origin": "change",
       "files_planned": [],
-      "depends_on": [
-        "FE-mrr-017"
-      ],
+      "depends_on": [],
       "acceptance_refs": [
-        "AC-mrr-020",
-        "AC-mrr-023",
-        "AC-mrr-025",
-        "AC-mrr-064",
-        "AC-mrr-065",
-        "AC-mrr-073",
-        "AC-mrr-074",
-        "AC-mrr-075",
-        "AC-mrr-114",
-        "AC-mrr-115"
+        "AC-mrr-019",
+        "AC-mrr-021",
+        "AC-mrr-022",
+        "AC-mrr-024",
+        "AC-mrr-060",
+        "AC-mrr-061",
+        "AC-mrr-062",
+        "AC-mrr-063",
+        "AC-mrr-116",
+        "AC-mrr-118",
+        "AC-mrr-119",
+        "AC-mrr-120",
+        "AC-mrr-121",
+        "AC-mrr-127"
       ],
       "traces_up": [
         {
-          "ref": "UC-mrr-018"
+          "ref": "UC-mrr-017"
         },
         {
-          "ref": "AC-mrr-020"
+          "ref": "AC-mrr-019"
         },
         {
-          "ref": "AC-mrr-023"
+          "ref": "AC-mrr-021"
         },
         {
-          "ref": "AC-mrr-025"
+          "ref": "AC-mrr-022"
         },
         {
-          "ref": "AC-mrr-064"
+          "ref": "AC-mrr-024"
         },
         {
-          "ref": "AC-mrr-065"
+          "ref": "AC-mrr-060"
         },
         {
-          "ref": "AC-mrr-073"
+          "ref": "AC-mrr-061"
         },
         {
-          "ref": "AC-mrr-074"
+          "ref": "AC-mrr-062"
         },
         {
-          "ref": "AC-mrr-075"
+          "ref": "AC-mrr-063"
         },
         {
-          "ref": "AC-mrr-114"
+          "ref": "AC-mrr-116"
         },
         {
-          "ref": "AC-mrr-115"
+          "ref": "AC-mrr-118"
+        },
+        {
+          "ref": "AC-mrr-119"
+        },
+        {
+          "ref": "AC-mrr-120"
+        },
+        {
+          "ref": "AC-mrr-121"
+        },
+        {
+          "ref": "AC-mrr-127"
+        },
+        {
+          "ref": "ENT-001"
         },
         {
           "ref": "ENT-007"
