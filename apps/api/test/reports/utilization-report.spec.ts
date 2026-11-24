@@ -115,6 +115,78 @@ describe('FE-mrr-036 a Room Administrator issues and reads the utilization repor
     expect(report.lines.map((l) => [l.room.name, l.rank])).toEqual([['ห้อง A', 1], ['ห้อง B', 1], ['ห้อง C', 3]]);
   });
 
+  it('AC-mrr-128 ห้อง A and ห้อง B both 0.45% share rank 1, and ห้อง D at 0.00% is rank 3 — the next one skips past them', async () => {
+    const a = await room('ห้อง A');
+    const b = await room('ห้อง B');
+    await room('ห้อง D');
+    await book(a, 5, '10:00', '11:00');
+    await book(b, 6, '10:00', '11:00');
+
+    const { report } = await service.issue({ userId: ra1 }, OCTOBER);
+
+    expect(report.lines.map((l) => [l.rank, l.room.name, l.display])).toEqual([
+      [1, 'ห้อง A', '0.45%'],
+      [1, 'ห้อง B', '0.45%'],
+      [3, 'ห้อง D', '0.00%'],
+    ]);
+  });
+
+  it('AC-mrr-129 ห้อง F (60 min) and ห้อง G (59 min) both round to 0.45% and share rank 1; ห้อง H (58 min) is 0.44%, rank 3', async () => {
+    const [f, g, h] = [await room('ห้อง F'), await room('ห้อง G'), await room('ห้อง H')];
+    await book(f, 5, '10:00', '11:00');
+    await book(g, 5, '10:00', '10:59');
+    await book(h, 5, '10:00', '10:58');
+
+    const { report } = await service.issue({ userId: ra1 }, OCTOBER);
+
+    expect(report.lines.map((l) => [l.rank, l.room.name, l.bookedMinutes, l.display])).toEqual([
+      [1, 'ห้อง F', 60, '0.45%'],
+      [1, 'ห้อง G', 59, '0.45%'],
+      [3, 'ห้อง H', 58, '0.44%'],
+    ]);
+  });
+
+  it('AC-mrr-130 ห้อง A and ห้อง B share rank 1, ห้อง C at 0.00% is rank 3, and ห้อง E under maintenance shows — with no rank and takes no part in the skip', async () => {
+    const [a, b] = [await room('ห้อง A'), await room('ห้อง B')];
+    await room('ห้อง C');
+    const e = await room('ห้อง E');
+    await closeRoom(e, at(9, 30, '12:00'), null);
+    await book(a, 5, '10:00', '11:00');
+    await book(b, 6, '10:00', '11:00');
+
+    const { report } = await service.issue({ userId: ra1 }, OCTOBER);
+
+    expect(report.lines.map((l) => [l.rank, l.room.name, l.display])).toEqual([
+      [1, 'ห้อง A', '0.45%'],
+      [1, 'ห้อง B', '0.45%'],
+      [3, 'ห้อง C', '0.00%'],
+      [null, 'ห้อง E', '—'],
+    ]);
+  });
+
+  it('AC-mrr-131 52 rooms: R50 and R51 both 0.45% are rank 50 at lines 50 and 51 (either side of the 50-row page edge), R52 at 0.00% is rank 52', async () => {
+    const hhmm = (minutes: number) => `${String(Math.floor(minutes / 60)).padStart(2, '0')}:${String(minutes % 60).padStart(2, '0')}`;
+    // R01..R49: 70..550 minutes on 5/10 from 08:00 — every one above 0.45% and no two equal after rounding.
+    for (let k = 1; k <= 49; k++) {
+      const r = await room(`ห้อง R${String(k).padStart(2, '0')}`);
+      await book(r, 5, '08:00', hhmm(8 * 60 + 60 + 10 * k));
+    }
+    const [r50, r51] = [await room('ห้อง R50'), await room('ห้อง R51')];
+    await room('ห้อง R52');
+    await book(r50, 5, '10:00', '11:00');
+    await book(r51, 6, '10:00', '11:00');
+
+    const { report } = await service.issue({ userId: ra1 }, OCTOBER);
+
+    expect(report.lines).toHaveLength(52);
+    expect(new Set(report.lines.slice(0, 49).map((l) => l.rank))).toEqual(new Set(Array.from({ length: 49 }, (_, i) => i + 1)));
+    expect(report.lines.slice(49).map((l) => [l.rank, l.room.name, l.display])).toEqual([
+      [50, 'ห้อง R50', '0.45%'],
+      [50, 'ห้อง R51', '0.45%'],
+      [52, 'ห้อง R52', '0.00%'],
+    ]);
+  });
+
   it('an archived room is not in the report', async () => {
     const a = await room('ห้อง A');
     const old = await room('ห้อง เก่า');

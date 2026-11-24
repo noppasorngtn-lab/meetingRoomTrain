@@ -93,7 +93,7 @@ function rank<T extends { utilizationPct: string | null }>(lines: T[]): (T & { r
 
 /**
  * API-028 · API-029 · API-030 — a Room Administrator issues a month's or a year's utilization
- * report from the bookings as they are now (CALC-mrr-001@v1), and reads or exports any issue
+ * report from the bookings as they are now (CALC-mrr-001@v2), and reads or exports any issue
  * exactly as it was issued (UC-mrr-016 · ACL-017 · BR-mrr-015).
  */
 @Injectable()

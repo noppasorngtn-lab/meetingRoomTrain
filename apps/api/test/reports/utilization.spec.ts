@@ -4,7 +4,7 @@ import { Database } from '../../src/common/database/schema';
 import { utilization } from '../../src/modules/reports/utilization';
 
 /**
- * CALC-mrr-001@v1 against its signed answer key, GD-mrr-001 — read from req's contract file at run
+ * CALC-mrr-001@v2 against its signed answer key, GD-mrr-001 — read from req's contract file at run
  * time, so the expected values are the golden rows word for word and never a copy that can drift.
  */
 const CONTRACT = join(__dirname, '../../../../.aeon/req/requirements.json');
@@ -42,7 +42,7 @@ const inputOf = ({ input: i }: GoldenRow) => ({
   maintenance: (i.maintenance ?? []).map((p) => ({ start: instant(i.year, i.month, p.day, p.start), end: instant(i.year, i.month, p.day, p.end) })),
 });
 
-describe('FE-mrr-036 CALC-mrr-001@v1 utilization against GD-mrr-001', () => {
+describe('FE-mrr-036 CALC-mrr-001@v2 utilization against GD-mrr-001', () => {
   it('the answer key is there, all 16 rows of it', () => {
     expect(golden).toBeDefined();
     expect(golden!.rows).toHaveLength(16);

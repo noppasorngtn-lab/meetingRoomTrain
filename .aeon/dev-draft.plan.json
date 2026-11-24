@@ -2,16 +2,13 @@
   "module": "mrr",
   "features": [
     {
-      "id": "FE-mrr-016",
-      "title_th": "ออกและดูรายงานการใช้ห้อง — หน้าจอ",
-      "app_ref": "frontend-web",
+      "id": "FE-mrr-036",
+      "title_th": "ออกและดูรายงานการใช้ห้อง — ฝั่ง API",
+      "app_ref": "api",
       "type": "report",
       "origin": "change",
       "files_planned": [],
-      "depends_on": [
-        "FE-mrr-022",
-        "FE-mrr-036"
-      ],
+      "depends_on": [],
       "acceptance_refs": [
         "AC-mrr-045",
         "AC-mrr-046",
@@ -22,7 +19,11 @@
         "AC-mrr-082",
         "AC-mrr-083",
         "AC-mrr-084",
-        "AC-mrr-085"
+        "AC-mrr-085",
+        "AC-mrr-128",
+        "AC-mrr-129",
+        "AC-mrr-130",
+        "AC-mrr-131"
       ],
       "traces_up": [
         {
@@ -59,11 +60,42 @@
           "ref": "AC-mrr-085"
         },
         {
-          "ref": "RPT-mrr-001"
+          "ref": "AC-mrr-128"
+        },
+        {
+          "ref": "AC-mrr-129"
+        },
+        {
+          "ref": "AC-mrr-130"
+        },
+        {
+          "ref": "AC-mrr-131"
+        },
+        {
+          "ref": "API-028"
+        },
+        {
+          "ref": "API-029"
+        },
+        {
+          "ref": "API-030"
+        },
+        {
+          "ref": "ENT-002"
+        },
+        {
+          "ref": "ENT-006"
+        },
+        {
+          "ref": "ENT-007"
+        },
+        {
+          "ref": "ENT-012"
+        },
+        {
+          "ref": "ENT-013"
         }
-      ],
-      "status": "draft"
+      ]
     }
-  ],
-  "gaps": []
+  ]
 }

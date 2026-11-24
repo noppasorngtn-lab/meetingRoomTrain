@@ -1,7 +1,7 @@
 import { Database } from '../../common/database/schema';
 
 /**
- * CALC-mrr-001@v1 — one room's utilization over a report period.
+ * CALC-mrr-001@v2 — one room's utilization over a report period.
  *
  *   utilization_pct = booked_minutes ÷ operating_minutes × 100
  *

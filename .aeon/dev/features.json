@@ -4640,7 +4640,7 @@
       "title_th": "ออกและดูรายงานการใช้ห้อง — ฝั่ง API",
       "app_ref": "api",
       "type": "report",
-      "origin": "new",
+      "origin": "change",
       "files_planned": [],
       "depends_on": [],
       "acceptance_refs": [
@@ -4653,12 +4653,16 @@
         "AC-mrr-082",
         "AC-mrr-083",
         "AC-mrr-084",
-        "AC-mrr-085"
+        "AC-mrr-085",
+        "AC-mrr-128",
+        "AC-mrr-129",
+        "AC-mrr-130",
+        "AC-mrr-131"
       ],
       "traces_up": [
         {
           "ref": "UC-mrr-016",
-          "hash": "sha256:8cd5a6ce0b8a264d5f6c3ea925eaa4fc0444a53aa78276820b25695506901e7c"
+          "hash": "sha256:7a972b95be722a6b0e35a63d5359995da3ae40c442b1ab38097ec1c4d441efcf"
         },
         {
           "ref": "AC-mrr-045",
@@ -4686,19 +4690,35 @@
         },
         {
           "ref": "AC-mrr-082",
-          "hash": "sha256:91c45baa23f5b5691ede874a1d37779a5df29d41a84f4415f2ea00b15fa4793c"
+          "hash": "sha256:c4ef9763e916d4f799c7a02fbdcf6d6bd167b505d939a6bf2cae830dfaa02f74"
         },
         {
           "ref": "AC-mrr-083",
-          "hash": "sha256:2399c708b837549b6eea94087de50010ccf76f879c94888a66364f1fe020f2a1"
+          "hash": "sha256:560c782c0d5c9899b93294222fbe14b167700416dee4eb42082951e991f35c39"
         },
         {
           "ref": "AC-mrr-084",
-          "hash": "sha256:703fea5949a2bcea77b12a87046603072f4decdba4eb3178bc919bc13f446589"
+          "hash": "sha256:c96916dd547162a40face014a1b7510f96cd1c42cf2560de680dd8ac10599c08"
         },
         {
           "ref": "AC-mrr-085",
-          "hash": "sha256:81b1990c11667fe408eb0aafb8f31b8fdf70d4b7977ba6381501832509da5189"
+          "hash": "sha256:8ec8176e020bf7c617f6375b04129fff333d6b4f31c6e5e5d5809cfda0a9f297"
+        },
+        {
+          "ref": "AC-mrr-128",
+          "hash": "sha256:c1dd7fd7318053d4dfba8f1ced85f8da1b9212020075dc80048197040847a854"
+        },
+        {
+          "ref": "AC-mrr-129",
+          "hash": "sha256:f07d90d4d6353cbb7b3291bf84a2c943da20536c979f2a86d985f0c50d1bb646"
+        },
+        {
+          "ref": "AC-mrr-130",
+          "hash": "sha256:6eefb6f0758672f7030bf8aa3a203bb3d959f78edd1dbd91c8bedc0b0acd11d2"
+        },
+        {
+          "ref": "AC-mrr-131",
+          "hash": "sha256:bc745dfb30ca36b42e13775a1dd4e8364e5ca8200d3b26ec427f6e6642fb849a"
         },
         {
           "ref": "API-028",
@@ -4718,7 +4738,7 @@
         },
         {
           "ref": "ENT-006",
-          "hash": "sha256:b16987f2f64f0070089ddf6f535953f2dcd544a7704c51efd0f5f9f71db33d18"
+          "hash": "sha256:c5a47563cd962b54972ee05d36f6bdd954fde0c348a63403af5b814439e3d2be"
         },
         {
           "ref": "ENT-007",
@@ -4730,12 +4750,12 @@
         },
         {
           "ref": "ENT-013",
-          "hash": "sha256:2770e83042df11c4de196cb518f6f727c5194dd9c50a9a8d7c0d7471fe4cf6b3"
+          "hash": "sha256:38f88184d2d1ed60aa683d55b483957a0d2daf6d96707d11c5a324da05b8fbbb"
         }
       ],
       "status": "validated",
       "build": {
-        "iterations": 2,
+        "iterations": 0,
         "proof": [
           {
             "cmd": "powershell -File scripts/dev-build.ps1 -App api",
@@ -4751,11 +4771,21 @@
             "cmd": "powershell -File scripts/dev-test.ps1",
             "result": "api: Test Suites 29 passed, Tests 353 passed · web: Test Files 11 passed, Tests 164 passed · exit 0",
             "at": "2026-10-21"
+          },
+          {
+            "cmd": "powershell -NoProfile -File scripts/dev-build.ps1 -App api",
+            "result": "tsc -p tsconfig.build.json · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -NoProfile -File scripts/dev-test.ps1 -App api -Filter FE-mrr-036",
+            "result": "utilization.spec.ts · utilization-report.spec.ts · utilization-report.http.spec.ts PASS · Test Suites: 37 skipped, 3 passed, 3 of 40 total · Tests: 440 skipped, 46 passed, 486 total · exit 0 (AC-mrr-128..131 tied ranks added; GD-mrr-001 16 rows under CALC-mrr-001@v2)",
+            "at": "2026-11-24"
           }
         ],
         "last_error": null,
         "recorded_by": "Noppasorn",
-        "recorded_at": "2026-10-21"
+        "recorded_at": "2026-11-24"
       },
       "manifest": {
         "files": [
@@ -4773,7 +4803,7 @@
         "unit_tests": [
           {
             "file": "apps/api/test/reports/utilization.spec.ts",
-            "calc_ref": "CALC-mrr-001@v1",
+            "calc_ref": "CALC-mrr-001@v2",
             "gd_ref": "GD-mrr-001"
           },
           {
@@ -7090,8 +7120,8 @@
       "validated": 42
     },
     "by_origin": {
-      "new": 26,
-      "change": 16
+      "new": 25,
+      "change": 17
     },
     "by_app": {
       "frontend-web": 19,
