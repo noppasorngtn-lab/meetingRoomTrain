@@ -5959,9 +5959,9 @@
       "category": "temporal",
       "blocked_until": "entity:User.email · entity:User.fullName",
       "answer_phase": "domain",
-      "state": "open",
-      "answer": null,
-      "answered_at": null
+      "state": "answered",
+      "answer": "ข้อมูลส่วนบุคคลของผู้ใช้มีเฉพาะ User.email และ User.fullName ระดับ confidential เก็บได้ 1 ปี นับจากวันที่บัญชีไม่ active เพราะไม่อยู่ในรายชื่อนำเข้าจาก HR รอบล่าสุด · ครบกำหนดแล้วผู้ดูแลระบบเขียนทับทั้งสองค่าด้วยค่าปิดบังเองนอกระบบ (ชื่อเป็น 'ผู้ใช้ที่ถูกปิดบังชื่อ' · email เป็นค่าไม่ซ้ำที่ใช้รับ Email ไม่ได้) ไม่มีงานตามเวลา · ร่องรอยการกระทำ การจอง และรายงานยังเก็บไว้และแสดงชื่อที่ปิดบัง · BR-mrr-017@v3 ไม่เปลี่ยน (คำตอบลูกค้าผ่านเจ้าของ · req SRC-040 · ADR-017)",
+      "answered_at": "2026-11-24T17:55:00+07:00"
     }
   ],
   "rollup": {
@@ -5969,7 +5969,7 @@
     "rules_with_example": 28,
     "rules_with_green_test": 0,
     "open_questions": 0,
-    "open_deferred": 1,
+    "open_deferred": 0,
     "rule_coverage": 1,
     "ready_for_next_step": true
   }
