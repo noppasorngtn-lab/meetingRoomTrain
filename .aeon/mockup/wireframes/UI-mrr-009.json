@@ -106,7 +106,7 @@
           "attribute": "reason",
           "validation": "ต้องระบุเมื่อปฏิเสธ — เว้นว่างหรือมีแต่ช่องว่างไม่ได้ · ช่องนี้แสดงใต้แถวเมื่อกด ปฏิเสธ",
           "rules": [
-            "BR-mrr-017@v2"
+            "BR-mrr-017@v3"
           ],
           "visibleTo": [
             "ROLE-002"
@@ -130,7 +130,7 @@
           "rules": [
             "BR-mrr-004@v1",
             "BR-mrr-013@v1",
-            "BR-mrr-017@v1",
+            "BR-mrr-017@v3",
             "BR-mrr-019@v1"
           ]
         },
@@ -147,7 +147,7 @@
           "destination": "อยู่ที่หน้าเดิม",
           "rules": [
             "BR-mrr-004@v1",
-            "BR-mrr-017@v2"
+            "BR-mrr-017@v3"
           ]
         },
         {
@@ -166,7 +166,7 @@
           "destination": "อยู่ที่หน้าเดิม",
           "rules": [
             "BR-mrr-004@v1",
-            "BR-mrr-017@v2",
+            "BR-mrr-017@v3",
             "BR-mrr-019@v1"
           ]
         },

@@ -112,7 +112,7 @@
           "destination": "อยู่ที่หน้าเดิม",
           "rules": [
             "BR-mrr-014@v1",
-            "BR-mrr-017@v1"
+            "BR-mrr-017@v3"
           ]
         },
         {
@@ -131,7 +131,7 @@
           "destination": "อยู่ที่หน้าเดิม",
           "rules": [
             "BR-mrr-014@v1",
-            "BR-mrr-017@v1"
+            "BR-mrr-017@v3"
           ]
         }
       ]

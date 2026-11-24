@@ -92,7 +92,7 @@
           "rules": [
             "BR-mrr-009@v1",
             "BR-mrr-011@v1",
-            "BR-mrr-017@v1"
+            "BR-mrr-017@v3"
           ],
           "visibleTo": [
             "ROLE-002",
@@ -117,7 +117,7 @@
           "rules": [
             "BR-mrr-009@v1",
             "BR-mrr-014@v1",
-            "BR-mrr-017@v1"
+            "BR-mrr-017@v3"
           ]
         },
         {
@@ -136,7 +136,7 @@
           "destination": "อยู่ที่หน้าเดิม",
           "rules": [
             "BR-mrr-011@v1",
-            "BR-mrr-017@v1"
+            "BR-mrr-017@v3"
           ]
         },
         {
@@ -155,7 +155,7 @@
           "destination": "อยู่ที่หน้าเดิม",
           "rules": [
             "BR-mrr-009@v1",
-            "BR-mrr-017@v1",
+            "BR-mrr-017@v3",
             "BR-mrr-007@v1",
             "BR-mrr-019@v1"
           ]
