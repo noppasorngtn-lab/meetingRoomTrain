@@ -122,6 +122,41 @@ describe('FE-mrr-009 edit or cancel on behalf of the booker (UI-mrr-010)', () =>
     expect(screen.queryByText('การประชุมจบแล้ว — การแก้ไขจะเป็นคำขอให้ผู้ดูแลห้องคนอื่นอนุมัติ')).not.toBeInTheDocument();
   });
 
+  // GAP-mrr-026 · EX-mrr-117 / EX-mrr-122 on this page, the meeting under way at 10:30. The mail to U1 U2 U3
+  // and the EDIT_ON_BEHALF entry are the api's (FE-mrr-017 · FE-mrr-030); the trail row is FE-mrr-012's.
+  it('AC-mrr-120 10:30 RA cancels for U1 with ห้องต้องใช้จัดงานด่วน — sent as typed, ยกเลิกการจองสำเร็จ, the booking shows ยกเลิกแล้ว', async () => {
+    replies[`POST ${ADMIN_CANCEL}`] = () => {
+      booking = { ...booking, status: 'CANCELLED' };
+      return { status: 200, body: { message: CANCELLED } };
+    };
+    open();
+    await loaded();
+    type(URGENT);
+
+    fireEvent.click(screen.getByTestId('ui-mrr-010-cancel-on-behalf'));
+
+    await waitFor(() => expect(screen.getByRole('status')).toHaveTextContent(CANCELLED));
+    expect(posts()).toEqual([{ method: 'POST', url: ADMIN_CANCEL, body: { reason: URGENT } }]);
+    expect(await screen.findByText('ยกเลิกแล้ว')).toHaveAttribute('data-testid', 'ui-mrr-010-ent-007-status');
+  });
+
+  it('AC-mrr-125 10:30 RA1 retitles ประชุมวางแผน for U1 with ผู้จองพิมพ์หัวข้อผิด — sent as typed, บันทึกการแก้ไขสำเร็จ, the title shows ประชุมวางแผน', async () => {
+    replies[`POST ${ADMIN_EDIT}`] = () => {
+      booking = { ...booking, title: 'ประชุมวางแผน' };
+      return { status: 200, body: { message: EDITED } };
+    };
+    open();
+    await loaded();
+    fireEvent.change(screen.getByTestId('ui-mrr-010-ent-007-title'), { target: { value: 'ประชุมวางแผน' } });
+    type('ผู้จองพิมพ์หัวข้อผิด');
+
+    fireEvent.click(screen.getByTestId('ui-mrr-010-edit-on-behalf'));
+
+    await waitFor(() => expect(screen.getByRole('status')).toHaveTextContent(EDITED));
+    expect(posts()).toEqual([{ method: 'POST', url: ADMIN_EDIT, body: { title: 'ประชุมวางแผน', reason: 'ผู้จองพิมพ์หัวข้อผิด' } }]);
+    await waitFor(() => expect(screen.getByTestId('ui-mrr-010-ent-007-title')).toHaveValue('ประชุมวางแผน'));
+  });
+
   it('UC-mrr-009 an edit with no reason — กรุณาระบุเหตุผล and nothing is sent', async () => {
     open();
     await loaded();

@@ -3115,7 +3115,9 @@
         "AC-mrr-042",
         "AC-mrr-053",
         "AC-mrr-055",
-        "AC-mrr-086"
+        "AC-mrr-086",
+        "AC-mrr-120",
+        "AC-mrr-125"
       ],
       "traces_up": [
         {
@@ -3149,6 +3151,14 @@
         {
           "ref": "AC-mrr-086",
           "hash": "sha256:c4dd2a664eb18ad7d4f725de40ad81e41d7d9d950a6ee03d9d1bb0bbd717c8f0"
+        },
+        {
+          "ref": "AC-mrr-120",
+          "hash": "sha256:e875c47358c2d4098fc6a868a7e53c740c6f0b54b221ba746ea23c4660df18de"
+        },
+        {
+          "ref": "AC-mrr-125",
+          "hash": "sha256:e6749ba4554fdb461c9f6e3ae669432c1e4af12fdac2ac47f9f68959afc5ae09"
         }
       ],
       "status": "validated",
@@ -3178,6 +3188,21 @@
           {
             "cmd": "powershell -NoProfile -File scripts/dev-test.ps1 -App frontend-web -Filter FE-mrr-009",
             "result": "on-behalf.test.tsx 15 passed · booking-adjustment.test.tsx 1 passed (11 skipped) · Test Files 2 passed | 19 skipped (21) · Tests 16 passed | 293 skipped (309) · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -NoProfile -File scripts/dev-build.ps1 -App frontend-web",
+            "result": "tsc --noEmit + vite build · built in 902ms · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -NoProfile -File scripts/dev-test.ps1 -App frontend-web -Filter FE-mrr-009",
+            "result": "on-behalf.test.tsx · booking-adjustment.test.tsx · Test Files 2 passed | 19 skipped (21) · Tests 18 passed | 305 skipped (323) · exit 0 (AC-mrr-120 reason sent, ยกเลิกการจองสำเร็จ, ยกเลิกแล้ว · 125 title + reason sent, บันทึกการแก้ไขสำเร็จ, ประชุมวางแผน)",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "cd test && npx playwright test e2e/t1-round2.spec.ts --project=chromium -g \"TC-NTF-UI010-101|TC-AUD-UI010-111\" --reporter=list",
+            "result": "2 passed (13.0s) · [real] TC-NTF-UI010-101 (EX-mrr-117) · TC-AUD-UI010-111 (EX-mrr-122) against docker stack mrr-* rebuilt from HEAD",
             "at": "2026-11-24"
           }
         ],
