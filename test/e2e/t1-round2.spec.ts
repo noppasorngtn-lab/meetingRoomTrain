@@ -24,7 +24,7 @@ const psql = (sql: string) =>
 
 const clients: Record<string, APIRequestContext> = {};
 test.beforeAll(async () => {
-  for (const k of ['u1', 'u2', 'u3', 'ra1']) clients[k] = await as(k);
+  for (const k of ['u1', 'u2', 'u3', 'ra1', 'ra2']) clients[k] = await as(k);
 });
 test.afterEach(async () => {
   await resetClock();
@@ -317,6 +317,93 @@ test.describe('ค่าช่อง "การกระทำ" ของร่�
     expect(trail[0].actor.id).toBe(world.users.ra1.id);
     const v = await open(browser, b.id);
     await expect(v.page.getByTestId('ui-mrr-010-ent-010-action')).toHaveText('แก้แทนผู้จอง');
+    await v.close();
+  });
+});
+
+// ------------------------------------------------------------------ BR-mrr-017@v3 ร่องรอยของคำขอแก้ไข (CHG-mrr-006)
+// [Explicit] EX-mrr-129 · 130 · 131 (validated 2026-11-24 · SRC-038) — ค่าช่อง "การกระทำ" สร้างคำขอแก้ไข · อนุมัติคำขอ · ปฏิเสธคำขอ
+// และการปฏิเสธคำขอแก้ไขไม่บังคับเหตุผล (ต่างจากการปฏิเสธการจอง TC-AUD-UI010-112). เวลาใน EX (18/10 11:00 · 13:00) เป็นตัวอย่าง:
+// เคสเลื่อนนาฬิกาของ api ไปหลังเวลาจบของช่วงที่จองจริง แล้วตรวจว่าเวลาในร่องรอยคือเวลานั้น.
+test.describe('ร่องรอยของคำขอแก้ไขหลังจบประชุม (BR-mrr-017@v3)', () => {
+  const open = async (browser: import('@playwright/test').Browser, id: string) => {
+    const ctx = await browser.newContext({ storageState: stateOf('ra1'), baseURL: 'http://localhost:4173', locale: 'th-TH', timezoneId: 'Asia/Bangkok' });
+    const page = await ctx.newPage();
+    await page.goto(`/UI-mrr-010?booking=${id}`);
+    return { page, close: () => ctx.close() };
+  };
+  const near = (iso: string, when: Date) => {
+    const d = new Date(iso).getTime() - when.getTime();
+    return d >= 0 && d < 30_000; // นาฬิกาเดินต่อจากเวลาที่ตั้ง (support/clock.ts)
+  };
+  /** การจอง 'ประชุมทีม' ที่ประชุมจบแล้ว + คำขอแก้ไขของ RA1 ขอเปลี่ยนหัวข้อเป็น 'ประชุมวางแผน' */
+  const endedWithRequest = async (t: string) => {
+    const slot = nearSlot(10);
+    const b = await book(clients.u1, 'open', slot, title('ประชุมทีม', t));
+    const afterEnd = at(new Date(slot.endAt), 60_000);
+    await setClock(afterEnd);
+    const res = await clients.ra1.post(`/bookings/${b.id}/admin-edit`, { data: { title: title('ประชุมวางแผน', t), reason: 'ผู้จองพิมพ์หัวข้อผิด' } });
+    expect(res.status(), await res.text()).toBeLessThan(300);
+    const page = await (await clients.ra2.get('/adjustment-requests?status=PENDING')).json();
+    const req = (page.items as { id: string; booking: { id: string } }[]).find((r) => r.booking.id === b.id);
+    expect(req, 'ต้องมีคำขอแก้ไขที่รออนุมัติ').toBeDefined();
+    return { b, afterEnd, res, requestId: req!.id };
+  };
+
+  test('[real] TC-AUD-UI010-114 หลังจบประชุม RA1 แก้หัวข้อพร้อมเหตุผล → คำขอแก้ไข · ร่องรอยใหม่ 1 รายการ "สร้างคำขอแก้ไข" พร้อมเหตุผล (EX-mrr-129 · BR-mrr-017@v3)', async ({ browser }) => {
+    const t = token();
+    const { b, afterEnd, res } = await endedWithRequest(t);
+    expect(await msgOf(res)).toBe('ส่งคำขอแก้ไขแล้ว รอผู้ดูแลห้องคนอื่นอนุมัติ');
+    expect((await (await clients.ra1.get(`/bookings/${b.id}`)).json()).title).toBe(title('ประชุมทีม', t));
+    const trail = await trailOf(b.id);
+    expect(trail).toHaveLength(1);
+    expect(trail[0]).toMatchObject({ action: 'CREATE_ADJUSTMENT', reason: 'ผู้จองพิมพ์หัวข้อผิด' });
+    expect(trail[0].actor.id).toBe(world.users.ra1.id);
+    expect(near(trail[0].at, afterEnd), `${trail[0].at} vs ${afterEnd.toISOString()}`).toBe(true);
+    const v = await open(browser, b.id);
+    await expect(v.page.getByTestId('ui-mrr-010-ent-010-action')).toHaveText('สร้างคำขอแก้ไข');
+    await v.close();
+  });
+
+  test('[real] TC-AUD-UI011-101 RA2 อนุมัติคำขอแก้ไข → หัวข้อเปลี่ยน · ร่องรอยใหม่ 1 รายการ "อนุมัติคำขอ" เหตุผล — (EX-mrr-130 · BR-mrr-017@v3)', async ({ browser }) => {
+    const t = token();
+    const { b, afterEnd, requestId } = await endedWithRequest(t);
+    const decidedAt = at(afterEnd, 2 * 60 * 60_000);
+    await setClock(decidedAt);
+    const res = await clients.ra2.post(`/adjustment-requests/${requestId}/approve`);
+    expect(res.status(), await res.text()).toBeLessThan(300);
+    expect(await msgOf(res)).toBe('อนุมัติคำขอแก้ไขสำเร็จ');
+    expect((await (await clients.ra1.get(`/bookings/${b.id}`)).json()).title).toBe(title('ประชุมวางแผน', t));
+    const trail = await trailOf(b.id);
+    expect(trail).toHaveLength(2); // รายการ "สร้างคำขอแก้ไข" เดิม — "ใหม่ 1 รายการ" คือรายการถัดมา
+    const added = trail.find((e) => e.action === 'APPROVE_ADJUSTMENT');
+    expect(added).toMatchObject({ reason: null });
+    expect(added!.actor.id).toBe(world.users.ra2.id);
+    expect(near(added!.at, decidedAt), `${added!.at} vs ${decidedAt.toISOString()}`).toBe(true);
+    const v = await open(browser, b.id);
+    await expect(v.page.getByTestId('ui-mrr-010-ent-010-action').filter({ hasText: /^อนุมัติคำขอ$/ })).toHaveCount(1);
+    await v.close();
+  });
+
+  test('[real] TC-AUD-UI011-102 RA2 ปฏิเสธคำขอแก้ไขโดยไม่ระบุเหตุผล → สำเร็จ · หัวข้อเดิม · ร่องรอยใหม่ 1 รายการ "ปฏิเสธคำขอ" เหตุผล — (EX-mrr-131 · BR-mrr-017@v3)', async ({ browser }) => {
+    const t = token();
+    const { b, afterEnd, requestId } = await endedWithRequest(t);
+    const decidedAt = at(afterEnd, 2 * 60 * 60_000);
+    await setClock(decidedAt);
+    const res = await clients.ra2.post(`/adjustment-requests/${requestId}/reject`); // ไม่มีเหตุผลเลย
+    expect(res.status(), await res.text()).toBeLessThan(300);
+    const message = await msgOf(res);
+    expect(message).toBe('ปฏิเสธคำขอแก้ไขสำเร็จ');
+    expect(message).not.toContain('กรุณาระบุเหตุผล');
+    expect((await (await clients.ra1.get(`/bookings/${b.id}`)).json()).title).toBe(title('ประชุมทีม', t));
+    const trail = await trailOf(b.id);
+    expect(trail).toHaveLength(2);
+    const added = trail.find((e) => e.action === 'REJECT_ADJUSTMENT');
+    expect(added).toMatchObject({ reason: null });
+    expect(added!.actor.id).toBe(world.users.ra2.id);
+    expect(near(added!.at, decidedAt), `${added!.at} vs ${decidedAt.toISOString()}`).toBe(true);
+    const v = await open(browser, b.id);
+    await expect(v.page.getByTestId('ui-mrr-010-ent-010-action').filter({ hasText: /^ปฏิเสธคำขอ$/ })).toHaveCount(1);
     await v.close();
   });
 });

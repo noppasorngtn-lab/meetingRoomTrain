@@ -512,6 +512,18 @@
     "EX-mrr-128": {
       "cases": "TC-RPT-RPT001-114",
       "note": "51 rooms (E2E Rpt P01-P51, ACTIVE only while the case runs): P50 last row of page 1 and P51 first row of page 2 both 0.45% rank 50; next room 0.00% rank 52 (no 51); UI cells + api ranks, real · PASS 2026-11-19 · EX-128 validated in spec · negative check: expecting rank 51 for P51 fails with Received 50 · 3/3 repeat pass · full chromium suite 172 pass 0 fail"
+    },
+    "EX-mrr-129": {
+      "cases": "TC-AUD-UI010-114",
+      "note": "after the meeting ends RA1 retitles with a reason: 'ส่งคำขอแก้ไขแล้ว รอผู้ดูแลห้องคนอื่นอนุมัติ', title stays, one new trail entry RA1 · CREATE_ADJUSTMENT · reason, label 'สร้างคำขอแก้ไข' on UI-mrr-010; real · PASS 2026-11-24 (BR-mrr-017@v3 · CHG-mrr-006)"
+    },
+    "EX-mrr-130": {
+      "cases": "TC-AUD-UI011-101",
+      "note": "RA2 approves RA1's request: 'อนุมัติคำขอแก้ไขสำเร็จ', title changes, one new trail entry RA2 · APPROVE_ADJUSTMENT · no reason, label 'อนุมัติคำขอ' on UI-mrr-010; real · PASS 2026-11-24 (BR-mrr-017@v3)"
+    },
+    "EX-mrr-131": {
+      "cases": "TC-AUD-UI011-102",
+      "note": "RA2 rejects RA1's request with no reason at all: 'ปฏิเสธคำขอแก้ไขสำเร็จ' (never 'กรุณาระบุเหตุผล'), title stays, one new trail entry RA2 · REJECT_ADJUSTMENT · no reason, label 'ปฏิเสธคำขอ'; real · PASS 2026-11-24 (BR-mrr-017@v3 · contrast TC-AUD-UI010-112)"
     }
   }
 }
