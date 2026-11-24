@@ -37,7 +37,7 @@
 | ADR-014 | design · revised | 2026-11-23T17:00:00+07:00 | ค่าใน nfr.json (ลงนาม 2026-10-19) design ร่างไว้ก่อนเจ้าของตอบค่าวัด และไม่ตรงกับที่ req บันทึกแล้ว — NFR-mrr-002: เจ้าของเลือก 'ทุกคำขอ' ไม่ใช่ p95 และ '200 คนกดพร้อมกันครั้งเดียว' ไม่ใช่ต่อเนื่อง 30 นาที · เกิน 200 คนต้องไม่ล่ม (SRC-034, SRC-035) · NFR-mrr-004: วัดจาก log ของระบบ ไม่ใช่ monitoring ภายนอก · ปิดปรับปรุงตามแผนต้องแจ้งล่วงหน้า 7 วันทำการ (เดิม 3) และแจ้งไม่ถึงก็ยังไม่นับเป็น downtime (SRC-036, SRC-037) · req แก้ NFR ผ่าน /req:capture ซึ่งไม่ออก change set (/req:change รับเฉพาะ BR/CALC) design จึงเปิดเอง · ที่มา: docs/qa/req-design-request-nfr002-nfr004-conflict-2026-11-23.md ข้อ 1–4 | รับเข้าแล้ว 2026-11-23T07:44:55Z |
 | ADR-015 | design · revised | 2026-11-23T18:00:00+07:00 | PO ยอมรับเมื่อ 2026-11-23 ให้สุ่มวัดด้วยเบราว์เซอร์จริงจำนวนหนึ่งระหว่างที่ k6 ยิง 200 คำขอ แทนการเปิดเบราว์เซอร์ 200 ตัว (ข้อ 2 ของ docs/qa/req-design-request-nfr002-nfr004-conflict-2026-11-23.md) — measuredBy ของ NFR-mrr-002 ที่ ADR-014 เขียนไว้ว่า "รอ PO ยอมรับ" จึงล้าสมัย · แก้เฉพาะถ้อยคำ measuredBy · metric target condition ไม่เปลี่ยน | รับเข้าแล้ว 2026-11-23T08:00:33Z |
 | ADR-016 | design · revised | 2026-11-23T19:00:00+07:00 | ผู้ใช้ตัดสิน 2026-11-23 (หลังเทียบหน้าตา UI-mrr-005 กับ mockup): ช่องกรอกวันที่และเวลาต้องแสดงและรับเป็น วว/ดด/ปปปป ปี ค.ศ. และเวลา 24 ชั่วโมง HH:MM เหมือนกันทุกเครื่อง ไม่ขึ้นกับภาษาของเครื่องผู้ใช้ · ใช้กฎเดียวกันกับช่องวันที่/เวลาของ UI-mrr-004 · UI-mrr-005 · UI-mrr-006 · UI-mrr-008 — เดิม design ระบุ "วัน/เดือน/ปี" ไว้เฉพาะ UI-mrr-005 และไม่ระบุปี ค.ศ./พ.ศ. ส่วนแอปใช้ช่องวันที่ของเบราว์เซอร์ซึ่งแสดงตามภาษาเครื่อง (เครื่องเทสแสดง 11/23/2026) · แก้เฉพาะข้อความ validation ของช่องเหล่านั้น · ที่มา: docs/qa/ui-mrr-005-visual-compare-2026-11-23.md | รับเข้าแล้ว 2026-11-23T09:00:42Z |
-| CHG-mrr-005 | design · revised | 2026-11-24T15:00:00+07:00 | เจ้าของ (Noppasorn) อนุมัติเมื่อ 2026-11-24 ให้สัญญาการคำนวณอัตราการใช้งาน CALC-mrr-001 ขึ้นเป็น @v2 เพื่อพินกฎปัจจุบัน BR-mrr-006@v2 (เดิม @v1 พินกฎ BR-mrr-006@v1 ที่ถูกแทนที่โดย CHG-mrr-004 สัญญาจึงไม่ถูกส่งมาถึง design/dev ตั้งแต่ 2026-11-19) · สูตร ชนิดตัวเลข การปัด และขอบทุกข้อเหมือน @v1 ไม่เปลี่ยน · ชุดเฉลย GD-mrr-001 รันใหม่ตรงเดิมทุกแถวและเซ็นใหม่แล้ว · design ยังอ้าง CALC-mrr-001@v1 ใน datamodel.json · interfaces.json · functions.json และเส้น governedBy ใน trace.design.json | ยังไม่ปิด |
+| CHG-mrr-005 | design · revised | 2026-11-24T15:00:00+07:00 | เจ้าของ (Noppasorn) อนุมัติเมื่อ 2026-11-24 ให้สัญญาการคำนวณอัตราการใช้งาน CALC-mrr-001 ขึ้นเป็น @v2 เพื่อพินกฎปัจจุบัน BR-mrr-006@v2 (เดิม @v1 พินกฎ BR-mrr-006@v1 ที่ถูกแทนที่โดย CHG-mrr-004 สัญญาจึงไม่ถูกส่งมาถึง design/dev ตั้งแต่ 2026-11-19) · สูตร ชนิดตัวเลข การปัด และขอบทุกข้อเหมือน @v1 ไม่เปลี่ยน · ชุดเฉลย GD-mrr-001 รันใหม่ตรงเดิมทุกแถวและเซ็นใหม่แล้ว · design ยังอ้าง CALC-mrr-001@v1 ใน datamodel.json · interfaces.json · functions.json และเส้น governedBy ใน trace.design.json | รับเข้าแล้ว 2026-11-24T06:43:51Z |
 
 ### สถานะการอนุมัติรายไฟล์
 
@@ -45,15 +45,15 @@
 |---|---|---|---|---|---|---|
 | design.state.json | /design:init | done | — | — | — | — |
 | context.json | /design:overview | done | approved | Noppasorn | 2026-10-19T07:59:59Z | — |
-| modules/mrr/functions.json | /design:function | done | draft | — | — | ค้างเพราะ CHG-mrr-005 |
-| trace.design.json | /design:function | done | — | — | — | ค้างเพราะ CHG-mrr-005 |
-| datamodel.json | /design:datamodel | done | draft | — | — | ค้างเพราะ CHG-mrr-005 |
-| modules/mrr/statemachines.json | /design:datamodel | done | draft | — | — | ค้างเพราะ CHG-mrr-005 |
+| modules/mrr/functions.json | /design:function | done | approved | Noppasorn | 2026-11-24T06:48:03Z | — |
+| trace.design.json | /design:function | done | — | — | — | — |
+| datamodel.json | /design:datamodel | done | approved | Noppasorn | 2026-11-24T06:48:04Z | — |
+| modules/mrr/statemachines.json | /design:datamodel | done | approved | Noppasorn | 2026-11-24T06:48:04Z | — |
 | rbac.json | /design:rbac | done | approved | Noppasorn | 2026-11-17T12:38:32Z | — |
 | nfr.json | /design:nfr | done | approved | Noppasorn | 2026-11-23T08:01:07Z | — |
 | sitemap.json | /design:sitemap | done | approved | Noppasorn | 2026-11-18T10:02:29Z | — |
 | modules/mrr/screens.json | /design:sitemap | done | approved | Noppasorn | 2026-11-23T09:02:15Z | — |
-| interfaces.json | /design:interface | done | draft | — | — | ค้างเพราะ CHG-mrr-005 |
+| interfaces.json | /design:interface | done | approved | Noppasorn | 2026-11-24T06:48:04Z | — |
 
 > ℹ️ **ข้อจำกัดของข้อมูลชุดนี้** — "สถานะขั้น" มาจากไฟล์สถานะ ส่วน "สถานะเอกสาร" มาจากตัวไฟล์เอง — ขั้นที่ค้างจะเห็นได้ที่คอลัมน์แรกเท่านั้น เพราะเครื่องหมายค้างถูกเก็บที่ขั้น ไม่ใช่ในเนื้อหาที่อนุมัติไปแล้ว
 
