@@ -3663,7 +3663,7 @@
       "title_th": "ดูร่องรอยการกระทำต่อการจอง — หน้าจอ",
       "app_ref": "frontend-web",
       "type": "command",
-      "origin": "new",
+      "origin": "change",
       "files_planned": [],
       "depends_on": [
         "FE-mrr-022",
@@ -3686,19 +3686,19 @@
         },
         {
           "ref": "AC-mrr-052",
-          "hash": "sha256:b2496ef3c55c3ef7fcc06b35b850adbfc047c9334af5d934716df95d4ee9b5d5"
+          "hash": "sha256:2b2ee3f680bb34beed34508503600828a7f30ba1228728d44fccbfb27aac9f0b"
         },
         {
           "ref": "AC-mrr-053",
-          "hash": "sha256:aaa19b2087d9e507a469048cf6cd45a2173f4b243a314f250aab285c1476f98d"
+          "hash": "sha256:892af8f4e29d8f9d8590d1d0ac114c31a7a3fc67eed82a8ba166245aac62300a"
         },
         {
           "ref": "AC-mrr-054",
-          "hash": "sha256:4783571d101b49b35b959f71c32fca93aa5ccd38fddb5122173736cf0ce44d65"
+          "hash": "sha256:08077334fcbb8a0b98a0b42501dd54d719995865b2d3ab5cc672491d7ff06bdd"
         },
         {
           "ref": "AC-mrr-055",
-          "hash": "sha256:c9bc509cb6a666dff9d38bd0daf0b174adb929232974af5081f48473058cb99f"
+          "hash": "sha256:0e070a5816c939a4c09996924b78403c95614bf1dda379072f978fede9cd6db9"
         },
         {
           "ref": "AC-mrr-056",
@@ -3739,11 +3739,21 @@
             "cmd": "powershell -File scripts/dev-test.ps1",
             "result": "api: Test Suites 24 passed, Tests 302 passed · web: Test Files 11 passed, Tests 164 passed · exit 0",
             "at": "2026-10-21"
+          },
+          {
+            "cmd": "powershell -NoProfile -File scripts/dev-build.ps1 -App frontend-web",
+            "result": "tsc --noEmit + vite build · built in 958ms · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -NoProfile -File scripts/dev-test.ps1 -App frontend-web -Filter FE-mrr-012",
+            "result": "audit-trail.test.tsx 13 passed (action labels อนุมัติ · ปฏิเสธการจอง · ถอยผล · แก้แทนผู้จอง · ยกเลิกแทนผู้จอง per BR-mrr-017@v2) · Test Files 1 passed | 20 skipped (21) · Tests 13 passed | 296 skipped (309) · exit 0",
+            "at": "2026-11-24"
           }
         ],
         "last_error": null,
         "recorded_by": "Noppasorn",
-        "recorded_at": "2026-10-21"
+        "recorded_at": "2026-11-24"
       },
       "manifest": {
         "files": [
@@ -7041,8 +7051,8 @@
       "validated": 42
     },
     "by_origin": {
-      "new": 30,
-      "change": 12
+      "new": 29,
+      "change": 13
     },
     "by_app": {
       "frontend-web": 19,
