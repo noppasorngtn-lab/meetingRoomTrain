@@ -44,7 +44,7 @@
     {
       "id": "datamodel",
       "command": "/design:datamodel",
-      "status": "stale",
+      "status": "done",
       "requires": [
         "function"
       ],
@@ -52,9 +52,8 @@
         "datamodel.json",
         "modules/<module>/statemachines.json"
       ],
-      "attempts": 0,
-      "updatedAt": "2026-11-24T10:27:58Z",
-      "staleBecause": "ADR-017"
+      "attempts": 1,
+      "updatedAt": "2026-11-24T10:31:03Z"
     },
     {
       "id": "scenario",
@@ -73,7 +72,7 @@
     {
       "id": "rbac",
       "command": "/design:rbac",
-      "status": "done",
+      "status": "stale",
       "requires": [
         "function",
         "datamodel"
@@ -81,8 +80,9 @@
       "artifacts": [
         "rbac.json"
       ],
-      "attempts": 1,
-      "updatedAt": "2026-11-17T12:32:22Z"
+      "attempts": 0,
+      "updatedAt": "2026-11-24T10:32:19Z",
+      "staleBecause": "ADR-017"
     },
     {
       "id": "nfr",

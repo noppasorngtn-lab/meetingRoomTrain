@@ -2,9 +2,9 @@
   "schemaVersion": "1.0",
   "producedBy": "design · scripts/datamodel.mjs",
   "project": "mrr",
-  "status": "approved",
-  "approvedAt": "2026-11-24T08:51:13Z",
-  "approvedBy": "Noppasorn",
+  "status": "draft",
+  "approvedAt": null,
+  "approvedBy": null,
   "entities": [
     {
       "id": "ENT-001",
@@ -18,13 +18,19 @@
           "name": "email",
           "type": "string",
           "required": true,
-          "validation": "Email ขององค์กร ไม่ซ้ำกันทั้งระบบ ใช้เข้าสู่ระบบด้วย OTP / magic link"
+          "validation": "Email ขององค์กร ไม่ซ้ำกันทั้งระบบ ใช้เข้าสู่ระบบด้วย OTP / magic link · เมื่อครบระยะเก็บ เขียนทับด้วยค่าปิดบังที่ไม่ซ้ำและใช้รับ Email ไม่ได้ (บัญชีนั้นเข้าสู่ระบบไม่ได้อยู่แล้วเพราะไม่ active)",
+          "personalData": true,
+          "classification": "confidential",
+          "retention": "1 ปี นับจากวันที่บัญชีไม่ active เพราะไม่อยู่ในรายชื่อนำเข้าจาก HR รอบล่าสุด (active เปลี่ยนเป็น false) · ครบกำหนดแล้วผู้ดูแลระบบเขียนทับด้วยค่าปิดบังเองนอกระบบ ไม่มีงานตามเวลา · ร่องรอย การจอง และรายงานที่อ้างถึงผู้ใช้ยังเก็บไว้ (DQ-mrr-017 · ADR-017)"
         },
         {
           "name": "fullName",
           "type": "string",
           "required": true,
-          "validation": "ชื่อ-นามสกุลตามรายชื่อพนักงานที่นำเข้าจาก HR ไม่เกิน 200 ตัวอักษร"
+          "validation": "ชื่อ-นามสกุลตามรายชื่อพนักงานที่นำเข้าจาก HR ไม่เกิน 200 ตัวอักษร · เมื่อครบระยะเก็บ เขียนทับเป็น \"ผู้ใช้ที่ถูกปิดบังชื่อ\" ร่องรอย การจอง และรายงานจึงแสดงชื่อนี้แทน",
+          "personalData": true,
+          "classification": "confidential",
+          "retention": "1 ปี นับจากวันที่บัญชีไม่ active เพราะไม่อยู่ในรายชื่อนำเข้าจาก HR รอบล่าสุด (active เปลี่ยนเป็น false) · ครบกำหนดแล้วผู้ดูแลระบบเขียนทับด้วยค่าปิดบังเองนอกระบบ ไม่มีงานตามเวลา · ร่องรอย การจอง และรายงานที่อ้างถึงผู้ใช้ยังเก็บไว้ (DQ-mrr-017 · ADR-017)"
         },
         {
           "name": "role",
