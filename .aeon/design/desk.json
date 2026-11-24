@@ -66,6 +66,22 @@
       "at": "2026-10-22T09:57:40+07:00",
       "answeredByNode": "ENT-014",
       "extensions": {}
+    },
+    {
+      "dq": "DQ-mrr-008",
+      "answer": "ปัด 2 ตำแหน่งที่ผลเปอร์เซ็นต์แบบ HALF_UP ตามที่ req ตอบ (SRC-014) — UtilizationReportLine.utilizationPct เป็น decimal(5,2) ปัด HALF_UP",
+      "by": "Noppasorn",
+      "at": "2026-11-24T12:40:00+07:00",
+      "answeredByNode": "ENT-013",
+      "extensions": {}
+    },
+    {
+      "dq": "DQ-mrr-009",
+      "answer": "ปัดทุกจุดที่เกิดค่าแบบ round half up ตามที่ req ตอบ (SRC-012) — คำนวณตาม CALC-mrr-001@v1 และ UtilizationReportLine.utilizationPct เก็บค่าที่ปัดแล้ว",
+      "by": "Noppasorn",
+      "at": "2026-11-24T12:40:00+07:00",
+      "answeredByNode": "ENT-013",
+      "extensions": {}
     }
   ],
   "gaps": [],
