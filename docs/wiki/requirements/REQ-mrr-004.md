@@ -9,7 +9,7 @@ actor: Room Administrator
 rules: [BR-mrr-006, BR-mrr-015, BR-mrr-022]
 domain_concepts: [UL-mrr-001, UL-mrr-008, UL-mrr-012]
 timestamp: 2026-11-18T12:30:00+07:00
-spec_hash: sha256:2faaff134e17956b0edae88fe397ea3c0fc8f2ebe92bab7995be7163560000c7
+spec_hash: sha256:ad32e067c0203f5c1a32a6216553993368e8398796d4b6a682e595d6d0a90d8a
 ---
 
 # REQ-mrr-004
@@ -108,17 +108,19 @@ spec_hash: sha256:2faaff134e17956b0edae88fe397ea3c0fc8f2ebe92bab7995be7163560000
 
 ## ⏭ คิวส่งต่อให้ Phase 2
 
-**[DQ-mrr-010](../questions/DQ-mrr-010.md)** · decimal(p,s) ของค่าอัตราการใช้งานใน DB เท่าไหร่
-> รอ: entity:RoomUtilization · ตอบในเฟส `domain`
+*ไม่มีที่ค้างอยู่* — ปิดไปแล้ว 3 ข้อ
 
 <details>
-<summary>ที่ปิดแล้ว (2)</summary>
+<summary>ที่ปิดแล้ว (3)</summary>
 
 **[DQ-mrr-008](../questions/DQ-mrr-008.md)** · อัตราการใช้งานปัดที่ทศนิยมกี่ตำแหน่ง (แสดงเป็นเปอร์เซ็นต์กี่ตำแหน่ง)
 → **ตอบ:** ปัด 2 ตำแหน่งที่ผลเปอร์เซ็นต์ (เช่น 62.50) แบบ HALF_UP (SRC-014)
 
 **[DQ-mrr-009](../questions/DQ-mrr-009.md)** · ปัดทีละขั้นหรือปัดตอนท้าย
 → **ตอบ:** ปัดทุกจุดที่เกิดค่า แบบ round half up (SRC-012)
+
+**[DQ-mrr-010](../questions/DQ-mrr-010.md)** · decimal(p,s) ของค่าอัตราการใช้งานใน DB เท่าไหร่
+→ **ตอบ:** decimal(5,2) ช่วง 0.00–100.00
 
 </details>
 
@@ -130,6 +132,6 @@ spec_hash: sha256:2faaff134e17956b0edae88fe397ea3c0fc8f2ebe92bab7995be7163560000
 | กฎที่มีตัวอย่างพิสูจน์ | 3 (100%) |
 | **กฎที่มีเทสต์เขียว** | **0** ← คำถามหลักของทั้งระบบ |
 | การ์ดแดงที่เปิดอยู่ | 0 |
-| คิวส่งต่อที่เปิดอยู่ | 1 |
+| คิวส่งต่อที่เปิดอยู่ | 0 |
 
 > ยอดของ **ทั้งโมดูล** อยู่ที่ [rules/index.md](../rules/index.md) ที่เดียว — ถ้าพิมพ์ไว้ที่นี่ด้วย หน้านี้จะเก่าทุกครั้งที่กฎข้อไหนก็ได้ในโมดูลขยับ

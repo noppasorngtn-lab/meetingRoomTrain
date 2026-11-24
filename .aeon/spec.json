@@ -5426,9 +5426,9 @@
       "question": "แก้ข้อมูลห้องแล้ว แก้เวอร์ชันเดิมได้ไหม หรือต้องสร้างเวอร์ชันใหม่เสมอ",
       "blocked_until": "entity:MeetingRoom",
       "answer_phase": "domain",
-      "state": "open",
-      "answer": null,
-      "answered_at": null,
+      "state": "answered",
+      "answer": "สร้างเวอร์ชันใหม่เสมอ — MeetingRoomVersion ที่บันทึกแล้วแก้ไม่ได้ MeetingRoom.currentVersion ชี้เวอร์ชันล่าสุด",
+      "answered_at": "2026-10-19T13:30:00+07:00",
       "raised_by": "BR-mrr-010@v1",
       "category": "temporal"
     },
@@ -5437,9 +5437,9 @@
       "question": "ข้อมูลห้องต้อง soft-delete / archive ไหม — §3.2 เขียนว่า \"ลบข้อมูลห้องประชุม\" แต่ DQ-mrr-001 ตอบว่าห้ามลบ ต้องตกลงว่า \"ลบ\" หมายถึงอะไร",
       "blocked_until": "entity:MeetingRoom",
       "answer_phase": "domain",
-      "state": "open",
-      "answer": null,
-      "answered_at": null,
+      "state": "answered",
+      "answer": "ลบ = archive — ห้องเข้าสถานะ ARCHIVED (เลิกใช้งาน) ถาวร ไม่แสดงให้ค้นหาหรือจอง ข้อมูลและการจองเดิมคงไว้ เปิดกลับไม่ได้",
+      "answered_at": "2026-10-19T13:30:00+07:00",
       "raised_by": "BR-mrr-010@v1",
       "category": "temporal"
     },
@@ -5472,9 +5472,9 @@
       "answer_phase": "domain",
       "raised_by": "BR-mrr-001@v1",
       "category": "idempotency",
-      "state": "open",
-      "answer": null,
-      "answered_at": null
+      "state": "answered",
+      "answer": "ห้อง + ช่วงเวลา [เริ่ม, จบ) — exclusion constraint บน (room, ช่วงเวลา) เฉพาะสถานะ PENDING_APPROVAL · CONFIRMED · APPROVED",
+      "answered_at": "2026-10-19T13:30:00+07:00"
     },
     {
       "id": "DQ-mrr-007",
@@ -5522,9 +5522,9 @@
     {
       "id": "DQ-mrr-010",
       "question": "decimal(p,s) ของค่าอัตราการใช้งานใน DB เท่าไหร่",
-      "state": "open",
-      "answer": null,
-      "answered_at": null,
+      "state": "answered",
+      "answer": "decimal(5,2) ช่วง 0.00–100.00",
+      "answered_at": "2026-10-19T13:30:00+07:00",
       "raised_by": "BR-mrr-006@v1",
       "category": "calculation",
       "blocked_until": "entity:RoomUtilization",
@@ -5535,9 +5535,9 @@
       "question": "หัวหน้าเห็นรายละเอียดการจองของลูกน้องไหม",
       "blocked_until": "entity:User (สายบังคับบัญชา)",
       "answer_phase": "domain",
-      "state": "open",
-      "answer": null,
-      "answered_at": null,
+      "state": "answered",
+      "answer": "ไม่เห็น — ระบบไม่เก็บสายบังคับบัญชา การเห็นรายละเอียดเป็นไปตาม BR-mrr-021@v1 เท่านั้น",
+      "answered_at": "2026-10-19T13:30:00+07:00",
       "raised_by": "BR-mrr-021@v1",
       "category": "data_scope"
     },
@@ -5546,9 +5546,9 @@
       "question": "โอนการจองให้คนอื่นได้ไหม — ถ้าได้ ผู้จองเดิมยังเห็นรายละเอียดไหม",
       "blocked_until": "entity:Booking",
       "answer_phase": "domain",
-      "state": "open",
-      "answer": null,
-      "answered_at": null,
+      "state": "answered",
+      "answer": "โอนไม่ได้ — Booking.bookedBy ตั้งตอนสร้างและเปลี่ยนไม่ได้",
+      "answered_at": "2026-10-19T13:30:00+07:00",
       "raised_by": "BR-mrr-021@v1",
       "category": "data_scope"
     },
@@ -5582,9 +5582,9 @@
       "raised_by": "BR-mrr-025@v1",
       "category": "idempotency",
       "answer_phase": "domain",
-      "state": "open",
-      "answer": null,
-      "answered_at": null
+      "state": "answered",
+      "answer": "นับต่อบัญชีผู้ใช้ (User, ENT-001) — LoginCode.user อ้าง User และผู้ใช้หนึ่งคนมีรหัสสถานะ ISSUED ที่ยังไม่หมดอายุได้ไม่เกินหนึ่งตัว บังคับที่ db",
+      "answered_at": "2026-10-22T09:57:40+07:00"
     },
     {
       "id": "DQ-mrr-016",
@@ -5607,7 +5607,7 @@
     "rules_with_example": 28,
     "rules_with_green_test": 0,
     "open_questions": 0,
-    "open_deferred": 10,
+    "open_deferred": 3,
     "rule_coverage": 1,
     "ready_for_next_step": true
   }

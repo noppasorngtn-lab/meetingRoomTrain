@@ -1,15 +1,15 @@
 ---
 type: Deferred Question
 title: decimal(p,s) ของค่าอัตราการใช้งานใน DB เท่าไหร่
-description: decimal(p,s) ของค่าอัตราการใช้งานใน DB เท่าไหร่
+description: decimal(5,2) ช่วง 0.00–100.00
 resource: ../rules/BR-mrr-006@v1.md
 tags: [mrr, question, calculation]
 id: DQ-mrr-010
-state: open
+state: answered
 raised_by: BR-mrr-006@v1
 answer_phase: domain
 timestamp: 2026-11-18T12:30:00+07:00
-spec_hash: sha256:5a154fb7f0cf604d3542142705c7cd3b4818bb2a0043a88fb5ba5a4f0da8beea
+spec_hash: sha256:3aacda66fa5805fa191f8817010b963037167546adb35ff26a7a30783837a825
 ---
 
 # DQ-mrr-010
@@ -19,9 +19,14 @@ decimal(p,s) ของค่าอัตราการใช้งานใน 
 
 | เรื่อง | ค่า |
 |---|---|
-| สถานะ | 🛑 **open** — ยังไม่มีคำตอบ |
+| สถานะ | ✅ answered |
 | ตั้งขึ้นจาก | [BR-mrr-006@v1](../rules/BR-mrr-006@v1.md) |
 | หมวด | calculation |
 | ตอบตอนไหน | domain — `/design:datamodel` (`design`) |
 | ติดอยู่ที่ | `entity:RoomUtilization` |
+
+## คำตอบ
+decimal(5,2) ช่วง 0.00–100.00
+
+ตอบเมื่อ 2026-10-19T13:30:00+07:00
 
