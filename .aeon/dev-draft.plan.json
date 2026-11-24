@@ -2,13 +2,16 @@
   "module": "mrr",
   "features": [
     {
-      "id": "FE-mrr-036",
-      "title_th": "ออกและดูรายงานการใช้ห้อง — ฝั่ง API",
-      "app_ref": "api",
+      "id": "FE-mrr-016",
+      "title_th": "ออกและดูรายงานการใช้ห้อง — หน้าจอ",
+      "app_ref": "frontend-web",
       "type": "report",
       "origin": "change",
       "files_planned": [],
-      "depends_on": [],
+      "depends_on": [
+        "FE-mrr-022",
+        "FE-mrr-036"
+      ],
       "acceptance_refs": [
         "AC-mrr-045",
         "AC-mrr-046",
@@ -72,28 +75,7 @@
           "ref": "AC-mrr-131"
         },
         {
-          "ref": "API-028"
-        },
-        {
-          "ref": "API-029"
-        },
-        {
-          "ref": "API-030"
-        },
-        {
-          "ref": "ENT-002"
-        },
-        {
-          "ref": "ENT-006"
-        },
-        {
-          "ref": "ENT-007"
-        },
-        {
-          "ref": "ENT-012"
-        },
-        {
-          "ref": "ENT-013"
+          "ref": "RPT-mrr-001"
         }
       ]
     }

@@ -244,4 +244,54 @@ describe('FE-mrr-016 utilization report page (RPT-mrr-001)', () => {
     // The export is still the whole issue.
     expect(screen.getByTestId('rpt-mrr-001-export')).toHaveAttribute('href', '/reports/utilization/rep-1/export');
   });
+
+  it('AC-mrr-128 ห้อง A and ห้อง B both 0.45% show rank 1, and ห้อง D at 0.00% shows rank 3 — the rank the api sent, not a row number', async () => {
+    replies[OCT] = { status: 200, body: report({ lines: [line('ห้อง A', 60, 13200, '0.45', 1), line('ห้อง B', 60, 13200, '0.45', 1), line('ห้อง D', 0, 13200, '0.00', 3)] }) };
+    open();
+    await loaded();
+
+    expect(cells('rpt-mrr-001-ent-013-room')).toEqual(['ห้อง A', 'ห้อง B', 'ห้อง D']);
+    expect(cells('rpt-mrr-001-ent-013-utilization-pct')).toEqual(['0.45%', '0.45%', '0.00%']);
+    expect(cells('rpt-mrr-001-ent-013-rank')).toEqual(['1', '1', '3']);
+  });
+
+  it('AC-mrr-129 ห้อง F (60 min) and ห้อง G (59 min) both show 0.45% and rank 1; ห้อง H shows 0.44% and rank 3', async () => {
+    replies[OCT] = { status: 200, body: report({ lines: [line('ห้อง F', 60, 13200, '0.45', 1), line('ห้อง G', 59, 13200, '0.45', 1), line('ห้อง H', 58, 13200, '0.44', 3)] }) };
+    open();
+    await loaded();
+
+    expect(cells('rpt-mrr-001-ent-013-booked-minutes')).toEqual(['60', '59', '58']);
+    expect(cells('rpt-mrr-001-ent-013-utilization-pct')).toEqual(['0.45%', '0.45%', '0.44%']);
+    expect(cells('rpt-mrr-001-ent-013-rank')).toEqual(['1', '1', '3']);
+  });
+
+  it('AC-mrr-130 ห้อง A and ห้อง B rank 1, ห้อง C at 0.00% rank 3, ห้อง E under maintenance shows — with no rank', async () => {
+    replies[OCT] = {
+      status: 200,
+      body: report({ lines: [line('ห้อง A', 60, 13200, '0.45', 1), line('ห้อง B', 60, 13200, '0.45', 1), line('ห้อง C', 0, 13200, '0.00', 3), line('ห้อง E', 0, 0, null, null)] }),
+    };
+    open();
+    await loaded();
+
+    expect(cells('rpt-mrr-001-ent-013-utilization-pct')).toEqual(['0.45%', '0.45%', '0.00%', '—']);
+    expect(cells('rpt-mrr-001-ent-013-rank')).toEqual(['1', '1', '3', '']);
+  });
+
+  it('AC-mrr-131 52 rooms: R50 is the last row of page 1 and R51 the first of page 2, both 0.45% rank 50; R52 0.00% rank 52', async () => {
+    const top = Array.from({ length: 49 }, (_, i) => line(`ห้อง R${String(i + 1).padStart(2, '0')}`, 600 - i, 13200, (4.55 - i * 0.01).toFixed(2), i + 1));
+    const lines = [...top, line('ห้อง R50', 60, 13200, '0.45', 50), line('ห้อง R51', 60, 13200, '0.45', 50), line('ห้อง R52', 0, 13200, '0.00', 52)];
+    replies[OCT] = { status: 200, body: report({ lines }) };
+    open();
+    await loaded();
+
+    const rows = () => cells('rpt-mrr-001-ent-013-room').map((name, i) => [name, cells('rpt-mrr-001-ent-013-utilization-pct')[i], cells('rpt-mrr-001-ent-013-rank')[i]]);
+    expect(rows()).toHaveLength(50);
+    expect(rows().at(-1)).toEqual(['ห้อง R50', '0.45%', '50']);
+    fireEvent.click(screen.getByRole('button', { name: 'หน้าถัดไป' }));
+
+    expect(rows()).toEqual([
+      ['ห้อง R51', '0.45%', '50'],
+      ['ห้อง R52', '0.00%', '52'],
+    ]);
+  });
 });

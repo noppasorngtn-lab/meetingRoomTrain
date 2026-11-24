@@ -4862,12 +4862,16 @@
         "AC-mrr-082",
         "AC-mrr-083",
         "AC-mrr-084",
-        "AC-mrr-085"
+        "AC-mrr-085",
+        "AC-mrr-128",
+        "AC-mrr-129",
+        "AC-mrr-130",
+        "AC-mrr-131"
       ],
       "traces_up": [
         {
           "ref": "UC-mrr-016",
-          "hash": "sha256:09ca49021fda438f19ad78dd08c85418389b7150fe881856fa25c391a889e36f"
+          "hash": "sha256:7a972b95be722a6b0e35a63d5359995da3ae40c442b1ab38097ec1c4d441efcf"
         },
         {
           "ref": "AC-mrr-045",
@@ -4910,6 +4914,22 @@
           "hash": "sha256:8ec8176e020bf7c617f6375b04129fff333d6b4f31c6e5e5d5809cfda0a9f297"
         },
         {
+          "ref": "AC-mrr-128",
+          "hash": "sha256:c1dd7fd7318053d4dfba8f1ced85f8da1b9212020075dc80048197040847a854"
+        },
+        {
+          "ref": "AC-mrr-129",
+          "hash": "sha256:f07d90d4d6353cbb7b3291bf84a2c943da20536c979f2a86d985f0c50d1bb646"
+        },
+        {
+          "ref": "AC-mrr-130",
+          "hash": "sha256:6eefb6f0758672f7030bf8aa3a203bb3d959f78edd1dbd91c8bedc0b0acd11d2"
+        },
+        {
+          "ref": "AC-mrr-131",
+          "hash": "sha256:bc745dfb30ca36b42e13775a1dd4e8364e5ca8200d3b26ec427f6e6642fb849a"
+        },
+        {
           "ref": "RPT-mrr-001",
           "hash": "sha256:181579287c32cd6a9de1be174d7eb980b3ea0281aa264db75cad1b3ae3037c13"
         }
@@ -4946,6 +4966,21 @@
           {
             "cmd": "cd test && npx playwright test e2e/t1-reports.spec.ts --project=chromium -g \"EX-mrr-12[5-8]|AC-mrr-1(2[89]|3[01])\" --reporter=list",
             "result": "4 passed (20.9s) · [real] TC-RPT-RPT001-111..114 (EX-mrr-125..128, BR-mrr-006@v2 tied ranks incl. across the 50-row page boundary) against docker stack mrr-*",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -NoProfile -File scripts/dev-build.ps1 -App frontend-web",
+            "result": "tsc --noEmit + vite build · built in 997ms · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -NoProfile -File scripts/dev-test.ps1 -App frontend-web -Filter FE-mrr-016",
+            "result": "utilization-report.test.tsx 20 passed · Test Files 1 passed | 20 skipped (21) · Tests 20 passed | 293 skipped (313) · exit 0 (AC-mrr-128..131: ranks shown as the api sends them, tie across the 50-row page edge)",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "cd docker && docker compose up -d --build; cd test && npx playwright test e2e/t1-reports.spec.ts --project=chromium -g \"EX-mrr-12[5-8]|AC-mrr-1(2[89]|3[01])\" --reporter=list",
+            "result": "4 passed (22.0s) · [real] TC-RPT-RPT001-111..114 (EX-mrr-125..128 = AC-mrr-128..131, BR-mrr-006@v2 tied ranks incl. across the 50-row page boundary) against docker stack mrr-* rebuilt from HEAD",
             "at": "2026-11-24"
           }
         ],
