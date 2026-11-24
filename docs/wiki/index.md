@@ -26,7 +26,7 @@
 | [glossary/](glossary/index.md) | 13 | คำที่ตกลงกันแล้ว |
 | [questions/](questions/index.md) | 22 | สิ่งที่ยังไม่ตัดสิน |
 | [nfr/](nfr/index.md) | 5 | ข้อกำหนดที่ไม่ใช่ฟังก์ชัน |
-| [sources/](sources/index.md) | 39 | ต้นฉบับที่ทุกอย่างสาวกลับไปได้ |
+| [sources/](sources/index.md) | 42 | ต้นฉบับที่ทุกอย่างสาวกลับไปได้ |
 
 ## ไทม์ไลน์
 
