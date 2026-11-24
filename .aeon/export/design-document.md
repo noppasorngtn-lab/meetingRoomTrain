@@ -39,7 +39,7 @@
 | ADR-015 | design · revised | 2026-11-23T18:00:00+07:00 | PO ยอมรับเมื่อ 2026-11-23 ให้สุ่มวัดด้วยเบราว์เซอร์จริงจำนวนหนึ่งระหว่างที่ k6 ยิง 200 คำขอ แทนการเปิดเบราว์เซอร์ 200 ตัว (ข้อ 2 ของ docs/qa/req-design-request-nfr002-nfr004-conflict-2026-11-23.md) — measuredBy ของ NFR-mrr-002 ที่ ADR-014 เขียนไว้ว่า "รอ PO ยอมรับ" จึงล้าสมัย · แก้เฉพาะถ้อยคำ measuredBy · metric target condition ไม่เปลี่ยน | รับเข้าแล้ว 2026-11-23T08:00:33Z |
 | ADR-016 | design · revised | 2026-11-23T19:00:00+07:00 | ผู้ใช้ตัดสิน 2026-11-23 (หลังเทียบหน้าตา UI-mrr-005 กับ mockup): ช่องกรอกวันที่และเวลาต้องแสดงและรับเป็น วว/ดด/ปปปป ปี ค.ศ. และเวลา 24 ชั่วโมง HH:MM เหมือนกันทุกเครื่อง ไม่ขึ้นกับภาษาของเครื่องผู้ใช้ · ใช้กฎเดียวกันกับช่องวันที่/เวลาของ UI-mrr-004 · UI-mrr-005 · UI-mrr-006 · UI-mrr-008 — เดิม design ระบุ "วัน/เดือน/ปี" ไว้เฉพาะ UI-mrr-005 และไม่ระบุปี ค.ศ./พ.ศ. ส่วนแอปใช้ช่องวันที่ของเบราว์เซอร์ซึ่งแสดงตามภาษาเครื่อง (เครื่องเทสแสดง 11/23/2026) · แก้เฉพาะข้อความ validation ของช่องเหล่านั้น · ที่มา: docs/qa/ui-mrr-005-visual-compare-2026-11-23.md | รับเข้าแล้ว 2026-11-23T09:00:42Z |
 | CHG-mrr-005 | design · revised | 2026-11-24T15:00:00+07:00 | เจ้าของ (Noppasorn) อนุมัติเมื่อ 2026-11-24 ให้สัญญาการคำนวณอัตราการใช้งาน CALC-mrr-001 ขึ้นเป็น @v2 เพื่อพินกฎปัจจุบัน BR-mrr-006@v2 (เดิม @v1 พินกฎ BR-mrr-006@v1 ที่ถูกแทนที่โดย CHG-mrr-004 สัญญาจึงไม่ถูกส่งมาถึง design/dev ตั้งแต่ 2026-11-19) · สูตร ชนิดตัวเลข การปัด และขอบทุกข้อเหมือน @v1 ไม่เปลี่ยน · ชุดเฉลย GD-mrr-001 รันใหม่ตรงเดิมทุกแถวและเซ็นใหม่แล้ว · design ยังอ้าง CALC-mrr-001@v1 ใน datamodel.json · interfaces.json · functions.json และเส้น governedBy ใน trace.design.json | รับเข้าแล้ว 2026-11-24T06:43:51Z |
-| CHG-mrr-006 | design · revised | 2026-11-24T18:00:00+07:00 | เจ้าของ (Noppasorn) ตอบ GAP-mrr-014 และ T5 F#9 เมื่อ 2026-11-24 (SRC-038) · กฎร่องรอย BR-mrr-017 ขึ้นเป็น @v3: ร่องรอยครอบการกระทำของคำขอแก้ไขหลังจบประชุมด้วย ช่อง 'การกระทำ' เพิ่มค่า 'สร้างคำขอแก้ไข' · 'อนุมัติคำขอ' · 'ปฏิเสธคำขอ' · การปฏิเสธที่บังคับเหตุผลคือการปฏิเสธการจองเท่านั้น การปฏิเสธคำขอแก้ไขไม่บังคับเหตุผล · ตัวอย่างเดิม 9 ข้อยังพิสูจน์ @v3 · req เพิ่มตัวอย่างใหม่ EX-mrr-129/130/131 (validated) ที่ยังไม่มีเกณฑ์รับ (AC) · design ยังอ้าง BR-mrr-017@v2 ในฟังก์ชัน FUN-mrr-005..008 และเกณฑ์รับ 9 ข้อ | ยังไม่ปิด |
+| CHG-mrr-006 | design · revised | 2026-11-24T18:00:00+07:00 | เจ้าของ (Noppasorn) ตอบ GAP-mrr-014 และ T5 F#9 เมื่อ 2026-11-24 (SRC-038) · กฎร่องรอย BR-mrr-017 ขึ้นเป็น @v3: ร่องรอยครอบการกระทำของคำขอแก้ไขหลังจบประชุมด้วย ช่อง 'การกระทำ' เพิ่มค่า 'สร้างคำขอแก้ไข' · 'อนุมัติคำขอ' · 'ปฏิเสธคำขอ' · การปฏิเสธที่บังคับเหตุผลคือการปฏิเสธการจองเท่านั้น การปฏิเสธคำขอแก้ไขไม่บังคับเหตุผล · ตัวอย่างเดิม 9 ข้อยังพิสูจน์ @v3 · req เพิ่มตัวอย่างใหม่ EX-mrr-129/130/131 (validated) ที่ยังไม่มีเกณฑ์รับ (AC) · design ยังอ้าง BR-mrr-017@v2 ในฟังก์ชัน FUN-mrr-005..008 และเกณฑ์รับ 9 ข้อ | รับเข้าแล้ว 2026-11-24T08:47:41Z |
 
 ### สถานะการอนุมัติรายไฟล์
 
@@ -47,15 +47,15 @@
 |---|---|---|---|---|---|---|
 | design.state.json | /design:init | done | — | — | — | — |
 | context.json | /design:overview | done | approved | Noppasorn | 2026-10-19T07:59:59Z | — |
-| modules/mrr/functions.json | /design:function | done | draft | — | — | ค้างเพราะ CHG-mrr-006 |
-| trace.design.json | /design:function | done | — | — | — | ค้างเพราะ CHG-mrr-006 |
-| datamodel.json | /design:datamodel | done | draft | — | — | ค้างเพราะ CHG-mrr-006 |
-| modules/mrr/statemachines.json | /design:datamodel | done | draft | — | — | ค้างเพราะ CHG-mrr-006 |
+| modules/mrr/functions.json | /design:function | done | approved | Noppasorn | 2026-11-24T08:51:13Z | — |
+| trace.design.json | /design:function | done | — | — | — | — |
+| datamodel.json | /design:datamodel | done | approved | Noppasorn | 2026-11-24T08:51:13Z | — |
+| modules/mrr/statemachines.json | /design:datamodel | done | approved | Noppasorn | 2026-11-24T08:51:13Z | — |
 | rbac.json | /design:rbac | done | approved | Noppasorn | 2026-11-17T12:38:32Z | — |
 | nfr.json | /design:nfr | done | approved | Noppasorn | 2026-11-23T08:01:07Z | — |
-| sitemap.json | /design:sitemap | done | draft | — | — | ค้างเพราะ CHG-mrr-006 |
-| modules/mrr/screens.json | /design:sitemap | done | draft | — | — | ค้างเพราะ CHG-mrr-006 |
-| interfaces.json | /design:interface | done | draft | — | — | ค้างเพราะ CHG-mrr-006 |
+| sitemap.json | /design:sitemap | done | approved | Noppasorn | 2026-11-24T08:51:13Z | — |
+| modules/mrr/screens.json | /design:sitemap | done | approved | Noppasorn | 2026-11-24T08:51:13Z | — |
+| interfaces.json | /design:interface | done | approved | Noppasorn | 2026-11-24T08:51:13Z | — |
 
 > ℹ️ **ข้อจำกัดของข้อมูลชุดนี้** — "สถานะขั้น" มาจากไฟล์สถานะ ส่วน "สถานะเอกสาร" มาจากตัวไฟล์เอง — ขั้นที่ค้างจะเห็นได้ที่คอลัมน์แรกเท่านั้น เพราะเครื่องหมายค้างถูกเก็บที่ขั้น ไม่ใช่ในเนื้อหาที่อนุมัติไปแล้ว
 
