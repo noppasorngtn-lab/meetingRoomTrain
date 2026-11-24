@@ -2,45 +2,89 @@
   "module": "mrr",
   "features": [
     {
-      "id": "FE-mrr-005",
-      "title_th": "ยกเลิกการจองของตนเอง — หน้าจอ",
+      "id": "FE-mrr-003",
+      "title_th": "จองห้องประชุม — หน้าจอ",
       "app_ref": "frontend-web",
       "type": "command",
       "origin": "change",
       "files_planned": [],
       "depends_on": [
         "FE-mrr-022",
-        "FE-mrr-026",
-        "FE-mrr-006"
+        "FE-mrr-024",
+        "FE-mrr-037"
       ],
       "acceptance_refs": [
-        "AC-mrr-009",
-        "AC-mrr-010",
-        "AC-mrr-026",
-        "AC-mrr-027",
-        "AC-mrr-054"
+        "AC-mrr-001",
+        "AC-mrr-002",
+        "AC-mrr-003",
+        "AC-mrr-004",
+        "AC-mrr-005",
+        "AC-mrr-006",
+        "AC-mrr-007",
+        "AC-mrr-012",
+        "AC-mrr-019",
+        "AC-mrr-024",
+        "AC-mrr-030",
+        "AC-mrr-031",
+        "AC-mrr-032",
+        "AC-mrr-060",
+        "AC-mrr-079",
+        "AC-mrr-081"
       ],
       "traces_up": [
         {
-          "ref": "UC-mrr-005"
+          "ref": "UC-mrr-003"
         },
         {
-          "ref": "AC-mrr-009"
+          "ref": "AC-mrr-001"
         },
         {
-          "ref": "AC-mrr-010"
+          "ref": "AC-mrr-002"
         },
         {
-          "ref": "AC-mrr-026"
+          "ref": "AC-mrr-003"
         },
         {
-          "ref": "AC-mrr-027"
+          "ref": "AC-mrr-004"
         },
         {
-          "ref": "AC-mrr-054"
+          "ref": "AC-mrr-005"
         },
         {
-          "ref": "UI-mrr-007"
+          "ref": "AC-mrr-006"
+        },
+        {
+          "ref": "AC-mrr-007"
+        },
+        {
+          "ref": "AC-mrr-012"
+        },
+        {
+          "ref": "AC-mrr-019"
+        },
+        {
+          "ref": "AC-mrr-024"
+        },
+        {
+          "ref": "AC-mrr-030"
+        },
+        {
+          "ref": "AC-mrr-031"
+        },
+        {
+          "ref": "AC-mrr-032"
+        },
+        {
+          "ref": "AC-mrr-060"
+        },
+        {
+          "ref": "AC-mrr-079"
+        },
+        {
+          "ref": "AC-mrr-081"
+        },
+        {
+          "ref": "UI-mrr-006"
         }
       ],
       "status": "draft"

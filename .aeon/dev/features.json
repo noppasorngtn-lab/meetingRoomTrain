@@ -994,7 +994,7 @@
       "title_th": "จองห้องประชุม — หน้าจอ",
       "app_ref": "frontend-web",
       "type": "command",
-      "origin": "new",
+      "origin": "change",
       "files_planned": [],
       "depends_on": [
         "FE-mrr-022",
@@ -1058,7 +1058,7 @@
         },
         {
           "ref": "AC-mrr-019",
-          "hash": "sha256:a4f1199ac980be8d6c50d9f1068603b446298483a1dc983ab88504bb51c9d4d5"
+          "hash": "sha256:4e34573b4aeb4884273590dda709143e628ca3dbaa57ec27ffe5ce5710f13a21"
         },
         {
           "ref": "AC-mrr-024",
@@ -1131,11 +1131,21 @@
             "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web",
             "result": "Test Files 21 passed (21) · Tests 308 passed (308) — incl. date-format.test.tsx: 29/02 leap/non-leap, 31/04, 24:00, 2-digit year, empty, D/M padding, half-typed text kept",
             "at": "2026-11-23"
+          },
+          {
+            "cmd": "powershell -NoProfile -File scripts/dev-build.ps1 -App frontend-web",
+            "result": "tsc --noEmit + vite build · built in 913ms · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -NoProfile -File scripts/dev-test.ps1 -App frontend-web -Filter FE-mrr-003",
+            "result": "booking.test.tsx 18 passed · date-format.test.tsx 8 passed · Test Files 2 passed | 19 skipped (21) · Tests 26 passed | 283 skipped (309) · exit 0",
+            "at": "2026-11-24"
           }
         ],
         "last_error": null,
         "recorded_by": "Noppasorn",
-        "recorded_at": "2026-11-23"
+        "recorded_at": "2026-11-24"
       },
       "manifest": {
         "files": [
@@ -6962,8 +6972,8 @@
       "validated": 42
     },
     "by_origin": {
-      "new": 34,
-      "change": 8
+      "new": 33,
+      "change": 9
     },
     "by_app": {
       "frontend-web": 19,
