@@ -85,5 +85,18 @@
     }
   ],
   "gaps": [],
-  "extensions": {}
+  "extensions": {},
+  "cards": [
+    {
+      "card": "GAP-mrr-026",
+      "raiser": "dev",
+      "as": "answer",
+      "answer": "ไม่ต้องเพิ่มเส้นและไม่ต้องปลดลายเซ็น — เจ้าของของ AC-mrr-114..131 ประกาศไว้แล้วใน functions.json (ลงนาม 2026-11-19) ช่อง acceptance[].useCases: 114–115 UC-mrr-018 · 116–117 UC-mrr-003 + UC-mrr-017 · 118 UC-mrr-007 + UC-mrr-017 · 119 UC-mrr-005 + UC-mrr-017 · 120 UC-mrr-009 + UC-mrr-017 · 121 UC-mrr-007 + UC-mrr-012 + UC-mrr-017 · 122 UC-mrr-003 · 123, 126 UC-mrr-007 + UC-mrr-012 · 124 UC-mrr-008 + UC-mrr-012 · 125 UC-mrr-009 + UC-mrr-012 · 127 UC-mrr-008 + UC-mrr-017 · 128–131 UC-mrr-016 · คำศัพท์ของ trace.design.json ไม่มีความสัมพันธ์ AC→UC (AC-mrr-001..110 ก็ไม่มี) และ features.mjs --propose อ่านช่อง useCases นี้เองอยู่แล้ว · DV6 ปิดเมื่อหน่วยงานของ use case เหล่านั้นใส่ AC ใน acceptance_refs",
+      "to": null,
+      "answeredByNode": "AC-mrr-114",
+      "by": "Noppasorn",
+      "at": "2026-11-24T13:30:00+07:00",
+      "extensions": {}
+    }
+  ]
 }

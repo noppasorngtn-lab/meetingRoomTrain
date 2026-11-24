@@ -7068,10 +7068,10 @@
       "question_th": "เกณฑ์รับ AC-mrr-114 ถึง AC-mrr-131 (18 ข้อ · คัดจาก EX-mrr-111…128 · เพิ่มตอน CHG-mrr-004 และ ADR-012…015) ไม่มีเส้นไปหา use case หรือฟังก์ชันใดใน trace.design.json — มีแค่ copiedFrom EX และ governedBy BR — dev จึงผูกเข้าหน่วยงานใดไม่ได้โดยไม่เดา (DV6 รายงาน 18 ข้อ) · ขอให้ design ผูกแต่ละข้อกับ UC/FUN ที่เป็นเจ้าของ · ที่ dev คาดจากเนื้อหา (ยังไม่ใช่คำตอบ): 114–115 เตือนก่อนประชุม (UC-mrr-018) · 116, 122 จองห้อง (UC-mrr-003) · 117–121, 127 ยกเลิก/อนุมัติ/ปฏิเสธ (UC-mrr-005, 007, 009) · 123–126 เปลี่ยนผลอนุมัติ/แก้แทน (UC-mrr-008, 009) · 128–131 อันดับในรายงาน (UC-mrr-016)",
       "found_at": "2026-11-24",
       "found_by": "/dev:plan",
-      "status": "open",
-      "answer_th": null,
-      "answered_in": null,
-      "closed_by": null,
+      "status": "answered",
+      "answer_th": "ไม่ต้องเพิ่มเส้นและไม่ต้องปลดลายเซ็น — เจ้าของของ AC-mrr-114..131 ประกาศไว้แล้วใน functions.json (ลงนาม 2026-11-19) ช่อง acceptance[].useCases: 114–115 UC-mrr-018 · 116–117 UC-mrr-003 + UC-mrr-017 · 118 UC-mrr-007 + UC-mrr-017 · 119 UC-mrr-005 + UC-mrr-017 · 120 UC-mrr-009 + UC-mrr-017 · 121 UC-mrr-007 + UC-mrr-012 + UC-mrr-017 · 122 UC-mrr-003 · 123, 126 UC-mrr-007 + UC-mrr-012 · 124 UC-mrr-008 + UC-mrr-012 · 125 UC-mrr-009 + UC-mrr-012 · 127 UC-mrr-008 + UC-mrr-017 · 128–131 UC-mrr-016 · คำศัพท์ของ trace.design.json ไม่มีความสัมพันธ์ AC→UC (AC-mrr-001..110 ก็ไม่มี) และ features.mjs --propose อ่านช่อง useCases นี้เองอยู่แล้ว · DV6 ปิดเมื่อหน่วยงานของ use case เหล่านั้นใส่ AC ใน acceptance_refs",
+      "answered_in": "AC-mrr-114",
+      "closed_by": "Noppasorn",
       "blocks": [
         "FE-mrr-017",
         "FE-mrr-018",
@@ -7097,7 +7097,7 @@
       "frontend-web": 19,
       "api": 23
     },
-    "gaps_open": 20,
+    "gaps_open": 19,
     "ready_for_phase5": false
   },
   "deploy": {
