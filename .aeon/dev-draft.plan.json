@@ -1,13 +1,64 @@
 {
   "module": "mrr",
-  "features": [],
-  "gaps": [
+  "features": [
     {
-      "id": "GAP-mrr-026",
-      "to": "design",
-      "about": "AC-mrr-114",
-      "question_th": "เกณฑ์รับ AC-mrr-114 ถึง AC-mrr-131 (18 ข้อ · คัดจาก EX-mrr-111…128 · เพิ่มตอน CHG-mrr-004 และ ADR-012…015) ไม่มีเส้นไปหา use case หรือฟังก์ชันใดใน trace.design.json — มีแค่ copiedFrom EX และ governedBy BR — dev จึงผูกเข้าหน่วยงานใดไม่ได้โดยไม่เดา (DV6 รายงาน 18 ข้อ) · ขอให้ design ผูกแต่ละข้อกับ UC/FUN ที่เป็นเจ้าของ · ที่ dev คาดจากเนื้อหา (ยังไม่ใช่คำตอบ): 114–115 เตือนก่อนประชุม (UC-mrr-018) · 116, 122 จองห้อง (UC-mrr-003) · 117–121, 127 ยกเลิก/อนุมัติ/ปฏิเสธ (UC-mrr-005, 007, 009) · 123–126 เปลี่ยนผลอนุมัติ/แก้แทน (UC-mrr-008, 009) · 128–131 อันดับในรายงาน (UC-mrr-016)",
-      "blocks": ["FE-mrr-017", "FE-mrr-018", "FE-mrr-024", "FE-mrr-026", "FE-mrr-028", "FE-mrr-029", "FE-mrr-030", "FE-mrr-036"]
+      "id": "FE-mrr-025",
+      "title_th": "แก้ไขการจองของตนเอง — ฝั่ง API",
+      "app_ref": "api",
+      "type": "command",
+      "origin": "change",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-017"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-008",
+        "AC-mrr-021",
+        "AC-mrr-022",
+        "AC-mrr-061",
+        "AC-mrr-063",
+        "AC-mrr-080"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-004"
+        },
+        {
+          "ref": "AC-mrr-008"
+        },
+        {
+          "ref": "AC-mrr-021"
+        },
+        {
+          "ref": "AC-mrr-022"
+        },
+        {
+          "ref": "AC-mrr-061"
+        },
+        {
+          "ref": "AC-mrr-063"
+        },
+        {
+          "ref": "AC-mrr-080"
+        },
+        {
+          "ref": "API-007"
+        },
+        {
+          "ref": "API-008"
+        },
+        {
+          "ref": "ENT-007"
+        },
+        {
+          "ref": "ENT-008"
+        },
+        {
+          "ref": "ENT-009"
+        }
+      ],
+      "status": "draft"
     }
-  ]
+  ],
+  "gaps": []
 }

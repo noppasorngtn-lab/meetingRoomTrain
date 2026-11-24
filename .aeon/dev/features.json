@@ -1259,7 +1259,7 @@
       "title_th": "แก้ไขการจองของตนเอง — ฝั่ง API",
       "app_ref": "api",
       "type": "command",
-      "origin": "new",
+      "origin": "change",
       "files_planned": [],
       "depends_on": [
         "FE-mrr-017"
@@ -1283,11 +1283,11 @@
         },
         {
           "ref": "AC-mrr-021",
-          "hash": "sha256:ecc1f3687efce668a9c2ba4794e26f3f7023d274c064dc845ce877cb41fe2e13"
+          "hash": "sha256:68d65cc9c74a11d853041dcbc9fb0112dc0210e30d69371143ad9b080add0ffd"
         },
         {
           "ref": "AC-mrr-022",
-          "hash": "sha256:f881013eef4cfd5baf9849f03a32cccf62fff94382ba3ef602d64da46cf16940"
+          "hash": "sha256:700e14320ade5803a607611ba062027c364138e65e3177043c3c3c3cc3bae5ac"
         },
         {
           "ref": "AC-mrr-061",
@@ -1327,24 +1327,19 @@
         "iterations": 0,
         "proof": [
           {
-            "cmd": "powershell -File scripts/dev-build.ps1 -App api",
+            "cmd": "powershell -NoProfile -File scripts/dev-build.ps1 -App api",
             "result": "tsc -p tsconfig.build.json · exit 0",
-            "at": "2026-10-20"
+            "at": "2026-11-24"
           },
           {
-            "cmd": "powershell -File scripts/dev-test.ps1 -App api -Filter FE-mrr-025",
-            "result": "Test Suites: 8 skipped, 2 passed, 2 of 10 total · Tests: 83 skipped, 26 passed, 109 total · exit 0 · against postgres:16-alpine via Testcontainers",
-            "at": "2026-10-20"
-          },
-          {
-            "cmd": "powershell -File scripts/dev-test.ps1",
-            "result": "api: Test Suites 10 passed, Tests 109 passed · web: Test Files 3 passed, Tests 48 passed · exit 0",
-            "at": "2026-10-20"
+            "cmd": "powershell -NoProfile -File scripts/dev-test.ps1 -App api -Filter FE-mrr-025",
+            "result": "PASS booking-edit.http.spec.ts · PASS booking-edit.service.spec.ts · Test Suites: 38 skipped, 2 passed, 2 of 40 total · Tests: 456 skipped, 26 passed, 482 total · exit 0",
+            "at": "2026-11-24"
           }
         ],
         "last_error": null,
         "recorded_by": "Noppasorn",
-        "recorded_at": "2026-10-20"
+        "recorded_at": "2026-11-24"
       },
       "manifest": {
         "files": [
@@ -6944,8 +6939,8 @@
       "validated": 42
     },
     "by_origin": {
-      "new": 37,
-      "change": 5
+      "new": 36,
+      "change": 6
     },
     "by_app": {
       "frontend-web": 19,
