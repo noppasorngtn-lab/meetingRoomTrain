@@ -12,6 +12,7 @@ type Call = { method: string; url: string; body?: unknown };
 
 let booking: Record<string, unknown>;
 let editReply: Reply | (() => Reply | Promise<Reply>);
+let audit: unknown[];
 let calls: Call[];
 
 beforeEach(() => {
@@ -23,6 +24,7 @@ beforeEach(() => {
     title: 'ประชุมทีม', status: 'CONFIRMED', bookedBy: { id: 'u1', fullName: 'U1' }, attendees: [], equipment: [],
   };
   editReply = { status: 200, body: { message: SENT } };
+  audit = [];
   calls = [];
   vi.stubGlobal('fetch', vi.fn(async (url: string, init?: RequestInit) => {
     const method = init?.method ?? 'GET';
@@ -30,7 +32,7 @@ beforeEach(() => {
     let r: Reply = { status: 500 };
     if (url === GET && method === 'GET') r = { status: 200, body: booking };
     // The page reads the booking's trail too (FE-mrr-012); nothing has been done to it yet.
-    if (url === `${GET}/audit` && method === 'GET') r = { status: 200, body: [] };
+    if (url === `${GET}/audit` && method === 'GET') r = { status: 200, body: audit };
     // Who is signed in, as API-035 answers (FE-mrr-038): a Room Administrator, so the commands show.
     if (url === '/auth/me' && method === 'GET') r = { status: 200, body: { fullName: 'RA1', role: 'ROOM_ADMINISTRATOR' } };
     // A request changes nothing on the booking until another Room Administrator approves (BR-mrr-014).
@@ -72,6 +74,30 @@ describe('FE-mrr-010 adjustment request after the meeting ends page (UI-mrr-010)
     await waitFor(() => expect(screen.getByTestId('ui-mrr-010-ent-007-title')).toHaveValue('ประชุมทีม'));
     expect(screen.getByTestId('ui-mrr-010-ent-007-status')).toHaveTextContent('จองสำเร็จ (ห้องไม่ต้องอนุมัติ)');
     expect(screen.getByTestId('ui-mrr-010-ent-010-reason')).toHaveValue('');
+  });
+
+  // BR-mrr-017@v3 — asking writes a CREATE_ADJUSTMENT entry (FE-mrr-031); the page reads the trail again
+  // and the row reads สร้างคำขอแก้ไข (FE-mrr-012).
+  it('AC-mrr-132 at 11:00 RA1 asks: ส่งคำขอแก้ไขแล้ว…, ประชุมทีม stays, the trail gains RA1 · 18/10 11:00 · สร้างคำขอแก้ไข · ผู้จองพิมพ์หัวข้อผิด', async () => {
+    editReply = () => {
+      audit = [{
+        id: 'e1', actor: { id: 'ra1', fullName: 'RA1' }, action: 'CREATE_ADJUSTMENT', reason: 'ผู้จองพิมพ์หัวข้อผิด',
+        detail: { before: { title: 'ประชุมทีม' }, after: { title: 'ประชุมวางแผน' } }, at: '2026-10-18T04:00:00.000Z',
+      }];
+      return { status: 200, body: { message: SENT } };
+    };
+    open();
+    expect(await loaded()).toHaveValue('ประชุมทีม');
+    retitle('ประชุมวางแผน');
+    type('ผู้จองพิมพ์หัวข้อผิด');
+
+    edit();
+
+    expect(await screen.findByRole('status')).toHaveTextContent(SENT);
+    expect(await screen.findByTestId('ui-mrr-010-ent-010-action')).toHaveTextContent('สร้างคำขอแก้ไข');
+    expect(screen.getByTestId('ui-mrr-010-ent-010-actor')).toHaveTextContent('RA1');
+    expect(screen.getByTestId('ui-mrr-010-ent-010-at')).toHaveTextContent('18/10 11:00');
+    await waitFor(() => expect(screen.getByTestId('ui-mrr-010-ent-007-title')).toHaveValue('ประชุมทีม'));
   });
 
   it('UC-mrr-010 no reason — กรุณาระบุเหตุผล at the field and nothing is sent', async () => {

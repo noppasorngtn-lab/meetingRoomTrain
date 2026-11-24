@@ -100,6 +100,16 @@ describe('FE-mrr-031 an edit after the meeting ends becomes a request (UC-mrr-01
     }]);
   });
 
+  it('AC-mrr-132 RA1 asks at 18/10 11:00 — ส่งคำขอแก้ไขแล้ว…, ประชุมทีม stays, one entry: RA1 · 11:00 · CREATE_ADJUSTMENT (สร้างคำขอแก้ไข) · ผู้จองพิมพ์หัวข้อผิด', async () => {
+    const res = await edit({ title: 'ประชุมวางแผน' }, 'ผู้จองพิมพ์หัวข้อผิด');
+
+    expect(res).toEqual({ message: 'ส่งคำขอแก้ไขแล้ว รอผู้ดูแลห้องคนอื่นอนุมัติ' });
+    expect(await title()).toBe('ประชุมทีม');
+    expect((await trail()).map((e) => [e.actor_id, e.at, e.action, e.reason])).toEqual([
+      [ra1, at(18, '11:00'), 'CREATE_ADJUSTMENT', 'ผู้จองพิมพ์หัวข้อผิด'],
+    ]);
+  });
+
   it('sends no mail — nothing has changed yet', async () => {
     await edit({ endAt: at(18, '11:30') });
 

@@ -127,6 +127,32 @@ describe('FE-mrr-011 adjustment requests page (UI-mrr-011)', () => {
     expect(posts()).toEqual([{ method: 'POST', url: `/adjustment-requests/${REQUEST}/reject` }]);
   });
 
+  it('AC-mrr-133 RA2 presses อนุมัติคำขอ — อนุมัติคำขอแก้ไขสำเร็จ, the request leaves the queue', async () => {
+    replies[`POST /adjustment-requests/${REQUEST}/approve`] = decidedThen('อนุมัติคำขอแก้ไขสำเร็จ');
+    open();
+
+    fireEvent.click(await screen.findByTestId('ui-mrr-011-approve'));
+
+    expect(await screen.findByRole('status')).toHaveTextContent('อนุมัติคำขอแก้ไขสำเร็จ');
+    expect(posts()).toEqual([{ method: 'POST', url: `/adjustment-requests/${REQUEST}/approve` }]);
+    expect(await screen.findByText('ไม่มีคำขอแก้ไข')).toBeInTheDocument();
+  });
+
+  // BR-mrr-017@v3 — rejecting a REQUEST takes no reason: the page offers no reason box and sends the
+  // reject at once, so กรุณาระบุเหตุผล can never appear (contrast rejecting a booking, AC-mrr-126).
+  it('AC-mrr-134 RA2 presses ปฏิเสธคำขอ with no reason to give — ปฏิเสธคำขอแก้ไขสำเร็จ, no กรุณาระบุเหตุผล', async () => {
+    replies[`POST /adjustment-requests/${REQUEST}/reject`] = decidedThen('ปฏิเสธคำขอแก้ไขสำเร็จ');
+    open();
+    await screen.findByTestId('ui-mrr-011-reject');
+    expect(screen.queryByRole('textbox')).not.toBeInTheDocument();
+
+    fireEvent.click(screen.getByTestId('ui-mrr-011-reject'));
+
+    expect(await screen.findByRole('status')).toHaveTextContent('ปฏิเสธคำขอแก้ไขสำเร็จ');
+    expect(posts()).toEqual([{ method: 'POST', url: `/adjustment-requests/${REQUEST}/reject` }]);
+    expect(screen.queryByText('กรุณาระบุเหตุผล')).not.toBeInTheDocument();
+  });
+
   it('AC-mrr-044 unauthorized state — on one\'s own request both buttons are disabled and the row says why', async () => {
     replies[LIST] = pageOf([row({ canDecide: false })]);
     open();

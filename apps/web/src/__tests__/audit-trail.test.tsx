@@ -121,6 +121,24 @@ describe('FE-mrr-012 a booking\'s trail on the admin page (UI-mrr-010)', () => {
     expect(within(section).getByText('ผู้จองพิมพ์หัวข้อผิด')).toBeInTheDocument();
   });
 
+  // BR-mrr-017@v3 · the adjustment-request rows. Written by FE-mrr-031/032, read by API-016 (FE-mrr-033).
+  it('AC-mrr-132 asking for an adjustment reads RA1 · 18/10 11:00 · สร้างคำขอแก้ไข · ผู้จองพิมพ์หัวข้อผิด', async () => {
+    const section = await shows({ action: 'CREATE_ADJUSTMENT', reason: 'ผู้จองพิมพ์หัวข้อผิด', at: '2026-10-18T04:00:00.000Z', detail: { before: { title: 'ประชุมทีม' }, after: { title: 'ประชุมวางแผน' } } });
+
+    expect(rows()).toEqual([['18/10 11:00', 'RA1', 'สร้างคำขอแก้ไข']]);
+    expect(within(section).getByText('ผู้จองพิมพ์หัวข้อผิด')).toBeInTheDocument();
+  });
+
+  it.each([
+    ['AC-mrr-133', 'APPROVE_ADJUSTMENT', 'อนุมัติคำขอ'],
+    ['AC-mrr-134', 'REJECT_ADJUSTMENT', 'ปฏิเสธคำขอ'],
+  ])('%s a decided adjustment request reads RA2 · 18/10 13:00 · %s → %s · its empty reason as —', async (_, action, label) => {
+    const section = await shows({ actor: RA2, action, reason: null, at: '2026-10-18T06:00:00.000Z' });
+
+    expect(rows()).toEqual([['18/10 13:00', 'RA2', label]]);
+    expect(within(section).getByText('—')).toBeInTheDocument();
+  });
+
   it('AC-mrr-126 a rejection refused for an empty reason left nothing — the pending booking\'s trail reads ยังไม่มีการกระทำของผู้ดูแล', async () => {
     replies[GET] = { status: 200, body: booking({ roomName: 'ห้อง B', title: 'ประชุมลูกค้า', status: 'PENDING_APPROVAL' }) };
     replies[AUDIT] = { status: 200, body: [] };

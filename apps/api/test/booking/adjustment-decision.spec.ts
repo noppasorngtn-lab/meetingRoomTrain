@@ -102,6 +102,24 @@ describe('FE-mrr-032 another Room Administrator decides an adjustment request (U
     }]);
   });
 
+  it('AC-mrr-133 RA2 approves at 18/10 13:00 — ประชุมวางแผน, อนุมัติคำขอแก้ไขสำเร็จ, one entry: RA2 · 13:00 · APPROVE_ADJUSTMENT (อนุมัติคำขอ) · no reason', async () => {
+    const res = await service.approve({ userId: ra2 }, request);
+
+    expect(res).toEqual({ message: 'อนุมัติคำขอแก้ไขสำเร็จ' });
+    expect(await title()).toBe('ประชุมวางแผน');
+    expect((await trail()).map((e) => [e.actor_id, e.at, e.action, e.reason])).toEqual([[ra2, at(18, '13:00'), 'APPROVE_ADJUSTMENT', null]]);
+  });
+
+  // BR-mrr-017@v3: only rejecting a BOOKING needs a reason — rejecting an adjustment request takes none,
+  // so the call carries no reason at all and is never refused with กรุณาระบุเหตุผล (contrast AC-mrr-126).
+  it('AC-mrr-134 RA2 rejects at 18/10 13:00 with no reason — ปฏิเสธคำขอแก้ไขสำเร็จ, ประชุมทีม stays, one entry: RA2 · 13:00 · REJECT_ADJUSTMENT (ปฏิเสธคำขอ) · no reason', async () => {
+    const res = await service.reject({ userId: ra2 }, request);
+
+    expect(res).toEqual({ message: 'ปฏิเสธคำขอแก้ไขสำเร็จ' });
+    expect(await title()).toBe('ประชุมทีม');
+    expect((await trail()).map((e) => [e.actor_id, e.at, e.action, e.reason])).toEqual([[ra2, at(18, '13:00'), 'REJECT_ADJUSTMENT', null]]);
+  });
+
   it('STM-mrr-002 a decided request is final — neither approved again nor rejected', async () => {
     await service.reject({ userId: ra2 }, request);
     const ra3 = await seedUser(db, 'RA3', 'ROOM_ADMINISTRATOR');

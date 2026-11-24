@@ -130,6 +130,37 @@ describe('FE-mrr-033 a Room or System Administrator reads a booking\'s trail (UC
     });
   });
 
+  // BR-mrr-017@v3 · the READ half of AC-mrr-132/133/134: the adjustment-request actions written by
+  // booking-edit.service.ts (CREATE_ADJUSTMENT) and adjustment-request.service.ts (APPROVE_/REJECT_ADJUSTMENT)
+  // come back with actor · time · action · reason; that each action writes exactly one is proved with the
+  // action (FE-mrr-031/032). สร้างคำขอแก้ไข · อนุมัติคำขอ · ปฏิเสธคำขอ are the screen's labels (FE-mrr-012).
+  describe('BR-mrr-017@v3 · the trail of an adjustment request', () => {
+    let id: string;
+    beforeEach(async () => {
+      id = await seedBooking(db, {
+        room: await seedRoom(db, 'ห้อง C', ra1), bookedBy: u1, title: 'ประชุมทีม', startAt: at(18, '10:00'), endAt: at(18, '11:00'),
+      });
+    });
+    const write = (e: { actor: string; action: Database['booking_audit_entries']['action']; reason: string | null; at: Date }) =>
+      db.insertInto('booking_audit_entries').values({ booking_id: id, actor_id: e.actor, action: e.action, reason: e.reason, detail: null, at: e.at }).execute();
+    const rows = async () => (await service.list({ userId: ra2 }, id)).map((e) => [e.actor.fullName, e.at, e.action, e.reason]);
+
+    it('AC-mrr-132 asked at 18/10 11:00 — RA1 · 18/10 11:00 · CREATE_ADJUSTMENT (สร้างคำขอแก้ไข) · ผู้จองพิมพ์หัวข้อผิด', async () => {
+      await write({ actor: ra1, action: 'CREATE_ADJUSTMENT', reason: 'ผู้จองพิมพ์หัวข้อผิด', at: at(18, '11:00') });
+
+      expect(await rows()).toEqual([['RA1', at(18, '11:00').toISOString(), 'CREATE_ADJUSTMENT', 'ผู้จองพิมพ์หัวข้อผิด']]);
+    });
+
+    it.each([
+      ['AC-mrr-133 approved', 'APPROVE_ADJUSTMENT', 'อนุมัติคำขอ'],
+      ['AC-mrr-134 rejected', 'REJECT_ADJUSTMENT', 'ปฏิเสธคำขอ'],
+    ] as const)('%s at 18/10 13:00 — RA2 · 18/10 13:00 · %s (%s) · no reason (null, shown —)', async (_, action, _label) => {
+      await write({ actor: ra2, action, reason: null, at: at(18, '13:00') });
+
+      expect(await rows()).toEqual([['RA2', at(18, '13:00').toISOString(), action, null]]);
+    });
+  });
+
   it('a booking with nothing done to it has an empty trail', async () => {
     const other = await seedBooking(db, {
       room: await seedRoom(db, 'ห้อง B', ra1), bookedBy: u1, title: 'ประชุมลูกค้า', startAt: at(19, '10:00'), endAt: at(19, '11:00'),

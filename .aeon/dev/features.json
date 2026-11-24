@@ -1731,9 +1731,9 @@
           "hash": "sha256:70b3048818d8c6af914931bd01d0fd6ee3282caa12fe7ae99691ab7addcfd0d8"
         }
       ],
-      "status": "draft",
+      "status": "validated",
       "build": {
-        "iterations": 0,
+        "iterations": 1,
         "proof": [
           {
             "cmd": "powershell -File scripts/dev-build.ps1 -App api",
@@ -1763,6 +1763,16 @@
           {
             "cmd": "cd test && npx playwright test e2e/t1-round2.spec.ts --project=chromium -g \"TC-NTF-UI008-105\" --reporter=list",
             "result": "1 passed (12.1s) · [real] TC-NTF-UI008-105 (EX-mrr-116) against docker stack mrr-* rebuilt from HEAD",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-build.ps1 -App api",
+            "result": "tsc -p tsconfig.build.json · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App api -Filter FE-mrr-026",
+            "result": "Test Suites: 39 skipped, 1 passed, 1 of 40 total · Tests: 497 skipped, 16 passed, 513 total · exit 0",
             "at": "2026-11-24"
           }
         ],
@@ -1854,9 +1864,9 @@
           "hash": "sha256:f51d2d53df35887e09c6bff19de0c1d0e556745ff44c4000991661a21e9fb1ed"
         }
       ],
-      "status": "draft",
+      "status": "validated",
       "build": {
-        "iterations": 0,
+        "iterations": 1,
         "proof": [
           {
             "cmd": "powershell -File scripts/dev-build.ps1 -App frontend-web",
@@ -1896,6 +1906,16 @@
           {
             "cmd": "cd test && npx playwright test e2e/t1-round2.spec.ts --project=chromium -g \"TC-NTF-UI008-105\" --reporter=list",
             "result": "1 passed (11.3s) · [real] TC-NTF-UI008-105 (EX-mrr-116) against docker stack mrr-* rebuilt from HEAD",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-build.ps1 -App frontend-web",
+            "result": "tsc --noEmit && vite build · built in 953ms · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web -Filter FE-mrr-005",
+            "result": "Test Files 1 passed | 20 skipped (21) · Tests 11 passed | 322 skipped (333) · exit 0",
             "at": "2026-11-24"
           }
         ],
@@ -2251,9 +2271,9 @@
           "hash": "sha256:76108a416fae838b45a9f78414d63831a1719afff7ca9b35121ce0bf5a43a90a"
         }
       ],
-      "status": "draft",
+      "status": "validated",
       "build": {
-        "iterations": 0,
+        "iterations": 1,
         "proof": [
           {
             "cmd": "powershell -File scripts/dev-build.ps1 -App api",
@@ -2283,6 +2303,16 @@
           {
             "cmd": "cd test && npx playwright test e2e/t1-round2.spec.ts --project=chromium -g \"TC-NTF-UI009-10[23]|TC-AUD-UI010-109|TC-AUD-UI010-112\" --reporter=list",
             "result": "4 passed (17.9s) · [real] TC-NTF-UI009-102 (EX-mrr-115) · TC-NTF-UI009-103 (EX-mrr-118) · TC-AUD-UI010-109 (EX-mrr-120) · TC-AUD-UI010-112 (EX-mrr-123) against docker stack mrr-* rebuilt from HEAD",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-build.ps1 -App api",
+            "result": "tsc -p tsconfig.build.json · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App api -Filter FE-mrr-028",
+            "result": "Test Suites: 38 skipped, 2 passed, 2 of 40 total · Tests: 464 skipped, 49 passed, 513 total · exit 0",
             "at": "2026-11-24"
           }
         ],
@@ -2420,9 +2450,9 @@
           "hash": "sha256:6446f319b837c86604116b51ad046409f8a7b921566cbc2b2d3a027a5d105545"
         }
       ],
-      "status": "draft",
+      "status": "validated",
       "build": {
-        "iterations": 0,
+        "iterations": 1,
         "proof": [
           {
             "cmd": "powershell -File scripts/dev-build.ps1 -App frontend-web",
@@ -2467,6 +2497,16 @@
           {
             "cmd": "cd test && npx playwright test e2e/t1-round2.spec.ts --project=chromium -g \"TC-NTF-UI009-10[23]|TC-AUD-UI010-109|TC-AUD-UI010-112\" --reporter=list",
             "result": "4 passed (15.3s) · [real] TC-NTF-UI009-102 (EX-mrr-115) · TC-NTF-UI009-103 (EX-mrr-118) · TC-AUD-UI010-109 (EX-mrr-120) · TC-AUD-UI010-112 (EX-mrr-123) against docker stack mrr-* rebuilt from HEAD",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-build.ps1 -App frontend-web",
+            "result": "tsc --noEmit && vite build · built in 953ms · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web -Filter FE-mrr-007",
+            "result": "Test Files 1 passed | 20 skipped (21) · Tests 22 passed | 311 skipped (333) · exit 0",
             "at": "2026-11-24"
           }
         ],
@@ -2670,9 +2710,9 @@
           "hash": "sha256:76108a416fae838b45a9f78414d63831a1719afff7ca9b35121ce0bf5a43a90a"
         }
       ],
-      "status": "draft",
+      "status": "validated",
       "build": {
-        "iterations": 0,
+        "iterations": 1,
         "proof": [
           {
             "cmd": "powershell -File scripts/dev-build.ps1 -App api",
@@ -2702,6 +2742,16 @@
           {
             "cmd": "cd test && npx playwright test e2e/t1-round2.spec.ts --project=chromium -g \"TC-AUD-UI010-110|TC-NTF-UI010-102\" --reporter=list",
             "result": "2 passed (21.7s) · [real] TC-AUD-UI010-110 (EX-mrr-121) · TC-NTF-UI010-102 (EX-mrr-124) against docker stack mrr-* rebuilt from HEAD",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-build.ps1 -App api",
+            "result": "tsc -p tsconfig.build.json · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App api -Filter FE-mrr-029",
+            "result": "Test Suites: 38 skipped, 2 passed, 2 of 40 total · Tests: 481 skipped, 32 passed, 513 total · exit 0",
             "at": "2026-11-24"
           }
         ],
@@ -2801,9 +2851,9 @@
           "hash": "sha256:ba23bf171705a84bce6cb103743bec8f324d6027a720e8c1cf899986413c845e"
         }
       ],
-      "status": "draft",
+      "status": "validated",
       "build": {
-        "iterations": 0,
+        "iterations": 1,
         "proof": [
           {
             "cmd": "powershell -File scripts/dev-build.ps1 -App frontend-web",
@@ -2843,6 +2893,16 @@
           {
             "cmd": "cd test && npx playwright test e2e/t1-round2.spec.ts --project=chromium -g \"TC-AUD-UI010-110|TC-NTF-UI010-102\" --reporter=list",
             "result": "2 passed (14.5s) · [real] TC-AUD-UI010-110 (EX-mrr-121) · TC-NTF-UI010-102 (EX-mrr-124) against docker stack mrr-* rebuilt from HEAD",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-build.ps1 -App frontend-web",
+            "result": "tsc --noEmit && vite build · built in 953ms · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web -Filter FE-mrr-008",
+            "result": "Test Files 1 passed | 20 skipped (21) · Tests 22 passed | 311 skipped (333) · exit 0",
             "at": "2026-11-24"
           }
         ],
@@ -3013,9 +3073,9 @@
           "hash": "sha256:76108a416fae838b45a9f78414d63831a1719afff7ca9b35121ce0bf5a43a90a"
         }
       ],
-      "status": "draft",
+      "status": "validated",
       "build": {
-        "iterations": 0,
+        "iterations": 1,
         "proof": [
           {
             "cmd": "powershell -File scripts/dev-build.ps1 -App api",
@@ -3045,6 +3105,16 @@
           {
             "cmd": "cd test && npx playwright test e2e/t1-round2.spec.ts --project=chromium -g \"TC-NTF-UI010-101|TC-AUD-UI010-111\" --reporter=list",
             "result": "2 passed (12.7s) · [real] TC-NTF-UI010-101 (EX-mrr-117) · TC-AUD-UI010-111 (EX-mrr-122) against docker stack mrr-* rebuilt from HEAD",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-build.ps1 -App api",
+            "result": "tsc -p tsconfig.build.json · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App api -Filter FE-mrr-030",
+            "result": "Test Suites: 38 skipped, 2 passed, 2 of 40 total · Tests: 466 skipped, 47 passed, 513 total · exit 0",
             "at": "2026-11-24"
           }
         ],
@@ -3161,9 +3231,9 @@
           "hash": "sha256:bc535d87ee75bb5e3c3620fd28f11ad0a5c2aaeb67433c8826dbdd0ef33f2ced"
         }
       ],
-      "status": "draft",
+      "status": "validated",
       "build": {
-        "iterations": 0,
+        "iterations": 1,
         "proof": [
           {
             "cmd": "powershell -File scripts/dev-build.ps1 -App frontend-web",
@@ -3203,6 +3273,16 @@
           {
             "cmd": "cd test && npx playwright test e2e/t1-round2.spec.ts --project=chromium -g \"TC-NTF-UI010-101|TC-AUD-UI010-111\" --reporter=list",
             "result": "2 passed (13.0s) · [real] TC-NTF-UI010-101 (EX-mrr-117) · TC-AUD-UI010-111 (EX-mrr-122) against docker stack mrr-* rebuilt from HEAD",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-build.ps1 -App frontend-web",
+            "result": "tsc --noEmit && vite build · built in 953ms · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web -Filter FE-mrr-009",
+            "result": "Test Files 2 passed | 19 skipped (21) · Tests 18 passed | 315 skipped (333) · exit 0",
             "at": "2026-11-24"
           }
         ],
@@ -3365,9 +3445,9 @@
           "hash": "sha256:f4f7461f1560c969a8d444010e6a9e2ab99be0b7c5e25a43bbf9f18934e717f4"
         }
       ],
-      "status": "draft",
+      "status": "validated",
       "build": {
-        "iterations": 0,
+        "iterations": 1,
         "proof": [
           {
             "cmd": "powershell -File scripts/dev-build.ps1 -App api",
@@ -3383,11 +3463,21 @@
             "cmd": "powershell -File scripts/dev-test.ps1",
             "result": "api: Test Suites 20 passed, Tests 266 passed · web: Test Files 8 passed, Tests 123 passed · exit 0",
             "at": "2026-10-20"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-build.ps1 -App api",
+            "result": "tsc -p tsconfig.build.json · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App api -Filter FE-mrr-031",
+            "result": "Test Suites: 38 skipped, 2 passed, 2 of 40 total · Tests: 493 skipped, 20 passed, 513 total · exit 0",
+            "at": "2026-11-24"
           }
         ],
         "last_error": null,
         "recorded_by": "Noppasorn",
-        "recorded_at": "2026-10-20"
+        "recorded_at": "2026-11-24"
       },
       "manifest": {
         "files": [
@@ -3457,7 +3547,7 @@
           "hash": "sha256:5b8247cfc668ae8b94235f1ac30b9e6a1e28134765c25ad40b9672d89aa859a0"
         }
       ],
-      "status": "draft",
+      "status": "validated",
       "build": {
         "iterations": 1,
         "proof": [
@@ -3475,11 +3565,21 @@
             "cmd": "powershell -File scripts/dev-test.ps1",
             "result": "api: Test Suites 20 passed, Tests 266 passed · web: Test Files 9 passed, Tests 134 passed · exit 0",
             "at": "2026-10-20"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-build.ps1 -App frontend-web",
+            "result": "tsc --noEmit && vite build · built in 953ms · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web -Filter FE-mrr-010",
+            "result": "Test Files 1 passed | 20 skipped (21) · Tests 13 passed | 320 skipped (333) · exit 0",
+            "at": "2026-11-24"
           }
         ],
         "last_error": null,
         "recorded_by": "Noppasorn",
-        "recorded_at": "2026-10-20"
+        "recorded_at": "2026-11-24"
       },
       "manifest": {
         "files": [
@@ -3622,7 +3722,7 @@
           "hash": "sha256:f4f7461f1560c969a8d444010e6a9e2ab99be0b7c5e25a43bbf9f18934e717f4"
         }
       ],
-      "status": "draft",
+      "status": "validated",
       "build": {
         "iterations": 1,
         "proof": [
@@ -3649,6 +3749,16 @@
           {
             "cmd": "powershell -NoProfile -File scripts/dev-test.ps1 -App api -Filter FE-mrr-032",
             "result": "PASS adjustment-decision.http.spec.ts · PASS adjustment-decision.spec.ts · Test Suites: 38 skipped, 2 passed, 2 of 40 total · Tests: 462 skipped, 20 passed, 482 total · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-build.ps1 -App api",
+            "result": "tsc -p tsconfig.build.json · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App api -Filter FE-mrr-032",
+            "result": "Test Suites: 38 skipped, 2 passed, 2 of 40 total · Tests: 491 skipped, 22 passed, 513 total · exit 0",
             "at": "2026-11-24"
           }
         ],
@@ -3743,9 +3853,9 @@
           "hash": "sha256:b35f3143833f2b04d2d4383de9cd4a86dfb56d3426990834378b721a6dfdfe2f"
         }
       ],
-      "status": "draft",
+      "status": "validated",
       "build": {
-        "iterations": 0,
+        "iterations": 1,
         "proof": [
           {
             "cmd": "powershell -File scripts/dev-build.ps1 -App frontend-web",
@@ -3761,11 +3871,21 @@
             "cmd": "powershell -File scripts/dev-test.ps1",
             "result": "api: Test Suites 22 passed, Tests 286 passed · web: Test Files 10 passed, Tests 151 passed",
             "at": "2026-10-21"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-build.ps1 -App frontend-web",
+            "result": "tsc --noEmit && vite build · built in 953ms · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web -Filter FE-mrr-011",
+            "result": "Test Files 1 passed | 20 skipped (21) · Tests 19 passed | 314 skipped (333) · exit 0",
+            "at": "2026-11-24"
           }
         ],
         "last_error": null,
         "recorded_by": "Noppasorn",
-        "recorded_at": "2026-10-21"
+        "recorded_at": "2026-11-24"
       },
       "manifest": {
         "files": [
@@ -3957,9 +4077,9 @@
           "hash": "sha256:76108a416fae838b45a9f78414d63831a1719afff7ca9b35121ce0bf5a43a90a"
         }
       ],
-      "status": "draft",
+      "status": "validated",
       "build": {
-        "iterations": 0,
+        "iterations": 2,
         "proof": [
           {
             "cmd": "powershell -File scripts/dev-build.ps1 -App api",
@@ -3999,6 +4119,16 @@
           {
             "cmd": "cd test && npx playwright test e2e/ --project=chromium -g \"EX-mrr-12[0-3]\b|EX-mrr-118\" --reporter=list",
             "result": "4 passed (14.9s) · [real] TC-NTF-UI009-103 (EX-mrr-118) · TC-AUD-UI010-109 (EX-mrr-120) · TC-AUD-UI010-110 (EX-mrr-121) · TC-AUD-UI010-111 (EX-mrr-122) against docker stack mrr-* rebuilt from HEAD",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-build.ps1 -App api",
+            "result": "tsc -p tsconfig.build.json · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App api -Filter FE-mrr-033",
+            "result": "Test Suites: 38 skipped, 2 passed, 2 of 40 total · Tests: 491 skipped, 22 passed, 513 total · exit 0",
             "at": "2026-11-24"
           }
         ],
@@ -4144,9 +4274,9 @@
           "hash": "sha256:5b8247cfc668ae8b94235f1ac30b9e6a1e28134765c25ad40b9672d89aa859a0"
         }
       ],
-      "status": "draft",
+      "status": "validated",
       "build": {
-        "iterations": 0,
+        "iterations": 1,
         "proof": [
           {
             "cmd": "powershell -File scripts/dev-build.ps1 -App frontend-web",
@@ -4186,6 +4316,16 @@
           {
             "cmd": "cd test && npx playwright test e2e/t1-round2.spec.ts --project=chromium -g \"TC-AUD-UI010-1(09|1[012])\" --reporter=list",
             "result": "4 passed (15.5s) · [real] TC-AUD-UI010-109 (EX-mrr-120) · TC-AUD-UI010-110 (EX-mrr-121) · TC-AUD-UI010-111 (EX-mrr-122) · TC-AUD-UI010-112 (EX-mrr-123) against docker stack mrr-* rebuilt from HEAD",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-build.ps1 -App frontend-web",
+            "result": "tsc --noEmit && vite build · built in 953ms · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App frontend-web -Filter FE-mrr-012",
+            "result": "Test Files 1 passed | 20 skipped (21) · Tests 20 passed | 313 skipped (333) · exit 0",
             "at": "2026-11-24"
           }
         ],
@@ -5652,9 +5792,9 @@
           "hash": "sha256:1737121b862ffa8d357e0a875f395845189f339686edb666884fe6df716b7626"
         }
       ],
-      "status": "draft",
+      "status": "validated",
       "build": {
-        "iterations": 0,
+        "iterations": 1,
         "proof": [
           {
             "cmd": "powershell -File scripts/dev-build.ps1 -App api",
@@ -5679,6 +5819,16 @@
           {
             "cmd": "cd test && npx playwright test e2e/t1-round2.spec.ts --project=chromium -g \"TC-BKG-UI006-107|TC-NTF-UI006-102|TC-NTF-UI009-10[23]|TC-NTF-UI008-105|TC-NTF-UI010-10[12]\" --reporter=list",
             "result": "7 passed (18.9s) · [real] TC-BKG-UI006-107 (EX-mrr-113) · TC-NTF-UI006-102 (EX-mrr-114) · TC-NTF-UI009-102 (EX-mrr-115) · TC-NTF-UI008-105 (EX-mrr-116) · TC-NTF-UI010-101 (EX-mrr-117) · TC-NTF-UI009-103 (EX-mrr-118) · TC-NTF-UI010-102 (EX-mrr-124) against docker stack mrr-* rebuilt from HEAD",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-build.ps1 -App api",
+            "result": "tsc -p tsconfig.build.json · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -File scripts/dev-test.ps1 -App api -Filter FE-mrr-017",
+            "result": "Test Suites: 39 skipped, 1 passed, 1 of 40 total · Tests: 502 skipped, 11 passed, 513 total · exit 0",
             "at": "2026-11-24"
           }
         ],
@@ -7675,8 +7825,7 @@
   "rollup": {
     "features_total": 42,
     "by_status": {
-      "validated": 27,
-      "draft": 15
+      "validated": 42
     },
     "by_origin": {
       "new": 13,
