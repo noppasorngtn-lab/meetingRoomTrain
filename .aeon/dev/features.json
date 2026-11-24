@@ -5242,7 +5242,7 @@
       "title_th": "เตือนก่อนเริ่มประชุม 15 นาที",
       "app_ref": "api",
       "type": "batch",
-      "origin": "new",
+      "origin": "change",
       "files_planned": [],
       "depends_on": [
         "FE-mrr-017"
@@ -5255,7 +5255,9 @@
         "AC-mrr-065",
         "AC-mrr-073",
         "AC-mrr-074",
-        "AC-mrr-075"
+        "AC-mrr-075",
+        "AC-mrr-114",
+        "AC-mrr-115"
       ],
       "traces_up": [
         {
@@ -5264,7 +5266,7 @@
         },
         {
           "ref": "AC-mrr-020",
-          "hash": "sha256:9bdfdac9cfd758b85c8672a14cd25605ab932eac0678dc53ddf0f10fba99f7c1"
+          "hash": "sha256:12676bee134a3c779822cefcb8a7dc24616268d5155ad6b5041ee492f59fa843"
         },
         {
           "ref": "AC-mrr-023",
@@ -5276,11 +5278,11 @@
         },
         {
           "ref": "AC-mrr-064",
-          "hash": "sha256:2bb59a5d0ad98ded73bbe86c4c4810e50737db21b220cad8766d5d7ed9550e32"
+          "hash": "sha256:f048c81ba514dafee8b75a8948d5595856df9cfe179d30076b69f6968513da5e"
         },
         {
           "ref": "AC-mrr-065",
-          "hash": "sha256:2fe0257752fdb0fe4f196a69ab70e10193231ec60c2aefe838e9957e375a4d7a"
+          "hash": "sha256:46c3b3b2ab89900b7bc5830d5dce3bda9a24e77eac60f7f8d0d04b7c8a002f69"
         },
         {
           "ref": "AC-mrr-073",
@@ -5293,6 +5295,14 @@
         {
           "ref": "AC-mrr-075",
           "hash": "sha256:cd05ad23e0302068c878f28a3ccbfc05432deac20154013a5af9e58ee82e8f3a"
+        },
+        {
+          "ref": "AC-mrr-114",
+          "hash": "sha256:acfec117500cd70878dedb89530e94310a79964d3130d2f98bc87e602f54b6eb"
+        },
+        {
+          "ref": "AC-mrr-115",
+          "hash": "sha256:a71197be9e6c83eb92de366e5382642b973f178802f84c648802c87a0a8e536d"
         },
         {
           "ref": "ENT-007",
@@ -5321,11 +5331,26 @@
             "cmd": "powershell -File scripts/dev-test.ps1 -App api",
             "result": "Test Suites: 2 passed, 2 total · Tests: 15 passed, 15 total · exit 0 (FE-mrr-017 regression after reminderDue was extracted)",
             "at": "2026-10-20"
+          },
+          {
+            "cmd": "powershell -NoProfile -File scripts/dev-build.ps1 -App api",
+            "result": "tsc -p tsconfig.build.json · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -NoProfile -File scripts/dev-test.ps1 -App api -Filter FE-mrr-018",
+            "result": "reminder-job.spec.ts PASS · Test Suites: 39 skipped, 1 passed, 1 of 40 total · Tests: 478 skipped, 10 passed, 488 total · exit 0 (AC-mrr-114 sent to U1 U2 U3 = SENT · AC-mrr-115 U3 refused = FAILED for the whole booking, 09:50 sends nothing)",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "cd test && npx playwright test e2e/t1-round2.spec.ts --project=chromium -g \"TC-NTF-JOB-1(09|10)\" --reporter=list",
+            "result": "2 passed (15.0s) · [real] TC-NTF-JOB-109 (EX-mrr-111 = AC-mrr-114) · TC-NTF-JOB-110 (EX-mrr-112 = AC-mrr-115, SMTP fixture refusing U3) against docker stack mrr-* rebuilt from HEAD",
+            "at": "2026-11-24"
           }
         ],
         "last_error": null,
         "recorded_by": "Noppasorn",
-        "recorded_at": "2026-10-20"
+        "recorded_at": "2026-11-24"
       },
       "manifest": {
         "files": [
@@ -7157,8 +7182,8 @@
       "validated": 42
     },
     "by_origin": {
-      "new": 25,
-      "change": 17
+      "new": 24,
+      "change": 18
     },
     "by_app": {
       "frontend-web": 19,

@@ -133,6 +133,35 @@ describe('FE-mrr-018 ReminderJob', () => {
     expect(store.get('b1').reminderStatus).toBe('FAILED');
   });
 
+  it('AC-mrr-114 at 09:45 U1, U2 and U3 get the reminder and the booking is recorded as ส่งสำเร็จ (SENT)', async () => {
+    setup(booking());
+
+    await job.run(at('09:45'));
+
+    for (const u of [U1, U2, U3]) expect(transport.subjectsFor(u)).toEqual([REMINDER]);
+    expect(store.get('b1')).toMatchObject({ reminderStatus: 'SENT', reminderAt: at('09:45') });
+  });
+
+  it('AC-mrr-115 U3 refused: the whole booking is recorded ส่งไม่สำเร็จ (FAILED), 09:50 sends to nobody again, and the booking stands', async () => {
+    setup(booking());
+    // The mail server refuses U3 only; one refused recipient fails the whole send (BR-mrr-020@v2 · smtp-mail-transport.spec.ts).
+    const refusesU3: MailTransport = {
+      send: async (m) => {
+        if (m.to.includes(U3)) throw new Error('550 5.1.1 <u3@example.test>: Recipient address rejected');
+        transport.sent.push(m);
+      },
+    };
+    job = new ReminderJob(store, new BookingNotifier(refusesU3));
+
+    await job.run(at('09:45'));
+    expect(store.get('b1')).toMatchObject({ reminderStatus: 'FAILED', reminderAt: at('09:45'), status: 'CONFIRMED' });
+
+    await job.run(at('09:50'));
+
+    expect(transport.sent).toEqual([]);
+    expect(store.get('b1')).toMatchObject({ reminderStatus: 'FAILED', reminderAt: at('09:45'), status: 'CONFIRMED' });
+  });
+
   it('one failed reminder does not stop the others in the same run', async () => {
     let calls = 0;
     const flaky: MailTransport = {
