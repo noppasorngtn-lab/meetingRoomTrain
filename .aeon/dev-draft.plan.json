@@ -2,44 +2,64 @@
   "module": "mrr",
   "features": [
     {
-      "id": "FE-mrr-032",
-      "title_th": "อนุมัติคำขอแก้ไขการจอง — ฝั่ง API",
-      "app_ref": "api",
-      "type": "command",
+      "id": "FE-mrr-016",
+      "title_th": "ออกและดูรายงานการใช้ห้อง — หน้าจอ",
+      "app_ref": "frontend-web",
+      "type": "report",
       "origin": "change",
       "files_planned": [],
-      "depends_on": [],
+      "depends_on": [
+        "FE-mrr-022",
+        "FE-mrr-036"
+      ],
       "acceptance_refs": [
-        "AC-mrr-043",
-        "AC-mrr-044"
+        "AC-mrr-045",
+        "AC-mrr-046",
+        "AC-mrr-047",
+        "AC-mrr-070",
+        "AC-mrr-071",
+        "AC-mrr-072",
+        "AC-mrr-082",
+        "AC-mrr-083",
+        "AC-mrr-084",
+        "AC-mrr-085"
       ],
       "traces_up": [
         {
-          "ref": "UC-mrr-011"
+          "ref": "UC-mrr-016"
         },
         {
-          "ref": "AC-mrr-043"
+          "ref": "AC-mrr-045"
         },
         {
-          "ref": "AC-mrr-044"
+          "ref": "AC-mrr-046"
         },
         {
-          "ref": "API-017"
+          "ref": "AC-mrr-047"
         },
         {
-          "ref": "API-018"
+          "ref": "AC-mrr-070"
         },
         {
-          "ref": "API-019"
+          "ref": "AC-mrr-071"
         },
         {
-          "ref": "ENT-007"
+          "ref": "AC-mrr-072"
         },
         {
-          "ref": "ENT-010"
+          "ref": "AC-mrr-082"
         },
         {
-          "ref": "ENT-011"
+          "ref": "AC-mrr-083"
+        },
+        {
+          "ref": "AC-mrr-084"
+        },
+        {
+          "ref": "AC-mrr-085"
+        },
+        {
+          "ref": "RPT-mrr-001"
         }
       ],
       "status": "draft"

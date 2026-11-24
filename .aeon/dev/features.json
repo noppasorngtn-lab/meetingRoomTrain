@@ -4815,7 +4815,7 @@
       "title_th": "ออกและดูรายงานการใช้ห้อง — หน้าจอ",
       "app_ref": "frontend-web",
       "type": "report",
-      "origin": "new",
+      "origin": "change",
       "files_planned": [],
       "depends_on": [
         "FE-mrr-022",
@@ -4836,7 +4836,7 @@
       "traces_up": [
         {
           "ref": "UC-mrr-016",
-          "hash": "sha256:8cd5a6ce0b8a264d5f6c3ea925eaa4fc0444a53aa78276820b25695506901e7c"
+          "hash": "sha256:09ca49021fda438f19ad78dd08c85418389b7150fe881856fa25c391a889e36f"
         },
         {
           "ref": "AC-mrr-045",
@@ -4864,19 +4864,19 @@
         },
         {
           "ref": "AC-mrr-082",
-          "hash": "sha256:91c45baa23f5b5691ede874a1d37779a5df29d41a84f4415f2ea00b15fa4793c"
+          "hash": "sha256:c4ef9763e916d4f799c7a02fbdcf6d6bd167b505d939a6bf2cae830dfaa02f74"
         },
         {
           "ref": "AC-mrr-083",
-          "hash": "sha256:2399c708b837549b6eea94087de50010ccf76f879c94888a66364f1fe020f2a1"
+          "hash": "sha256:560c782c0d5c9899b93294222fbe14b167700416dee4eb42082951e991f35c39"
         },
         {
           "ref": "AC-mrr-084",
-          "hash": "sha256:703fea5949a2bcea77b12a87046603072f4decdba4eb3178bc919bc13f446589"
+          "hash": "sha256:c96916dd547162a40face014a1b7510f96cd1c42cf2560de680dd8ac10599c08"
         },
         {
           "ref": "AC-mrr-085",
-          "hash": "sha256:81b1990c11667fe408eb0aafb8f31b8fdf70d4b7977ba6381501832509da5189"
+          "hash": "sha256:8ec8176e020bf7c617f6375b04129fff333d6b4f31c6e5e5d5809cfda0a9f297"
         },
         {
           "ref": "RPT-mrr-001",
@@ -4901,11 +4901,26 @@
             "cmd": "powershell -File scripts/dev-test.ps1",
             "result": "api: Test Suites 29 passed, Tests 353 passed · web: Test Files 12 passed, Tests 180 passed · exit 0",
             "at": "2026-10-21"
+          },
+          {
+            "cmd": "powershell -NoProfile -File scripts/dev-build.ps1 -App frontend-web",
+            "result": "tsc --noEmit + vite build · built in 932ms · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -NoProfile -File scripts/dev-test.ps1 -App frontend-web -Filter FE-mrr-016",
+            "result": "utilization-report.test.tsx 16 passed · Test Files 1 passed | 20 skipped (21) · Tests 16 passed | 293 skipped (309) · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "cd test && npx playwright test e2e/t1-reports.spec.ts --project=chromium -g \"EX-mrr-12[5-8]|AC-mrr-1(2[89]|3[01])\" --reporter=list",
+            "result": "4 passed (20.9s) · [real] TC-RPT-RPT001-111..114 (EX-mrr-125..128, BR-mrr-006@v2 tied ranks incl. across the 50-row page boundary) against docker stack mrr-*",
+            "at": "2026-11-24"
           }
         ],
         "last_error": null,
         "recorded_by": "Noppasorn",
-        "recorded_at": "2026-10-21"
+        "recorded_at": "2026-11-24"
       },
       "manifest": {
         "files": [
@@ -7074,8 +7089,8 @@
       "validated": 42
     },
     "by_origin": {
-      "new": 27,
-      "change": 15
+      "new": 26,
+      "change": 16
     },
     "by_app": {
       "frontend-web": 19,
