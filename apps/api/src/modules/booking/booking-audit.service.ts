@@ -21,7 +21,7 @@ export interface BookingAuditRow {
   actor: { id: string; fullName: string };
   /** ENT-010's action, in the api's own names — the screen words it. */
   action: Database['booking_audit_entries']['action'];
-  /** Null where the action asks for none — APPROVE, REJECT, APPROVE_ADJUSTMENT, REJECT_ADJUSTMENT. */
+  /** Null where the action asks for none — APPROVE, APPROVE_ADJUSTMENT, REJECT_ADJUSTMENT. REJECT carries one since BR-mrr-017@v2 (ENT-010 · ADR-010). */
   reason: string | null;
   /** The values before and after, where the action changed any. */
   detail: unknown;

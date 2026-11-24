@@ -2,16 +2,13 @@
   "module": "mrr",
   "features": [
     {
-      "id": "FE-mrr-012",
-      "title_th": "ดูร่องรอยการกระทำต่อการจอง — หน้าจอ",
-      "app_ref": "frontend-web",
+      "id": "FE-mrr-033",
+      "title_th": "ดูร่องรอยการกระทำต่อการจอง — ฝั่ง API",
+      "app_ref": "api",
       "type": "command",
       "origin": "change",
       "files_planned": [],
-      "depends_on": [
-        "FE-mrr-022",
-        "FE-mrr-033"
-      ],
+      "depends_on": [],
       "acceptance_refs": [
         "AC-mrr-052",
         "AC-mrr-053",
@@ -51,7 +48,10 @@
           "ref": "AC-mrr-059"
         },
         {
-          "ref": "UI-mrr-010"
+          "ref": "API-016"
+        },
+        {
+          "ref": "ENT-010"
         }
       ],
       "status": "draft"
