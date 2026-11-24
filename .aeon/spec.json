@@ -1467,7 +1467,7 @@
         "features": [],
         "test_cases": []
       },
-      "constrained_by": "CALC-mrr-001@v1",
+      "constrained_by": "CALC-mrr-001@v2",
       "golden": [
         "GD-mrr-001"
       ],
@@ -4417,9 +4417,127 @@
       "id": "CALC-mrr-001@v1",
       "base_id": "CALC-mrr-001",
       "version": 1,
-      "is_current": true,
+      "is_current": false,
       "constrains": "BR-mrr-006@v1",
       "effective_from": null,
+      "formula": "utilization_pct = booked_minutes ÷ operating_minutes × 100",
+      "inputs": [
+        {
+          "name": "booked_minutes",
+          "type": "int",
+          "description": "ผลรวมนาทีของการจองที่ใช้ได้จริง (ไม่ต้องอนุมัติ หรืออนุมัติแล้ว) ของห้องในช่วงรายงาน — นับเฉพาะส่วนที่อยู่ใน จ.–ศ. 08:00–18:00 และไม่ทับช่วงที่ห้องปิดปรับปรุง"
+        },
+        {
+          "name": "operating_minutes",
+          "type": "int",
+          "description": "600 นาที × จำนวนวัน จ.–ศ. ในช่วงรายงาน (วันหยุดนักขัตฤกษ์นับตามปกติ) − นาทีในเวลาทำการที่ห้องปิดปรับปรุง"
+        }
+      ],
+      "numeric_type": "decimal",
+      "rounding_mode": "HALF_UP",
+      "rounding_points": "ตัวตั้งและตัวหารเป็นนาทีจำนวนเต็ม ไม่มีการปัดก่อนหาร · ปัดจุดเดียวที่ผลเปอร์เซ็นต์ เหลือทศนิยม 2 ตำแหน่ง (เช่น 62.50) — ไม่ปัดสัดส่วนก่อนคูณ 100 · สอดคล้อง DQ-mrr-009 (ปัดทุกจุดที่เกิดค่า) และ DQ-mrr-008",
+      "residual_policy": null,
+      "boundary_behavior": [
+        "การจองที่เลยนอกเวลาทำการ (เช่น 17:00–19:00) → นับเฉพาะส่วนใน 08:00–18:00 จ.–ศ. — อัตราจึงไม่เกิน 100%",
+        "นับเฉพาะการจองที่ใช้ได้จริง — ไม่นับที่ยกเลิก / ปฏิเสธ / รออนุมัติ (BR-mrr-006@v1)",
+        "ช่วงที่ห้องปิดปรับปรุง → หักออกจากตัวหาร และการจองที่คงอยู่ในช่วงนั้น (BR-mrr-012@v1) ไม่นับในตัวตั้ง",
+        "operating_minutes = 0 (ห้องปิดปรับปรุงทั้งช่วงรายงาน) → ไม่คำนวณ แสดง \"—\" และไม่เข้าอันดับ",
+        "วันหยุดนักขัตฤกษ์ที่ตรงกับ จ.–ศ. → นับเป็นเวลาทำการตามปกติ (ระบบไม่ต้องมีปฏิทินวันหยุด)"
+      ],
+      "status": "superseded",
+      "questions": [],
+      "deferred_questions": [
+        "DQ-mrr-008",
+        "DQ-mrr-009",
+        "DQ-mrr-010"
+      ],
+      "provenance": [
+        {
+          "source": "SRC-014",
+          "locator": {
+            "line": 1
+          },
+          "quote": "formula: ผลเก็บเป็นเปอร์เซ็นต์ — ชั่วโมงที่ถูกจอง ÷ ชั่วโมงทำการของห้อง × 100",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-014",
+          "locator": {
+            "line": 2
+          },
+          "quote": "inputs: นับเป็นนาที (int) ทั้งตัวตั้งและตัวหาร",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-014",
+          "locator": {
+            "line": 3
+          },
+          "quote": "inputs: ชั่วโมงทำการเป็นค่าเดียวทั้งองค์กร คือ จ.–ศ. 08:00–18:00",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-014",
+          "locator": {
+            "line": 4
+          },
+          "quote": "numeric_type / rounding: decimal ปัด 2 ตำแหน่ง (ตอบ DQ-mrr-008) วิธีปัด HALF_UP ตาม DQ-mrr-009",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-014",
+          "locator": {
+            "line": 5
+          },
+          "quote": "boundary: การจองที่เลยนอกชั่วโมงทำการ นับเฉพาะส่วนที่อยู่ในเวลาทำการ",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-014",
+          "locator": {
+            "line": 6
+          },
+          "quote": "boundary: ช่วงที่ห้องปิดปรับปรุง หักออกจากตัวหาร",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-014",
+          "locator": {
+            "line": 7
+          },
+          "quote": "boundary: ถ้าตัวหารเหลือ 0 (ห้องปิดทั้งช่วงรายงาน) แสดง \"—\" ไม่คำนวณ",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-014",
+          "locator": {
+            "line": 8
+          },
+          "quote": "boundary: วันหยุดนักขัตฤกษ์ที่ตรงกับ จ.–ศ. นับเป็นเวลาทำการตามปกติ",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-014",
+          "locator": {
+            "line": 9
+          },
+          "quote": "boundary: การจองที่คงอยู่ในช่วงปิดปรับปรุง (BR-mrr-012) ไม่นับในตัวตั้ง — ตัวตั้งและตัวหารใช้ช่วงเวลาเดียวกัน",
+          "confidence": 1
+        }
+      ],
+      "notes": "ชั่วโมงทำการ จ.–ศ. 08:00–18:00 มาจากคำตอบของเจ้าของ ตัวเลขที่ยกเป็นตัวอย่างระหว่างถามไม่ได้ถูกใช้แทนคำตอบ · decimal(p,s) ใน DB ยังรอ DQ-mrr-010 (Phase 2)",
+      "supersedes": null,
+      "superseded_by": "CALC-mrr-001@v2",
+      "superseded_at": "2026-11-24T14:00+07:00",
+      "change_reason": null
+    },
+    {
+      "id": "CALC-mrr-001@v2",
+      "base_id": "CALC-mrr-001",
+      "version": 2,
+      "is_current": true,
+      "constrains": "BR-mrr-006@v2",
+      "effective_from": "2026-11-19",
       "formula": "utilization_pct = booked_minutes ÷ operating_minutes × 100",
       "inputs": [
         {
@@ -4526,10 +4644,10 @@
         }
       ],
       "notes": "ชั่วโมงทำการ จ.–ศ. 08:00–18:00 มาจากคำตอบของเจ้าของ ตัวเลขที่ยกเป็นตัวอย่างระหว่างถามไม่ได้ถูกใช้แทนคำตอบ · decimal(p,s) ใน DB ยังรอ DQ-mrr-010 (Phase 2)",
-      "supersedes": null,
+      "supersedes": "CALC-mrr-001@v1",
       "superseded_by": null,
       "superseded_at": null,
-      "change_reason": null
+      "change_reason": "สัญญาการคำนวณยังพินกฎ BR-mrr-006@v1 ที่ถูกแทนที่โดย CHG-mrr-004 สัญญาจึงไม่ถูกส่งออกไปยัง design/dev (calculations[] ว่างตั้งแต่ 35fbc2c) · ขึ้นเวอร์ชันเพื่อพินกฎปัจจุบัน BR-mrr-006@v2 · สูตร ชนิดตัวเลข การปัด และขอบทุกข้อเหมือน @v1 ไม่เปลี่ยน"
     }
   ],
   "golden_datasets": [
@@ -5364,6 +5482,20 @@
       "invalidates": [],
       "effective_from": "2026-11-19",
       "notes": "ที่มา: Q-mrr-005 (ตอบแล้ว) · EX-mrr-084..087 พิสูจน์ต่อทั้ง @v1 และ @v2 (เจ้าของยืนยันทีละตัว: @v2 เป็นส่วนขยาย ไม่ขัดกับของเดิม) · **ประโยคอันดับเท่ากัน (1,1,3) ยังไม่มี EX พิสูจน์** — ตัวอย่างเดิมไม่มีห้องที่อัตราเท่ากัน · CALC-mrr-001@v1 ไม่ขึ้นเวอร์ชัน (สูตรเปอร์เซ็นต์ไม่เปลี่ยน กติกาอันดับเป็นการเรียงลำดับ) และ GD-mrr-001 ไม่ถูกทำให้เป็นโมฆะ แต่ยังไม่มีแถวที่อัตราเท่ากัน · ต่อไป: /req:example BR-mrr-006@v2 และ /req:golden ให้มีแถวเสมอ"
+    },
+    {
+      "id": "CHG-mrr-005",
+      "at": "2026-11-24T14:00+07:00",
+      "requested_by": "Noppasorn",
+      "approved_by": "Noppasorn",
+      "triggered_by": [],
+      "reason": "สัญญาการคำนวณยังพินกฎ BR-mrr-006@v1 ที่ถูกแทนที่โดย CHG-mrr-004 สัญญาจึงไม่ถูกส่งออกไปยัง design/dev (calculations[] ว่างตั้งแต่ 35fbc2c) · ขึ้นเวอร์ชันเพื่อพินกฎปัจจุบัน BR-mrr-006@v2 · สูตร ชนิดตัวเลข การปัด และขอบทุกข้อเหมือน @v1 ไม่เปลี่ยน",
+      "affects": [
+        "CALC-mrr-001@v2"
+      ],
+      "invalidates": [],
+      "effective_from": "2026-11-19",
+      "notes": "ต่อจาก CHG-mrr-004 ซึ่งตัดสินว่าสูตรไม่เปลี่ยน — ใบนี้ไม่เปลี่ยนเนื้อหาของสัญญา ย้ายเฉพาะกฎที่พิน · GD-mrr-001 ไม่ถูกทำให้เป็นโมฆะ (สูตรเดิม ค่าทุกแถวยังถูก) แต่ proves ยังชี้ CALC-mrr-001@v1 — ต่อไป /req:golden ให้ครอบ @v2 · พบจาก /dev:build FE-mrr-036 ที่ build.mjs ปฏิเสธ calc_ref เพราะสัญญาไม่มี CALC (GAP-mrr-026 รอบผูก AC-mrr-128..131) · ไม่มี SRC ใหม่ — เจ้าของอนุมัติในการสนทนา 2026-11-24"
     }
   ],
   "questions": [

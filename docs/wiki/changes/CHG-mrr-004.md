@@ -12,7 +12,7 @@ affects: [BR-mrr-006@v2]
 invalidates: []
 triggered_by: [SRC-032, SRC-033]
 timestamp: 2026-11-18T12:30:00+07:00
-spec_hash: sha256:c5c0c2b6c74b042f26f003e58bdb3403af89cb5efb05ad0aff60399099f06048
+spec_hash: sha256:8ba5e85e85a7a1d1953e3ed23c42cfa480becf27a021aaca6701b3e02f53b932
 ---
 
 # CHG-mrr-004

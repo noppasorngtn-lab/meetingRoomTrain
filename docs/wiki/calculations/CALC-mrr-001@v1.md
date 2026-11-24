@@ -5,14 +5,15 @@ description: utilization_pct = booked_minutes ÷ operating_minutes × 100
 resource: ../rules/BR-mrr-006@v1.md
 tags: [mrr, calculation]
 id: CALC-mrr-001@v1
-status: draft
+status: superseded
 constrains: BR-mrr-006@v1
-is_current: true
+is_current: false
 numeric_type: decimal
 rounding_mode: HALF_UP
 golden: [GD-mrr-001]
+superseded_by: CALC-mrr-001@v2
 timestamp: 2026-11-18T12:30:00+07:00
-spec_hash: sha256:766bb2039f07c17c37a028209786c9b8eb3013640999de516d493aee678b160e
+spec_hash: sha256:546af3469570fbe7eaa77f974e60ae786883e992d9a46f750c804e680ff05a44
 ---
 
 # CALC-mrr-001@v1
@@ -63,7 +64,8 @@ utilization_pct = booked_minutes ÷ operating_minutes × 100
 
 | เวอร์ชัน | มีผลตั้งแต่ | เหตุผล |
 |---|---|---|
-| **CALC-mrr-001@v1** (หน้านี้) ✅ | — | ตั้งต้น |
+| **CALC-mrr-001@v1** (หน้านี้) | — | ตั้งต้น |
+| [CALC-mrr-001@v2](CALC-mrr-001@v2.md) ✅ | 2026-11-19 | สัญญาการคำนวณยังพินกฎ BR-mrr-006@v1 ที่ถูกแทนที่โดย CHG-mrr-004 สัญญาจึงไม่ถูกส่งออกไปยัง design/dev (calculations[] ว่างตั้งแต่ 35fbc2c) · ขึ้นเวอร์ชันเพื่อพินกฎปัจจุบัน BR-mrr-006@v2 · สูตร ชนิดตัวเลข การปัด และขอบทุกข้อเหมือน @v1 ไม่เปลี่ยน |
 
 ## หมายเหตุ
 ชั่วโมงทำการ จ.–ศ. 08:00–18:00 มาจากคำตอบของเจ้าของ ตัวเลขที่ยกเป็นตัวอย่างระหว่างถามไม่ได้ถูกใช้แทนคำตอบ · decimal(p,s) ใน DB ยังรอ DQ-mrr-010 (Phase 2)

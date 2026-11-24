@@ -17,7 +17,7 @@
 | [SRC-011](SRC-011.md) | chat | — | 4 |
 | [SRC-012](SRC-012.md) | chat | — | 2 |
 | [SRC-013](SRC-013.md) | chat | — | 3 |
-| [SRC-014](SRC-014.md) | chat | — | 1 |
+| [SRC-014](SRC-014.md) | chat | — | 2 |
 | [SRC-015](SRC-015.md) | chat | — | ⚠️ 0 |
 | [SRC-016](SRC-016.md) | chat | — | 1 |
 | [SRC-017](SRC-017.md) | chat | — | ⚠️ 0 |

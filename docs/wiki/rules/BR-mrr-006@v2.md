@@ -11,13 +11,13 @@ kind: calculation
 is_current: true
 effective_from: 2026-11-19
 test_design: [BVA]
-constrained_by: CALC-mrr-001@v1
+constrained_by: CALC-mrr-001@v2
 proven_by: [EX-mrr-084, EX-mrr-085, EX-mrr-086, EX-mrr-087, EX-mrr-125, EX-mrr-126, EX-mrr-127, EX-mrr-128]
 golden: [GD-mrr-001]
 supersedes: BR-mrr-006@v1
 provenance: [SRC-001, SRC-012, SRC-012, SRC-012, SRC-032, SRC-033]
 timestamp: 2026-11-18T12:30:00+07:00
-spec_hash: sha256:612443e9ac31411078610ae8f4f94e27c802f952a1277f5ad6cb486cee2ea442
+spec_hash: sha256:e35d411716ec05b851e2b949942d0d15f724179171832bb33d44b4da104c6a2d
 ---
 
 # BR-mrr-006@v2
@@ -25,7 +25,7 @@ spec_hash: sha256:612443e9ac31411078610ae8f4f94e27c802f952a1277f5ad6cb486cee2ea4
 ## ข้อความของกฎ
 อัตราการใช้งานรายห้อง = ชั่วโมงที่ถูกจองและใช้ได้จริง (ไม่ต้องอนุมัติ หรืออนุมัติแล้ว — ไม่นับยกเลิก / ปฏิเสธ / รออนุมัติ) ÷ ชั่วโมงทำการของห้องในช่วงรายงาน · ปัดทุกจุดแบบ round half up · ใช้จัดอันดับห้องที่ใช้งานสูงสุด · ห้องที่อัตราการใช้งานเท่ากัน (เทียบหลังปัดตามสัญญาการคำนวณเหลือทศนิยม 2 ตำแหน่ง) ได้อันดับเดียวกัน และห้องถัดไปข้ามเลขอันดับ เช่น 1, 1, 3
 
-คำนวณตามสัญญา [CALC-mrr-001@v1](../calculations/CALC-mrr-001@v1.md)
+คำนวณตามสัญญา [CALC-mrr-001@v2](../calculations/CALC-mrr-001@v2.md)
 
 ## ที่มา
 

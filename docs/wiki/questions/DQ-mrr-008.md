@@ -9,7 +9,7 @@ state: answered
 raised_by: BR-mrr-006@v1
 answer_phase: domain
 timestamp: 2026-11-18T12:30:00+07:00
-spec_hash: sha256:1f78ad4249ed27f86a11bb3813a41be32d2e74b38b01c15b3e1f1bac5996d45f
+spec_hash: sha256:2e0bb94e7e3a641fcd4be0260af492bf65c55fe9fd708bf465efc7cc4f7f0875
 ---
 
 # DQ-mrr-008

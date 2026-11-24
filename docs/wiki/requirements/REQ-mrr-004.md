@@ -9,7 +9,7 @@ actor: Room Administrator
 rules: [BR-mrr-006, BR-mrr-015, BR-mrr-022]
 domain_concepts: [UL-mrr-001, UL-mrr-008, UL-mrr-012]
 timestamp: 2026-11-18T12:30:00+07:00
-spec_hash: sha256:ad32e067c0203f5c1a32a6216553993368e8398796d4b6a682e595d6d0a90d8a
+spec_hash: sha256:6a2f4c56563a7fb46769bfb106ab8905101a49ab2d2db687c0ad793b0944697d
 ---
 
 # REQ-mrr-004
@@ -46,7 +46,7 @@ spec_hash: sha256:ad32e067c0203f5c1a32a6216553993368e8398796d4b6a682e595d6d0a90d
 - **ที่มา:** [SRC-012](../sources/SRC-012.md) บรรทัด 3 — *"QB-calc-01: ผลที่มีเศษทศนิยม ปัดทุกจุดแบบ round half up"*
 - **ที่มา:** [SRC-032](../sources/SRC-032.md) บรรทัด 1 — *"เมื่อห้องตั้งแต่สองห้องขึ้นไปมีอัตราการใช้งาน ... เท่ากัน จะจัดอันดับอย่างไร"*
 - **ที่มา:** [SRC-033](../sources/SRC-033.md) บรรทัด 1 — *"ห้องที่อัตราการใช้งานเท่ากันให้ อันดับเท่ากัน (competition ranking ... เช่น 1, 1, 3)"*
-- **สัญญาการคำนวณ:** [CALC-mrr-001@v1](../calculations/CALC-mrr-001@v1.md)
+- **สัญญาการคำนวณ:** [CALC-mrr-001@v2](../calculations/CALC-mrr-001@v2.md)
 - **เลขเฉลย:** [GD-mrr-001](../golden/GD-mrr-001.md) — 16 แถว · ✅ Noppasorn ยืนยัน 2026-11-19
 - **บังคับที่:** *(ยังไม่มีใครผูกกับโค้ด — เฟส 2 เป็นคนตอบ)*
 - **พิสูจน์โดย:** [EX-mrr-084](../examples/EX-mrr-084.md), [EX-mrr-085](../examples/EX-mrr-085.md), [EX-mrr-086](../examples/EX-mrr-086.md), [EX-mrr-087](../examples/EX-mrr-087.md), [EX-mrr-125](../examples/EX-mrr-125.md), [EX-mrr-126](../examples/EX-mrr-126.md), [EX-mrr-127](../examples/EX-mrr-127.md), [EX-mrr-128](../examples/EX-mrr-128.md)
@@ -79,6 +79,7 @@ spec_hash: sha256:ad32e067c0203f5c1a32a6216553993368e8398796d4b6a682e595d6d0a90d
 |---|---|
 | [CHG-mrr-004](../changes/CHG-mrr-004.md) | บันทึกการเปลี่ยนแปลง |
 | [CALC-mrr-001@v1](../calculations/CALC-mrr-001@v1.md) | สัญญาการคำนวณ |
+| [CALC-mrr-001@v2](../calculations/CALC-mrr-001@v2.md) | สัญญาการคำนวณ |
 | [GD-mrr-001](../golden/GD-mrr-001.md) | เลขเฉลย |
 
 > เนื้อหาเต็มอยู่ที่หน้าของมันเอง ไม่ถูกคัดลอกมาที่นี่ — bundle นี้ถือหนึ่งโหนดหนึ่งไฟล์

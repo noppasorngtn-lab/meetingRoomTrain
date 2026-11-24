@@ -1058,7 +1058,7 @@
             "EX-mrr-128"
           ],
           "questions": [],
-          "constrainedBy": "CALC-mrr-001@v1",
+          "constrainedBy": "CALC-mrr-001@v2",
           "effectiveFrom": "2026-11-19",
           "provenance": [
             {
@@ -3187,7 +3187,121 @@
     }
   ],
   "codeSources": [],
-  "calculations": [],
+  "calculations": [
+    {
+      "id": "CALC-mrr-001@v2",
+      "baseId": "CALC-mrr-001",
+      "version": 2,
+      "status": "draft",
+      "constrains": "BR-mrr-006@v2",
+      "effectiveFrom": "2026-11-19",
+      "formula": "utilization_pct = booked_minutes ÷ operating_minutes × 100",
+      "inputs": [
+        {
+          "name": "booked_minutes",
+          "type": "int",
+          "description": "ผลรวมนาทีของการจองที่ใช้ได้จริง (ไม่ต้องอนุมัติ หรืออนุมัติแล้ว) ของห้องในช่วงรายงาน — นับเฉพาะส่วนที่อยู่ใน จ.–ศ. 08:00–18:00 และไม่ทับช่วงที่ห้องปิดปรับปรุง"
+        },
+        {
+          "name": "operating_minutes",
+          "type": "int",
+          "description": "600 นาที × จำนวนวัน จ.–ศ. ในช่วงรายงาน (วันหยุดนักขัตฤกษ์นับตามปกติ) − นาทีในเวลาทำการที่ห้องปิดปรับปรุง"
+        }
+      ],
+      "numericType": "decimal",
+      "roundingMode": "HALF_UP",
+      "roundingPoints": "ตัวตั้งและตัวหารเป็นนาทีจำนวนเต็ม ไม่มีการปัดก่อนหาร · ปัดจุดเดียวที่ผลเปอร์เซ็นต์ เหลือทศนิยม 2 ตำแหน่ง (เช่น 62.50) — ไม่ปัดสัดส่วนก่อนคูณ 100 · สอดคล้อง DQ-mrr-009 (ปัดทุกจุดที่เกิดค่า) และ DQ-mrr-008",
+      "residualPolicy": null,
+      "boundaryBehavior": [
+        "การจองที่เลยนอกเวลาทำการ (เช่น 17:00–19:00) → นับเฉพาะส่วนใน 08:00–18:00 จ.–ศ. — อัตราจึงไม่เกิน 100%",
+        "นับเฉพาะการจองที่ใช้ได้จริง — ไม่นับที่ยกเลิก / ปฏิเสธ / รออนุมัติ (BR-mrr-006@v1)",
+        "ช่วงที่ห้องปิดปรับปรุง → หักออกจากตัวหาร และการจองที่คงอยู่ในช่วงนั้น (BR-mrr-012@v1) ไม่นับในตัวตั้ง",
+        "operating_minutes = 0 (ห้องปิดปรับปรุงทั้งช่วงรายงาน) → ไม่คำนวณ แสดง \"—\" และไม่เข้าอันดับ",
+        "วันหยุดนักขัตฤกษ์ที่ตรงกับ จ.–ศ. → นับเป็นเวลาทำการตามปกติ (ระบบไม่ต้องมีปฏิทินวันหยุด)"
+      ],
+      "questions": [],
+      "deferredQuestions": [
+        "DQ-mrr-008",
+        "DQ-mrr-009",
+        "DQ-mrr-010"
+      ],
+      "provenance": [
+        {
+          "source": "SRC-014",
+          "locator": {
+            "line": 1
+          },
+          "quote": "formula: ผลเก็บเป็นเปอร์เซ็นต์ — ชั่วโมงที่ถูกจอง ÷ ชั่วโมงทำการของห้อง × 100",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-014",
+          "locator": {
+            "line": 2
+          },
+          "quote": "inputs: นับเป็นนาที (int) ทั้งตัวตั้งและตัวหาร",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-014",
+          "locator": {
+            "line": 3
+          },
+          "quote": "inputs: ชั่วโมงทำการเป็นค่าเดียวทั้งองค์กร คือ จ.–ศ. 08:00–18:00",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-014",
+          "locator": {
+            "line": 4
+          },
+          "quote": "numeric_type / rounding: decimal ปัด 2 ตำแหน่ง (ตอบ DQ-mrr-008) วิธีปัด HALF_UP ตาม DQ-mrr-009",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-014",
+          "locator": {
+            "line": 5
+          },
+          "quote": "boundary: การจองที่เลยนอกชั่วโมงทำการ นับเฉพาะส่วนที่อยู่ในเวลาทำการ",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-014",
+          "locator": {
+            "line": 6
+          },
+          "quote": "boundary: ช่วงที่ห้องปิดปรับปรุง หักออกจากตัวหาร",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-014",
+          "locator": {
+            "line": 7
+          },
+          "quote": "boundary: ถ้าตัวหารเหลือ 0 (ห้องปิดทั้งช่วงรายงาน) แสดง \"—\" ไม่คำนวณ",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-014",
+          "locator": {
+            "line": 8
+          },
+          "quote": "boundary: วันหยุดนักขัตฤกษ์ที่ตรงกับ จ.–ศ. นับเป็นเวลาทำการตามปกติ",
+          "confidence": 1
+        },
+        {
+          "source": "SRC-014",
+          "locator": {
+            "line": 9
+          },
+          "quote": "boundary: การจองที่คงอยู่ในช่วงปิดปรับปรุง (BR-mrr-012) ไม่นับในตัวตั้ง — ตัวตั้งและตัวหารใช้ช่วงเวลาเดียวกัน",
+          "confidence": 1
+        }
+      ],
+      "extensions": {}
+    }
+  ],
   "goldenDatasets": [
     {
       "id": "GD-mrr-001",
