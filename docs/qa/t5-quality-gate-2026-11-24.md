@@ -89,7 +89,7 @@ Input: [t3-results-2026-11-23.md](t3-results-2026-11-23.md) · [t2-coverage-repo
 
 | # | คำถาม | ผู้ตอบที่เสนอ |
 |---|---|---|
-| 1 | DQ-mrr ที่ยัง open 3 ข้อ (004 ตอบผ่าน mock · 005, 014 ตอบผ่าน dev) นับเป็น red card ของ G0 หรือไม่ (อีก 7 ข้อ req รับคำตอบ design แล้ว 2026-11-24) — TBD - Require Business Confirmation | PO / mock / dev |
+| 1 | DQ-mrr ที่ยัง open 3 ข้อ (004 ตอบผ่าน mock · 005, 014 ตอบผ่าน dev) นับเป็น red card ของ G0 หรือไม่ (อีก 7 ข้อ req รับคำตอบ design แล้ว 2026-11-24) · หลักฐานประกอบ DQ-004 (ตรวจ 2026-11-24): wireframe `UI-mrr-013` มีเฉพาะช่อง "เวอร์ชัน" = เลขเวอร์ชันปัจจุบัน ไม่มีโซนประวัติเวอร์ชัน (`UI-mrr-012` ก็แสดงจากเวอร์ชันปัจจุบัน) · โค้ด: DB เก็บทุกเวอร์ชันใน `meeting_room_versions` แต่ API ที่พบ join เฉพาะ `current_version_id` ไม่พบ endpoint/หน้าประวัติ [ค้นด้วยคำค้น ไม่ใช่ทั้ง repo] → ดีไซน์ปัจจุบัน = "ไม่แสดง" แต่ยังไม่มีคำตัดสินบันทึก · `/mock:coverage` ปิด DQ-004 ไม่ได้ (UI-mrr-012/013 = `build` ที่ L1 และ coverage ไม่ผูกกับ DQ id) — TBD - Require Business Confirmation | PO / mock / dev |
 | 2 | ยืนยันตัวเลข Gate G0–G3 และ Severity (ทั้งหมด [Recommended]) | PO |
 | 3 | G3 ข้อ "รันครบ 100%": ยอมรับเคสที่ข้ามโดยออกแบบหรือไม่ | PO |
 | 4 | NFR-002: ยอมรับผลบน Docker dev หรือรอ staging จริง · NFR-004 จะพิสูจน์อย่างไรก่อนขึ้นระบบ | PO |
