@@ -86,6 +86,20 @@ describe('FE-mrr-008 change an approval decision page (UI-mrr-010)', () => {
     expect(screen.getByRole('heading', { level: 1, name: 'จัดการการจอง (ผู้ดูแล)' })).toBeInTheDocument();
   });
 
+  // GAP-mrr-026 · EX-mrr-121 / EX-mrr-124 on this page. The trail entry is the api's (FE-mrr-029) and its
+  // row on this page is FE-mrr-012's; the mail to U1 and U2 is the api's (FE-mrr-017 · FE-mrr-029).
+  it('AC-mrr-124 · AC-mrr-127 RA changes the approval to rejected with อนุมัติผิดห้อง — sent as typed, เปลี่ยนผลการอนุมัติสำเร็จ, the booking shows ปฏิเสธแล้ว', async () => {
+    open();
+    await loaded();
+    type('อนุมัติผิดห้อง');
+
+    change();
+
+    expect(await screen.findByRole('status')).toHaveTextContent('เปลี่ยนผลการอนุมัติสำเร็จ');
+    expect(posts()).toEqual([{ method: 'POST', url: DECIDE, body: { decision: 'REJECTED', reason: 'อนุมัติผิดห้อง' } }]);
+    await waitFor(() => expect(screen.getByTestId('ui-mrr-010-ent-007-status')).toHaveTextContent('ปฏิเสธแล้ว'));
+  });
+
   it('AC-mrr-034 no reason — กรุณาระบุเหตุผล at the field, nothing sent, still อนุมัติแล้ว', async () => {
     open();
     await loaded();

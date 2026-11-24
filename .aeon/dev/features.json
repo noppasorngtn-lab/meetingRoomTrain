@@ -2759,7 +2759,9 @@
         "AC-mrr-034",
         "AC-mrr-035",
         "AC-mrr-036",
-        "AC-mrr-087"
+        "AC-mrr-087",
+        "AC-mrr-124",
+        "AC-mrr-127"
       ],
       "traces_up": [
         {
@@ -2789,11 +2791,19 @@
         {
           "ref": "AC-mrr-087",
           "hash": "sha256:3333432659f54346e15e6eee76bf3e0ea342cefc96cc4e3a3151b9fd4a76e66e"
+        },
+        {
+          "ref": "AC-mrr-124",
+          "hash": "sha256:f26234e6462f036a942a73a646025c7d54dc43ebffc1f24b1fc6507ca2186d3d"
+        },
+        {
+          "ref": "AC-mrr-127",
+          "hash": "sha256:ba23bf171705a84bce6cb103743bec8f324d6027a720e8c1cf899986413c845e"
         }
       ],
       "status": "validated",
       "build": {
-        "iterations": 1,
+        "iterations": 0,
         "proof": [
           {
             "cmd": "powershell -File scripts/dev-build.ps1 -App frontend-web",
@@ -2818,6 +2828,21 @@
           {
             "cmd": "powershell -NoProfile -File scripts/dev-test.ps1 -App frontend-web -Filter FE-mrr-008",
             "result": "change-decision.test.tsx 21 passed (incl. error state: mail did not go → status unchanged, press again) · Test Files 1 passed | 20 skipped (21) · Tests 21 passed | 288 skipped (309) · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -NoProfile -File scripts/dev-build.ps1 -App frontend-web",
+            "result": "tsc --noEmit + vite build · built in 915ms · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -NoProfile -File scripts/dev-test.ps1 -App frontend-web -Filter FE-mrr-008",
+            "result": "change-decision.test.tsx 22 passed · Test Files 1 passed | 20 skipped (21) · Tests 22 passed | 299 skipped (321) · exit 0 (AC-mrr-124/127 reason sent as typed, เปลี่ยนผลการอนุมัติสำเร็จ, shows ปฏิเสธแล้ว)",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "cd test && npx playwright test e2e/t1-round2.spec.ts --project=chromium -g \"TC-AUD-UI010-110|TC-NTF-UI010-102\" --reporter=list",
+            "result": "2 passed (14.5s) · [real] TC-AUD-UI010-110 (EX-mrr-121) · TC-NTF-UI010-102 (EX-mrr-124) against docker stack mrr-* rebuilt from HEAD",
             "at": "2026-11-24"
           }
         ],
