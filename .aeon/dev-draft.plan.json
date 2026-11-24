@@ -2,8 +2,8 @@
   "module": "mrr",
   "features": [
     {
-      "id": "FE-mrr-028",
-      "title_th": "อนุมัติหรือปฏิเสธการจอง — ฝั่ง API",
+      "id": "FE-mrr-029",
+      "title_th": "เปลี่ยนผลการอนุมัติ — ฝั่ง API",
       "app_ref": "api",
       "type": "command",
       "origin": "change",
@@ -12,67 +12,37 @@
         "FE-mrr-017"
       ],
       "acceptance_refs": [
-        "AC-mrr-013",
-        "AC-mrr-014",
-        "AC-mrr-037",
-        "AC-mrr-038",
-        "AC-mrr-039",
-        "AC-mrr-051",
-        "AC-mrr-052",
-        "AC-mrr-062",
-        "AC-mrr-118",
-        "AC-mrr-121",
-        "AC-mrr-123",
-        "AC-mrr-126"
+        "AC-mrr-033",
+        "AC-mrr-034",
+        "AC-mrr-035",
+        "AC-mrr-036",
+        "AC-mrr-124",
+        "AC-mrr-127"
       ],
       "traces_up": [
         {
-          "ref": "UC-mrr-007"
+          "ref": "UC-mrr-008"
         },
         {
-          "ref": "AC-mrr-013"
+          "ref": "AC-mrr-033"
         },
         {
-          "ref": "AC-mrr-014"
+          "ref": "AC-mrr-034"
         },
         {
-          "ref": "AC-mrr-037"
+          "ref": "AC-mrr-035"
         },
         {
-          "ref": "AC-mrr-038"
+          "ref": "AC-mrr-036"
         },
         {
-          "ref": "AC-mrr-039"
+          "ref": "AC-mrr-124"
         },
         {
-          "ref": "AC-mrr-051"
+          "ref": "AC-mrr-127"
         },
         {
-          "ref": "AC-mrr-052"
-        },
-        {
-          "ref": "AC-mrr-062"
-        },
-        {
-          "ref": "AC-mrr-118"
-        },
-        {
-          "ref": "AC-mrr-121"
-        },
-        {
-          "ref": "AC-mrr-123"
-        },
-        {
-          "ref": "AC-mrr-126"
-        },
-        {
-          "ref": "API-010"
-        },
-        {
-          "ref": "API-011"
-        },
-        {
-          "ref": "API-012"
+          "ref": "API-013"
         },
         {
           "ref": "ENT-007"

@@ -2506,7 +2506,7 @@
       "title_th": "เปลี่ยนผลการอนุมัติ — ฝั่ง API",
       "app_ref": "api",
       "type": "command",
-      "origin": "new",
+      "origin": "change",
       "files_planned": [],
       "depends_on": [
         "FE-mrr-017"
@@ -2515,12 +2515,14 @@
         "AC-mrr-033",
         "AC-mrr-034",
         "AC-mrr-035",
-        "AC-mrr-036"
+        "AC-mrr-036",
+        "AC-mrr-124",
+        "AC-mrr-127"
       ],
       "traces_up": [
         {
           "ref": "UC-mrr-008",
-          "hash": "sha256:f18b0c7ac87d4172e4c1d5622eba14e456734745dc984eea11816533ddd54f7a"
+          "hash": "sha256:4285a07736c135ff2b7ed321585309c8a372299b653001f34e81f57d61d7083a"
         },
         {
           "ref": "AC-mrr-033",
@@ -2539,6 +2541,14 @@
           "hash": "sha256:3d14801823aff4eed8e81e2ce001ff522ea281ba2ce78e1bce7dfe9d9799eb78"
         },
         {
+          "ref": "AC-mrr-124",
+          "hash": "sha256:f26234e6462f036a942a73a646025c7d54dc43ebffc1f24b1fc6507ca2186d3d"
+        },
+        {
+          "ref": "AC-mrr-127",
+          "hash": "sha256:ba23bf171705a84bce6cb103743bec8f324d6027a720e8c1cf899986413c845e"
+        },
+        {
           "ref": "API-013",
           "hash": "sha256:283a67d90c73e64880b2ef6fbe1c66a43060c594f5a0c22bb5a176a652e7e59b"
         },
@@ -2548,7 +2558,7 @@
         },
         {
           "ref": "ENT-010",
-          "hash": "sha256:fb41b9378eaf8f1f19c7e0cb570aad7582f05713eab16d4c5f2f9d57de03f3fc"
+          "hash": "sha256:3fae91d443acad5bf74c36b488badb406749178e7eb06711b4cf2e76315e5020"
         }
       ],
       "status": "validated",
@@ -2569,11 +2579,26 @@
             "cmd": "powershell -File scripts/dev-test.ps1",
             "result": "api: Test Suites 16 passed, Tests 202 passed · web: Test Files 7 passed, Tests 104 passed · exit 0",
             "at": "2026-10-20"
+          },
+          {
+            "cmd": "powershell -NoProfile -File scripts/dev-build.ps1 -App api",
+            "result": "tsc -p tsconfig.build.json · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -NoProfile -File scripts/dev-test.ps1 -App api -Filter FE-mrr-029",
+            "result": "booking-decision.spec.ts · booking-decision.http.spec.ts PASS · Test Suites: 38 skipped, 2 passed, 2 of 40 total · Tests: 472 skipped, 32 passed, 504 total · exit 0 (AC-mrr-124 REJECTED + เปลี่ยนผลการอนุมัติสำเร็จ + one CHANGE_DECISION entry at 16/10 15:00 · 127 ปฏิเสธการจอง to U1 U2)",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "cd test && npx playwright test e2e/t1-round2.spec.ts --project=chromium -g \"TC-AUD-UI010-110|TC-NTF-UI010-102\" --reporter=list",
+            "result": "2 passed (21.7s) · [real] TC-AUD-UI010-110 (EX-mrr-121) · TC-NTF-UI010-102 (EX-mrr-124) against docker stack mrr-* rebuilt from HEAD",
+            "at": "2026-11-24"
           }
         ],
         "last_error": null,
         "recorded_by": "Noppasorn",
-        "recorded_at": "2026-10-20"
+        "recorded_at": "2026-11-24"
       },
       "manifest": {
         "files": [
@@ -7332,8 +7357,8 @@
       "validated": 42
     },
     "by_origin": {
-      "new": 21,
-      "change": 21
+      "new": 20,
+      "change": 22
     },
     "by_app": {
       "frontend-web": 19,

@@ -95,6 +95,33 @@ describe('FE-mrr-029 change an approval decision (UC-mrr-008)', () => {
     }]);
   });
 
+  // GAP-mrr-026 · EX-mrr-121 / EX-mrr-124 — the approved booking with U2 attending, decided at 16/10 15:00.
+  describe('BR-mrr-007@v2 · BR-mrr-017@v2 criteria with an attendee', () => {
+    let withU2: string;
+    beforeEach(async () => {
+      const u2 = await seedUser(db, 'U2');
+      withU2 = await seedBooking(db, {
+        room: roomB, bookedBy: u1, title: 'ประชุมลูกค้า', startAt: at(17, '10:00'), endAt: at(17, '11:00'), status: 'APPROVED', attendees: [u2],
+      });
+    });
+    const trailOf = () => db.selectFrom('booking_audit_entries').select(['actor_id', 'action', 'reason', 'at']).where('booking_id', '=', withU2).execute();
+
+    it('AC-mrr-124 16/10 15:00 RA changes it to rejected with อนุมัติผิดห้อง — ปฏิเสธแล้ว, เปลี่ยนผลการอนุมัติสำเร็จ, one entry RA · 16/10 15:00 · CHANGE_DECISION (ถอยผล) · อนุมัติผิดห้อง', async () => {
+      expect(await service.changeDecision({ userId: ra }, withU2, { decision: 'REJECTED', reason: 'อนุมัติผิดห้อง' })).toEqual({ message: 'เปลี่ยนผลการอนุมัติสำเร็จ' });
+
+      expect(await status(withU2)).toBe('REJECTED');
+      expect(await trailOf()).toEqual([{ actor_id: ra, action: 'CHANGE_DECISION', reason: 'อนุมัติผิดห้อง', at: at(16, '15:00') }]);
+    });
+
+    it('AC-mrr-127 changing the approval to rejected mails ปฏิเสธการจอง to U1 and U2', async () => {
+      await service.changeDecision({ userId: ra }, withU2, { decision: 'REJECTED', reason: 'อนุมัติผิดห้อง' });
+
+      expect(mail.sent.map((m) => [m.to, m.subject])).toEqual([
+        [['u1@example.test', 'u2@example.test'], '[จองห้องประชุม] ปฏิเสธการจอง: ประชุมลูกค้า · ห้อง B 17/10 10:00–11:00'],
+      ]);
+    });
+  });
+
   it('approved → rejected mails the booker that it was rejected (BR-mrr-007@v2 (3) · owner answer 2026-11-18)', async () => {
     await service.changeDecision({ userId: ra }, booking, { decision: 'REJECTED', reason: 'อนุมัติผิดห้อง' });
 
