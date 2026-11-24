@@ -1,37 +1,13 @@
 {
   "module": "mrr",
-  "features": [
+  "features": [],
+  "gaps": [
     {
-      "id": "FE-mrr-045",
-      "title_th": "ออกจากระบบ — ฝั่ง API",
-      "app_ref": "api",
-      "type": "platform",
-      "function_ref": "FUN-mrr-015",
-      "origin": "new",
-      "files_planned": [],
-      "depends_on": ["FE-mrr-039"],
-      "acceptance_refs": ["AC-mrr-111", "AC-mrr-112", "AC-mrr-113"],
-      "traces_up": [
-        { "ref": "AC-mrr-111" }, { "ref": "AC-mrr-112" }, { "ref": "AC-mrr-113" },
-        { "ref": "API-034" }, { "ref": "ENT-014" }
-      ],
-      "status": "draft"
-    },
-    {
-      "id": "FE-mrr-046",
-      "title_th": "ออกจากระบบ — หน้าจอ",
-      "app_ref": "frontend-web",
-      "type": "platform",
-      "function_ref": "FUN-mrr-015",
-      "origin": "new",
-      "files_planned": [],
-      "depends_on": ["FE-mrr-040", "FE-mrr-045"],
-      "acceptance_refs": ["AC-mrr-111", "AC-mrr-112", "AC-mrr-113"],
-      "traces_up": [
-        { "ref": "AC-mrr-111" }, { "ref": "AC-mrr-112" }, { "ref": "AC-mrr-113" },
-        { "ref": "UI-mrr-003" }, { "ref": "API-034" }
-      ],
-      "status": "draft"
+      "id": "GAP-mrr-026",
+      "to": "design",
+      "about": "AC-mrr-114",
+      "question_th": "เกณฑ์รับ AC-mrr-114 ถึง AC-mrr-131 (18 ข้อ · คัดจาก EX-mrr-111…128 · เพิ่มตอน CHG-mrr-004 และ ADR-012…015) ไม่มีเส้นไปหา use case หรือฟังก์ชันใดใน trace.design.json — มีแค่ copiedFrom EX และ governedBy BR — dev จึงผูกเข้าหน่วยงานใดไม่ได้โดยไม่เดา (DV6 รายงาน 18 ข้อ) · ขอให้ design ผูกแต่ละข้อกับ UC/FUN ที่เป็นเจ้าของ · ที่ dev คาดจากเนื้อหา (ยังไม่ใช่คำตอบ): 114–115 เตือนก่อนประชุม (UC-mrr-018) · 116, 122 จองห้อง (UC-mrr-003) · 117–121, 127 ยกเลิก/อนุมัติ/ปฏิเสธ (UC-mrr-005, 007, 009) · 123–126 เปลี่ยนผลอนุมัติ/แก้แทน (UC-mrr-008, 009) · 128–131 อันดับในรายงาน (UC-mrr-016)",
+      "blocks": ["FE-mrr-017", "FE-mrr-018", "FE-mrr-024", "FE-mrr-026", "FE-mrr-028", "FE-mrr-029", "FE-mrr-030", "FE-mrr-036"]
     }
   ]
 }
