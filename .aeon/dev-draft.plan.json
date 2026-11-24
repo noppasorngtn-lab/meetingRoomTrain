@@ -2,83 +2,120 @@
   "module": "mrr",
   "features": [
     {
-      "id": "FE-mrr-017",
-      "title_th": "ส่ง Email แจ้งเหตุการณ์การจอง",
+      "id": "FE-mrr-024",
+      "title_th": "จองห้องประชุม — ฝั่ง API",
       "app_ref": "api",
       "type": "command",
       "origin": "change",
       "files_planned": [],
-      "depends_on": [],
+      "depends_on": [
+        "FE-mrr-017"
+      ],
       "acceptance_refs": [
+        "AC-mrr-001",
+        "AC-mrr-002",
+        "AC-mrr-003",
+        "AC-mrr-004",
+        "AC-mrr-005",
+        "AC-mrr-006",
+        "AC-mrr-007",
+        "AC-mrr-012",
         "AC-mrr-019",
-        "AC-mrr-021",
-        "AC-mrr-022",
         "AC-mrr-024",
+        "AC-mrr-030",
+        "AC-mrr-031",
+        "AC-mrr-032",
         "AC-mrr-060",
-        "AC-mrr-061",
-        "AC-mrr-062",
-        "AC-mrr-063",
+        "AC-mrr-079",
+        "AC-mrr-081",
         "AC-mrr-116",
-        "AC-mrr-118",
-        "AC-mrr-119",
-        "AC-mrr-120",
-        "AC-mrr-121",
-        "AC-mrr-127"
+        "AC-mrr-117",
+        "AC-mrr-122"
       ],
       "traces_up": [
         {
-          "ref": "UC-mrr-017"
+          "ref": "UC-mrr-003"
+        },
+        {
+          "ref": "AC-mrr-001"
+        },
+        {
+          "ref": "AC-mrr-002"
+        },
+        {
+          "ref": "AC-mrr-003"
+        },
+        {
+          "ref": "AC-mrr-004"
+        },
+        {
+          "ref": "AC-mrr-005"
+        },
+        {
+          "ref": "AC-mrr-006"
+        },
+        {
+          "ref": "AC-mrr-007"
+        },
+        {
+          "ref": "AC-mrr-012"
         },
         {
           "ref": "AC-mrr-019"
         },
         {
-          "ref": "AC-mrr-021"
-        },
-        {
-          "ref": "AC-mrr-022"
-        },
-        {
           "ref": "AC-mrr-024"
+        },
+        {
+          "ref": "AC-mrr-030"
+        },
+        {
+          "ref": "AC-mrr-031"
+        },
+        {
+          "ref": "AC-mrr-032"
         },
         {
           "ref": "AC-mrr-060"
         },
         {
-          "ref": "AC-mrr-061"
+          "ref": "AC-mrr-079"
         },
         {
-          "ref": "AC-mrr-062"
-        },
-        {
-          "ref": "AC-mrr-063"
+          "ref": "AC-mrr-081"
         },
         {
           "ref": "AC-mrr-116"
         },
         {
-          "ref": "AC-mrr-118"
+          "ref": "AC-mrr-117"
         },
         {
-          "ref": "AC-mrr-119"
+          "ref": "AC-mrr-122"
         },
         {
-          "ref": "AC-mrr-120"
+          "ref": "API-004"
         },
         {
-          "ref": "AC-mrr-121"
-        },
-        {
-          "ref": "AC-mrr-127"
+          "ref": "API-005"
         },
         {
           "ref": "ENT-001"
+        },
+        {
+          "ref": "ENT-002"
+        },
+        {
+          "ref": "ENT-003"
         },
         {
           "ref": "ENT-007"
         },
         {
           "ref": "ENT-008"
+        },
+        {
+          "ref": "ENT-009"
         }
       ]
     }

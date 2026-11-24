@@ -225,6 +225,34 @@ describe('FE-mrr-024 BookingService.create (UC-mrr-003)', () => {
     });
   });
 
+  describe('GAP-mrr-026 · BR-mrr-019@v1 · BR-mrr-007@v2 · BR-mrr-002@v1 criteria on creating a booking', () => {
+    it('AC-mrr-116 U1 books ห้อง A 13:00–14:00 — the booking is U1\'s, จองห้องสำเร็จ, the จองสำเร็จ mail goes to U1, no retry message', async () => {
+      const res = await book(U1(), { title: 'ประชุมทีม', startAt: at(17, '13:00'), endAt: at(17, '14:00'), attendeeIds: [U2()] });
+
+      expect(res).toMatchObject({ status: 'CONFIRMED', message: 'จองห้องสำเร็จ' });
+      const row = await db.selectFrom('bookings').select(['booked_by', 'room_id', 'start_at', 'end_at']).where('id', '=', res.id).executeTakeFirstOrThrow();
+      expect(row).toEqual({ booked_by: U1(), room_id: roomA.roomId, start_at: at(17, '13:00'), end_at: at(17, '14:00') });
+      expect(mail.sent.map((m) => [m.to, m.subject])).toEqual([[['u1@example.test'], '[จองห้องประชุม] จองสำเร็จ: ประชุมทีม · ห้อง A 17/10 13:00–14:00']]);
+    });
+
+    it('AC-mrr-117 U1 books ห้อง B (needs approval) — it waits for approval and nobody gets the จองสำเร็จ mail', async () => {
+      const res = await book(U1(), { room: roomB, title: 'ประชุมลูกค้า', startAt: at(17, '10:00'), endAt: at(17, '11:00'), attendeeIds: [U2()] });
+
+      expect(res.status).toBe('PENDING_APPROVAL');
+      expect(mail.sent.filter((m) => m.subject === '[จองห้องประชุม] จองสำเร็จ: ประชุมลูกค้า · ห้อง B 17/10 10:00–11:00')).toEqual([]);
+    });
+
+    it('AC-mrr-122 three attendees and one piece of equipment — จองห้องสำเร็จ, and the booking keeps that one item', async () => {
+      const { id: projector } = await db.insertInto('facilities').values({ name: 'โปรเจคเตอร์' }).returning('id').executeTakeFirstOrThrow();
+
+      const res = await book(U1(), { title: 'ประชุมทีม', startAt: at(17, '13:00'), endAt: at(17, '14:00'), attendeeIds: [U2(), U3(), u[3]], equipmentIds: [projector] });
+
+      expect(res).toMatchObject({ status: 'CONFIRMED', message: 'จองห้องสำเร็จ' });
+      const rows = await db.selectFrom('booking_equipment_requests').select('facility_id').where('booking_id', '=', res.id).execute();
+      expect(rows).toEqual([{ facility_id: projector }]);
+    });
+  });
+
   describe('BR-mrr-010 · a room edit applies to bookings created after it', () => {
     it('AC-mrr-030 a booking made after the room became needs-approval waits for approval', async () => {
       now = at(16, '10:00');

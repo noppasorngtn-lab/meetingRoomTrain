@@ -791,7 +791,7 @@
       "title_th": "จองห้องประชุม — ฝั่ง API",
       "app_ref": "api",
       "type": "command",
-      "origin": "new",
+      "origin": "change",
       "files_planned": [],
       "depends_on": [
         "FE-mrr-017"
@@ -812,7 +812,10 @@
         "AC-mrr-032",
         "AC-mrr-060",
         "AC-mrr-079",
-        "AC-mrr-081"
+        "AC-mrr-081",
+        "AC-mrr-116",
+        "AC-mrr-117",
+        "AC-mrr-122"
       ],
       "traces_up": [
         {
@@ -853,7 +856,7 @@
         },
         {
           "ref": "AC-mrr-019",
-          "hash": "sha256:a4f1199ac980be8d6c50d9f1068603b446298483a1dc983ab88504bb51c9d4d5"
+          "hash": "sha256:4e34573b4aeb4884273590dda709143e628ca3dbaa57ec27ffe5ce5710f13a21"
         },
         {
           "ref": "AC-mrr-024",
@@ -882,6 +885,18 @@
         {
           "ref": "AC-mrr-081",
           "hash": "sha256:12179a186c57d8539bd3545aa8a3230f6e55d0e985ede1cc10c12e5d4d27deb4"
+        },
+        {
+          "ref": "AC-mrr-116",
+          "hash": "sha256:e0cd485c5c003f978f19b29d0afa46050717bcbe4f4f48163a3e0ed4ebc81201"
+        },
+        {
+          "ref": "AC-mrr-117",
+          "hash": "sha256:71e87c64bd16e6228e973fd970f961b21977065155cc4531ad1a738ebd5ebaf9"
+        },
+        {
+          "ref": "AC-mrr-122",
+          "hash": "sha256:f27ba532f50d50e16b3e842a46b249307bf39d33802bac59f18c2547839072c3"
         },
         {
           "ref": "API-004",
@@ -934,11 +949,26 @@
             "cmd": "powershell -File scripts/dev-test.ps1",
             "result": "api: Test Suites 7 passed, Tests 72 passed · web: Test Files 2 passed, Tests 30 passed · exit 0",
             "at": "2026-10-20"
+          },
+          {
+            "cmd": "powershell -NoProfile -File scripts/dev-build.ps1 -App api",
+            "result": "tsc -p tsconfig.build.json · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -NoProfile -File scripts/dev-test.ps1 -App api -Filter FE-mrr-024",
+            "result": "booking.service.spec.ts · booking.http.spec.ts PASS · Test Suites: 38 skipped, 2 passed, 2 of 40 total · Tests: 455 skipped, 40 passed, 495 total · exit 0 (AC-mrr-116 CONFIRMED + จองสำเร็จ mail to U1 · 117 PENDING_APPROVAL, no จองสำเร็จ mail · 122 one equipment request stored)",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "cd test && npx playwright test e2e/t1-round2.spec.ts --project=chromium -g \"TC-BKG-UI006-107|TC-NTF-UI006-102\" --reporter=list; npx playwright test e2e/t1-equipment.spec.ts --project=chromium -g \"TC-BKG-UI006-104\" --reporter=list",
+            "result": "2 passed (18.5s) + 1 passed (11.7s) · [real] TC-BKG-UI006-107 (EX-mrr-113 = AC-mrr-116) · TC-NTF-UI006-102 (EX-mrr-114 = AC-mrr-117) · TC-BKG-UI006-104 (EX-mrr-119 = AC-mrr-122) against docker stack mrr-* rebuilt from HEAD",
+            "at": "2026-11-24"
           }
         ],
         "last_error": null,
         "recorded_by": "Noppasorn",
-        "recorded_at": "2026-10-20"
+        "recorded_at": "2026-11-24"
       },
       "manifest": {
         "files": [
@@ -7229,8 +7259,8 @@
       "validated": 42
     },
     "by_origin": {
-      "new": 23,
-      "change": 19
+      "new": 22,
+      "change": 20
     },
     "by_app": {
       "frontend-web": 19,
