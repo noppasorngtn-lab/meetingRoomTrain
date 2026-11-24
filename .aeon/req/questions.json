@@ -331,6 +331,25 @@
         "EX-mrr-097"
       ],
       "extensions": {}
+    },
+    {
+      "id": "DQ-mrr-017",
+      "question": "ข้อมูลส่วนบุคคลของผู้ใช้ (User.email · User.fullName) เก็บได้นานเท่าไหร่ และนับจากเหตุการณ์ไหน (เช่น ตั้งแต่บัญชีไม่ active เพราะไม่อยู่ในรายชื่อ HR รอบล่าสุด) — และเมื่อครบกำหนด ร่องรอยการกระทำ การจอง และรายงานที่ลบไม่ได้ซึ่งอ้างถึงผู้ใช้คนนั้นจะทำอย่างไร (เก็บต่อ · ปิดบังชื่อ) · เจ้าของ (Noppasorn) ตัดสินแล้วเมื่อ 2026-11-24 ว่าฟิลด์ข้อมูลส่วนบุคคลมีเฉพาะ User.email และ User.fullName ระดับ confidential ส่วนระยะเวลาเก็บต้องถามลูกค้า (PDPA · design V15 ต้องมี retention ก่อนประกาศ personalData)",
+      "raisedBy": "BR-mrr-026@v1",
+      "category": "temporal",
+      "blockedUntil": "entity:User.email · entity:User.fullName",
+      "answerPhase": "domain",
+      "answerBy": {
+        "phase": "domain",
+        "plugin": "design",
+        "command": "/design:datamodel",
+        "why": "the answer is an entity, a field, a type or a life cycle — design is the pen that writes those"
+      },
+      "state": "open",
+      "answer": null,
+      "answeredAt": null,
+      "resultedIn": [],
+      "extensions": {}
     }
   ],
   "open": [
