@@ -1048,7 +1048,10 @@
         "AC-mrr-032",
         "AC-mrr-060",
         "AC-mrr-079",
-        "AC-mrr-081"
+        "AC-mrr-081",
+        "AC-mrr-116",
+        "AC-mrr-117",
+        "AC-mrr-122"
       ],
       "traces_up": [
         {
@@ -1120,13 +1123,25 @@
           "hash": "sha256:12179a186c57d8539bd3545aa8a3230f6e55d0e985ede1cc10c12e5d4d27deb4"
         },
         {
+          "ref": "AC-mrr-116",
+          "hash": "sha256:e0cd485c5c003f978f19b29d0afa46050717bcbe4f4f48163a3e0ed4ebc81201"
+        },
+        {
+          "ref": "AC-mrr-117",
+          "hash": "sha256:71e87c64bd16e6228e973fd970f961b21977065155cc4531ad1a738ebd5ebaf9"
+        },
+        {
+          "ref": "AC-mrr-122",
+          "hash": "sha256:f27ba532f50d50e16b3e842a46b249307bf39d33802bac59f18c2547839072c3"
+        },
+        {
           "ref": "UI-mrr-006",
           "hash": "sha256:666080555c819182a9aa333a938293235b1547c32df616c837963f4576c713b3"
         }
       ],
       "status": "validated",
       "build": {
-        "iterations": 1,
+        "iterations": 0,
         "proof": [
           {
             "cmd": "powershell -File scripts/dev-build.ps1 -App frontend-web",
@@ -1171,6 +1186,21 @@
           {
             "cmd": "powershell -NoProfile -File scripts/dev-test.ps1 -App frontend-web -Filter FE-mrr-003",
             "result": "booking.test.tsx 18 passed · date-format.test.tsx 8 passed · Test Files 2 passed | 19 skipped (21) · Tests 26 passed | 283 skipped (309) · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -NoProfile -File scripts/dev-build.ps1 -App frontend-web",
+            "result": "tsc --noEmit + vite build · built in 990ms · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -NoProfile -File scripts/dev-test.ps1 -App frontend-web -Filter FE-mrr-003",
+            "result": "Test Files 2 passed | 19 skipped (21) · Tests 29 passed | 287 skipped (316) · exit 0 (AC-mrr-116 จองห้องสำเร็จ, no mail-failure message · 117 waits for approval, not จองห้องสำเร็จ · 122 three attendees + one equipment sent)",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "cd test && npx playwright test e2e/t1-round2.spec.ts e2e/t1-equipment.spec.ts --project=chromium -g \"TC-BKG-UI006-107|TC-NTF-UI006-102|TC-BKG-UI006-104\" --reporter=list",
+            "result": "3 passed (14.6s) · [real] TC-BKG-UI006-107 (EX-mrr-113) · TC-NTF-UI006-102 (EX-mrr-114) · TC-BKG-UI006-104 (EX-mrr-119) against docker stack mrr-* rebuilt from HEAD",
             "at": "2026-11-24"
           }
         ],

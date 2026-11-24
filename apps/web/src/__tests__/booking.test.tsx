@@ -13,6 +13,7 @@ type Call = { method: string; url: string; body?: unknown };
 let room: Reply;
 let bookingReply: Reply;
 let calls: Call[];
+let people: object[];
 
 const roomA = (over: object = {}) => ({
   status: 200,
@@ -23,13 +24,14 @@ beforeEach(() => {
   room = roomA();
   bookingReply = { status: 201, body: { id: 'b1', status: 'CONFIRMED', message: 'จองห้องสำเร็จ' } };
   calls = [];
+  people = [U2, U3];
   vi.stubGlobal('fetch', vi.fn(async (url: string, init?: RequestInit) => {
     const method = init?.method ?? 'GET';
     calls.push({ method, url, body: init?.body ? JSON.parse(String(init.body)) : undefined });
     const r: Reply =
       url === `/rooms/${ROOM}` ? room
       : url === '/facilities?active=true' ? { status: 200, body: [PROJECTOR] }
-      : url.startsWith('/users?query=') ? { status: 200, body: [U2, U3] }
+      : url.startsWith('/users?query=') ? { status: 200, body: people }
       : url === '/bookings' && method === 'POST' ? bookingReply
       : { status: 500 };
     return new Response(r.body === undefined ? null : JSON.stringify(r.body), { status: r.status, headers: { 'content-type': 'application/json' } });
@@ -118,6 +120,55 @@ describe('FE-mrr-003 booking form (UI-mrr-006)', () => {
 
     expect(await screen.findByRole('heading', { level: 1, name: 'การจองของฉัน' })).toBeInTheDocument();
     expect(screen.getByRole('status')).toHaveTextContent('ส่งคำขอจองแล้ว รอการอนุมัติ');
+  });
+
+  // GAP-mrr-026 · what the booking form shows for EX-mrr-113 / 114 / 119. Who is mailed is the api's
+  // (FE-mrr-017 · FE-mrr-024); the form shows the api's answer and never the mail-failure message on success.
+  it('AC-mrr-116 ห้อง A 13:00–14:00 with U2 — the page says จองห้องสำเร็จ and never ส่ง Email แจ้งเตือนไม่สำเร็จ กรุณากดใหม่อีกครั้ง', async () => {
+    open(`room=${ROOM}&date=2026-10-17&start=13:00&end=14:00`);
+    await loaded();
+    type('ui-mrr-006-ent-007-title', 'ประชุมทีม');
+    await addAttendee('U2');
+
+    confirm();
+
+    expect(await screen.findByRole('heading', { level: 1, name: 'การจองของฉัน' })).toBeInTheDocument();
+    expect(screen.getByRole('status')).toHaveTextContent('จองห้องสำเร็จ');
+    expect(screen.queryByText('ส่ง Email แจ้งเตือนไม่สำเร็จ กรุณากดใหม่อีกครั้ง')).toBeNull();
+    expect(posted()[0].body).toMatchObject({ startAt: '2026-10-17T13:00:00+07:00', endAt: '2026-10-17T14:00:00+07:00', title: 'ประชุมทีม', attendeeIds: [U2.id] });
+  });
+
+  it('AC-mrr-117 ห้อง B needs approval — the page says it waits for approval, not จองห้องสำเร็จ', async () => {
+    room = roomA({ name: 'ห้อง B', requiresApproval: true });
+    bookingReply = { status: 201, body: { id: 'b2', status: 'PENDING_APPROVAL', message: 'ส่งคำขอจองแล้ว รอการอนุมัติ' } };
+    open();
+    await waitFor(() => expect(screen.getByTestId('ui-mrr-006-ent-007-room')).toHaveTextContent('ห้อง B'));
+    type('ui-mrr-006-ent-007-title', 'ประชุมลูกค้า');
+    await addAttendee('U2');
+
+    confirm();
+
+    expect(await screen.findByRole('heading', { level: 1, name: 'การจองของฉัน' })).toBeInTheDocument();
+    expect(screen.getByRole('status')).toHaveTextContent('ส่งคำขอจองแล้ว รอการอนุมัติ');
+    expect(screen.getByRole('status')).not.toHaveTextContent('จองห้องสำเร็จ');
+  });
+
+  it('AC-mrr-122 three attendees and one piece of equipment — sent with that one item, and the page says จองห้องสำเร็จ', async () => {
+    const U4 = { id: '55555555-5555-5555-5555-555555555555', fullName: 'U4', email: 'u4@example.test' };
+    people = [U2, U3, U4];
+    open(`room=${ROOM}&date=2026-10-17&start=13:00&end=14:00`);
+    await loaded();
+    type('ui-mrr-006-ent-007-title', 'ประชุมทีม');
+    await addAttendee('U2');
+    await addAttendee('U3');
+    await addAttendee('U4');
+    fireEvent.click(screen.getByRole('checkbox', { name: 'โปรเจคเตอร์' }));
+
+    confirm();
+
+    expect(await screen.findByRole('heading', { level: 1, name: 'การจองของฉัน' })).toBeInTheDocument();
+    expect(screen.getByRole('status')).toHaveTextContent('จองห้องสำเร็จ');
+    expect(posted()[0].body).toMatchObject({ attendeeIds: [U2.id, U3.id, U4.id], equipmentIds: [PROJECTOR.id] });
   });
 
   it('AC-mrr-006 an empty title is refused on the form, and nothing is sent', async () => {
