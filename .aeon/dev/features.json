@@ -1716,7 +1716,7 @@
         },
         {
           "ref": "AC-mrr-054",
-          "hash": "sha256:08077334fcbb8a0b98a0b42501dd54d719995865b2d3ab5cc672491d7ff06bdd"
+          "hash": "sha256:c3227150e967d26eeff84d98648dc97cfd50ebcd9cbc2a9e4b828fe0e8cd2208"
         },
         {
           "ref": "AC-mrr-119",
@@ -1731,7 +1731,7 @@
           "hash": "sha256:70b3048818d8c6af914931bd01d0fd6ee3282caa12fe7ae99691ab7addcfd0d8"
         }
       ],
-      "status": "validated",
+      "status": "draft",
       "build": {
         "iterations": 0,
         "proof": [
@@ -1843,7 +1843,7 @@
         },
         {
           "ref": "AC-mrr-054",
-          "hash": "sha256:08077334fcbb8a0b98a0b42501dd54d719995865b2d3ab5cc672491d7ff06bdd"
+          "hash": "sha256:c3227150e967d26eeff84d98648dc97cfd50ebcd9cbc2a9e4b828fe0e8cd2208"
         },
         {
           "ref": "AC-mrr-119",
@@ -1854,7 +1854,7 @@
           "hash": "sha256:f51d2d53df35887e09c6bff19de0c1d0e556745ff44c4000991661a21e9fb1ed"
         }
       ],
-      "status": "validated",
+      "status": "draft",
       "build": {
         "iterations": 0,
         "proof": [
@@ -2208,7 +2208,7 @@
         },
         {
           "ref": "AC-mrr-052",
-          "hash": "sha256:2b2ee3f680bb34beed34508503600828a7f30ba1228728d44fccbfb27aac9f0b"
+          "hash": "sha256:331f93d3bad773705ada0d9f8670d5d3725ee0c8b9bcfeea4c24dc730ee22fe2"
         },
         {
           "ref": "AC-mrr-062",
@@ -2220,15 +2220,15 @@
         },
         {
           "ref": "AC-mrr-121",
-          "hash": "sha256:df8ad168ed036937bb3c524c8f7c9b67e9953a13b049853d1e21557856bd354d"
+          "hash": "sha256:5a6e48ce4cc2ff290475773dd6b7dad30919ec5203429970dfa1232e24c04a2e"
         },
         {
           "ref": "AC-mrr-123",
-          "hash": "sha256:af1ea89cc0855f02e562644fac1960abebc333cca6cf2a3c88783f42d0171c58"
+          "hash": "sha256:86c275bdcae77272c39ca9c9bc3814b390b0a615234abbe9a0280c20941fbc18"
         },
         {
           "ref": "AC-mrr-126",
-          "hash": "sha256:bd8d073c9755ce15cc56d1eb018584301e5235cdf76055f26a9b4e0d5fb4b81a"
+          "hash": "sha256:f92dc917a13133774adcdc8c662862536966e8ea5ddb35f81f576bbc624204bf"
         },
         {
           "ref": "API-010",
@@ -2248,10 +2248,10 @@
         },
         {
           "ref": "ENT-010",
-          "hash": "sha256:3fae91d443acad5bf74c36b488badb406749178e7eb06711b4cf2e76315e5020"
+          "hash": "sha256:76108a416fae838b45a9f78414d63831a1719afff7ca9b35121ce0bf5a43a90a"
         }
       ],
-      "status": "validated",
+      "status": "draft",
       "build": {
         "iterations": 0,
         "proof": [
@@ -2393,7 +2393,7 @@
         },
         {
           "ref": "AC-mrr-052",
-          "hash": "sha256:2b2ee3f680bb34beed34508503600828a7f30ba1228728d44fccbfb27aac9f0b"
+          "hash": "sha256:331f93d3bad773705ada0d9f8670d5d3725ee0c8b9bcfeea4c24dc730ee22fe2"
         },
         {
           "ref": "AC-mrr-062",
@@ -2405,22 +2405,22 @@
         },
         {
           "ref": "AC-mrr-121",
-          "hash": "sha256:df8ad168ed036937bb3c524c8f7c9b67e9953a13b049853d1e21557856bd354d"
+          "hash": "sha256:5a6e48ce4cc2ff290475773dd6b7dad30919ec5203429970dfa1232e24c04a2e"
         },
         {
           "ref": "AC-mrr-123",
-          "hash": "sha256:af1ea89cc0855f02e562644fac1960abebc333cca6cf2a3c88783f42d0171c58"
+          "hash": "sha256:86c275bdcae77272c39ca9c9bc3814b390b0a615234abbe9a0280c20941fbc18"
         },
         {
           "ref": "AC-mrr-126",
-          "hash": "sha256:bd8d073c9755ce15cc56d1eb018584301e5235cdf76055f26a9b4e0d5fb4b81a"
+          "hash": "sha256:f92dc917a13133774adcdc8c662862536966e8ea5ddb35f81f576bbc624204bf"
         },
         {
           "ref": "UI-mrr-009",
           "hash": "sha256:6446f319b837c86604116b51ad046409f8a7b921566cbc2b2d3a027a5d105545"
         }
       ],
-      "status": "validated",
+      "status": "draft",
       "build": {
         "iterations": 0,
         "proof": [
@@ -2651,7 +2651,7 @@
         },
         {
           "ref": "AC-mrr-124",
-          "hash": "sha256:f26234e6462f036a942a73a646025c7d54dc43ebffc1f24b1fc6507ca2186d3d"
+          "hash": "sha256:4da7f94029743fe650958864302aa56bf53e6afdec5b3bdbc6a8780a5c203af5"
         },
         {
           "ref": "AC-mrr-127",
@@ -2667,10 +2667,10 @@
         },
         {
           "ref": "ENT-010",
-          "hash": "sha256:3fae91d443acad5bf74c36b488badb406749178e7eb06711b4cf2e76315e5020"
+          "hash": "sha256:76108a416fae838b45a9f78414d63831a1719afff7ca9b35121ce0bf5a43a90a"
         }
       ],
-      "status": "validated",
+      "status": "draft",
       "build": {
         "iterations": 0,
         "proof": [
@@ -2794,14 +2794,14 @@
         },
         {
           "ref": "AC-mrr-124",
-          "hash": "sha256:f26234e6462f036a942a73a646025c7d54dc43ebffc1f24b1fc6507ca2186d3d"
+          "hash": "sha256:4da7f94029743fe650958864302aa56bf53e6afdec5b3bdbc6a8780a5c203af5"
         },
         {
           "ref": "AC-mrr-127",
           "hash": "sha256:ba23bf171705a84bce6cb103743bec8f324d6027a720e8c1cf899986413c845e"
         }
       ],
-      "status": "validated",
+      "status": "draft",
       "build": {
         "iterations": 0,
         "proof": [
@@ -2978,11 +2978,11 @@
         },
         {
           "ref": "AC-mrr-053",
-          "hash": "sha256:892af8f4e29d8f9d8590d1d0ac114c31a7a3fc67eed82a8ba166245aac62300a"
+          "hash": "sha256:bfb4d3c506bdcfce0ee5573c6762e23b4d3612939fefdba6fee49f0cbb519ffc"
         },
         {
           "ref": "AC-mrr-055",
-          "hash": "sha256:0e070a5816c939a4c09996924b78403c95614bf1dda379072f978fede9cd6db9"
+          "hash": "sha256:dd0beebca5caa4ce74880e899077776ba2c5f5f70745bd11887efed8fe106584"
         },
         {
           "ref": "AC-mrr-120",
@@ -2990,7 +2990,7 @@
         },
         {
           "ref": "AC-mrr-125",
-          "hash": "sha256:e6749ba4554fdb461c9f6e3ae669432c1e4af12fdac2ac47f9f68959afc5ae09"
+          "hash": "sha256:bc535d87ee75bb5e3c3620fd28f11ad0a5c2aaeb67433c8826dbdd0ef33f2ced"
         },
         {
           "ref": "API-007",
@@ -3010,10 +3010,10 @@
         },
         {
           "ref": "ENT-010",
-          "hash": "sha256:3fae91d443acad5bf74c36b488badb406749178e7eb06711b4cf2e76315e5020"
+          "hash": "sha256:76108a416fae838b45a9f78414d63831a1719afff7ca9b35121ce0bf5a43a90a"
         }
       ],
-      "status": "validated",
+      "status": "draft",
       "build": {
         "iterations": 0,
         "proof": [
@@ -3138,11 +3138,11 @@
         },
         {
           "ref": "AC-mrr-053",
-          "hash": "sha256:892af8f4e29d8f9d8590d1d0ac114c31a7a3fc67eed82a8ba166245aac62300a"
+          "hash": "sha256:bfb4d3c506bdcfce0ee5573c6762e23b4d3612939fefdba6fee49f0cbb519ffc"
         },
         {
           "ref": "AC-mrr-055",
-          "hash": "sha256:0e070a5816c939a4c09996924b78403c95614bf1dda379072f978fede9cd6db9"
+          "hash": "sha256:dd0beebca5caa4ce74880e899077776ba2c5f5f70745bd11887efed8fe106584"
         },
         {
           "ref": "UI-mrr-010",
@@ -3158,10 +3158,10 @@
         },
         {
           "ref": "AC-mrr-125",
-          "hash": "sha256:e6749ba4554fdb461c9f6e3ae669432c1e4af12fdac2ac47f9f68959afc5ae09"
+          "hash": "sha256:bc535d87ee75bb5e3c3620fd28f11ad0a5c2aaeb67433c8826dbdd0ef33f2ced"
         }
       ],
-      "status": "validated",
+      "status": "draft",
       "build": {
         "iterations": 0,
         "proof": [
@@ -3332,11 +3332,12 @@
       "title_th": "สร้างคำขอแก้ไขการจองหลังจบประชุม — ฝั่ง API",
       "app_ref": "api",
       "type": "command",
-      "origin": "new",
+      "origin": "change",
       "files_planned": [],
       "depends_on": [],
       "acceptance_refs": [
-        "AC-mrr-041"
+        "AC-mrr-041",
+        "AC-mrr-132"
       ],
       "traces_up": [
         {
@@ -3346,6 +3347,10 @@
         {
           "ref": "AC-mrr-041",
           "hash": "sha256:6de61260df39ef389265b3005b8ff3dd788bbf4353c6f011aa97f6d7df7e13cf"
+        },
+        {
+          "ref": "AC-mrr-132",
+          "hash": "sha256:db9e2ab3333f6de2e92711ce5cfaa0e43b9babb64c9910d5e3e0962e2f767676"
         },
         {
           "ref": "API-014",
@@ -3360,7 +3365,7 @@
           "hash": "sha256:f4f7461f1560c969a8d444010e6a9e2ab99be0b7c5e25a43bbf9f18934e717f4"
         }
       ],
-      "status": "validated",
+      "status": "draft",
       "build": {
         "iterations": 0,
         "proof": [
@@ -3424,14 +3429,15 @@
       "title_th": "สร้างคำขอแก้ไขการจองหลังจบประชุม — หน้าจอ",
       "app_ref": "frontend-web",
       "type": "command",
-      "origin": "new",
+      "origin": "change",
       "files_planned": [],
       "depends_on": [
         "FE-mrr-022",
         "FE-mrr-031"
       ],
       "acceptance_refs": [
-        "AC-mrr-041"
+        "AC-mrr-041",
+        "AC-mrr-132"
       ],
       "traces_up": [
         {
@@ -3443,11 +3449,15 @@
           "hash": "sha256:6de61260df39ef389265b3005b8ff3dd788bbf4353c6f011aa97f6d7df7e13cf"
         },
         {
+          "ref": "AC-mrr-132",
+          "hash": "sha256:db9e2ab3333f6de2e92711ce5cfaa0e43b9babb64c9910d5e3e0962e2f767676"
+        },
+        {
           "ref": "UI-mrr-010",
           "hash": "sha256:5b8247cfc668ae8b94235f1ac30b9e6a1e28134765c25ad40b9672d89aa859a0"
         }
       ],
-      "status": "validated",
+      "status": "draft",
       "build": {
         "iterations": 1,
         "proof": [
@@ -3562,12 +3572,14 @@
       "depends_on": [],
       "acceptance_refs": [
         "AC-mrr-043",
-        "AC-mrr-044"
+        "AC-mrr-044",
+        "AC-mrr-133",
+        "AC-mrr-134"
       ],
       "traces_up": [
         {
           "ref": "UC-mrr-011",
-          "hash": "sha256:3d60471de54dea8252ccdd26d2931fba3a96384289928f732e004e8c0a310097"
+          "hash": "sha256:e7af1eb8fadad3aeaf7a24c3e846bc8182c16552662620211739c298b7492e5e"
         },
         {
           "ref": "AC-mrr-043",
@@ -3576,6 +3588,14 @@
         {
           "ref": "AC-mrr-044",
           "hash": "sha256:5dd1d913405978e0950abaaac11c8985e8705ffd5b300e26e278de1c0ed2c9e1"
+        },
+        {
+          "ref": "AC-mrr-133",
+          "hash": "sha256:38e2e158970c7396bf32f7dca99f419462bd9c339467f4eb2c05c39d1ca3c7a1"
+        },
+        {
+          "ref": "AC-mrr-134",
+          "hash": "sha256:30416e8f8c011652d116e852713f07f5b4ce8f3480a751ad864a157a69879f1c"
         },
         {
           "ref": "API-017",
@@ -3595,14 +3615,14 @@
         },
         {
           "ref": "ENT-010",
-          "hash": "sha256:3fae91d443acad5bf74c36b488badb406749178e7eb06711b4cf2e76315e5020"
+          "hash": "sha256:76108a416fae838b45a9f78414d63831a1719afff7ca9b35121ce0bf5a43a90a"
         },
         {
           "ref": "ENT-011",
           "hash": "sha256:f4f7461f1560c969a8d444010e6a9e2ab99be0b7c5e25a43bbf9f18934e717f4"
         }
       ],
-      "status": "validated",
+      "status": "draft",
       "build": {
         "iterations": 1,
         "proof": [
@@ -3685,7 +3705,7 @@
       "title_th": "อนุมัติคำขอแก้ไขการจอง — หน้าจอ",
       "app_ref": "frontend-web",
       "type": "command",
-      "origin": "new",
+      "origin": "change",
       "files_planned": [],
       "depends_on": [
         "FE-mrr-022",
@@ -3693,12 +3713,14 @@
       ],
       "acceptance_refs": [
         "AC-mrr-043",
-        "AC-mrr-044"
+        "AC-mrr-044",
+        "AC-mrr-133",
+        "AC-mrr-134"
       ],
       "traces_up": [
         {
           "ref": "UC-mrr-011",
-          "hash": "sha256:3d60471de54dea8252ccdd26d2931fba3a96384289928f732e004e8c0a310097"
+          "hash": "sha256:e7af1eb8fadad3aeaf7a24c3e846bc8182c16552662620211739c298b7492e5e"
         },
         {
           "ref": "AC-mrr-043",
@@ -3709,11 +3731,19 @@
           "hash": "sha256:5dd1d913405978e0950abaaac11c8985e8705ffd5b300e26e278de1c0ed2c9e1"
         },
         {
+          "ref": "AC-mrr-133",
+          "hash": "sha256:38e2e158970c7396bf32f7dca99f419462bd9c339467f4eb2c05c39d1ca3c7a1"
+        },
+        {
+          "ref": "AC-mrr-134",
+          "hash": "sha256:30416e8f8c011652d116e852713f07f5b4ce8f3480a751ad864a157a69879f1c"
+        },
+        {
           "ref": "UI-mrr-011",
           "hash": "sha256:b35f3143833f2b04d2d4383de9cd4a86dfb56d3426990834378b721a6dfdfe2f"
         }
       ],
-      "status": "validated",
+      "status": "draft",
       "build": {
         "iterations": 0,
         "proof": [
@@ -3848,7 +3878,10 @@
         "AC-mrr-121",
         "AC-mrr-123",
         "AC-mrr-124",
-        "AC-mrr-125"
+        "AC-mrr-125",
+        "AC-mrr-132",
+        "AC-mrr-133",
+        "AC-mrr-134"
       ],
       "traces_up": [
         {
@@ -3857,19 +3890,19 @@
         },
         {
           "ref": "AC-mrr-052",
-          "hash": "sha256:2b2ee3f680bb34beed34508503600828a7f30ba1228728d44fccbfb27aac9f0b"
+          "hash": "sha256:331f93d3bad773705ada0d9f8670d5d3725ee0c8b9bcfeea4c24dc730ee22fe2"
         },
         {
           "ref": "AC-mrr-053",
-          "hash": "sha256:892af8f4e29d8f9d8590d1d0ac114c31a7a3fc67eed82a8ba166245aac62300a"
+          "hash": "sha256:bfb4d3c506bdcfce0ee5573c6762e23b4d3612939fefdba6fee49f0cbb519ffc"
         },
         {
           "ref": "AC-mrr-054",
-          "hash": "sha256:08077334fcbb8a0b98a0b42501dd54d719995865b2d3ab5cc672491d7ff06bdd"
+          "hash": "sha256:c3227150e967d26eeff84d98648dc97cfd50ebcd9cbc2a9e4b828fe0e8cd2208"
         },
         {
           "ref": "AC-mrr-055",
-          "hash": "sha256:0e070a5816c939a4c09996924b78403c95614bf1dda379072f978fede9cd6db9"
+          "hash": "sha256:dd0beebca5caa4ce74880e899077776ba2c5f5f70745bd11887efed8fe106584"
         },
         {
           "ref": "AC-mrr-056",
@@ -3889,19 +3922,31 @@
         },
         {
           "ref": "AC-mrr-121",
-          "hash": "sha256:df8ad168ed036937bb3c524c8f7c9b67e9953a13b049853d1e21557856bd354d"
+          "hash": "sha256:5a6e48ce4cc2ff290475773dd6b7dad30919ec5203429970dfa1232e24c04a2e"
         },
         {
           "ref": "AC-mrr-123",
-          "hash": "sha256:af1ea89cc0855f02e562644fac1960abebc333cca6cf2a3c88783f42d0171c58"
+          "hash": "sha256:86c275bdcae77272c39ca9c9bc3814b390b0a615234abbe9a0280c20941fbc18"
         },
         {
           "ref": "AC-mrr-124",
-          "hash": "sha256:f26234e6462f036a942a73a646025c7d54dc43ebffc1f24b1fc6507ca2186d3d"
+          "hash": "sha256:4da7f94029743fe650958864302aa56bf53e6afdec5b3bdbc6a8780a5c203af5"
         },
         {
           "ref": "AC-mrr-125",
-          "hash": "sha256:e6749ba4554fdb461c9f6e3ae669432c1e4af12fdac2ac47f9f68959afc5ae09"
+          "hash": "sha256:bc535d87ee75bb5e3c3620fd28f11ad0a5c2aaeb67433c8826dbdd0ef33f2ced"
+        },
+        {
+          "ref": "AC-mrr-132",
+          "hash": "sha256:db9e2ab3333f6de2e92711ce5cfaa0e43b9babb64c9910d5e3e0962e2f767676"
+        },
+        {
+          "ref": "AC-mrr-133",
+          "hash": "sha256:38e2e158970c7396bf32f7dca99f419462bd9c339467f4eb2c05c39d1ca3c7a1"
+        },
+        {
+          "ref": "AC-mrr-134",
+          "hash": "sha256:30416e8f8c011652d116e852713f07f5b4ce8f3480a751ad864a157a69879f1c"
         },
         {
           "ref": "API-016",
@@ -3909,10 +3954,10 @@
         },
         {
           "ref": "ENT-010",
-          "hash": "sha256:3fae91d443acad5bf74c36b488badb406749178e7eb06711b4cf2e76315e5020"
+          "hash": "sha256:76108a416fae838b45a9f78414d63831a1719afff7ca9b35121ce0bf5a43a90a"
         }
       ],
-      "status": "validated",
+      "status": "draft",
       "build": {
         "iterations": 0,
         "proof": [
@@ -4020,7 +4065,10 @@
         "AC-mrr-123",
         "AC-mrr-124",
         "AC-mrr-125",
-        "AC-mrr-126"
+        "AC-mrr-126",
+        "AC-mrr-132",
+        "AC-mrr-133",
+        "AC-mrr-134"
       ],
       "traces_up": [
         {
@@ -4029,19 +4077,19 @@
         },
         {
           "ref": "AC-mrr-052",
-          "hash": "sha256:2b2ee3f680bb34beed34508503600828a7f30ba1228728d44fccbfb27aac9f0b"
+          "hash": "sha256:331f93d3bad773705ada0d9f8670d5d3725ee0c8b9bcfeea4c24dc730ee22fe2"
         },
         {
           "ref": "AC-mrr-053",
-          "hash": "sha256:892af8f4e29d8f9d8590d1d0ac114c31a7a3fc67eed82a8ba166245aac62300a"
+          "hash": "sha256:bfb4d3c506bdcfce0ee5573c6762e23b4d3612939fefdba6fee49f0cbb519ffc"
         },
         {
           "ref": "AC-mrr-054",
-          "hash": "sha256:08077334fcbb8a0b98a0b42501dd54d719995865b2d3ab5cc672491d7ff06bdd"
+          "hash": "sha256:c3227150e967d26eeff84d98648dc97cfd50ebcd9cbc2a9e4b828fe0e8cd2208"
         },
         {
           "ref": "AC-mrr-055",
-          "hash": "sha256:0e070a5816c939a4c09996924b78403c95614bf1dda379072f978fede9cd6db9"
+          "hash": "sha256:dd0beebca5caa4ce74880e899077776ba2c5f5f70745bd11887efed8fe106584"
         },
         {
           "ref": "AC-mrr-056",
@@ -4061,30 +4109,42 @@
         },
         {
           "ref": "AC-mrr-121",
-          "hash": "sha256:df8ad168ed036937bb3c524c8f7c9b67e9953a13b049853d1e21557856bd354d"
+          "hash": "sha256:5a6e48ce4cc2ff290475773dd6b7dad30919ec5203429970dfa1232e24c04a2e"
         },
         {
           "ref": "AC-mrr-123",
-          "hash": "sha256:af1ea89cc0855f02e562644fac1960abebc333cca6cf2a3c88783f42d0171c58"
+          "hash": "sha256:86c275bdcae77272c39ca9c9bc3814b390b0a615234abbe9a0280c20941fbc18"
         },
         {
           "ref": "AC-mrr-124",
-          "hash": "sha256:f26234e6462f036a942a73a646025c7d54dc43ebffc1f24b1fc6507ca2186d3d"
+          "hash": "sha256:4da7f94029743fe650958864302aa56bf53e6afdec5b3bdbc6a8780a5c203af5"
         },
         {
           "ref": "AC-mrr-125",
-          "hash": "sha256:e6749ba4554fdb461c9f6e3ae669432c1e4af12fdac2ac47f9f68959afc5ae09"
+          "hash": "sha256:bc535d87ee75bb5e3c3620fd28f11ad0a5c2aaeb67433c8826dbdd0ef33f2ced"
         },
         {
           "ref": "AC-mrr-126",
-          "hash": "sha256:bd8d073c9755ce15cc56d1eb018584301e5235cdf76055f26a9b4e0d5fb4b81a"
+          "hash": "sha256:f92dc917a13133774adcdc8c662862536966e8ea5ddb35f81f576bbc624204bf"
+        },
+        {
+          "ref": "AC-mrr-132",
+          "hash": "sha256:db9e2ab3333f6de2e92711ce5cfaa0e43b9babb64c9910d5e3e0962e2f767676"
+        },
+        {
+          "ref": "AC-mrr-133",
+          "hash": "sha256:38e2e158970c7396bf32f7dca99f419462bd9c339467f4eb2c05c39d1ca3c7a1"
+        },
+        {
+          "ref": "AC-mrr-134",
+          "hash": "sha256:30416e8f8c011652d116e852713f07f5b4ce8f3480a751ad864a157a69879f1c"
         },
         {
           "ref": "UI-mrr-010",
           "hash": "sha256:5b8247cfc668ae8b94235f1ac30b9e6a1e28134765c25ad40b9672d89aa859a0"
         }
       ],
-      "status": "validated",
+      "status": "draft",
       "build": {
         "iterations": 0,
         "proof": [
@@ -5573,7 +5633,7 @@
         },
         {
           "ref": "AC-mrr-121",
-          "hash": "sha256:df8ad168ed036937bb3c524c8f7c9b67e9953a13b049853d1e21557856bd354d"
+          "hash": "sha256:5a6e48ce4cc2ff290475773dd6b7dad30919ec5203429970dfa1232e24c04a2e"
         },
         {
           "ref": "AC-mrr-127",
@@ -5592,7 +5652,7 @@
           "hash": "sha256:1737121b862ffa8d357e0a875f395845189f339686edb666884fe6df716b7626"
         }
       ],
-      "status": "validated",
+      "status": "draft",
       "build": {
         "iterations": 0,
         "proof": [
@@ -7615,11 +7675,12 @@
   "rollup": {
     "features_total": 42,
     "by_status": {
-      "validated": 42
+      "validated": 27,
+      "draft": 15
     },
     "by_origin": {
-      "new": 16,
-      "change": 26
+      "new": 13,
+      "change": 29
     },
     "by_app": {
       "frontend-web": 19,
