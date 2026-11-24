@@ -256,7 +256,7 @@
           "required": false,
           "validation": "เวลาที่เปิดห้องกลับมาใช้งาน · ว่าง = ยังปิดปรับปรุงอยู่ · ต้องหลัง startAt · ช่วงของห้องเดียวกันห้ามทับกัน",
           "rules": [
-            "CALC-mrr-001@v1"
+            "CALC-mrr-001@v2"
           ]
         },
         {
@@ -687,7 +687,7 @@
           "required": true,
           "validation": "นาทีที่ถูกจองและใช้ได้จริงในเวลาทำการ ≥ 0",
           "rules": [
-            "CALC-mrr-001@v1",
+            "CALC-mrr-001@v2",
             "BR-mrr-006@v2"
           ]
         },
@@ -697,7 +697,7 @@
           "required": true,
           "validation": "นาทีทำการหักช่วงปิดปรับปรุง ≥ 0",
           "rules": [
-            "CALC-mrr-001@v1"
+            "CALC-mrr-001@v2"
           ]
         },
         {
@@ -706,7 +706,7 @@
           "required": false,
           "validation": "decimal(5,2) ช่วง 0.00–100.00 ปัด HALF_UP · ว่างเมื่อ operatingMinutes = 0 (แสดง \"—\") (DQ-mrr-010)",
           "rules": [
-            "CALC-mrr-001@v1",
+            "CALC-mrr-001@v2",
             "BR-mrr-006@v2"
           ]
         },
