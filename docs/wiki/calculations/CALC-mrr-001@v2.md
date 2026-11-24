@@ -11,10 +11,10 @@ is_current: true
 effective_from: 2026-11-19
 numeric_type: decimal
 rounding_mode: HALF_UP
-golden: []
+golden: [GD-mrr-001]
 supersedes: CALC-mrr-001@v1
 timestamp: 2026-11-18T12:30:00+07:00
-spec_hash: sha256:787f964fa46e1743f08c4010f4c0362637608e52b6cfdf58165c8bf7b023e968
+spec_hash: sha256:c1744f1ef64b6b41d4455e136637c98f1eb0c6508d62d18089f23b044b68f124
 ---
 
 # CALC-mrr-001@v2
@@ -53,7 +53,7 @@ utilization_pct = booked_minutes ÷ operating_minutes × 100
 
 ## เลขเฉลย
 
-🔴 ยังไม่มีเลขเฉลย — สูตรตกลงแล้วแต่ไม่มีใครลองคำนวณ (`/req:golden CALC-mrr-001@v2`)
+- [GD-mrr-001](../golden/GD-mrr-001.md) — 16 แถว · ✅ Noppasorn
 
 ## คำถามที่ผูกอยู่
 

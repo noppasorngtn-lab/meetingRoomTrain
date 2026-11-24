@@ -3308,12 +3308,13 @@
       "proves": [
         "BR-mrr-006@v1",
         "BR-mrr-006@v2",
-        "CALC-mrr-001@v1"
+        "CALC-mrr-001@v1",
+        "CALC-mrr-001@v2"
       ],
       "status": "validated",
-      "computedAt": "2026-11-19T14:00+07:00",
+      "computedAt": "2026-11-24T14:30+07:00",
       "verifiedBy": "Noppasorn",
-      "verifiedAt": "2026-11-19T14:00+07:00",
+      "verifiedAt": "2026-11-24T14:40+07:00",
       "mismatches": [],
       "rows": [
         {

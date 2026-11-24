@@ -13,7 +13,7 @@ rounding_mode: HALF_UP
 golden: [GD-mrr-001]
 superseded_by: CALC-mrr-001@v2
 timestamp: 2026-11-18T12:30:00+07:00
-spec_hash: sha256:546af3469570fbe7eaa77f974e60ae786883e992d9a46f750c804e680ff05a44
+spec_hash: sha256:914f4db169de4e1ba70585821fd5bf981ad27388bd5de984c61653bb0930e220
 ---
 
 # CALC-mrr-001@v1
