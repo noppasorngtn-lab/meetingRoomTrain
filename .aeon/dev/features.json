@@ -2085,7 +2085,7 @@
       "title_th": "อนุมัติหรือปฏิเสธการจอง — ฝั่ง API",
       "app_ref": "api",
       "type": "command",
-      "origin": "new",
+      "origin": "change",
       "files_planned": [],
       "depends_on": [
         "FE-mrr-017"
@@ -2098,12 +2098,16 @@
         "AC-mrr-039",
         "AC-mrr-051",
         "AC-mrr-052",
-        "AC-mrr-062"
+        "AC-mrr-062",
+        "AC-mrr-118",
+        "AC-mrr-121",
+        "AC-mrr-123",
+        "AC-mrr-126"
       ],
       "traces_up": [
         {
           "ref": "UC-mrr-007",
-          "hash": "sha256:8cb2dfb740525b09c84c4cf0a92a910b6d94d09256a35e6b110baf74b1bfd439"
+          "hash": "sha256:c2a084fc6d75bd5608aa8f7f54352f9bae9a35a54018f3b1f3532b5fc702acb4"
         },
         {
           "ref": "AC-mrr-013",
@@ -2131,11 +2135,27 @@
         },
         {
           "ref": "AC-mrr-052",
-          "hash": "sha256:b2496ef3c55c3ef7fcc06b35b850adbfc047c9334af5d934716df95d4ee9b5d5"
+          "hash": "sha256:2b2ee3f680bb34beed34508503600828a7f30ba1228728d44fccbfb27aac9f0b"
         },
         {
           "ref": "AC-mrr-062",
           "hash": "sha256:82c7637ccff37073e9787ccdd9c83eabd7d706580dc83e575ac177fd13d06f07"
+        },
+        {
+          "ref": "AC-mrr-118",
+          "hash": "sha256:7af1490e2d3a4af083207e143ae197c0c39b2a28a1cdcb53728e08769f519df3"
+        },
+        {
+          "ref": "AC-mrr-121",
+          "hash": "sha256:df8ad168ed036937bb3c524c8f7c9b67e9953a13b049853d1e21557856bd354d"
+        },
+        {
+          "ref": "AC-mrr-123",
+          "hash": "sha256:af1ea89cc0855f02e562644fac1960abebc333cca6cf2a3c88783f42d0171c58"
+        },
+        {
+          "ref": "AC-mrr-126",
+          "hash": "sha256:bd8d073c9755ce15cc56d1eb018584301e5235cdf76055f26a9b4e0d5fb4b81a"
         },
         {
           "ref": "API-010",
@@ -2147,7 +2167,7 @@
         },
         {
           "ref": "API-012",
-          "hash": "sha256:01edc3169fa14ea052d2ebb1a8a1183ea1d8d10f6c77ad0391abe929cab2780d"
+          "hash": "sha256:5d0152cf5084ccf034229e230b1385ae1ab95b67a1cc836c381e59aeeaa60224"
         },
         {
           "ref": "ENT-007",
@@ -2155,12 +2175,12 @@
         },
         {
           "ref": "ENT-010",
-          "hash": "sha256:fb41b9378eaf8f1f19c7e0cb570aad7582f05713eab16d4c5f2f9d57de03f3fc"
+          "hash": "sha256:3fae91d443acad5bf74c36b488badb406749178e7eb06711b4cf2e76315e5020"
         }
       ],
       "status": "validated",
       "build": {
-        "iterations": 2,
+        "iterations": 0,
         "proof": [
           {
             "cmd": "powershell -File scripts/dev-build.ps1 -App api",
@@ -2176,11 +2196,26 @@
             "cmd": "powershell -File scripts/dev-test.ps1",
             "result": "api: Test Suites 14 passed, Tests 173 passed · web: Test Files 6 passed, Tests 86 passed · exit 0",
             "at": "2026-10-20"
+          },
+          {
+            "cmd": "powershell -NoProfile -File scripts/dev-build.ps1 -App api",
+            "result": "tsc -p tsconfig.build.json · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -NoProfile -File scripts/dev-test.ps1 -App api -Filter FE-mrr-028",
+            "result": "booking-approval.spec.ts · booking-approval.http.spec.ts PASS · Test Suites: 38 skipped, 2 passed, 2 of 40 total · Tests: 453 skipped, 49 passed, 502 total · exit 0 (AC-mrr-118 อนุมัติแล้ว to U1 only · 121 ปฏิเสธการจอง to U1 U2 + one REJECT entry · 123 RA1 · 16/10 14:10 · REJECT · reason · 126 empty reason refused: pending, no mail, no entry)",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "cd test && npx playwright test e2e/t1-round2.spec.ts --project=chromium -g \"TC-NTF-UI009-10[23]|TC-AUD-UI010-109|TC-AUD-UI010-112\" --reporter=list",
+            "result": "4 passed (17.9s) · [real] TC-NTF-UI009-102 (EX-mrr-115) · TC-NTF-UI009-103 (EX-mrr-118) · TC-AUD-UI010-109 (EX-mrr-120) · TC-AUD-UI010-112 (EX-mrr-123) against docker stack mrr-* rebuilt from HEAD",
+            "at": "2026-11-24"
           }
         ],
         "last_error": null,
         "recorded_by": "Noppasorn",
-        "recorded_at": "2026-10-20"
+        "recorded_at": "2026-11-24"
       },
       "manifest": {
         "files": [
@@ -7296,8 +7331,8 @@
       "validated": 42
     },
     "by_origin": {
-      "new": 22,
-      "change": 20
+      "new": 21,
+      "change": 21
     },
     "by_app": {
       "frontend-web": 19,

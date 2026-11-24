@@ -180,6 +180,51 @@ describe('FE-mrr-028 approve or reject a booking (UC-mrr-007)', () => {
     expect(await trail()).toHaveLength(1);
   });
 
+  // GAP-mrr-026 · the criteria of EX-mrr-115/118/120/123 — the same booking with U2 attending, so who
+  // is mailed (BR-mrr-007@v2) can be told apart, and the clock at the examples' 16/10 14:10.
+  describe('BR-mrr-007@v2 · BR-mrr-017@v2 criteria with an attendee', () => {
+    let withU2: string;
+    beforeEach(async () => {
+      const u2 = await seedUser(db, 'U2');
+      await db.deleteFrom('bookings').where('id', '=', booking).execute();
+      withU2 = await seedBooking(db, {
+        room: roomB, bookedBy: u1, title: 'ประชุมลูกค้า', startAt: at(17, '10:00'), endAt: at(17, '11:00'), status: 'PENDING_APPROVAL', attendees: [u2],
+      });
+      now = at(16, '14:10');
+    });
+    const sentTo = () => mail.sent.map((m) => [m.to, m.subject]);
+    const trailOf = () => db.selectFrom('booking_audit_entries').select(['actor_id', 'action', 'reason', 'at']).where('booking_id', '=', withU2).execute();
+
+    it('AC-mrr-118 RA approves — อนุมัติแล้ว, อนุมัติการจองสำเร็จ, and U1 alone is mailed อนุมัติแล้ว; U2 gets nothing', async () => {
+      expect(await service.approve({ userId: ra1 }, withU2)).toEqual({ message: 'อนุมัติการจองสำเร็จ' });
+
+      expect(await status(withU2)).toBe('APPROVED');
+      expect(sentTo()).toEqual([[['u1@example.test'], '[จองห้องประชุม] อนุมัติแล้ว: ประชุมลูกค้า · ห้อง B 17/10 10:00–11:00']]);
+    });
+
+    it('AC-mrr-121 RA rejects with ห้องไม่เหมาะกับการประชุมนี้ — ปฏิเสธแล้ว, ปฏิเสธการจองสำเร็จ, U1 and U2 mailed ปฏิเสธการจอง, one trail entry', async () => {
+      expect(await service.reject({ userId: ra1 }, withU2, 'ห้องไม่เหมาะกับการประชุมนี้')).toEqual({ message: 'ปฏิเสธการจองสำเร็จ' });
+
+      expect(await status(withU2)).toBe('REJECTED');
+      expect(sentTo()).toEqual([[['u1@example.test', 'u2@example.test'], '[จองห้องประชุม] ปฏิเสธการจอง: ประชุมลูกค้า · ห้อง B 17/10 10:00–11:00']]);
+      expect(await trailOf()).toEqual([{ actor_id: ra1, action: 'REJECT', reason: 'ห้องไม่เหมาะกับการประชุมนี้', at: at(16, '14:10') }]);
+    });
+
+    it('AC-mrr-123 16/10 14:10 RA1 rejects — exactly one new entry: RA1 · 16/10 14:10 · REJECT (ปฏิเสธการจอง) · ห้องไม่เหมาะกับการประชุมนี้', async () => {
+      await service.reject({ userId: ra1 }, withU2, 'ห้องไม่เหมาะกับการประชุมนี้');
+
+      expect(await trailOf()).toEqual([{ actor_id: ra1, action: 'REJECT', reason: 'ห้องไม่เหมาะกับการประชุมนี้', at: at(16, '14:10') }]);
+    });
+
+    it('AC-mrr-126 RA rejects with the reason left empty — still รออนุมัติ, กรุณาระบุเหตุผล, nobody mailed ปฏิเสธการจอง, no new trail entry', async () => {
+      await expect(service.reject({ userId: ra1 }, withU2, '')).rejects.toThrow(new BookingInvalid('reason', 'กรุณาระบุเหตุผล'));
+
+      expect(await status(withU2)).toBe('PENDING_APPROVAL');
+      expect(mail.sent).toEqual([]);
+      expect(await trailOf()).toEqual([]);
+    });
+  });
+
   describe('reject (API-012)', () => {
     it('a Room Administrator rejects — REJECTED, ปฏิเสธการจองสำเร็จ, and the booker is mailed ปฏิเสธการจอง (BR-mrr-007@v2 · EX-mrr-118)', async () => {
       expect(await service.reject({ userId: ra1 }, booking, 'ห้องไม่เหมาะกับการประชุมนี้')).toEqual({ message: 'ปฏิเสธการจองสำเร็จ' });

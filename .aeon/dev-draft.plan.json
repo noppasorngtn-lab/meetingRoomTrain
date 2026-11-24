@@ -2,54 +2,59 @@
   "module": "mrr",
   "features": [
     {
-      "id": "FE-mrr-033",
-      "title_th": "ดูร่องรอยการกระทำต่อการจอง — ฝั่ง API",
+      "id": "FE-mrr-028",
+      "title_th": "อนุมัติหรือปฏิเสธการจอง — ฝั่ง API",
       "app_ref": "api",
       "type": "command",
       "origin": "change",
       "files_planned": [],
-      "depends_on": [],
+      "depends_on": [
+        "FE-mrr-017"
+      ],
       "acceptance_refs": [
+        "AC-mrr-013",
+        "AC-mrr-014",
+        "AC-mrr-037",
+        "AC-mrr-038",
+        "AC-mrr-039",
+        "AC-mrr-051",
         "AC-mrr-052",
-        "AC-mrr-053",
-        "AC-mrr-054",
-        "AC-mrr-055",
-        "AC-mrr-056",
-        "AC-mrr-057",
-        "AC-mrr-058",
-        "AC-mrr-059",
+        "AC-mrr-062",
+        "AC-mrr-118",
         "AC-mrr-121",
         "AC-mrr-123",
-        "AC-mrr-124",
-        "AC-mrr-125"
+        "AC-mrr-126"
       ],
       "traces_up": [
         {
-          "ref": "UC-mrr-012"
+          "ref": "UC-mrr-007"
+        },
+        {
+          "ref": "AC-mrr-013"
+        },
+        {
+          "ref": "AC-mrr-014"
+        },
+        {
+          "ref": "AC-mrr-037"
+        },
+        {
+          "ref": "AC-mrr-038"
+        },
+        {
+          "ref": "AC-mrr-039"
+        },
+        {
+          "ref": "AC-mrr-051"
         },
         {
           "ref": "AC-mrr-052"
         },
         {
-          "ref": "AC-mrr-053"
+          "ref": "AC-mrr-062"
         },
         {
-          "ref": "AC-mrr-054"
-        },
-        {
-          "ref": "AC-mrr-055"
-        },
-        {
-          "ref": "AC-mrr-056"
-        },
-        {
-          "ref": "AC-mrr-057"
-        },
-        {
-          "ref": "AC-mrr-058"
-        },
-        {
-          "ref": "AC-mrr-059"
+          "ref": "AC-mrr-118"
         },
         {
           "ref": "AC-mrr-121"
@@ -58,13 +63,19 @@
           "ref": "AC-mrr-123"
         },
         {
-          "ref": "AC-mrr-124"
+          "ref": "AC-mrr-126"
         },
         {
-          "ref": "AC-mrr-125"
+          "ref": "API-010"
         },
         {
-          "ref": "API-016"
+          "ref": "API-011"
+        },
+        {
+          "ref": "API-012"
+        },
+        {
+          "ref": "ENT-007"
         },
         {
           "ref": "ENT-010"
