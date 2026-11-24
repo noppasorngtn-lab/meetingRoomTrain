@@ -97,6 +97,9 @@ Input: [t3-results-2026-11-23.md](t3-results-2026-11-23.md) · [t2-coverage-repo
 | 6 | req จะเพิ่ม EX/ปรับ BR-mrr-019 เมื่อไร และเคส DEF-05 ×5 (review แล้ว) จะเข้า T1 CSV เมื่อไร | req / QA |
 | 7 | ผู้ตัดสิน Q1–Q3 ของ DEF-05 เป็น PO ตามบทบาทหรือไม่ (ยังไม่ได้ระบุในบันทึก) | PO |
 | 8 | การ์ด DEC-005 (`.aeon/design/context.json`) ยังไม่มีใครเลือก: ระบบส่ง Email (แจ้งเตือน + รหัสเข้าสู่ระบบ) ผ่าน SMTP server ขององค์กร หรือบริการภายนอก (เช่น Amazon SES, SendGrid) · ระบบเป็น on-premise (DEC-004) · เกี่ยวกับ DQ-mrr-005/014 และ NFR-004 · E2E ปัจจุบันใช้ mailpit แทน ยังไม่ได้เทสกับบริการจริง · ปิดผ่าน `/design:overview` (design:check S18 warn) — TBD - Require Business Confirmation | PO / IT องค์กร |
+| 9 | BR-mrr-017@v2 เขียนว่า "การปฏิเสธต้องระบุเหตุผล" แต่ ENT-010 บังคับเหตุผลเฉพาะ REJECT (ปฏิเสธการจอง) — การปฏิเสธ**คำขอแก้ไข**หลังจบประชุม (REJECT_ADJUSTMENT · UC-mrr-011) ต้องระบุเหตุผลด้วยหรือไม่ · ตอนนี้โค้ด (FE-mrr-032) ไม่บันทึกเหตุผล ตาม ENT-010 [Inferred] — TBD - Require Business Confirmation | req / design |
+| 10 | รายการค่าช่อง "การกระทำ" ใน BR-mrr-017@v2 มี 5 ค่า (อนุมัติ · ปฏิเสธการจอง · ถอยผล · แก้แทนผู้จอง · ยกเลิกแทนผู้จอง) แต่หน้าร่องรอย (FE-mrr-012 · `AuditTrail.tsx`) แสดงอีก 3 ค่าสำหรับคำขอแก้ไข: "สร้างคำขอแก้ไข" "อนุมัติคำขอ" "ปฏิเสธคำขอ" — ถ้อยคำเหล่านี้ไม่มีใน BR [Inferred] · ยืนยันถ้อยคำ หรือเพิ่มเข้า BR — TBD - Require Business Confirmation | req |
+| 11 | dev แก้ selector 3 จุดใน `test/e2e/t1-round2.spec.ts` (TC-AUD-UI009-101 · บรรทัด 290–296) ให้ตาม testid ของ wireframe UI-mrr-009 (`ui-mrr-009-ent-010-reason` · `-confirm-reject` · `-cancel-reject`) — assertion ไม่เปลี่ยน · E2E 2 เคส [real] ผ่าน (commit `23677eb`) · QA ตรวจทานและรับการแก้ไฟล์ของ QA | QA |
 
 ## ข้อมูลที่ขาด (ไม่เดา)
 
