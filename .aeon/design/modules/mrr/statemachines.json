@@ -57,7 +57,7 @@
           "rules": [
             "BR-mrr-004@v1",
             "BR-mrr-013@v1",
-            "BR-mrr-017@v1",
+            "BR-mrr-017@v3",
             "BR-mrr-019@v1"
           ]
         },
@@ -67,7 +67,7 @@
           "trigger": "Room Administrator กดปฏิเสธ",
           "rules": [
             "BR-mrr-004@v1",
-            "BR-mrr-017@v1"
+            "BR-mrr-017@v3"
           ]
         },
         {
@@ -96,7 +96,7 @@
           "rules": [
             "BR-mrr-003@v1",
             "BR-mrr-009@v1",
-            "BR-mrr-017@v1",
+            "BR-mrr-017@v3",
             "BR-mrr-019@v1"
           ]
         },
@@ -106,7 +106,7 @@
           "trigger": "Room Administrator เปลี่ยนผลเป็นปฏิเสธพร้อมเหตุผล ก่อนเวลาเริ่มประชุม",
           "rules": [
             "BR-mrr-011@v1",
-            "BR-mrr-017@v1"
+            "BR-mrr-017@v3"
           ]
         },
         {
@@ -116,7 +116,7 @@
           "rules": [
             "BR-mrr-003@v1",
             "BR-mrr-009@v1",
-            "BR-mrr-017@v1",
+            "BR-mrr-017@v3",
             "BR-mrr-019@v1"
           ]
         },
@@ -127,7 +127,7 @@
           "rules": [
             "BR-mrr-011@v1",
             "BR-mrr-001@v1",
-            "BR-mrr-017@v1"
+            "BR-mrr-017@v3"
           ]
         }
       ]
@@ -161,7 +161,7 @@
           "trigger": "Room Administrator ที่ไม่ใช่ผู้สร้างคำขอกดอนุมัติ",
           "rules": [
             "BR-mrr-014@v1",
-            "BR-mrr-017@v1"
+            "BR-mrr-017@v3"
           ]
         },
         {
@@ -170,7 +170,7 @@
           "trigger": "Room Administrator ที่ไม่ใช่ผู้สร้างคำขอกดปฏิเสธ",
           "rules": [
             "BR-mrr-014@v1",
-            "BR-mrr-017@v1"
+            "BR-mrr-017@v3"
           ]
         }
       ]

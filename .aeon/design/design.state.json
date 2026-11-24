@@ -45,7 +45,7 @@
     {
       "id": "datamodel",
       "command": "/design:datamodel",
-      "status": "stale",
+      "status": "done",
       "requires": [
         "function"
       ],
@@ -53,8 +53,8 @@
         "datamodel.json",
         "modules/<module>/statemachines.json"
       ],
-      "attempts": 0,
-      "updatedAt": "2026-11-24T08:38:07Z",
+      "attempts": 1,
+      "updatedAt": "2026-11-24T08:43:24Z",
       "staleBecause": "CHG-mrr-006"
     },
     {

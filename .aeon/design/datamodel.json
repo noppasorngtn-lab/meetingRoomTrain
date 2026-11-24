@@ -460,7 +460,7 @@
       "glossaryTerms": [],
       "stateful": false,
       "invariants": [
-        "BR-mrr-017@v2"
+        "BR-mrr-017@v3"
       ],
       "attributes": [
         {
@@ -502,7 +502,7 @@
             "BR-mrr-009@v1",
             "BR-mrr-011@v1",
             "BR-mrr-014@v1",
-            "BR-mrr-017@v2"
+            "BR-mrr-017@v3"
           ]
         },
         {
