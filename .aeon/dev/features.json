@@ -2545,7 +2545,7 @@
       "title_th": "เปลี่ยนผลการอนุมัติ — หน้าจอ",
       "app_ref": "frontend-web",
       "type": "command",
-      "origin": "new",
+      "origin": "change",
       "files_planned": [],
       "depends_on": [
         "FE-mrr-022",
@@ -2562,7 +2562,7 @@
       "traces_up": [
         {
           "ref": "UC-mrr-008",
-          "hash": "sha256:f18b0c7ac87d4172e4c1d5622eba14e456734745dc984eea11816533ddd54f7a"
+          "hash": "sha256:4285a07736c135ff2b7ed321585309c8a372299b653001f34e81f57d61d7083a"
         },
         {
           "ref": "AC-mrr-033",
@@ -2607,11 +2607,21 @@
             "cmd": "powershell -File scripts/dev-test.ps1",
             "result": "api: Test Suites: 32 passed, 32 total · Tests: 394 passed, 394 total · web: Test Files 15 passed (15) · Tests 234 passed (234) · exit 0",
             "at": "2026-10-21"
+          },
+          {
+            "cmd": "powershell -NoProfile -File scripts/dev-build.ps1 -App frontend-web",
+            "result": "tsc --noEmit + vite build · built in 997ms · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -NoProfile -File scripts/dev-test.ps1 -App frontend-web -Filter FE-mrr-008",
+            "result": "change-decision.test.tsx 21 passed (incl. error state: mail did not go → status unchanged, press again) · Test Files 1 passed | 20 skipped (21) · Tests 21 passed | 288 skipped (309) · exit 0",
+            "at": "2026-11-24"
           }
         ],
         "last_error": null,
         "recorded_by": "Noppasorn",
-        "recorded_at": "2026-10-21"
+        "recorded_at": "2026-11-24"
       },
       "manifest": {
         "files": [
@@ -7019,8 +7029,8 @@
       "validated": 42
     },
     "by_origin": {
-      "new": 32,
-      "change": 10
+      "new": 31,
+      "change": 11
     },
     "by_app": {
       "frontend-web": 19,
