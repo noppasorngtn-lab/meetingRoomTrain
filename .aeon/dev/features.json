@@ -1711,7 +1711,7 @@
       "title_th": "ยกเลิกการจองของตนเอง — หน้าจอ",
       "app_ref": "frontend-web",
       "type": "command",
-      "origin": "new",
+      "origin": "change",
       "files_planned": [],
       "depends_on": [
         "FE-mrr-022",
@@ -1748,7 +1748,7 @@
         },
         {
           "ref": "AC-mrr-054",
-          "hash": "sha256:4783571d101b49b35b959f71c32fca93aa5ccd38fddb5122173736cf0ce44d65"
+          "hash": "sha256:08077334fcbb8a0b98a0b42501dd54d719995865b2d3ab5cc672491d7ff06bdd"
         },
         {
           "ref": "UI-mrr-007",
@@ -1773,11 +1773,21 @@
             "cmd": "powershell -File scripts/dev-test.ps1",
             "result": "api: Test Suites 12 passed, Tests 132 passed · web: Test Files 6 passed, Tests 86 passed · exit 0",
             "at": "2026-10-20"
+          },
+          {
+            "cmd": "powershell -NoProfile -File scripts/dev-build.ps1 -App frontend-web",
+            "result": "tsc --noEmit + vite build · built in 1.11s · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -NoProfile -File scripts/dev-test.ps1 -App frontend-web -Filter FE-mrr-005",
+            "result": "cancel-booking.test.tsx 10 passed · Test Files 1 passed | 20 skipped (21) · Tests 10 passed | 299 skipped (309) · exit 0",
+            "at": "2026-11-24"
           }
         ],
         "last_error": null,
         "recorded_by": "Noppasorn",
-        "recorded_at": "2026-10-20"
+        "recorded_at": "2026-11-24"
       },
       "manifest": {
         "files": [
@@ -6951,8 +6961,8 @@
       "validated": 42
     },
     "by_origin": {
-      "new": 35,
-      "change": 7
+      "new": 34,
+      "change": 8
     },
     "by_app": {
       "frontend-web": 19,

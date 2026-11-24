@@ -2,48 +2,45 @@
   "module": "mrr",
   "features": [
     {
-      "id": "FE-mrr-004",
-      "title_th": "แก้ไขการจองของตนเอง — หน้าจอ",
+      "id": "FE-mrr-005",
+      "title_th": "ยกเลิกการจองของตนเอง — หน้าจอ",
       "app_ref": "frontend-web",
       "type": "command",
       "origin": "change",
       "files_planned": [],
       "depends_on": [
         "FE-mrr-022",
-        "FE-mrr-025"
+        "FE-mrr-026",
+        "FE-mrr-006"
       ],
       "acceptance_refs": [
-        "AC-mrr-008",
-        "AC-mrr-021",
-        "AC-mrr-022",
-        "AC-mrr-061",
-        "AC-mrr-063",
-        "AC-mrr-080"
+        "AC-mrr-009",
+        "AC-mrr-010",
+        "AC-mrr-026",
+        "AC-mrr-027",
+        "AC-mrr-054"
       ],
       "traces_up": [
         {
-          "ref": "UC-mrr-004"
+          "ref": "UC-mrr-005"
         },
         {
-          "ref": "AC-mrr-008"
+          "ref": "AC-mrr-009"
         },
         {
-          "ref": "AC-mrr-021"
+          "ref": "AC-mrr-010"
         },
         {
-          "ref": "AC-mrr-022"
+          "ref": "AC-mrr-026"
         },
         {
-          "ref": "AC-mrr-061"
+          "ref": "AC-mrr-027"
         },
         {
-          "ref": "AC-mrr-063"
+          "ref": "AC-mrr-054"
         },
         {
-          "ref": "AC-mrr-080"
-        },
-        {
-          "ref": "UI-mrr-008"
+          "ref": "UI-mrr-007"
         }
       ],
       "status": "draft"
