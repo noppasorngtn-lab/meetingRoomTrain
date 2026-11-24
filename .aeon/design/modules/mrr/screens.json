@@ -964,7 +964,7 @@
           "entity": "ENT-010",
           "attribute": "reason",
           "rules": [
-            "BR-mrr-017@v2"
+            "BR-mrr-017@v3"
           ]
         }
       ],
@@ -979,7 +979,7 @@
           "rules": [
             "BR-mrr-004@v1",
             "BR-mrr-013@v1",
-            "BR-mrr-017@v1",
+            "BR-mrr-017@v3",
             "BR-mrr-019@v1"
           ]
         },
@@ -992,7 +992,7 @@
           "destinationRef": "self",
           "rules": [
             "BR-mrr-004@v1",
-            "BR-mrr-017@v2"
+            "BR-mrr-017@v3"
           ]
         },
         {
@@ -1004,7 +1004,7 @@
           "destinationRef": "self",
           "rules": [
             "BR-mrr-004@v1",
-            "BR-mrr-017@v2",
+            "BR-mrr-017@v3",
             "BR-mrr-019@v1"
           ]
         },
@@ -1107,7 +1107,7 @@
           "rules": [
             "BR-mrr-009@v1",
             "BR-mrr-011@v1",
-            "BR-mrr-017@v1"
+            "BR-mrr-017@v3"
           ]
         },
         {
@@ -1157,7 +1157,7 @@
           "destinationRef": "self",
           "rules": [
             "BR-mrr-011@v1",
-            "BR-mrr-017@v1"
+            "BR-mrr-017@v3"
           ]
         },
         {
@@ -1170,7 +1170,7 @@
           "rules": [
             "BR-mrr-009@v1",
             "BR-mrr-014@v1",
-            "BR-mrr-017@v1"
+            "BR-mrr-017@v3"
           ]
         },
         {
@@ -1182,7 +1182,7 @@
           "destinationRef": "self",
           "rules": [
             "BR-mrr-009@v1",
-            "BR-mrr-017@v1",
+            "BR-mrr-017@v3",
             "BR-mrr-007@v1",
             "BR-mrr-019@v1"
           ]
@@ -1308,19 +1308,19 @@
           "destinationRef": "self",
           "rules": [
             "BR-mrr-014@v1",
-            "BR-mrr-017@v1"
+            "BR-mrr-017@v3"
           ]
         },
         {
           "key": "reject",
           "name": "ปฏิเสธคำขอ",
           "kind": "command",
-          "effect": "ค่าเดิมคงไว้ และบันทึกร่องรอย",
+          "effect": "ค่าเดิมคงไว้ และบันทึกร่องรอย · ไม่ต้องระบุเหตุผล",
           "destination": "อยู่ที่หน้าเดิม",
           "destinationRef": "self",
           "rules": [
             "BR-mrr-014@v1",
-            "BR-mrr-017@v1"
+            "BR-mrr-017@v3"
           ]
         }
       ],
