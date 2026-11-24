@@ -72,7 +72,7 @@
     {
       "id": "rbac",
       "command": "/design:rbac",
-      "status": "stale",
+      "status": "done",
       "requires": [
         "function",
         "datamodel"
@@ -80,9 +80,8 @@
       "artifacts": [
         "rbac.json"
       ],
-      "attempts": 0,
-      "updatedAt": "2026-11-24T10:32:19Z",
-      "staleBecause": "ADR-017"
+      "attempts": 1,
+      "updatedAt": "2026-11-24T10:34:41Z"
     },
     {
       "id": "nfr",

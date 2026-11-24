@@ -613,6 +613,26 @@
       "visibleTo": [
         "ROLE-002"
       ]
+    },
+    {
+      "entity": "ENT-001",
+      "field": "email",
+      "visibleTo": [
+        "ROLE-001",
+        "ROLE-002",
+        "ROLE-003"
+      ],
+      "classification": "confidential"
+    },
+    {
+      "entity": "ENT-001",
+      "field": "fullName",
+      "visibleTo": [
+        "ROLE-001",
+        "ROLE-002",
+        "ROLE-003"
+      ],
+      "classification": "confidential"
     }
   ],
   "delegation": {
