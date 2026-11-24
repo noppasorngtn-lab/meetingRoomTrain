@@ -90,6 +90,46 @@ describe('FE-mrr-012 a booking\'s trail on the admin page (UI-mrr-010)', () => {
     ]);
   });
 
+  // GAP-mrr-026 · BR-mrr-017@v2 — the row each action leaves, in the words the criteria use. The entry
+  // itself is written by the api (FE-mrr-028 · 029 · 030) and read by API-016 (FE-mrr-033).
+  const shows = async (e: object) => {
+    replies[AUDIT] = { status: 200, body: [entry(e)] };
+    open();
+    const section = await trail();
+    await within(section).findByTestId('ui-mrr-010-ent-010-at');
+    return section;
+  };
+
+  it('AC-mrr-121 · AC-mrr-123 a rejection reads RA1 · 16/10 14:10 · ปฏิเสธการจอง · ห้องไม่เหมาะกับการประชุมนี้', async () => {
+    const section = await shows({ action: 'REJECT', reason: 'ห้องไม่เหมาะกับการประชุมนี้', at: '2026-10-16T07:10:00.000Z' });
+
+    expect(rows()).toEqual([['16/10 14:10', 'RA1', 'ปฏิเสธการจอง']]);
+    expect(within(section).getByText('ห้องไม่เหมาะกับการประชุมนี้')).toBeInTheDocument();
+  });
+
+  it('AC-mrr-124 a change of decision reads RA1 · 16/10 15:00 · ถอยผล · อนุมัติผิดห้อง', async () => {
+    const section = await shows({ action: 'CHANGE_DECISION', reason: 'อนุมัติผิดห้อง', at: '2026-10-16T08:00:00.000Z', detail: { from: 'APPROVED', to: 'REJECTED' } });
+
+    expect(rows()).toEqual([['16/10 15:00', 'RA1', 'ถอยผล']]);
+    expect(within(section).getByText('อนุมัติผิดห้อง')).toBeInTheDocument();
+  });
+
+  it('AC-mrr-125 an edit on behalf reads RA1 · 18/10 10:30 · แก้แทนผู้จอง · ผู้จองพิมพ์หัวข้อผิด', async () => {
+    const section = await shows({ action: 'EDIT_ON_BEHALF', reason: 'ผู้จองพิมพ์หัวข้อผิด', at: '2026-10-18T03:30:00.000Z', detail: { before: { title: 'ประชุมทีม' }, after: { title: 'ประชุมวางแผน' } } });
+
+    expect(rows()).toEqual([['18/10 10:30', 'RA1', 'แก้แทนผู้จอง']]);
+    expect(within(section).getByText('ผู้จองพิมพ์หัวข้อผิด')).toBeInTheDocument();
+  });
+
+  it('AC-mrr-126 a rejection refused for an empty reason left nothing — the pending booking\'s trail reads ยังไม่มีการกระทำของผู้ดูแล', async () => {
+    replies[GET] = { status: 200, body: booking({ roomName: 'ห้อง B', title: 'ประชุมลูกค้า', status: 'PENDING_APPROVAL' }) };
+    replies[AUDIT] = { status: 200, body: [] };
+    open();
+
+    expect(await within(await trail()).findByText('ยังไม่มีการกระทำของผู้ดูแล')).toBeInTheDocument();
+    expect(screen.queryByTestId('ui-mrr-010-ent-010-action')).not.toBeInTheDocument();
+  });
+
   it('AC-mrr-054 · AC-mrr-055 empty state — nothing done by an administrator: ยังไม่มีการกระทำของผู้ดูแล', async () => {
     replies[AUDIT] = { status: 200, body: [] };
     open();

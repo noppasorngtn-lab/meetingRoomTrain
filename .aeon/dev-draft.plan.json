@@ -2,57 +2,76 @@
   "module": "mrr",
   "features": [
     {
-      "id": "FE-mrr-009",
-      "title_th": "แก้ไขหรือยกเลิกการจองแทนผู้จอง — หน้าจอ",
+      "id": "FE-mrr-012",
+      "title_th": "ดูร่องรอยการกระทำต่อการจอง — หน้าจอ",
       "app_ref": "frontend-web",
       "type": "command",
       "origin": "change",
       "files_planned": [],
       "depends_on": [
         "FE-mrr-022",
-        "FE-mrr-030",
-        "FE-mrr-038"
+        "FE-mrr-033"
       ],
       "acceptance_refs": [
-        "AC-mrr-028",
-        "AC-mrr-029",
-        "AC-mrr-042",
+        "AC-mrr-052",
         "AC-mrr-053",
+        "AC-mrr-054",
         "AC-mrr-055",
-        "AC-mrr-086",
-        "AC-mrr-120",
-        "AC-mrr-125"
+        "AC-mrr-056",
+        "AC-mrr-057",
+        "AC-mrr-058",
+        "AC-mrr-059",
+        "AC-mrr-121",
+        "AC-mrr-123",
+        "AC-mrr-124",
+        "AC-mrr-125",
+        "AC-mrr-126"
       ],
       "traces_up": [
         {
-          "ref": "UC-mrr-009"
+          "ref": "UC-mrr-012"
         },
         {
-          "ref": "AC-mrr-028"
-        },
-        {
-          "ref": "AC-mrr-029"
-        },
-        {
-          "ref": "AC-mrr-042"
+          "ref": "AC-mrr-052"
         },
         {
           "ref": "AC-mrr-053"
         },
         {
+          "ref": "AC-mrr-054"
+        },
+        {
           "ref": "AC-mrr-055"
         },
         {
-          "ref": "UI-mrr-010"
+          "ref": "AC-mrr-056"
         },
         {
-          "ref": "AC-mrr-086"
+          "ref": "AC-mrr-057"
         },
         {
-          "ref": "AC-mrr-120"
+          "ref": "AC-mrr-058"
+        },
+        {
+          "ref": "AC-mrr-059"
+        },
+        {
+          "ref": "AC-mrr-121"
+        },
+        {
+          "ref": "AC-mrr-123"
+        },
+        {
+          "ref": "AC-mrr-124"
         },
         {
           "ref": "AC-mrr-125"
+        },
+        {
+          "ref": "AC-mrr-126"
+        },
+        {
+          "ref": "UI-mrr-010"
         }
       ]
     }

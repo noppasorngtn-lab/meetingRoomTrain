@@ -4015,7 +4015,12 @@
         "AC-mrr-056",
         "AC-mrr-057",
         "AC-mrr-058",
-        "AC-mrr-059"
+        "AC-mrr-059",
+        "AC-mrr-121",
+        "AC-mrr-123",
+        "AC-mrr-124",
+        "AC-mrr-125",
+        "AC-mrr-126"
       ],
       "traces_up": [
         {
@@ -4055,13 +4060,33 @@
           "hash": "sha256:12b55036d10bad99a5d3f271de0257361fdb610bf2c2cf58ef570b5bc2e8c3e2"
         },
         {
+          "ref": "AC-mrr-121",
+          "hash": "sha256:df8ad168ed036937bb3c524c8f7c9b67e9953a13b049853d1e21557856bd354d"
+        },
+        {
+          "ref": "AC-mrr-123",
+          "hash": "sha256:af1ea89cc0855f02e562644fac1960abebc333cca6cf2a3c88783f42d0171c58"
+        },
+        {
+          "ref": "AC-mrr-124",
+          "hash": "sha256:f26234e6462f036a942a73a646025c7d54dc43ebffc1f24b1fc6507ca2186d3d"
+        },
+        {
+          "ref": "AC-mrr-125",
+          "hash": "sha256:e6749ba4554fdb461c9f6e3ae669432c1e4af12fdac2ac47f9f68959afc5ae09"
+        },
+        {
+          "ref": "AC-mrr-126",
+          "hash": "sha256:bd8d073c9755ce15cc56d1eb018584301e5235cdf76055f26a9b4e0d5fb4b81a"
+        },
+        {
           "ref": "UI-mrr-010",
           "hash": "sha256:5b8247cfc668ae8b94235f1ac30b9e6a1e28134765c25ad40b9672d89aa859a0"
         }
       ],
       "status": "validated",
       "build": {
-        "iterations": 3,
+        "iterations": 0,
         "proof": [
           {
             "cmd": "powershell -File scripts/dev-build.ps1 -App frontend-web",
@@ -4086,6 +4111,21 @@
           {
             "cmd": "powershell -NoProfile -File scripts/dev-test.ps1 -App frontend-web -Filter FE-mrr-012",
             "result": "audit-trail.test.tsx 13 passed (action labels อนุมัติ · ปฏิเสธการจอง · ถอยผล · แก้แทนผู้จอง · ยกเลิกแทนผู้จอง per BR-mrr-017@v2) · Test Files 1 passed | 20 skipped (21) · Tests 13 passed | 296 skipped (309) · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -NoProfile -File scripts/dev-build.ps1 -App frontend-web",
+            "result": "tsc --noEmit + vite build · built in 956ms · exit 0",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "powershell -NoProfile -File scripts/dev-test.ps1 -App frontend-web -Filter FE-mrr-012",
+            "result": "audit-trail.test.tsx 17 passed · Test Files 1 passed | 20 skipped (21) · Tests 17 passed | 310 skipped (327) · exit 0 (AC-mrr-121/123 ปฏิเสธการจอง · 124 ถอยผล · 125 แก้แทนผู้จอง rows with actor · time · reason · 126 no entry: ยังไม่มีการกระทำของผู้ดูแล)",
+            "at": "2026-11-24"
+          },
+          {
+            "cmd": "cd test && npx playwright test e2e/t1-round2.spec.ts --project=chromium -g \"TC-AUD-UI010-1(09|1[012])\" --reporter=list",
+            "result": "4 passed (15.5s) · [real] TC-AUD-UI010-109 (EX-mrr-120) · TC-AUD-UI010-110 (EX-mrr-121) · TC-AUD-UI010-111 (EX-mrr-122) · TC-AUD-UI010-112 (EX-mrr-123) against docker stack mrr-* rebuilt from HEAD",
             "at": "2026-11-24"
           }
         ],
