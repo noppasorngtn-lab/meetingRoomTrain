@@ -100,7 +100,7 @@ const statusOf = async (id: string) => ((await (await clients.ra1.get(`/bookings
 const U2 = world.users.u2.email;
 
 test.describe('F5 ผู้จองที่ถูกปิดบังถูกตัดออกจากเมล (ADR-017 · fix 35bc4e0)', () => {
-  test('[real] TC-APR-UI009-108 RA ปฏิเสธการจองของผู้จองที่ถูกปิดบัง → ปฏิเสธสำเร็จ เมลถึงผู้เข้าร่วมเท่านั้น ไม่ถึง address ที่ปิดบัง/เดิม', async () => {
+  test('[real] TC-NTF-UI009-105 RA ปฏิเสธการจองของผู้จองที่ถูกปิดบัง → ปฏิเสธสำเร็จ เมลถึงผู้เข้าร่วมเท่านั้น ไม่ถึง address ที่ปิดบัง/เดิม', async () => {
     const t = token();
     const b = await bookedByMasked('appr', nearSlot(), 'rej', t);
     expect(b.status).toBe('PENDING_APPROVAL');
@@ -114,7 +114,7 @@ test.describe('F5 ผู้จองที่ถูกปิดบังถู�
     expect(await statusOf(b.id)).toBe('REJECTED');
   });
 
-  test('[real] TC-APR-UI009-109 RA อนุมัติการจองของผู้จองที่ถูกปิดบัง → อนุมัติสำเร็จ ไม่มีเมลเลย (ไม่เหลือผู้รับ → ข้าม)', async () => {
+  test('[real] TC-NTF-UI009-106 RA อนุมัติการจองของผู้จองที่ถูกปิดบัง → อนุมัติสำเร็จ ไม่มีเมลเลย (ไม่เหลือผู้รับ → ข้าม)', async () => {
     const t = token();
     const b = await bookedByMasked('appr', nearSlot(), 'apv', t);
     await clearMail();
@@ -127,7 +127,7 @@ test.describe('F5 ผู้จองที่ถูกปิดบังถู�
     expect(await statusOf(b.id)).toBe('APPROVED');
   });
 
-  test('[real] TC-APR-UI011-104 RA เปลี่ยนการตัดสินเป็นปฏิเสธ ผู้จองถูกปิดบัง → สำเร็จ เมลถึงผู้เข้าร่วมเท่านั้น', async () => {
+  test('[real] TC-NTF-UI010-104 RA เปลี่ยนการตัดสินเป็นปฏิเสธ ผู้จองถูกปิดบัง → สำเร็จ เมลถึงผู้เข้าร่วมเท่านั้น', async () => {
     const t = token();
     const b = await bookedByMasked('appr', nearSlot(), 'dec', t);
     expect((await clients.ra1.post(`/bookings/${b.id}/approve`)).status()).toBe(200);
@@ -141,7 +141,7 @@ test.describe('F5 ผู้จองที่ถูกปิดบังถู�
     expect(await statusOf(b.id)).toBe('REJECTED');
   });
 
-  test('[real] TC-MYB-UI009-107 RA แก้เวลาแทนผู้จองที่ถูกปิดบัง (ระหว่างประชุม) → บันทึกสำเร็จ เมลถึงผู้เข้าร่วมเท่านั้น', async () => {
+  test('[real] TC-NTF-UI010-105 RA แก้เวลาแทนผู้จองที่ถูกปิดบัง (ระหว่างประชุม) → บันทึกสำเร็จ เมลถึงผู้เข้าร่วมเท่านั้น', async () => {
     const t = token();
     const slot = nearSlot(undefined, 2);
     const b = await bookedByMasked('open', slot, 'edt', t);
@@ -156,7 +156,7 @@ test.describe('F5 ผู้จองที่ถูกปิดบังถู�
     expect(recipients(mails)).toEqual([U2]);
   });
 
-  test('[real] TC-MYB-UI009-108 RA ยกเลิกแทนผู้จองที่ถูกปิดบัง (ระหว่างประชุม) → ยกเลิกสำเร็จ เมลถึงผู้เข้าร่วมเท่านั้น', async () => {
+  test('[real] TC-NTF-UI010-106 RA ยกเลิกแทนผู้จองที่ถูกปิดบัง (ระหว่างประชุม) → ยกเลิกสำเร็จ เมลถึงผู้เข้าร่วมเท่านั้น', async () => {
     const t = token();
     const slot = nearSlot();
     const b = await bookedByMasked('open', slot, 'can', t);
@@ -171,7 +171,7 @@ test.describe('F5 ผู้จองที่ถูกปิดบังถู�
     expect(await statusOf(b.id)).toBe('CANCELLED');
   });
 
-  test('[real] TC-JOB-REM-101 เตือน 15 นาทีของการจองที่ผู้จองถูกปิดบัง → เมลถึงผู้เข้าร่วมเท่านั้น และบันทึกว่าเตือนแล้ว (SENT)', async () => {
+  test('[real] TC-NTF-JOB-111 เตือน 15 นาทีของการจองที่ผู้จองถูกปิดบัง → เมลถึงผู้เข้าร่วมเท่านั้น และบันทึกว่าเตือนแล้ว (SENT)', async () => {
     const t = token();
     const slot = nearSlot();
     const b = await bookedByMasked('open', slot, 'rem', t);
@@ -185,7 +185,7 @@ test.describe('F5 ผู้จองที่ถูกปิดบังถู�
     expect(psql(`select reminder_status from bookings where id = ${lit(b.id)}`)).toBe('SENT');
   });
 
-  test('[real] TC-JOB-REM-102 เตือน 15 นาทีของการจองที่ผู้จองและผู้เข้าร่วมถูกปิดบังทั้งคู่ → ไม่มีเมล แต่บันทึกว่าเตือนแล้ว (SENT)', async () => {
+  test('[real] TC-NTF-JOB-112 เตือน 15 นาทีของการจองที่ผู้จองและผู้เข้าร่วมถูกปิดบังทั้งคู่ → ไม่มีเมล แต่บันทึกว่าเตือนแล้ว (SENT)', async () => {
     const t = token();
     const slot = nearSlot();
     const b = await bookedByMasked('open', slot, 'rn', t, true);
@@ -198,7 +198,7 @@ test.describe('F5 ผู้จองที่ถูกปิดบังถู�
     expect(psql(`select reminder_status from bookings where id = ${lit(b.id)}`)).toBe('SENT');
   });
 
-  test('[real] TC-JOB-AUTO-101 ยกเลิกอัตโนมัติของการจองรออนุมัติที่ผู้จองถูกปิดบัง → ยกเลิกสำเร็จ ไม่มีเมล (ไม่เหลือผู้รับ → ข้าม)', async () => {
+  test('[real] TC-NTF-JOB-113 ยกเลิกอัตโนมัติของการจองรออนุมัติที่ผู้จองถูกปิดบัง → ยกเลิกสำเร็จ ไม่มีเมล (ไม่เหลือผู้รับ → ข้าม)', async () => {
     const t = token();
     const slot = nearSlot();
     const b = await bookedByMasked('appr', slot, 'aut', t);

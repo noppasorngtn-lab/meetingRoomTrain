@@ -426,3 +426,20 @@
 ## B11. สถานะ review เคส BR-mrr-017@v3 (CHG-mrr-006) (2026-11-25)
 
 **สถานะ: QA review เสร็จสมบูรณ์ (completed) · ผู้ review: QA_Noppasorn · 2026-11-25 · ขอบเขต: TC-AUD-UI010-114 (EX-mrr-129), TC-AUD-UI011-101 (EX-mrr-130), TC-AUD-UI011-102 (EX-mrr-131)** — ผู้ใช้แจ้งผล review ในเซสชัน QA (บันทึกโดย AI ตามคำแจ้ง · AI ไม่ได้เป็นผู้ลงนาม) · เคสเขียนใน `test/e2e/t1-round2.spec.ts` (commit `f913505`) ผลรัน chromium 2026-11-24 ผ่าน 3/3 และผ่านใน T7 Full 2026-11-25 (build `d73529c`) · ผลรันไม่ใช่การ review · เพิ่มแถวทั้ง 3 ลง `t1-test-cases.csv` แล้ว (127 → 130 เคส) · ใช้เป็นหลักฐาน G1 ข้อ review ใน [t5-quality-gate-2026-11-25.md](t5-quality-gate-2026-11-25.md)
+
+## B12. เคส T5 F5 — ผู้จองที่ถูกปิดบังถูกตัดออกจากเมล (2026-11-25)
+
+**สถานะ: AI-generated · รอ QA review (ยังไม่มีผู้ review/ลงนาม)** · เคสเขียนใน `test/e2e/t1-adr017-f5.spec.ts` (commit `a1f25b4`) · ผลรัน chromium บน `35bc4e0` ผ่าน 8/8 ในชุดเต็ม 205 ผ่าน 2 รอบติดกัน (flaky 0) — ผลรันไม่ใช่การ review · รหัสทางการกำหนดวันเดียวกัน แทนชื่อชั่วคราวที่ใช้ทั้ง 2 รอบรัน (`test/results.json` ยังมีชื่อเดิม · เปลี่ยนเฉพาะชื่อเทสต์ ยังไม่ได้รันซ้ำหลังเปลี่ยนชื่อ) · เพิ่มแถวทั้ง 8 ลง `t1-test-cases.csv` แล้ว (130 → 138 เคส) · ที่มา: คำตอบของผู้ใช้ 2026-11-25 (ตัดผู้จองที่ปิดบังออกจากเมล · ไม่เหลือผู้รับ = ข้ามเมลแล้วสำเร็จต่อ) — ยังรอ design/req บันทึกทางการ จึงยังไม่มี EX/BR ให้อ้าง · red-before พิสูจน์ด้วย jest (22 เคสใน commit `35bc4e0`) E2E ไม่ได้รันกับโค้ดก่อนแก้
+
+| TC ID | ชื่อชั่วคราวในรอบรัน | Requirement ID | Type | Priority | เส้นเมล |
+|---|---|---|---|---|---|
+| TC-NTF-UI009-105 | TC-APR-UI009-108 | BR-mrr-007@v2 / ADR-017 / T5-F5 | Exception | High | รออนุมัติ → ปฏิเสธ |
+| TC-NTF-UI009-106 | TC-APR-UI009-109 | BR-mrr-007@v2 (1) / ADR-017 / T5-F5 | Exception | High | รออนุมัติ → อนุมัติ (ไม่เหลือผู้รับ) |
+| TC-NTF-UI010-104 | TC-APR-UI011-104 | BR-mrr-007@v2 / ADR-017 / T5-F5 | Exception | High | เปลี่ยนผลอนุมัติ → ปฏิเสธ |
+| TC-NTF-UI010-105 | TC-MYB-UI009-107 | BR-mrr-007@v2 / ADR-017 / T5-F5 | Exception | High | RA แก้เวลาแทน |
+| TC-NTF-UI010-106 | TC-MYB-UI009-108 | BR-mrr-007@v2 / ADR-017 / T5-F5 | Exception | High | RA ยกเลิกแทน |
+| TC-NTF-JOB-111 | TC-JOB-REM-101 | BR-mrr-007@v2 / BR-mrr-020@v2 / BR-mrr-023@v1 / ADR-017 / T5-F5 | Exception | High | เตือน 15 นาที (u2 ได้) |
+| TC-NTF-JOB-112 | TC-JOB-REM-102 | BR-mrr-020@v2 / BR-mrr-023@v1 / ADR-017 / T5-F5 | Boundary | Medium | เตือน 15 นาที (ไม่เหลือผู้รับ · SENT) |
+| TC-NTF-JOB-113 | TC-JOB-AUTO-101 | BR-mrr-016@v1 / ADR-017 / T5-F5 | Exception | Medium | ยกเลิกอัตโนมัติ (ไม่เหลือผู้รับ) |
+
+เลขเลือกต่อจากรหัสที่ใช้อยู่แล้วในสคริปต์และเอกสาร (TC-NTF-UI009 ถึง -104 · TC-NTF-UI010 ถึง -103 · TC-NTF-JOB ถึง -110) · เคส "ไม่เหลือผู้รับ" ใช้ผู้เข้าร่วมที่ปิดบังด้วย เพราะระบบไม่ให้จองโดยไม่มีผู้เข้าร่วม
