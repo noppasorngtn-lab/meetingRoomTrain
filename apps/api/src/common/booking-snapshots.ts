@@ -36,6 +36,7 @@ export async function loadSnapshots(db: Kysely<Database>, rows: BookingRowForMai
     .selectFrom('booking_attendees as a')
     .innerJoin('users as u', 'u.id', 'a.user_id')
     .select(['a.booking_id', 'u.email'])
+    .where('u.active', '=', true) // ADR-017 · DEF-06: an attendee masked (inactive) is not mailed
     .where('a.booking_id', 'in', rows.map((r) => r.id))
     .orderBy('u.email')
     .execute();

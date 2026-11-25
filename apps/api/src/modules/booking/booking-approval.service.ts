@@ -155,6 +155,7 @@ export class BookingApprovalService {
           .innerJoin('users as u', 'u.id', 'a.user_id')
           .select('u.email')
           .where('a.booking_id', '=', id)
+          .where('u.active', '=', true) // ADR-017 · DEF-06: an attendee masked (inactive) is not mailed
           .orderBy('u.email')
           .execute()
       ).map((a) => a.email);
@@ -223,6 +224,7 @@ export class BookingApprovalService {
               .innerJoin('users as u', 'u.id', 'a.user_id')
               .select('u.email')
               .where('a.booking_id', '=', id)
+              .where('u.active', '=', true) // ADR-017 · DEF-06: an attendee masked (inactive) is not mailed
               .orderBy('u.email')
               .execute()
           ).map((a) => a.email);

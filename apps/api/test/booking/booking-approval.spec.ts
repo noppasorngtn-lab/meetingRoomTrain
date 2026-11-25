@@ -8,7 +8,7 @@ import { BookingInvalid } from '../../src/modules/booking/booking.service';
 import { BookingNotFound } from '../../src/modules/booking/booking-edit.service';
 import { BookingNotifier, EmailDeliveryFailed } from '../../src/modules/notification/booking-notifier';
 import { MailMessage, MailTransport } from '../../src/modules/notification/mail-transport';
-import { seedBooking, seedRoom, seedUser, startDatabase, truncateAll } from '../support/postgres';
+import { maskUser, seedBooking, seedRoom, seedUser, startDatabase, truncateAll } from '../support/postgres';
 
 jest.setTimeout(120_000);
 
@@ -184,8 +184,9 @@ describe('FE-mrr-028 approve or reject a booking (UC-mrr-007)', () => {
   // is mailed (BR-mrr-007@v2) can be told apart, and the clock at the examples' 16/10 14:10.
   describe('BR-mrr-007@v2 · BR-mrr-017@v2 criteria with an attendee', () => {
     let withU2: string;
+    let u2: string;
     beforeEach(async () => {
-      const u2 = await seedUser(db, 'U2');
+      u2 = await seedUser(db, 'U2');
       await db.deleteFrom('bookings').where('id', '=', booking).execute();
       withU2 = await seedBooking(db, {
         room: roomB, bookedBy: u1, title: 'ประชุมลูกค้า', startAt: at(17, '10:00'), endAt: at(17, '11:00'), status: 'PENDING_APPROVAL', attendees: [u2],
@@ -200,6 +201,15 @@ describe('FE-mrr-028 approve or reject a booking (UC-mrr-007)', () => {
 
       expect(await status(withU2)).toBe('APPROVED');
       expect(sentTo()).toEqual([[['u1@example.test'], '[จองห้องประชุม] อนุมัติแล้ว: ประชุมลูกค้า · ห้อง B 17/10 10:00–11:00']]);
+    });
+
+    it('DEF-06 a rejection is not mailed to an attendee masked under ADR-017; the rejection still goes through (Q-ADR017-3)', async () => {
+      await maskUser(db, u2);
+
+      expect(await service.reject({ userId: ra1 }, withU2, 'ห้องไม่เหมาะกับการประชุมนี้')).toEqual({ message: 'ปฏิเสธการจองสำเร็จ' });
+
+      expect(await status(withU2)).toBe('REJECTED');
+      expect(sentTo()).toEqual([[['u1@example.test'], '[จองห้องประชุม] ปฏิเสธการจอง: ประชุมลูกค้า · ห้อง B 17/10 10:00–11:00']]);
     });
 
     it('AC-mrr-121 RA rejects with ห้องไม่เหมาะกับการประชุมนี้ — ปฏิเสธแล้ว, ปฏิเสธการจองสำเร็จ, U1 and U2 mailed ปฏิเสธการจอง, one trail entry', async () => {

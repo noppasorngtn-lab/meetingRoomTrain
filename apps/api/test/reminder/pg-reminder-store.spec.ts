@@ -4,7 +4,7 @@ import { MailMessage, MailTransport } from '../../src/modules/notification/mail-
 import { PgReminderStore } from '../../src/modules/reminder/pg-reminder-store';
 import { ReminderJob } from '../../src/modules/reminder/reminder-job';
 import { Database } from '../../src/common/database/schema';
-import { seedBooking, seedRoom, seedUser, startDatabase } from '../support/postgres';
+import { maskUser, seedBooking, seedRoom, seedUser, startDatabase } from '../support/postgres';
 
 jest.setTimeout(120_000);
 
@@ -57,6 +57,17 @@ describe('PgReminderStore + ReminderJob', () => {
     const row = await rowOf(id);
     expect(row.reminder_status).toBe('SENT');
     expect(row.reminder_at?.getTime()).toBe(T('09:45').getTime());
+  });
+
+  it('DEF-06 the reminder leaves out an attendee masked under ADR-017, and the booking is still marked SENT (Q-ADR017-3)', async () => {
+    const u4 = await seedUser(db, 'U4');
+    await maskUser(db, u4);
+    const id = await seedBooking(db, { room: roomOpen, bookedBy: u1, title: 'ประชุมทีม', startAt: T('10:00'), endAt: T('11:00'), attendees: [u2, u4] });
+
+    await job.run(T('09:45'));
+
+    expect(reminded().map((m) => m.to.sort())).toEqual([['u1@example.test', 'u2@example.test']]);
+    expect((await rowOf(id)).reminder_status).toBe('SENT');
   });
 
   it('EX-mrr-023: at 09:44 (16 minutes before) nobody is reminded and the row is untouched', async () => {

@@ -6,7 +6,7 @@ import { NotRoomAdministrator } from '../../src/modules/booking/room-admin';
 import { BookingInvalid, SlotTaken } from '../../src/modules/booking/booking.service';
 import { BookingNotifier, EmailDeliveryFailed } from '../../src/modules/notification/booking-notifier';
 import { MailMessage, MailTransport } from '../../src/modules/notification/mail-transport';
-import { seedBooking, seedRoom, seedUser, startDatabase, truncateAll } from '../support/postgres';
+import { maskUser, seedBooking, seedRoom, seedUser, startDatabase, truncateAll } from '../support/postgres';
 
 jest.setTimeout(120_000);
 
@@ -123,6 +123,15 @@ describe('FE-mrr-030 edit or cancel on behalf of the booker (UC-mrr-009)', () =>
       expect((await trail())[0].detail).toEqual({ before: { endAt: at(18, '11:00').toISOString() }, after: { endAt: at(18, '11:30').toISOString() } });
     });
 
+    it('DEF-06 a new time is not mailed to an attendee masked under ADR-017 (Q-ADR017-3)', async () => {
+      await maskUser(db, u2);
+
+      await edit({ endAt: at(18, '11:30') }, 'ประชุมยังไม่เสร็จ');
+
+      expect(await row()).toMatchObject({ end_at: at(18, '11:30') });
+      expect(mail.sent.map((m) => m.to)).toEqual([['u1@example.test']]);
+    });
+
     it('BR-mrr-019 a new time whose mail does not go saves nothing and records nothing', async () => {
       mail.down = true;
 
@@ -205,6 +214,14 @@ describe('FE-mrr-030 edit or cancel on behalf of the booker (UC-mrr-009)', () =>
         subject: '[จองห้องประชุม] ยกเลิกการจอง: ประชุมทีม · ห้อง A 18/10 10:00–11:00',
         text: '[จองห้องประชุม] ยกเลิกการจอง: ประชุมทีม · ห้อง A 18/10 10:00–11:00',
       }]);
+    });
+
+    it('DEF-06 an attendee masked under ADR-017 is left out of the cancel mail (Q-ADR017-3)', async () => {
+      await maskUser(db, u2);
+
+      await service.adminCancel({ userId: ra1 }, booking, 'ห้องต้องใช้จัดงานด่วน');
+
+      expect(mail.sent.map((m) => m.to)).toEqual([['u1@example.test']]);
     });
 
     it.each(['GENERAL_USER', 'SYSTEM_ADMINISTRATOR'] as const)('a %s cannot cancel for the booker (ACL-010 is ROLE-002 only)', async (role) => {

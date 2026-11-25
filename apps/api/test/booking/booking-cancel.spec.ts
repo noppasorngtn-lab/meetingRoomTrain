@@ -10,7 +10,7 @@ import { BookingModule } from '../../src/modules/booking/booking.module';
 import { BookingService } from '../../src/modules/booking/booking.service';
 import { BookingNotifier, EmailDeliveryFailed } from '../../src/modules/notification/booking-notifier';
 import { MAIL_TRANSPORT, MailMessage, MailTransport } from '../../src/modules/notification/mail-transport';
-import { seedBooking, seedRoom, seedUser, startDatabase, truncateAll } from '../support/postgres';
+import { maskUser, seedBooking, seedRoom, seedUser, startDatabase, truncateAll } from '../support/postgres';
 
 jest.setTimeout(120_000);
 
@@ -109,6 +109,15 @@ describe('FE-mrr-026 cancel own booking (UC-mrr-005)', () => {
     expect(mail.sent.map((m) => [m.to, m.subject])).toEqual([
       [['u1@example.test', 'u2@example.test', 'u3@example.test'], '[จองห้องประชุม] ยกเลิกการจอง: ประชุมทีม · ห้อง A 18/10 10:00–11:00'],
     ]);
+  });
+
+  it('DEF-06 an attendee masked under ADR-017 (inactive) is left out of the cancel mail; the cancel still goes through (Q-ADR017-3)', async () => {
+    await maskUser(db, u3);
+
+    expect(await cancel()).toEqual({ message: 'ยกเลิกการจองสำเร็จ' });
+
+    expect(await status()).toBe('CANCELLED');
+    expect(mail.sent.map((m) => m.to)).toEqual([['u1@example.test', 'u2@example.test']]);
   });
 
   it('gives the slot back — someone else can book it at once', async () => {

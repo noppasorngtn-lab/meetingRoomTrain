@@ -6,7 +6,7 @@ import { BookingNotFound } from '../../src/modules/booking/booking-edit.service'
 import { BookingInvalid, SlotTaken } from '../../src/modules/booking/booking.service';
 import { BookingNotifier, EmailDeliveryFailed } from '../../src/modules/notification/booking-notifier';
 import { MailMessage, MailTransport } from '../../src/modules/notification/mail-transport';
-import { seedBooking, seedRoom, seedUser, startDatabase, truncateAll } from '../support/postgres';
+import { maskUser, seedBooking, seedRoom, seedUser, startDatabase, truncateAll } from '../support/postgres';
 
 jest.setTimeout(120_000);
 
@@ -98,8 +98,9 @@ describe('FE-mrr-029 change an approval decision (UC-mrr-008)', () => {
   // GAP-mrr-026 · EX-mrr-121 / EX-mrr-124 — the approved booking with U2 attending, decided at 16/10 15:00.
   describe('BR-mrr-007@v2 · BR-mrr-017@v2 criteria with an attendee', () => {
     let withU2: string;
+    let u2: string;
     beforeEach(async () => {
-      const u2 = await seedUser(db, 'U2');
+      u2 = await seedUser(db, 'U2');
       withU2 = await seedBooking(db, {
         room: roomB, bookedBy: u1, title: 'ประชุมลูกค้า', startAt: at(17, '10:00'), endAt: at(17, '11:00'), status: 'APPROVED', attendees: [u2],
       });
@@ -111,6 +112,14 @@ describe('FE-mrr-029 change an approval decision (UC-mrr-008)', () => {
 
       expect(await status(withU2)).toBe('REJECTED');
       expect(await trailOf()).toEqual([{ actor_id: ra, action: 'CHANGE_DECISION', reason: 'อนุมัติผิดห้อง', at: at(16, '15:00') }]);
+    });
+
+    it('DEF-06 changing to rejected is not mailed to an attendee masked under ADR-017 (Q-ADR017-3)', async () => {
+      await maskUser(db, u2);
+
+      await service.changeDecision({ userId: ra }, withU2, { decision: 'REJECTED', reason: 'อนุมัติผิดห้อง' });
+
+      expect(mail.sent.map((m) => m.to)).toEqual([['u1@example.test']]);
     });
 
     it('AC-mrr-127 changing the approval to rejected mails ปฏิเสธการจอง to U1 and U2', async () => {

@@ -6,7 +6,7 @@ import { BookingNotifier, EmailDeliveryFailed } from '../../src/modules/notifica
 import { MailMessage, MailTransport } from '../../src/modules/notification/mail-transport';
 import { RoomAdminService, RoomInvalid } from '../../src/modules/rooms/room-admin.service';
 import { RoomInfoNotFound } from '../../src/modules/rooms/rooms.service';
-import { seedBooking, seedRoom, seedUser, startDatabase, truncateAll } from '../support/postgres';
+import { maskUser, seedBooking, seedRoom, seedUser, startDatabase, truncateAll } from '../support/postgres';
 
 jest.setTimeout(120_000);
 
@@ -187,6 +187,19 @@ describe('FE-mrr-034 a Room Administrator adds or edits a room and its facilitie
       expect(mail.sent).toEqual([
         { to: ['u1@example.test'], subject: '[จองห้องประชุม] จองสำเร็จ: ประชุมทีม · ห้อง B 18/10 10:00–11:00', text: '[จองห้องประชุม] จองสำเร็จ: ประชุมทีม · ห้อง B 18/10 10:00–11:00' },
       ]);
+    });
+
+    it('DEF-06 a waiting booking made usable 10 minutes before its start: the reminder that goes at once leaves out an attendee masked under ADR-017 (Q-ADR017-3)', async () => {
+      const roomB = await seedRoom(db, 'ห้อง B', ra1, { requiresApproval: true });
+      await seedBooking(db, {
+        room: roomB, bookedBy: u1, title: 'ประชุมทีม', startAt: at(16, '10:10'), endAt: at(16, '11:00'), status: 'PENDING_APPROVAL', attendees: [u2],
+      });
+      await maskUser(db, u2);
+
+      await service.saveVersion({ userId: ra1 }, roomB.roomId, versionOf({ name: 'ห้อง B', requiresApproval: false }));
+
+      const reminder = mail.sent.filter((m) => m.subject.includes('ใกล้ถึงเวลาประชุม'));
+      expect(reminder.map((m) => m.to)).toEqual([['u1@example.test']]);
     });
 
     it('BR-mrr-019 the mail does not go — nothing is saved: still version 1, still waiting, and the message asks to press again', async () => {

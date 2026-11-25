@@ -33,6 +33,16 @@ export async function seedUser(db: Kysely<Database>, fullName: string, role: Dat
   return id;
 }
 
+/**
+ * The admin's out-of-system masking step of ADR-017 / DQ-mrr-017: the account is inactive, its name is
+ * the masked name and its email a unique address that cannot receive mail.
+ */
+export async function maskUser(db: Kysely<Database>, id: string): Promise<string> {
+  const email = `masked-${id}@mrr.invalid`;
+  await db.updateTable('users').set({ active: false, full_name: 'ผู้ใช้ที่ถูกปิดบังชื่อ', email }).where('id', '=', id).execute();
+  return email;
+}
+
 export async function seedRoom(
   db: Kysely<Database>,
   name: string,

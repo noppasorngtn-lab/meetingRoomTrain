@@ -7,7 +7,7 @@ import {
 import { BookingInvalid, RoomUnderMaintenance, SlotTaken } from '../../src/modules/booking/booking.service';
 import { BookingNotifier, EmailDeliveryFailed } from '../../src/modules/notification/booking-notifier';
 import { MailMessage, MailTransport } from '../../src/modules/notification/mail-transport';
-import { seedBooking, seedRoom, seedUser, startDatabase, truncateAll } from '../support/postgres';
+import { maskUser, seedBooking, seedRoom, seedUser, startDatabase, truncateAll } from '../support/postgres';
 
 jest.setTimeout(120_000);
 
@@ -121,6 +121,15 @@ describe('FE-mrr-025 BookingEditService (UC-mrr-004)', () => {
         subject: '[จองห้องประชุม] เปลี่ยนเวลา: ประชุมทีม · ห้อง A 17/10 14:00–15:00',
         text: '[จองห้องประชุม] เปลี่ยนเวลา: ประชุมทีม · ห้อง A 17/10 14:00–15:00',
       }]);
+      expect(await row()).toMatchObject({ start_at: at(17, '14:00'), end_at: at(17, '15:00') });
+    });
+
+    it('DEF-06 a new time is not mailed to an attendee masked under ADR-017 (Q-ADR017-3)', async () => {
+      await maskUser(db, u3);
+
+      await edit({ startAt: at(17, '14:00'), endAt: at(17, '15:00') });
+
+      expect(mail.sent.map((m) => m.to)).toEqual([['u1@example.test', 'u2@example.test']]);
       expect(await row()).toMatchObject({ start_at: at(17, '14:00'), end_at: at(17, '15:00') });
     });
 

@@ -342,6 +342,7 @@ export class RoomAdminService {
       .innerJoin('users as u', 'u.id', 'a.user_id')
       .select('u.email')
       .where('a.booking_id', '=', b.id)
+      .where('u.active', '=', true) // ADR-017 · DEF-06: an attendee masked (inactive) is not mailed
       .execute();
     const { reminderSent } = await this.notifier.bookingCreated(
       { title: b.title, roomName, startAt: b.start_at, endAt: b.end_at, bookerEmail: booker.email, attendeeEmails: attendees.map((a) => a.email) },
