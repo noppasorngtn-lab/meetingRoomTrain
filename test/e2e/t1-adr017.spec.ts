@@ -1,6 +1,7 @@
 import { execFileSync } from 'node:child_process';
 import { randomUUID } from 'node:crypto';
 import { expect, request, test, type APIRequestContext, type Page } from '@playwright/test';
+import { resetClock, setClock } from './support/clock';
 import { as, book, nearSlot, stateOf, world } from './support/world';
 
 /**
@@ -11,7 +12,7 @@ import { as, book, nearSlot, stateOf, world } from './support/world';
  * (global-setup upsert ตาม email: ถ้าปิดบังบัญชีที่ seed ไว้ รอบหน้าจะได้แถวใหม่และแถวที่ปิดบังค้าง).
  * ผู้ใช้ที่ปิดบังแล้ว email เปลี่ยน จึงใช้ email เดิมสร้างใหม่ได้ทุกรอบ.
  * การจอง/รายงานที่สร้างค้างใน DB (ร่องรอยและรายงานเป็นแบบเพิ่มอย่างเดียว) — หัวข้อขึ้นต้น `E2E ADR017`.
- * TC-APR-UI011-103 ไม่เขียน: อนุมัติคำขอแก้ไขไม่ส่งอีเมล (adjustment-request.service.ts) — Q-ADR017-3 (ตอบแล้ว) ทดสอบที่ TC-MYB-UI007-106 แทน.
+ * Q-ADR017-3 (ตอบแล้ว): TC-MYB-UI007-106 = ยกเลิก (ส่งเมลจริง) · TC-APR-UI011-103 = อนุมัติคำขอแก้ไข (ไม่ส่งเมลเลย — adjustment-request.service.ts).
  * ชื่อสังเคราะห์เป็น ASCII (Thai ผ่าน `docker exec psql` กลายเป็น "????" บน Windows) ส่วนชื่อที่ปิดบังเป็นไทย — ส่งเป็น U&'\XXXX'.
  */
 
@@ -253,7 +254,7 @@ test('[real] TC-AUTH-UI001-110 ขอรหัสด้วย email เดิม
 // ------------------------------------------------------------------ อีเมลแจ้งเตือนไม่ส่งถึงผู้ใช้ที่ถูกปิดบัง (Q-ADR017-3 · ตอบแล้ว 2026-11-25)
 // คำตอบ: ตัดผู้เข้าร่วมที่ไม่ active/ถูกปิดบังออกจากรายชื่อผู้รับ · ถ้าส่งไม่ได้ การกระทำสำเร็จต่อและข้ามผู้รับคนนั้น
 // (ข้อหลังจำลองไม่ได้ใน E2E — mailpit รับทุก address — ต้องเป็น unit test กับ transport ปลอม).
-// ย้ายมาจาก TC-APR-UI011-103: อนุมัติคำขอแก้ไขไม่ส่งอีเมลเลย จึงใช้ "ผู้จองยกเลิก" ซึ่งส่งถึงผู้จองและผู้เข้าร่วมทุกคน.
+// ใช้ "ผู้จองยกเลิก" เพราะส่งอีเมลถึงผู้จองและผู้เข้าร่วมทุกคน (อนุมัติคำขอแก้ไขไม่ส่งเมล จึงเป็นอีกเคสคือ TC-APR-UI011-103).
 test('[real] TC-MYB-UI007-106 ผู้จองยกเลิกการจองที่มีผู้เข้าร่วมถูกปิดบัง → ยกเลิกสำเร็จ อีเมลไม่ถึง address ที่ปิดบัง/เดิม ผู้เข้าร่วมคนอื่นยังได้ (Q-ADR017-3 · BR-mrr-007@v2)', async () => {
   const att = makeUser(`mail.${RUN}`, 'GENERAL_USER');
   const b = await book(clients.u1, 'open', nearSlot(), `E2E ADR017 mail ${RUN}`, [att.id, world.users.u2.id]);
@@ -271,4 +272,36 @@ test('[real] TC-MYB-UI007-106 ผู้จองยกเลิกการจ�
   expect(await mailsTo(masked), 'ห้ามส่งถึง email ที่ปิดบัง').toHaveLength(0);
   expect(await mailsTo(att.email), 'ห้ามส่งถึง email เดิม').toHaveLength(0);
   expect((await (await clients.ra1.get(`/bookings/${b.id}`)).json()).status).toBe('CANCELLED');
+});
+
+// TC-APR-UI011-103 — พิสูจน์ด้วยการรันว่าอนุมัติคำขอแก้ไขไม่ส่งอีเมลถึงผู้ใช้ที่ถูกปิดบัง (ตามโค้ด: ไม่ส่งอีเมลเลย).
+// ขั้นตอนตามรายงาน: การจองจบแล้ว (เลื่อนนาฬิกา api) · ผู้เข้าร่วม = GU ที่ปิดบัง + u2 · ra1 ขอแก้ไข · ra2 อนุมัติ.
+test.describe('TC-APR-UI011-103', () => {
+  test.afterEach(resetClock);
+
+  test('[real] TC-APR-UI011-103 อนุมัติคำขอแก้ไขของการจองที่มีผู้เข้าร่วมถูกปิดบัง → ไม่มีอีเมลถึง email ที่ปิดบัง/เดิม (Q-ADR017-3 · BR-mrr-007@v2)', async () => {
+    const ra2 = await as('ra2');
+    const att = makeUser(`adj.${RUN}`, 'GENERAL_USER');
+    const slot = nearSlot();
+    const b = await book(clients.u1, 'open', slot, `E2E ADR017 adj ${RUN}`, [att.id, world.users.u2.id]);
+    const masked = mask(att);
+
+    await setClock(new Date(Date.parse(slot.endAt) + 60_000));
+    const asked = await clients.ra1.post(`/bookings/${b.id}/admin-edit`, { data: { title: `E2E ADR017 adj2 ${RUN}`, reason: 'ทดสอบ ADR-017' } });
+    expect(asked.status(), await asked.text()).toBeLessThan(300);
+    const list = (await (await ra2.get('/adjustment-requests?status=PENDING')).json()) as { items: { id: string; booking: { id: string } }[] };
+    const req = list.items.find((r) => r.booking.id === b.id);
+    expect(req, 'ต้องมีคำขอแก้ไขที่รออนุมัติ').toBeDefined();
+
+    await fetch(`${MAIL}/messages`, { method: 'DELETE' });
+    const res = await ra2.post(`/adjustment-requests/${req!.id}/approve`);
+    expect(res.status(), await res.text()).toBeLessThan(300);
+    await new Promise((r) => setTimeout(r, 3000));
+
+    const all = ((await (await fetch(`${MAIL}/messages`)).json()) as { messages?: Mail[] }).messages ?? [];
+    console.log(`TC-APR-UI011-103: อีเมลหลังอนุมัติทั้งหมด ${all.length} ฉบับ`, JSON.stringify(all.map((m) => [m.Subject, m.To.map((t) => t.Address)])));
+    expect(await mailsTo(masked), 'ห้ามส่งถึง email ที่ปิดบัง').toHaveLength(0);
+    expect(await mailsTo(att.email), 'ห้ามส่งถึง email เดิม').toHaveLength(0);
+    await ra2.dispose();
+  });
 });
