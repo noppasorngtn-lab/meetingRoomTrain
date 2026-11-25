@@ -9,7 +9,7 @@ actor: General User · งานแจ้งเตือนตามเวลา
 rules: [BR-mrr-007, BR-mrr-008, BR-mrr-019, BR-mrr-020, BR-mrr-023]
 domain_concepts: [UL-mrr-002, UL-mrr-006, UL-mrr-009]
 timestamp: 2026-11-18T12:30:00+07:00
-spec_hash: sha256:ec65af7496404e7e1d6665711e40fb3d6bf8b6f24325275dfc899e54c278d42b
+spec_hash: sha256:25e957f67d99616e80c2917d48f1180851ad42a235c4fb929e963be2ba7eea0c
 ---
 
 # REQ-mrr-005
