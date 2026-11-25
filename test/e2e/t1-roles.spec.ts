@@ -1,3 +1,4 @@
+import { execFileSync } from 'node:child_process';
 import { expect, test, type APIRequestContext, type Browser } from '@playwright/test';
 import { as, book, nearSlot, stateOf, world } from './support/world';
 import { myBookingIds } from './support/my-bookings';
@@ -56,6 +57,14 @@ test.describe('ผู้ใช้หลายคน (BR-mrr-001 · BR-mrr-003)',
     const seen = await myBookingIds(clients.u1); // ทุกหน้าที่ api บอก ไม่หยุดที่จำนวนหน้าตายตัว (เดิมหยุดที่ 50 หน้า = 1,000 แถว แต่ U1 มี 1,267)
     expect(seen.has(mineB.id)).toBe(true);
     expect(seen.has(theirs.id), 'การจองที่ตนเป็นแค่ผู้เข้าร่วมต้องไม่อยู่ในรายการ').toBe(false);
+    // "เฉพาะ" (EX-mrr-011): the list is exactly u1's own bookings. The api gives no booker per item, so compare with the database.
+    const own = new Set(
+      execFileSync('docker', ['exec', 'mrr-db-1', 'psql', '-U', 'mrr', '-d', 'mrr', '-At', '-c', `select id from bookings where booked_by = '${world.users.u1.id}'`], { encoding: 'utf8' })
+        .split('\n').map((s) => s.trim()).filter(Boolean),
+    );
+    expect(own.size).toBeGreaterThan(0);
+    expect([...seen].filter((id) => !own.has(id)), 'รายการต้องไม่มีการจองของคนอื่น').toEqual([]);
+    expect([...own].filter((id) => !seen.has(id)), 'การจองของ u1 ต้องอยู่ในรายการครบ').toEqual([]);
   });
 });
 
