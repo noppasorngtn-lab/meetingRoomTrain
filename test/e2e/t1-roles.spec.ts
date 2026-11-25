@@ -290,6 +290,8 @@ test.describe.serial('ปฏิทินห้อง (BR-mrr-021)', () => {
       (s) => s.startAt === new Date(slot.startAt).toISOString(),
     );
   };
+  /** The name the calendar shows for a user is the one in the database (u1 is the original setup's account, not accounts.ts's `tester`). */
+  const nameOf = async (who: APIRequestContext) => ((await (await who.get('/auth/me')).json()) as { fullName: string }).fullName;
 
   test('[real] TC-CAL-UI005-101 ผู้จองเห็นผู้จอง หัวข้อ ผู้เข้าร่วมในช่อง (EX-mrr-068)', async () => {
     await book(clients.u1, 'open', slot, t, [world.users.u2.id, world.users.u3.id]);
@@ -302,7 +304,10 @@ test.describe.serial('ปฏิทินห้อง (BR-mrr-021)', () => {
   test('[real] TC-CAL-UI005-102 ผู้เข้าร่วมเห็นรายละเอียดเดียวกัน (EX-mrr-069)', async () => {
     const s = await calendar(clients.u2, 'open');
     expect(s).toHaveLength(1);
+    // EX-mrr-069: booker, title and attendees all shown.
+    expect(s[0].details?.bookedBy).toBe(await nameOf(clients.u1));
     expect(s[0].details?.title).toBe(t);
+    expect(s[0].details?.attendees.sort()).toEqual(['E2E User Three', 'E2E User Two']);
   });
 
   test('[real] TC-CAL-UI005-103 คนอื่นเห็นแค่ "ไม่ว่าง" ไม่มีผู้จอง/หัวข้อ/ผู้เข้าร่วม (EX-mrr-070)', async () => {
@@ -310,7 +315,9 @@ test.describe.serial('ปฏิทินห้อง (BR-mrr-021)', () => {
     expect(s).toHaveLength(1);
     expect(s[0].busy).toBe(true);
     expect(s[0].details).toBeUndefined();
-    expect(JSON.stringify(s[0])).not.toContain(t);
+    // Only the busy slot itself: a key added at the top level (a booker, say) would show here.
+    expect(Object.keys(s[0]).sort()).toEqual(['busy', 'endAt', 'startAt']);
+    for (const hidden of [t, await nameOf(clients.u1), 'E2E User Two', 'E2E User Three']) expect(JSON.stringify(s[0])).not.toContain(hidden);
   });
 
   test('[real] TC-CAL-UI005-104 ห้องที่ต้องอนุมัติ: การจองรออนุมัติของคนอื่นเห็นแค่ "ไม่ว่าง" ไม่เห็นสถานะ (EX-mrr-071)', async () => {
@@ -319,7 +326,9 @@ test.describe.serial('ปฏิทินห้อง (BR-mrr-021)', () => {
     const s = await calendar(clients.u4, 'appr');
     expect(s).toHaveLength(1);
     expect(s[0].details).toBeUndefined();
+    expect(Object.keys(s[0]).sort()).toEqual(['busy', 'endAt', 'startAt']);
     expect(JSON.stringify(s[0])).not.toMatch(/PENDING|status|รออนุมัติ/);
+    for (const hidden of [t, await nameOf(clients.u1), 'E2E User Two']) expect(JSON.stringify(s[0])).not.toContain(hidden);
   });
 });
 
