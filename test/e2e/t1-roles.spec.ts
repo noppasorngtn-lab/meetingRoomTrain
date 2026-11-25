@@ -1,4 +1,4 @@
-import { expect, test, type APIRequestContext } from '@playwright/test';
+import { expect, test, type APIRequestContext, type Browser } from '@playwright/test';
 import { as, book, nearSlot, stateOf, world } from './support/world';
 import { myBookingIds } from './support/my-bookings';
 
@@ -292,6 +292,16 @@ test.describe.serial('ปฏิทินห้อง (BR-mrr-021)', () => {
   };
   /** The name the calendar shows for a user is the one in the database (u1 is the original setup's account, not accounts.ts's `tester`). */
   const nameOf = async (who: APIRequestContext) => ((await (await who.get('/auth/me')).json()) as { fullName: string }).fullName;
+  /** u4 on the calendar screen (UI-mrr-005): the card of `slot` among other people's bookings. The cases above prove the data, the two below the display. */
+  const screenSlot = async (browser: Browser, room: string) => {
+    const ctx = await browser.newContext({ storageState: stateOf('u4'), baseURL: 'http://localhost:4173', locale: 'th-TH', timezoneId: 'Asia/Bangkok' });
+    const page = await ctx.newPage();
+    await page.goto(`/UI-mrr-005?room=${world.rooms[room]}&date=${slot.date}&view=day`);
+    const label = `${slot.startAt.slice(8, 10)}/${slot.startAt.slice(5, 7)} ${slot.startAt.slice(11, 16)}–${slot.endAt.slice(11, 16)}`;
+    const card = page.locator('.slot-other', { hasText: label });
+    await expect(card).toHaveCount(1);
+    return { ctx, card };
+  };
 
   test('[real] TC-CAL-UI005-101 ผู้จองเห็นผู้จอง หัวข้อ ผู้เข้าร่วมในช่อง (EX-mrr-068)', async () => {
     await book(clients.u1, 'open', slot, t, [world.users.u2.id, world.users.u3.id]);
@@ -321,6 +331,16 @@ test.describe.serial('ปฏิทินห้อง (BR-mrr-021)', () => {
     for (const hidden of [t, await nameOf(clients.u1), 'E2E User Two', 'E2E User Three']) expect(JSON.stringify(s[0])).not.toContain(hidden);
   });
 
+  test('[real] TC-CAL-UI005-109 หน้าปฏิทิน: คนอื่นเห็นช่องของผู้อื่นแค่คำว่า "ไม่ว่าง" ไม่เห็นผู้จอง/หัวข้อ/ผู้เข้าร่วมบนหน้าจอ (EX-mrr-070)', async ({ browser }) => {
+    const { ctx, card } = await screenSlot(browser, 'open');
+    await expect(card.getByTestId('ui-mrr-005-ent-007-title')).toHaveText('ไม่ว่าง');
+    await expect(card.getByTestId('ui-mrr-005-ent-007-booked-by')).toHaveCount(0);
+    await expect(card.getByTestId('ui-mrr-005-ent-008-user')).toHaveCount(0);
+    const shown = await card.innerText();
+    for (const hidden of [t, await nameOf(clients.u1), 'E2E User Two', 'E2E User Three']) expect(shown).not.toContain(hidden);
+    await ctx.close();
+  });
+
   test('[real] TC-CAL-UI005-104 ห้องที่ต้องอนุมัติ: การจองรออนุมัติของคนอื่นเห็นแค่ "ไม่ว่าง" ไม่เห็นสถานะ (EX-mrr-071)', async () => {
     const b = await book(clients.u1, 'appr', slot, t, [world.users.u2.id]);
     expect(b.status).toBe('PENDING_APPROVAL');
@@ -330,6 +350,17 @@ test.describe.serial('ปฏิทินห้อง (BR-mrr-021)', () => {
     expect(Object.keys(s[0]).sort()).toEqual(['busy', 'endAt', 'startAt']);
     expect(JSON.stringify(s[0])).not.toMatch(/PENDING|status|รออนุมัติ/);
     for (const hidden of [t, await nameOf(clients.u1), 'E2E User Two']) expect(JSON.stringify(s[0])).not.toContain(hidden);
+  });
+
+  test('[real] TC-CAL-UI005-110 หน้าปฏิทิน ห้องที่ต้องอนุมัติ: การจองรออนุมัติของคนอื่นแสดงแค่ "ไม่ว่าง" ไม่แสดงผู้จอง/หัวข้อ/ผู้เข้าร่วม/สถานะบนหน้าจอ (EX-mrr-071)', async ({ browser }) => {
+    const { ctx, card } = await screenSlot(browser, 'appr');
+    await expect(card.getByTestId('ui-mrr-005-ent-007-title')).toHaveText('ไม่ว่าง');
+    await expect(card.getByTestId('ui-mrr-005-ent-007-booked-by')).toHaveCount(0);
+    await expect(card.getByTestId('ui-mrr-005-ent-008-user')).toHaveCount(0);
+    const shown = await card.innerText();
+    expect(shown).not.toMatch(/PENDING|รออนุมัติ/);
+    for (const hidden of [t, await nameOf(clients.u1), 'E2E User Two']) expect(shown).not.toContain(hidden);
+    await ctx.close();
   });
 });
 
