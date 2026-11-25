@@ -1,0 +1,1842 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--project=firefox",
+      "--project=webkit-safari",
+      "--project=edge",
+      "--project=mobile-chrome",
+      "--project=mobile-safari",
+      "--reporter=list,json"
+    ],
+    "configFile": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\playwright.config.ts",
+    "rootDir": "C:/04 - Claude-Training/workshop/meetingRoomTrain/test/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\e2e\\global-setup.ts",
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/04 - Claude-Training/workshop/meetingRoomTrain/test/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "C:/04 - Claude-Training/workshop/meetingRoomTrain/test/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/04 - Claude-Training/workshop/meetingRoomTrain/test/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "C:/04 - Claude-Training/workshop/meetingRoomTrain/test/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "e2e/nfr-005-browsers.spec.ts"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/04 - Claude-Training/workshop/meetingRoomTrain/test/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "webkit-safari",
+        "name": "webkit-safari",
+        "testDir": "C:/04 - Claude-Training/workshop/meetingRoomTrain/test/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "e2e/nfr-005-browsers.spec.ts"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/04 - Claude-Training/workshop/meetingRoomTrain/test/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "edge",
+        "name": "edge",
+        "testDir": "C:/04 - Claude-Training/workshop/meetingRoomTrain/test/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "e2e/nfr-005-browsers.spec.ts"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/04 - Claude-Training/workshop/meetingRoomTrain/test/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "mobile-chrome",
+        "name": "mobile-chrome",
+        "testDir": "C:/04 - Claude-Training/workshop/meetingRoomTrain/test/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "e2e/nfr-005-browsers.spec.ts"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/04 - Claude-Training/workshop/meetingRoomTrain/test/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "mobile-safari",
+        "name": "mobile-safari",
+        "testDir": "C:/04 - Claude-Training/workshop/meetingRoomTrain/test/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "e2e/nfr-005-browsers.spec.ts"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "firefox",
+        "testDir": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\e2e",
+        "snapshotDir": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\e2e",
+        "testIgnore": [],
+        "testMatch": "e2e/nfr-005-browsers.spec.ts",
+        "timeout": 30000,
+        "use": {
+          "baseURL": "http://localhost:4173",
+          "locale": "th-TH",
+          "timezoneId": "Asia/Bangkok",
+          "screenshot": "on",
+          "trace": "retain-on-failure",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:157.0) Gecko/20100101 Firefox/157.0",
+          "viewport": {
+            "width": 1280,
+            "height": 720
+          },
+          "screen": {
+            "width": 1920,
+            "height": 1080
+          },
+          "deviceScaleFactor": 1,
+          "isMobile": false,
+          "hasTouch": false,
+          "defaultBrowserType": "firefox"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "firefox"
+      },
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "webkit-safari",
+        "testDir": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\e2e",
+        "snapshotDir": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\e2e",
+        "testIgnore": [],
+        "testMatch": "e2e/nfr-005-browsers.spec.ts",
+        "timeout": 30000,
+        "use": {
+          "baseURL": "http://localhost:4173",
+          "locale": "th-TH",
+          "timezoneId": "Asia/Bangkok",
+          "screenshot": "on",
+          "trace": "retain-on-failure",
+          "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/27.2 Safari/605.1.15",
+          "viewport": {
+            "width": 1280,
+            "height": 720
+          },
+          "screen": {
+            "width": 1792,
+            "height": 1120
+          },
+          "deviceScaleFactor": 2,
+          "isMobile": false,
+          "hasTouch": false,
+          "defaultBrowserType": "webkit"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "webkit-safari"
+      },
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "edge",
+        "testDir": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\e2e",
+        "snapshotDir": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\e2e",
+        "testIgnore": [],
+        "testMatch": "e2e/nfr-005-browsers.spec.ts",
+        "timeout": 30000,
+        "use": {
+          "baseURL": "http://localhost:4173",
+          "locale": "th-TH",
+          "timezoneId": "Asia/Bangkok",
+          "screenshot": "on",
+          "trace": "retain-on-failure",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.8078.4 Safari/537.36 Edg/156.0.8078.4",
+          "viewport": {
+            "width": 1280,
+            "height": 720
+          },
+          "screen": {
+            "width": 1920,
+            "height": 1080
+          },
+          "deviceScaleFactor": 1,
+          "isMobile": false,
+          "hasTouch": false,
+          "defaultBrowserType": "chromium",
+          "channel": "msedge"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "edge"
+      },
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "mobile-chrome",
+        "testDir": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\e2e",
+        "snapshotDir": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\e2e",
+        "testIgnore": [],
+        "testMatch": "e2e/nfr-005-browsers.spec.ts",
+        "timeout": 30000,
+        "use": {
+          "baseURL": "http://localhost:4173",
+          "locale": "th-TH",
+          "timezoneId": "Asia/Bangkok",
+          "screenshot": "on",
+          "trace": "retain-on-failure",
+          "userAgent": "Mozilla/5.0 (Linux; Android 14; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.8078.4 Mobile Safari/537.36",
+          "viewport": {
+            "width": 412,
+            "height": 839
+          },
+          "screen": {
+            "width": 412,
+            "height": 915
+          },
+          "deviceScaleFactor": 2.625,
+          "isMobile": true,
+          "hasTouch": true,
+          "defaultBrowserType": "chromium"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "mobile-chrome"
+      },
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "mobile-safari",
+        "testDir": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\e2e",
+        "snapshotDir": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\e2e",
+        "testIgnore": [],
+        "testMatch": "e2e/nfr-005-browsers.spec.ts",
+        "timeout": 30000,
+        "use": {
+          "baseURL": "http://localhost:4173",
+          "locale": "th-TH",
+          "timezoneId": "Asia/Bangkok",
+          "screenshot": "on",
+          "trace": "retain-on-failure",
+          "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/27.2 Mobile/15E148 Safari/604.1",
+          "viewport": {
+            "width": 390,
+            "height": 664
+          },
+          "screen": {
+            "width": 390,
+            "height": 844
+          },
+          "deviceScaleFactor": 3,
+          "isMobile": true,
+          "hasTouch": true,
+          "defaultBrowserType": "webkit"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "mobile-safari"
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list"
+      ],
+      [
+        "json"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "nfr-005-browsers.spec.ts",
+      "file": "nfr-005-browsers.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "หน้าที่ต้องเข้าสู่ระบบ",
+          "file": "nfr-005-browsers.spec.ts",
+          "line": 46,
+          "column": 6,
+          "specs": [
+            {
+              "title": "[real] UI-mrr-004 ค้นหาห้องว่าง แสดงหัวข้อและไม่เลื่อนซ้ายขวา",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 2238,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T07:02:59.776Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\nfr-005-browsers-หน้าที่ต้-048f0-ดงหัวข้อและไม่เลื่อนซ้ายขวา-firefox\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "325f7c74d0bf0e0caf83-5eee24c9b11a1285817f",
+              "file": "nfr-005-browsers.spec.ts",
+              "line": 54,
+              "column": 5
+            },
+            {
+              "title": "[real] UI-mrr-006 จองห้องประชุม แสดงหัวข้อและไม่เลื่อนซ้ายขวา",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 898,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T07:03:02.499Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\nfr-005-browsers-หน้าที่ต้-5a253-ดงหัวข้อและไม่เลื่อนซ้ายขวา-firefox\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "325f7c74d0bf0e0caf83-8520b8f76142d55f01ea",
+              "file": "nfr-005-browsers.spec.ts",
+              "line": 54,
+              "column": 5
+            },
+            {
+              "title": "[real] UI-mrr-007 การจองของฉัน แสดงหัวข้อและไม่เลื่อนซ้ายขวา",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 883,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T07:03:03.410Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\nfr-005-browsers-หน้าที่ต้-79baa-ดงหัวข้อและไม่เลื่อนซ้ายขวา-firefox\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "325f7c74d0bf0e0caf83-86f66b5207c2c0c5b597",
+              "file": "nfr-005-browsers.spec.ts",
+              "line": 54,
+              "column": 5
+            },
+            {
+              "title": "[stub] ฟอร์มจอง: ช่องวันเวลารับค่า เลือกผู้เข้าร่วมได้ และคำขอส่งเวลาเป็น +07:00",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 858,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T07:03:04.304Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\nfr-005-browsers-หน้าที่ต้-dfc80-ด้-และคำขอส่งเวลาเป็น-07-00-firefox\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "325f7c74d0bf0e0caf83-f75a00cc8974470751c7",
+              "file": "nfr-005-browsers.spec.ts",
+              "line": 62,
+              "column": 3
+            },
+            {
+              "title": "[real] ฟอร์มจอง: กดยืนยันทั้งที่ว่าง แจ้งทุกช่องที่ขาด",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 780,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T07:03:05.170Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\nfr-005-browsers-หน้าที่ต้-54286-้งที่ว่าง-แจ้งทุกช่องที่ขาด-firefox\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "325f7c74d0bf0e0caf83-8f357b0050e8b82e747f",
+              "file": "nfr-005-browsers.spec.ts",
+              "line": 82,
+              "column": 3
+            },
+            {
+              "title": "[real] อุปกรณ์สัมผัส: ปุ่มยืนยันและยกเลิกกดได้ (≥ 24 px) และอยู่ในจอ",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "ตรวจเฉพาะอุปกรณ์สัมผัส",
+                      "location": {
+                        "file": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\e2e\\nfr-005-browsers.spec.ts",
+                        "line": 92,
+                        "column": 10
+                      }
+                    }
+                  ],
+                  "expectedStatus": "skipped",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "skipped",
+                      "duration": 332,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T07:03:05.960Z",
+                      "annotations": [
+                        {
+                          "type": "skip",
+                          "description": "ตรวจเฉพาะอุปกรณ์สัมผัส",
+                          "location": {
+                            "file": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\e2e\\nfr-005-browsers.spec.ts",
+                            "line": 92,
+                            "column": 10
+                          }
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\nfr-005-browsers-หน้าที่ต้-e3719-ิกกดได้-≥-24-px-และอยู่ในจอ-firefox\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "325f7c74d0bf0e0caf83-48a06e7d9aed5f04c1db",
+              "file": "nfr-005-browsers.spec.ts",
+              "line": 91,
+              "column": 3
+            },
+            {
+              "title": "[real] UI-mrr-004 ค้นหาห้องว่าง แสดงหัวข้อและไม่เลื่อนซ้ายขวา",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit-safari",
+                  "projectName": "webkit-safari",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 998,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T07:03:07.745Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\nfr-005-browsers-หน้าที่ต้-048f0-ดงหัวข้อและไม่เลื่อนซ้ายขวา-webkit-safari\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "325f7c74d0bf0e0caf83-74f04fa9269b75259ee2",
+              "file": "nfr-005-browsers.spec.ts",
+              "line": 54,
+              "column": 5
+            },
+            {
+              "title": "[real] UI-mrr-006 จองห้องประชุม แสดงหัวข้อและไม่เลื่อนซ้ายขวา",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit-safari",
+                  "projectName": "webkit-safari",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 985,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T07:03:08.827Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\nfr-005-browsers-หน้าที่ต้-5a253-ดงหัวข้อและไม่เลื่อนซ้ายขวา-webkit-safari\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "325f7c74d0bf0e0caf83-819e9aaf68055d75b899",
+              "file": "nfr-005-browsers.spec.ts",
+              "line": 54,
+              "column": 5
+            },
+            {
+              "title": "[real] UI-mrr-007 การจองของฉัน แสดงหัวข้อและไม่เลื่อนซ้ายขวา",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit-safari",
+                  "projectName": "webkit-safari",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1059,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T07:03:09.824Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\nfr-005-browsers-หน้าที่ต้-79baa-ดงหัวข้อและไม่เลื่อนซ้ายขวา-webkit-safari\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "325f7c74d0bf0e0caf83-925fee1d1a052b3685fe",
+              "file": "nfr-005-browsers.spec.ts",
+              "line": 54,
+              "column": 5
+            },
+            {
+              "title": "[stub] ฟอร์มจอง: ช่องวันเวลารับค่า เลือกผู้เข้าร่วมได้ และคำขอส่งเวลาเป็น +07:00",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit-safari",
+                  "projectName": "webkit-safari",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1156,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T07:03:10.891Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\nfr-005-browsers-หน้าที่ต้-dfc80-ด้-และคำขอส่งเวลาเป็น-07-00-webkit-safari\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "325f7c74d0bf0e0caf83-fd68d3839f69e1c66baa",
+              "file": "nfr-005-browsers.spec.ts",
+              "line": 62,
+              "column": 3
+            },
+            {
+              "title": "[real] ฟอร์มจอง: กดยืนยันทั้งที่ว่าง แจ้งทุกช่องที่ขาด",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit-safari",
+                  "projectName": "webkit-safari",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 752,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T07:03:12.056Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\nfr-005-browsers-หน้าที่ต้-54286-้งที่ว่าง-แจ้งทุกช่องที่ขาด-webkit-safari\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "325f7c74d0bf0e0caf83-602c3cab02fa56e7aabc",
+              "file": "nfr-005-browsers.spec.ts",
+              "line": 82,
+              "column": 3
+            },
+            {
+              "title": "[real] อุปกรณ์สัมผัส: ปุ่มยืนยันและยกเลิกกดได้ (≥ 24 px) และอยู่ในจอ",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "ตรวจเฉพาะอุปกรณ์สัมผัส",
+                      "location": {
+                        "file": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\e2e\\nfr-005-browsers.spec.ts",
+                        "line": 92,
+                        "column": 10
+                      }
+                    }
+                  ],
+                  "expectedStatus": "skipped",
+                  "projectId": "webkit-safari",
+                  "projectName": "webkit-safari",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "skipped",
+                      "duration": 305,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T07:03:12.817Z",
+                      "annotations": [
+                        {
+                          "type": "skip",
+                          "description": "ตรวจเฉพาะอุปกรณ์สัมผัส",
+                          "location": {
+                            "file": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\e2e\\nfr-005-browsers.spec.ts",
+                            "line": 92,
+                            "column": 10
+                          }
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\nfr-005-browsers-หน้าที่ต้-e3719-ิกกดได้-≥-24-px-และอยู่ในจอ-webkit-safari\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "325f7c74d0bf0e0caf83-f4191c999e97f16e1063",
+              "file": "nfr-005-browsers.spec.ts",
+              "line": 91,
+              "column": 3
+            },
+            {
+              "title": "[real] UI-mrr-004 ค้นหาห้องว่าง แสดงหัวข้อและไม่เลื่อนซ้ายขวา",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "edge",
+                  "projectName": "edge",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 947,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T07:03:14.099Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\nfr-005-browsers-หน้าที่ต้-048f0-ดงหัวข้อและไม่เลื่อนซ้ายขวา-edge\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "325f7c74d0bf0e0caf83-50087ba0d3ecf0c0e7db",
+              "file": "nfr-005-browsers.spec.ts",
+              "line": 54,
+              "column": 5
+            },
+            {
+              "title": "[real] UI-mrr-006 จองห้องประชุม แสดงหัวข้อและไม่เลื่อนซ้ายขวา",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "edge",
+                  "projectName": "edge",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 803,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T07:03:15.323Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\nfr-005-browsers-หน้าที่ต้-5a253-ดงหัวข้อและไม่เลื่อนซ้ายขวา-edge\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "325f7c74d0bf0e0caf83-14253b0ba85ad9da27c1",
+              "file": "nfr-005-browsers.spec.ts",
+              "line": 54,
+              "column": 5
+            },
+            {
+              "title": "[real] UI-mrr-007 การจองของฉัน แสดงหัวข้อและไม่เลื่อนซ้ายขวา",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "edge",
+                  "projectName": "edge",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 820,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T07:03:16.134Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\nfr-005-browsers-หน้าที่ต้-79baa-ดงหัวข้อและไม่เลื่อนซ้ายขวา-edge\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "325f7c74d0bf0e0caf83-9ede554488d8a3d34a29",
+              "file": "nfr-005-browsers.spec.ts",
+              "line": 54,
+              "column": 5
+            },
+            {
+              "title": "[stub] ฟอร์มจอง: ช่องวันเวลารับค่า เลือกผู้เข้าร่วมได้ และคำขอส่งเวลาเป็น +07:00",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "edge",
+                  "projectName": "edge",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 491,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T07:03:16.962Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\nfr-005-browsers-หน้าที่ต้-dfc80-ด้-และคำขอส่งเวลาเป็น-07-00-edge\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "325f7c74d0bf0e0caf83-ba925412f017173627ff",
+              "file": "nfr-005-browsers.spec.ts",
+              "line": 62,
+              "column": 3
+            },
+            {
+              "title": "[real] ฟอร์มจอง: กดยืนยันทั้งที่ว่าง แจ้งทุกช่องที่ขาด",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "edge",
+                  "projectName": "edge",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 353,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T07:03:17.461Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\nfr-005-browsers-หน้าที่ต้-54286-้งที่ว่าง-แจ้งทุกช่องที่ขาด-edge\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "325f7c74d0bf0e0caf83-10216db6e8242a3faad4",
+              "file": "nfr-005-browsers.spec.ts",
+              "line": 82,
+              "column": 3
+            },
+            {
+              "title": "[real] อุปกรณ์สัมผัส: ปุ่มยืนยันและยกเลิกกดได้ (≥ 24 px) และอยู่ในจอ",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "ตรวจเฉพาะอุปกรณ์สัมผัส",
+                      "location": {
+                        "file": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\e2e\\nfr-005-browsers.spec.ts",
+                        "line": 92,
+                        "column": 10
+                      }
+                    }
+                  ],
+                  "expectedStatus": "skipped",
+                  "projectId": "edge",
+                  "projectName": "edge",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "skipped",
+                      "duration": 173,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T07:03:17.821Z",
+                      "annotations": [
+                        {
+                          "type": "skip",
+                          "description": "ตรวจเฉพาะอุปกรณ์สัมผัส",
+                          "location": {
+                            "file": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\e2e\\nfr-005-browsers.spec.ts",
+                            "line": 92,
+                            "column": 10
+                          }
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\nfr-005-browsers-หน้าที่ต้-e3719-ิกกดได้-≥-24-px-และอยู่ในจอ-edge\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "325f7c74d0bf0e0caf83-cc976639fb830fed2e8d",
+              "file": "nfr-005-browsers.spec.ts",
+              "line": 91,
+              "column": 3
+            },
+            {
+              "title": "[real] UI-mrr-004 ค้นหาห้องว่าง แสดงหัวข้อและไม่เลื่อนซ้ายขวา",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "mobile-chrome",
+                  "projectName": "mobile-chrome",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 895,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T07:03:18.960Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\nfr-005-browsers-หน้าที่ต้-048f0-ดงหัวข้อและไม่เลื่อนซ้ายขวา-mobile-chrome\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "325f7c74d0bf0e0caf83-44a91f59da2cb2ced8d1",
+              "file": "nfr-005-browsers.spec.ts",
+              "line": 54,
+              "column": 5
+            },
+            {
+              "title": "[real] UI-mrr-006 จองห้องประชุม แสดงหัวข้อและไม่เลื่อนซ้ายขวา",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "mobile-chrome",
+                  "projectName": "mobile-chrome",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 782,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T07:03:19.976Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\nfr-005-browsers-หน้าที่ต้-5a253-ดงหัวข้อและไม่เลื่อนซ้ายขวา-mobile-chrome\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "325f7c74d0bf0e0caf83-6dc252da1be5b93a386d",
+              "file": "nfr-005-browsers.spec.ts",
+              "line": 54,
+              "column": 5
+            },
+            {
+              "title": "[real] UI-mrr-007 การจองของฉัน แสดงหัวข้อและไม่เลื่อนซ้ายขวา",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "mobile-chrome",
+                  "projectName": "mobile-chrome",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 861,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T07:03:20.768Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\nfr-005-browsers-หน้าที่ต้-79baa-ดงหัวข้อและไม่เลื่อนซ้ายขวา-mobile-chrome\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "325f7c74d0bf0e0caf83-f92ef46840ea3c7bd07c",
+              "file": "nfr-005-browsers.spec.ts",
+              "line": 54,
+              "column": 5
+            },
+            {
+              "title": "[stub] ฟอร์มจอง: ช่องวันเวลารับค่า เลือกผู้เข้าร่วมได้ และคำขอส่งเวลาเป็น +07:00",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "mobile-chrome",
+                  "projectName": "mobile-chrome",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 517,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T07:03:21.641Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\nfr-005-browsers-หน้าที่ต้-dfc80-ด้-และคำขอส่งเวลาเป็น-07-00-mobile-chrome\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "325f7c74d0bf0e0caf83-1ab97b155f7392c0b1b5",
+              "file": "nfr-005-browsers.spec.ts",
+              "line": 62,
+              "column": 3
+            },
+            {
+              "title": "[real] ฟอร์มจอง: กดยืนยันทั้งที่ว่าง แจ้งทุกช่องที่ขาด",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "mobile-chrome",
+                  "projectName": "mobile-chrome",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 334,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T07:03:22.171Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\nfr-005-browsers-หน้าที่ต้-54286-้งที่ว่าง-แจ้งทุกช่องที่ขาด-mobile-chrome\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "325f7c74d0bf0e0caf83-bdf959ea9fb3fdd167f1",
+              "file": "nfr-005-browsers.spec.ts",
+              "line": 82,
+              "column": 3
+            },
+            {
+              "title": "[real] อุปกรณ์สัมผัส: ปุ่มยืนยันและยกเลิกกดได้ (≥ 24 px) และอยู่ในจอ",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "mobile-chrome",
+                  "projectName": "mobile-chrome",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 377,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T07:03:22.515Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\nfr-005-browsers-หน้าที่ต้-e3719-ิกกดได้-≥-24-px-และอยู่ในจอ-mobile-chrome\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "325f7c74d0bf0e0caf83-8a65a745da24224e08cc",
+              "file": "nfr-005-browsers.spec.ts",
+              "line": 91,
+              "column": 3
+            },
+            {
+              "title": "[real] UI-mrr-004 ค้นหาห้องว่าง แสดงหัวข้อและไม่เลื่อนซ้ายขวา",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "mobile-safari",
+                  "projectName": "mobile-safari",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 973,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T07:03:23.669Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\nfr-005-browsers-หน้าที่ต้-048f0-ดงหัวข้อและไม่เลื่อนซ้ายขวา-mobile-safari\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "325f7c74d0bf0e0caf83-816b6a3fbcf11d5f9d0e",
+              "file": "nfr-005-browsers.spec.ts",
+              "line": 54,
+              "column": 5
+            },
+            {
+              "title": "[real] UI-mrr-006 จองห้องประชุม แสดงหัวข้อและไม่เลื่อนซ้ายขวา",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "mobile-safari",
+                  "projectName": "mobile-safari",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 956,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T07:03:24.704Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\nfr-005-browsers-หน้าที่ต้-5a253-ดงหัวข้อและไม่เลื่อนซ้ายขวา-mobile-safari\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "325f7c74d0bf0e0caf83-20a1615a778f7c691730",
+              "file": "nfr-005-browsers.spec.ts",
+              "line": 54,
+              "column": 5
+            },
+            {
+              "title": "[real] UI-mrr-007 การจองของฉัน แสดงหัวข้อและไม่เลื่อนซ้ายขวา",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "mobile-safari",
+                  "projectName": "mobile-safari",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1001,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T07:03:25.669Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\nfr-005-browsers-หน้าที่ต้-79baa-ดงหัวข้อและไม่เลื่อนซ้ายขวา-mobile-safari\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "325f7c74d0bf0e0caf83-e7c95fffa40c00b22770",
+              "file": "nfr-005-browsers.spec.ts",
+              "line": 54,
+              "column": 5
+            },
+            {
+              "title": "[stub] ฟอร์มจอง: ช่องวันเวลารับค่า เลือกผู้เข้าร่วมได้ และคำขอส่งเวลาเป็น +07:00",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "mobile-safari",
+                  "projectName": "mobile-safari",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 914,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T07:03:26.687Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\nfr-005-browsers-หน้าที่ต้-dfc80-ด้-และคำขอส่งเวลาเป็น-07-00-mobile-safari\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "325f7c74d0bf0e0caf83-cd507d7aaf05a6bb3961",
+              "file": "nfr-005-browsers.spec.ts",
+              "line": 62,
+              "column": 3
+            },
+            {
+              "title": "[real] ฟอร์มจอง: กดยืนยันทั้งที่ว่าง แจ้งทุกช่องที่ขาด",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "mobile-safari",
+                  "projectName": "mobile-safari",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 722,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T07:03:27.611Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\nfr-005-browsers-หน้าที่ต้-54286-้งที่ว่าง-แจ้งทุกช่องที่ขาด-mobile-safari\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "325f7c74d0bf0e0caf83-28be5ecbea9eca35f337",
+              "file": "nfr-005-browsers.spec.ts",
+              "line": 82,
+              "column": 3
+            },
+            {
+              "title": "[real] อุปกรณ์สัมผัส: ปุ่มยืนยันและยกเลิกกดได้ (≥ 24 px) และอยู่ในจอ",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "mobile-safari",
+                  "projectName": "mobile-safari",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 744,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T07:03:28.342Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\nfr-005-browsers-หน้าที่ต้-e3719-ิกกดได้-≥-24-px-และอยู่ในจอ-mobile-safari\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "325f7c74d0bf0e0caf83-5d09204d6f8199c28080",
+              "file": "nfr-005-browsers.spec.ts",
+              "line": 91,
+              "column": 3
+            }
+          ]
+        },
+        {
+          "title": "หน้าเข้าสู่ระบบ (ยังไม่ล็อกอิน)",
+          "file": "nfr-005-browsers.spec.ts",
+          "line": 99,
+          "column": 6,
+          "specs": [
+            {
+              "title": "[real] UI-mrr-001 ช่อง Email และปุ่มขอรหัสมองเห็น ไม่เลื่อนซ้ายขวา",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 729,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T07:03:06.309Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\nfr-005-browsers-หน้าเข้าส-fbd02-หัสมองเห็น-ไม่เลื่อนซ้ายขวา-firefox\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "325f7c74d0bf0e0caf83-26f312e59efe00d6cf53",
+              "file": "nfr-005-browsers.spec.ts",
+              "line": 102,
+              "column": 3
+            },
+            {
+              "title": "[real] UI-mrr-001 ช่อง Email และปุ่มขอรหัสมองเห็น ไม่เลื่อนซ้ายขวา",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit-safari",
+                  "projectName": "webkit-safari",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 526,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T07:03:13.133Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\nfr-005-browsers-หน้าเข้าส-fbd02-หัสมองเห็น-ไม่เลื่อนซ้ายขวา-webkit-safari\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "325f7c74d0bf0e0caf83-f2c1c2e89087ef338288",
+              "file": "nfr-005-browsers.spec.ts",
+              "line": 102,
+              "column": 3
+            },
+            {
+              "title": "[real] UI-mrr-001 ช่อง Email และปุ่มขอรหัสมองเห็น ไม่เลื่อนซ้ายขวา",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "edge",
+                  "projectName": "edge",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 291,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T07:03:18.002Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\nfr-005-browsers-หน้าเข้าส-fbd02-หัสมองเห็น-ไม่เลื่อนซ้ายขวา-edge\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "325f7c74d0bf0e0caf83-ac6ab885327397b62a0c",
+              "file": "nfr-005-browsers.spec.ts",
+              "line": 102,
+              "column": 3
+            },
+            {
+              "title": "[real] UI-mrr-001 ช่อง Email และปุ่มขอรหัสมองเห็น ไม่เลื่อนซ้ายขวา",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "mobile-chrome",
+                  "projectName": "mobile-chrome",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 223,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T07:03:22.902Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\nfr-005-browsers-หน้าเข้าส-fbd02-หัสมองเห็น-ไม่เลื่อนซ้ายขวา-mobile-chrome\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "325f7c74d0bf0e0caf83-3b8498c3a7146eb0b977",
+              "file": "nfr-005-browsers.spec.ts",
+              "line": 102,
+              "column": 3
+            },
+            {
+              "title": "[real] UI-mrr-001 ช่อง Email และปุ่มขอรหัสมองเห็น ไม่เลื่อนซ้ายขวา",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "mobile-safari",
+                  "projectName": "mobile-safari",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 432,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T07:03:29.095Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\04 - Claude-Training\\workshop\\meetingRoomTrain\\test\\test-results\\nfr-005-browsers-หน้าเข้าส-fbd02-หัสมองเห็น-ไม่เลื่อนซ้ายขวา-mobile-safari\\test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "325f7c74d0bf0e0caf83-fdc2b3dec1e7f2f093fe",
+              "file": "nfr-005-browsers.spec.ts",
+              "line": 102,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-25T07:02:49.726Z",
+    "duration": 39860.094000000005,
+    "expected": 32,
+    "skipped": 3,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}
