@@ -132,6 +132,25 @@ describe('FE-mrr-030 edit or cancel on behalf of the booker (UC-mrr-009)', () =>
       expect(mail.sent.map((m) => m.to)).toEqual([['u1@example.test']]);
     });
 
+    it('F5 a new time is not mailed to a booker masked under ADR-017; U2 still gets it', async () => {
+      await maskUser(db, u1);
+
+      await edit({ endAt: at(18, '11:30') }, 'ประชุมยังไม่เสร็จ');
+
+      expect(await row()).toMatchObject({ end_at: at(18, '11:30') });
+      expect(mail.sent.map((m) => m.to)).toEqual([['u2@example.test']]);
+    });
+
+    it('F5 a booker masked under ADR-017 and no attendee left: the new time is saved and nobody is mailed', async () => {
+      await maskUser(db, u1);
+      await maskUser(db, u2);
+
+      await edit({ endAt: at(18, '11:30') }, 'ประชุมยังไม่เสร็จ');
+
+      expect(await row()).toMatchObject({ end_at: at(18, '11:30') });
+      expect(mail.sent).toEqual([]);
+    });
+
     it('BR-mrr-019 a new time whose mail does not go saves nothing and records nothing', async () => {
       mail.down = true;
 
@@ -222,6 +241,15 @@ describe('FE-mrr-030 edit or cancel on behalf of the booker (UC-mrr-009)', () =>
       await service.adminCancel({ userId: ra1 }, booking, 'ห้องต้องใช้จัดงานด่วน');
 
       expect(mail.sent.map((m) => m.to)).toEqual([['u1@example.test']]);
+    });
+
+    it('F5 a booker masked under ADR-017 is left out of the cancel mail; U2 still gets it', async () => {
+      await maskUser(db, u1);
+
+      expect(await service.adminCancel({ userId: ra1 }, booking, 'ห้องต้องใช้จัดงานด่วน')).toEqual({ message: 'ยกเลิกการจองสำเร็จ' });
+
+      expect(await row()).toMatchObject({ status: 'CANCELLED' });
+      expect(mail.sent.map((m) => m.to)).toEqual([['u2@example.test']]);
     });
 
     it.each(['GENERAL_USER', 'SYSTEM_ADMINISTRATOR'] as const)('a %s cannot cancel for the booker (ACL-010 is ROLE-002 only)', async (role) => {

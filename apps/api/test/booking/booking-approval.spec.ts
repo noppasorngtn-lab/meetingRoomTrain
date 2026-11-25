@@ -212,6 +212,24 @@ describe('FE-mrr-028 approve or reject a booking (UC-mrr-007)', () => {
       expect(sentTo()).toEqual([[['u1@example.test'], '[จองห้องประชุม] ปฏิเสธการจอง: ประชุมลูกค้า · ห้อง B 17/10 10:00–11:00']]);
     });
 
+    it('F5 a booker masked under ADR-017 is left out of the rejection mail; U2 still gets it', async () => {
+      await maskUser(db, u1);
+
+      expect(await service.reject({ userId: ra1 }, withU2, 'ห้องไม่เหมาะกับการประชุมนี้')).toEqual({ message: 'ปฏิเสธการจองสำเร็จ' });
+
+      expect(await status(withU2)).toBe('REJECTED');
+      expect(sentTo()).toEqual([[['u2@example.test'], '[จองห้องประชุม] ปฏิเสธการจอง: ประชุมลูกค้า · ห้อง B 17/10 10:00–11:00']]);
+    });
+
+    it('F5 a booker masked under ADR-017: the approval goes through and nobody is mailed (nobody left to mail)', async () => {
+      await maskUser(db, u1);
+
+      expect(await service.approve({ userId: ra1 }, withU2)).toEqual({ message: 'อนุมัติการจองสำเร็จ' });
+
+      expect(await status(withU2)).toBe('APPROVED');
+      expect(mail.sent).toEqual([]);
+    });
+
     it('AC-mrr-121 RA rejects with ห้องไม่เหมาะกับการประชุมนี้ — ปฏิเสธแล้ว, ปฏิเสธการจองสำเร็จ, U1 and U2 mailed ปฏิเสธการจอง, one trail entry', async () => {
       expect(await service.reject({ userId: ra1 }, withU2, 'ห้องไม่เหมาะกับการประชุมนี้')).toEqual({ message: 'ปฏิเสธการจองสำเร็จ' });
 

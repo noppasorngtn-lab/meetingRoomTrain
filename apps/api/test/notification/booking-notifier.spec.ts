@@ -147,4 +147,56 @@ describe('FE-mrr-017 BookingNotifier', () => {
       expect(down.attempts).toBe(0);
     });
   });
+
+  // ADR-017 · T5 F5: a booker masked (inactive) has no bookerEmail, and is left out like a masked attendee.
+  // Nobody left to mail → the mail is skipped and the action carries on (the user's answer, 2026-11-25).
+  describe('F5 a booker masked under ADR-017', () => {
+    const masked = (over: Partial<BookingSnapshot> = {}) => meeting({ bookerEmail: null, ...over });
+
+    it.each([
+      ['bookingCancelled', 'ยกเลิกการจอง'],
+      ['bookingRejected', 'ปฏิเสธการจอง'],
+      ['reminderDue', 'ใกล้ถึงเวลาประชุม'],
+    ] as const)('%s mails the attendees only', async (method, event) => {
+      await notifier[method](masked());
+
+      expect(transport.sent.map((m) => [m.to, m.subject])).toEqual([
+        [[U2, U3], `[จองห้องประชุม] ${event}: ประชุมทีม · ห้อง A 17/10 10:00–11:00`],
+      ]);
+    });
+
+    it('a new time mails the attendees only', async () => {
+      await notifier.bookingEdited(masked(), masked({ startAt: at('14:00'), endAt: at('15:00') }));
+
+      expect(transport.sent.map((m) => m.to)).toEqual([[U2, U3]]);
+    });
+
+    it.each(['bookingApproved', 'bookingAutoCancelled', 'bookingCancelled', 'bookingRejected', 'reminderDue'] as const)(
+      '%s with nobody left to mail sends nothing and does not fail',
+      async (method) => {
+        await expect(notifier[method](masked({ attendeeEmails: [] }))).resolves.toBeUndefined();
+        expect(transport.sent).toEqual([]);
+      },
+    );
+
+    it('a new time with nobody left to mail sends nothing', async () => {
+      const before = masked({ attendeeEmails: [] });
+      await notifier.bookingEdited(before, masked({ attendeeEmails: [], startAt: at('14:00'), endAt: at('15:00') }));
+
+      expect(transport.sent).toEqual([]);
+    });
+
+    it('a booking made usable 5 minutes before its start: nobody to mail, yet its reminder counts as sent', async () => {
+      await expect(notifier.bookingCreated(masked({ attendeeEmails: [] }), at('09:55'))).resolves.toEqual({ reminderSent: true });
+      expect(transport.sent).toEqual([]);
+    });
+
+    it('a booking made usable 5 minutes before its start: the reminder still reaches the attendees', async () => {
+      await notifier.bookingCreated(masked(), at('09:55'));
+
+      expect(transport.sent.map((m) => [m.to, m.subject])).toEqual([
+        [[U2, U3], '[จองห้องประชุม] ใกล้ถึงเวลาประชุม: ประชุมทีม · ห้อง A 17/10 10:00–11:00'],
+      ]);
+    });
+  });
 });

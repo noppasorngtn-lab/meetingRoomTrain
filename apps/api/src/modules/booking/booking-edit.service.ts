@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Kysely } from 'kysely';
+import { activeBookerEmail } from '../../common/booking-snapshots';
 import { Caller } from '../../common/auth/current-user';
 import { CLOCK, Clock } from '../../common/clock';
 import { KYSELY } from '../../common/database/database.module';
@@ -245,11 +246,7 @@ export class BookingEditService {
     if (record) await record({ before, after });
 
     if (timeChanged) {
-      const { email: bookerEmail } = await tx
-        .selectFrom('users')
-        .select('email')
-        .where('id', '=', current.booked_by)
-        .executeTakeFirstOrThrow();
+      const bookerEmail = await activeBookerEmail(tx, current.booked_by);
       // The attendees as saved by this edit — the new list hears of the new time.
       const attendeeEmails = (
         await tx
@@ -286,11 +283,7 @@ export class BookingEditService {
         .select('v.name')
         .where('r.id', '=', current.room_id)
         .executeTakeFirstOrThrow();
-      const { email: bookerEmail } = await tx
-        .selectFrom('users')
-        .select('email')
-        .where('id', '=', current.booked_by)
-        .executeTakeFirstOrThrow();
+      const bookerEmail = await activeBookerEmail(tx, current.booked_by);
       const attendeeEmails = (
         await tx
           .selectFrom('booking_attendees as a')
@@ -355,7 +348,7 @@ export class BookingEditService {
       .select('v.name')
       .where('r.id', '=', b.room_id)
       .executeTakeFirstOrThrow();
-    const { email: bookerEmail } = await tx.selectFrom('users').select('email').where('id', '=', b.booked_by).executeTakeFirstOrThrow();
+    const bookerEmail = await activeBookerEmail(tx, b.booked_by);
     const attendeeEmails = (
       await tx
         .selectFrom('booking_attendees as a')

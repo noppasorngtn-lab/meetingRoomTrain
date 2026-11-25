@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Kysely } from 'kysely';
+import { activeBookerEmail } from '../../common/booking-snapshots';
 import { Caller } from '../../common/auth/current-user';
 import { Clock, CLOCK } from '../../common/clock';
 import { KYSELY } from '../../common/database/database.module';
@@ -114,11 +115,7 @@ export class BookingApprovalService {
       await tx.updateTable('bookings').set({ status: 'APPROVED' }).where('id', '=', id).execute();
       await recordAudit(tx, { bookingId: id, caller, action: 'APPROVE', at: now });
 
-      const { email: bookerEmail } = await tx
-        .selectFrom('users')
-        .select('email')
-        .where('id', '=', current.booked_by)
-        .executeTakeFirstOrThrow();
+      const bookerEmail = await activeBookerEmail(tx, current.booked_by);
       // Last, inside the transaction: a mail that does not go undoes the approval (BR-mrr-019).
       await this.notifier.bookingApproved({
         title: current.title, roomName: current.roomName, startAt: current.start_at, endAt: current.end_at, bookerEmail, attendeeEmails: [],
@@ -144,11 +141,7 @@ export class BookingApprovalService {
       await tx.updateTable('bookings').set({ status: 'REJECTED' }).where('id', '=', id).execute();
       await recordAudit(tx, { bookingId: id, caller, action: 'REJECT', at: now, reason });
 
-      const { email: bookerEmail } = await tx
-        .selectFrom('users')
-        .select('email')
-        .where('id', '=', current.booked_by)
-        .executeTakeFirstOrThrow();
+      const bookerEmail = await activeBookerEmail(tx, current.booked_by);
       const attendeeEmails = (
         await tx
           .selectFrom('booking_attendees as a')
@@ -206,11 +199,7 @@ export class BookingApprovalService {
           .select('v.name')
           .where('r.id', '=', current.room_id)
           .executeTakeFirstOrThrow();
-        const { email: bookerEmail } = await tx
-          .selectFrom('users')
-          .select('email')
-          .where('id', '=', current.booked_by)
-          .executeTakeFirstOrThrow();
+        const bookerEmail = await activeBookerEmail(tx, current.booked_by);
         // Approved is approved, however it got there (BR-mrr-007 (1)); rejected is rejected too — the booker and every
         // attendee are told (BR-mrr-007@v2 (3), owner's answer 2026-11-18). A mail that does not go undoes it (BR-mrr-019).
         if (input.decision === 'APPROVED') {

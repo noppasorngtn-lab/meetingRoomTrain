@@ -4,7 +4,7 @@ import { PgAutoCancelStore } from '../../src/modules/auto-cancel/pg-auto-cancel-
 import { BookingNotifier } from '../../src/modules/notification/booking-notifier';
 import { MailMessage, MailTransport } from '../../src/modules/notification/mail-transport';
 import { Database } from '../../src/common/database/schema';
-import { seedBooking, seedRoom, seedUser, startDatabase } from '../support/postgres';
+import { maskUser, seedBooking, seedRoom, seedUser, startDatabase } from '../support/postgres';
 
 jest.setTimeout(120_000);
 
@@ -61,6 +61,17 @@ describe('PgAutoCancelStore + AutoCancelJob', () => {
     expect(mail.sent).toHaveLength(1);
     expect(mail.sent[0].to).toEqual(['u1@example.test']);
     expect(mail.sent[0].subject).toBe('[จองห้องประชุม] ยกเลิกอัตโนมัติ: ประชุมลูกค้า · Room B 18/10 10:00–11:00');
+  });
+
+  it('F5 a booker masked under ADR-017: at 10:00 it is CANCELLED and nobody is mailed (nobody left to mail)', async () => {
+    const booker = await seedUser(db, 'U9');
+    await maskUser(db, booker);
+    const id = await seedBooking(db, { room, bookedBy: booker, title: 'ประชุมลูกค้า', startAt: T('10:00'), endAt: T('11:00'), status: 'PENDING_APPROVAL' });
+
+    await job.run(T('10:00'));
+
+    expect(await statusOf(id)).toBe('CANCELLED');
+    expect(mail.sent).toEqual([]);
   });
 
   it('EX-mrr-052: when the mail fails it stays pending, and the next pass tries again', async () => {

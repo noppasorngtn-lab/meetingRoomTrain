@@ -202,6 +202,21 @@ describe('FE-mrr-034 a Room Administrator adds or edits a room and its facilitie
       expect(reminder.map((m) => m.to)).toEqual([['u1@example.test']]);
     });
 
+    it('F5 a waiting booking whose booker is masked under ADR-017, made usable 10 minutes before its start: only U2 is mailed, and its reminder counts as sent', async () => {
+      const roomB = await seedRoom(db, 'ห้อง B', ra1, { requiresApproval: true });
+      const booking = await seedBooking(db, {
+        room: roomB, bookedBy: u1, title: 'ประชุมทีม', startAt: at(16, '10:10'), endAt: at(16, '11:00'), status: 'PENDING_APPROVAL', attendees: [u2],
+      });
+      await maskUser(db, u1);
+
+      await service.saveVersion({ userId: ra1 }, roomB.roomId, versionOf({ name: 'ห้อง B', requiresApproval: false }));
+
+      expect(mail.sent.map((m) => m.to)).toEqual([['u2@example.test']]);
+      expect(mail.sent[0].subject).toContain('ใกล้ถึงเวลาประชุม');
+      const row = await db.selectFrom('bookings').select(['status', 'reminder_status']).where('id', '=', booking).executeTakeFirstOrThrow();
+      expect(row).toEqual({ status: 'CONFIRMED', reminder_status: 'SENT' });
+    });
+
     it('BR-mrr-019 the mail does not go — nothing is saved: still version 1, still waiting, and the message asks to press again', async () => {
       const roomB = await seedRoom(db, 'ห้อง B', ra1, { requiresApproval: true });
       const booking = await seedBooking(db, { room: roomB, bookedBy: u1, title: 'ประชุมทีม', startAt: at(18, '10:00'), endAt: at(18, '11:00'), status: 'PENDING_APPROVAL' });

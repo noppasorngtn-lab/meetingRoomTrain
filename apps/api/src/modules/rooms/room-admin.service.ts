@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Kysely, sql } from 'kysely';
+import { activeBookerEmail } from '../../common/booking-snapshots';
 import { Caller } from '../../common/auth/current-user';
 import { CLOCK, Clock } from '../../common/clock';
 import { KYSELY } from '../../common/database/database.module';
@@ -336,7 +337,7 @@ export class RoomAdminService {
     roomName: string,
     now: Date,
   ): Promise<void> {
-    const booker = await tx.selectFrom('users').select('email').where('id', '=', b.booked_by).executeTakeFirstOrThrow();
+    const bookerEmail = await activeBookerEmail(tx, b.booked_by);
     const attendees = await tx
       .selectFrom('booking_attendees as a')
       .innerJoin('users as u', 'u.id', 'a.user_id')
@@ -345,7 +346,7 @@ export class RoomAdminService {
       .where('u.active', '=', true) // ADR-017 · DEF-06: an attendee masked (inactive) is not mailed
       .execute();
     const { reminderSent } = await this.notifier.bookingCreated(
-      { title: b.title, roomName, startAt: b.start_at, endAt: b.end_at, bookerEmail: booker.email, attendeeEmails: attendees.map((a) => a.email) },
+      { title: b.title, roomName, startAt: b.start_at, endAt: b.end_at, bookerEmail, attendeeEmails: attendees.map((a) => a.email) },
       now,
     );
     if (reminderSent) await tx.updateTable('bookings').set({ reminder_status: 'SENT', reminder_at: now }).where('id', '=', b.id).execute();

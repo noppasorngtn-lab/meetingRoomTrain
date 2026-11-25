@@ -122,6 +122,14 @@ describe('FE-mrr-029 change an approval decision (UC-mrr-008)', () => {
       expect(mail.sent.map((m) => m.to)).toEqual([['u1@example.test']]);
     });
 
+    it('F5 changing to rejected is not mailed to a booker masked under ADR-017; U2 still gets it', async () => {
+      await maskUser(db, u1);
+
+      await service.changeDecision({ userId: ra }, withU2, { decision: 'REJECTED', reason: 'อนุมัติผิดห้อง' });
+
+      expect(mail.sent.map((m) => m.to)).toEqual([['u2@example.test']]);
+    });
+
     it('AC-mrr-127 changing the approval to rejected mails ปฏิเสธการจอง to U1 and U2', async () => {
       await service.changeDecision({ userId: ra }, withU2, { decision: 'REJECTED', reason: 'อนุมัติผิดห้อง' });
 

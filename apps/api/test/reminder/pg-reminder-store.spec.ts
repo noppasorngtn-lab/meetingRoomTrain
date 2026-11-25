@@ -70,6 +70,28 @@ describe('PgReminderStore + ReminderJob', () => {
     expect((await rowOf(id)).reminder_status).toBe('SENT');
   });
 
+  it('F5 the reminder leaves out a booker masked under ADR-017, and the booking is still marked SENT', async () => {
+    const booker = await seedUser(db, 'U5');
+    await maskUser(db, booker);
+    const id = await seedBooking(db, { room: roomOpen, bookedBy: booker, title: 'ประชุมทีม', startAt: T('10:00'), endAt: T('11:00'), attendees: [u2] });
+
+    await job.run(T('09:45'));
+
+    expect(reminded().map((m) => m.to)).toEqual([['u2@example.test']]);
+    expect((await rowOf(id)).reminder_status).toBe('SENT');
+  });
+
+  it('F5 a booker masked under ADR-017 and no attendee: nobody is mailed, and the booking is still marked SENT', async () => {
+    const booker = await seedUser(db, 'U6');
+    await maskUser(db, booker);
+    const id = await seedBooking(db, { room: roomOpen, bookedBy: booker, title: 'ประชุมทีม', startAt: T('10:00'), endAt: T('11:00') });
+
+    await job.run(T('09:45'));
+
+    expect(reminded()).toEqual([]);
+    expect((await rowOf(id)).reminder_status).toBe('SENT');
+  });
+
   it('EX-mrr-023: at 09:44 (16 minutes before) nobody is reminded and the row is untouched', async () => {
     const id = await seed('ประชุมทีม');
     await job.run(T('09:44'));

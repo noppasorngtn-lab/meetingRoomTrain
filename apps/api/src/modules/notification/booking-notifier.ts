@@ -7,7 +7,8 @@ export interface BookingSnapshot {
   roomName: string;
   startAt: Date;
   endAt: Date;
-  bookerEmail: string;
+  /** null when the booker's account is masked under ADR-017 (inactive): nothing is mailed to it (T5 F5). */
+  bookerEmail: string | null;
   attendeeEmails: string[];
 }
 
@@ -52,12 +53,23 @@ export class BookingNotifier {
   }
 
   /**
+   * Sends one mail to whoever of `to` can receive it. A masked booker (null) is left out; with nobody
+   * left the mail is skipped and the action carries on (ADR-017 · T5 F5). Every other failure still
+   * fails the action (BR-mrr-019).
+   */
+  private async deliver(event: string, booking: BookingSnapshot, to: (string | null)[]): Promise<void> {
+    const recipients = to.filter((email): email is string => !!email);
+    if (!recipients.length) return;
+    const s = subject(event, booking);
+    await this.transport.send({ to: recipients, subject: s, text: s });
+  }
+
+  /**
    * A booking made less than 15 minutes before it starts gets its reminder now, because the
    * scheduled one has already passed (BR-mrr-008). `reminderSent` lets the caller record that.
    */
   async bookingCreated(booking: BookingSnapshot, now: Date): Promise<{ reminderSent: boolean }> {
-    const s = subject('จองสำเร็จ', booking);
-    await this.transport.send({ to: [booking.bookerEmail], subject: s, text: s });
+    await this.deliver('จองสำเร็จ', booking, [booking.bookerEmail]);
 
     if (booking.startAt.getTime() - now.getTime() >= REMINDER_LEAD_MS) return { reminderSent: false };
     await this.reminderDue(booking);
@@ -66,32 +78,27 @@ export class BookingNotifier {
 
   /** A Room Administrator approved it — the booker only (BR-mrr-007 (1) · UC-mrr-007). */
   async bookingApproved(booking: BookingSnapshot): Promise<void> {
-    const s = subject('อนุมัติแล้ว', booking);
-    await this.transport.send({ to: [booking.bookerEmail], subject: s, text: s });
+    await this.deliver('อนุมัติแล้ว', booking, [booking.bookerEmail]);
   }
 
   /** The booker cancelled before the start — the booker and every attendee (BR-mrr-007 (3) · UC-mrr-005). */
   async bookingCancelled(booking: BookingSnapshot): Promise<void> {
-    const s = subject('ยกเลิกการจอง', booking);
-    await this.transport.send({ to: [booking.bookerEmail, ...booking.attendeeEmails], subject: s, text: s });
+    await this.deliver('ยกเลิกการจอง', booking, [booking.bookerEmail, ...booking.attendeeEmails]);
   }
 
   /** A Room Administrator rejected it — the booker and every attendee (BR-mrr-007@v2 (3) · EX-mrr-118). */
   async bookingRejected(booking: BookingSnapshot): Promise<void> {
-    const s = subject('ปฏิเสธการจอง', booking);
-    await this.transport.send({ to: [booking.bookerEmail, ...booking.attendeeEmails], subject: s, text: s });
+    await this.deliver('ปฏิเสธการจอง', booking, [booking.bookerEmail, ...booking.attendeeEmails]);
   }
 
   /** A pending booking cancelled at its start time — the booker only (UC-mrr-019). */
   async bookingAutoCancelled(booking: BookingSnapshot): Promise<void> {
-    const s = subject('ยกเลิกอัตโนมัติ', booking);
-    await this.transport.send({ to: [booking.bookerEmail], subject: s, text: s });
+    await this.deliver('ยกเลิกอัตโนมัติ', booking, [booking.bookerEmail]);
   }
 
   /** The 15-minute reminder, to the booker and every attendee (UC-mrr-018). */
   async reminderDue(booking: BookingSnapshot): Promise<void> {
-    const r = subject('ใกล้ถึงเวลาประชุม', booking);
-    await this.transport.send({ to: [booking.bookerEmail, ...booking.attendeeEmails], subject: r, text: r });
+    await this.deliver('ใกล้ถึงเวลาประชุม', booking, [booking.bookerEmail, ...booking.attendeeEmails]);
   }
 
   /** Only a change of time is announced; a title or attendee change saves silently (UC-mrr-017 alt flow). */
@@ -99,7 +106,6 @@ export class BookingNotifier {
     const timeChanged =
       before.startAt.getTime() !== after.startAt.getTime() || before.endAt.getTime() !== after.endAt.getTime();
     if (!timeChanged) return;
-    const s = subject('เปลี่ยนเวลา', after);
-    await this.transport.send({ to: [after.bookerEmail, ...after.attendeeEmails], subject: s, text: s });
+    await this.deliver('เปลี่ยนเวลา', after, [after.bookerEmail, ...after.attendeeEmails]);
   }
 }

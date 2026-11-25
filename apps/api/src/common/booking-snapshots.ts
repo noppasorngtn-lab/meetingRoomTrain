@@ -12,6 +12,15 @@ export interface BookingRowForMail {
 }
 
 /**
+ * The booker's email, or null when the account is masked under ADR-017 (inactive): such a booker is left
+ * out of every mail, as a masked attendee is (T5 F5 · Q-ADR017-3).
+ */
+export async function activeBookerEmail(db: Kysely<Database>, userId: string): Promise<string | null> {
+  const u = await db.selectFrom('users').select('email').where('id', '=', userId).where('active', '=', true).executeTakeFirst();
+  return u?.email ?? null;
+}
+
+/**
  * What a mail needs about each booking — room name (the room's current version), booker and attendee emails —
  * read in three queries however many bookings there are. Attendees are ordered by email, as the booking
  * services order them. Keyed by booking id.
@@ -30,7 +39,14 @@ export async function loadSnapshots(db: Kysely<Database>, rows: BookingRowForMai
     ).map((r) => [r.id, r.name]),
   );
   const bookers = new Map(
-    (await db.selectFrom('users').select(['id', 'email']).where('id', 'in', [...new Set(rows.map((r) => r.booked_by))]).execute()).map((u) => [u.id, u.email]),
+    (
+      await db
+        .selectFrom('users')
+        .select(['id', 'email'])
+        .where('id', 'in', [...new Set(rows.map((r) => r.booked_by))])
+        .where('active', '=', true) // ADR-017 · T5 F5: a booker masked (inactive) is not mailed
+        .execute()
+    ).map((u) => [u.id, u.email]),
   );
   const attendees = await db
     .selectFrom('booking_attendees as a')
@@ -46,7 +62,7 @@ export async function loadSnapshots(db: Kysely<Database>, rows: BookingRowForMai
       roomName: rooms.get(b.room_id) ?? '',
       startAt: b.start_at,
       endAt: b.end_at,
-      bookerEmail: bookers.get(b.booked_by) ?? '',
+      bookerEmail: bookers.get(b.booked_by) ?? null,
       attendeeEmails: attendees.filter((a) => a.booking_id === b.id).map((a) => a.email),
     });
   }
