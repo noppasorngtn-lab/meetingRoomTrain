@@ -390,12 +390,12 @@
       "note": "re-request after code used -> new mail, new code, real"
     },
     "EX-mrr-098": {
-      "cases": "TC-AUTH-UI001-108",
-      "note": "email not on HR list: same message, no mail, real"
+      "cases": "TC-AUTH-UI001-108, TC-AUTH-UI001-110",
+      "note": "email not on HR list: same message, no mail, real · 110 = บัญชีที่ปิดบังแล้ว ขอด้วย email เดิมและ email ที่ปิดบัง (ADR-017)"
     },
     "EX-mrr-099": {
-      "cases": "TC-AUTH-UI001-109",
-      "note": "บัญชี HR ที่ไม่ active ขอรหัส → ข้อความเหมือนปกติ แต่ไม่ส่ง Email · real"
+      "cases": "TC-AUTH-UI001-109, TC-AUTH-UI001-110",
+      "note": "บัญชี HR ที่ไม่ active ขอรหัส → ข้อความเหมือนปกติ แต่ไม่ส่ง Email · real · 110 = หลังปิดบังบัญชีเดียวกัน (ADR-017)"
     },
     "EX-mrr-100": {
       "cases": "TC-AUTH-UI002-101, TC-AUTH-UI002-107",
