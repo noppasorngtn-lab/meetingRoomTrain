@@ -154,6 +154,8 @@ test.describe('F5 ผู้จองที่ถูกปิดบังถู�
 
     const mails = await mailsAfter(t, 1);
     expect(recipients(mails)).toEqual([U2]);
+    // The edit really saved: the end time in the database is the new one.
+    expect(Number(psql(`select (extract(epoch from end_at) * 1000)::bigint from bookings where id = ${lit(b.id)}`))).toBe(Date.parse(newEnd));
   });
 
   test('[real] TC-NTF-UI010-106 RA ยกเลิกแทนผู้จองที่ถูกปิดบัง (ระหว่างประชุม) → ยกเลิกสำเร็จ เมลถึงผู้เข้าร่วมเท่านั้น', async () => {
