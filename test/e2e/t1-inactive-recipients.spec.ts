@@ -23,6 +23,8 @@ const title = (t: string) => `E2E inactive ประชุมทีม ${t}`;
 const psql = (sql: string) =>
   execFileSync('docker', ['exec', 'mrr-db-1', 'psql', '-U', 'mrr', '-d', 'mrr', '-At', '-F', '|', '-c', sql], { encoding: 'utf8' }).trim();
 const lit = (s: string) => `'${s.replace(/'/g, "''")}'`;
+/** Thai through `docker exec psql` becomes "????" on Windows: send every character as a \XXXX escape. */
+const uni = (s: string) => `U&'${[...s].map((c) => '\\' + c.charCodeAt(0).toString(16).padStart(4, '0')).join('')}'`;
 
 interface Synthetic { id: string; email: string }
 function makeUser(name: string): Synthetic {
@@ -35,6 +37,13 @@ function deactivate(u: Synthetic) {
   psql(`update users set active = false where id = ${lit(u.id)}`);
   expect(psql(`select active || '|' || email from users where id = ${lit(u.id)}`)).toBe(`false|${u.email}`);
 }
+
+/** Back to active (the same account, email untouched) — OQ ข้อ 3 ของ T1 §B15: เมลถัดไปถึงเขาตามปกติ */
+function reactivate(u: Synthetic) {
+  psql(`update users set active = true where id = ${lit(u.id)}`);
+  expect(psql(`select active || '|' || email from users where id = ${lit(u.id)}`)).toBe(`true|${u.email}`);
+}
+const clearMail = () => fetch(`${MAIL}/messages`, { method: 'DELETE' });
 
 interface Mail { ID: string; Subject: string; To: { Address: string }[] }
 const allMails = async (): Promise<Mail[]> => ((await (await fetch(`${MAIL}/messages`)).json()) as { messages?: Mail[] }).messages ?? [];
@@ -130,5 +139,148 @@ test.describe('BR-mrr-007@v3 ผู้รับที่บัญชีไม่
     expect(await statusOf(b.id)).toBe('CANCELLED');
     await settle();
     expect(await mailsFor(t, 'ยกเลิกการจอง:'), 'ไม่เหลือผู้รับ → ไม่มีเมลถึงใคร').toHaveLength(0);
+  });
+});
+
+/**
+ * T1 §B15 (2026-11-25) — ช่องว่างเชิงลึกของ BR-mrr-007@v3 · QA_Noppasorn review 7 เคสแล้ว (ตามที่ผู้ใช้แจ้ง)
+ * คำตอบผู้ใช้ OQ ข้อ 1–3: อนุมัติแล้วไม่เหลือผู้รับ = สำเร็จเหมือน EX-mrr-134 · ยกเลิกอัตโนมัติตัดผู้ที่ไม่ active · เปิด active กลับ = ได้เมลตามปกติ
+ */
+test.describe('BR-mrr-007@v3 T1 §B15 — บัญชีไม่ active (ไม่ปิดบัง) ในเหตุการณ์ที่ยังไม่มี EX', () => {
+  test('[real] TC-NTF-UI009-107 RA อนุมัติ ผู้จองไม่ active → "อนุมัติการจองสำเร็จ" · ไม่มีเมลถึงใคร (OQ-1 · BR-mrr-007@v3 ข้อ 1)', async () => {
+    const t = token();
+    const booker = makeUser(`bk.${t}`);
+    const api = await signInAs(booker);
+    const b = await book(api, 'appr', nearSlot(), title(t), [world.users.u2.id]);
+    await api.dispose();
+    expect(b.status).toBe('PENDING_APPROVAL');
+    deactivate(booker);
+    await clearMail();
+
+    const res = await clients.ra1.post(`/bookings/${b.id}/approve`);
+    expect(res.status(), await res.text()).toBe(200);
+    expect(await msgOf(res)).toBe('อนุมัติการจองสำเร็จ');
+    expect(await statusOf(b.id)).toBe('APPROVED');
+    await settle();
+    expect((await allMails()).filter((m) => m.Subject.includes(t)), 'ผู้รับเดียวคือผู้จองและถูกตัด · u2 ไม่ได้รับตามเดิม').toHaveLength(0);
+  });
+
+  test('[real] TC-NTF-UI009-108 RA ปฏิเสธ ผู้จองไม่ active ผู้เข้าร่วม active → เมล "ปฏิเสธการจอง" ถึงผู้เข้าร่วมเท่านั้น · REJECTED (BR-mrr-007@v3 ข้อ 3)', async () => {
+    const t = token();
+    const booker = makeUser(`bk.${t}`);
+    const api = await signInAs(booker);
+    const b = await book(api, 'appr', nearSlot(), title(t), [world.users.u2.id]);
+    await api.dispose();
+    deactivate(booker);
+    await clearMail();
+
+    const res = await clients.ra1.post(`/bookings/${b.id}/reject`, { data: { reason: 'E2E inactive เหตุผล' } });
+    expect(res.status(), await res.text()).toBe(200);
+    expect(await msgOf(res)).toBe('ปฏิเสธการจองสำเร็จ');
+    expect(await statusOf(b.id)).toBe('REJECTED');
+    const got = await mailsAfter(t, 'ปฏิเสธการจอง:', 1);
+    expect(got).toHaveLength(1);
+    expect(got[0].Subject.startsWith(`${P} ปฏิเสธการจอง: ${title(t)} · `)).toBe(true);
+    expect(recipients(got), 'ไม่มี email ผู้จองที่ไม่ active').toEqual([U('u2')]);
+    // ร่องรอย 1 รายการพร้อมเหตุผล — ตรวจผ่านฐานข้อมูล (ไม่ได้ตรวจหน้าจอ)
+    expect(psql(`select count(*) from booking_audit_entries where booking_id = ${lit(b.id)} and action = 'REJECT' and reason = ${uni('E2E inactive เหตุผล')}`)).toBe('1');
+  });
+
+  test('[real] TC-NTF-UI008-106 ผู้จองเปลี่ยนเวลา ผู้เข้าร่วมคนหนึ่งไม่ active → เมล "เปลี่ยนเวลา" ถึงผู้จองและผู้เข้าร่วมที่ active เท่านั้น (BR-mrr-007@v3 ข้อ 3 · EX-mrr-021)', async () => {
+    const t = token();
+    const slot = nearSlot(10, 6);
+    const att = makeUser(`att.${t}`);
+    const b = await book(clients.u1, 'open', slot, title(t), [world.users.u2.id, att.id]);
+    deactivate(att);
+    const res = await clients.u1.patch(`/bookings/${b.id}`, {
+      data: { startAt: slot.startAt.replace('T10:', 'T14:'), endAt: slot.endAt.replace('T11:', 'T15:'), title: title(t) },
+    });
+    // ไม่ส่ง attendeeIds (ผู้เข้าร่วมเดิมคงอยู่): ถ้าส่งรายชื่อที่มีบัญชีไม่ active กลับมา api ตอบ 400 'ไม่พบผู้เข้าร่วมบางคนในรายชื่อผู้ใช้' — ข้อสังเกตใน t1-test-cases.md §B15.1
+    expect(res.status(), await res.text()).toBeLessThan(300);
+
+    const got = await mailsAfter(t, 'เปลี่ยนเวลา:', 1);
+    expect(got).toHaveLength(1);
+    expect(got[0].Subject.startsWith(`${P} เปลี่ยนเวลา: ${title(t)} · `)).toBe(true);
+    expect(recipients(got)).toEqual([U('u1'), U('u2')].sort());
+  });
+
+  test('[real] TC-NTF-JOB-115 เตือน 15 นาที ผู้จอง active ผู้เข้าร่วมไม่ active ทั้งหมด → เมลถึงผู้จองคนเดียว · SENT (BR-mrr-007@v3 ข้อ 2)', async () => {
+    const t = token();
+    const slot = nearSlot();
+    const booker = makeUser(`bk2.${t}`);
+    const att = makeUser(`att.${t}`);
+    const api = await signInAs(booker);
+    const b = await book(api, 'open', slot, title(t), [att.id]);
+    await api.dispose();
+    deactivate(att);
+    await setClock(new Date(Date.parse(slot.startAt) - 10 * 60_000));
+    await runJobs(t);
+
+    const got = await mailsAfter(t, 'ใกล้ถึงเวลาประชุม:', 1);
+    expect(got.length).toBeGreaterThan(0);
+    for (const m of got) expect(m.Subject.startsWith(`${P} ใกล้ถึงเวลาประชุม: ${title(t)} · `)).toBe(true);
+    expect(recipients(got)).toEqual([booker.email]);
+    expect(psql(`select reminder_status from bookings where id = ${lit(b.id)}`)).toBe('SENT');
+  });
+
+  test('[real] TC-NTF-JOB-116 เตือน 15 นาที ผู้จองและผู้เข้าร่วมไม่ active ทั้งคู่ → ไม่มีเมล · SENT · รันซ้ำไม่เตือนซ้ำ (EX-mrr-135 ฝั่ง inactive ไม่ปิดบัง)', async () => {
+    const t = token();
+    const slot = nearSlot();
+    const booker = makeUser(`bk3.${t}`);
+    const att = makeUser(`att3.${t}`);
+    const api = await signInAs(booker);
+    const b = await book(api, 'open', slot, title(t), [att.id]);
+    await api.dispose();
+    deactivate(booker);
+    deactivate(att);
+    await setClock(new Date(Date.parse(slot.startAt) - 10 * 60_000));
+    await runJobs(t);
+
+    await settle();
+    expect(await mailsFor(t, 'ใกล้ถึงเวลาประชุม:'), 'ไม่เหลือผู้รับ → ไม่มีเมล').toHaveLength(0);
+    expect(psql(`select reminder_status from bookings where id = ${lit(b.id)}`)).toBe('SENT');
+    await runJobs(t);
+    await settle();
+    expect(await mailsFor(t, 'ใกล้ถึงเวลาประชุม:'), 'รอบที่ 2 ไม่เตือนซ้ำ').toHaveLength(0);
+    expect(psql(`select reminder_status from bookings where id = ${lit(b.id)}`)).toBe('SENT');
+  });
+
+  test('[real] TC-NTF-JOB-117 ยกเลิกอัตโนมัติของการจองรออนุมัติ ผู้จองไม่ active → CANCELLED · ไม่มีเมล · รันซ้ำไม่เปลี่ยน (OQ-2 · BR-mrr-016@v1)', async () => {
+    const t = token();
+    const slot = nearSlot();
+    const booker = makeUser(`bk4.${t}`);
+    const api = await signInAs(booker);
+    const b = await book(api, 'appr', slot, title(t), [world.users.u2.id]);
+    await api.dispose();
+    expect(b.status).toBe('PENDING_APPROVAL');
+    deactivate(booker);
+    await clearMail();
+    await setClock(new Date(Date.parse(slot.startAt) + 60_000));
+    await runJobs(t);
+
+    await settle();
+    expect((await allMails()).filter((m) => m.Subject.includes(t)), 'ไม่เหลือผู้รับ → ไม่มีเมลถึงใคร').toHaveLength(0);
+    expect(await statusOf(b.id)).toBe('CANCELLED');
+    await runJobs(t);
+    await settle();
+    expect(await statusOf(b.id)).toBe('CANCELLED');
+    expect((await allMails()).filter((m) => m.Subject.includes(t))).toHaveLength(0);
+  });
+
+  test('[real] TC-MYB-UI007-108 ผู้เข้าร่วมที่เคยไม่ active ถูกเปิดกลับ แล้วผู้จองยกเลิก → ได้เมล "ยกเลิกการจอง" ตามปกติ (OQ-3 · BR-mrr-007@v3)', async () => {
+    const t = token();
+    const back = makeUser(`back.${t}`);
+    const b = await book(clients.u1, 'open', nearSlot(), title(t), [world.users.u2.id, back.id]);
+    deactivate(back);
+    reactivate(back);
+    const res = await clients.u1.post(`/bookings/${b.id}/cancel`);
+    expect(res.status(), await res.text()).toBeLessThan(300);
+    expect(await msgOf(res)).toBe('ยกเลิกการจองสำเร็จ');
+    expect(await statusOf(b.id)).toBe('CANCELLED');
+
+    const got = await mailsAfter(t, 'ยกเลิกการจอง:', 1);
+    expect(got).toHaveLength(1);
+    expect(got[0].Subject.startsWith(`${P} ยกเลิกการจอง: ${title(t)} · `)).toBe(true);
+    expect(recipients(got)).toEqual([U('u1'), U('u2'), back.email].sort());
   });
 });
