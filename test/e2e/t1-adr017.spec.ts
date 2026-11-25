@@ -11,7 +11,7 @@ import { as, book, nearSlot, stateOf, world } from './support/world';
  * (global-setup upsert ตาม email: ถ้าปิดบังบัญชีที่ seed ไว้ รอบหน้าจะได้แถวใหม่และแถวที่ปิดบังค้าง).
  * ผู้ใช้ที่ปิดบังแล้ว email เปลี่ยน จึงใช้ email เดิมสร้างใหม่ได้ทุกรอบ.
  * การจอง/รายงานที่สร้างค้างใน DB (ร่องรอยและรายงานเป็นแบบเพิ่มอย่างเดียว) — หัวข้อขึ้นต้น `E2E ADR017`.
- * TC-APR-UI011-103 ยังไม่เขียน: รอ Q-ADR017-3.
+ * TC-APR-UI011-103 ไม่เขียน: อนุมัติคำขอแก้ไขไม่ส่งอีเมล (adjustment-request.service.ts) — Q-ADR017-3 (ตอบแล้ว) ทดสอบที่ TC-MYB-UI007-106 แทน.
  * ชื่อสังเคราะห์เป็น ASCII (Thai ผ่าน `docker exec psql` กลายเป็น "????" บน Windows) ส่วนชื่อที่ปิดบังเป็นไทย — ส่งเป็น U&'\XXXX'.
  */
 
@@ -248,4 +248,27 @@ test('[real] TC-AUTH-UI001-110 ขอรหัสด้วย email เดิม
   expect(await mailsTo(original)).toHaveLength(0);
   expect(await mailsTo(masked)).toHaveLength(0);
   expect(psql(`select count(*) from login_codes where user_id = ${lit(u.id)}`)).toBe(codesBefore);
+});
+
+// ------------------------------------------------------------------ อีเมลแจ้งเตือนไม่ส่งถึงผู้ใช้ที่ถูกปิดบัง (Q-ADR017-3 · ตอบแล้ว 2026-11-25)
+// คำตอบ: ตัดผู้เข้าร่วมที่ไม่ active/ถูกปิดบังออกจากรายชื่อผู้รับ · ถ้าส่งไม่ได้ การกระทำสำเร็จต่อและข้ามผู้รับคนนั้น
+// (ข้อหลังจำลองไม่ได้ใน E2E — mailpit รับทุก address — ต้องเป็น unit test กับ transport ปลอม).
+// ย้ายมาจาก TC-APR-UI011-103: อนุมัติคำขอแก้ไขไม่ส่งอีเมลเลย จึงใช้ "ผู้จองยกเลิก" ซึ่งส่งถึงผู้จองและผู้เข้าร่วมทุกคน.
+test('[real] TC-MYB-UI007-106 ผู้จองยกเลิกการจองที่มีผู้เข้าร่วมถูกปิดบัง → ยกเลิกสำเร็จ อีเมลไม่ถึง address ที่ปิดบัง/เดิม ผู้เข้าร่วมคนอื่นยังได้ (Q-ADR017-3 · BR-mrr-007@v2)', async () => {
+  const att = makeUser(`mail.${RUN}`, 'GENERAL_USER');
+  const b = await book(clients.u1, 'open', nearSlot(), `E2E ADR017 mail ${RUN}`, [att.id, world.users.u2.id]);
+  const masked = mask(att);
+  await fetch(`${MAIL}/messages`, { method: 'DELETE' });
+
+  const res = await clients.u1.post(`/bookings/${b.id}/cancel`);
+  expect(res.status(), await res.text()).toBeLessThan(300);
+
+  // รอให้เมลถึง u2 (พิสูจน์ว่าเมลถูกส่งจริง) แล้วรออีกครู่ก่อนยืนยันว่า "ไม่มี" ถึงผู้ที่ถูกปิดบัง
+  for (let i = 0; i < 20 && !(await mailsTo(world.users.u2.email)).length; i++) await new Promise((r) => setTimeout(r, 500));
+  await new Promise((r) => setTimeout(r, 2500));
+  expect((await mailsTo(world.users.u2.email)).length, 'ผู้เข้าร่วมคนอื่นต้องได้อีเมลยกเลิก').toBeGreaterThan(0);
+  expect((await mailsTo(world.users.u1.email)).length, 'ผู้จองต้องได้อีเมลยกเลิก').toBeGreaterThan(0);
+  expect(await mailsTo(masked), 'ห้ามส่งถึง email ที่ปิดบัง').toHaveLength(0);
+  expect(await mailsTo(att.email), 'ห้ามส่งถึง email เดิม').toHaveLength(0);
+  expect((await (await clients.ra1.get(`/bookings/${b.id}`)).json()).status).toBe('CANCELLED');
 });
