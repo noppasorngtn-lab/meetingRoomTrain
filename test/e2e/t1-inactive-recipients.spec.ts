@@ -284,3 +284,41 @@ test.describe('BR-mrr-007@v3 T1 §B15 — บัญชีไม่ active (ไ�
     expect(recipients(got)).toEqual([U('u1'), U('u2'), back.email].sort());
   });
 });
+
+/**
+ * DEF-07 (t4-def-07-2026-11-25.md) — ผู้จองต้องแก้การจองได้ แม้รายชื่อผู้เข้าร่วมมีผู้ที่บัญชีไม่ active (คำตอบผู้ใช้ 2026-11-25: "แก้ได้").
+ * ฟอร์มแก้ไขส่ง `attendeeIds` เดิมกลับมาทุกครั้ง (EditBookingPage.tsx) — เคสนี้ทำเหมือนกัน.
+ * ระบบตอนนี้ตอบ 400 → เคสล้ม จึงใส่ `test.fail()` ไว้: ชุดเต็มยังเขียว ขณะ defect เปิดอยู่ · เมื่อแก้แล้วเคสจะ "ผ่านทั้งที่คาดว่าล้ม"
+ * (Playwright รายงานเป็นล้ม) → ให้ลบ `test.fail()` ออกแล้วปิด DEF-07. ผู้จองในเคสคือ u1 · ตรวจที่ระดับ API ไม่ใช่หน้าจอ.
+ */
+test.describe('DEF-07 แก้การจองเมื่อมีผู้เข้าร่วมที่ไม่ active ในรายชื่อ', () => {
+  test('[real] TC-MYB-UI008-102 ผู้จองแก้หัวข้อ ส่งรายชื่อผู้เข้าร่วมเดิม (มีผู้ไม่ active) → บันทึกสำเร็จ (DEF-07 · คำตอบผู้ใช้ 2026-11-25)', async () => {
+    test.fail(true, 'DEF-07 เปิดอยู่: api ตอบ 400 "ไม่พบผู้เข้าร่วมบางคนในรายชื่อผู้ใช้" — ลบบรรทัดนี้เมื่อแก้แล้ว');
+    const t = token();
+    const att = makeUser(`att.${t}`);
+    const list = [world.users.u2.id, att.id];
+    const b = await book(clients.u1, 'open', nearSlot(), title(t), list);
+    deactivate(att);
+    const res = await clients.u1.patch(`/bookings/${b.id}`, { data: { title: `${title(t)} แก้แล้ว`, attendeeIds: list } });
+    expect(res.status(), await res.text()).toBe(200);
+    expect(await msgOf(res)).toBe('บันทึกการแก้ไขสำเร็จ');
+    expect(psql(`select title from bookings where id = ${lit(b.id)}`)).toBe(`${title(t)} แก้แล้ว`);
+  });
+
+  test('[real] TC-NTF-UI008-107 ผู้จองเปลี่ยนเวลา ส่งรายชื่อผู้เข้าร่วมเดิม (มีผู้ไม่ active) → บันทึกสำเร็จ เมล "เปลี่ยนเวลา" ถึงผู้จองและผู้เข้าร่วมที่ active เท่านั้น (DEF-07 · BR-mrr-007@v3)', async () => {
+    test.fail(true, 'DEF-07 เปิดอยู่: api ตอบ 400 "ไม่พบผู้เข้าร่วมบางคนในรายชื่อผู้ใช้" — ลบบรรทัดนี้เมื่อแก้แล้ว');
+    const t = token();
+    const slot = nearSlot(10, 6);
+    const att = makeUser(`att.${t}`);
+    const list = [world.users.u2.id, att.id];
+    const b = await book(clients.u1, 'open', slot, title(t), list);
+    deactivate(att);
+    const res = await clients.u1.patch(`/bookings/${b.id}`, {
+      data: { startAt: slot.startAt.replace('T10:', 'T14:'), endAt: slot.endAt.replace('T11:', 'T15:'), title: title(t), attendeeIds: list },
+    });
+    expect(res.status(), await res.text()).toBeLessThan(300);
+    const got = await mailsAfter(t, 'เปลี่ยนเวลา:', 1);
+    expect(got).toHaveLength(1);
+    expect(recipients(got)).toEqual([U('u1'), U('u2')].sort());
+  });
+});
