@@ -1,11 +1,11 @@
 # Source — ต้นฉบับที่ทุกอย่างสาวกลับไปได้
 
-> สารบัญนี้ถูก generate จาก `spec.json` — **ห้ามแก้ด้วยมือ** · 42 หน้า
+> สารบัญนี้ถูก generate จาก `spec.json` — **ห้ามแก้ด้วยมือ** · 43 หน้า
 
 | แหล่ง | ชนิด | ที่อยู่ | ใครอ้างถึง |
 |---|---|---|---|
-| [SRC-001](SRC-001.md) | file | docs/requirements/Meeting_Room_Reservation_System_Requirements.docx | 15 |
-| [SRC-002](SRC-002.md) | chat | — | 4 |
+| [SRC-001](SRC-001.md) | file | docs/requirements/Meeting_Room_Reservation_System_Requirements.docx | 16 |
+| [SRC-002](SRC-002.md) | chat | — | 5 |
 | [SRC-003](SRC-003.md) | chat | — | 2 |
 | [SRC-004](SRC-004.md) | chat | — | 4 |
 | [SRC-005](SRC-005.md) | chat | — | 2 |
@@ -13,7 +13,7 @@
 | [SRC-007](SRC-007.md) | chat | — | 2 |
 | [SRC-008](SRC-008.md) | chat | — | 3 |
 | [SRC-009](SRC-009.md) | chat | — | 5 |
-| [SRC-010](SRC-010.md) | chat | — | 4 |
+| [SRC-010](SRC-010.md) | chat | — | 5 |
 | [SRC-011](SRC-011.md) | chat | — | 4 |
 | [SRC-012](SRC-012.md) | chat | — | 2 |
 | [SRC-013](SRC-013.md) | chat | — | 3 |
@@ -23,7 +23,7 @@
 | [SRC-017](SRC-017.md) | chat | — | ⚠️ 0 |
 | [SRC-018](SRC-018.md) | chat | — | ⚠️ 0 |
 | [SRC-019](SRC-019.md) | chat | — | ⚠️ 0 |
-| [SRC-020](SRC-020.md) | chat | — | 2 |
+| [SRC-020](SRC-020.md) | chat | — | 3 |
 | [SRC-021](SRC-021.md) | chat | — | 1 |
 | [SRC-022](SRC-022.md) | chat | — | 1 |
 | [SRC-023](SRC-023.md) | chat | — | 2 |
@@ -32,7 +32,7 @@
 | [SRC-026](SRC-026.md) | chat | — | 4 |
 | [SRC-027](SRC-027.md) | chat | — | 4 |
 | [SRC-028](SRC-028.md) | chat | — | 2 |
-| [SRC-029](SRC-029.md) | chat | — | 2 |
+| [SRC-029](SRC-029.md) | chat | — | 3 |
 | [SRC-030](SRC-030.md) | chat | — | 3 |
 | [SRC-031](SRC-031.md) | chat | — | 3 |
 | [SRC-032](SRC-032.md) | chat | — | 2 |
@@ -46,3 +46,4 @@
 | [SRC-040](SRC-040.md) | chat | — | ⚠️ 0 |
 | [SRC-041](SRC-041.md) | chat | — | ⚠️ 0 |
 | [SRC-042](SRC-042.md) | chat | — | ⚠️ 0 |
+| [SRC-043](SRC-043.md) | file | docs/qa/req-design-request-adr017-2026-11-25.md | 4 |

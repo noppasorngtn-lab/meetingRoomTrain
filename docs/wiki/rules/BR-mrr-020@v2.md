@@ -14,9 +14,9 @@ test_design: [decision_table]
 proven_by: [EX-mrr-066, EX-mrr-067, EX-mrr-111, EX-mrr-112]
 golden: []
 supersedes: BR-mrr-020@v1
-provenance: [SRC-011, SRC-028, SRC-028]
+provenance: [SRC-011, SRC-028, SRC-028, SRC-043]
 timestamp: 2026-11-18T12:30:00+07:00
-spec_hash: sha256:754d149820db2eeb765dcea91f2fc5117097170d558c3ba3f147b81af81ebf6a
+spec_hash: sha256:a7010e628651637425dd6d962e56e2353e5a55322171872382d55e4985d4ca4a
 ---
 
 # BR-mrr-020@v2
@@ -34,6 +34,9 @@ spec_hash: sha256:754d149820db2eeb765dcea91f2fc5117097170d558c3ba3f147b81af81ebf
 
 > "ผู้รับบางคนส่งไม่สำเร็จ — นับเป็นส่งไม่สำเร็จทั้งการจอง"
 > — [SRC-028](../sources/SRC-028.md) หน้า — §—
+
+> "SMTP ปฏิเสธยังล้มทั้งก้อน"
+> — [SRC-043](../sources/SRC-043.md) หน้า — §—
 
 ## พิสูจน์โดย
 

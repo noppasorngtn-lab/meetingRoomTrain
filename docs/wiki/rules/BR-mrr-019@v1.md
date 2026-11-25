@@ -12,9 +12,9 @@ is_current: true
 test_design: [decision_table]
 proven_by: [EX-mrr-062, EX-mrr-063, EX-mrr-064, EX-mrr-065, EX-mrr-113]
 golden: []
-provenance: [SRC-010]
+provenance: [SRC-010, SRC-043]
 timestamp: 2026-11-18T12:30:00+07:00
-spec_hash: sha256:15e7cd18046f95fd3bb01a7c723e110fbc2cfa9b3562ab36c0bfaf8b655dcb5f
+spec_hash: sha256:a63e7cbfdf8105e1c964c0dd491dcc519a839f9ada40b2a514b59ca153b53b6c
 ---
 
 # BR-mrr-019@v1
@@ -26,6 +26,9 @@ spec_hash: sha256:15e7cd18046f95fd3bb01a7c723e110fbc2cfa9b3562ab36c0bfaf8b655dcb
 
 > "QB-int-01: ส่ง Email แจ้งเตือนไม่สำเร็จ (mail server ล่ม) — ล้มทันที แจ้ง user ให้กดใหม่ การกระทำที่ทำให้เกิดแจ้งเตือนไม่สำเร็จตามไปด้วย"
 > — [SRC-010](../sources/SRC-010.md) หน้า — §—
+
+> "SMTP ปฏิเสธยังล้มทั้งก้อน"
+> — [SRC-043](../sources/SRC-043.md) หน้า — §—
 
 ## พิสูจน์โดย
 

@@ -5,18 +5,19 @@ description: ระบบส่งแจ้งเตือนทาง Email เ
 resource: ../requirements/REQ-mrr-005.md
 tags: [mrr, policy]
 id: BR-mrr-007@v2
-status: validated
+status: superseded
 belongs_to: REQ-mrr-005
 kind: policy
-is_current: true
+is_current: false
 effective_from: 2026-11-18
 test_design: [EP]
 proven_by: [EX-mrr-019, EX-mrr-020, EX-mrr-021, EX-mrr-022, EX-mrr-114, EX-mrr-115, EX-mrr-116, EX-mrr-117, EX-mrr-118, EX-mrr-124]
 golden: []
 supersedes: BR-mrr-007@v1
+superseded_by: BR-mrr-007@v3
 provenance: [SRC-001, SRC-001, SRC-010, SRC-002, SRC-020, SRC-020, SRC-020, SRC-029, SRC-029, SRC-029]
 timestamp: 2026-11-18T12:30:00+07:00
-spec_hash: sha256:771aeae3f64f1c197b2853a462a821a567d4e2e5adacfa76e43111136db542bc
+spec_hash: sha256:d132a47b64a29f9521f444704cbaabad80c6e271ec64d9761a16171f0b5a2a75
 ---
 
 # BR-mrr-007@v2
@@ -79,4 +80,5 @@ spec_hash: sha256:771aeae3f64f1c197b2853a462a821a567d4e2e5adacfa76e43111136db542
 | เวอร์ชัน | มีผลตั้งแต่ | เหตุผล | change set |
 |---|---|---|---|
 | [BR-mrr-007@v1](BR-mrr-007@v1.md) ❄️ | — | ตั้งต้น | — |
-| **BR-mrr-007@v2** (หน้านี้) ✅ | 2026-11-18 | เจ้าของยืนยันคำของ <เหตุการณ์> ในหัวเรื่อง Email ตอนอนุมัติ (อนุมัติแล้ว) ยกเลิกโดยผู้ใช้หรือ Room Administrator (ยกเลิกการจอง) และปฏิเสธ (ปฏิเสธการจอง) และให้ส่ง Email ตอนปฏิเสธถึงผู้จองและผู้เข้าร่วมทุกคน | [CHG-mrr-003](../changes/CHG-mrr-003.md) |
+| **BR-mrr-007@v2** (หน้านี้) ❄️ | 2026-11-18 | เจ้าของยืนยันคำของ <เหตุการณ์> ในหัวเรื่อง Email ตอนอนุมัติ (อนุมัติแล้ว) ยกเลิกโดยผู้ใช้หรือ Room Administrator (ยกเลิกการจอง) และปฏิเสธ (ปฏิเสธการจอง) และให้ส่ง Email ตอนปฏิเสธถึงผู้จองและผู้เข้าร่วมทุกคน | [CHG-mrr-003](../changes/CHG-mrr-003.md) |
+| [BR-mrr-007@v3](BR-mrr-007@v3.md) ✅ | 2026-11-25 | เจ้าของตอบ Q-ADR017-3 ข้อ 1 และ F5 เมื่อ 2026-11-25 (SRC-043): บัญชีที่ไม่ active ทั้งผู้จองและผู้เข้าร่วมไม่ได้รับ Email · ถ้าตัดแล้วไม่เหลือผู้รับ ข้าม Email นั้นและการกระทำสำเร็จ (รวมงานเตือนก่อนเริ่มประชุม ซึ่งนับว่าสำเร็จ) · ข้อ 2 (SMTP ปฏิเสธแล้วสำเร็จต่อ) ถอนตามคำตอบ Q-ADR017-4 — BR-mrr-019@v1 และ BR-mrr-020@v2 คงเดิม | [CHG-mrr-007](../changes/CHG-mrr-007.md) |
