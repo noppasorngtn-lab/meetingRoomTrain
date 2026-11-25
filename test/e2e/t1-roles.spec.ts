@@ -297,6 +297,7 @@ test.describe.serial('ปฏิทินห้อง (BR-mrr-021)', () => {
     await book(clients.u1, 'open', slot, t, [world.users.u2.id, world.users.u3.id]);
     const s = await calendar(clients.u1, 'open');
     expect(s).toHaveLength(1);
+    expect(s[0].details?.bookedBy).toBe(await nameOf(clients.u1));
     expect(s[0].details?.title).toBe(t);
     expect(s[0].details?.attendees.sort()).toEqual(['E2E User Three', 'E2E User Two']);
   });
