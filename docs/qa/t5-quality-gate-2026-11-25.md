@@ -23,7 +23,7 @@ Input: [t7-regression-def06-2026-11-25.md](t7-regression-def06-2026-11-25.md) (T
 | G0 Story Ready | REQ มีกฎและตัวอย่างครบ · ไม่มี red card ค้าง · test data สังเคราะห์ | `/req:check` 2026-11-25: BR(current) 28/28 มี EX · coverage 100% · red card 0 · spillover 0 · **CP1 PASS · CP2 PASS** · DQ ทั้ง 17 ข้อ `answered` (DQ-004/005/014 ผ่าน SRC-039 · DQ-017 ผ่าน design desk) · contract `.aeon/req` ตรงกับ spec · CP1 เซ็นแล้ว (Noppasorn 2026-11-18) · test data สังเคราะห์ (`E2E…`, `e2e.mask.*@mrr.local`) · **แต่:** BR-mrr-007@v2 (3) ยังไม่รับคำตอบ Q-ADR017-3 และข้อ 2 ของคำตอบขัด BR-mrr-019@v1 / BR-mrr-020@v2 / คำตัดสิน PO ของ DEF-05 | **[TBD] ผ่านตาม req gate · ตัดสินไม่ได้ว่ากฎครบสำหรับ ADR-017** | `.aeon/spec.json` · [req-design-request-adr017-2026-11-25.md](req-design-request-adr017-2026-11-25.md) · TBD - Require Business Confirmation: Q-ADR017-3/4 นับเป็น red card ของ REQ ใดหรือไม่ |
 | G1 Test Design | (a) ทุก BR มีเคส ≥ 1 | BR 28/28 · AC ที่มีเทสอ้าง 134/134 (ไม่มี AC ไร้เทส) · EX ที่ E2E คลุม 131/131 | Pass | `t2-coverage.py` (รันซ้ำ) · `t2-coverage-tables.md` |
 | | (b) ช่อง "เทสต์" ใน REQ ไม่เป็น 🔴 | ยัง 🔴 (req plugin เขียนตายตัว · G10) | **Waived** — PO ยกเว้น (บันทึกใน commit `d77aa4d`) | `plugin-gap-report-2026-11-23.md` · `req-handoff-test-links.md` |
-| | (c) review เคส 100% | เคสรอบก่อน + เคสถาวร DEF-05 ×5 · NFR ×4: **มีบันทึกใน repo แล้ว** ([t1-test-cases.md §B10](t1-test-cases.md)) · เคส ADR-017 ทั้ง 9–11 เคสรวม TC-APR-UI011-103 และ TC-MYB-UI007-106: QA_Noppasorn 2026-11-25 (บันทึกใน t1-adr017) · เคส CHG-mrr-006 ×3 (TC-AUD-UI010-114 · TC-AUD-UI011-101 · TC-AUD-UI011-102): **QA_Noppasorn review แล้ว ตามที่ผู้ใช้แจ้งในเซสชันนี้ — ยังไม่มีบันทึกใน repo และยังไม่ได้เข้า `t1-test-cases.csv/.md`** | **Pass** (3 เคสสุดท้ายอิงคำแจ้งของผู้ใช้) | t1-adr017 · §B10 · คำแจ้งของผู้ใช้ |
+| | (c) review เคส 100% | เคสรอบก่อน + เคสถาวร DEF-05 ×5 · NFR ×4: **มีบันทึกใน repo แล้ว** ([t1-test-cases.md §B10](t1-test-cases.md)) · เคส ADR-017 ทั้ง 9–11 เคสรวม TC-APR-UI011-103 และ TC-MYB-UI007-106: QA_Noppasorn 2026-11-25 (บันทึกใน t1-adr017) · เคส CHG-mrr-006 ×3 (TC-AUD-UI010-114 · TC-AUD-UI011-101 · TC-AUD-UI011-102): **QA_Noppasorn review แล้ว ตามที่ผู้ใช้แจ้งในเซสชันนี้ — บันทึกใน repo แล้ว ([t1-test-cases.md §B11](t1-test-cases.md) · แถวใหม่ 3 แถวใน `t1-test-cases.csv`)** | **Pass** (3 เคสสุดท้ายอิงคำแจ้งของผู้ใช้ · AI บันทึกตามคำแจ้ง ไม่ได้ลงนามแทน) | t1-adr017 · §B10 · §B11 |
 | G2 Build Quality | unit/API ใน `apps/api/test/*` ผ่าน 100% | jest **521/521** (40 suite) รันที่ `f83de74` (ตามบันทึกใน t4-def-06/T7 — ไม่ระบุผู้รัน · ไม่ได้รันซ้ำที่ `d73529c` เพราะต่างเฉพาะเอกสาร) · vitest web **333/333** ตามบันทึก Dev ใน `1c9ed38` (QA ไม่ได้รันซ้ำ · ตั้งแต่นั้นไม่มี commit ของ `apps/web`) | **Pass** | T7 §B · t4-def-06 · commit `1c9ed38` |
 | G3 Sprint Exit | (1) รันครบ 100% | 198 เคส · รัน 197 · ข้าม 1 (NFR-005 อุปกรณ์สัมผัสบนเดสก์ท็อป ข้ามโดยออกแบบ) | **ไม่ผ่านตามตัวอักษร** — Waived ได้เฉพาะ PO | `test/results.json` (expected 197 · skipped 1) |
 | | (2) pass rate ≥ 95% | 197/197 ที่รัน = **100%** (2 รอบ) | Pass | T7 §B |
@@ -88,7 +88,6 @@ Input: [t7-regression-def06-2026-11-25.md](t7-regression-def06-2026-11-25.md) (T
 4. PO เลือกผู้ให้บริการส่งเมล (DEC-005) หรือยอมรับว่า E2E ใช้ mailpit เท่านั้น
 5. PO ยอมรับว่า NFR-002 พิสูจน์แล้วเฉพาะบน Docker dev (หรือกำหนดวัน staging) และ NFR-004 วัดหลังขึ้นระบบ
 6. ก่อนปล่อยจริง: รัน jest/vitest ซ้ำบน build ปลายทาง · รันโปรเจกต์เบราว์เซอร์อื่นของ NFR-005 · สุ่มอ่าน assertion ของเคส Critical (BR-001, 003, 021, 026–028) · ล้างการจอง `E2E%` ใน dev DB
-7. QA: บันทึก review เคส CHG-mrr-006 ×3 ลง `t1-test-cases.csv/.md` ให้ G1(c) มีหลักฐานใน repo
 
 ข้อเสนอนี้อิงตัวเลขที่ยังเป็น [Recommended] ถ้า PO ปรับเกณฑ์ ข้อเสนอเปลี่ยนตามได้
 
@@ -117,11 +116,11 @@ Input: [t7-regression-def06-2026-11-25.md](t7-regression-def06-2026-11-25.md) (T
 - ผล NFR-005 บน firefox / webkit / edge / mobile ของรอบนี้
 - การตรวจ assertion รายเคสของเคสที่ผ่าน
 - SMTP จริงของลูกค้าปฏิเสธ address ที่ปิดบังหรือไม่
-- บันทึก review เคส CHG-mrr-006 ×3 ในเอกสารของ repo · % เคส AI ที่ใช้ได้โดยไม่แก้
+- % เคส AI ที่ใช้ได้โดยไม่แก้
 
 ## Next Actions
 
-1. QA: ลงบันทึก review 3 เคสของ CHG-mrr-006 ใน t1 CSV/md · สุ่มอ่าน assertion เคส Critical · รัน jest/vitest + เบราว์เซอร์อื่นก่อนปล่อย
+1. QA: สุ่มอ่าน assertion เคส Critical · รัน jest/vitest + เบราว์เซอร์อื่นก่อนปล่อย
 2. design/req/PO: ตอบ Q-ADR017-1..4 และคำถามผู้จองที่ถูกปิดบัง (F5) · req ปรับ BR-mrr-019 / เพิ่ม EX ของ DEF-05
 3. PO: ตัดสิน F6–F9, F12 และว่ารับ Conditional Go ตามเงื่อนไขหรือไม่ (เอกสารนี้ไม่ตัดสิน)
 4. Env: ล้างการจอง `E2E%` ใน dev DB · เสร็จแล้ว `cd docker && docker compose stop`

@@ -422,3 +422,7 @@
 ## B10. สถานะ review เคสถาวรของ DEF-05 และเคส NFR (2026-11-24)
 
 **สถานะ: QA review เสร็จสมบูรณ์ (completed) · ผู้ review: QA_Noppasorn · 2026-11-24 · ขอบเขต: TC-NTF-UI007-101, TC-NTF-UI010-103, TC-NTF-UI009-104, TC-NTF-UI008-106, TC-NTF-UI008-107 (เคสถาวรของ DEF-05) และ TC-NFR-REQ001-103, 104, 105, 106** — ผู้ใช้แจ้งผล review ในเซสชัน QA (บันทึกโดย AI ตามคำแจ้ง) · ผลรันไม่ใช่การ review · ใช้เป็นหลักฐาน G1 ข้อ review ใน [t5-quality-gate-2026-11-24.md](t5-quality-gate-2026-11-24.md)
+
+## B11. สถานะ review เคส BR-mrr-017@v3 (CHG-mrr-006) (2026-11-25)
+
+**สถานะ: QA review เสร็จสมบูรณ์ (completed) · ผู้ review: QA_Noppasorn · 2026-11-25 · ขอบเขต: TC-AUD-UI010-114 (EX-mrr-129), TC-AUD-UI011-101 (EX-mrr-130), TC-AUD-UI011-102 (EX-mrr-131)** — ผู้ใช้แจ้งผล review ในเซสชัน QA (บันทึกโดย AI ตามคำแจ้ง · AI ไม่ได้เป็นผู้ลงนาม) · เคสเขียนใน `test/e2e/t1-round2.spec.ts` (commit `f913505`) ผลรัน chromium 2026-11-24 ผ่าน 3/3 และผ่านใน T7 Full 2026-11-25 (build `d73529c`) · ผลรันไม่ใช่การ review · เพิ่มแถวทั้ง 3 ลง `t1-test-cases.csv` แล้ว (127 → 130 เคส) · ใช้เป็นหลักฐาน G1 ข้อ review ใน [t5-quality-gate-2026-11-25.md](t5-quality-gate-2026-11-25.md)
