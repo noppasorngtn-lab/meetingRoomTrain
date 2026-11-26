@@ -599,3 +599,20 @@
 
 - TC-APR-UI011-104 ครั้งแรกได้ 500 แทน 400 — controller ไม่แปลง `BookingInvalid` (แก้ใน `5d3fbcb`) · TC-MYB-UI008-105 ไม่ได้แสดง red
 - ข้อสังเกต: คำขอแก้ไขค้าง PENDING ใน dev DB สะสม (22 รายการหลังรอบที่ 13) · TC-APR-UI011-103 และ TC-AUD-UI011-101 หาคำขอจากหน้าแรกของ API-017 จึงเปราะ — **แก้แล้ว 2026-11-26:** `global-setup.ts` ล้างคำขอค้างของการจอง E2E ก่อนทุกรอบ (Q-8) · รอบที่ 14 ผ่านครบ
+
+### B15.5 EX-mrr-141..145 (R-2 · R-5 · ADR-021) — ผูกเคสเดิมและเคสใหม่ (2026-11-26)
+
+ที่มา: req เพิ่ม EX-mrr-141..145 (SRC-045) · design AC-mrr-144..148 (ADR-021) · dev re-cut `4382688`
+
+| TC | EX / AC | ไฟล์ | สิ่งที่ทำ |
+|---|---|---|---|
+| TC-NTF-UI007-101 | EX-mrr-141 / AC-mrr-144 | t1-partial-reject.spec.ts | ผูก EX ในชื่อเคส · เพิ่มแถว CSV |
+| TC-NTF-UI010-103 | EX-mrr-142 / AC-mrr-145 | t1-partial-reject.spec.ts | ผูก EX ในชื่อเคส · เพิ่มแถว CSV |
+| TC-NTF-UI009-104 | EX-mrr-143 / AC-mrr-146 | t1-partial-reject.spec.ts | ผูก EX ในชื่อเคส · เพิ่มแถว CSV |
+| TC-NTF-UI008-109 | EX-mrr-144 / AC-mrr-147 | t1-partial-reject.spec.ts | **เปลี่ยนรหัสจาก TC-NTF-UI008-106** (ซ้ำกับเคสใน t1-inactive-recipients · ผู้ใช้เลือก) · อ้าง BR-mrr-007@v3 แทน @v2 · เพิ่มแถว CSV |
+| TC-NTF-UI008-107 | EX-mrr-065 | t1-partial-reject.spec.ts | เคสทางออกของ DEF-05 Q3 · เพิ่มแถว CSV (ยังไม่เคยมี) |
+| TC-APR-UI011-105 | EX-mrr-145 / AC-mrr-148 | t1-inactive-recipients.spec.ts | **เคสใหม่** — อนุมัติคำขอแก้ไขที่เลื่อนเวลาสิ้นสุด → เวลาเปลี่ยน · ไม่มี Email ถึงผู้จองหรือผู้เข้าร่วม |
+
+ผลรัน 2026-11-26: `t1-partial-reject` + `t1-inactive-recipients` บน chromium **23 passed** (stack rebuild `--build`) · ทุกเคสพิมพ์ `Error response from daemon: No such container: mrr-smtp-reject-u3` ตอนเก็บกวาด — มาจาก `stopPartialRejectMail()` ลบ container ที่หยุดไปแล้ว ไม่ทำให้เคสล้ม
+
+**QA review: ยังไม่มี** — AI เขียนและรันเคส แต่ยังไม่มีผู้ review (ไม่ได้ลงนามแทน)

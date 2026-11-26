@@ -432,3 +432,40 @@ test.describe('Q-6 หน้าจอแก้ไขการจอง เมื
     expect(attendeesOf(b.id)).toEqual([...list].sort());
   });
 });
+
+/**
+ * R-5 · D-5 (the user decided 2026-11-26) · EX-mrr-145 (AC-mrr-148 · ADR-021) — approving an adjustment request
+ * after the meeting sends no email, even when the request moves the time. BR-mrr-007@v3 (3) reads
+ * "a time change mails the booker and every attendee"; EX-mrr-145 says this path is not one of them.
+ * All accounts here are active, so an absent mail can only be the decision, never the inactive-recipient cut.
+ */
+test.describe('BR-mrr-007@v3 อนุมัติคำขอแก้ไขหลังจบประชุมไม่ส่ง Email', () => {
+  test('[real] TC-APR-UI011-105 RA1 ขอเลื่อนเวลาสิ้นสุด 30 นาทีหลังจบประชุม RA2 อนุมัติ → เวลาเปลี่ยน "อนุมัติคำขอแก้ไขสำเร็จ" · ไม่มี Email ถึงผู้จองหรือผู้เข้าร่วม (EX-mrr-145 · AC-mrr-148 · BR-mrr-007@v3)', async () => {
+    const ra2 = await as('ra2');
+    try {
+      const t = token();
+      const slot = nearSlot();
+      const b = await book(clients.u1, 'open', slot, title(t), [world.users.u2.id]);
+      await setClock(new Date(Date.parse(slot.endAt) + 60_000));
+
+      const newEnd = new Date(Date.parse(slot.endAt) + 30 * 60_000).toISOString();
+      const asked = await clients.ra1.post(`/bookings/${b.id}/admin-edit`, { data: { endAt: newEnd, attendeeIds: [world.users.u2.id], reason: 'ประชุมเกินเวลาจริง' } });
+      expect(asked.status(), await asked.text()).toBe(200);
+      const reqId = psql(`select id from booking_adjustment_requests where booking_id = ${lit(b.id)} and status = 'PENDING'`);
+      expect(reqId, 'ต้องมีคำขอแก้ไขที่รออนุมัติ — แก้หลังจบประชุมต้องเป็นคำขอ (BR-mrr-014)').not.toBe('');
+      expect(Number(psql(`select (extract(epoch from end_at) * 1000)::bigint from bookings where id = ${lit(b.id)}`)), 'ก่อนอนุมัติ เวลาเดิมคงไว้').toBe(Date.parse(slot.endAt));
+
+      await clearMail();
+      const res = await ra2.post(`/adjustment-requests/${reqId}/approve`);
+      expect(res.status(), await res.text()).toBe(200);
+      expect(await msgOf(res)).toBe('อนุมัติคำขอแก้ไขสำเร็จ');
+      expect(Number(psql(`select (extract(epoch from end_at) * 1000)::bigint from bookings where id = ${lit(b.id)}`))).toBe(Date.parse(newEnd));
+
+      await settle();
+      const toPeople = (await allMails()).filter((m) => m.To.some((a) => a.Address === U('u1') || a.Address === U('u2')));
+      expect(toPeople.map((m) => m.Subject), 'ไม่มี Email ถึงผู้จองหรือผู้เข้าร่วม (EX-mrr-145)').toEqual([]);
+    } finally {
+      await ra2.dispose();
+    }
+  });
+});

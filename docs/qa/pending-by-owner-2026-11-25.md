@@ -61,14 +61,14 @@
 
 (R-1 ปิดแล้ว 2026-11-25 — CHG-mrr-007 · R-3 ปิด 2026-11-26 · R-2 · R-5 และส่วน `verified_by` ของ R-4 ทำแล้ว 2026-11-26 — ดูตาราง "ปิดแล้ว")
 
-### งานที่ตามมาจาก EX-mrr-141..145 (ยังไม่ได้ทำ · รอผู้ใช้สั่ง)
+### งานที่ตามมาจาก EX-mrr-141..145 — ทำแล้ว 2026-11-26 (เหลือ QA review = Q-9)
 
-| ฝ่าย | งาน |
+| ฝ่าย | ผล |
 |---|---|
-| design | ADR-021 (design · added · moved = EX-mrr-141..145) → ปลดลายเซ็น `modules/mrr/functions.json` → `/design:function` เพิ่ม AC ให้ EX ทั้งห้า → เซ็นใหม่ · ตอนนี้ `check` = 0 error · 5 warning (S16) · `approve --ready` ยัง 9/9 |
-| mock | `/mock:sync` **ก่อน** design absorb ADR-021 |
-| dev | `/dev:plan` re-cut ให้ AC ใหม่มีหน่วยอ้าง · ไม่มีงานโค้ด (โค้ดทำตาม EX ทั้งห้าอยู่แล้ว) |
-| QA | ผูกเคส `t1-partial-reject.spec.ts` 4 เคสกับ EX-141..144 · **เพิ่มเคสใหม่ให้ EX-145** (TC-APR-UI011-103 เปลี่ยนแค่หัวข้อ ไม่ได้เปลี่ยนเวลา) · เพิ่มแถวใน `t1-test-cases.csv` · รัน T2 ใหม่ (EX ที่ E2E คลุมจะเป็น 140/145 จนกว่าจะทำ) |
+| design | ADR-021 (design · added · absorbed) · AC-mrr-144..148 · `functions.json` เซ็นใหม่ Noppasorn 2026-11-26 · `check` PASS · `approve --ready` 9/9 · `41a18f7` |
+| mock | ผู้ใช้เลือกไม่ mark stale — ADR-021 แตะแค่ AC · `wireframes --validate` PASS 15/15 · `/mock:sync` หลัง absorb: nothing moved |
+| dev | `/dev:plan` re-cut (`4382688`) — AC ใหม่ผูกกับหน่วยเดิม · ไม่มีงานโค้ด · `--cp4` clear |
+| QA | ผูก 4 เคสของ `t1-partial-reject.spec.ts` กับ EX-141..144 · เปลี่ยน TC-NTF-UI008-106 (ซ้ำ) เป็น **TC-NTF-UI008-109** · เคสใหม่ **TC-APR-UI011-105** (EX-145) · CSV +6 แถว · e2e-ex-map +5 · t1-test-cases.md §B15.5 · chromium 2 ไฟล์ **23 passed** · T2: AC 148 ทุกข้อมีเทส · EX ที่ E2E คลุม **145/145** · AC-mrr-144..148 มีแค่ชั้น E2E (ไม่มี jest อ้าง AC — แบบเดียวกับ AC-mrr-135..138) |
 
 ## QA
 
@@ -79,6 +79,7 @@
 | Q-3 | ตัดสินข้อสังเกต 4 (Scenario ของ TC-AUTH-UI002-101 เขียน "10:09:59" ไม่ตรงกับสิ่งที่เคสทำ: แก้ข้อความ หรือยอมรับ) | ข้อ 4 |
 | Q-4 | ตัดสินข้อสังเกต 5 (TC-AUTH-UI001-101/109 ตรวจข้อความแบบหลวม: ยอมรับ หรือแก้) | ข้อ 5 |
 | Q-5 | ข้อสังเกตที่ยังเปิดของเคส F5 (ข้อ 2, 3, 5–8 — ยอมรับหรือรอ design/req) | t1-test-cases.md §B12.1–B12.2 |
+| Q-9 | review เคสของ EX-mrr-141..145: TC-NTF-UI007-101 · UI010-103 · UI009-104 · UI008-109 · UI008-107 · TC-APR-UI011-105 และการผูกใน e2e-ex-map (AI เขียนและรันแล้ว 23 passed · ยังไม่มีผู้ review) | t1-test-cases.md §B15.5 |
 
 ## งานก่อนปล่อยจริง (ทำได้เมื่อมี build ปลายทาง · = เงื่อนไข 6 ของ Conditional Go ที่ PO รับแล้ว)
 

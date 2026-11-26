@@ -8,7 +8,8 @@ import { as, book, nearSlot, world } from './support/world';
  * DEF-05 · BR-mrr-019 ขยายตามคำตัดสิน Q2(ก) (2026-11-20): ผู้เข้าร่วมบางคนถูก SMTP ปฏิเสธ → การกระทำที่ส่งเมลถึงหลายคนล้มทั้งหมด
  * (503 · ข้อความเดิมของ BR-019 · สถานะ/เวลาไม่เปลี่ยน) และผู้ใช้ติดอยู่ไม่ได้: แก้เฉพาะรายชื่อผู้เข้าร่วมไม่ส่งเมล จึงเอา U3 ออกได้ (Q3)
  * ทุกเคส [real]. ใช้ SMTP fixture ของ TC-NTF-JOB-110 (support/partial-reject-mail.ts) ที่ปฏิเสธเฉพาะ U3
- * ยังไม่มี EX ใน wiki รองรับเคสเหล่านี้ — [TBD] ให้ req เพิ่ม EX ตามคำตัดสิน (ดู docs/qa/po-decision-def-05-scope-2026-11-20.md)
+ * EX ใน wiki: EX-mrr-141 (ยกเลิก) · 142 (RA ยกเลิกแทน) · 143 (ปฏิเสธ) · 144 (เปลี่ยนเวลา) — req เพิ่มเมื่อ 2026-11-26 (R-2 · SRC-045)
+ * · design AC-mrr-144..147 (ADR-021) · เคสทางออก (Q3) อ้าง EX-mrr-065 · เคสเปลี่ยนเวลาเปลี่ยนรหัสจาก TC-NTF-UI008-106 เป็น 109 (ซ้ำกับ t1-inactive-recipients)
  */
 const RUN = Date.now().toString(36);
 let counter = 0;
@@ -43,14 +44,14 @@ async function expectRefusedAndUnchanged(res: { status(): number; json(): Promis
 }
 
 test.describe('ผู้เข้าร่วม U3 ถูก SMTP ปฏิเสธ (DEF-05 · BR-mrr-019 · Q2(ก))', () => {
-  test('[real] TC-NTF-UI007-101 ผู้จองยกเลิก แต่ U3 ถูกปฏิเสธ → ล้มทั้งหมด การจองยังอยู่ (BR-mrr-019 · BR-mrr-003)', async () => {
+  test('[real] TC-NTF-UI007-101 ผู้จองยกเลิก แต่ U3 ถูกปฏิเสธ → ล้มทั้งหมด การจองยังอยู่ (BR-mrr-019 · EX-mrr-141 · AC-mrr-144 · BR-mrr-003)', async () => {
     const b = await book(clients.u1, 'open', nearSlot(), `E2E ยกเลิกเมลปฏิเสธบางคน ${token()}`, both());
     const before = await detail(b.id);
     startPartialRejectMail(world.users.u3.email);
     await expectRefusedAndUnchanged(await clients.u1.post(`/bookings/${b.id}/cancel`), b.id, before);
   });
 
-  test('[real] TC-NTF-UI010-103 RA ยกเลิกแทนหลังเริ่มประชุม แต่ U3 ถูกปฏิเสธ → ล้มทั้งหมด การจองยังอยู่ (BR-mrr-019 · BR-mrr-005)', async () => {
+  test('[real] TC-NTF-UI010-103 RA ยกเลิกแทนหลังเริ่มประชุม แต่ U3 ถูกปฏิเสธ → ล้มทั้งหมด การจองยังอยู่ (BR-mrr-019 · EX-mrr-142 · AC-mrr-145 · BR-mrr-005)', async () => {
     const slot = nearSlot(10, 6);
     const b = await book(clients.u1, 'open', slot, `E2E RA ยกเลิกเมลปฏิเสธบางคน ${token()}`, both());
     const before = await detail(b.id);
@@ -59,7 +60,7 @@ test.describe('ผู้เข้าร่วม U3 ถูก SMTP ปฏิเ�
     await expectRefusedAndUnchanged(await clients.ra1.post(`/bookings/${b.id}/admin-cancel`, { data: { reason: 'E2E ยกเลิกแทน' } }), b.id, before);
   });
 
-  test('[real] TC-NTF-UI009-104 RA ปฏิเสธการจอง แต่ U3 ถูกปฏิเสธ → ล้มทั้งหมด ยังรออนุมัติ (BR-mrr-019 · BR-mrr-004)', async () => {
+  test('[real] TC-NTF-UI009-104 RA ปฏิเสธการจอง แต่ U3 ถูกปฏิเสธ → ล้มทั้งหมด ยังรออนุมัติ (BR-mrr-019 · EX-mrr-143 · AC-mrr-146 · BR-mrr-004)', async () => {
     const b = await book(clients.u1, 'appr', nearSlot(), `E2E ปฏิเสธเมลปฏิเสธบางคน ${token()}`, both());
     expect(b.status).toBe('PENDING_APPROVAL');
     const before = await detail(b.id);
@@ -67,7 +68,7 @@ test.describe('ผู้เข้าร่วม U3 ถูก SMTP ปฏิเ�
     await expectRefusedAndUnchanged(await clients.ra1.post(`/bookings/${b.id}/reject`, { data: { reason: 'E2E ห้องไม่เหมาะ' } }), b.id, before);
   });
 
-  test('[real] TC-NTF-UI008-106 ผู้จองเปลี่ยนเวลา แต่ U3 ถูกปฏิเสธ → ล้มทั้งหมด เวลาเดิมคงอยู่ (BR-mrr-019 · BR-mrr-007@v2)', async () => {
+  test('[real] TC-NTF-UI008-109 ผู้จองเปลี่ยนเวลา แต่ U3 ถูกปฏิเสธ → ล้มทั้งหมด เวลาเดิมคงอยู่ (BR-mrr-019 · EX-mrr-144 · AC-mrr-147 · BR-mrr-007@v3)', async () => {
     const slot = nearSlot(10, 6);
     const title = `E2E เปลี่ยนเวลาเมลปฏิเสธบางคน ${token()}`;
     const b = await book(clients.u1, 'open', slot, title, both());
