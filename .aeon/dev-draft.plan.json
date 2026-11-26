@@ -1112,7 +1112,8 @@
         "AC-mrr-043",
         "AC-mrr-044",
         "AC-mrr-133",
-        "AC-mrr-134"
+        "AC-mrr-134",
+        "AC-mrr-143"
       ],
       "traces_up": [
         {
@@ -1147,6 +1148,9 @@
         },
         {
           "ref": "ENT-011"
+        },
+        {
+          "ref": "AC-mrr-143"
         }
       ],
       "status": "validated"
@@ -1166,7 +1170,8 @@
         "AC-mrr-043",
         "AC-mrr-044",
         "AC-mrr-133",
-        "AC-mrr-134"
+        "AC-mrr-134",
+        "AC-mrr-143"
       ],
       "traces_up": [
         {
@@ -1186,6 +1191,9 @@
         },
         {
           "ref": "UI-mrr-011"
+        },
+        {
+          "ref": "AC-mrr-143"
         }
       ],
       "status": "validated"
