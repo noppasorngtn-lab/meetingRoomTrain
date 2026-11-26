@@ -117,7 +117,8 @@
           "rules": [
             "BR-mrr-009@v1",
             "BR-mrr-014@v1",
-            "BR-mrr-017@v3"
+            "BR-mrr-017@v3",
+            "BR-mrr-002@v2"
           ]
         },
         {

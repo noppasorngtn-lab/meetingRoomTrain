@@ -100,7 +100,7 @@
           "attribute": "title",
           "validation": "ห้ามว่าง ไม่เกิน 200 ตัวอักษร",
           "rules": [
-            "BR-mrr-002@v1"
+            "BR-mrr-002@v2"
           ],
           "visibleTo": [
             "ROLE-001",
@@ -117,7 +117,7 @@
           "attribute": "user",
           "validation": "เลือกจากรายชื่อผู้ใช้อย่างน้อย 1 คน · ผู้จองไม่ถูกนับอัตโนมัติ",
           "rules": [
-            "BR-mrr-002@v1"
+            "BR-mrr-002@v2"
           ],
           "visibleTo": [
             "ROLE-001",
@@ -134,7 +134,7 @@
           "attribute": "facility",
           "validation": "เลือกได้หลายรายการ ไม่บังคับ",
           "rules": [
-            "BR-mrr-002@v1"
+            "BR-mrr-002@v2"
           ],
           "visibleTo": [
             "ROLE-001",
@@ -164,7 +164,7 @@
           "destination": "หน้าการจองของฉัน",
           "rules": [
             "BR-mrr-001@v1",
-            "BR-mrr-002@v1",
+            "BR-mrr-002@v2",
             "BR-mrr-004@v1",
             "BR-mrr-007@v1",
             "BR-mrr-008@v1",
