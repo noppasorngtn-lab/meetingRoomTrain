@@ -140,6 +140,29 @@ describe('FE-mrr-031 an edit after the meeting ends becomes a request (UC-mrr-01
     expect(await requests()).toEqual([]);
   });
 
+  describe('DEF-07 · BR-mrr-002@v2 an inactive attendee already on the booking', () => {
+    let u2: string;
+
+    beforeEach(async () => {
+      u2 = await seedUser(db, 'U2');
+      await db.insertInto('booking_attendees').values({ booking_id: booking, user_id: u2 }).execute();
+      await db.updateTable('users').set({ active: false }).where('id', '=', u2).execute();
+    });
+
+    it('a new title with the same list becomes a request — the inactive attendee does not block it', async () => {
+      expect(await edit({ title: 'ประชุมวางแผน', attendeeIds: [u2] })).toEqual({ message: 'ส่งคำขอแก้ไขแล้ว รอผู้ดูแลห้องคนอื่นอนุมัติ' });
+      expect((await requests()).map((r) => r.proposed_changes)).toEqual([{ title: 'ประชุมวางแผน' }]);
+    });
+
+    it('asking to add an inactive user who is not on the booking is refused before anything is asked', async () => {
+      const u3 = await seedUser(db, 'U3');
+      await db.updateTable('users').set({ active: false }).where('id', '=', u3).execute();
+
+      await expect(edit({ attendeeIds: [u2, u3] })).rejects.toThrow(new BookingInvalid('attendees', 'ไม่พบผู้เข้าร่วมบางคนในรายชื่อผู้ใช้'));
+      expect(await requests()).toEqual([]);
+    });
+  });
+
   it('ACL-011 a General User cannot ask', async () => {
     await expect(edit({ title: 'ประชุมวางแผน' }, 'x', u1)).rejects.toBeInstanceOf(NotRoomAdministrator);
   });

@@ -19,6 +19,20 @@ const checkReason = (raw: string): string => {
   return reason;
 };
 
+/**
+ * BR-mrr-002@v2 (DEF-07 · CHG-mrr-008) — on an edit, only someone ADDED to the list has to be an active
+ * user. An attendee already on the booking stays even after their account goes inactive (they are then
+ * left out of the mail, BR-mrr-007@v3). "Already on" means on the list as saved now, so an inactive
+ * attendee taken off by an earlier edit counts as added if asked for again. Returns the saved list.
+ */
+async function checkAttendeesForEdit(tx: Kysely<Database>, bookingId: string, attendeeIds: string[]): Promise<string[]> {
+  const was = (await tx.selectFrom('booking_attendees').select('user_id').where('booking_id', '=', bookingId).execute()).map((a) => a.user_id);
+  const onList = new Set(was);
+  const added = attendeeIds.filter((id) => !onList.has(id));
+  if (added.length) await activeAttendees(tx, added);
+  return was;
+}
+
 type BookingStatus = Database['bookings']['status'];
 
 export interface BookingDetail {
@@ -153,9 +167,8 @@ export class BookingEditService {
     changed('endAt', current.end_at.toISOString(), endAt.toISOString());
     if (input.attendeeIds !== undefined) {
       const attendeeIds = checkAttendeeIds(input.attendeeIds);
-      await activeAttendees(tx, attendeeIds);
-      const was = await tx.selectFrom('booking_attendees').select('user_id').where('booking_id', '=', current.id).execute();
-      changed('attendeeIds', was.map((a) => a.user_id).sort(), [...attendeeIds].sort());
+      const was = await checkAttendeesForEdit(tx, current.id, attendeeIds);
+      changed('attendeeIds', [...was].sort(), [...attendeeIds].sort());
     }
     if (input.equipmentIds !== undefined) {
       const equipmentIds = [...new Set(input.equipmentIds)];
@@ -218,9 +231,8 @@ export class BookingEditService {
 
     if (input.attendeeIds !== undefined) {
       const attendeeIds = checkAttendeeIds(input.attendeeIds);
-      await activeAttendees(tx, attendeeIds);
-      const was = await tx.selectFrom('booking_attendees').select('user_id').where('booking_id', '=', id).execute();
-      changed('attendeeIds', was.map((a) => a.user_id).sort(), [...attendeeIds].sort());
+      const was = await checkAttendeesForEdit(tx, id, attendeeIds);
+      changed('attendeeIds', [...was].sort(), [...attendeeIds].sort());
       await tx.deleteFrom('booking_attendees').where('booking_id', '=', id).execute();
       await tx.insertInto('booking_attendees').values(attendeeIds.map((user_id) => ({ booking_id: id, user_id }))).execute();
     }

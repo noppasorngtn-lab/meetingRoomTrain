@@ -160,6 +160,49 @@ describe('FE-mrr-025 BookingEditService (UC-mrr-004)', () => {
     });
   });
 
+  // DEF-07 · BR-mrr-002@v2 (CHG-mrr-008): an attendee already on the booking may stay when their
+  // account goes inactive; only someone ADDED by this edit has to be active.
+  describe('BR-mrr-002@v2 · an inactive attendee already on the list (DEF-07)', () => {
+    const deactivate = (id: string) => db.updateTable('users').set({ active: false }).where('id', '=', id).execute();
+    const attendees = async () =>
+      (await db.selectFrom('booking_attendees').select('user_id').where('booking_id', '=', booking).execute()).map((a) => a.user_id).sort();
+
+    it('AC-mrr-139 U3 inactive, U1 sends the same list with a new title — saved, บันทึกการแก้ไขสำเร็จ, U2 and U3 stay', async () => {
+      await deactivate(u3);
+
+      expect(await edit({ title: 'ประชุมวางแผน', attendeeIds: [u2, u3] })).toEqual({ message: 'บันทึกการแก้ไขสำเร็จ' });
+      expect((await row()).title).toBe('ประชุมวางแผน');
+      expect(await attendees()).toEqual([u2, u3].sort());
+    });
+
+    it('AC-mrr-140 U4 inactive and not on the list, U1 adds U4 — refused, ไม่พบผู้เข้าร่วมบางคนในรายชื่อผู้ใช้, the list stays', async () => {
+      await deactivate(u3);
+      const u4 = await seedUser(db, 'U4');
+      await deactivate(u4);
+
+      await expect(edit({ attendeeIds: [u2, u3, u4] })).rejects.toThrow(new BookingInvalid('attendees', 'ไม่พบผู้เข้าร่วมบางคนในรายชื่อผู้ใช้'));
+      expect(await attendees()).toEqual([u2, u3].sort());
+    });
+
+    it('AC-mrr-142 U3 inactive was taken off and saved; adding U3 back is refused, U2 stays alone', async () => {
+      await deactivate(u3);
+      await edit({ attendeeIds: [u2] });
+
+      await expect(edit({ attendeeIds: [u2, u3] })).rejects.toThrow(new BookingInvalid('attendees', 'ไม่พบผู้เข้าร่วมบางคนในรายชื่อผู้ใช้'));
+      expect(await attendees()).toEqual([u2]);
+    });
+
+    it('a new time with the same list saves, U3 stays on it, and only U1 and U2 are mailed (BR-mrr-007@v3)', async () => {
+      await deactivate(u3);
+
+      await edit({ startAt: at(17, '14:00'), endAt: at(17, '15:00'), attendeeIds: [u2, u3] });
+
+      expect(await row()).toMatchObject({ start_at: at(17, '14:00'), end_at: at(17, '15:00') });
+      expect(await attendees()).toEqual([u2, u3].sort());
+      expect(mail.sent.map((m) => m.to)).toEqual([['u1@example.test', 'u2@example.test']]);
+    });
+  });
+
   describe('a new time counts as a new booking', () => {
     it('AC-mrr-080 a room under maintenance refuses the new time, and the old booking stays', async () => {
       await db.updateTable('meeting_rooms').set({ status: 'UNDER_MAINTENANCE' }).where('id', '=', roomA.roomId).execute();

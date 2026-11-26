@@ -200,6 +200,33 @@ describe('FE-mrr-030 edit or cancel on behalf of the booker (UC-mrr-009)', () =>
         new NotRoomAdministrator('เฉพาะผู้ดูแลห้องเท่านั้นที่แก้แทนผู้จองได้'),
       );
     });
+
+    describe('DEF-07 · BR-mrr-002@v2 an inactive attendee already on the list', () => {
+      let u3: string;
+      const attendees = async () =>
+        (await db.selectFrom('booking_attendees').select('user_id').where('booking_id', '=', booking).execute()).map((a) => a.user_id).sort();
+
+      beforeEach(async () => {
+        u3 = await seedUser(db, 'U3');
+        await db.insertInto('booking_attendees').values({ booking_id: booking, user_id: u3 }).execute();
+        await db.updateTable('users').set({ active: false }).where('id', '=', u3).execute();
+      });
+
+      it('AC-mrr-141 10:30 RA1 extends to 11:30 with a reason, the list unchanged — บันทึกการแก้ไขสำเร็จ, U2 and U3 stay', async () => {
+        expect(await edit({ endAt: at(18, '11:30'), attendeeIds: [u2, u3] }, 'ประชุมต่อเวลา')).toEqual({ message: 'บันทึกการแก้ไขสำเร็จ' });
+        expect(await row()).toMatchObject({ end_at: at(18, '11:30') });
+        expect(await attendees()).toEqual([u2, u3].sort());
+      });
+
+      it('adding an inactive user who is not on the list is refused, and nothing is recorded', async () => {
+        const u4 = await seedUser(db, 'U4');
+        await db.updateTable('users').set({ active: false }).where('id', '=', u4).execute();
+
+        await expect(edit({ attendeeIds: [u2, u3, u4] })).rejects.toThrow(new BookingInvalid('attendees', 'ไม่พบผู้เข้าร่วมบางคนในรายชื่อผู้ใช้'));
+        expect(await attendees()).toEqual([u2, u3].sort());
+        expect(await trail()).toEqual([]);
+      });
+    });
   });
 
   describe('cancel on behalf (API-015)', () => {
