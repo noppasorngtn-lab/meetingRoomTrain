@@ -84,11 +84,20 @@
 
 บันทึกใน `t1-test-cases.csv` (Note/Scenario/Requirement ID 11 แถว) · `t5-critical-assertion-sample-2026-11-25.md` · `t1-test-cases.md` §B12.2
 
-## งานก่อนปล่อยจริง (ทำได้เมื่อมี build ปลายทาง · = เงื่อนไข 6 ของ Conditional Go ที่ PO รับแล้ว)
+## งานก่อนปล่อยจริง (= เงื่อนไข 6 ของ Conditional Go) — ทำแล้ว 2026-11-26 บน Docker เครื่องนี้
 
-- (PO-5) บน build ปลายทางที่เป็น HTTPS: ตั้ง `COOKIE_SECURE=true` แล้วตรวจว่า cookie `mrr_session` มี flag `Secure` · ตรวจ header `Strict-Transport-Security` (ยังไม่ได้กำหนดว่าใครตั้งและใช้ค่าอะไร)
-- รัน jest/vitest และ NFR-005 บนเบราว์เซอร์อื่นซ้ำบน **build ปลายทาง** (บนรีโปนี้รันแล้ว: jest 555/555 (2026-11-26 บ่าย) · vitest 333/333 · NFR-005 32 ผ่าน 3 ข้าม) · vitest และ NFR-005 ยังไม่ได้รันซ้ำหลัง `80a4e96` / `5d3fbcb` (ไม่มี change ฝั่งหน้าเว็บ)
-- ล้างการจอง `E2E%` ใน dev DB ซ้ำหลังรัน E2E ครั้งใหม่ (การล้างครั้งล่าสุด `54a7f03` · รอบที่ 8–14 รันหลังจากนั้น — การจองค้างอนาคตถูกยกเลิกอัตโนมัติตอนเริ่มรอบอยู่แล้ว แต่แถวเก่ายังสะสม) · คำขอแก้ไขที่ค้าง PENDING ถูกปิดอัตโนมัติตอนเริ่มรอบ E2E แล้ว (Q-8)
+**ปลายทาง:** ไม่มี staging/production ให้เข้าถึง · **ผู้ใช้ตัดสิน 2026-11-26 ให้ถือว่า Docker stack บนเครื่องนี้คือ build ปลายทาง** (image build ใหม่จาก HEAD `6dc80cd` ด้วย `--build`) · ถ้ามีปลายทางจริงภายหลัง ต้องรันชุดนี้ซ้ำที่นั่น
+
+| งาน | ผล |
+|---|---|
+| jest (`apps/api`) | **555/555** · 40 suites |
+| vitest (`apps/web`) | **333/333** · 21 ไฟล์ |
+| NFR-005 เบราว์เซอร์อื่น (firefox · webkit-safari · edge · mobile-chrome · mobile-safari) | **32 ผ่าน · 3 ข้าม (โดยออกแบบ · PO-3) · 0 ล้ม · flaky 0** · `test/results-nfr005-browsers.json` |
+| (PO-5) Secure cookie | ตรวจชั่วคราว: รัน api ด้วย `COOKIE_SECURE=true` (override นอกรีโป · ไม่แก้ config) เข้าผ่าน `https://localhost:4443` → login: `Set-Cookie: mrr_session=…; Path=/; HttpOnly; SameSite=Lax; Secure` · logout: `mrr_session=; …; Max-Age=0; Secure` · แล้วคืน api เป็น config เดิม (`COOKIE_SECURE` ไม่ได้ตั้ง) |
+| (PO-5) HSTS | **ไม่มี** header `Strict-Transport-Security` (Caddy ไม่ได้ตั้ง · api ไม่ส่ง) — ผู้ใช้เลือกไม่แก้ config · **ยังเป็นงานของคนตั้ง reverse proxy บนปลายทางจริง** และ `COOKIE_SECURE=true` ต้องตั้งที่ปลายทางจริงด้วย |
+| ล้างการจอง `E2E%` | สำรองก่อน (`pg_dump -Fc` 1.2 MB · อยู่ในโฟลเดอร์ชั่วคราวนอกรีโป · ตรวจแล้วอ่านได้ 16 ตาราง) · ลบใน transaction เดียวเฉพาะการจอง `E2E%` ที่ไม่มีร่องรอยและไม่มีคำขอแก้ไข: **591 การจอง** พร้อมผู้เข้าร่วม 629 แถว · อุปกรณ์ 27 แถว · **เหลือ `E2E%` 1,948** ที่ลบไม่ได้ (ร่องรอยเพิ่มอย่างเดียว BR-mrr-018 · ไม่ได้แตะ trigger) · การจองที่ไม่ใช่ E2E 1 รายการไม่ถูกแตะ · ร่องรอย 2,367 เท่าเดิม |
+
+ไม่ได้รัน Playwright chromium ทั้งชุดในรอบนี้ (เงื่อนไข 6 ไม่ได้ขอ) · ผลล่าสุดของชุดเต็มคือรอบที่ 14 บน `8c97244` · หลังจากนั้นรันเฉพาะ `t1-partial-reject` + `t1-inactive-recipients` 23 passed
 
 ## เอกสารเก่าที่หัวเอกสารยังเขียนว่า "รอ" (ต้องให้เจ้าของยืนยันว่ายังเปิดอยู่จริง)
 

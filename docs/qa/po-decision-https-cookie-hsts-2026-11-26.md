@@ -16,6 +16,7 @@
 
 - TC-NFR-REQ001-103 คงเดิม ไม่ต้องเพิ่ม assert และไม่มีงาน dev หรือ test ตอนนี้
 - ไม่ต้องแก้ NFR-mrr-003 และไม่ต้องส่ง req/design เพราะคำตัดสินนี้ไม่ได้เพิ่มเกณฑ์ใหม่
+- **ผลตรวจ 2026-11-26** (Docker เครื่องนี้ · ผู้ใช้ให้ถือเป็นปลายทาง · ตรวจชั่วคราวโดยไม่แก้ config): ข้อ 1 ✅ เมื่อตั้ง `COOKIE_SECURE=true` cookie มี `Secure` ทั้งตอน login และ logout · ข้อ 2 ❌ **ไม่มี header HSTS** — ยังเป็นงานของคนตั้ง reverse proxy บนปลายทางจริง และ compose ของรีโปยังไม่ตั้ง `COOKIE_SECURE`
 - **งานก่อนปล่อยจริง** (ต่อท้ายเงื่อนไข 6 ของ [Conditional Go](po-decision-conditional-go-2026-11-26.md)): บน build ปลายทางที่เป็น HTTPS ให้
   1. ตั้ง `COOKIE_SECURE=true` แล้วตรวจว่า cookie `mrr_session` มี flag `Secure` (ตอน login และตอน logout)
   2. ตรวจว่า response มี header `Strict-Transport-Security` ถ้าฝั่งปลายทางตั้งไว้ (ใครเป็นคนตั้ง และใช้ค่าอะไร ยังไม่ได้กำหนด — เป็นเรื่องของทีม deploy / IT องค์กร)
