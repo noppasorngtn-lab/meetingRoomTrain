@@ -1,78 +1,2840 @@
 {
   "module": "mrr",
-  "features": [],
+  "features": [
+    {
+      "id": "FE-mrr-022",
+      "title_th": "เปลือกของแอป frontend-web — แถบบน เมนู และกรอบที่ทุกหน้าถูกวาดข้างใน",
+      "app_ref": "frontend-web",
+      "type": "shell",
+      "origin": "new",
+      "files_planned": [],
+      "depends_on": [],
+      "acceptance_refs": [],
+      "traces_up": [
+        {
+          "ref": "RPT-mrr-001"
+        },
+        {
+          "ref": "UI-mrr-004"
+        },
+        {
+          "ref": "UI-mrr-005"
+        },
+        {
+          "ref": "UI-mrr-006"
+        },
+        {
+          "ref": "UI-mrr-007"
+        },
+        {
+          "ref": "UI-mrr-008"
+        },
+        {
+          "ref": "UI-mrr-009"
+        },
+        {
+          "ref": "UI-mrr-010"
+        },
+        {
+          "ref": "UI-mrr-011"
+        },
+        {
+          "ref": "UI-mrr-012"
+        },
+        {
+          "ref": "UI-mrr-013"
+        },
+        {
+          "ref": "UI-mrr-014"
+        }
+      ],
+      "status": "validated"
+    },
+    {
+      "id": "FE-mrr-023",
+      "title_th": "ดูปฏิทินการใช้ห้อง — ฝั่ง API",
+      "app_ref": "api",
+      "type": "command",
+      "origin": "new",
+      "files_planned": [],
+      "depends_on": [],
+      "acceptance_refs": [
+        "AC-mrr-066",
+        "AC-mrr-067",
+        "AC-mrr-068",
+        "AC-mrr-069"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-002"
+        },
+        {
+          "ref": "AC-mrr-066"
+        },
+        {
+          "ref": "AC-mrr-067"
+        },
+        {
+          "ref": "AC-mrr-068"
+        },
+        {
+          "ref": "AC-mrr-069"
+        },
+        {
+          "ref": "API-003"
+        },
+        {
+          "ref": "ENT-002"
+        },
+        {
+          "ref": "ENT-007"
+        },
+        {
+          "ref": "ENT-008"
+        }
+      ],
+      "status": "validated"
+    },
+    {
+      "id": "FE-mrr-002",
+      "title_th": "ดูปฏิทินการใช้ห้อง — หน้าจอ",
+      "app_ref": "frontend-web",
+      "type": "command",
+      "origin": "change",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-022",
+        "FE-mrr-023"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-066",
+        "AC-mrr-067",
+        "AC-mrr-068",
+        "AC-mrr-069"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-002"
+        },
+        {
+          "ref": "AC-mrr-066"
+        },
+        {
+          "ref": "AC-mrr-067"
+        },
+        {
+          "ref": "AC-mrr-068"
+        },
+        {
+          "ref": "AC-mrr-069"
+        },
+        {
+          "ref": "UI-mrr-005"
+        }
+      ],
+      "status": "validated"
+    },
+    {
+      "id": "FE-mrr-024",
+      "title_th": "จองห้องประชุม — ฝั่ง API",
+      "app_ref": "api",
+      "type": "command",
+      "origin": "change",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-017"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-001",
+        "AC-mrr-002",
+        "AC-mrr-003",
+        "AC-mrr-004",
+        "AC-mrr-005",
+        "AC-mrr-006",
+        "AC-mrr-007",
+        "AC-mrr-012",
+        "AC-mrr-019",
+        "AC-mrr-024",
+        "AC-mrr-030",
+        "AC-mrr-031",
+        "AC-mrr-032",
+        "AC-mrr-060",
+        "AC-mrr-079",
+        "AC-mrr-081",
+        "AC-mrr-116",
+        "AC-mrr-117",
+        "AC-mrr-122"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-003"
+        },
+        {
+          "ref": "AC-mrr-001"
+        },
+        {
+          "ref": "AC-mrr-002"
+        },
+        {
+          "ref": "AC-mrr-003"
+        },
+        {
+          "ref": "AC-mrr-004"
+        },
+        {
+          "ref": "AC-mrr-005"
+        },
+        {
+          "ref": "AC-mrr-006"
+        },
+        {
+          "ref": "AC-mrr-007"
+        },
+        {
+          "ref": "AC-mrr-012"
+        },
+        {
+          "ref": "AC-mrr-019"
+        },
+        {
+          "ref": "AC-mrr-024"
+        },
+        {
+          "ref": "AC-mrr-030"
+        },
+        {
+          "ref": "AC-mrr-031"
+        },
+        {
+          "ref": "AC-mrr-032"
+        },
+        {
+          "ref": "AC-mrr-060"
+        },
+        {
+          "ref": "AC-mrr-079"
+        },
+        {
+          "ref": "AC-mrr-081"
+        },
+        {
+          "ref": "AC-mrr-116"
+        },
+        {
+          "ref": "AC-mrr-117"
+        },
+        {
+          "ref": "AC-mrr-122"
+        },
+        {
+          "ref": "API-004"
+        },
+        {
+          "ref": "API-005"
+        },
+        {
+          "ref": "ENT-001"
+        },
+        {
+          "ref": "ENT-002"
+        },
+        {
+          "ref": "ENT-003"
+        },
+        {
+          "ref": "ENT-007"
+        },
+        {
+          "ref": "ENT-008"
+        },
+        {
+          "ref": "ENT-009"
+        }
+      ],
+      "status": "validated"
+    },
+    {
+      "id": "FE-mrr-003",
+      "title_th": "จองห้องประชุม — หน้าจอ",
+      "app_ref": "frontend-web",
+      "type": "command",
+      "origin": "change",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-022",
+        "FE-mrr-024",
+        "FE-mrr-037"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-001",
+        "AC-mrr-002",
+        "AC-mrr-003",
+        "AC-mrr-004",
+        "AC-mrr-005",
+        "AC-mrr-006",
+        "AC-mrr-007",
+        "AC-mrr-012",
+        "AC-mrr-019",
+        "AC-mrr-024",
+        "AC-mrr-030",
+        "AC-mrr-031",
+        "AC-mrr-032",
+        "AC-mrr-060",
+        "AC-mrr-079",
+        "AC-mrr-081",
+        "AC-mrr-116",
+        "AC-mrr-117",
+        "AC-mrr-122"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-003"
+        },
+        {
+          "ref": "AC-mrr-001"
+        },
+        {
+          "ref": "AC-mrr-002"
+        },
+        {
+          "ref": "AC-mrr-003"
+        },
+        {
+          "ref": "AC-mrr-004"
+        },
+        {
+          "ref": "AC-mrr-005"
+        },
+        {
+          "ref": "AC-mrr-006"
+        },
+        {
+          "ref": "AC-mrr-007"
+        },
+        {
+          "ref": "AC-mrr-012"
+        },
+        {
+          "ref": "AC-mrr-019"
+        },
+        {
+          "ref": "AC-mrr-024"
+        },
+        {
+          "ref": "AC-mrr-030"
+        },
+        {
+          "ref": "AC-mrr-031"
+        },
+        {
+          "ref": "AC-mrr-032"
+        },
+        {
+          "ref": "AC-mrr-060"
+        },
+        {
+          "ref": "AC-mrr-079"
+        },
+        {
+          "ref": "AC-mrr-081"
+        },
+        {
+          "ref": "AC-mrr-116"
+        },
+        {
+          "ref": "AC-mrr-117"
+        },
+        {
+          "ref": "AC-mrr-122"
+        },
+        {
+          "ref": "UI-mrr-006"
+        }
+      ],
+      "status": "validated"
+    },
+    {
+      "id": "FE-mrr-025",
+      "title_th": "แก้ไขการจองของตนเอง — ฝั่ง API",
+      "app_ref": "api",
+      "type": "command",
+      "origin": "change",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-017"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-008",
+        "AC-mrr-021",
+        "AC-mrr-022",
+        "AC-mrr-061",
+        "AC-mrr-063",
+        "AC-mrr-080",
+        "AC-mrr-139",
+        "AC-mrr-140",
+        "AC-mrr-142"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-004"
+        },
+        {
+          "ref": "AC-mrr-008"
+        },
+        {
+          "ref": "AC-mrr-021"
+        },
+        {
+          "ref": "AC-mrr-022"
+        },
+        {
+          "ref": "AC-mrr-061"
+        },
+        {
+          "ref": "AC-mrr-063"
+        },
+        {
+          "ref": "AC-mrr-080"
+        },
+        {
+          "ref": "API-007"
+        },
+        {
+          "ref": "API-008"
+        },
+        {
+          "ref": "ENT-007"
+        },
+        {
+          "ref": "ENT-008"
+        },
+        {
+          "ref": "ENT-009"
+        },
+        {
+          "ref": "AC-mrr-139"
+        },
+        {
+          "ref": "AC-mrr-140"
+        },
+        {
+          "ref": "AC-mrr-142"
+        }
+      ],
+      "status": "validated"
+    },
+    {
+      "id": "FE-mrr-004",
+      "title_th": "แก้ไขการจองของตนเอง — หน้าจอ",
+      "app_ref": "frontend-web",
+      "type": "command",
+      "origin": "change",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-022",
+        "FE-mrr-025"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-008",
+        "AC-mrr-021",
+        "AC-mrr-022",
+        "AC-mrr-061",
+        "AC-mrr-063",
+        "AC-mrr-080",
+        "AC-mrr-139",
+        "AC-mrr-140",
+        "AC-mrr-142"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-004"
+        },
+        {
+          "ref": "AC-mrr-008"
+        },
+        {
+          "ref": "AC-mrr-021"
+        },
+        {
+          "ref": "AC-mrr-022"
+        },
+        {
+          "ref": "AC-mrr-061"
+        },
+        {
+          "ref": "AC-mrr-063"
+        },
+        {
+          "ref": "AC-mrr-080"
+        },
+        {
+          "ref": "UI-mrr-008"
+        },
+        {
+          "ref": "AC-mrr-139"
+        },
+        {
+          "ref": "AC-mrr-140"
+        },
+        {
+          "ref": "AC-mrr-142"
+        }
+      ],
+      "status": "validated"
+    },
+    {
+      "id": "FE-mrr-026",
+      "title_th": "ยกเลิกการจองของตนเอง — ฝั่ง API",
+      "app_ref": "api",
+      "type": "command",
+      "origin": "change",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-017"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-009",
+        "AC-mrr-010",
+        "AC-mrr-026",
+        "AC-mrr-027",
+        "AC-mrr-054",
+        "AC-mrr-119",
+        "AC-mrr-135"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-005"
+        },
+        {
+          "ref": "AC-mrr-009"
+        },
+        {
+          "ref": "AC-mrr-010"
+        },
+        {
+          "ref": "AC-mrr-026"
+        },
+        {
+          "ref": "AC-mrr-027"
+        },
+        {
+          "ref": "AC-mrr-054"
+        },
+        {
+          "ref": "AC-mrr-119"
+        },
+        {
+          "ref": "API-009"
+        },
+        {
+          "ref": "ENT-007"
+        },
+        {
+          "ref": "AC-mrr-135"
+        }
+      ],
+      "status": "validated"
+    },
+    {
+      "id": "FE-mrr-005",
+      "title_th": "ยกเลิกการจองของตนเอง — หน้าจอ",
+      "app_ref": "frontend-web",
+      "type": "command",
+      "origin": "change",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-022",
+        "FE-mrr-026",
+        "FE-mrr-006"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-009",
+        "AC-mrr-010",
+        "AC-mrr-026",
+        "AC-mrr-027",
+        "AC-mrr-054",
+        "AC-mrr-119",
+        "AC-mrr-135"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-005"
+        },
+        {
+          "ref": "AC-mrr-009"
+        },
+        {
+          "ref": "AC-mrr-010"
+        },
+        {
+          "ref": "AC-mrr-026"
+        },
+        {
+          "ref": "AC-mrr-027"
+        },
+        {
+          "ref": "AC-mrr-054"
+        },
+        {
+          "ref": "AC-mrr-119"
+        },
+        {
+          "ref": "UI-mrr-007"
+        },
+        {
+          "ref": "AC-mrr-135"
+        }
+      ],
+      "status": "validated"
+    },
+    {
+      "id": "FE-mrr-027",
+      "title_th": "ดูการจองของฉัน — ฝั่ง API",
+      "app_ref": "api",
+      "type": "command",
+      "origin": "new",
+      "files_planned": [],
+      "depends_on": [],
+      "acceptance_refs": [
+        "AC-mrr-011"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-006"
+        },
+        {
+          "ref": "AC-mrr-011"
+        },
+        {
+          "ref": "API-006"
+        },
+        {
+          "ref": "API-007"
+        },
+        {
+          "ref": "ENT-007"
+        }
+      ],
+      "status": "validated"
+    },
+    {
+      "id": "FE-mrr-006",
+      "title_th": "ดูการจองของฉัน — หน้าจอ",
+      "app_ref": "frontend-web",
+      "type": "command",
+      "origin": "new",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-022",
+        "FE-mrr-027"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-011"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-006"
+        },
+        {
+          "ref": "AC-mrr-011"
+        },
+        {
+          "ref": "UI-mrr-007"
+        }
+      ],
+      "status": "validated"
+    },
+    {
+      "id": "FE-mrr-028",
+      "title_th": "อนุมัติหรือปฏิเสธการจอง — ฝั่ง API",
+      "app_ref": "api",
+      "type": "command",
+      "origin": "change",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-017"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-013",
+        "AC-mrr-014",
+        "AC-mrr-037",
+        "AC-mrr-038",
+        "AC-mrr-039",
+        "AC-mrr-051",
+        "AC-mrr-052",
+        "AC-mrr-062",
+        "AC-mrr-118",
+        "AC-mrr-121",
+        "AC-mrr-123",
+        "AC-mrr-126"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-007"
+        },
+        {
+          "ref": "AC-mrr-013"
+        },
+        {
+          "ref": "AC-mrr-014"
+        },
+        {
+          "ref": "AC-mrr-037"
+        },
+        {
+          "ref": "AC-mrr-038"
+        },
+        {
+          "ref": "AC-mrr-039"
+        },
+        {
+          "ref": "AC-mrr-051"
+        },
+        {
+          "ref": "AC-mrr-052"
+        },
+        {
+          "ref": "AC-mrr-062"
+        },
+        {
+          "ref": "AC-mrr-118"
+        },
+        {
+          "ref": "AC-mrr-121"
+        },
+        {
+          "ref": "AC-mrr-123"
+        },
+        {
+          "ref": "AC-mrr-126"
+        },
+        {
+          "ref": "API-010"
+        },
+        {
+          "ref": "API-011"
+        },
+        {
+          "ref": "API-012"
+        },
+        {
+          "ref": "ENT-007"
+        },
+        {
+          "ref": "ENT-010"
+        }
+      ],
+      "status": "validated"
+    },
+    {
+      "id": "FE-mrr-007",
+      "title_th": "อนุมัติหรือปฏิเสธการจอง — หน้าจอ",
+      "app_ref": "frontend-web",
+      "type": "command",
+      "origin": "change",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-022",
+        "FE-mrr-028"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-013",
+        "AC-mrr-014",
+        "AC-mrr-037",
+        "AC-mrr-038",
+        "AC-mrr-039",
+        "AC-mrr-051",
+        "AC-mrr-052",
+        "AC-mrr-062",
+        "AC-mrr-118",
+        "AC-mrr-121",
+        "AC-mrr-123",
+        "AC-mrr-126"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-007"
+        },
+        {
+          "ref": "AC-mrr-013"
+        },
+        {
+          "ref": "AC-mrr-014"
+        },
+        {
+          "ref": "AC-mrr-037"
+        },
+        {
+          "ref": "AC-mrr-038"
+        },
+        {
+          "ref": "AC-mrr-039"
+        },
+        {
+          "ref": "AC-mrr-051"
+        },
+        {
+          "ref": "AC-mrr-052"
+        },
+        {
+          "ref": "AC-mrr-062"
+        },
+        {
+          "ref": "AC-mrr-118"
+        },
+        {
+          "ref": "AC-mrr-121"
+        },
+        {
+          "ref": "AC-mrr-123"
+        },
+        {
+          "ref": "AC-mrr-126"
+        },
+        {
+          "ref": "UI-mrr-009"
+        }
+      ],
+      "status": "validated"
+    },
+    {
+      "id": "FE-mrr-029",
+      "title_th": "เปลี่ยนผลการอนุมัติ — ฝั่ง API",
+      "app_ref": "api",
+      "type": "command",
+      "origin": "change",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-017"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-033",
+        "AC-mrr-034",
+        "AC-mrr-035",
+        "AC-mrr-036",
+        "AC-mrr-124",
+        "AC-mrr-127"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-008"
+        },
+        {
+          "ref": "AC-mrr-033"
+        },
+        {
+          "ref": "AC-mrr-034"
+        },
+        {
+          "ref": "AC-mrr-035"
+        },
+        {
+          "ref": "AC-mrr-036"
+        },
+        {
+          "ref": "AC-mrr-124"
+        },
+        {
+          "ref": "AC-mrr-127"
+        },
+        {
+          "ref": "API-013"
+        },
+        {
+          "ref": "ENT-007"
+        },
+        {
+          "ref": "ENT-010"
+        }
+      ],
+      "status": "validated"
+    },
+    {
+      "id": "FE-mrr-008",
+      "title_th": "เปลี่ยนผลการอนุมัติ — หน้าจอ",
+      "app_ref": "frontend-web",
+      "type": "command",
+      "origin": "change",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-022",
+        "FE-mrr-029",
+        "FE-mrr-038"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-033",
+        "AC-mrr-034",
+        "AC-mrr-035",
+        "AC-mrr-036",
+        "AC-mrr-087",
+        "AC-mrr-124",
+        "AC-mrr-127"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-008"
+        },
+        {
+          "ref": "AC-mrr-033"
+        },
+        {
+          "ref": "AC-mrr-034"
+        },
+        {
+          "ref": "AC-mrr-035"
+        },
+        {
+          "ref": "AC-mrr-036"
+        },
+        {
+          "ref": "UI-mrr-010"
+        },
+        {
+          "ref": "AC-mrr-087"
+        },
+        {
+          "ref": "AC-mrr-124"
+        },
+        {
+          "ref": "AC-mrr-127"
+        }
+      ],
+      "status": "validated"
+    },
+    {
+      "id": "FE-mrr-030",
+      "title_th": "แก้ไขหรือยกเลิกการจองแทนผู้จอง — ฝั่ง API",
+      "app_ref": "api",
+      "type": "command",
+      "origin": "change",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-017"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-028",
+        "AC-mrr-029",
+        "AC-mrr-042",
+        "AC-mrr-053",
+        "AC-mrr-055",
+        "AC-mrr-120",
+        "AC-mrr-125",
+        "AC-mrr-137",
+        "AC-mrr-141"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-009"
+        },
+        {
+          "ref": "AC-mrr-028"
+        },
+        {
+          "ref": "AC-mrr-029"
+        },
+        {
+          "ref": "AC-mrr-042"
+        },
+        {
+          "ref": "AC-mrr-053"
+        },
+        {
+          "ref": "AC-mrr-055"
+        },
+        {
+          "ref": "AC-mrr-120"
+        },
+        {
+          "ref": "AC-mrr-125"
+        },
+        {
+          "ref": "API-007"
+        },
+        {
+          "ref": "API-014"
+        },
+        {
+          "ref": "API-015"
+        },
+        {
+          "ref": "ENT-007"
+        },
+        {
+          "ref": "ENT-010"
+        },
+        {
+          "ref": "AC-mrr-137"
+        },
+        {
+          "ref": "AC-mrr-141"
+        }
+      ],
+      "status": "validated"
+    },
+    {
+      "id": "FE-mrr-009",
+      "title_th": "แก้ไขหรือยกเลิกการจองแทนผู้จอง — หน้าจอ",
+      "app_ref": "frontend-web",
+      "type": "command",
+      "origin": "change",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-022",
+        "FE-mrr-030",
+        "FE-mrr-038"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-028",
+        "AC-mrr-029",
+        "AC-mrr-042",
+        "AC-mrr-053",
+        "AC-mrr-055",
+        "AC-mrr-086",
+        "AC-mrr-120",
+        "AC-mrr-125",
+        "AC-mrr-137",
+        "AC-mrr-141"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-009"
+        },
+        {
+          "ref": "AC-mrr-028"
+        },
+        {
+          "ref": "AC-mrr-029"
+        },
+        {
+          "ref": "AC-mrr-042"
+        },
+        {
+          "ref": "AC-mrr-053"
+        },
+        {
+          "ref": "AC-mrr-055"
+        },
+        {
+          "ref": "UI-mrr-010"
+        },
+        {
+          "ref": "AC-mrr-086"
+        },
+        {
+          "ref": "AC-mrr-120"
+        },
+        {
+          "ref": "AC-mrr-125"
+        },
+        {
+          "ref": "AC-mrr-137"
+        },
+        {
+          "ref": "AC-mrr-141"
+        }
+      ],
+      "status": "validated"
+    },
+    {
+      "id": "FE-mrr-031",
+      "title_th": "สร้างคำขอแก้ไขการจองหลังจบประชุม — ฝั่ง API",
+      "app_ref": "api",
+      "type": "command",
+      "origin": "change",
+      "files_planned": [],
+      "depends_on": [],
+      "acceptance_refs": [
+        "AC-mrr-041",
+        "AC-mrr-132"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-010"
+        },
+        {
+          "ref": "AC-mrr-041"
+        },
+        {
+          "ref": "AC-mrr-132"
+        },
+        {
+          "ref": "API-014"
+        },
+        {
+          "ref": "ENT-007"
+        },
+        {
+          "ref": "ENT-011"
+        }
+      ],
+      "status": "validated"
+    },
+    {
+      "id": "FE-mrr-010",
+      "title_th": "สร้างคำขอแก้ไขการจองหลังจบประชุม — หน้าจอ",
+      "app_ref": "frontend-web",
+      "type": "command",
+      "origin": "change",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-022",
+        "FE-mrr-031"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-041",
+        "AC-mrr-132"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-010"
+        },
+        {
+          "ref": "AC-mrr-041"
+        },
+        {
+          "ref": "AC-mrr-132"
+        },
+        {
+          "ref": "UI-mrr-010"
+        }
+      ],
+      "status": "validated"
+    },
+    {
+      "id": "FE-mrr-032",
+      "title_th": "อนุมัติคำขอแก้ไขการจอง — ฝั่ง API",
+      "app_ref": "api",
+      "type": "command",
+      "origin": "change",
+      "files_planned": [],
+      "depends_on": [],
+      "acceptance_refs": [
+        "AC-mrr-043",
+        "AC-mrr-044",
+        "AC-mrr-133",
+        "AC-mrr-134"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-011"
+        },
+        {
+          "ref": "AC-mrr-043"
+        },
+        {
+          "ref": "AC-mrr-044"
+        },
+        {
+          "ref": "AC-mrr-133"
+        },
+        {
+          "ref": "AC-mrr-134"
+        },
+        {
+          "ref": "API-017"
+        },
+        {
+          "ref": "API-018"
+        },
+        {
+          "ref": "API-019"
+        },
+        {
+          "ref": "ENT-007"
+        },
+        {
+          "ref": "ENT-010"
+        },
+        {
+          "ref": "ENT-011"
+        }
+      ],
+      "status": "validated"
+    },
+    {
+      "id": "FE-mrr-011",
+      "title_th": "อนุมัติคำขอแก้ไขการจอง — หน้าจอ",
+      "app_ref": "frontend-web",
+      "type": "command",
+      "origin": "change",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-022",
+        "FE-mrr-032"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-043",
+        "AC-mrr-044",
+        "AC-mrr-133",
+        "AC-mrr-134"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-011"
+        },
+        {
+          "ref": "AC-mrr-043"
+        },
+        {
+          "ref": "AC-mrr-044"
+        },
+        {
+          "ref": "AC-mrr-133"
+        },
+        {
+          "ref": "AC-mrr-134"
+        },
+        {
+          "ref": "UI-mrr-011"
+        }
+      ],
+      "status": "validated"
+    },
+    {
+      "id": "FE-mrr-033",
+      "title_th": "ดูร่องรอยการกระทำต่อการจอง — ฝั่ง API",
+      "app_ref": "api",
+      "type": "command",
+      "origin": "change",
+      "files_planned": [],
+      "depends_on": [],
+      "acceptance_refs": [
+        "AC-mrr-052",
+        "AC-mrr-053",
+        "AC-mrr-054",
+        "AC-mrr-055",
+        "AC-mrr-056",
+        "AC-mrr-057",
+        "AC-mrr-058",
+        "AC-mrr-059",
+        "AC-mrr-121",
+        "AC-mrr-123",
+        "AC-mrr-124",
+        "AC-mrr-125",
+        "AC-mrr-132",
+        "AC-mrr-133",
+        "AC-mrr-134"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-012"
+        },
+        {
+          "ref": "AC-mrr-052"
+        },
+        {
+          "ref": "AC-mrr-053"
+        },
+        {
+          "ref": "AC-mrr-054"
+        },
+        {
+          "ref": "AC-mrr-055"
+        },
+        {
+          "ref": "AC-mrr-056"
+        },
+        {
+          "ref": "AC-mrr-057"
+        },
+        {
+          "ref": "AC-mrr-058"
+        },
+        {
+          "ref": "AC-mrr-059"
+        },
+        {
+          "ref": "AC-mrr-121"
+        },
+        {
+          "ref": "AC-mrr-123"
+        },
+        {
+          "ref": "AC-mrr-124"
+        },
+        {
+          "ref": "AC-mrr-125"
+        },
+        {
+          "ref": "AC-mrr-132"
+        },
+        {
+          "ref": "AC-mrr-133"
+        },
+        {
+          "ref": "AC-mrr-134"
+        },
+        {
+          "ref": "API-016"
+        },
+        {
+          "ref": "ENT-010"
+        }
+      ],
+      "status": "validated"
+    },
+    {
+      "id": "FE-mrr-012",
+      "title_th": "ดูร่องรอยการกระทำต่อการจอง — หน้าจอ",
+      "app_ref": "frontend-web",
+      "type": "command",
+      "origin": "change",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-022",
+        "FE-mrr-033"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-052",
+        "AC-mrr-053",
+        "AC-mrr-054",
+        "AC-mrr-055",
+        "AC-mrr-056",
+        "AC-mrr-057",
+        "AC-mrr-058",
+        "AC-mrr-059",
+        "AC-mrr-121",
+        "AC-mrr-123",
+        "AC-mrr-124",
+        "AC-mrr-125",
+        "AC-mrr-126",
+        "AC-mrr-132",
+        "AC-mrr-133",
+        "AC-mrr-134"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-012"
+        },
+        {
+          "ref": "AC-mrr-052"
+        },
+        {
+          "ref": "AC-mrr-053"
+        },
+        {
+          "ref": "AC-mrr-054"
+        },
+        {
+          "ref": "AC-mrr-055"
+        },
+        {
+          "ref": "AC-mrr-056"
+        },
+        {
+          "ref": "AC-mrr-057"
+        },
+        {
+          "ref": "AC-mrr-058"
+        },
+        {
+          "ref": "AC-mrr-059"
+        },
+        {
+          "ref": "AC-mrr-121"
+        },
+        {
+          "ref": "AC-mrr-123"
+        },
+        {
+          "ref": "AC-mrr-124"
+        },
+        {
+          "ref": "AC-mrr-125"
+        },
+        {
+          "ref": "AC-mrr-126"
+        },
+        {
+          "ref": "AC-mrr-132"
+        },
+        {
+          "ref": "AC-mrr-133"
+        },
+        {
+          "ref": "AC-mrr-134"
+        },
+        {
+          "ref": "UI-mrr-010"
+        }
+      ],
+      "status": "validated"
+    },
+    {
+      "id": "FE-mrr-034",
+      "title_th": "เพิ่มหรือแก้ไขข้อมูลห้อง — ฝั่ง API",
+      "app_ref": "api",
+      "type": "crud",
+      "origin": "change",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-037"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-015",
+        "AC-mrr-017",
+        "AC-mrr-018",
+        "AC-mrr-030",
+        "AC-mrr-031",
+        "AC-mrr-032",
+        "AC-mrr-040",
+        "AC-mrr-076",
+        "AC-mrr-077",
+        "AC-mrr-078",
+        "AC-mrr-104",
+        "AC-mrr-105"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-013"
+        },
+        {
+          "ref": "AC-mrr-015"
+        },
+        {
+          "ref": "AC-mrr-017"
+        },
+        {
+          "ref": "AC-mrr-018"
+        },
+        {
+          "ref": "AC-mrr-030"
+        },
+        {
+          "ref": "AC-mrr-031"
+        },
+        {
+          "ref": "AC-mrr-032"
+        },
+        {
+          "ref": "AC-mrr-040"
+        },
+        {
+          "ref": "AC-mrr-076"
+        },
+        {
+          "ref": "AC-mrr-077"
+        },
+        {
+          "ref": "AC-mrr-078"
+        },
+        {
+          "ref": "API-020"
+        },
+        {
+          "ref": "API-021"
+        },
+        {
+          "ref": "API-023"
+        },
+        {
+          "ref": "API-026"
+        },
+        {
+          "ref": "API-027"
+        },
+        {
+          "ref": "ENT-002"
+        },
+        {
+          "ref": "ENT-003"
+        },
+        {
+          "ref": "ENT-004"
+        },
+        {
+          "ref": "ENT-005"
+        },
+        {
+          "ref": "AC-mrr-104"
+        },
+        {
+          "ref": "AC-mrr-105"
+        },
+        {
+          "ref": "API-036"
+        }
+      ],
+      "status": "validated"
+    },
+    {
+      "id": "FE-mrr-013",
+      "title_th": "เพิ่มหรือแก้ไขข้อมูลห้อง — หน้าจอ",
+      "app_ref": "frontend-web",
+      "type": "crud",
+      "origin": "change",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-022",
+        "FE-mrr-034",
+        "FE-mrr-038"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-015",
+        "AC-mrr-017",
+        "AC-mrr-018",
+        "AC-mrr-030",
+        "AC-mrr-031",
+        "AC-mrr-032",
+        "AC-mrr-040",
+        "AC-mrr-076",
+        "AC-mrr-077",
+        "AC-mrr-078",
+        "AC-mrr-088",
+        "AC-mrr-104",
+        "AC-mrr-105"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-013"
+        },
+        {
+          "ref": "AC-mrr-015"
+        },
+        {
+          "ref": "AC-mrr-017"
+        },
+        {
+          "ref": "AC-mrr-018"
+        },
+        {
+          "ref": "AC-mrr-030"
+        },
+        {
+          "ref": "AC-mrr-031"
+        },
+        {
+          "ref": "AC-mrr-032"
+        },
+        {
+          "ref": "AC-mrr-040"
+        },
+        {
+          "ref": "AC-mrr-076"
+        },
+        {
+          "ref": "AC-mrr-077"
+        },
+        {
+          "ref": "AC-mrr-078"
+        },
+        {
+          "ref": "UI-mrr-012"
+        },
+        {
+          "ref": "UI-mrr-013"
+        },
+        {
+          "ref": "UI-mrr-014"
+        },
+        {
+          "ref": "AC-mrr-088"
+        },
+        {
+          "ref": "AC-mrr-104"
+        },
+        {
+          "ref": "AC-mrr-105"
+        },
+        {
+          "ref": "API-036"
+        }
+      ],
+      "status": "validated"
+    },
+    {
+      "id": "FE-mrr-035",
+      "title_th": "ปิดปรับปรุงหรือเปิดใช้งานห้อง — ฝั่ง API",
+      "app_ref": "api",
+      "type": "command",
+      "origin": "change",
+      "files_planned": [],
+      "depends_on": [],
+      "acceptance_refs": [
+        "AC-mrr-016",
+        "AC-mrr-081"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-014"
+        },
+        {
+          "ref": "AC-mrr-016"
+        },
+        {
+          "ref": "AC-mrr-081"
+        },
+        {
+          "ref": "API-024"
+        },
+        {
+          "ref": "ENT-002"
+        },
+        {
+          "ref": "ENT-006"
+        },
+        {
+          "ref": "ENT-007"
+        }
+      ],
+      "status": "validated"
+    },
+    {
+      "id": "FE-mrr-014",
+      "title_th": "ปิดปรับปรุงหรือเปิดใช้งานห้อง — หน้าจอ",
+      "app_ref": "frontend-web",
+      "type": "command",
+      "origin": "new",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-022",
+        "FE-mrr-035",
+        "FE-mrr-034",
+        "FE-mrr-013"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-016",
+        "AC-mrr-081"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-014"
+        },
+        {
+          "ref": "AC-mrr-016"
+        },
+        {
+          "ref": "AC-mrr-081"
+        },
+        {
+          "ref": "UI-mrr-012"
+        }
+      ],
+      "status": "validated"
+    },
+    {
+      "id": "FE-mrr-036",
+      "title_th": "ออกและดูรายงานการใช้ห้อง — ฝั่ง API",
+      "app_ref": "api",
+      "type": "report",
+      "origin": "change",
+      "files_planned": [],
+      "depends_on": [],
+      "acceptance_refs": [
+        "AC-mrr-045",
+        "AC-mrr-046",
+        "AC-mrr-047",
+        "AC-mrr-070",
+        "AC-mrr-071",
+        "AC-mrr-072",
+        "AC-mrr-082",
+        "AC-mrr-083",
+        "AC-mrr-084",
+        "AC-mrr-085",
+        "AC-mrr-128",
+        "AC-mrr-129",
+        "AC-mrr-130",
+        "AC-mrr-131"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-016"
+        },
+        {
+          "ref": "AC-mrr-045"
+        },
+        {
+          "ref": "AC-mrr-046"
+        },
+        {
+          "ref": "AC-mrr-047"
+        },
+        {
+          "ref": "AC-mrr-070"
+        },
+        {
+          "ref": "AC-mrr-071"
+        },
+        {
+          "ref": "AC-mrr-072"
+        },
+        {
+          "ref": "AC-mrr-082"
+        },
+        {
+          "ref": "AC-mrr-083"
+        },
+        {
+          "ref": "AC-mrr-084"
+        },
+        {
+          "ref": "AC-mrr-085"
+        },
+        {
+          "ref": "AC-mrr-128"
+        },
+        {
+          "ref": "AC-mrr-129"
+        },
+        {
+          "ref": "AC-mrr-130"
+        },
+        {
+          "ref": "AC-mrr-131"
+        },
+        {
+          "ref": "API-028"
+        },
+        {
+          "ref": "API-029"
+        },
+        {
+          "ref": "API-030"
+        },
+        {
+          "ref": "ENT-002"
+        },
+        {
+          "ref": "ENT-006"
+        },
+        {
+          "ref": "ENT-007"
+        },
+        {
+          "ref": "ENT-012"
+        },
+        {
+          "ref": "ENT-013"
+        }
+      ],
+      "status": "validated"
+    },
+    {
+      "id": "FE-mrr-016",
+      "title_th": "ออกและดูรายงานการใช้ห้อง — หน้าจอ",
+      "app_ref": "frontend-web",
+      "type": "report",
+      "origin": "change",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-022",
+        "FE-mrr-036"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-045",
+        "AC-mrr-046",
+        "AC-mrr-047",
+        "AC-mrr-070",
+        "AC-mrr-071",
+        "AC-mrr-072",
+        "AC-mrr-082",
+        "AC-mrr-083",
+        "AC-mrr-084",
+        "AC-mrr-085",
+        "AC-mrr-128",
+        "AC-mrr-129",
+        "AC-mrr-130",
+        "AC-mrr-131"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-016"
+        },
+        {
+          "ref": "AC-mrr-045"
+        },
+        {
+          "ref": "AC-mrr-046"
+        },
+        {
+          "ref": "AC-mrr-047"
+        },
+        {
+          "ref": "AC-mrr-070"
+        },
+        {
+          "ref": "AC-mrr-071"
+        },
+        {
+          "ref": "AC-mrr-072"
+        },
+        {
+          "ref": "AC-mrr-082"
+        },
+        {
+          "ref": "AC-mrr-083"
+        },
+        {
+          "ref": "AC-mrr-084"
+        },
+        {
+          "ref": "AC-mrr-085"
+        },
+        {
+          "ref": "AC-mrr-128"
+        },
+        {
+          "ref": "AC-mrr-129"
+        },
+        {
+          "ref": "AC-mrr-130"
+        },
+        {
+          "ref": "AC-mrr-131"
+        },
+        {
+          "ref": "RPT-mrr-001"
+        }
+      ],
+      "status": "validated"
+    },
+    {
+      "id": "FE-mrr-017",
+      "title_th": "ส่ง Email แจ้งเหตุการณ์การจอง",
+      "app_ref": "api",
+      "type": "command",
+      "origin": "change",
+      "files_planned": [],
+      "depends_on": [],
+      "acceptance_refs": [
+        "AC-mrr-019",
+        "AC-mrr-021",
+        "AC-mrr-022",
+        "AC-mrr-024",
+        "AC-mrr-060",
+        "AC-mrr-061",
+        "AC-mrr-062",
+        "AC-mrr-063",
+        "AC-mrr-116",
+        "AC-mrr-118",
+        "AC-mrr-119",
+        "AC-mrr-120",
+        "AC-mrr-121",
+        "AC-mrr-127",
+        "AC-mrr-135",
+        "AC-mrr-137"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-017"
+        },
+        {
+          "ref": "AC-mrr-019"
+        },
+        {
+          "ref": "AC-mrr-021"
+        },
+        {
+          "ref": "AC-mrr-022"
+        },
+        {
+          "ref": "AC-mrr-024"
+        },
+        {
+          "ref": "AC-mrr-060"
+        },
+        {
+          "ref": "AC-mrr-061"
+        },
+        {
+          "ref": "AC-mrr-062"
+        },
+        {
+          "ref": "AC-mrr-063"
+        },
+        {
+          "ref": "AC-mrr-116"
+        },
+        {
+          "ref": "AC-mrr-118"
+        },
+        {
+          "ref": "AC-mrr-119"
+        },
+        {
+          "ref": "AC-mrr-120"
+        },
+        {
+          "ref": "AC-mrr-121"
+        },
+        {
+          "ref": "AC-mrr-127"
+        },
+        {
+          "ref": "ENT-001"
+        },
+        {
+          "ref": "ENT-007"
+        },
+        {
+          "ref": "ENT-008"
+        },
+        {
+          "ref": "AC-mrr-135"
+        },
+        {
+          "ref": "AC-mrr-137"
+        }
+      ],
+      "status": "validated"
+    },
+    {
+      "id": "FE-mrr-018",
+      "title_th": "เตือนก่อนเริ่มประชุม 15 นาที",
+      "app_ref": "api",
+      "type": "batch",
+      "origin": "change",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-017"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-020",
+        "AC-mrr-023",
+        "AC-mrr-025",
+        "AC-mrr-064",
+        "AC-mrr-065",
+        "AC-mrr-073",
+        "AC-mrr-074",
+        "AC-mrr-075",
+        "AC-mrr-114",
+        "AC-mrr-115",
+        "AC-mrr-136",
+        "AC-mrr-138"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-018"
+        },
+        {
+          "ref": "AC-mrr-020"
+        },
+        {
+          "ref": "AC-mrr-023"
+        },
+        {
+          "ref": "AC-mrr-025"
+        },
+        {
+          "ref": "AC-mrr-064"
+        },
+        {
+          "ref": "AC-mrr-065"
+        },
+        {
+          "ref": "AC-mrr-073"
+        },
+        {
+          "ref": "AC-mrr-074"
+        },
+        {
+          "ref": "AC-mrr-075"
+        },
+        {
+          "ref": "AC-mrr-114"
+        },
+        {
+          "ref": "AC-mrr-115"
+        },
+        {
+          "ref": "ENT-007"
+        },
+        {
+          "ref": "ENT-008"
+        },
+        {
+          "ref": "AC-mrr-136"
+        },
+        {
+          "ref": "AC-mrr-138"
+        }
+      ],
+      "status": "validated"
+    },
+    {
+      "id": "FE-mrr-019",
+      "title_th": "ยกเลิกการจองที่ค้างรออนุมัติเมื่อถึงเวลาเริ่ม",
+      "app_ref": "api",
+      "type": "batch",
+      "origin": "new",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-017"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-048",
+        "AC-mrr-049",
+        "AC-mrr-050"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-019"
+        },
+        {
+          "ref": "AC-mrr-048"
+        },
+        {
+          "ref": "AC-mrr-049"
+        },
+        {
+          "ref": "AC-mrr-050"
+        },
+        {
+          "ref": "ENT-007"
+        }
+      ],
+      "status": "validated"
+    },
+    {
+      "id": "FE-mrr-037",
+      "title_th": "ข้อมูลห้องและตัวเลือกอุปกรณ์เสริมสำหรับฟอร์มจอง — ฝั่ง API",
+      "app_ref": "api",
+      "type": "command",
+      "origin": "new",
+      "files_planned": [],
+      "depends_on": [],
+      "acceptance_refs": [
+        "AC-mrr-005",
+        "AC-mrr-032"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-003"
+        },
+        {
+          "ref": "AC-mrr-005"
+        },
+        {
+          "ref": "AC-mrr-032"
+        },
+        {
+          "ref": "API-002"
+        },
+        {
+          "ref": "API-022"
+        },
+        {
+          "ref": "ENT-002"
+        },
+        {
+          "ref": "ENT-003"
+        },
+        {
+          "ref": "ENT-004"
+        }
+      ],
+      "status": "validated"
+    },
+    {
+      "id": "FE-mrr-038",
+      "title_th": "ข้อมูลผู้ใช้ปัจจุบัน — ฝั่ง API",
+      "app_ref": "api",
+      "type": "command",
+      "origin": "new",
+      "files_planned": [],
+      "depends_on": [],
+      "acceptance_refs": [
+        "AC-mrr-086",
+        "AC-mrr-087",
+        "AC-mrr-088"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-020"
+        },
+        {
+          "ref": "API-035"
+        },
+        {
+          "ref": "AC-mrr-086"
+        },
+        {
+          "ref": "AC-mrr-087"
+        },
+        {
+          "ref": "AC-mrr-088"
+        }
+      ],
+      "status": "validated"
+    },
+    {
+      "id": "FE-mrr-039",
+      "title_th": "เข้าสู่ระบบด้วยรหัสหรือ magic link — ฝั่ง API",
+      "app_ref": "api",
+      "type": "command",
+      "origin": "new",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-017"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-089",
+        "AC-mrr-090",
+        "AC-mrr-091",
+        "AC-mrr-092",
+        "AC-mrr-093",
+        "AC-mrr-094",
+        "AC-mrr-095",
+        "AC-mrr-096",
+        "AC-mrr-097",
+        "AC-mrr-098",
+        "AC-mrr-099",
+        "AC-mrr-100",
+        "AC-mrr-101",
+        "AC-mrr-102",
+        "AC-mrr-103"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-020"
+        },
+        {
+          "ref": "API-031"
+        },
+        {
+          "ref": "API-032"
+        },
+        {
+          "ref": "API-033"
+        },
+        {
+          "ref": "ENT-001"
+        },
+        {
+          "ref": "ENT-014"
+        },
+        {
+          "ref": "STM-mrr-004"
+        },
+        {
+          "ref": "AC-mrr-089"
+        },
+        {
+          "ref": "AC-mrr-090"
+        },
+        {
+          "ref": "AC-mrr-091"
+        },
+        {
+          "ref": "AC-mrr-092"
+        },
+        {
+          "ref": "AC-mrr-093"
+        },
+        {
+          "ref": "AC-mrr-094"
+        },
+        {
+          "ref": "AC-mrr-095"
+        },
+        {
+          "ref": "AC-mrr-096"
+        },
+        {
+          "ref": "AC-mrr-097"
+        },
+        {
+          "ref": "AC-mrr-098"
+        },
+        {
+          "ref": "AC-mrr-099"
+        },
+        {
+          "ref": "AC-mrr-100"
+        },
+        {
+          "ref": "AC-mrr-101"
+        },
+        {
+          "ref": "AC-mrr-102"
+        },
+        {
+          "ref": "AC-mrr-103"
+        }
+      ],
+      "status": "validated"
+    },
+    {
+      "id": "FE-mrr-040",
+      "title_th": "เข้าสู่ระบบด้วยรหัสหรือ magic link — หน้าจอ",
+      "app_ref": "frontend-web",
+      "type": "command",
+      "origin": "new",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-022",
+        "FE-mrr-039"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-089",
+        "AC-mrr-090",
+        "AC-mrr-092",
+        "AC-mrr-093",
+        "AC-mrr-094",
+        "AC-mrr-095",
+        "AC-mrr-096",
+        "AC-mrr-097",
+        "AC-mrr-098",
+        "AC-mrr-099",
+        "AC-mrr-100",
+        "AC-mrr-101",
+        "AC-mrr-102",
+        "AC-mrr-103"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-020"
+        },
+        {
+          "ref": "UI-mrr-001"
+        },
+        {
+          "ref": "UI-mrr-002"
+        },
+        {
+          "ref": "AC-mrr-089"
+        },
+        {
+          "ref": "AC-mrr-090"
+        },
+        {
+          "ref": "AC-mrr-092"
+        },
+        {
+          "ref": "AC-mrr-093"
+        },
+        {
+          "ref": "AC-mrr-094"
+        },
+        {
+          "ref": "AC-mrr-095"
+        },
+        {
+          "ref": "AC-mrr-096"
+        },
+        {
+          "ref": "AC-mrr-097"
+        },
+        {
+          "ref": "AC-mrr-098"
+        },
+        {
+          "ref": "AC-mrr-099"
+        },
+        {
+          "ref": "AC-mrr-100"
+        },
+        {
+          "ref": "AC-mrr-101"
+        },
+        {
+          "ref": "AC-mrr-102"
+        },
+        {
+          "ref": "AC-mrr-103"
+        }
+      ],
+      "status": "validated"
+    },
+    {
+      "id": "FE-mrr-041",
+      "title_th": "ค้นหาห้องว่าง — ฝั่ง API",
+      "app_ref": "api",
+      "type": "command",
+      "origin": "change",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-034"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-106",
+        "AC-mrr-107",
+        "AC-mrr-108"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-001"
+        },
+        {
+          "ref": "AC-mrr-106"
+        },
+        {
+          "ref": "AC-mrr-107"
+        },
+        {
+          "ref": "AC-mrr-108"
+        },
+        {
+          "ref": "API-001"
+        },
+        {
+          "ref": "ENT-002"
+        },
+        {
+          "ref": "ENT-004"
+        },
+        {
+          "ref": "ENT-006"
+        },
+        {
+          "ref": "ENT-007"
+        }
+      ],
+      "status": "validated"
+    },
+    {
+      "id": "FE-mrr-042",
+      "title_th": "ค้นหาห้องว่าง — หน้าจอ",
+      "app_ref": "frontend-web",
+      "type": "command",
+      "origin": "new",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-022",
+        "FE-mrr-041"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-106",
+        "AC-mrr-107",
+        "AC-mrr-108"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-001"
+        },
+        {
+          "ref": "AC-mrr-106"
+        },
+        {
+          "ref": "AC-mrr-107"
+        },
+        {
+          "ref": "AC-mrr-108"
+        },
+        {
+          "ref": "UI-mrr-004"
+        },
+        {
+          "ref": "API-001"
+        }
+      ],
+      "status": "validated"
+    },
+    {
+      "id": "FE-mrr-043",
+      "title_th": "ลบข้อมูลห้อง — ฝั่ง API",
+      "app_ref": "api",
+      "type": "command",
+      "origin": "change",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-034"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-109",
+        "AC-mrr-110"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-015"
+        },
+        {
+          "ref": "AC-mrr-109"
+        },
+        {
+          "ref": "AC-mrr-110"
+        },
+        {
+          "ref": "API-025"
+        },
+        {
+          "ref": "ENT-002"
+        },
+        {
+          "ref": "ENT-007"
+        }
+      ],
+      "status": "validated"
+    },
+    {
+      "id": "FE-mrr-044",
+      "title_th": "ลบข้อมูลห้อง — หน้าจอ",
+      "app_ref": "frontend-web",
+      "type": "command",
+      "origin": "change",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-022",
+        "FE-mrr-013",
+        "FE-mrr-043"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-109",
+        "AC-mrr-110"
+      ],
+      "traces_up": [
+        {
+          "ref": "UC-mrr-015"
+        },
+        {
+          "ref": "AC-mrr-109"
+        },
+        {
+          "ref": "AC-mrr-110"
+        },
+        {
+          "ref": "UI-mrr-012"
+        },
+        {
+          "ref": "API-025"
+        }
+      ],
+      "status": "validated"
+    },
+    {
+      "id": "FE-mrr-045",
+      "title_th": "ออกจากระบบ — ฝั่ง API",
+      "app_ref": "api",
+      "type": "platform",
+      "origin": "new",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-039"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-111",
+        "AC-mrr-112",
+        "AC-mrr-113"
+      ],
+      "traces_up": [
+        {
+          "ref": "AC-mrr-111"
+        },
+        {
+          "ref": "AC-mrr-112"
+        },
+        {
+          "ref": "AC-mrr-113"
+        },
+        {
+          "ref": "API-034"
+        },
+        {
+          "ref": "ENT-014"
+        }
+      ],
+      "status": "validated",
+      "function_ref": "FUN-mrr-015"
+    },
+    {
+      "id": "FE-mrr-046",
+      "title_th": "ออกจากระบบ — หน้าจอ",
+      "app_ref": "frontend-web",
+      "type": "platform",
+      "origin": "new",
+      "files_planned": [],
+      "depends_on": [
+        "FE-mrr-040",
+        "FE-mrr-045"
+      ],
+      "acceptance_refs": [
+        "AC-mrr-111",
+        "AC-mrr-112",
+        "AC-mrr-113"
+      ],
+      "traces_up": [
+        {
+          "ref": "AC-mrr-111"
+        },
+        {
+          "ref": "AC-mrr-112"
+        },
+        {
+          "ref": "AC-mrr-113"
+        },
+        {
+          "ref": "UI-mrr-003"
+        },
+        {
+          "ref": "API-034"
+        }
+      ],
+      "status": "validated",
+      "function_ref": "FUN-mrr-015"
+    }
+  ],
   "gaps": [
+    {
+      "id": "GAP-mrr-001",
+      "to": "design",
+      "about": "UC-mrr-001",
+      "question_th": "UC-mrr-001 (ค้นหาห้องว่าง · UI-mrr-004 · API-001) ไม่มีเกณฑ์รับ (AC-) ข้อไหนผูกไว้ใน functions.json acceptance[].useCases — dev สร้างหน่วยที่ไม่มีใครพิสูจน์ว่าเสร็จไม่ได้ · ขอให้ design เขียนเกณฑ์รับของ use case นี้ (given/when/then) หรือบอกว่าเกณฑ์รับข้อไหนที่มีอยู่แล้วครอบคลุมมัน",
+      "found_at": "2026-10-20",
+      "found_by": "/dev:plan",
+      "status": "answered",
+      "answer_th": "design ตอบด้วย ADR-008 (ปิดแล้ว): เกณฑ์รับ AC-mrr-106 · AC-mrr-107 · AC-mrr-108 (คัดจาก EX-mrr-106..108 คำต่อคำ) ผูกกับ UC-mrr-001 ใน functions.json acceptance[].useCases แล้ว",
+      "answered_in": "AC-mrr-106",
+      "closed_by": "Noppasorn",
+      "blocks": []
+    },
+    {
+      "id": "GAP-mrr-002",
+      "to": "design",
+      "about": "UC-mrr-015",
+      "question_th": "UC-mrr-015 (ลบข้อมูลห้อง · API-025) ไม่มีเกณฑ์รับ (AC-) ข้อไหนผูกไว้ใน functions.json acceptance[].useCases — dev สร้างหน่วยที่ไม่มีใครพิสูจน์ว่าเสร็จไม่ได้ · ขอให้ design เขียนเกณฑ์รับของ use case นี้ (given/when/then) หรือบอกว่าเกณฑ์รับข้อไหนที่มีอยู่แล้วครอบคลุมมัน",
+      "found_at": "2026-10-20",
+      "found_by": "/dev:plan",
+      "status": "answered",
+      "answer_th": "design ตอบด้วย ADR-008 (ปิดแล้ว): เกณฑ์รับ AC-mrr-109 · AC-mrr-110 (คัดจาก EX-mrr-109/110 คำต่อคำ) ผูกกับ UC-mrr-015 แล้ว · ลบ = archive (STM-mrr-003, DQ-mrr-003)",
+      "answered_in": "AC-mrr-109",
+      "closed_by": "Noppasorn",
+      "blocks": []
+    },
+    {
+      "id": "GAP-mrr-003",
+      "to": "design",
+      "about": "UC-mrr-020",
+      "question_th": "UC-mrr-020 (เข้าสู่ระบบด้วยรหัส OTP · UI-mrr-001/002 · API-031/032/033 — ทุก endpoint บังคับสิทธิ์ที่ api จึงอยู่บนเส้นทางวิกฤต · scenario SCN-mrr-076.. มีอยู่ผ่าน FUN-mrr-014 แต่ไม่มี AC) ไม่มีเกณฑ์รับ (AC-) ข้อไหนผูกไว้ใน functions.json acceptance[].useCases — dev สร้างหน่วยที่ไม่มีใครพิสูจน์ว่าเสร็จไม่ได้ · ขอให้ design เขียนเกณฑ์รับของ use case นี้ (given/when/then) หรือบอกว่าเกณฑ์รับข้อไหนที่มีอยู่แล้วครอบคลุมมัน",
+      "found_at": "2026-10-20",
+      "found_by": "/dev:plan",
+      "status": "answered",
+      "answer_th": "design รับ CHG-mrr-002 (กฎ BR-mrr-024..028@v1 จาก req) แล้วเขียน AC-mrr-089..103 ผูก UC-mrr-020 คัดข้อความจาก EX-mrr-091..105 คำต่อคำ พร้อม SCN-mrr-097..100 และชั้นที่บังคับใน interfaces.json · เซ็นโดย Noppasorn 2026-10-22 (commit 16460a8)",
+      "answered_in": ".aeon/design/modules/mrr/functions.json",
+      "closed_by": "Noppasorn",
+      "blocks": []
+    },
+    {
+      "id": "GAP-mrr-004",
+      "to": "design",
+      "about": "UC-mrr-021",
+      "question_th": "UC-mrr-021 (ออกจากระบบ · UI-mrr-003 · API-034) ไม่มีเกณฑ์รับ (AC-) ข้อไหนผูกไว้ใน functions.json acceptance[].useCases — dev สร้างหน่วยที่ไม่มีใครพิสูจน์ว่าเสร็จไม่ได้ · ขอให้ design เขียนเกณฑ์รับของ use case นี้ (given/when/then) หรือบอกว่าเกณฑ์รับข้อไหนที่มีอยู่แล้วครอบคลุมมัน",
+      "found_at": "2026-10-20",
+      "found_by": "/dev:plan",
+      "status": "answered",
+      "answer_th": "design ตอบด้วย ADR-009 (ปิดแล้ว): การออกจากระบบเป็นฟังก์ชันแพลตฟอร์ม FUN-mrr-015 · UC-mrr-021 ย้ายไปที่นั่น · เกณฑ์รับ AC-mrr-111 · AC-mrr-112 · AC-mrr-113 ยึดกับ FUN-mrr-015 (ปกติ · ยกเลิก session ไม่สำเร็จ · ผู้ที่ไม่ได้เข้าสู่ระบบ)",
+      "answered_in": "AC-mrr-111",
+      "closed_by": "Noppasorn",
+      "blocks": []
+    },
     {
       "id": "GAP-mrr-005",
       "to": "mock",
       "about": "nav-ui-mrr-004",
       "question_th": "testid nav-ui-mrr-004 ของลิงก์เมนูไป UI-mrr-004 มินต์โดย mock (wireframes.mjs navControlId) และอยู่ในหน้า L2 ทุกหน้า แต่ไม่อยู่ใน controls[] ของ wireframe ใด ๆ และ design ไม่ได้ประกาศ — roster ของ dev (testidRoster) จึงมองไม่เห็น และ DV17 นับเป็น Class B · ขอให้ mock ประกาศ control ของเมนูในที่ที่ dev อ่านได้ (เช่น wireframe controls[] หรือไฟล์ shell) หรือยืนยันว่า id นี้คือสัญญา",
-      "blocks": [
-        "FE-mrr-022"
-      ],
+      "found_at": "2026-10-20",
+      "found_by": "/dev:plan",
       "status": "answered",
       "answer_th": "mock ตอบในสคริปต์ของตัวเองแล้ว (gate 117 · task 93): id ของลิงก์เมนูคือ navControlId = nav-<id ของหน้าปลายทางตัวพิมพ์เล็ก> สร้างจาก node ของ sitemap.json ของ design และ \"NAV LINKS ARE NOT STORED ANYWHERE\" (html.mjs shellControlRoster) — id นี้จึงเป็นสัญญา ไม่ต้องประกาศใน controls[] ของ wireframe · dev อ่าน id ชุดเดียวกันจาก sitemap ผ่าน build.mjs shellControls และ DV17 ไม่นับเป็น Class B แล้ว",
-      "answered_in": "mock · scripts/wireframes.mjs navControlId · scripts/html.mjs shellControlRoster (gate 117) — derived from design/sitemap.json nodes"
+      "answered_in": "mock · scripts/wireframes.mjs navControlId · scripts/html.mjs shellControlRoster (gate 117) — derived from design/sitemap.json nodes",
+      "closed_by": "Noppasorn",
+      "blocks": [
+        "FE-mrr-022"
+      ]
     },
     {
       "id": "GAP-mrr-006",
       "to": "mock",
       "about": "nav-ui-mrr-007",
       "question_th": "testid nav-ui-mrr-007 ของลิงก์เมนูไป UI-mrr-007 มินต์โดย mock (wireframes.mjs navControlId) และอยู่ในหน้า L2 ทุกหน้า แต่ไม่อยู่ใน controls[] ของ wireframe ใด ๆ และ design ไม่ได้ประกาศ — roster ของ dev (testidRoster) จึงมองไม่เห็น และ DV17 นับเป็น Class B · ขอให้ mock ประกาศ control ของเมนูในที่ที่ dev อ่านได้ (เช่น wireframe controls[] หรือไฟล์ shell) หรือยืนยันว่า id นี้คือสัญญา",
-      "blocks": [
-        "FE-mrr-022"
-      ],
+      "found_at": "2026-10-20",
+      "found_by": "/dev:plan",
       "status": "answered",
       "answer_th": "mock ตอบในสคริปต์ของตัวเองแล้ว (gate 117 · task 93): id ของลิงก์เมนูคือ navControlId = nav-<id ของหน้าปลายทางตัวพิมพ์เล็ก> สร้างจาก node ของ sitemap.json ของ design และ \"NAV LINKS ARE NOT STORED ANYWHERE\" (html.mjs shellControlRoster) — id นี้จึงเป็นสัญญา ไม่ต้องประกาศใน controls[] ของ wireframe · dev อ่าน id ชุดเดียวกันจาก sitemap ผ่าน build.mjs shellControls และ DV17 ไม่นับเป็น Class B แล้ว",
-      "answered_in": "mock · scripts/wireframes.mjs navControlId · scripts/html.mjs shellControlRoster (gate 117) — derived from design/sitemap.json nodes"
+      "answered_in": "mock · scripts/wireframes.mjs navControlId · scripts/html.mjs shellControlRoster (gate 117) — derived from design/sitemap.json nodes",
+      "closed_by": "Noppasorn",
+      "blocks": [
+        "FE-mrr-022"
+      ]
     },
     {
       "id": "GAP-mrr-007",
       "to": "mock",
       "about": "nav-ui-mrr-009",
       "question_th": "testid nav-ui-mrr-009 ของลิงก์เมนูไป UI-mrr-009 มินต์โดย mock (wireframes.mjs navControlId) และอยู่ในหน้า L2 ทุกหน้า แต่ไม่อยู่ใน controls[] ของ wireframe ใด ๆ และ design ไม่ได้ประกาศ — roster ของ dev (testidRoster) จึงมองไม่เห็น และ DV17 นับเป็น Class B · ขอให้ mock ประกาศ control ของเมนูในที่ที่ dev อ่านได้ (เช่น wireframe controls[] หรือไฟล์ shell) หรือยืนยันว่า id นี้คือสัญญา",
-      "blocks": [
-        "FE-mrr-022"
-      ],
+      "found_at": "2026-10-20",
+      "found_by": "/dev:plan",
       "status": "answered",
       "answer_th": "mock ตอบในสคริปต์ของตัวเองแล้ว (gate 117 · task 93): id ของลิงก์เมนูคือ navControlId = nav-<id ของหน้าปลายทางตัวพิมพ์เล็ก> สร้างจาก node ของ sitemap.json ของ design และ \"NAV LINKS ARE NOT STORED ANYWHERE\" (html.mjs shellControlRoster) — id นี้จึงเป็นสัญญา ไม่ต้องประกาศใน controls[] ของ wireframe · dev อ่าน id ชุดเดียวกันจาก sitemap ผ่าน build.mjs shellControls และ DV17 ไม่นับเป็น Class B แล้ว",
-      "answered_in": "mock · scripts/wireframes.mjs navControlId · scripts/html.mjs shellControlRoster (gate 117) — derived from design/sitemap.json nodes"
+      "answered_in": "mock · scripts/wireframes.mjs navControlId · scripts/html.mjs shellControlRoster (gate 117) — derived from design/sitemap.json nodes",
+      "closed_by": "Noppasorn",
+      "blocks": [
+        "FE-mrr-022"
+      ]
     },
     {
       "id": "GAP-mrr-008",
       "to": "mock",
       "about": "nav-ui-mrr-012",
       "question_th": "testid nav-ui-mrr-012 ของลิงก์เมนูไป UI-mrr-012 มินต์โดย mock (wireframes.mjs navControlId) และอยู่ในหน้า L2 ทุกหน้า แต่ไม่อยู่ใน controls[] ของ wireframe ใด ๆ และ design ไม่ได้ประกาศ — roster ของ dev (testidRoster) จึงมองไม่เห็น และ DV17 นับเป็น Class B · ขอให้ mock ประกาศ control ของเมนูในที่ที่ dev อ่านได้ (เช่น wireframe controls[] หรือไฟล์ shell) หรือยืนยันว่า id นี้คือสัญญา",
-      "blocks": [
-        "FE-mrr-022"
-      ],
+      "found_at": "2026-10-20",
+      "found_by": "/dev:plan",
       "status": "answered",
       "answer_th": "mock ตอบในสคริปต์ของตัวเองแล้ว (gate 117 · task 93): id ของลิงก์เมนูคือ navControlId = nav-<id ของหน้าปลายทางตัวพิมพ์เล็ก> สร้างจาก node ของ sitemap.json ของ design และ \"NAV LINKS ARE NOT STORED ANYWHERE\" (html.mjs shellControlRoster) — id นี้จึงเป็นสัญญา ไม่ต้องประกาศใน controls[] ของ wireframe · dev อ่าน id ชุดเดียวกันจาก sitemap ผ่าน build.mjs shellControls และ DV17 ไม่นับเป็น Class B แล้ว",
-      "answered_in": "mock · scripts/wireframes.mjs navControlId · scripts/html.mjs shellControlRoster (gate 117) — derived from design/sitemap.json nodes"
+      "answered_in": "mock · scripts/wireframes.mjs navControlId · scripts/html.mjs shellControlRoster (gate 117) — derived from design/sitemap.json nodes",
+      "closed_by": "Noppasorn",
+      "blocks": [
+        "FE-mrr-022"
+      ]
     },
     {
       "id": "GAP-mrr-009",
       "to": "mock",
       "about": "nav-rpt-mrr-001",
       "question_th": "testid nav-rpt-mrr-001 ของลิงก์เมนูไป RPT-mrr-001 มินต์โดย mock (wireframes.mjs navControlId) และอยู่ในหน้า L2 ทุกหน้า แต่ไม่อยู่ใน controls[] ของ wireframe ใด ๆ และ design ไม่ได้ประกาศ — roster ของ dev (testidRoster) จึงมองไม่เห็น และ DV17 นับเป็น Class B · ขอให้ mock ประกาศ control ของเมนูในที่ที่ dev อ่านได้ (เช่น wireframe controls[] หรือไฟล์ shell) หรือยืนยันว่า id นี้คือสัญญา",
-      "blocks": [
-        "FE-mrr-022"
-      ],
+      "found_at": "2026-10-20",
+      "found_by": "/dev:plan",
       "status": "answered",
       "answer_th": "mock ตอบในสคริปต์ของตัวเองแล้ว (gate 117 · task 93): id ของลิงก์เมนูคือ navControlId = nav-<id ของหน้าปลายทางตัวพิมพ์เล็ก> สร้างจาก node ของ sitemap.json ของ design และ \"NAV LINKS ARE NOT STORED ANYWHERE\" (html.mjs shellControlRoster) — id นี้จึงเป็นสัญญา ไม่ต้องประกาศใน controls[] ของ wireframe · dev อ่าน id ชุดเดียวกันจาก sitemap ผ่าน build.mjs shellControls และ DV17 ไม่นับเป็น Class B แล้ว",
-      "answered_in": "mock · scripts/wireframes.mjs navControlId · scripts/html.mjs shellControlRoster (gate 117) — derived from design/sitemap.json nodes"
+      "answered_in": "mock · scripts/wireframes.mjs navControlId · scripts/html.mjs shellControlRoster (gate 117) — derived from design/sitemap.json nodes",
+      "closed_by": "Noppasorn",
+      "blocks": [
+        "FE-mrr-022"
+      ]
     },
     {
       "id": "GAP-mrr-010",
       "to": "mock",
       "about": "nav-ui-mrr-003",
       "question_th": "testid nav-ui-mrr-003 ของลิงก์เมนูไป UI-mrr-003 มินต์โดย mock (wireframes.mjs navControlId) และอยู่ในหน้า L2 ทุกหน้า แต่ไม่อยู่ใน controls[] ของ wireframe ใด ๆ และ design ไม่ได้ประกาศ — roster ของ dev (testidRoster) จึงมองไม่เห็น และ DV17 นับเป็น Class B · ขอให้ mock ประกาศ control ของเมนูในที่ที่ dev อ่านได้ (เช่น wireframe controls[] หรือไฟล์ shell) หรือยืนยันว่า id นี้คือสัญญา",
-      "blocks": [
-        "FE-mrr-022"
-      ],
+      "found_at": "2026-10-20",
+      "found_by": "/dev:plan",
       "status": "answered",
       "answer_th": "mock ตอบในสคริปต์ของตัวเองแล้ว (gate 117 · task 93): id ของลิงก์เมนูคือ navControlId = nav-<id ของหน้าปลายทางตัวพิมพ์เล็ก> สร้างจาก node ของ sitemap.json ของ design และ \"NAV LINKS ARE NOT STORED ANYWHERE\" (html.mjs shellControlRoster) — id นี้จึงเป็นสัญญา ไม่ต้องประกาศใน controls[] ของ wireframe · dev อ่าน id ชุดเดียวกันจาก sitemap ผ่าน build.mjs shellControls และ DV17 ไม่นับเป็น Class B แล้ว · ข้อสังเกต: UI-mrr-003 (ออกจากระบบ) เป็นหน้า kind auth ลิงก์ nav-ui-mrr-003 ได้มาจาก sitemap ด้วยกติกาเดียวกัน",
-      "answered_in": "mock · scripts/wireframes.mjs navControlId · scripts/html.mjs shellControlRoster (gate 117) — derived from design/sitemap.json nodes"
+      "answered_in": "mock · scripts/wireframes.mjs navControlId · scripts/html.mjs shellControlRoster (gate 117) — derived from design/sitemap.json nodes",
+      "closed_by": "Noppasorn",
+      "blocks": [
+        "FE-mrr-022"
+      ]
+    },
+    {
+      "id": "GAP-mrr-011",
+      "to": "design",
+      "about": "UI-mrr-005",
+      "question_th": "UI-mrr-005 ปฏิทินห้อง มีมุมมองรายวัน/สัปดาห์/เดือน แต่ไม่ได้ประกาศ field หรือ action สำหรับเปลี่ยนวันที่ (ก่อนหน้า/ถัดไป/เลือกวัน) — ตอนนี้วันที่มาจาก ?date= ใน URL เท่านั้น ผู้ใช้จึงเลื่อนไปดูสัปดาห์อื่นไม่ได้ · ต้องการ action นี้ไหม และชื่อ/key คืออะไร",
+      "found_at": "2026-10-20",
+      "found_by": "/dev:plan",
+      "status": "answered",
+      "answer_th": "design ตอบด้วย ADR-007 (ปิดแล้ว): UI-mrr-005 มีช่องวันที่ และ action previous 'ก่อนหน้า' · next 'ถัดไป' · today 'วันนี้' (ปลายทาง self) ให้เลื่อนวันได้",
+      "answered_in": "UI-mrr-005",
+      "closed_by": "Noppasorn",
+      "blocks": []
+    },
+    {
+      "id": "GAP-mrr-012",
+      "to": "design",
+      "about": "UI-mrr-005",
+      "question_th": "action book-slot ของ UI-mrr-005 ประกาศว่า \"เปิดฟอร์มจองพร้อมช่วงเวลาที่เลือก\" แต่หน้านี้ไม่มี field ให้เลือกช่วงเวลา และ API-003 ส่งเฉพาะช่วงที่ไม่ว่าง — ตอนนี้ส่งแค่ห้องกับวันที่ (?room=&date=) ไปที่ UI-mrr-006 · ผู้ใช้เลือกช่วงเวลาที่หน้านี้อย่างไร (กดช่องว่างในตาราง? field เวลาเริ่ม/สิ้นสุด?)",
+      "found_at": "2026-10-20",
+      "found_by": "/dev:plan",
+      "status": "answered",
+      "answer_th": "design ตอบด้วย ADR-007 (ปิดแล้ว): action book-slot เปลี่ยนชื่อเป็น 'ไปหน้าจองห้อง' ส่งห้องกับวันที่ไป UI-mrr-006 · ผู้ใช้เลือกเวลาในฟอร์มจอง ไม่ได้เลือกช่วงเวลาที่หน้าปฏิทิน",
+      "answered_in": "UI-mrr-005",
+      "closed_by": "Noppasorn",
+      "blocks": []
+    },
+    {
+      "id": "GAP-mrr-013",
+      "to": "design",
+      "about": "API-022",
+      "question_th": "UI-mrr-006 (จองห้องประชุม · ROLE-001/002/003) ต้องแสดงชื่อห้อง และเตือนเมื่อผู้เข้าร่วมเกินความจุ จึงต้องอ่าน GET /rooms/{id} (API-022) และ GET /facilities?active=true (API-002) — แต่ rbac.json ไม่มี ACL ที่ให้ General User เรียก API-022 (มีแค่ ACL-030 เปิดหน้าข้อมูลห้องของ ROLE-002) · dev ตั้งต้นว่าผู้ใช้ที่เข้าสู่ระบบแล้วทุกบทบาทอ่านห้องที่ไม่ใช่ ARCHIVED ได้ (ชื่อ · ความจุ · ต้องอนุมัติ · สถานะ) สอดคล้อง ACL-001 ที่เห็นทุกห้องในการค้นหา และอ่านสิ่งอำนวยความสะดวกที่ active ได้ · ขอให้ design ยืนยันหรือแก้: ผู้ใช้ทั่วไปเรียก API-022 ได้ไหม เห็นฟิลด์ไหน (ผู้อนุมัติประจำห้อง/รูปภาพด้วยไหม)",
+      "found_at": "2026-10-20",
+      "found_by": "/dev:plan",
+      "status": "answered",
+      "answer_th": "design ตอบด้วย ADR-006 (ปิดแล้ว): ACL-039 (ROLE-001) และ ACL-040 (ROLE-003) อ่าน API-022 ได้เฉพาะห้องที่ไม่ใช่ ARCHIVED · เห็นชื่อ · ความจุ · ต้องอนุมัติ · สถานะ · ผู้อนุมัติประจำห้อง · ไม่เห็นรูปภาพ (รูปภาพเห็นเฉพาะผู้ดูแลห้อง ACL-014)",
+      "answered_in": "ACL-039",
+      "closed_by": "Noppasorn",
+      "blocks": []
+    },
+    {
+      "id": "GAP-mrr-014",
+      "to": "design",
+      "about": "ENT-010",
+      "question_th": "ENT-010 action มีค่า CREATE_ADJUSTMENT แต่ไม่มีปุ่มหรือชื่อที่ design ประกาศให้มัน (ค่าอื่นทุกค่ามีชื่อ action บน UI-mrr-009/010/011) · ร่องรอยบน UI-mrr-010 (FE-mrr-012) จึงต้องเขียนเป็นคำไทยเอง · dev ตั้งต้นไว้ว่า 'สร้างคำขอแก้ไข' · ขอให้ design ระบุคำที่ใช้แสดงการกระทำนี้ในร่องรอย",
+      "found_at": "2026-10-21",
+      "found_by": "/dev:plan",
+      "status": "answered",
+      "answer_th": "เจ้าของตอบผ่าน /req:ask เมื่อ 2026-11-24 (SRC-038) และ req ขึ้นกฎเป็น BR-mrr-017@v3 (CHG-mrr-006): ป้ายของ CREATE_ADJUSTMENT ในร่องรอยคือ 'สร้างคำขอแก้ไข' (ตรงกับที่ dev ใช้ไว้) · APPROVE_ADJUSTMENT คือ 'อนุมัติคำขอ' · REJECT_ADJUSTMENT คือ 'ปฏิเสธคำขอ' · design รับแล้วเป็น AC-mrr-132/133/134 · คำตอบ forward เดิม (2026-11-24 16:00 ส่งต่อ /req:ask) ถูกถอนเพราะ req ตอบแล้ว",
+      "answered_in": "AC-mrr-132",
+      "closed_by": "Noppasorn",
+      "blocks": []
+    },
+    {
+      "id": "GAP-mrr-015",
+      "to": "design",
+      "about": "UI-mrr-010",
+      "question_th": "UI-mrr-010 สถานะ unauthorized ประกาศว่า 'System Administrator เห็นเฉพาะร่องรอย ปุ่มคำสั่งไม่แสดง' แต่ interfaces.json ไม่มี API ที่บอกหน้าจอว่าผู้ใช้ที่เข้าสู่ระบบมีบทบาทอะไร (มีแค่ /me/bookings) · ตอนนี้ System Administrator ยังเห็นช่องเหตุผลและปุ่มคำสั่ง (API ปฏิเสธอยู่แล้ว) · ขอให้ design ระบุว่าหน้าจอรู้บทบาทของผู้ใช้จากที่ไหน — เช่นเพิ่ม API ข้อมูลผู้ใช้ปัจจุบัน หรือให้ API-007 ส่งสิทธิ์ของผู้เรียกมาด้วย · ปุ่มที่ได้รับผลคือ เปลี่ยนผลการอนุมัติ (FE-mrr-008) · แก้แทนผู้จอง (FE-mrr-009/010) · ยกเลิกแทนผู้จอง (FE-mrr-009) — ยกขึ้นมาจาก /dev:review ของ FE-mrr-009 วันที่ 2026-10-21",
+      "found_at": "2026-10-21",
+      "found_by": "/dev:plan",
+      "status": "answered",
+      "answer_th": "design ตอบด้วย ADR-002 (ปิดแล้ว): API-035 GET /auth/me ส่งชื่อและบทบาทของเจ้าของ session · ACL-037 ทุกบทบาทอ่านได้เฉพาะของตน (scope own · api/domain) · UI-mrr-010 และ UI-mrr-014 calls API-035 · interfaces.json กับ rbac.json เซ็นใหม่โดย Noppasorn 2026-10-21",
+      "answered_in": ".aeon/design/interfaces.json",
+      "closed_by": "Noppasorn",
+      "blocks": [
+        "FE-mrr-008",
+        "FE-mrr-009",
+        "FE-mrr-010",
+        "FE-mrr-012"
+      ]
+    },
+    {
+      "id": "GAP-mrr-016",
+      "to": "design",
+      "about": "UI-mrr-013",
+      "question_th": "UI-mrr-013 ช่อง 'รูปภาพ' (ENT-003 photos · capture · 'ไฟล์ภาพ ไม่บังคับ' · overflow 'รูปภาพเกินขนาดที่กำหนดไม่รับและแจ้งที่ช่อง') แต่ interfaces.json ไม่มี API อัปโหลดไฟล์ และ API-021/023 รับ photos เป็นรายการ id ของไฟล์ · ตอนนี้ (FE-mrr-013) ฟอร์มแสดงจำนวนรูปและส่งรูปเดิมกลับทุกครั้งที่บันทึก เพิ่มหรือเปลี่ยนรูปไม่ได้ · ขอให้ design ประกาศ API อัปโหลดรูป ขนาดสูงสุด และชนิดไฟล์ที่รับ",
+      "found_at": "2026-10-21",
+      "found_by": "/dev:plan",
+      "status": "answered",
+      "answer_th": "design ตอบด้วย ADR-007 (ปิดแล้ว): รูปภาพห้องยังไม่อยู่ในขอบเขตรอบนี้ ตัดช่องรูปภาพออกจากฟอร์ม UI-mrr-013 แล้ว จึงไม่มี API อัปโหลด · หมายเหตุ: เป็นการลดขอบเขตเทียบกับที่ req อธิบายไว้ และ req ยังไม่ได้รับแจ้ง",
+      "answered_in": "UI-mrr-013",
+      "closed_by": "Noppasorn",
+      "blocks": []
+    },
+    {
+      "id": "GAP-mrr-017",
+      "to": "design",
+      "about": "UI-mrr-013",
+      "question_th": "UI-mrr-013 ช่อง 'สิ่งอำนวยความสะดวก' ประกาศว่า 'เลือกจาก Facility ที่ active' และ API-023 (FE-mrr-034) ปฏิเสธเวอร์ชันใหม่ที่มี facility ที่ปิดใช้แล้ว · ห้องที่เวอร์ชันปัจจุบันมี facility ซึ่งถูกปิดใช้ทีหลัง เมื่อแก้ไขแล้วบันทึก facility นั้นจึงหลุดจากเวอร์ชันใหม่ · ตอนนี้ (FE-mrr-013) ฟอร์มตัดออกก่อนบันทึกและแสดงว่า 'สิ่งอำนวยความสะดวกที่ปิดใช้แล้ว N รายการจะไม่อยู่ในเวอร์ชันใหม่' · ขอให้ design ยืนยันพฤติกรรมนี้ หรือกำหนดว่าเวอร์ชันใหม่คง facility ที่ปิดใช้แล้วไว้ได้",
+      "found_at": "2026-10-21",
+      "found_by": "/dev:plan",
+      "status": "answered",
+      "answer_th": "ยืนยันพฤติกรรมปัจจุบัน: เวอร์ชันใหม่ของห้องมีได้เฉพาะ facility ที่ active ตามคำประกาศ 'เลือกจาก Facility ที่ active' ของ UI-mrr-013 · facility ที่ถูกปิดใช้ทีหลังหลุดจากเวอร์ชันใหม่ และฟอร์มแจ้งก่อนบันทึกว่า 'สิ่งอำนวยความสะดวกที่ปิดใช้แล้ว N รายการจะไม่อยู่ในเวอร์ชันใหม่' · เวอร์ชันเดิมไม่เปลี่ยน",
+      "answered_in": "UI-mrr-013",
+      "closed_by": "Noppasorn",
+      "blocks": []
+    },
+    {
+      "id": "GAP-mrr-018",
+      "to": "design",
+      "about": "UI-mrr-014",
+      "question_th": "UI-mrr-014 ให้ปิดใช้ ('ใช้งาน' · 'ปิดแล้วไม่แสดงเป็นตัวเลือกใหม่ ข้อมูลเดิมคงไว้') แต่ API ที่อ่านรายการได้มีแค่ API-002 GET /facilities?active=true · facility ที่ปิดใช้แล้วจึงหายจากหน้านี้เมื่อโหลดใหม่ และเปิดใช้งานกลับไม่ได้ · ขอให้ design ประกาศ API ที่ให้ Room Administrator อ่าน facility ทั้งหมดรวมที่ปิดใช้ (เช่น GET /facilities ไม่ระบุ active) หรือยืนยันว่าปิดใช้แล้วเปิดกลับไม่ได้",
+      "found_at": "2026-10-21",
+      "found_by": "/dev:plan",
+      "status": "answered",
+      "answer_th": "design ตอบด้วย ADR-007 (ปิดแล้ว): API-036 GET /facilities?active=all ให้ Room Administrator เห็นรายการทั้งหมดรวมที่ปิดใช้ (ACL-041) · UI-mrr-014 ประกาศว่ารายการที่ปิดแล้วยังแสดงในหน้านี้และเปิดใช้งานกลับได้",
+      "answered_in": "API-036",
+      "closed_by": "Noppasorn",
+      "blocks": []
+    },
+    {
+      "id": "GAP-mrr-019",
+      "to": "design",
+      "about": "UI-mrr-013",
+      "question_th": "UI-mrr-013 ช่อง 'ผู้อนุมัติประจำห้อง' ประกาศว่า 'เลือกจากผู้ใช้บทบาท Room Administrator' แต่ API ค้นผู้ใช้ที่มีคือ API-005 GET /users?query= ซึ่งคืนผู้ใช้ active ทุกบทบาท และบังคับให้ query ไม่ว่าง · ตอนนี้ (FE-mrr-013) เป็นช่องค้นหา และ API-023 ปฏิเสธที่ช่องว่า 'ผู้อนุมัติประจำห้องต้องเป็นผู้ดูแลห้อง' · ขอให้ design ประกาศตัวกรองบทบาท (เช่น GET /users?role=ROOM_ADMINISTRATOR) หรือยืนยันว่าค้นแล้วปฏิเสธที่ช่องพอ",
+      "found_at": "2026-10-21",
+      "found_by": "/dev:plan",
+      "status": "answered",
+      "answer_th": "ยืนยันพฤติกรรมปัจจุบัน: ช่องผู้อนุมัติประจำห้องค้นผ่าน API-005 ได้ทุกบทบาท และ API-023 ปฏิเสธที่ช่องว่า 'ผู้อนุมัติประจำห้องต้องเป็นผู้ดูแลห้อง' ถ้าเลือกคนที่ไม่ใช่ Room Administrator · ไม่เพิ่มตัวกรองบทบาท เพราะกฎบังคับที่ API อยู่แล้ว",
+      "answered_in": "UI-mrr-013",
+      "closed_by": "Noppasorn",
+      "blocks": []
+    },
+    {
+      "id": "GAP-mrr-020",
+      "to": "design",
+      "about": "UI-mrr-014",
+      "question_th": "UI-mrr-014 สถานะ unauthorized 'ไม่ใช่ Room Administrator — คุณไม่มีสิทธิ์เข้าหน้านี้' แต่ API-002 ที่หน้านี้โหลด เปิดให้ผู้ใช้ทุกบทบาท หน้าจึงรู้บทบาทไม่ได้ตอนเปิด (เรื่องเดียวกับ GAP-mrr-015) · ตอนนี้ (FE-mrr-013) คนที่ไม่ใช่ Room Administrator เห็นรายการ และถูกปฏิเสธที่แถวด้วยข้อความของ API-026/027 ตอนกดบันทึก · ขอให้ design ระบุว่าหน้าจอรู้บทบาทของผู้ใช้จากที่ไหน หรือให้หน้านี้อ่านจาก API ที่เฉพาะ Room Administrator เรียกได้",
+      "found_at": "2026-10-21",
+      "found_by": "/dev:plan",
+      "status": "answered",
+      "answer_th": "design ตอบด้วย ADR-002 (ปิดแล้ว): API-035 GET /auth/me ส่งชื่อและบทบาทของเจ้าของ session · ACL-037 ทุกบทบาทอ่านได้เฉพาะของตน (scope own · api/domain) · UI-mrr-010 และ UI-mrr-014 calls API-035 · interfaces.json กับ rbac.json เซ็นใหม่โดย Noppasorn 2026-10-21",
+      "answered_in": ".aeon/design/interfaces.json",
+      "closed_by": "Noppasorn",
+      "blocks": []
+    },
+    {
+      "id": "GAP-mrr-021",
+      "to": "req",
+      "about": "API-035",
+      "question_th": "API-035 GET /auth/me (ADR-002) กับการซ่อนคำสั่งตามบทบาทบน UI-mrr-010 · UI-mrr-014 ไม่มีตัวอย่าง (EX-) สักข้อใน requirements.json — design เขียนเกณฑ์รับได้เฉพาะที่คัดลอกจากตัวอย่างของ req ข้อละหนึ่งเกณฑ์ (S16) จึงเขียนให้ไม่ได้ และ dev สร้างหน่วยที่ไม่มีเกณฑ์รับไม่ได้ · ขอให้ req เพิ่มตัวอย่าง (given/when/then) อย่างน้อย: (1) System Administrator เปิดหน้าจัดการการจอง เห็นเฉพาะร่องรอย ไม่เห็นช่องเหตุผลและปุ่มคำสั่ง — ใต้ BR-mrr-018 หรือกฎของคำสั่งนั้น (BR-mrr-009 · BR-mrr-011) (2) ผู้ที่ไม่ใช่ Room Administrator เปิดหน้าสิ่งอำนวยความสะดวก เห็น คุณไม่มีสิทธิ์เข้าหน้านี้ — ใต้ BR-mrr-005 (3) ผู้ใช้ที่เข้าสู่ระบบเห็นชื่อและบทบาทของตนเอง · ไม่มี session ต้องเข้าสู่ระบบก่อน — หรือบอกว่ากฎข้อไหนถือเรื่องนี้ · แล้ว export change set ให้ design รับด้วย /design:change",
+      "found_at": "2026-10-21",
+      "found_by": "/dev:plan",
+      "status": "answered",
+      "answer_th": "req เพิ่ม EX-mrr-088 (BR-mrr-009@v1) · EX-mrr-089 (BR-mrr-011@v1) · EX-mrr-090 (BR-mrr-005@v1) ยืนยันโดย Noppasorn (commit 64c0e25) · design รับด้วย ADR-003 เป็น AC-mrr-086/087/088 และ SCN-mrr-091..096 (เซ็นโดย Noppasorn Yoo 2026-10-21) · การอ่านบทบาทของตนเองไม่มีกฎธุรกิจถือ — API-035 ผูกกับสามเกณฑ์รับนี้แทน",
+      "answered_in": ".aeon/req/requirements.json",
+      "closed_by": "Noppasorn",
+      "blocks": [
+        "FE-mrr-008",
+        "FE-mrr-009",
+        "FE-mrr-010",
+        "FE-mrr-012",
+        "FE-mrr-013"
+      ]
+    },
+    {
+      "id": "GAP-mrr-022",
+      "to": "design",
+      "about": "UI-mrr-010",
+      "question_th": "UI-mrr-010 เปิดหรือซ่อนคำสั่งตามเวลา: เปลี่ยนผลการอนุมัติได้ก่อนเวลาเริ่ม (ACL-009) · แก้หรือยกเลิกแทนผู้จองตั้งแต่เวลาเริ่มจนถึงก่อนเวลาจบ (ACL-010) · หลังเวลาจบเป็นคำขอแก้ไข (ACL-011) — ตอนนี้หน้าตัดสินครั้งเดียวตอนเปิด หน้าที่เปิดค้างไว้ข้าม 10:00 หรือ 11:00 จะยังแสดงคำสั่งชุดเดิมจนกว่าจะโหลดใหม่ (API ปฏิเสธและหน้าแสดงข้อความของ API ไม่มีข้อมูลเสีย) · ขอให้ design ตัดสิน: หน้าต้องเปลี่ยนคำสั่งเองเมื่อถึงเวลาเริ่มหรือเวลาจบไหม หรือยอมรับพฤติกรรมปัจจุบัน (ยกขึ้นจาก /dev:review ของ FE-mrr-009)",
+      "found_at": "2026-10-21",
+      "found_by": "/dev:plan",
+      "status": "answered",
+      "answer_th": "ยืนยันพฤติกรรมปัจจุบัน: หน้าตัดสินชุดคำสั่งตอนเปิด · ถ้าเปิดค้างไว้ข้ามเวลาเริ่มหรือเวลาจบแล้วกดคำสั่งชุดเดิม API ปฏิเสธและหน้าแสดงข้อความของ API ข้อมูลไม่เปลี่ยน · หน้าไม่ต้องเปลี่ยนคำสั่งเองเมื่อถึงเวลา",
+      "answered_in": "UI-mrr-010",
+      "closed_by": "Noppasorn",
+      "blocks": []
+    },
+    {
+      "id": "GAP-mrr-023",
+      "to": "design",
+      "about": "UI-mrr-010",
+      "question_th": "สถานะ error ของ UI-mrr-010 ประกาศเหตุไว้สามอย่าง (ไม่ระบุเหตุผล · ถึงเวลาเริ่มแล้ว · ส่ง Email ไม่สำเร็จ) แต่ไม่มีกรณีที่อ่านบทบาทของผู้ใช้จาก API-035 ไม่สำเร็จ · ตอนนี้ (bb452ab) หน้าแสดง โหลดการจองไม่สำเร็จ พร้อมปุ่ม โหลดใหม่ ทั้งที่การจองโหลดสำเร็จแล้ว · ขอให้ design ระบุถ้อยคำของกรณีนี้ หรือยืนยันว่าใช้ข้อความเดิมได้ (ยกขึ้นจาก /dev:review ของ FE-mrr-009)",
+      "found_at": "2026-10-21",
+      "found_by": "/dev:plan",
+      "status": "answered",
+      "answer_th": "ยืนยันใช้ข้อความเดิม: เมื่ออ่านบทบาทจาก API-035 ไม่สำเร็จ หน้าแสดง 'โหลดการจองไม่สำเร็จ' พร้อมปุ่ม 'โหลดใหม่' และไม่แสดงคำสั่งใด ๆ (ค่าเริ่มต้นคือไม่ให้สิทธิ์) · ไม่เพิ่มถ้อยคำใหม่ใน screens.json",
+      "answered_in": "UI-mrr-010",
+      "closed_by": "Noppasorn",
+      "blocks": []
+    },
+    {
+      "id": "GAP-mrr-024",
+      "to": "design",
+      "about": "UC-mrr-020",
+      "question_th": "datamodel.json ไม่มีเอนทิตีของรหัสเข้าสู่ระบบ magic link หรือ session (มีแค่ ENT-001..013) แต่ BR-mrr-025/027/028@v1 ต้องเก็บสถานะ ออกแล้ว · ใช้แล้ว · หมดอายุ ของรหัส นับการใช้รหัสกับ magic link ของ Email ฉบับเดียวกันร่วมกัน และกันรหัสที่ใช้ได้เกินหนึ่งตัวต่อผู้ใช้ (ruleEnforcement ระบุ db) · ถ้า dev สร้างเองจะเป็นการเดาฟิลด์ ช่วงชีวิต natural key (DQ-mrr-015) ขอบเขต transaction ตอนส่ง Email ล้ม (DQ-mrr-014) และอายุ/การหมดอายุของ session ที่ไม่มีใครเซ็น · ขอให้ design เพิ่มเอนทิตี (และ state machine ถ้ามี) ของรหัสเข้าสู่ระบบ/magic link กับ session หรือบอกว่าเก็บที่ไหน",
+      "found_at": "2026-10-22",
+      "found_by": "/dev:plan",
+      "status": "answered",
+      "answer_th": "design ตอบด้วย ADR-004: ENT-014 LoginCode (รหัส/magic link หนึ่งแถวต่อ Email หนึ่งฉบับ เก็บค่าแฮช เวลาออก/หมดอายุ/ใช้) + STM-mrr-004 ISSUED → USED | EXPIRED · การขอซ้ำนับต่อบัญชีผู้ใช้ (DQ-mrr-015) · ACL-038 ให้ใช้รหัสของตนเองขณะ ISSUED · session เป็นเรื่องเทคนิคของ dev และอายุ session ยังไม่มีใครตัดสิน · เซ็นโดย Noppasorn 2026-10-22 (e4a6bc5)",
+      "answered_in": ".aeon/design/datamodel.json",
+      "closed_by": "Noppasorn",
+      "blocks": [
+        "FE-mrr-039"
+      ]
+    },
+    {
+      "id": "GAP-mrr-025",
+      "to": "design",
+      "about": "UI-mrr-002",
+      "question_th": "screens.json ยังไม่ตรงกับ AC-mrr-089..103: UI-mrr-002 สถานะ error เขียนรวมว่า รหัสผิด หมดอายุ หรือใช้ไปแล้ว — แจ้งเหตุและให้ขอรหัสใหม่ แต่เกณฑ์รับกำหนดข้อความแยก 3 แบบ และกรอกผิดต้องกรอกรหัสเดิมใหม่ได้ ไม่ใช่ขอรหัสใหม่ (BR-mrr-028@v1) · UI-mrr-001 ไม่มีสถานะ/ข้อความของการขอรหัสซ้ำระหว่างรหัสเดิมยังใช้ได้ (AC-mrr-093) และข้อความยืนยันหลังขอสำเร็จ (AC-mrr-089) · dev จะทำตามข้อความใน AC ไปก่อน ขอให้ design แก้ screens.json ให้ตรง แล้ว mock วาด UI-mrr-002 ใหม่",
+      "found_at": "2026-10-22",
+      "found_by": "/dev:plan",
+      "status": "answered",
+      "answer_th": "design แก้ screens.json ด้วย ADR-004: UI-mrr-001/002 ใช้ข้อความตรงตัวตาม AC-mrr-089..103 แยกสามเหตุบน UI-mrr-002 เพิ่มกรณีขอรหัสซ้ำบน UI-mrr-001 และปุ่มขอรหัสใหม่ทำได้เมื่อรหัสเดิมหมดอายุหรือถูกใช้แล้วเท่านั้น · mock วาด wireframe UI-mrr-001/002 และหน้า L2 error ของ UI-mrr-001 ใหม่ testid เดิม",
+      "answered_in": ".aeon/design/modules/mrr/screens.json",
+      "closed_by": "Noppasorn",
+      "blocks": []
+    },
+    {
+      "id": "GAP-mrr-026",
+      "to": "design",
+      "about": "AC-mrr-114",
+      "question_th": "เกณฑ์รับ AC-mrr-114 ถึง AC-mrr-131 (18 ข้อ · คัดจาก EX-mrr-111…128 · เพิ่มตอน CHG-mrr-004 และ ADR-012…015) ไม่มีเส้นไปหา use case หรือฟังก์ชันใดใน trace.design.json — มีแค่ copiedFrom EX และ governedBy BR — dev จึงผูกเข้าหน่วยงานใดไม่ได้โดยไม่เดา (DV6 รายงาน 18 ข้อ) · ขอให้ design ผูกแต่ละข้อกับ UC/FUN ที่เป็นเจ้าของ · ที่ dev คาดจากเนื้อหา (ยังไม่ใช่คำตอบ): 114–115 เตือนก่อนประชุม (UC-mrr-018) · 116, 122 จองห้อง (UC-mrr-003) · 117–121, 127 ยกเลิก/อนุมัติ/ปฏิเสธ (UC-mrr-005, 007, 009) · 123–126 เปลี่ยนผลอนุมัติ/แก้แทน (UC-mrr-008, 009) · 128–131 อันดับในรายงาน (UC-mrr-016)",
+      "found_at": "2026-11-24",
+      "found_by": "/dev:plan",
+      "status": "answered",
+      "answer_th": "ไม่ต้องเพิ่มเส้นและไม่ต้องปลดลายเซ็น — เจ้าของของ AC-mrr-114..131 ประกาศไว้แล้วใน functions.json (ลงนาม 2026-11-19) ช่อง acceptance[].useCases: 114–115 UC-mrr-018 · 116–117 UC-mrr-003 + UC-mrr-017 · 118 UC-mrr-007 + UC-mrr-017 · 119 UC-mrr-005 + UC-mrr-017 · 120 UC-mrr-009 + UC-mrr-017 · 121 UC-mrr-007 + UC-mrr-012 + UC-mrr-017 · 122 UC-mrr-003 · 123, 126 UC-mrr-007 + UC-mrr-012 · 124 UC-mrr-008 + UC-mrr-012 · 125 UC-mrr-009 + UC-mrr-012 · 127 UC-mrr-008 + UC-mrr-017 · 128–131 UC-mrr-016 · คำศัพท์ของ trace.design.json ไม่มีความสัมพันธ์ AC→UC (AC-mrr-001..110 ก็ไม่มี) และ features.mjs --propose อ่านช่อง useCases นี้เองอยู่แล้ว · DV6 ปิดเมื่อหน่วยงานของ use case เหล่านั้นใส่ AC ใน acceptance_refs",
+      "answered_in": "AC-mrr-114",
+      "closed_by": "Noppasorn",
+      "blocks": [
+        "FE-mrr-017",
+        "FE-mrr-018",
+        "FE-mrr-024",
+        "FE-mrr-026",
+        "FE-mrr-028",
+        "FE-mrr-029",
+        "FE-mrr-030",
+        "FE-mrr-036"
+      ]
     }
   ]
 }
