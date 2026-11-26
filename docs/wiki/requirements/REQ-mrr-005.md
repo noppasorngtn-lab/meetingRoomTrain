@@ -9,7 +9,7 @@ actor: General User · งานแจ้งเตือนตามเวลา
 rules: [BR-mrr-007, BR-mrr-008, BR-mrr-019, BR-mrr-020, BR-mrr-023]
 domain_concepts: [UL-mrr-002, UL-mrr-006, UL-mrr-009]
 timestamp: 2026-11-18T12:30:00+07:00
-spec_hash: sha256:25e957f67d99616e80c2917d48f1180851ad42a235c4fb929e963be2ba7eea0c
+spec_hash: sha256:f11891495fccae7336277ac48ad1a3526ebc47c386f5bdac27a28e1ebda5e88c
 ---
 
 # REQ-mrr-005
@@ -60,8 +60,9 @@ spec_hash: sha256:25e957f67d99616e80c2917d48f1180851ad42a235c4fb929e963be2ba7eea
 - **ที่มา:** [SRC-043](../sources/SRC-043.md) `docs/qa/req-design-request-adr017-2026-11-25.md` บรรทัด 36 — *"ผู้จองที่ถูกปิดบัง **ตัดออกจากเมล** เหมือนผู้เข้าร่วม"*
 - **ที่มา:** [SRC-043](../sources/SRC-043.md) `docs/qa/req-design-request-adr017-2026-11-25.md` บรรทัด 36 — *"ผู้รับว่างหลังตัด (ผู้ใช้ตอบในเซสชัน 2026-11-25): ข้ามเมลนั้น การกระทำสำเร็จต่อ"*
 - **ที่มา:** [SRC-043](../sources/SRC-043.md) `docs/qa/req-design-request-adr017-2026-11-25.md` บรรทัด 36 — *"(การเตือนยังถูกบันทึกว่า SENT)"*
+- **ที่มา:** [SRC-045](../sources/SRC-045.md) บรรทัด 3 — *"การอนุมัติคำขอแก้ไขหลังจบประชุมไม่ส่ง Email แม้คำขอจะเปลี่ยนเวลา"*
 - **บังคับที่:** *(ยังไม่มีใครผูกกับโค้ด — เฟส 2 เป็นคนตอบ)*
-- **พิสูจน์โดย:** [EX-mrr-019](../examples/EX-mrr-019.md), [EX-mrr-020](../examples/EX-mrr-020.md), [EX-mrr-021](../examples/EX-mrr-021.md), [EX-mrr-022](../examples/EX-mrr-022.md), [EX-mrr-114](../examples/EX-mrr-114.md), [EX-mrr-115](../examples/EX-mrr-115.md), [EX-mrr-116](../examples/EX-mrr-116.md), [EX-mrr-117](../examples/EX-mrr-117.md), [EX-mrr-118](../examples/EX-mrr-118.md), [EX-mrr-124](../examples/EX-mrr-124.md), [EX-mrr-132](../examples/EX-mrr-132.md), [EX-mrr-133](../examples/EX-mrr-133.md), [EX-mrr-134](../examples/EX-mrr-134.md), [EX-mrr-135](../examples/EX-mrr-135.md)
+- **พิสูจน์โดย:** [EX-mrr-019](../examples/EX-mrr-019.md), [EX-mrr-020](../examples/EX-mrr-020.md), [EX-mrr-021](../examples/EX-mrr-021.md), [EX-mrr-022](../examples/EX-mrr-022.md), [EX-mrr-114](../examples/EX-mrr-114.md), [EX-mrr-115](../examples/EX-mrr-115.md), [EX-mrr-116](../examples/EX-mrr-116.md), [EX-mrr-117](../examples/EX-mrr-117.md), [EX-mrr-118](../examples/EX-mrr-118.md), [EX-mrr-124](../examples/EX-mrr-124.md), [EX-mrr-132](../examples/EX-mrr-132.md), [EX-mrr-133](../examples/EX-mrr-133.md), [EX-mrr-134](../examples/EX-mrr-134.md), [EX-mrr-135](../examples/EX-mrr-135.md), [EX-mrr-145](../examples/EX-mrr-145.md)
 - **เทสต์:** *(ยังไม่มี)* 🔴
 
 ### [BR-mrr-008@v1](../rules/BR-mrr-008@v1.md) · แจ้งเตือนใกล้ถึงเวลาประชุมส่งล่วงหน้า 15 นาทีก่อนเวลาเริ่ม (ค่าตายตัว) · การจองที่สร้างเมื่อเหลือน้อยกว่า 15 นาทีก่อนเริ่ม ส่งเตือนทันที · การจองที่ยังรออนุมัติไม่ส่งเตือน
@@ -77,8 +78,9 @@ spec_hash: sha256:25e957f67d99616e80c2917d48f1180851ad42a235c4fb929e963be2ba7eea
 - **ชนิด:** policy · **สถานะ:** validated · **วิธีออกแบบเทสต์:** decision_table
 - **ที่มา:** [SRC-010](../sources/SRC-010.md) บรรทัด 1 — *"QB-int-01: ส่ง Email แจ้งเตือนไม่สำเร็จ (mail server ล่ม) — ล้มทันที แจ้ง user ให้กดใหม่ การกระทำที่ทำให้เกิดแจ้งเตือนไม่สำเร็จตามไปด้วย"*
 - **ที่มา:** [SRC-043](../sources/SRC-043.md) `docs/qa/req-design-request-adr017-2026-11-25.md` บรรทัด 35 — *"SMTP ปฏิเสธยังล้มทั้งก้อน"*
+- **ที่มา:** [SRC-045](../sources/SRC-045.md) บรรทัด 2 — *"ผู้รับบางคนถูก mail server ปฏิเสธ = ส่ง Email ไม่สำเร็จ"*
 - **บังคับที่:** *(ยังไม่มีใครผูกกับโค้ด — เฟส 2 เป็นคนตอบ)*
-- **พิสูจน์โดย:** [EX-mrr-062](../examples/EX-mrr-062.md), [EX-mrr-063](../examples/EX-mrr-063.md), [EX-mrr-064](../examples/EX-mrr-064.md), [EX-mrr-065](../examples/EX-mrr-065.md), [EX-mrr-113](../examples/EX-mrr-113.md)
+- **พิสูจน์โดย:** [EX-mrr-062](../examples/EX-mrr-062.md), [EX-mrr-063](../examples/EX-mrr-063.md), [EX-mrr-064](../examples/EX-mrr-064.md), [EX-mrr-065](../examples/EX-mrr-065.md), [EX-mrr-113](../examples/EX-mrr-113.md), [EX-mrr-141](../examples/EX-mrr-141.md), [EX-mrr-142](../examples/EX-mrr-142.md), [EX-mrr-143](../examples/EX-mrr-143.md), [EX-mrr-144](../examples/EX-mrr-144.md)
 - **เทสต์:** *(ยังไม่มี)* 🔴
 
 ### [BR-mrr-020@v2](../rules/BR-mrr-020@v2.md) · ถ้างานตามเวลาส่ง Email เตือนก่อนเริ่มประชุมไม่สำเร็จ (รวมกรณีผู้รับบางคนส่งไม่สำเร็จ — นับเป็นไม่สำเร็จทั้งการจอง) ไม่ส่งซ้ำ — บันทึกว่าส่งไม่สำเร็จ · ถ้าส่งสำเร็จ บันทึกว่าส่งสำเร็จ
@@ -118,7 +120,7 @@ spec_hash: sha256:25e957f67d99616e80c2917d48f1180851ad42a235c4fb929e963be2ba7eea
 
 > เนื้อหาเต็มอยู่ที่หน้าของมันเอง ไม่ถูกคัดลอกมาที่นี่ — bundle นี้ถือหนึ่งโหนดหนึ่งไฟล์
 
-## ตัวอย่างที่พิสูจน์กฎ (29)
+## ตัวอย่างที่พิสูจน์กฎ (34)
 
 | id | พิสูจน์ | ชนิด | เมื่อ | ต้องได้ |
 |---|---|---|---|---|
@@ -151,6 +153,11 @@ spec_hash: sha256:25e957f67d99616e80c2917d48f1180851ad42a235c4fb929e963be2ba7eea
 | [EX-mrr-133](../examples/EX-mrr-133.md) | [BR-mrr-007@v3](../rules/BR-mrr-007@v3.md) | exception | ถึงเวลา 09:45 วันที่ 17/10 | U2 และ U3 ได้รับ Email หัวเรื่อง '[จองห้องประชุม] ใกล้ถึงเวลาประชุม: ประชุมทีม · ห้อง A 17/10 10:00–11:00' — U1 ไม่ได้รับ Email · ระบบบันทึกการส่งเตือนของการจองนี้เป็น 'ส่งสำเร็จ' |
 | [EX-mrr-134](../examples/EX-mrr-134.md) | [BR-mrr-007@v3](../rules/BR-mrr-007@v3.md) | boundary | Room Administrator ยกเลิกการจองนี้แทน U1 พร้อมเหตุผล 'ห้องต้องใช้จัดงานด่วน' | ระบบยกเลิกการจอง และ Room Administrator เห็นข้อความ 'ยกเลิกการจองสำเร็จ' · ไม่มีใครได้รับ Email หัวเรื่อง '[จองห้องประชุม] ยกเลิกการจอง: ประชุมทีม · ห้อง A 17/10 10:00–11:00' — ไม่เหลือผู้รับ ระบบไม่ส่ง Email และการยกเลิกไม่ล้ม |
 | [EX-mrr-135](../examples/EX-mrr-135.md) | [BR-mrr-007@v3](../rules/BR-mrr-007@v3.md) | boundary | ถึงเวลา 09:45 วันที่ 17/10 | ไม่มีใครได้รับ Email หัวเรื่อง '[จองห้องประชุม] ใกล้ถึงเวลาประชุม: ประชุมทีม · ห้อง A 17/10 10:00–11:00' · ระบบบันทึกการส่งเตือนของการจองนี้เป็น 'ส่งสำเร็จ' (ไม่เหลือผู้รับ ไม่นับเป็นส่งไม่สำเร็จ) และการจองยังใช้ได้ตามเดิม |
+| [EX-mrr-141](../examples/EX-mrr-141.md) | [BR-mrr-019@v1](../rules/BR-mrr-019@v1.md) | exception | U1 ยกเลิกการจองนี้ | การจองยังอยู่ สถานะเดิม และแสดงข้อความ 'ส่ง Email แจ้งเตือนไม่สำเร็จ กรุณากดใหม่อีกครั้ง' |
+| [EX-mrr-142](../examples/EX-mrr-142.md) | [BR-mrr-019@v1](../rules/BR-mrr-019@v1.md) | exception | Room Administrator ยกเลิกการจองนี้แทน U1 พร้อมเหตุผล 'ห้องต้องใช้จัดงานด่วน' | การจองยังอยู่ สถานะเดิม และ Room Administrator เห็นข้อความ 'ส่ง Email แจ้งเตือนไม่สำเร็จ กรุณากดใหม่อีกครั้ง' |
+| [EX-mrr-143](../examples/EX-mrr-143.md) | [BR-mrr-019@v1](../rules/BR-mrr-019@v1.md) | exception | Room Administrator ปฏิเสธการจองนี้พร้อมเหตุผล 'ห้องไม่เหมาะกับการประชุมนี้' | สถานะยังเป็น 'รออนุมัติ' และ Room Administrator เห็นข้อความ 'ส่ง Email แจ้งเตือนไม่สำเร็จ กรุณากดใหม่อีกครั้ง' |
+| [EX-mrr-144](../examples/EX-mrr-144.md) | [BR-mrr-019@v1](../rules/BR-mrr-019@v1.md) | exception | U1 เปลี่ยนเวลาเป็น 14:00–15:00 | การจองยังเป็น 10:00–11:00 ตามเดิม และแสดงข้อความ 'ส่ง Email แจ้งเตือนไม่สำเร็จ กรุณากดใหม่อีกครั้ง' |
+| [EX-mrr-145](../examples/EX-mrr-145.md) | [BR-mrr-007@v3](../rules/BR-mrr-007@v3.md) | exception | RA2 กดอนุมัติคำขอแก้ไขนี้ | เวลาของการจองเปลี่ยนเป็น 10:00–11:30 · RA2 เห็นข้อความ 'อนุมัติคำขอแก้ไขสำเร็จ' · ระบบไม่ส่ง Email ถึงผู้จองหรือผู้เข้าร่วม |
 
 ## 🛑 การ์ดแดง
 

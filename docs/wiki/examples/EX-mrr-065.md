@@ -10,7 +10,7 @@ kind: alternate
 proves: [BR-mrr-019@v1]
 has_ui: true
 timestamp: 2026-11-18T12:30:00+07:00
-spec_hash: sha256:5fed02edf482b9509eb122a3e6cc8fd20d53500d898fc39e881ad38965aa4013
+spec_hash: sha256:19bc924c52d86f73ddb38afa41cd120cae821e770ba716e71849e45739a5e289
 ---
 
 # EX-mrr-065

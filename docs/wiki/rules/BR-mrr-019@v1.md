@@ -10,11 +10,11 @@ belongs_to: REQ-mrr-005
 kind: policy
 is_current: true
 test_design: [decision_table]
-proven_by: [EX-mrr-062, EX-mrr-063, EX-mrr-064, EX-mrr-065, EX-mrr-113]
+proven_by: [EX-mrr-062, EX-mrr-063, EX-mrr-064, EX-mrr-065, EX-mrr-113, EX-mrr-141, EX-mrr-142, EX-mrr-143, EX-mrr-144]
 golden: []
-provenance: [SRC-010, SRC-043]
+provenance: [SRC-010, SRC-043, SRC-045]
 timestamp: 2026-11-18T12:30:00+07:00
-spec_hash: sha256:a63e7cbfdf8105e1c964c0dd491dcc519a839f9ada40b2a514b59ca153b53b6c
+spec_hash: sha256:bf0f103799e50c9917f12f04fa3b2f3250de4a1e6d1b3d79c001bd7c3d6d4a19
 ---
 
 # BR-mrr-019@v1
@@ -30,6 +30,9 @@ spec_hash: sha256:a63e7cbfdf8105e1c964c0dd491dcc519a839f9ada40b2a514b59ca153b53b
 > "SMTP ปฏิเสธยังล้มทั้งก้อน"
 > — [SRC-043](../sources/SRC-043.md) หน้า — §—
 
+> "ผู้รับบางคนถูก mail server ปฏิเสธ = ส่ง Email ไม่สำเร็จ"
+> — [SRC-045](../sources/SRC-045.md) หน้า — §—
+
 ## พิสูจน์โดย
 
 - [EX-mrr-062](../examples/EX-mrr-062.md) — exception: ระบบไม่สร้างการจอง ห้อง A ช่วง 13:00–14:00 ยังว่าง และแสดงข้อความ 'ส่ง Email แจ้งเตือนไม่สำเร็จ กรุณากดใหม่อีกครั้ง'
@@ -37,6 +40,10 @@ spec_hash: sha256:a63e7cbfdf8105e1c964c0dd491dcc519a839f9ada40b2a514b59ca153b53b
 - [EX-mrr-064](../examples/EX-mrr-064.md) — exception: สถานะยังเป็น 'รออนุมัติ' และ Room Administrator เห็นข้อความ 'ส่ง Email แจ้งเตือนไม่สำเร็จ กรุณากดใหม่อีกครั้ง'
 - [EX-mrr-065](../examples/EX-mrr-065.md) — alternate: ระบบบันทึกการแก้ไข และแสดงข้อความ 'บันทึกการแก้ไขสำเร็จ' — การกระทำนี้ไม่ส่ง Email จึงไม่ล้มตาม
 - [EX-mrr-113](../examples/EX-mrr-113.md) — happy: ระบบสร้างการจอง ห้อง A ช่วง 13:00–14:00 เป็นของ U1 และแสดงข้อความ 'จองห้องสำเร็จ' · U1 ได้รับ Email หัวเรื่อง '[จองห้องประชุม] จองสำเร็จ: ประชุมทีม · ห้อง A 17/10 13:00–14:00' — ไม่แสดงข้อความ 'ส่ง Email แจ้งเตือนไม่สำเร็จ กรุณากดใหม่อีกครั้ง'
+- [EX-mrr-141](../examples/EX-mrr-141.md) — exception: การจองยังอยู่ สถานะเดิม และแสดงข้อความ 'ส่ง Email แจ้งเตือนไม่สำเร็จ กรุณากดใหม่อีกครั้ง'
+- [EX-mrr-142](../examples/EX-mrr-142.md) — exception: การจองยังอยู่ สถานะเดิม และ Room Administrator เห็นข้อความ 'ส่ง Email แจ้งเตือนไม่สำเร็จ กรุณากดใหม่อีกครั้ง'
+- [EX-mrr-143](../examples/EX-mrr-143.md) — exception: สถานะยังเป็น 'รออนุมัติ' และ Room Administrator เห็นข้อความ 'ส่ง Email แจ้งเตือนไม่สำเร็จ กรุณากดใหม่อีกครั้ง'
+- [EX-mrr-144](../examples/EX-mrr-144.md) — exception: การจองยังเป็น 10:00–11:00 ตามเดิม และแสดงข้อความ 'ส่ง Email แจ้งเตือนไม่สำเร็จ กรุณากดใหม่อีกครั้ง'
 
 ## ประวัติ
 

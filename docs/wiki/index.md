@@ -20,13 +20,13 @@
 | [requirements/](requirements/index.md) | 5 | ลูกค้าอยากได้อะไร |
 | [rules/](rules/index.md) | 36 | กฎที่ระบบต้องบังคับ (หนึ่งไฟล์ต่อหนึ่งเวอร์ชัน) |
 | [calculations/](calculations/index.md) | 2 | ตัวเลขถูกผลิตยังไง |
-| [examples/](examples/index.md) | 140 | ใครพิสูจน์กฎข้อไหน |
+| [examples/](examples/index.md) | 145 | ใครพิสูจน์กฎข้อไหน |
 | [golden/](golden/index.md) | 1 | เลขเฉลยที่คนยืนยันแล้ว |
 | [changes/](changes/index.md) | 8 | เปลี่ยนอะไร ใครสั่ง เมื่อไหร่ |
 | [glossary/](glossary/index.md) | 13 | คำที่ตกลงกันแล้ว |
 | [questions/](questions/index.md) | 22 | สิ่งที่ยังไม่ตัดสิน |
 | [nfr/](nfr/index.md) | 5 | ข้อกำหนดที่ไม่ใช่ฟังก์ชัน |
-| [sources/](sources/index.md) | 44 | ต้นฉบับที่ทุกอย่างสาวกลับไปได้ |
+| [sources/](sources/index.md) | 45 | ต้นฉบับที่ทุกอย่างสาวกลับไปได้ |
 
 ## ไทม์ไลน์
 

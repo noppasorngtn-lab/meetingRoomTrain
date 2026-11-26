@@ -17,7 +17,7 @@ supersedes: BR-mrr-007@v1
 superseded_by: BR-mrr-007@v3
 provenance: [SRC-001, SRC-001, SRC-010, SRC-002, SRC-020, SRC-020, SRC-020, SRC-029, SRC-029, SRC-029]
 timestamp: 2026-11-18T12:30:00+07:00
-spec_hash: sha256:d132a47b64a29f9521f444704cbaabad80c6e271ec64d9761a16171f0b5a2a75
+spec_hash: sha256:1f037a0b65f86c37e3d5f4978721c669c365bfdbce7677fd390448ade2909249
 ---
 
 # BR-mrr-007@v2

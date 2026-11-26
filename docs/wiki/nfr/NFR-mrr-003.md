@@ -7,8 +7,9 @@ tags: [mrr, nfr, security]
 id: NFR-mrr-003
 kind: security
 belongs_to: REQ-mrr-001
+verified_by: e2e_test
 timestamp: 2026-11-18T12:30:00+07:00
-spec_hash: sha256:de13fe4d0e809ca8d222e98ec566f539d86dde172876be65d6ece78db663e54f
+spec_hash: sha256:8a8d0e251b3dcb6134b34ba8c95f6fd0a972c17dc593c26d08034455fcdfd75b
 ---
 
 # NFR-mrr-003
@@ -19,5 +20,5 @@ spec_hash: sha256:de13fe4d0e809ca8d222e98ec566f539d86dde172876be65d6ece78db663e5
 | เรื่อง | ค่า |
 |---|---|
 | ชนิด | security |
-| พิสูจน์ด้วย | — |
+| พิสูจน์ด้วย | e2e_test |
 | อยู่ใต้ | [REQ-mrr-001](../requirements/REQ-mrr-001.md) |

@@ -9,7 +9,7 @@ actor: General User
 rules: [BR-mrr-001, BR-mrr-002, BR-mrr-003, BR-mrr-009, BR-mrr-014, BR-mrr-021, BR-mrr-024, BR-mrr-025, BR-mrr-026, BR-mrr-027, BR-mrr-028]
 domain_concepts: [UL-mrr-001, UL-mrr-002, UL-mrr-003, UL-mrr-005, UL-mrr-011, UL-mrr-013, UL-mrr-014]
 timestamp: 2026-11-18T12:30:00+07:00
-spec_hash: sha256:94701d642d48671adc260b286ee7c4348ae75128d0c0eae5c885d6de29ea9026
+spec_hash: sha256:81315bc3b2662934be062c9828130184b7fa8c1632f9d6f566bc797045351539
 ---
 
 # REQ-mrr-001

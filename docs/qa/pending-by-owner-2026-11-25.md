@@ -40,6 +40,9 @@
 | D-1 Q-ADR017-1 (วันที่เริ่มไม่ active บันทึกนอกระบบ) | design บันทึกเป็นทางการ 2026-11-26: ADR-020 (design · added · absorbed) · `context.json` scope.outOfScope `inactive-since-date-tracking` · เซ็นใหม่ Noppasorn 2026-11-26 (`approve --ready` 9/9 · `check` PASS) · `design-document.md` export ใหม่ · `/mock:sync` ไม่มีอะไรต้องบันทึก · `/mock:check` PASS 32/32 — ผลต่อ mock ตรวจด้วยมือ: ไม่กระทบ wireframe/mockup · `mrr-theme-brief.md` ขาดบรรทัด out of scope ข้อใหม่ (ไม่มีผลต่อ theme · สร้างใหม่ได้ด้วย `/mock:theme --prompt` ถ้าต้องการ) |
 | D-2 Q-ADR017-2 รูปแบบ email ที่ปิดบัง | ผู้ใช้เลือกให้สร้างคู่มือผู้ดูแลใหม่ (2026-11-26): [docs/admin-manual.md](../admin-manual.md) §1 — จดวันเริ่มไม่ active นอกระบบ · ครบ 1 ปีเขียนทับ `full_name` = "ผู้ใช้ที่ถูกปิดบังชื่อ" และ `email` = `masked-<uuid>@mrr.invalid` · ห้ามลบแถว · ไม่แตะไฟล์ design ที่เซ็นแล้ว |
 | R-3 Q-ADR017-3/4 เป็น red card หรือไม่ | ผู้ใช้ตัดสิน 2026-11-26: **ไม่นับ** — ตอบแล้วและบันทึกเป็น BR-mrr-007@v3 (CHG-mrr-007) · `/req:check` red card 0 · CP1 PASS · CP2 PASS · T5 G0 เปลี่ยนเป็น Pass |
+| R-2 EX ของ DEF-05 | ผู้ใช้เลือกเพิ่ม EX โดยไม่แก้ข้อความกฎ (2026-11-26): EX-mrr-141..144 พิสูจน์ BR-mrr-019@v1 (ผู้รับบางคนถูก mail server ปฏิเสธ → ยกเลิก · RA ยกเลิกแทน · ปฏิเสธ · เปลี่ยนเวลา ล้มทั้งการกระทำ) · ที่มา SRC-045 · CP1/CP2 PASS |
+| R-5 BR-mrr-007 กับคำขอแก้ไข | ผู้ใช้เลือก (ข) (2026-11-26): EX-mrr-145 พิสูจน์ BR-mrr-007@v3 — อนุมัติคำขอแก้ไขหลังจบประชุมที่เปลี่ยนเวลา ไม่ส่ง Email · ไม่ขึ้นรุ่นกฎ · ที่มา SRC-045 |
+| R-4 `verified_by` | NFR-mrr-001 · 003 · 005 = `e2e_test` (ผู้ใช้เลือก 2026-11-26 · SRC-045) · ส่วนลายเซ็น CP1 ยังค้าง (ดูส่วน req) |
 | D-5 อนุมัติคำขอแก้ไขไม่ส่ง Email | ผู้ใช้ตัดสิน 2026-11-26: **ไม่ส่ง ตั้งใจแบบนี้** (แก้บันทึกหลังประชุมจบ) · ไม่มีงาน dev · ตัวอักษรของ BR-mrr-007@v3 (3) ยังไม่ตรง → ส่ง req เป็น R-5 ([req-request-adjustment-no-email](req-request-adjustment-no-email-2026-11-26.md)) |
 
 ## PO
@@ -54,11 +57,18 @@
 
 | # | เรื่อง | ที่มา |
 |---|---|---|
-| R-2 | เพิ่ม EX / ปรับ BR-mrr-019 ตามคำตัดสิน DEF-05 (ตรวจแล้ว EX-129–131 เป็นของ CHG-mrr-006 ไม่ใช่ DEF-05) | T5 F6(เดิม) · F10 |
-| R-4 | NFR-004 `verified_by`: ตัดสินว่าทางที่ใช้ `/req:capture` เป็นทางที่ req ตั้งใจหรือไม่ · NFR-001/003/005 ยังว่าง · ต้องเซ็น Phase 1 ใหม่หรือไม่ (CP1 เซ็นเมื่อ 2026-11-18 ก่อน CHG-mrr-007/008) | req-request-nfr004-verified-by-and-resign-2026-11-23.md |
-| R-5 | BR-mrr-007@v3 (3) "เปลี่ยนเวลา → ส่ง Email" ตามตัวอักษรครอบการอนุมัติคำขอแก้ไขหลังจบประชุมด้วย แต่ผู้ใช้ตัดสินแล้วว่าไม่ส่ง (D-5) — req เลือกว่าจะแก้กฎพร้อมเพิ่ม EX หรือบันทึกคำอธิบาย | [req-request-adjustment-no-email-2026-11-26.md](req-request-adjustment-no-email-2026-11-26.md) |
+| R-4 (ส่วนที่เหลือ) | **รอเจ้าของเซ็น CP1 ใหม่** ด้วย `/req:approve --by <ชื่อ>` (ผู้ใช้เลือกเซ็นใหม่ 2026-11-26 · ลายเซ็นเดิม 2026-11-18 ถูกปลดด้วย `--because CHG-mrr-008` — ลายเซ็นเดิมมาก่อน CHG-mrr-004/007/008 และการแก้ NFR) · คำถามว่า `/req:capture` เป็นทางที่ req ตั้งใจให้ใช้แก้ `verified_by` หรือไม่ ยังไม่มีคำตอบจาก plugin (ไม่มีคำสั่งเฉพาะ) | req-request-nfr004-verified-by-and-resign-2026-11-23.md |
 
-(R-1 ปิดแล้ว 2026-11-25 — CHG-mrr-007)
+(R-1 ปิดแล้ว 2026-11-25 — CHG-mrr-007 · R-3 ปิด 2026-11-26 · R-2 · R-5 และส่วน `verified_by` ของ R-4 ทำแล้ว 2026-11-26 — ดูตาราง "ปิดแล้ว")
+
+### งานที่ตามมาจาก EX-mrr-141..145 (ยังไม่ได้ทำ · รอผู้ใช้สั่ง)
+
+| ฝ่าย | งาน |
+|---|---|
+| design | ADR-021 (design · added · moved = EX-mrr-141..145) → ปลดลายเซ็น `modules/mrr/functions.json` → `/design:function` เพิ่ม AC ให้ EX ทั้งห้า → เซ็นใหม่ · ตอนนี้ `check` = 0 error · 5 warning (S16) · `approve --ready` ยัง 9/9 |
+| mock | `/mock:sync` **ก่อน** design absorb ADR-021 |
+| dev | `/dev:plan` re-cut ให้ AC ใหม่มีหน่วยอ้าง · ไม่มีงานโค้ด (โค้ดทำตาม EX ทั้งห้าอยู่แล้ว) |
+| QA | ผูกเคส `t1-partial-reject.spec.ts` 4 เคสกับ EX-141..144 · **เพิ่มเคสใหม่ให้ EX-145** (TC-APR-UI011-103 เปลี่ยนแค่หัวข้อ ไม่ได้เปลี่ยนเวลา) · เพิ่มแถวใน `t1-test-cases.csv` · รัน T2 ใหม่ (EX ที่ E2E คลุมจะเป็น 140/145 จนกว่าจะทำ) |
 
 ## QA
 
