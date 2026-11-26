@@ -4138,6 +4138,16 @@
       "from": "AC-mrr-142",
       "rel": "governedBy",
       "to": "BR-mrr-002@v2"
+    },
+    {
+      "from": "AC-mrr-143",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-140"
+    },
+    {
+      "from": "AC-mrr-143",
+      "rel": "governedBy",
+      "to": "BR-mrr-002@v2"
     }
   ]
 }

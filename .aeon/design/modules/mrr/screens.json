@@ -4,7 +4,7 @@
   "project": "mrr",
   "module": "mrr",
   "status": "approved",
-  "approvedAt": "2026-11-26T04:15:38Z",
+  "approvedAt": "2026-11-26T06:33:34Z",
   "approvedBy": "Noppasorn",
   "screens": [
     {
@@ -606,7 +606,7 @@
             "BR-mrr-001@v1",
             "BR-mrr-002@v2",
             "BR-mrr-004@v1",
-            "BR-mrr-007@v1",
+            "BR-mrr-007@v3",
             "BR-mrr-008@v1",
             "BR-mrr-019@v1"
           ]
@@ -733,7 +733,7 @@
           "rules": [
             "BR-mrr-003@v1",
             "BR-mrr-009@v1",
-            "BR-mrr-007@v1",
+            "BR-mrr-007@v3",
             "BR-mrr-019@v1"
           ]
         }
@@ -854,7 +854,7 @@
           "rules": [
             "BR-mrr-003@v1",
             "BR-mrr-009@v1",
-            "BR-mrr-007@v1",
+            "BR-mrr-007@v3",
             "BR-mrr-019@v1",
             "BR-mrr-002@v2"
           ]
@@ -1185,7 +1185,7 @@
           "rules": [
             "BR-mrr-009@v1",
             "BR-mrr-017@v3",
-            "BR-mrr-007@v1",
+            "BR-mrr-007@v3",
             "BR-mrr-019@v1"
           ]
         },
@@ -1310,7 +1310,8 @@
           "destinationRef": "self",
           "rules": [
             "BR-mrr-014@v1",
-            "BR-mrr-017@v3"
+            "BR-mrr-017@v3",
+            "BR-mrr-002@v2"
           ]
         },
         {
@@ -1329,7 +1330,7 @@
       "states": {
         "empty": "ไม่มีคำขอรออนุมัติ — แสดง 'ไม่มีคำขอแก้ไข'",
         "loading": "แสดงตัวบอกกำลังโหลดแทนรายการ",
-        "error": "อนุมัติไม่สำเร็จ — แจ้งเหตุ สถานะคำขอไม่เปลี่ยน",
+        "error": "อนุมัติไม่สำเร็จ — แจ้งเหตุ สถานะคำขอไม่เปลี่ยน · คำขอเพิ่มผู้ใช้ที่บัญชีไม่ active แล้ว — แสดง 'ไม่พบผู้เข้าร่วมบางคนในรายชื่อผู้ใช้' การจองไม่เปลี่ยน คำขอยังรออนุมัติ",
         "unauthorized": "ไม่ใช่ Room Administrator — 'คุณไม่มีสิทธิ์เข้าหน้านี้' · คำขอที่ตนสร้าง — ปุ่มอนุมัติถูกปิดและ API ปฏิเสธ",
         "overflow": "มากกว่า 20 รายการ — แบ่งหน้า · ค่าที่ขอเปลี่ยนจำนวนมากพับและกดขยายได้"
       },
@@ -1782,7 +1783,7 @@
           "entity": "ENT-013",
           "attribute": "bookedMinutes",
           "rules": [
-            "CALC-mrr-001@v1"
+            "CALC-mrr-001@v2"
           ]
         },
         {
@@ -1794,7 +1795,7 @@
           "entity": "ENT-013",
           "attribute": "operatingMinutes",
           "rules": [
-            "CALC-mrr-001@v1"
+            "CALC-mrr-001@v2"
           ]
         },
         {
@@ -1806,7 +1807,7 @@
           "entity": "ENT-013",
           "attribute": "utilizationPct",
           "rules": [
-            "CALC-mrr-001@v1",
+            "CALC-mrr-001@v2",
             "BR-mrr-006@v2"
           ]
         },
@@ -1834,7 +1835,7 @@
           "rules": [
             "BR-mrr-006@v2",
             "BR-mrr-015@v1",
-            "CALC-mrr-001@v1"
+            "CALC-mrr-001@v2"
           ]
         },
         {

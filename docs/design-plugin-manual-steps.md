@@ -37,3 +37,8 @@
 **ข้อควรระวังอีกข้อ:** `html.mjs --validate --screen <หน้า>` (แบบแคบ) รายงาน `MV4 … is missing` ของหน้าอื่นที่ไฟล์มีอยู่จริงบนดิสก์ รวม 23 รายการ ทั้งที่ `html.mjs --validate` แบบเต็มให้ `PASS` — ใช้แบบเต็มตัดสิน อย่าเชื่อแบบแคบ (ยังไม่ทราบสาเหตุ ไม่ได้ตรวจต้นทาง)
 
 เสนอเป็น patch ให้เจ้าของ plugin: (ก) `/mock:wireframe` ไม่ควรลบ `deliveredPages` เงียบ ๆ ควรทำเครื่องหมายว่าหน้า L2 ตกรุ่น (ข) `/mock:sync` ควรเห็นหน้า design ที่เนื้อหา `screens.json` เปลี่ยนหลัง wireframe ถูกวาด
+
+## 4. `datamodel.json` 1.0 → 1.1 ไม่มีคำสั่ง migrate และตัวเขียนไม่เลื่อนป้ายรุ่น — เปลี่ยนป้ายเอง (2026-11-26)
+
+พบระหว่าง ADR-019 (D-7) · เป็นของ plugin `design` · **อาการ:** ประกาศ `entities[].key` ผ่าน `datamodel.mjs --write` ได้และตัวตรวจอ่าน key ทุกรุ่น แต่ `mergeDatamodel` ไม่แตะ `schemaVersion` และ `datamodel.mjs` ไม่มี `--migrate` (ต่างจาก functions/rbac/sitemap) ป้ายจึงค้างที่ `"1.0"` และ `check.mjs` พิมพ์ LIMIT ต่อไป
+**วิธี manual (ทำหลังประกาศ key แล้วเท่านั้น):** เปลี่ยน `"schemaVersion": "1.0"` เป็น `"1.1"` ในไฟล์ด้วยการแทนข้อความเดียว · รัน `datamodel.mjs --write` ร่างเดิมซ้ำต้องได้ `already current` · `check.mjs` ต้อง PASS และไม่มี LIMIT ของ datamodel schema

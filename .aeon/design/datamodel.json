@@ -1,9 +1,9 @@
 {
-  "schemaVersion": "1.0",
+  "schemaVersion": "1.1",
   "producedBy": "design · scripts/datamodel.mjs",
   "project": "mrr",
   "status": "approved",
-  "approvedAt": "2026-11-26T04:15:38Z",
+  "approvedAt": "2026-11-26T06:33:34Z",
   "approvedBy": "Noppasorn",
   "entities": [
     {
@@ -49,6 +49,9 @@
           "required": true,
           "validation": "false เมื่อพนักงานไม่อยู่ในรายชื่อนำเข้ารอบล่าสุด — เข้าสู่ระบบไม่ได้ แต่ประวัติการจองยังอ้างถึงได้"
         }
+      ],
+      "key": [
+        "email"
       ]
     },
     {
@@ -95,6 +98,9 @@
           "required": true,
           "validation": "เวลาที่สร้างห้อง ตั้งโดยระบบ"
         }
+      ],
+      "key": [
+        "code"
       ]
     },
     {
@@ -178,6 +184,10 @@
           "required": true,
           "validation": "เวลาที่บันทึกเวอร์ชัน ตั้งโดยระบบ"
         }
+      ],
+      "key": [
+        "room",
+        "versionNo"
       ]
     },
     {
@@ -202,6 +212,9 @@
           "required": true,
           "validation": "false = ไม่แสดงเป็นตัวกรองหรือตัวเลือกใหม่ แต่ข้อมูลเดิมที่อ้างถึงยังอยู่"
         }
+      ],
+      "key": [
+        "name"
       ]
     },
     {
@@ -228,6 +241,10 @@
           "validation": "สิ่งอำนวยความสะดวกที่ห้องมี · คู่ (roomVersion, facility) ไม่ซ้ำ",
           "references": "ENT-004"
         }
+      ],
+      "key": [
+        "roomVersion",
+        "facility"
       ]
     },
     {
@@ -372,7 +389,7 @@
           ],
           "rules": [
             "BR-mrr-008@v1",
-            "BR-mrr-020@v1",
+            "BR-mrr-020@v2",
             "BR-mrr-023@v1"
           ]
         },
@@ -432,6 +449,10 @@
             "BR-mrr-002@v2"
           ]
         }
+      ],
+      "key": [
+        "booking",
+        "user"
       ]
     },
     {
@@ -462,6 +483,10 @@
           "references": "ENT-004",
           "rules": []
         }
+      ],
+      "key": [
+        "booking",
+        "facility"
       ]
     },
     {
@@ -662,6 +687,11 @@
           "required": true,
           "validation": "เวลาที่ออกรายงาน ตั้งโดยระบบ"
         }
+      ],
+      "key": [
+        "periodType",
+        "periodStart",
+        "issueNo"
       ]
     },
     {
@@ -730,6 +760,10 @@
             "BR-mrr-006@v2"
           ]
         }
+      ],
+      "key": [
+        "report",
+        "room"
       ]
     },
     {
@@ -825,7 +859,10 @@
           ]
         }
       ],
-      "notes": "session หลังเข้าสู่ระบบไม่ใช่ข้อมูลธุรกิจและไม่อยู่ใน glossary — กลไกและที่เก็บเป็นของ dev (Noppasorn ตัดสิน 2026-10-22 ADR-004) · อายุ session ยังไม่มีใครตัดสิน"
+      "notes": "session หลังเข้าสู่ระบบไม่ใช่ข้อมูลธุรกิจและไม่อยู่ใน glossary — กลไกและที่เก็บเป็นของ dev (Noppasorn ตัดสิน 2026-10-22 ADR-004) · อายุ session ยังไม่มีใครตัดสิน",
+      "key": [
+        "magicLinkTokenHash"
+      ]
     }
   ]
 }

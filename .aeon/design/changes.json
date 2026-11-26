@@ -351,6 +351,22 @@
       "recordedAt": "2026-11-26T11:04:29+07:00",
       "absorbed": true,
       "absorbedAt": "2026-11-26T04:13:59Z"
+    },
+    {
+      "id": "ADR-019",
+      "origin": "design",
+      "kind": "revised",
+      "moved": [
+        "BR-mrr-002@v2",
+        "BR-mrr-007@v3",
+        "BR-mrr-017@v3",
+        "BR-mrr-020@v2",
+        "CALC-mrr-001@v2"
+      ],
+      "reason": "เจ้าของ (Noppasorn) ตัดสิน 2026-11-26 สามเรื่องจากรายการงานค้าง (pending-by-owner) · (1) PO-10: การอนุมัติคำขอแก้ไข (UC-mrr-011) ต้องตรวจว่าผู้ใช้ที่คำขอเพิ่มใหม่ยัง active — ไม่ active แล้วไม่อนุมัติ คำขอยังรอ (req เพิ่ม EX-mrr-140 ใต้ BR-mrr-002@v2 · ยังไม่มีเกณฑ์รับ) · (2) D-6: ทุกที่ที่ design อ้างกฎต้องอ้างรุ่นล่าสุด — พบ 11 จุดที่ยังอ้างรุ่นเก่า: screens.json BR-mrr-007@v1 4 จุด (UI-mrr-006 confirm · UI-mrr-007 · UI-mrr-008 save · UI-mrr-010 cancel-on-behalf) และ CALC-mrr-001@v1 4 จุด (RPT-mrr-001) · datamodel.json BR-mrr-020@v1 1 จุด (ENT-007) · functions.json BR-mrr-017@v2 1 จุด (ข้อความทางเลือกของ UC-mrr-007) · interfaces.json BR-mrr-020@v1 ในข้อความความล้มเหลวของ INT-001 1 จุด (ไม่นับแถว ruleEnforcement ของรุ่นเก่า เช่น BR-mrr-006@v1 ที่อ้าง CALC-mrr-001@v1และเส้นเก่าในกราฟ ซึ่งเก็บเป็นประวัติ) · (3) D-7: อัปเดตไฟล์เป็น schema ปัจจุบัน — functions 1.1→1.3 · rbac 1.0→1.1 (ไม่เพิ่มบทบาท anonymous) · sitemap 1.1→1.2 (แอปเดียว ไม่ประกาศ apps[]) · datamodel 1.0→1.1 ประกาศ key ตาม UNIQUE/PRIMARY KEY ในฐานข้อมูล 10 เอนทิตี (ENT-006/007/010/011 ไม่มีคีย์ธรรมชาติ ไม่ประกาศ)",
+      "recordedAt": "2026-11-26T14:30:00+07:00",
+      "absorbed": true,
+      "absorbedAt": "2026-11-26T06:32:25Z"
     }
   ]
 }
