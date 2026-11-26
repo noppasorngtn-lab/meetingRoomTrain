@@ -5,16 +5,17 @@ description: การจองต้องระบุหัวข้อกา�
 resource: ../requirements/REQ-mrr-001.md
 tags: [mrr, constraint]
 id: BR-mrr-002@v1
-status: validated
+status: superseded
 belongs_to: REQ-mrr-001
 kind: constraint
-is_current: true
+is_current: false
 test_design: [EP]
 proven_by: [EX-mrr-005, EX-mrr-006, EX-mrr-007, EX-mrr-119]
 golden: []
+superseded_by: BR-mrr-002@v2
 provenance: [SRC-001, SRC-016]
 timestamp: 2026-11-18T12:30:00+07:00
-spec_hash: sha256:550aa9a36329c1beab43cc16d50a31e2417815b04916342d6df1c9878a755681
+spec_hash: sha256:c844e1187ca54f906be2d5827098c1ab72627aef8ca55e32456c12b3be8f4bf2
 ---
 
 # BR-mrr-002@v1
@@ -41,4 +42,5 @@ spec_hash: sha256:550aa9a36329c1beab43cc16d50a31e2417815b04916342d6df1c9878a7556
 
 | เวอร์ชัน | มีผลตั้งแต่ | เหตุผล | change set |
 |---|---|---|---|
-| **BR-mrr-002@v1** (หน้านี้) ✅ | — | ตั้งต้น | — |
+| **BR-mrr-002@v1** (หน้านี้) ❄️ | — | ตั้งต้น | — |
+| [BR-mrr-002@v2](BR-mrr-002@v2.md) ✅ | 2026-11-26 | DEF-07: ผู้จองบันทึกการแก้ไขไม่ได้เมื่อมีผู้เข้าร่วมที่ไม่ active และ BR เดิมไม่ได้กำหนดกรณีนี้ (SRC-044) | [CHG-mrr-008](../changes/CHG-mrr-008.md) |

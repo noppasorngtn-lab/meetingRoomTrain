@@ -8,7 +8,7 @@ id: Q-mrr-001
 state: answered
 raised_by: BR-mrr-002@v1
 timestamp: 2026-11-18T12:30:00+07:00
-spec_hash: sha256:121034da7ce8b7c41ba099ee672aec8460b9897ea7d3af2d56f48c8014667b16
+spec_hash: sha256:cce87c82496910675c5712bc87293724f0d5762832f6ab7d110b2883556be304
 ---
 
 # Q-mrr-001

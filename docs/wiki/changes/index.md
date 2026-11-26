@@ -1,6 +1,6 @@
 # Change Set — เปลี่ยนอะไร ใครสั่ง เมื่อไหร่
 
-> สารบัญนี้ถูก generate จาก `spec.json` — **ห้ามแก้ด้วยมือ** · 7 หน้า
+> สารบัญนี้ถูก generate จาก `spec.json` — **ห้ามแก้ด้วยมือ** · 8 หน้า
 
 | change set | เมื่อ | ใครขอ | ใครอนุมัติ | กระทบ |
 |---|---|---|---|---|
@@ -11,3 +11,4 @@
 | [CHG-mrr-005](CHG-mrr-005.md) | 2026-11-24T14:00+07:00 | Noppasorn | Noppasorn | CALC-mrr-001@v2 |
 | [CHG-mrr-006](CHG-mrr-006.md) | 2026-11-24T17:00+07:00 | Noppasorn | Noppasorn | BR-mrr-017@v3 |
 | [CHG-mrr-007](CHG-mrr-007.md) | 2026-11-25T16:50+07:00 | Noppasorn | Noppasorn | BR-mrr-007@v3 |
+| [CHG-mrr-008](CHG-mrr-008.md) | 2026-11-26T10:40+07:00 | Noppasorn | Noppasorn | BR-mrr-002@v2 |
