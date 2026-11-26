@@ -86,7 +86,7 @@
           "rules": [
             "BR-mrr-006@v2",
             "BR-mrr-015@v1",
-            "CALC-mrr-001@v1"
+            "CALC-mrr-001@v2"
           ]
         },
         {
@@ -152,7 +152,7 @@
           "attribute": "bookedMinutes",
           "validation": "จำนวนเต็ม",
           "rules": [
-            "CALC-mrr-001@v1"
+            "CALC-mrr-001@v2"
           ],
           "visibleTo": [
             "ROLE-002"
@@ -167,7 +167,7 @@
           "attribute": "operatingMinutes",
           "validation": "จำนวนเต็ม หักช่วงปิดปรับปรุง",
           "rules": [
-            "CALC-mrr-001@v1"
+            "CALC-mrr-001@v2"
           ],
           "visibleTo": [
             "ROLE-002"
@@ -182,7 +182,7 @@
           "attribute": "utilizationPct",
           "validation": "ทศนิยม 2 ตำแหน่ง + % · ว่างแสดง '—'",
           "rules": [
-            "CALC-mrr-001@v1",
+            "CALC-mrr-001@v2",
             "BR-mrr-006@v2"
           ],
           "visibleTo": [
