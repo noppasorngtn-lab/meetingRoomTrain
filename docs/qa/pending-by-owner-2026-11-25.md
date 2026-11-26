@@ -1,4 +1,4 @@
-# งานที่รอแต่ละฝ่าย (อัปเดต 2026-11-26 เย็น · HEAD `e195e01` · PO-1/2/3/4/5/7 ปิด · ฉบับแรก 2026-11-25 ที่ `61255fe`)
+# งานที่รอแต่ละฝ่าย (อัปเดต 2026-11-26 เย็น · HEAD `e195e01` · PO-1–7 ปิด · ฉบับแรก 2026-11-25 ที่ `61255fe`)
 
 ร่างโดย AI จากผลรันด่านและเอกสารใน `docs/qa/` · **ไม่มีข้อไหนที่ AI ปิดเองได้** ทุกข้อต้องให้คนตัดสิน บันทึกทางการ หรือเซ็น
 แหล่งหลัก: [t5-quality-gate-2026-11-25.md](t5-quality-gate-2026-11-25.md) §E, §F, Next Actions · [t7-regression-def07-2026-11-26.md](t7-regression-def07-2026-11-26.md) · [t7-regression-def08-2026-11-26.md](t7-regression-def08-2026-11-26.md) · [req-design-request-adr017-2026-11-25.md](req-design-request-adr017-2026-11-25.md) · [t5-critical-assertion-sample-2026-11-25.md](t5-critical-assertion-sample-2026-11-25.md)
@@ -34,12 +34,12 @@
 | PO-7 DEC-005 | PO ยอมรับว่า E2E ใช้ mailpit อย่างเดียว · ยังไม่ได้เลือกผู้ให้บริการจริง (`chosen: null` ใน design คงเดิม) |
 | PO-2 Gate / Severity | PO ยืนยันตัวเลข Gate ใน qa-playbook §3.4 และนิยาม Severity ใน §3.3 ตามที่เสนอ · DEF-01 High · 02 High · 03 Medium · 04 Medium · 05 High (ตามที่ผู้ใช้แจ้ง 2026-11-26) · [po-decision-gate-severity-2026-11-26.md](po-decision-gate-severity-2026-11-26.md) |
 | PO-5 Secure cookie / HSTS | PO ตัดสินว่าไม่รวมในเคส HTTPS ให้ตรวจบน build ปลายทางตอน deploy (ตามที่ผู้ใช้แจ้ง 2026-11-26) — ดู "งานก่อนปล่อยจริง" · [po-decision-https-cookie-hsts-2026-11-26.md](po-decision-https-cookie-hsts-2026-11-26.md) |
+| PO-6 ผู้ตัดสิน DEF-05 | ผู้ใช้แจ้งว่าผู้ตัดสิน Q1–Q3 เมื่อ 2026-11-20 คือ PO ตามบทบาท · PO ยืนยันคำตอบเดิม (2026-11-26) · ลง Sign-off ใน [po-decision-def-05-scope-2026-11-20.md](po-decision-def-05-scope-2026-11-20.md) · R-2 (req เพิ่ม EX และปรับ BR-mrr-019) ยังเปิด |
 
 ## PO
 
 | # | เรื่อง | ที่มา |
 |---|---|---|
-| PO-6 | ผู้ตัดสิน Q1–Q3 ของ DEF-05 เป็น PO ตามบทบาทหรือไม่ | T5 F11 |
 | PO-8 | OQ-NFR ข้อ 4: NFR-001/003/004 รอบนี้ต้องมีเคส หรือพิสูจน์ด้วยวิธีอื่น (ข้อ NFR-004 PO ตอบใน PO-4 แล้วว่าวัดหลังขึ้นระบบ — ยังเหลือ NFR-001/003) | oq-nfr-questions-2026-11-18.md |
 | PO-9 | บันทึกคำตัดสิน Severity ของ DEF-06 และ DEF-08 (Medium ทั้งคู่) เป็นไฟล์ ตอนนี้มีแค่คำแจ้งในเซสชัน (ของ DEF-07 บันทึกไฟล์แล้วใน [req-request-def07-2026-11-26.md](req-request-def07-2026-11-26.md)) | T5 §D |
 
