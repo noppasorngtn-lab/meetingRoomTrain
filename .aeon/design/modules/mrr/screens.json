@@ -3,9 +3,9 @@
   "producedBy": "design · scripts/screens.mjs",
   "project": "mrr",
   "module": "mrr",
-  "status": "approved",
-  "approvedAt": "2026-11-24T08:51:13Z",
-  "approvedBy": "Noppasorn",
+  "status": "draft",
+  "approvedAt": null,
+  "approvedBy": null,
   "screens": [
     {
       "id": "UI-mrr-001",
@@ -566,7 +566,7 @@
           "entity": "ENT-007",
           "attribute": "title",
           "rules": [
-            "BR-mrr-002@v1"
+            "BR-mrr-002@v2"
           ]
         },
         {
@@ -578,7 +578,7 @@
           "entity": "ENT-008",
           "attribute": "user",
           "rules": [
-            "BR-mrr-002@v1"
+            "BR-mrr-002@v2"
           ]
         },
         {
@@ -590,7 +590,7 @@
           "entity": "ENT-009",
           "attribute": "facility",
           "rules": [
-            "BR-mrr-002@v1"
+            "BR-mrr-002@v2"
           ]
         }
       ],
@@ -604,7 +604,7 @@
           "destinationRef": "UI-mrr-007",
           "rules": [
             "BR-mrr-001@v1",
-            "BR-mrr-002@v1",
+            "BR-mrr-002@v2",
             "BR-mrr-004@v1",
             "BR-mrr-007@v1",
             "BR-mrr-008@v1",
@@ -807,7 +807,7 @@
           "entity": "ENT-007",
           "attribute": "title",
           "rules": [
-            "BR-mrr-002@v1"
+            "BR-mrr-002@v2"
           ]
         },
         {
@@ -815,11 +815,11 @@
           "name": "ผู้เข้าร่วม",
           "io": "capture",
           "required": true,
-          "validation": "อย่างน้อย 1 คน",
+          "validation": "อย่างน้อย 1 คน · ผู้เข้าร่วมที่อยู่ในรายชื่อเดิมคงไว้ได้แม้บัญชีไม่ active · ผู้ใช้ที่เพิ่มใหม่ต้องเป็นบัญชีที่ active",
           "entity": "ENT-008",
           "attribute": "user",
           "rules": [
-            "BR-mrr-002@v1"
+            "BR-mrr-002@v2"
           ]
         },
         {
@@ -855,7 +855,8 @@
             "BR-mrr-003@v1",
             "BR-mrr-009@v1",
             "BR-mrr-007@v1",
-            "BR-mrr-019@v1"
+            "BR-mrr-019@v1",
+            "BR-mrr-002@v2"
           ]
         },
         {
@@ -871,7 +872,7 @@
       "states": {
         "empty": "ไม่เกิด — หน้านี้เปิดจากการจองที่มีอยู่เสมอ",
         "loading": "ปุ่มบันทึกถูกปิดระหว่างบันทึกและส่ง Email",
-        "error": "เวลาใหม่ไม่ว่าง ห้องปิดปรับปรุง หรือส่ง Email ไม่สำเร็จ — แจ้งเหตุ การจองคงค่าเดิม",
+        "error": "เวลาใหม่ไม่ว่าง ห้องปิดปรับปรุง หรือส่ง Email ไม่สำเร็จ — แจ้งเหตุ การจองคงค่าเดิม · เพิ่มผู้ใช้ที่บัญชีไม่ active ซึ่งไม่อยู่ในรายชื่อเดิม — แสดง 'ไม่พบผู้เข้าร่วมบางคนในรายชื่อผู้ใช้' การจองคงค่าเดิม",
         "unauthorized": "ไม่ใช่ผู้จอง หรือถึงเวลาเริ่มแล้ว — แสดง 'แก้ไขการจองนี้ไม่ได้' และไม่แสดงฟอร์ม",
         "overflow": "หัวข้อเกิน 200 ตัวอักษรไม่รับ"
       },
@@ -1170,7 +1171,8 @@
           "rules": [
             "BR-mrr-009@v1",
             "BR-mrr-014@v1",
-            "BR-mrr-017@v3"
+            "BR-mrr-017@v3",
+            "BR-mrr-002@v2"
           ]
         },
         {

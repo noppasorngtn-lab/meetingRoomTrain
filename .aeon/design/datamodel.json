@@ -2,9 +2,9 @@
   "schemaVersion": "1.0",
   "producedBy": "design · scripts/datamodel.mjs",
   "project": "mrr",
-  "status": "approved",
-  "approvedAt": "2026-11-24T10:37:27Z",
-  "approvedBy": "Noppasorn",
+  "status": "draft",
+  "approvedAt": null,
+  "approvedBy": null,
   "entities": [
     {
       "id": "ENT-001",
@@ -307,7 +307,8 @@
           "type": "reference",
           "required": true,
           "validation": "เวอร์ชันข้อมูลห้อง ณ ตอนจอง (DQ-mrr-001)",
-          "references": "ENT-003"
+          "references": "ENT-003",
+          "rules": []
         },
         {
           "name": "bookedBy",
@@ -325,7 +326,7 @@
           "required": true,
           "validation": "หัวข้อการประชุม ห้ามว่าง ไม่เกิน 200 ตัวอักษร",
           "rules": [
-            "BR-mrr-002@v1"
+            "BR-mrr-002@v2"
           ]
         },
         {
@@ -379,7 +380,8 @@
           "name": "reminderAt",
           "type": "datetime",
           "required": false,
-          "validation": "เวลาที่ส่งหรือพยายามส่ง Email เตือน ว่างเมื่อยัง NOT_SENT"
+          "validation": "เวลาที่ส่งหรือพยายามส่ง Email เตือน ว่างเมื่อยัง NOT_SENT",
+          "rules": []
         },
         {
           "name": "cancelReason",
@@ -394,7 +396,8 @@
           "name": "createdAt",
           "type": "datetime",
           "required": true,
-          "validation": "เวลาที่สร้างการจอง ตั้งโดยระบบ"
+          "validation": "เวลาที่สร้างการจอง ตั้งโดยระบบ",
+          "rules": []
         }
       ]
     },
@@ -415,17 +418,18 @@
           "validation": "การจองที่ผู้ใช้เข้าร่วม · ทุกการจองต้องมีผู้เข้าร่วมอย่างน้อย 1 คน และผู้จองไม่ถูกนับอัตโนมัติ",
           "references": "ENT-007",
           "rules": [
-            "BR-mrr-002@v1"
+            "BR-mrr-002@v2"
           ]
         },
         {
           "name": "user",
           "type": "reference",
           "required": true,
-          "validation": "ผู้เข้าร่วม · คู่ (booking, user) ไม่ซ้ำ · ผู้เข้าร่วมเห็นรายละเอียดการจองในปฏิทิน",
+          "validation": "ผู้เข้าร่วม · คู่ (booking, user) ไม่ซ้ำ · ผู้เข้าร่วมเห็นรายละเอียดการจองในปฏิทิน · ตอนสร้างการจองและตอนเพิ่มผู้เข้าร่วมใหม่ต้องเป็นบัญชีที่ active · ตอนแก้การจอง ผู้เข้าร่วมที่อยู่ในรายชื่อเดิมคงไว้ได้แม้บัญชีไม่ active",
           "references": "ENT-001",
           "rules": [
-            "BR-mrr-021@v1"
+            "BR-mrr-021@v1",
+            "BR-mrr-002@v2"
           ]
         }
       ]
@@ -447,7 +451,7 @@
           "validation": "การจองที่ขอ · ไม่บังคับให้มี (อุปกรณ์เสริมเลือกหรือไม่เลือกก็ได้)",
           "references": "ENT-007",
           "rules": [
-            "BR-mrr-002@v1"
+            "BR-mrr-002@v2"
           ]
         },
         {
@@ -455,7 +459,8 @@
           "type": "reference",
           "required": true,
           "validation": "อุปกรณ์ที่ขอใช้ · คู่ (booking, facility) ไม่ซ้ำ",
-          "references": "ENT-004"
+          "references": "ENT-004",
+          "rules": []
         }
       ]
     },
