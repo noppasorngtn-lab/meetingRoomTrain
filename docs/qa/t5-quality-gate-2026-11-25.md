@@ -62,7 +62,7 @@ Input: [t7-regression-def06-2026-11-25.md](t7-regression-def06-2026-11-25.md) (T
 
 ## D) Open defects (Critical / High)
 
-ไม่มี Critical / High ที่เปิดอยู่ · DEF-06 (Medium · **PO ยืนยัน Severity แล้ว** ตามที่ผู้ใช้แจ้ง 2026-11-25 · ยังไม่มีบันทึกคำตัดสินเป็นไฟล์) ปิดแล้ว 2026-11-25 · การแก้ DEF-06 (`f83de74`) ครอบเฉพาะผู้เข้าร่วม · ผู้จองที่ถูกปิดบังแก้ต่อใน F5 (`35bc4e0` · E2E 8 เคสผ่าน 2 รอบ) — ไม่ใช่ defect ใหม่ (คำตอบของผู้ใช้มาหลัง gate)
+ไม่มี Critical / High ที่เปิดอยู่ · DEF-06 (Medium · **PO ยืนยัน Severity แล้ว** ตามที่ผู้ใช้แจ้ง 2026-11-25 · บันทึกเป็นไฟล์แล้ว: [po-decision-severity-def06-def08](po-decision-severity-def06-def08-2026-11-26.md)) ปิดแล้ว 2026-11-25 · การแก้ DEF-06 (`f83de74`) ครอบเฉพาะผู้เข้าร่วม · ผู้จองที่ถูกปิดบังแก้ต่อใน F5 (`35bc4e0` · E2E 8 เคสผ่าน 2 รอบ) — ไม่ใช่ defect ใหม่ (คำตอบของผู้ใช้มาหลัง gate)
 
 ## E) Risks & Recommendation
 

@@ -1,4 +1,4 @@
-# งานที่รอแต่ละฝ่าย (อัปเดต 2026-11-26 เย็น · HEAD `e195e01` · PO-1–8 ปิด · ฉบับแรก 2026-11-25 ที่ `61255fe`)
+# งานที่รอแต่ละฝ่าย (อัปเดต 2026-11-26 เย็น · HEAD `e195e01` · PO-1–9 ปิดทั้งหมด · ฉบับแรก 2026-11-25 ที่ `61255fe`)
 
 ร่างโดย AI จากผลรันด่านและเอกสารใน `docs/qa/` · **ไม่มีข้อไหนที่ AI ปิดเองได้** ทุกข้อต้องให้คนตัดสิน บันทึกทางการ หรือเซ็น
 แหล่งหลัก: [t5-quality-gate-2026-11-25.md](t5-quality-gate-2026-11-25.md) §E, §F, Next Actions · [t7-regression-def07-2026-11-26.md](t7-regression-def07-2026-11-26.md) · [t7-regression-def08-2026-11-26.md](t7-regression-def08-2026-11-26.md) · [req-design-request-adr017-2026-11-25.md](req-design-request-adr017-2026-11-25.md) · [t5-critical-assertion-sample-2026-11-25.md](t5-critical-assertion-sample-2026-11-25.md)
@@ -36,12 +36,11 @@
 | PO-5 Secure cookie / HSTS | PO ตัดสินว่าไม่รวมในเคส HTTPS ให้ตรวจบน build ปลายทางตอน deploy (ตามที่ผู้ใช้แจ้ง 2026-11-26) — ดู "งานก่อนปล่อยจริง" · [po-decision-https-cookie-hsts-2026-11-26.md](po-decision-https-cookie-hsts-2026-11-26.md) |
 | PO-6 ผู้ตัดสิน DEF-05 | ผู้ใช้แจ้งว่าผู้ตัดสิน Q1–Q3 เมื่อ 2026-11-20 คือ PO ตามบทบาท · PO ยืนยันคำตอบเดิม (2026-11-26) · ลง Sign-off ใน [po-decision-def-05-scope-2026-11-20.md](po-decision-def-05-scope-2026-11-20.md) · R-2 (req เพิ่ม EX และปรับ BR-mrr-019) ยังเปิด |
 | PO-8 OQ-NFR ข้อ 4 | PO ยืนยันคำตอบของวันที่ 2026-11-23 (ตามที่ผู้ใช้แจ้ง 2026-11-26): NFR-001 และ NFR-003 พิสูจน์ด้วยเคสที่มีอยู่ (TC-NFR-REQ001-101 · 103 · เคส RBAC เดิม) · NFR-004 วิเคราะห์ log หลังขึ้นระบบ · บันทึกใน [oq-nfr-questions-2026-11-18.md](oq-nfr-questions-2026-11-18.md) · R-4 (`verified_by` ใน spec) ยังเปิด |
+| PO-9 Severity DEF-06/08 | บันทึกคำตัดสิน Medium ทั้งคู่เป็นไฟล์ (PO ตามที่ผู้ใช้แจ้ง 2026-11-25 และ 2026-11-26) · [po-decision-severity-def06-def08-2026-11-26.md](po-decision-severity-def06-def08-2026-11-26.md) · Severity ของ defect ทั้ง 8 ตัวมีบันทึกเป็นไฟล์ครบแล้ว |
 
 ## PO
 
-| # | เรื่อง | ที่มา |
-|---|---|---|
-| PO-9 | บันทึกคำตัดสิน Severity ของ DEF-06 และ DEF-08 (Medium ทั้งคู่) เป็นไฟล์ ตอนนี้มีแค่คำแจ้งในเซสชัน (ของ DEF-07 บันทึกไฟล์แล้วใน [req-request-def07-2026-11-26.md](req-request-def07-2026-11-26.md)) | T5 §D |
+ไม่มีข้อค้าง — PO-1 ถึง PO-9 ปิดแล้วเมื่อ 2026-11-26 (ดูตาราง "ปิดแล้ว" ด้านบน)
 
 ## design
 
