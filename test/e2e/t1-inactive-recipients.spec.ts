@@ -84,6 +84,9 @@ test.afterAll(async () => {
 });
 const statusOf = async (id: string) => ((await (await clients.ra1.get(`/bookings/${id}`)).json()) as { status: string }).status;
 const U = (k: string) => world.users[k].email;
+/** The attendee ids saved on a booking, sorted — what BR-mrr-002@v2 says an edit keeps or refuses to add. */
+const attendeesOf = (id: string) => psql(`select user_id from booking_attendees where booking_id = ${lit(id)} order by user_id`).split(/\r?\n/).filter(Boolean).sort();
+const NOT_FOUND = 'ไม่พบผู้เข้าร่วมบางคนในรายชื่อผู้ใช้';
 
 test.describe('BR-mrr-007@v3 ผู้รับที่บัญชีไม่ active (ไม่ปิดบัง)', () => {
   test('[real] TC-MYB-UI007-107 ผู้จองยกเลิก ผู้เข้าร่วมคนหนึ่งไม่ active → "ยกเลิกการจองสำเร็จ" · เมล "ยกเลิกการจอง" ถึงผู้จองและผู้เข้าร่วมที่ active เท่านั้น (EX-mrr-132 · BR-mrr-007@v3)', async () => {
@@ -302,6 +305,8 @@ test.describe('DEF-07 แก้การจองเมื่อมีผู้�
     expect(res.status(), await res.text()).toBe(200);
     expect(await msgOf(res)).toBe('บันทึกการแก้ไขสำเร็จ');
     expect(psql(`select title from bookings where id = ${lit(b.id)}`)).toBe(`${title(t)} แก้แล้ว`);
+    // BR-mrr-002@v2: the inactive attendee is KEPT on the list, not dropped by the save.
+    expect(attendeesOf(b.id)).toEqual([...list].sort());
   });
 
   test('[real] TC-NTF-UI008-108 ผู้จองเปลี่ยนเวลา ส่งรายชื่อผู้เข้าร่วมเดิม (มีผู้ไม่ active) → บันทึกสำเร็จ เมล "เปลี่ยนเวลา" ถึงผู้จองและผู้เข้าร่วมที่ active เท่านั้น (DEF-07 · BR-mrr-007@v3)', async () => {
@@ -318,5 +323,51 @@ test.describe('DEF-07 แก้การจองเมื่อมีผู้�
     const got = await mailsAfter(t, 'เปลี่ยนเวลา:', 1);
     expect(got).toHaveLength(1);
     expect(recipients(got)).toEqual([U('u1'), U('u2')].sort());
+  });
+
+  test('[real] TC-MYB-UI008-103 ผู้จองเพิ่มผู้ใช้ที่ไม่ active ซึ่งไม่อยู่ในรายชื่อเดิม → ไม่บันทึก "ไม่พบผู้เข้าร่วมบางคนในรายชื่อผู้ใช้" · รายชื่อคงเดิม (EX-mrr-137 · BR-mrr-002@v2)', async () => {
+    const t = token();
+    const u3 = makeUser(`att.${t}`);
+    const u4 = makeUser(`add.${t}`);
+    const list = [world.users.u2.id, u3.id];
+    const b = await book(clients.u1, 'open', nearSlot(), title(t), list);
+    deactivate(u3);
+    deactivate(u4);
+
+    const res = await clients.u1.patch(`/bookings/${b.id}`, { data: { title: title(t), attendeeIds: [...list, u4.id] } });
+    expect(res.status(), await res.text()).toBe(400);
+    expect(await res.text()).toContain(NOT_FOUND);
+    expect(attendeesOf(b.id)).toEqual([...list].sort());
+  });
+
+  test('[real] TC-APR-UI010-111 ระหว่างประชุม RA แก้แทน เลื่อนเวลาสิ้นสุด 30 นาทีพร้อมเหตุผล รายชื่อเดิมมีผู้ไม่ active → "บันทึกการแก้ไขสำเร็จ" · รายชื่อคงเดิม (EX-mrr-138 · BR-mrr-002@v2)', async () => {
+    const t = token();
+    const slot = nearSlot();
+    const u3 = makeUser(`att.${t}`);
+    const list = [world.users.u2.id, u3.id];
+    const b = await book(clients.u1, 'open', slot, title(t), list);
+    deactivate(u3);
+    await setClock(new Date(Date.parse(slot.startAt) + 30 * 60_000));
+
+    const newEnd = new Date(Date.parse(slot.endAt) + 30 * 60_000).toISOString();
+    const res = await clients.ra1.post(`/bookings/${b.id}/admin-edit`, { data: { endAt: newEnd, attendeeIds: list, reason: 'ประชุมต่อเวลา' } });
+    expect(res.status(), await res.text()).toBe(200);
+    expect(await msgOf(res)).toBe('บันทึกการแก้ไขสำเร็จ');
+    expect(Number(psql(`select (extract(epoch from end_at) * 1000)::bigint from bookings where id = ${lit(b.id)}`))).toBe(Date.parse(newEnd));
+    expect(attendeesOf(b.id)).toEqual([...list].sort());
+  });
+
+  test('[real] TC-MYB-UI008-104 ผู้จองเอาผู้ไม่ active ออกและบันทึกแล้ว เพิ่มกลับ → ไม่บันทึก "ไม่พบผู้เข้าร่วมบางคนในรายชื่อผู้ใช้" · เหลือ u2 (EX-mrr-139 · BR-mrr-002@v2)', async () => {
+    const t = token();
+    const u3 = makeUser(`att.${t}`);
+    const b = await book(clients.u1, 'open', nearSlot(), title(t), [world.users.u2.id, u3.id]);
+    deactivate(u3);
+    const off = await clients.u1.patch(`/bookings/${b.id}`, { data: { title: title(t), attendeeIds: [world.users.u2.id] } });
+    expect(off.status(), await off.text()).toBe(200);
+
+    const res = await clients.u1.patch(`/bookings/${b.id}`, { data: { title: title(t), attendeeIds: [world.users.u2.id, u3.id] } });
+    expect(res.status(), await res.text()).toBe(400);
+    expect(await res.text()).toContain(NOT_FOUND);
+    expect(attendeesOf(b.id)).toEqual([world.users.u2.id]);
   });
 });
