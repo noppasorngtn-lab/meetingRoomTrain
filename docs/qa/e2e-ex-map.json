@@ -543,7 +543,7 @@
     },
     "EX-mrr-136": {
       "cases": "TC-MYB-UI008-102, TC-MYB-UI008-105",
-      "note": "booker edits the title with the old list holding an inactive attendee: 200, attendee kept in booking_attendees · real · PASS 2026-11-26 (80a4e96) · BR-mrr-002@v2 · mapping reviewed by QA_Noppasorn 2026-11-26 (as the user reported) · 105 (added 2026-11-26, Q-6): the same through the real edit form UI-mrr-008, ยังไม่ผ่าน QA review"
+      "note": "booker edits the title with the old list holding an inactive attendee: 200, attendee kept in booking_attendees · real · PASS 2026-11-26 (80a4e96) · BR-mrr-002@v2 · mapping reviewed by QA_Noppasorn 2026-11-26 (as the user reported) · 105 (added 2026-11-26, Q-6): the same through the real edit form UI-mrr-008, mapping reviewed by QA_Noppasorn 2026-11-26 (as the user reported)"
     },
     "EX-mrr-137": {
       "cases": "TC-MYB-UI008-103",
@@ -559,7 +559,7 @@
     },
     "EX-mrr-140": {
       "cases": "TC-APR-UI011-104",
-      "note": "RA2 approves a request that adds a user now inactive: 400 ไม่พบผู้เข้าร่วมบางคนในรายชื่อผู้ใช้, attendees unchanged, request PENDING (the case rejects it at the end) · real · PASS 2026-11-26 (5d3fbcb) · DEF-08 · ยังไม่ผ่าน QA review"
+      "note": "RA2 approves a request that adds a user now inactive: 400 ไม่พบผู้เข้าร่วมบางคนในรายชื่อผู้ใช้, attendees unchanged, request PENDING (the case rejects it at the end) · real · PASS 2026-11-26 (5d3fbcb) · DEF-08 · mapping reviewed by QA_Noppasorn 2026-11-26 (as the user reported)"
     }
   }
 }
