@@ -661,9 +661,24 @@ TC-AUD-UI010-114 และ TC-AUD-UI011-101: `Happy path` → `Positive` ตา�
 
 ### B17.4 เพิ่ม 3 เคสลง CSV (2026-11-26)
 
-**สถานะ: ผู้ใช้สั่งเพิ่มตามที่เสนอ · รายละเอียดแถว CSV รอ QA review · ยังไม่มีสคริปต์ ยังไม่เคยรัน**
+**สถานะ: ผู้ใช้สั่งเพิ่มตามที่เสนอ · รายละเอียดแถว CSV และการแก้ `req-handoff-links.py`: QA review ผ่าน — QA_Noppasorn 2026-11-26 (ตามที่ผู้ใช้แจ้งในเซสชัน · AI ไม่ได้ลงนามแทน) · ณ เวลา review ยังไม่มีสคริปต์ ยังไม่เคยรัน (ดู §B17.5)**
 
 - TC-NTF-UI006-103 · TC-NTF-UI008-110 · TC-BKG-UI006-111 · Test Level `API` · Automation `No` · ช่อง Script ว่าง · CSV 163 → 166 แถว
 - ไม่ผูก EX (ยังไม่มี EX ของ 3 กรณีนี้) จึงไม่แก้ `e2e-ex-map.json`
 - `req-handoff-test-links.md` **ไม่ได้สร้างใหม่หลังเพิ่ม 3 แถว**: สคริปต์นับทุกแถว CSV ที่อ้าง BR เข้าช่อง "เคส E2E [real]" ถ้าสร้างตอนนี้ 3 เคสที่ยังไม่มีสคริปต์จะถูกแสดงเป็นเคส E2E · ฉบับที่ commit คือฉบับที่ QA review (สร้างจาก CSV 163 แถว)
 - หลังจากนั้น: เพิ่มคำถาม OQ-T1-20 และ OQ-T1-21 (§D) และแก้ `req-handoff-links.py` ให้นับเฉพาะแถว CSV ที่มีสคริปต์ · ผลสคริปต์จาก CSV 166 แถวตรงกับฉบับ `req-handoff-test-links.md` ที่ review แล้ว จึงไม่ต้องสร้างไฟล์ใหม่
+
+### B17.5 สคริปต์ของ 3 เคส (2026-11-26)
+
+**สถานะ: AI-generated · รอ QA review** (ไม่อยู่ในขอบเขต review ของ §B17.4)
+
+| TC | สคริปต์ | ระดับ / แหล่งข้อมูล | ผล | negative check |
+|---|---|---|---|---|
+| TC-NTF-UI006-103 | `apps/api/test/notification/booking-notifier.spec.ts` | Unit / stub | ผ่าน (ไฟล์นี้ 24/24) | เวลาจอง 09:46 → ล้ม |
+| TC-NTF-UI008-110 | `test/e2e/t1-delta.spec.ts` | API / real | ผ่าน | การแก้ครั้งแรกเปลี่ยนเวลา → ล้ม (พบอีเมล 1 ฉบับ) |
+| TC-BKG-UI006-111 | `test/e2e/t1-delta.spec.ts` | API / real | ผ่าน | การจองใหม่ล้ำการจองเดิม 1 นาที → ล้ม (409) |
+
+- คุมเวลา: `/__test/clock` เก็บค่า offset แล้วนาฬิกาเดินต่อ (`apps/api/src/common/clock.ts` และ `test-controls.controller.ts`) จึงตรึงขอบ 15 นาทีพอดีในระบบจริงไม่ได้ (สรุปจากการอ่านโค้ด) · ขอบนี้พิสูจน์ที่ชั้น unit ซึ่งส่งค่า now เข้าไปเอง
+- รันเฉพาะ: jest ไฟล์ `booking-notifier.spec.ts` และ Playwright chromium `t1-delta.spec.ts` (2 passed) · ใช้ `--reporter=list` จึงไม่เขียนทับ `test/results.json` · **ไม่ได้รันชุดเต็ม** · stack: `docker compose up -d` ไม่ build ใหม่ (`apps/` และ `docker/` ไม่ต่างจาก `6dc80cd`) แล้ว stop
+- OQ-T1-20 และ OQ-T1-21 ยังเปิด · TC-NTF-UI008-110 ยังไม่มี EX
+- `req-handoff-links.py`: นับเฉพาะแถวที่ไฟล์ในช่อง Script อยู่ใน `test/e2e` เพื่อไม่ให้ unit test ถูกแสดงเป็นเคส E2E

@@ -48,7 +48,7 @@ for p in (ROOT / 'test/e2e').glob('*.spec.ts'):
         for ex in re.findall(r'EX-mrr-\d+', line):
             for tc in tcs: link(tc, ex)
 # only scripted rows: the output column says "E2E [real]", so a case with no script yet must not be listed there
-csvrows = [r for r in csv.DictReader(open(ROOT / 'docs/qa/t1-test-cases.csv', encoding='utf-8-sig')) if r['Script'].strip()]
+csvrows = [r for r in csv.DictReader(open(ROOT / 'docs/qa/t1-test-cases.csv', encoding='utf-8-sig')) if r['Script'].strip() and (ROOT / 'test/e2e' / r['Script'].strip()).is_file()]
 tc_br = {}
 for r in csvrows:
     for ex in re.findall(r'EX-mrr-\d+', r['Requirement ID']): link(r['TC ID'], ex)

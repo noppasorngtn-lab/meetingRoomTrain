@@ -65,6 +65,16 @@ describe('FE-mrr-017 BookingNotifier', () => {
     expect(transport.sent).toEqual([]);
   });
 
+  it('TC-NTF-UI006-103 BR-mrr-008 a booking made exactly 15 minutes before start sends no reminder at once', async () => {
+    const result = await notifier.bookingCreated(meeting(), at('09:45'));
+
+    expect(transport.subjectsFor(U1)).toEqual(['[จองห้องประชุม] จองสำเร็จ: ประชุมทีม · ห้อง A 17/10 10:00–11:00']);
+    expect(transport.subjectsFor(U2)).toEqual([]);
+    expect(transport.subjectsFor(U3)).toEqual([]);
+    // Not recorded as sent, so the scheduled pass sends it (AC-mrr-020 in reminder-job.spec.ts).
+    expect(result).toEqual({ reminderSent: false });
+  });
+
   it('AC-mrr-024 a booking made 10 minutes before start also sends the reminder at once', async () => {
     const urgent = meeting({ title: 'ประชุมด่วน', attendeeEmails: [U2] });
 
