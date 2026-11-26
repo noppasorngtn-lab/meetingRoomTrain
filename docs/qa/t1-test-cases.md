@@ -670,7 +670,7 @@ TC-AUD-UI010-114 และ TC-AUD-UI011-101: `Happy path` → `Positive` ตา�
 
 ### B17.5 สคริปต์ของ 3 เคส (2026-11-26)
 
-**สถานะ: AI-generated · รอ QA review** (ไม่อยู่ในขอบเขต review ของ §B17.4)
+**สถานะ: AI-generated · QA review ผ่าน — QA_Noppasorn 2026-11-26 (ตามที่ผู้ใช้แจ้งในเซสชัน · AI ไม่ได้ลงนามแทน)**
 
 | TC | สคริปต์ | ระดับ / แหล่งข้อมูล | ผล | negative check |
 |---|---|---|---|---|
@@ -682,3 +682,13 @@ TC-AUD-UI010-114 และ TC-AUD-UI011-101: `Happy path` → `Positive` ตา�
 - รันเฉพาะ: jest ไฟล์ `booking-notifier.spec.ts` และ Playwright chromium `t1-delta.spec.ts` (2 passed) · ใช้ `--reporter=list` จึงไม่เขียนทับ `test/results.json` · **ไม่ได้รันชุดเต็ม** · stack: `docker compose up -d` ไม่ build ใหม่ (`apps/` และ `docker/` ไม่ต่างจาก `6dc80cd`) แล้ว stop
 - OQ-T1-20 และ OQ-T1-21 ยังเปิด · TC-NTF-UI008-110 ยังไม่มี EX
 - `req-handoff-links.py`: นับเฉพาะแถวที่ไฟล์ในช่อง Script อยู่ใน `test/e2e` เพื่อไม่ให้ unit test ถูกแสดงเป็นเคส E2E
+
+### B17.6 ปรับ TC-NTF-UI006-103 ให้เหลือขอบเขต unit และสร้างไฟล์หลักฐานใหม่ (2026-11-26)
+
+**สถานะ: ผู้ใช้ตัดสินขอบเขตในเซสชัน · ข้อความแถว CSV ที่ AI เขียนใหม่ · `req-handoff-test-links.md` ที่สร้างใหม่ · และ [t3-results-2026-11-26.md](t3-results-2026-11-26.md): QA review ผ่าน — QA_Noppasorn 2026-11-26 (ตามที่ผู้ใช้แจ้งในเซสชัน · AI ไม่ได้ลงนามแทน)**
+
+- แก้ Scenario · Pre-condition · Test Data · Steps · Expected Result และ Note ให้ตรงกับสคริปต์ unit · ไม่แก้สคริปต์
+- ตัดออกจากเคส: ส่วนงานเตือนตามเวลาส่งหนึ่งครั้งให้การจองเดียวกัน (ยังไม่มีเทสที่พิสูจน์ต่อเนื่อง) และกรณีเวลาตรงกัน (OQ-T1-20 ยังเปิด)
+- ตาราง §B17.3 คงข้อความข้อเสนอเดิมไว้เป็นประวัติ
+- `req-handoff-test-links.md` สร้างใหม่ตามที่ผู้ใช้สั่ง
+- หลังจากนั้นรันชุดเต็ม: jest 556/556 · Playwright chromium 227 ผ่าน 1 ข้าม 0 ล้ม ([t3-results-2026-11-26.md](t3-results-2026-11-26.md))
