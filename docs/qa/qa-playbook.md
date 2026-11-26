@@ -248,7 +248,7 @@ Output
 | No Defect | Expected เขียนผิดหรือล้าสมัย (ต้องแก้ test case ไม่ใช่โค้ด) |
 | To Investigate | หลักฐานไม่พอ — ห้ามเดา root cause |
 
-### 3.3 ระดับความรุนแรง (Severity) — **[Recommended] ให้ PO ยืนยัน**
+### 3.3 ระดับความรุนแรง (Severity) — **PO ยืนยันแล้ว 2026-11-26** ([po-decision-gate-severity](po-decision-gate-severity-2026-11-26.md))
 
 | ระดับ | ตัวอย่างในระบบนี้ |
 |---|---|
@@ -257,7 +257,7 @@ Output
 | Medium | ตัวเลขรายงานผิด (BR-mrr-006, 015), ร่องรอยการกระทำไม่ครบ (BR-mrr-017), ข้อความแจ้งผิด |
 | Low | หน้าตา/ถ้อยคำ/การจัดวาง ที่ไม่กระทบการจอง |
 
-### 3.4 Quality Gate — **[Recommended] ตัวเลขให้ทีมยืนยันก่อนใช้จริง**
+### 3.4 Quality Gate — **PO ยืนยันตัวเลขแล้ว 2026-11-26** ([po-decision-gate-severity](po-decision-gate-severity-2026-11-26.md)) · ข้อยกเว้นที่ให้ไว้: G1(b) ช่อง "เทสต์" · G3(1) เคสที่ข้ามโดยออกแบบ
 
 | Gate | เงื่อนไข | หลักฐาน |
 |---|---|---|

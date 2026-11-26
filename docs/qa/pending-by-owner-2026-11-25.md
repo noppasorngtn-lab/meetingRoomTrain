@@ -1,4 +1,4 @@
-# งานที่รอแต่ละฝ่าย (อัปเดต 2026-11-26 เย็น · HEAD `e195e01` · PO-1/3/4/7 ปิด · ฉบับแรก 2026-11-25 ที่ `61255fe`)
+# งานที่รอแต่ละฝ่าย (อัปเดต 2026-11-26 เย็น · HEAD `e195e01` · PO-1/2/3/4/7 ปิด · ฉบับแรก 2026-11-25 ที่ `61255fe`)
 
 ร่างโดย AI จากผลรันด่านและเอกสารใน `docs/qa/` · **ไม่มีข้อไหนที่ AI ปิดเองได้** ทุกข้อต้องให้คนตัดสิน บันทึกทางการ หรือเซ็น
 แหล่งหลัก: [t5-quality-gate-2026-11-25.md](t5-quality-gate-2026-11-25.md) §E, §F, Next Actions · [t7-regression-def07-2026-11-26.md](t7-regression-def07-2026-11-26.md) · [t7-regression-def08-2026-11-26.md](t7-regression-def08-2026-11-26.md) · [req-design-request-adr017-2026-11-25.md](req-design-request-adr017-2026-11-25.md) · [t5-critical-assertion-sample-2026-11-25.md](t5-critical-assertion-sample-2026-11-25.md)
@@ -32,12 +32,12 @@
 | PO-3 G3 ข้อ (1) | PO ยกเว้นให้เคสที่ข้ามโดยออกแบบ (NFR-005 อุปกรณ์สัมผัสบนเดสก์ท็อป) |
 | PO-4 NFR-002/004 | PO ยอมรับผล NFR-002 บน Docker dev (ไม่กำหนดวัน staging) · NFR-004 วัดหลังขึ้นระบบจริง |
 | PO-7 DEC-005 | PO ยอมรับว่า E2E ใช้ mailpit อย่างเดียว · ยังไม่ได้เลือกผู้ให้บริการจริง (`chosen: null` ใน design คงเดิม) |
+| PO-2 Gate / Severity | PO ยืนยันตัวเลข Gate ใน qa-playbook §3.4 และนิยาม Severity ใน §3.3 ตามที่เสนอ · DEF-01 High · 02 High · 03 Medium · 04 Medium · 05 High (ตามที่ผู้ใช้แจ้ง 2026-11-26) · [po-decision-gate-severity-2026-11-26.md](po-decision-gate-severity-2026-11-26.md) |
 
 ## PO
 
 | # | เรื่อง | ที่มา |
 |---|---|---|
-| PO-2 | ยืนยันตัวเลข Gate G0–G3 และ Severity ของ DEF-01–05 (ตอนนี้ยังเป็น [Recommended] — Conditional Go ที่รับแล้วอิงตัวเลขชุดนี้) | T5 F6 |
 | PO-5 | เคส HTTPS ต้องรวม Secure cookie และ HSTS หรือไม่ | T5 F9 |
 | PO-6 | ผู้ตัดสิน Q1–Q3 ของ DEF-05 เป็น PO ตามบทบาทหรือไม่ | T5 F11 |
 | PO-8 | OQ-NFR ข้อ 4: NFR-001/003/004 รอบนี้ต้องมีเคส หรือพิสูจน์ด้วยวิธีอื่น (ข้อ NFR-004 PO ตอบใน PO-4 แล้วว่าวัดหลังขึ้นระบบ — ยังเหลือ NFR-001/003) | oq-nfr-questions-2026-11-18.md |
