@@ -53,15 +53,15 @@
 |---|---|---|---|---|---|---|
 | design.state.json | /design:init | done | — | — | — | — |
 | context.json | /design:overview | done | approved | Noppasorn | 2026-10-19T07:59:59Z | — |
-| modules/mrr/functions.json | /design:function | done | draft | — | — | — |
+| modules/mrr/functions.json | /design:function | done | approved | Noppasorn | 2026-11-26T04:15:38Z | — |
 | trace.design.json | /design:function | done | — | — | — | — |
-| datamodel.json | /design:datamodel | done | draft | — | — | — |
-| modules/mrr/statemachines.json | /design:datamodel | done | draft | — | — | — |
+| datamodel.json | /design:datamodel | done | approved | Noppasorn | 2026-11-26T04:15:38Z | — |
+| modules/mrr/statemachines.json | /design:datamodel | done | approved | Noppasorn | 2026-11-26T04:15:38Z | — |
 | rbac.json | /design:rbac | done | approved | Noppasorn | 2026-11-24T10:37:27Z | — |
 | nfr.json | /design:nfr | done | approved | Noppasorn | 2026-11-23T08:01:07Z | — |
-| sitemap.json | /design:sitemap | done | draft | — | — | — |
-| modules/mrr/screens.json | /design:sitemap | done | draft | — | — | — |
-| interfaces.json | /design:interface | done | draft | — | — | — |
+| sitemap.json | /design:sitemap | done | approved | Noppasorn | 2026-11-26T04:15:38Z | — |
+| modules/mrr/screens.json | /design:sitemap | done | approved | Noppasorn | 2026-11-26T04:15:38Z | — |
+| interfaces.json | /design:interface | done | approved | Noppasorn | 2026-11-26T04:15:38Z | — |
 
 > ℹ️ **ข้อจำกัดของข้อมูลชุดนี้** — "สถานะขั้น" มาจากไฟล์สถานะ ส่วน "สถานะเอกสาร" มาจากตัวไฟล์เอง — ขั้นที่ค้างจะเห็นได้ที่คอลัมน์แรกเท่านั้น เพราะเครื่องหมายค้างถูกเก็บที่ขั้น ไม่ใช่ในเนื้อหาที่อนุมัติไปแล้ว
 
