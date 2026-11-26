@@ -4,7 +4,7 @@ import { Caller } from '../../common/auth/current-user';
 import { CLOCK, Clock } from '../../common/clock';
 import { KYSELY } from '../../common/database/database.module';
 import { Database } from '../../common/database/schema';
-import { EXCLUSION_VIOLATION, SlotTaken } from './booking.service';
+import { checkAttendeesForEdit, EXCLUSION_VIOLATION, SlotTaken } from './booking.service';
 import { assertRoomAdministrator, recordAudit } from './room-admin';
 
 /** No such adjustment request. */
@@ -130,6 +130,8 @@ export class AdjustmentRequestService {
       }
       if (Array.isArray(changes.attendeeIds)) {
         const attendeeIds = changes.attendeeIds as string[];
+        // DEF-08 · BR-mrr-002@v2: whoever the request ADDS must still be active now; the request keeps waiting otherwise.
+        await checkAttendeesForEdit(tx, request.booking_id, attendeeIds);
         await tx.deleteFrom('booking_attendees').where('booking_id', '=', request.booking_id).execute();
         await tx.insertInto('booking_attendees').values(attendeeIds.map((user_id) => ({ booking_id: request.booking_id, user_id }))).execute();
       }

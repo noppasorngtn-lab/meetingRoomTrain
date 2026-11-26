@@ -4,7 +4,7 @@ import { Database } from '../../src/common/database/schema';
 import {
   AdjustmentNotPending, AdjustmentRequestNotFound, AdjustmentRequestService, OwnAdjustmentRequest,
 } from '../../src/modules/booking/adjustment-request.service';
-import { SlotTaken } from '../../src/modules/booking/booking.service';
+import { BookingInvalid, SlotTaken } from '../../src/modules/booking/booking.service';
 import { NotRoomAdministrator } from '../../src/modules/booking/room-admin';
 import { seedBooking, seedRoom, seedUser, startDatabase, truncateAll } from '../support/postgres';
 
@@ -155,6 +155,39 @@ describe('FE-mrr-032 another Room Administrator decides an adjustment request (U
     expect(await db.selectFrom('booking_equipment_requests').select('facility_id').where('booking_id', '=', booking).execute()).toEqual([
       { facility_id: mic },
     ]);
+  });
+
+  // DEF-08 · BR-mrr-002@v2 · EX-mrr-140 (AC-mrr-143): approval applies the asked-for list, so a user the
+  // request ADDS must still be active when it is approved; one already on the booking may stay inactive.
+  describe('DEF-08 · BR-mrr-002@v2 a user the request adds must be active at approval', () => {
+    const deactivate = (id: string) => db.updateTable('users').set({ active: false }).where('id', '=', id).execute();
+    const attendees = async () =>
+      (await db.selectFrom('booking_attendees').select('user_id').where('booking_id', '=', booking).execute()).map((a) => a.user_id).sort();
+
+    it('AC-mrr-143 RA1 asked to add U3, U3 then went inactive — RA2 approves: refused, ไม่พบผู้เข้าร่วมบางคนในรายชื่อผู้ใช้, U2 stays, the request still waits', async () => {
+      const u2 = await seedUser(db, 'U2');
+      const u3 = await seedUser(db, 'U3');
+      await db.insertInto('booking_attendees').values({ booking_id: booking, user_id: u2 }).execute();
+      request = await seedRequest({ attendeeIds: [u2, u3] });
+      await deactivate(u3);
+
+      await expect(service.approve({ userId: ra2 }, request)).rejects.toThrow(new BookingInvalid('attendees', 'ไม่พบผู้เข้าร่วมบางคนในรายชื่อผู้ใช้'));
+      expect(await attendees()).toEqual([u2]);
+      expect((await state()).status).toBe('PENDING');
+      expect(await trail()).toEqual([]);
+    });
+
+    it('an inactive attendee already on the booking does not block approval and stays (BR-mrr-002@v2)', async () => {
+      const u2 = await seedUser(db, 'U2');
+      await db.insertInto('booking_attendees').values({ booking_id: booking, user_id: u2 }).execute();
+      await deactivate(u2);
+      request = await seedRequest({ title: 'ประชุมวางแผน', attendeeIds: [u2] });
+
+      expect(await service.approve({ userId: ra2 }, request)).toEqual({ message: 'อนุมัติคำขอแก้ไขสำเร็จ' });
+      expect(await title()).toBe('ประชุมวางแผน');
+      expect(await attendees()).toEqual([u2]);
+      expect((await state()).status).toBe('APPROVED');
+    });
   });
 
   it('a new time that another booking now holds is refused — nothing changes and the request still waits', async () => {

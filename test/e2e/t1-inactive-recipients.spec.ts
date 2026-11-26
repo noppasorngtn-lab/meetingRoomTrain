@@ -371,3 +371,64 @@ test.describe('DEF-07 แก้การจองเมื่อมีผู้�
     expect(attendeesOf(b.id)).toEqual([world.users.u2.id]);
   });
 });
+
+/**
+ * DEF-08 · EX-mrr-140 (AC-mrr-143) — approving an adjustment request applies the asked-for list, so a
+ * user the request ADDS must still be active at approval; otherwise nothing changes and it keeps waiting.
+ */
+test.describe('DEF-08 อนุมัติคำขอแก้ไขที่เพิ่มผู้ใช้ซึ่งไม่ active แล้ว', () => {
+  test('[real] TC-APR-UI011-104 RA1 ขอเพิ่ม U3 หลังจบประชุม U3 ถูกตั้งไม่ active แล้ว RA2 อนุมัติ → ไม่อนุมัติ "ไม่พบผู้เข้าร่วมบางคนในรายชื่อผู้ใช้" · ผู้เข้าร่วมคงเดิม · คำขอยังรอ (EX-mrr-140 · BR-mrr-002@v2)', async () => {
+    const ra2 = await as('ra2');
+    try {
+      const t = token();
+      const slot = nearSlot();
+      const u3 = makeUser(`adj.${t}`);
+      const b = await book(clients.u1, 'open', slot, title(t), [world.users.u2.id]);
+      await setClock(new Date(Date.parse(slot.endAt) + 60_000));
+
+      const asked = await clients.ra1.post(`/bookings/${b.id}/admin-edit`, { data: { attendeeIds: [world.users.u2.id, u3.id], reason: 'เพิ่มผู้เข้าร่วมที่มาจริง' } });
+      expect(asked.status(), await asked.text()).toBe(200);
+      const reqId = psql(`select id from booking_adjustment_requests where booking_id = ${lit(b.id)} and status = 'PENDING'`);
+      expect(reqId).not.toBe('');
+      deactivate(u3);
+
+      const res = await ra2.post(`/adjustment-requests/${reqId}/approve`);
+      expect(res.status(), await res.text()).toBe(400);
+      expect(await res.text()).toContain(NOT_FOUND);
+      expect(attendeesOf(b.id)).toEqual([world.users.u2.id]);
+      expect(psql(`select status from booking_adjustment_requests where id = ${lit(reqId)}`)).toBe('PENDING');
+      // Clean up: a request left PENDING pushes other cases' requests off page 1 of API-017 (20 a page).
+      expect((await ra2.post(`/adjustment-requests/${reqId}/reject`)).status()).toBe(200);
+    } finally {
+      await ra2.dispose();
+    }
+  });
+});
+
+/**
+ * Q-6 (pending-by-owner) — the DEF-07 fix seen through the real edit form (UI-mrr-008), not only the API.
+ * The form loads the saved attendees, including one whose account went inactive, and sends them back.
+ */
+test.describe('Q-6 หน้าจอแก้ไขการจอง เมื่อมีผู้เข้าร่วมที่ไม่ active', () => {
+  test.use({ storageState: '.auth/tester.json' });
+
+  test('[real] TC-MYB-UI008-105 ผู้จองเปิดหน้าแก้ไข ผู้เข้าร่วมที่ไม่ active แสดงในรายชื่อ แก้หัวข้อแล้วกดบันทึก → "บันทึกการแก้ไขสำเร็จ" · ผู้เข้าร่วมคงเดิม (EX-mrr-136 · BR-mrr-002@v2 · DEF-07)', async ({ page }) => {
+    const t = token();
+    const u3 = makeUser(`ui.${t}`);
+    const list = [world.users.u2.id, u3.id];
+    const b = await book(clients.u1, 'open', nearSlot(), title(t), list);
+    deactivate(u3);
+
+    await page.goto(`/UI-mrr-008?booking=${b.id}`);
+    const picked = page.getByRole('list', { name: 'ผู้เข้าร่วมที่เลือก' });
+    await expect(picked).toContainText(`E2E Inactive ${`ui.${t}`.toUpperCase()}`);
+    await page.getByTestId('ui-mrr-008-ent-007-title').fill(`${title(t)} แก้ผ่านหน้าจอ`);
+    const saved = page.waitForResponse((r) => r.url().endsWith(`/bookings/${b.id}`) && r.request().method() === 'PATCH');
+    await page.getByTestId('ui-mrr-008-save').click();
+    expect((await saved).status()).toBe(200);
+    await expect(page).toHaveURL(/\/UI-mrr-007/);
+    await expect(page.getByText('บันทึกการแก้ไขสำเร็จ', { exact: true })).toBeVisible();
+    expect(psql(`select title from bookings where id = ${lit(b.id)}`)).toBe(`${title(t)} แก้ผ่านหน้าจอ`);
+    expect(attendeesOf(b.id)).toEqual([...list].sort());
+  });
+});

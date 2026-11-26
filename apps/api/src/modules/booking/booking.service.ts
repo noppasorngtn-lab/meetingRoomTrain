@@ -85,6 +85,21 @@ export async function activeAttendees(tx: Kysely<Database>, ids: string[]) {
   return found;
 }
 
+/**
+ * BR-mrr-002@v2 (DEF-07 · CHG-mrr-008) — on an edit, only someone ADDED to the list has to be an active
+ * user. An attendee already on the booking stays even after their account goes inactive (they are then
+ * left out of the mail, BR-mrr-007@v3). "Already on" means on the list as saved now, so an inactive
+ * attendee taken off by an earlier edit counts as added if asked for again. Used by every edit path and
+ * by the approval of an adjustment request (DEF-08 · EX-mrr-140). Returns the saved list.
+ */
+export async function checkAttendeesForEdit(tx: Kysely<Database>, bookingId: string, attendeeIds: string[]): Promise<string[]> {
+  const was = (await tx.selectFrom('booking_attendees').select('user_id').where('booking_id', '=', bookingId).execute()).map((a) => a.user_id);
+  const onList = new Set(was);
+  const added = attendeeIds.filter((id) => !onList.has(id));
+  if (added.length) await activeAttendees(tx, added);
+  return was;
+}
+
 /** Every id must be a facility still offered (ENT-004 active). */
 export async function checkEquipment(tx: Kysely<Database>, ids: string[]): Promise<void> {
   if (!ids.length) return;

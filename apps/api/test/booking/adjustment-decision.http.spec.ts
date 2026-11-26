@@ -92,6 +92,30 @@ describe('FE-mrr-032 /adjustment-requests — list, approve, reject', () => {
     expect(await status()).toBe('REJECTED');
   });
 
+  it('DEF-08 400 with the field when the request adds a user who is no longer active — nothing changes, the request still waits (EX-mrr-140)', async () => {
+    const u3 = await seedUser(db, 'U3');
+    await db.updateTable('booking_adjustment_requests').set({ proposed_changes: JSON.stringify({ attendeeIds: [u3] }) }).where('id', '=', adjustment).execute();
+    await db.updateTable('users').set({ active: false }).where('id', '=', u3).execute();
+
+    const res = await post('approve', ra2);
+
+    expect(res.status).toBe(400);
+    expect(res.body).toMatchObject({ statusCode: 400, field: 'attendees', message: 'ไม่พบผู้เข้าร่วมบางคนในรายชื่อผู้ใช้' });
+    expect(await status()).toBe('PENDING');
+  });
+
+  it('DEF-08 400 with the field when the request adds a user who is no longer active — nothing changes, the request still waits (EX-mrr-140)', async () => {
+    const u3 = await seedUser(db, 'U3');
+    await db.updateTable('booking_adjustment_requests').set({ proposed_changes: JSON.stringify({ attendeeIds: [u3] }) }).where('id', '=', adjustment).execute();
+    await db.updateTable('users').set({ active: false }).where('id', '=', u3).execute();
+
+    const res = await post('approve', ra2);
+
+    expect(res.status).toBe(400);
+    expect(res.body).toMatchObject({ statusCode: 400, field: 'attendees', message: 'ไม่พบผู้เข้าร่วมบางคนในรายชื่อผู้ใช้' });
+    expect(await status()).toBe('PENDING');
+  });
+
   it('409 once decided', async () => {
     await post('reject', ra2);
 

@@ -5,12 +5,14 @@ import { Caller, CurrentUser, UUID } from '../../common/auth/current-user';
 import {
   AdjustmentNotPending, AdjustmentPage, AdjustmentRequestNotFound, AdjustmentRequestService, OwnAdjustmentRequest,
 } from './adjustment-request.service';
-import { SlotTaken } from './booking.service';
+import { BookingInvalid, SlotTaken } from './booking.service';
 import { NotRoomAdministrator } from './room-admin';
 
 /** The domain's refusals as HTTP answers, with the domain's words. */
 function answer(err: unknown): never {
   if (err instanceof AdjustmentRequestNotFound) throw new NotFoundException(err.message);
+  // DEF-08 · BR-mrr-002@v2: approval refused because the request adds a user who is no longer active.
+  if (err instanceof BookingInvalid) throw new BadRequestException({ statusCode: 400, field: err.field, message: err.message });
   if (err instanceof NotRoomAdministrator || err instanceof OwnAdjustmentRequest) throw new ForbiddenException(err.message);
   if (err instanceof AdjustmentNotPending || err instanceof SlotTaken) throw new ConflictException(err.message);
   throw err;
