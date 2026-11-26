@@ -3,7 +3,7 @@
   "producedBy": "design · scripts/context.mjs",
   "project": "mrr",
   "status": "approved",
-  "approvedAt": "2026-10-19T07:59:59Z",
+  "approvedAt": "2026-11-26T08:00:46Z",
   "approvedBy": "Noppasorn",
   "scope": {
     "inScope": [
@@ -80,6 +80,11 @@
       {
         "key": "recurring-booking",
         "text": "การจองแบบประจำ (ซ้ำทุกสัปดาห์/ทุกเดือน) — หนึ่งการจองคือหนึ่งช่วงเวลา",
+        "sources": []
+      },
+      {
+        "key": "inactive-since-date-tracking",
+        "text": "ระบบไม่เก็บวันที่บัญชีผู้ใช้เริ่มไม่ active ซึ่งเป็นจุดเริ่มนับระยะเก็บข้อมูลส่วนบุคคล 1 ปีตาม ADR-017 — ผู้ดูแลระบบบันทึกวันที่นี้นอกระบบ",
         "sources": []
       }
     ]

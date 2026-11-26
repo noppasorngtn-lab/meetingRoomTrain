@@ -1,4 +1,4 @@
-# งานที่รอแต่ละฝ่าย (อัปเดต 2026-11-26 เย็น · HEAD `e195e01` · PO-1–9 ปิดทั้งหมด · ฉบับแรก 2026-11-25 ที่ `61255fe`)
+# งานที่รอแต่ละฝ่าย (อัปเดต 2026-11-26 เย็น · HEAD `e195e01` · PO-1–9 ปิดทั้งหมด · D-1 ปิด · ฉบับแรก 2026-11-25 ที่ `61255fe`)
 
 ร่างโดย AI จากผลรันด่านและเอกสารใน `docs/qa/` · **ไม่มีข้อไหนที่ AI ปิดเองได้** ทุกข้อต้องให้คนตัดสิน บันทึกทางการ หรือเซ็น
 แหล่งหลัก: [t5-quality-gate-2026-11-25.md](t5-quality-gate-2026-11-25.md) §E, §F, Next Actions · [t7-regression-def07-2026-11-26.md](t7-regression-def07-2026-11-26.md) · [t7-regression-def08-2026-11-26.md](t7-regression-def08-2026-11-26.md) · [req-design-request-adr017-2026-11-25.md](req-design-request-adr017-2026-11-25.md) · [t5-critical-assertion-sample-2026-11-25.md](t5-critical-assertion-sample-2026-11-25.md)
@@ -37,6 +37,7 @@
 | PO-6 ผู้ตัดสิน DEF-05 | ผู้ใช้แจ้งว่าผู้ตัดสิน Q1–Q3 เมื่อ 2026-11-20 คือ PO ตามบทบาท · PO ยืนยันคำตอบเดิม (2026-11-26) · ลง Sign-off ใน [po-decision-def-05-scope-2026-11-20.md](po-decision-def-05-scope-2026-11-20.md) · R-2 (req เพิ่ม EX และปรับ BR-mrr-019) ยังเปิด |
 | PO-8 OQ-NFR ข้อ 4 | PO ยืนยันคำตอบของวันที่ 2026-11-23 (ตามที่ผู้ใช้แจ้ง 2026-11-26): NFR-001 และ NFR-003 พิสูจน์ด้วยเคสที่มีอยู่ (TC-NFR-REQ001-101 · 103 · เคส RBAC เดิม) · NFR-004 วิเคราะห์ log หลังขึ้นระบบ · บันทึกใน [oq-nfr-questions-2026-11-18.md](oq-nfr-questions-2026-11-18.md) · R-4 (`verified_by` ใน spec) ยังเปิด |
 | PO-9 Severity DEF-06/08 | บันทึกคำตัดสิน Medium ทั้งคู่เป็นไฟล์ (PO ตามที่ผู้ใช้แจ้ง 2026-11-25 และ 2026-11-26) · [po-decision-severity-def06-def08-2026-11-26.md](po-decision-severity-def06-def08-2026-11-26.md) · Severity ของ defect ทั้ง 8 ตัวมีบันทึกเป็นไฟล์ครบแล้ว |
+| D-1 Q-ADR017-1 (วันที่เริ่มไม่ active บันทึกนอกระบบ) | design บันทึกเป็นทางการ 2026-11-26: ADR-020 (design · added · absorbed) · `context.json` scope.outOfScope `inactive-since-date-tracking` · เซ็นใหม่ Noppasorn 2026-11-26 (`approve --ready` 9/9 · `check` PASS) · `design-document.md` export ใหม่ · `/mock:sync` ไม่มีอะไรต้องบันทึก · `/mock:check` PASS 32/32 — ผลต่อ mock ตรวจด้วยมือ: ไม่กระทบ wireframe/mockup · `mrr-theme-brief.md` ขาดบรรทัด out of scope ข้อใหม่ (ไม่มีผลต่อ theme · สร้างใหม่ได้ด้วย `/mock:theme --prompt` ถ้าต้องการ) |
 
 ## PO
 
@@ -46,11 +47,10 @@
 
 | # | เรื่อง | ที่มา |
 |---|---|---|
-| D-1 | บันทึกคำตอบ Q-ADR017-1 (วันที่เริ่มไม่ active บันทึกนอกระบบ) ให้เป็นทางการ | T5 F1 |
 | D-2 | บันทึก Q-ADR017-2 (`masked-<uuid>@mrr.invalid`) ลงคู่มือผู้ดูแล | T5 F2 |
 | D-5 | รับรู้ข้อค้นพบว่า "อนุมัติคำขอแก้ไขไม่ส่งอีเมลเลย" (UC-mrr-011) ถ้าตั้งใจให้ส่ง ต้องเปิดเป็นเรื่องใหม่ | req-design-request-adr017 |
 
-(D-3 · D-4 ปิดแล้ว 2026-11-25 — CHG-mrr-007 · D-6 · D-7 ปิดแล้ว 2026-11-26 — ADR-019)
+(D-3 · D-4 ปิดแล้ว 2026-11-25 — CHG-mrr-007 · D-6 · D-7 ปิดแล้ว 2026-11-26 — ADR-019 · D-1 ปิดแล้ว 2026-11-26 — ADR-020)
 
 ## req
 
