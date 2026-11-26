@@ -615,4 +615,4 @@
 
 ผลรัน 2026-11-26: `t1-partial-reject` + `t1-inactive-recipients` บน chromium **23 passed** (stack rebuild `--build`) · ทุกเคสพิมพ์ `Error response from daemon: No such container: mrr-smtp-reject-u3` ตอนเก็บกวาด — มาจาก `stopPartialRejectMail()` ลบ container ที่หยุดไปแล้ว ไม่ทำให้เคสล้ม
 
-**QA review: ยังไม่มี** — AI เขียนและรันเคส แต่ยังไม่มีผู้ review (ไม่ได้ลงนามแทน)
+**QA review: ผ่าน — QA_Noppasorn 2026-11-26** (ผู้ใช้แจ้งในเซสชัน · ครอบ 6 เคสและการผูกใน e2e-ex-map · AI บันทึกตามคำแจ้ง ไม่ได้ลงนามแทน)

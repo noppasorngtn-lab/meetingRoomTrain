@@ -563,23 +563,23 @@
     },
     "EX-mrr-141": {
       "cases": "TC-NTF-UI007-101",
-      "note": "booker cancels while the SMTP fixture rejects U3 only: 503, booking kept · real · PASS 2026-11-26 (after 4382688) · mapping not yet reviewed by QA"
+      "note": "booker cancels while the SMTP fixture rejects U3 only: 503, booking kept · real · PASS 2026-11-26 (after 4382688) · mapping reviewed by QA_Noppasorn 2026-11-26 (as the user reported)"
     },
     "EX-mrr-142": {
       "cases": "TC-NTF-UI010-103",
-      "note": "RA cancels on behalf after start while U3 is rejected: 503, booking kept · real · PASS 2026-11-26 (after 4382688) · mapping not yet reviewed by QA"
+      "note": "RA cancels on behalf after start while U3 is rejected: 503, booking kept · real · PASS 2026-11-26 (after 4382688) · mapping reviewed by QA_Noppasorn 2026-11-26 (as the user reported)"
     },
     "EX-mrr-143": {
       "cases": "TC-NTF-UI009-104",
-      "note": "RA rejects while U3 is rejected: 503, still PENDING_APPROVAL · real · PASS 2026-11-26 (after 4382688) · mapping not yet reviewed by QA"
+      "note": "RA rejects while U3 is rejected: 503, still PENDING_APPROVAL · real · PASS 2026-11-26 (after 4382688) · mapping reviewed by QA_Noppasorn 2026-11-26 (as the user reported)"
     },
     "EX-mrr-144": {
       "cases": "TC-NTF-UI008-109",
-      "note": "booker moves the time while U3 is rejected: 503, time unchanged (was TC-NTF-UI008-106, a duplicate id) · real · PASS 2026-11-26 (after 4382688) · mapping not yet reviewed by QA"
+      "note": "booker moves the time while U3 is rejected: 503, time unchanged (was TC-NTF-UI008-106, a duplicate id) · real · PASS 2026-11-26 (after 4382688) · mapping reviewed by QA_Noppasorn 2026-11-26 (as the user reported)"
     },
     "EX-mrr-145": {
       "cases": "TC-APR-UI011-105",
-      "note": "RA2 approves an after-meeting request that moves the end time: 200, time moved, no mail to booker or attendee · real · PASS 2026-11-26 (after 4382688) · mapping not yet reviewed by QA"
+      "note": "RA2 approves an after-meeting request that moves the end time: 200, time moved, no mail to booker or attendee · real · PASS 2026-11-26 (after 4382688) · mapping reviewed by QA_Noppasorn 2026-11-26 (as the user reported)"
     }
   }
 }
