@@ -543,19 +543,19 @@
     },
     "EX-mrr-136": {
       "cases": "TC-MYB-UI008-102",
-      "note": "booker edits the title with the old list holding an inactive attendee: 200, attendee kept in booking_attendees · real · PASS 2026-11-26 (80a4e96) · BR-mrr-002@v2 · ยังไม่ผ่าน QA review"
+      "note": "booker edits the title with the old list holding an inactive attendee: 200, attendee kept in booking_attendees · real · PASS 2026-11-26 (80a4e96) · BR-mrr-002@v2 · mapping reviewed by QA_Noppasorn 2026-11-26 (as the user reported)"
     },
     "EX-mrr-137": {
       "cases": "TC-MYB-UI008-103",
-      "note": "adding an inactive user not on the list: 400 ไม่พบผู้เข้าร่วมบางคนในรายชื่อผู้ใช้, list unchanged · real · PASS 2026-11-26 (80a4e96) · BR-mrr-002@v2 · ยังไม่ผ่าน QA review"
+      "note": "adding an inactive user not on the list: 400 ไม่พบผู้เข้าร่วมบางคนในรายชื่อผู้ใช้, list unchanged · real · PASS 2026-11-26 (80a4e96) · BR-mrr-002@v2 · mapping reviewed by QA_Noppasorn 2026-11-26 (as the user reported)"
     },
     "EX-mrr-138": {
       "cases": "TC-APR-UI010-111",
-      "note": "RA edit-on-behalf during the meeting, end +30 min, old list with an inactive attendee: 200 บันทึกการแก้ไขสำเร็จ, list unchanged · real · PASS 2026-11-26 (80a4e96) · BR-mrr-002@v2 · ยังไม่ผ่าน QA review"
+      "note": "RA edit-on-behalf during the meeting, end +30 min, old list with an inactive attendee: 200 บันทึกการแก้ไขสำเร็จ, list unchanged · real · PASS 2026-11-26 (80a4e96) · BR-mrr-002@v2 · mapping reviewed by QA_Noppasorn 2026-11-26 (as the user reported)"
     },
     "EX-mrr-139": {
       "cases": "TC-MYB-UI008-104",
-      "note": "inactive attendee taken off and saved, then added back: 400, list stays u2 · real · PASS 2026-11-26 (80a4e96) · BR-mrr-002@v2 · ยังไม่ผ่าน QA review"
+      "note": "inactive attendee taken off and saved, then added back: 400, list stays u2 · real · PASS 2026-11-26 (80a4e96) · BR-mrr-002@v2 · mapping reviewed by QA_Noppasorn 2026-11-26 (as the user reported)"
     }
   }
 }
