@@ -5,9 +5,9 @@
     "plugin": "req",
     "specSchemaVersion": "0.6.0",
     "module": "mrr",
-    "specStatus": "draft",
-    "specApprovedBy": null,
-    "specApprovedAt": null,
+    "specStatus": "validated",
+    "specApprovedBy": "Noppasorn",
+    "specApprovedAt": "2026-11-26T08:27:13.716Z",
     "specUpdatedAt": "2026-11-18T12:30+07:00"
   },
   "requirements": [
