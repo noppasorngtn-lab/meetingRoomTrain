@@ -64,6 +64,17 @@ export default async function globalSetup(_config: FullConfig) {
     "update bookings set status = 'CANCELLED', cancel_reason = coalesce(cancel_reason, 'E2E cleanup') " +
       "where title like 'E2E%' and title not like 'E2E RPT%' and end_at > now() and status in ('CONFIRMED', 'APPROVED', 'PENDING_APPROVAL')",
   );
+  // Q-8 (pending-by-owner, decided 2026-11-26): adjustment requests left PENDING by earlier runs pile up, and the cases
+  // that find their own request on page 1 of API-017 (20 a page · TC-APR-UI011-103, TC-AUD-UI011-101) miss it once
+  // there are more than 20. Close every PENDING request on a synthetic booking before the run. A decided request
+  // needs a decider who is not the asker (CHECKs in 004_booking_adjustment.sql), so one of the two E2E Room
+  // Administrators signs it; the booking itself is left untouched and no audit row is written (test data only).
+  psql(
+    "update booking_adjustment_requests a set status = 'REJECTED', decided_at = now(), " +
+      "decided_by = (select u.id from users u where u.email in ('e2e.ra2@mrr.local', 'admin@mrr.local') and u.id <> a.requested_by order by u.email limit 1) " +
+      "from bookings b where b.id = a.booking_id and a.status = 'PENDING' and b.title like 'E2E%' " +
+      "and exists (select 1 from users u where u.email in ('e2e.ra2@mrr.local', 'admin@mrr.local') and u.id <> a.requested_by)",
+  );
 
   // Rooms by their settings, not by name: the specs read them from here. The E2E rooms are left out so
   // "the first room" stays what it was before they existed.
