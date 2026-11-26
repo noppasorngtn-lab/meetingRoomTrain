@@ -1,4 +1,4 @@
-# งานที่รอแต่ละฝ่าย (อัปเดต 2026-11-26 เย็น · HEAD `e195e01` · PO-1–9 ปิดทั้งหมด · D-1 ปิด · ฉบับแรก 2026-11-25 ที่ `61255fe`)
+# งานที่รอแต่ละฝ่าย (อัปเดต 2026-11-26 เย็น · HEAD `e195e01` · PO-1–9 ปิดทั้งหมด · D ปิดทั้งหมด · R-5 ใหม่ · ฉบับแรก 2026-11-25 ที่ `61255fe`)
 
 ร่างโดย AI จากผลรันด่านและเอกสารใน `docs/qa/` · **ไม่มีข้อไหนที่ AI ปิดเองได้** ทุกข้อต้องให้คนตัดสิน บันทึกทางการ หรือเซ็น
 แหล่งหลัก: [t5-quality-gate-2026-11-25.md](t5-quality-gate-2026-11-25.md) §E, §F, Next Actions · [t7-regression-def07-2026-11-26.md](t7-regression-def07-2026-11-26.md) · [t7-regression-def08-2026-11-26.md](t7-regression-def08-2026-11-26.md) · [req-design-request-adr017-2026-11-25.md](req-design-request-adr017-2026-11-25.md) · [t5-critical-assertion-sample-2026-11-25.md](t5-critical-assertion-sample-2026-11-25.md)
@@ -38,6 +38,8 @@
 | PO-8 OQ-NFR ข้อ 4 | PO ยืนยันคำตอบของวันที่ 2026-11-23 (ตามที่ผู้ใช้แจ้ง 2026-11-26): NFR-001 และ NFR-003 พิสูจน์ด้วยเคสที่มีอยู่ (TC-NFR-REQ001-101 · 103 · เคส RBAC เดิม) · NFR-004 วิเคราะห์ log หลังขึ้นระบบ · บันทึกใน [oq-nfr-questions-2026-11-18.md](oq-nfr-questions-2026-11-18.md) · R-4 (`verified_by` ใน spec) ยังเปิด |
 | PO-9 Severity DEF-06/08 | บันทึกคำตัดสิน Medium ทั้งคู่เป็นไฟล์ (PO ตามที่ผู้ใช้แจ้ง 2026-11-25 และ 2026-11-26) · [po-decision-severity-def06-def08-2026-11-26.md](po-decision-severity-def06-def08-2026-11-26.md) · Severity ของ defect ทั้ง 8 ตัวมีบันทึกเป็นไฟล์ครบแล้ว |
 | D-1 Q-ADR017-1 (วันที่เริ่มไม่ active บันทึกนอกระบบ) | design บันทึกเป็นทางการ 2026-11-26: ADR-020 (design · added · absorbed) · `context.json` scope.outOfScope `inactive-since-date-tracking` · เซ็นใหม่ Noppasorn 2026-11-26 (`approve --ready` 9/9 · `check` PASS) · `design-document.md` export ใหม่ · `/mock:sync` ไม่มีอะไรต้องบันทึก · `/mock:check` PASS 32/32 — ผลต่อ mock ตรวจด้วยมือ: ไม่กระทบ wireframe/mockup · `mrr-theme-brief.md` ขาดบรรทัด out of scope ข้อใหม่ (ไม่มีผลต่อ theme · สร้างใหม่ได้ด้วย `/mock:theme --prompt` ถ้าต้องการ) |
+| D-2 Q-ADR017-2 รูปแบบ email ที่ปิดบัง | ผู้ใช้เลือกให้สร้างคู่มือผู้ดูแลใหม่ (2026-11-26): [docs/admin-manual.md](../admin-manual.md) §1 — จดวันเริ่มไม่ active นอกระบบ · ครบ 1 ปีเขียนทับ `full_name` = "ผู้ใช้ที่ถูกปิดบังชื่อ" และ `email` = `masked-<uuid>@mrr.invalid` · ห้ามลบแถว · ไม่แตะไฟล์ design ที่เซ็นแล้ว |
+| D-5 อนุมัติคำขอแก้ไขไม่ส่ง Email | ผู้ใช้ตัดสิน 2026-11-26: **ไม่ส่ง ตั้งใจแบบนี้** (แก้บันทึกหลังประชุมจบ) · ไม่มีงาน dev · ตัวอักษรของ BR-mrr-007@v3 (3) ยังไม่ตรง → ส่ง req เป็น R-5 ([req-request-adjustment-no-email](req-request-adjustment-no-email-2026-11-26.md)) |
 
 ## PO
 
@@ -45,12 +47,7 @@
 
 ## design
 
-| # | เรื่อง | ที่มา |
-|---|---|---|
-| D-2 | บันทึก Q-ADR017-2 (`masked-<uuid>@mrr.invalid`) ลงคู่มือผู้ดูแล | T5 F2 |
-| D-5 | รับรู้ข้อค้นพบว่า "อนุมัติคำขอแก้ไขไม่ส่งอีเมลเลย" (UC-mrr-011) ถ้าตั้งใจให้ส่ง ต้องเปิดเป็นเรื่องใหม่ | req-design-request-adr017 |
-
-(D-3 · D-4 ปิดแล้ว 2026-11-25 — CHG-mrr-007 · D-6 · D-7 ปิดแล้ว 2026-11-26 — ADR-019 · D-1 ปิดแล้ว 2026-11-26 — ADR-020)
+ไม่มีข้อค้าง — D-1 ถึง D-7 ปิดแล้ว (D-3 · D-4 ปิด 2026-11-25 — CHG-mrr-007 · D-6 · D-7 ปิด 2026-11-26 — ADR-019 · D-1 ปิด 2026-11-26 — ADR-020 · D-2 · D-5 ปิด 2026-11-26 — คู่มือผู้ดูแล / R-5)
 
 ## req
 
@@ -59,6 +56,7 @@
 | R-2 | เพิ่ม EX / ปรับ BR-mrr-019 ตามคำตัดสิน DEF-05 (ตรวจแล้ว EX-129–131 เป็นของ CHG-mrr-006 ไม่ใช่ DEF-05) | T5 F6(เดิม) · F10 |
 | R-3 | ตัดสินว่า Q-ADR017-3/4 นับเป็น red card ของ REQ ใดหรือไม่ (G0 ยังตัดสินไม่ได้ว่ากฎครบสำหรับ ADR-017) | T5 G0 |
 | R-4 | NFR-004 `verified_by`: ตัดสินว่าทางที่ใช้ `/req:capture` เป็นทางที่ req ตั้งใจหรือไม่ · NFR-001/003/005 ยังว่าง · ต้องเซ็น Phase 1 ใหม่หรือไม่ (CP1 เซ็นเมื่อ 2026-11-18 ก่อน CHG-mrr-007/008) | req-request-nfr004-verified-by-and-resign-2026-11-23.md |
+| R-5 | BR-mrr-007@v3 (3) "เปลี่ยนเวลา → ส่ง Email" ตามตัวอักษรครอบการอนุมัติคำขอแก้ไขหลังจบประชุมด้วย แต่ผู้ใช้ตัดสินแล้วว่าไม่ส่ง (D-5) — req เลือกว่าจะแก้กฎพร้อมเพิ่ม EX หรือบันทึกคำอธิบาย | [req-request-adjustment-no-email-2026-11-26.md](req-request-adjustment-no-email-2026-11-26.md) |
 
 (R-1 ปิดแล้ว 2026-11-25 — CHG-mrr-007)
 
