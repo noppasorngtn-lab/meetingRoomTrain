@@ -1,4 +1,5 @@
 import { Kysely } from 'kysely';
+import { BookingService } from '../../src/modules/booking/booking.service';
 import { BookingNotifier } from '../../src/modules/notification/booking-notifier';
 import { MailMessage, MailTransport } from '../../src/modules/notification/mail-transport';
 import { PgReminderStore } from '../../src/modules/reminder/pg-reminder-store';
@@ -90,6 +91,30 @@ describe('PgReminderStore + ReminderJob', () => {
 
     expect(reminded()).toEqual([]);
     expect((await rowOf(id)).reminder_status).toBe('SENT');
+  });
+
+  it('TC-NTF-JOB-118 EX-mrr-147 BR-mrr-008 booked at 09:45 for 10:00: no reminder at once, the 09:45 pass sends it, once', async () => {
+    // The real create path and the job share one mailbox, so a reminder from either of them is counted.
+    const service = new BookingService(db, { now: () => T('09:45') }, new BookingNotifier(mail));
+    const { id } = await service.create({ userId: u1 }, {
+      roomId: roomOpen.roomId, startAt: T('10:00'), endAt: T('11:00'), title: 'ประชุมด่วน', attendeeIds: [u2], equipmentIds: [],
+    });
+    expect(reminded()).toHaveLength(0);
+    expect(mail.sent.map((m) => [m.subject, m.to])).toEqual([
+      ['[จองห้องประชุม] จองสำเร็จ: ประชุมด่วน · Room A 17/10 10:00–11:00', ['u1@example.test']],
+    ]);
+    expect((await rowOf(id)).reminder_status).toBe('NOT_SENT');
+
+    await job.run(T('09:45'));
+    expect(reminded()).toHaveLength(1);
+    expect(reminded()[0].to.sort()).toEqual(['u1@example.test', 'u2@example.test']);
+    expect(reminded()[0].subject).toBe('[จองห้องประชุม] ใกล้ถึงเวลาประชุม: ประชุมด่วน · Room A 17/10 10:00–11:00');
+    const row = await rowOf(id);
+    expect(row.reminder_status).toBe('SENT');
+    expect(row.reminder_at?.getTime()).toBe(T('09:45').getTime());
+
+    await job.run(T('09:50'));
+    expect(reminded()).toHaveLength(1);
   });
 
   it('EX-mrr-023: at 09:44 (16 minutes before) nobody is reminded and the row is untouched', async () => {
