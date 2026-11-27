@@ -19,6 +19,7 @@
 | G9 | dev | `/dev:revise` มี recipe แค่สองแบบ (จัดหน้าจอ) ไม่มีทางบันทึกงานบำรุงรักษาที่ไม่ใช่ UI | ต่ำ | บันทึกผ่าน `build.mjs` ของหน่วยเจ้าของไฟล์ |
 | G10 | req | ช่อง "เทสต์" ใน REQ wiki เขียนตายตัวเป็น `(ยังไม่มี) 🔴` ไม่มีข้อมูลให้เติม | กลาง — เกณฑ์ G1 ของ QA แดงถาวร 28 จุด ทั้งที่ทุก BR มีเคส | ใช้ `docs/qa/req-handoff-test-links.md` แทน · ขอ PO ยกเว้นเกณฑ์ข้อนี้ |
 | G11 | design | ไม่มีคำสั่งลบ edge ใน `trace.design.json` และไม่มี gate ตรวจ edge `proves` ที่ชี้ฟังก์ชันซึ่งไม่ใช่แพลตฟอร์มแล้ว (เพิ่ม 2026-11-27) | กลาง — กราฟมี edge ล้าสมัยที่ทุกด่านมองไม่เห็น การเดินกราฟหาผลกระทบอาจพาไปผิดทาง | ปล่อยไว้และบันทึกที่นี่ (ผู้ใช้เลือก 2026-11-27) |
+| G12 | req | ไม่มีคำสั่งเปลี่ยน `status` ของ CALC (และของ BR / EX) จาก `draft` (เพิ่ม 2026-11-27) | กลาง — CALC-mrr-001@v2 ค้างเป็น `draft` ทั้งที่เป็นรุ่นปัจจุบันและเลขเฉลยยืนยันแล้ว · BR / EX ต้องแก้ `spec.json` ด้วยมือ | CALC: ยังไม่แก้ (รอคำตอบจาก plugin) · BR / EX: แก้ `spec.json` ด้วยมือตามที่เจ้าของยืนยัน แล้วรัน rollup / wiki / export-contract / verify |
 
 ## รายละเอียด
 
@@ -91,6 +92,16 @@
 - **ผล:** กราฟบอกสองเรื่องพร้อมกันว่า AC เหล่านี้ยึดกับตัวอย่าง (`copiedFrom`) และพิสูจน์ฟังก์ชันแพลตฟอร์ม (`proves`) · `--impact` จาก FUN-mrr-015 ยังเดินถึง AC ผ่าน edge เก่า (ผลไม่ผิด แต่เหตุผลที่พิมพ์ออกมาผิด)
 - **วิธีเลี่ยง:** ไม่แก้ `trace.design.json` ด้วยมือ (ผู้ใช้เลือก 2026-11-27) · บันทึกไว้ในรายงานนี้และใน commit `f1f548a`
 - **เสนอแก้:** (1) ให้ `trace.mjs` มีทางถอน edge ที่ต้องอ้าง change record (`--retract <edge> --because <ADR|CHG>`) แบบเดียวกับ `approve.mjs --revoke` · หรือ (2) ให้ `functions.mjs` ถอน `proves` ของเกณฑ์รับเองเมื่อ anchor เปลี่ยน · และเพิ่ม rule ที่รายงาน `proves` ซึ่งชี้ฟังก์ชันที่ไม่ใช่แพลตฟอร์ม หรือมาจากเกณฑ์รับที่ไม่ได้ยึดกับ `function`
+
+### G12 · สถานะ `draft` ของ CALC (และ BR / EX) ไม่มีคำสั่งเปลี่ยน (req)
+
+- **อาการ:** req 0.19.6 เขียน `status: "validated"` ได้สองที่เท่านั้น คือ golden dataset (`/req:golden` · `commands/golden.md`) และ `meta` (`/req:approve`) · `commands/calc.md` ไม่พูดถึง status เลย · `verify-rules.mjs` LIMIT #16 ยอมรับเองว่า "judged … status field(s) for values with no writer" · `commands/approve.md` บอกว่า "nothing in this marketplace reads `validated` on a rule today" · ด่าน CP1 / CP2 จึงผ่านแม้ CALC ปัจจุบันยังเป็น `draft`
+- **เกิดใน mrr:**
+  - CALC-mrr-001@v2 (`is_current: true`) ยังเป็น `draft` ตั้งแต่ขึ้นรุ่นเมื่อ 2026-11-19 (CHG-mrr-004) ทั้งที่ GD-mrr-001 เป็น `validated` (Noppasorn 2026-11-24) · เจ้าของตอบ T2-Q3 เมื่อ 2026-11-27 ว่า **ไม่ได้ตั้งใจให้เป็น draft** (SRC-047) · ยังไม่ได้แก้ เพราะไม่มีทางของ plugin และการแก้ `spec.json` ด้วยมือเปลี่ยนไฟล์สัญญาที่ design อ่าน
+  - BR-mrr-029@v1 และ EX-mrr-148..150 (2026-11-27) · EX-mrr-146 / 147 (2026-11-26 / 27): เปลี่ยนเป็น `validated` ด้วยมือใน `spec.json` ตามที่เจ้าของยืนยันในเซสชัน แล้วรัน `rollup` · `wiki` · `export-contract` · `verify-rules --cp1/--cp2` · ไม่มีช่องบันทึกว่าใครยืนยันเมื่อไร (ต่างจาก golden ที่มี `verified_by` / `verified_at`)
+- **ผล:** สถานะใน wiki และในไฟล์สัญญาไม่บอกว่ามีคนยืนยันแล้วหรือยัง · ด่านไม่จับ · ร่องรอยการยืนยันอยู่แค่ใน commit message และเอกสาร QA
+- **เสนอแก้:** คำสั่ง (หรือ flag ของ `/req:calc` · `/req:example`) ที่เปลี่ยน `draft` → `validated` พร้อม `verified_by` / `verified_at` แบบเดียวกับ `/req:golden` · และให้ verify-rules รายงาน CALC ปัจจุบันที่ยังเป็น `draft` ทั้งที่ golden ของมัน `validated` แล้ว
+- **คำถามที่ค้าง:** ระหว่างรอ plugin จะให้แก้ CALC-mrr-001@v2 ด้วยมือแบบเดียวกับ BR / EX หรือไม่ — ถ้าแก้ `requirements.json` จะเปลี่ยน และ design อาจต้องตรวจรับ
 
 ## Open Questions (TBD)
 
