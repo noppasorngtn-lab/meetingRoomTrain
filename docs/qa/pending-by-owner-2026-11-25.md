@@ -1,9 +1,44 @@
-# งานที่รอแต่ละฝ่าย (อัปเดต 2026-11-26 เย็น · HEAD `e195e01` · PO · design · req (งานโปรเจกต์) · **มีข้อใหม่จากรอบ T1 delta — ดูหัวข้อ "ข้อใหม่จากรอบ T1 delta"** · ฉบับแรก 2026-11-25 ที่ `61255fe`)
+# งานที่รอแต่ละฝ่าย (อัปเดต 2026-11-27 · HEAD `d1ee767` · **สรุปที่ยังเปิดอยู่ตอนนี้ — ดูหัวข้อ "ยังเปิดอยู่ (2026-11-27)"** · ฉบับก่อน 2026-11-26 เย็นที่ `e195e01` · ฉบับแรก 2026-11-25 ที่ `61255fe`)
 
 ร่างโดย AI จากผลรันด่านและเอกสารใน `docs/qa/` · **ไม่มีข้อไหนที่ AI ปิดเองได้** ทุกข้อต้องให้คนตัดสิน บันทึกทางการ หรือเซ็น
 แหล่งหลัก: [t5-quality-gate-2026-11-25.md](t5-quality-gate-2026-11-25.md) §E, §F, Next Actions · [t7-regression-def07-2026-11-26.md](t7-regression-def07-2026-11-26.md) · [t7-regression-def08-2026-11-26.md](t7-regression-def08-2026-11-26.md) · [req-design-request-adr017-2026-11-25.md](req-design-request-adr017-2026-11-25.md) · [t5-critical-assertion-sample-2026-11-25.md](t5-critical-assertion-sample-2026-11-25.md)
 
-## สถานะด่าน (รันซ้ำ 2026-11-26 เย็นที่ `8c97244` · read-only)
+## ยังเปิดอยู่ (2026-11-27)
+
+| ฝ่าย | เรื่อง | ที่มา |
+|---|---|---|
+| QA | review รายงาน T2 และ matrix ของ 2026-11-27 (T2-Q7) · ยืนยันหัวเอกสารที่ขัดกัน 2 จุด (GAP-06: `t1-test-cases.md:7` · `t1-nfr-2026-11-23.md:3`) | [t2-coverage-2026-11-27.md](t2-coverage-2026-11-27.md) |
+| เจ้าของ plugin | G11 (design ลบ edge ไม่ได้ · edge `AC-mrr-111..113 proves FUN-mrr-015` ค้าง) · G12 (req ไม่มีคำสั่งเปลี่ยน CALC / BR / EX จาก `draft` · CALC-mrr-001@v2 คงเป็น `draft` ตามที่ผู้ใช้ตัดสิน) · G13 (เซ็น CP1 ใหม่ไม่ได้เมื่อกฎใหม่มาทาง capture · ใช้ลายเซ็นเดิมต่อตามที่ผู้ใช้ตัดสิน) · G6 เกิดซ้ำ (`/mock:sync` ไม่เห็น ADR-023 ที่ absorb แล้ว) · ช่องทางส่งรายงานยังไม่ทราบ | [plugin-gap-report-2026-11-23.md](../plugin-gap-report-2026-11-23.md) |
+| เจ้าของ plugin | R-4 (ส่วนที่เหลือ) — ดูหัวข้อ req ด้านล่าง | |
+| ผู้ตั้งปลายทางจริง | HSTS และ `COOKIE_SECURE=true` บน reverse proxy ปลายทาง (PO-5) — ดู "งานก่อนปล่อยจริง" | |
+
+ไม่มีข้อค้างของ PO · design · mock · dev ในตอนนี้
+
+## งานรอบ 2026-11-27 (T2 ทั้งระบบ → BR-mrr-029 → ADR-023) — ปิดแล้ว
+
+| เรื่อง | ปิดอย่างไร |
+|---|---|
+| T2 ทั้งระบบ | [t2-coverage-2026-11-27.md](t2-coverage-2026-11-27.md) + [t2-matrix-2026-11-27.md](t2-matrix-2026-11-27.md) · BR 28/28 · EX 147/147 มีเคส ณ วันนั้น · G1 (a) Pass · (b) PO ยกเว้น · (c) Pass ตามที่ผู้ใช้แจ้ง (T2-Q1 · §B21) |
+| GAP-01 AC-mrr-150 ไม่มีเทสอ้าง | ชื่อ TC-NTF-JOB-118 อ้าง AC-mrr-150 (QA เห็นชอบ) · jest 557/557 |
+| T2-Q2 การออกจากระบบต้องมี BR | `/req:capture` SRC-047 → **BR-mrr-029@v1** · `/req:example` EX-mrr-148..150 · ทั้งหมด validated ตามที่ผู้ใช้ยืนยัน (`8c275c8`) → design ADR-023 · functions/screens/interfaces เซ็นใหม่ Noppasorn 2026-11-27T06:15:32Z (`f1f548a`) → mock wireframe UI-mrr-003 (`5871c1a`) → dev re-cut FE-mrr-045/046 (`910b48f`) → QA ผูก TC-AUTH-UI003-101..103 + assertion ใหม่ (§B22 · §B22.1 · QA_Noppasorn review ผ่านตามที่ผู้ใช้แจ้ง · `21a2278`) |
+| T2-Q3 CALC-mrr-001@v2 เป็น `draft` | ผู้ใช้ตัดสิน: ยังไม่แก้ รอ plugin (G12) |
+| T2-Q4 Email ที่ส่งทันทีตอนจองต้องไม่เกิน 1 นาที | บันทึกใน SRC-047 เป็นการขยายความ ไม่ขึ้นรุ่นกฎ · อ้างใน provenance ของ BR-mrr-007@v3 และ BR-mrr-008@v1 · เคสเดิมรอ Email ราว 10 วินาที จึงไม่ต้องแก้เทส |
+| ลายเซ็น CP1 | ลงก่อน BR-mrr-029 · เซ็นใหม่ด้วย plugin ไม่ได้ · ผู้ใช้เลือกใช้ลายเซ็นเดิมต่อ (G13) |
+| T3 ชุดเต็ม | Playwright chromium 227 ผ่าน · 1 ข้าม · 0 ล้ม · flaky 0 ([t3-results-2026-11-27.md](t3-results-2026-11-27.md) · QA_Noppasorn review ผ่านตามที่ผู้ใช้แจ้ง · `2b9c741`) |
+| หลักฐานการยกเว้น G1(b) | `req-handoff-test-links.md` สร้างใหม่ · BR 29 ข้อ · ทุกข้อมีเคส E2E (`20576d7`) |
+| ล้างการจอง `E2E%` | สำรองก่อน (`pg_dump -Fc` · โฟลเดอร์ชั่วคราวของเซสชัน) · ลบใน transaction เดียว 172 การจองที่ไม่มีร่องรอยและไม่มีคำขอแก้ไข · เหลือ `E2E%` 2,028 · ร่องรอย 2,469 และคำขอแก้ไข 185 เท่าเดิม |
+
+## สถานะด่าน (รันซ้ำ 2026-11-27 ที่ `d1ee767` · read-only)
+
+| เฟส | ผล |
+|---|---|
+| req | `verify-rules --cp1` 0 error (2 warning เดิม #8) · `--cp2` PASS · BR 29/29 มี EX · red card 0 · CP1 ลายเซ็น Noppasorn 2026-11-26T08:27:13Z (ลงก่อน BR-mrr-029 · G13) |
+| design | `check` PASS 40/41 · `--cp3` clear · `approve --ready` 9/9 · ADR-023 absorbed |
+| mock | `status` 6/6 · `check` PASS · `wireframes --validate` PASS 15/15 · prompt 15 ใบ WAITING |
+| dev | `verify-features` PASS · `--cp4` clear |
+| qa | jest 557/557 (ก่อนงาน ADR-023) · Playwright chromium 227 ผ่าน · 1 ข้าม · flaky 0 · defect เปิด 0 |
+
+## สถานะด่าน ฉบับ 2026-11-26 เย็น (`8c97244` · เก็บเป็นประวัติ)
 
 | เฟส | ผล |
 |---|---|
@@ -60,10 +95,10 @@
 | (ปิดแล้ว) QA | แถว CSV ของ 3 เคสใหม่ (§B17.4) และการแก้ `req-handoff-links.py`: QA review ผ่าน — QA_Noppasorn 2026-11-26 (ตามที่ผู้ใช้แจ้งในเซสชัน · AI ไม่ได้ลงนามแทน) |
 | (ปิดแล้ว) QA | TC-BKG-UI006-110 ตามที่ผู้ใช้ตอบในเซสชัน 2026-11-26: คงการผูกกับ BR-mrr-002 (§B18) |
 | QA | สคริปต์ 3 เคส ผลรัน และตัวกรองของ `req-handoff-links.py` (§B17.5): QA review ผ่าน — QA_Noppasorn 2026-11-26 (ตามที่ผู้ใช้แจ้งในเซสชัน · AI ไม่ได้ลงนามแทน) · ข้อความแถว TC-NTF-UI006-103 ที่ปรับเป็นขอบเขต unit และไฟล์หลักฐานที่สร้างใหม่ (§B17.6): QA review ผ่าน — QA_Noppasorn 2026-11-26 (ตามที่ผู้ใช้แจ้งในเซสชัน · AI ไม่ได้ลงนามแทน) · รันชุดเต็มซ้ำแล้ว 2026-11-26: jest 556/556 · Playwright chromium 227 ผ่าน 1 ข้าม ([t3-results-2026-11-26.md](t3-results-2026-11-26.md) · QA_Noppasorn review ผ่าน 2026-11-26 ตามที่ผู้ใช้แจ้ง) · ล้าง `E2E%` หลังรันอีก 171 การจอง เหลือ 1,988 · ยอดอื่นในเอกสารนี้เป็นของรอบก่อน |
-| req / BA / PO | T2-Q2 (2026-11-27): การออกจากระบบต้องมี BR · รอข้อความกฎและตัวอย่าง · [req-request-t2-answers-2026-11-27.md](req-request-t2-answers-2026-11-27.md) §1 |
-| req · plugin | T2-Q3: CALC-mrr-001@v2 ไม่ได้ตั้งใจให้เป็น `draft` · คำขอเดียวกัน §2 · **ผู้ใช้ตัดสิน 2026-11-27: ยังไม่แก้ รอ plugin** (ช่องโหว่ G12 ใน docs/plugin-gap-report-2026-11-23.md) |
-| req | T2-Q4: Email ที่ส่งทันทีตอนจองต้องไม่เกิน 1 นาที · รอบันทึกค่า · คำขอเดียวกัน §3 |
-| QA | review รายงานและ matrix ของ T2 2026-11-27 · หัวเอกสารที่ขัดกัน (GAP-06) |
+| (ปิดแล้ว) req / BA / PO | T2-Q2 (2026-11-27): การออกจากระบบต้องมี BR · ทำแล้ว BR-mrr-029@v1 / EX-mrr-148..150 (ดู "งานรอบ 2026-11-27") · ข้อความเดิม: รอข้อความกฎและตัวอย่าง · [req-request-t2-answers-2026-11-27.md](req-request-t2-answers-2026-11-27.md) §1 |
+| (ตัดสินแล้ว) req · plugin | T2-Q3: CALC-mrr-001@v2 ไม่ได้ตั้งใจให้เป็น `draft` · คำขอเดียวกัน §2 · **ผู้ใช้ตัดสิน 2026-11-27: ยังไม่แก้ รอ plugin** (ช่องโหว่ G12 ใน docs/plugin-gap-report-2026-11-23.md) |
+| (ปิดแล้ว) req | T2-Q4: Email ที่ส่งทันทีตอนจองต้องไม่เกิน 1 นาที · บันทึกแล้วใน SRC-047 (ขยายความ ไม่ขึ้นรุ่น) · ข้อความเดิม: รอบันทึกค่า · คำขอเดียวกัน §3 |
+| QA | review รายงานและ matrix ของ T2 2026-11-27 · หัวเอกสารที่ขัดกัน (GAP-06) — **ยังเปิด** (ดู "ยังเปิดอยู่") |
 | (ปิดแล้ว) QA | §B22 QA review ผ่าน — QA_Noppasorn 2026-11-27 (ตามที่ผู้ใช้แจ้ง · AI ไม่ได้ลงนามแทน) · สั่งเพิ่ม assertion |
 | (ปิดแล้ว) QA | QA review ผ่าน — QA_Noppasorn 2026-11-27 (ตามที่ผู้ใช้แจ้งในเซสชัน · AI ไม่ได้ลงนามแทน) · ข้อความเดิม: review §B22.1: assertion ที่เพิ่มใน TC-AUTH-UI003-102 (เคสเข้าสู่ระบบด้วย session tester ก่อน · /auth/me 200 ก่อนและหลัง) และ 103 (ไม่แสดง error) |
 | (ตัดสินแล้ว) req | ลายเซ็น CP1 (Noppasorn 2026-11-26T08:27:13Z) ลงก่อน BR-mrr-029@v1 / EX-mrr-148..150 · เซ็นใหม่ด้วย plugin ไม่ได้เพราะไม่มี change set · **ผู้ใช้เลือกใช้ลายเซ็นเดิมต่อ 2026-11-27** · ช่องโหว่ G13 |
@@ -126,7 +161,7 @@
 
 หัวเอกสารเหล่านี้ไม่ได้อัปเดตหลังวันที่เขียน และ T5 รอบนี้ไม่ได้ยกขึ้นมาเป็นข้อที่ยังเปิด จึง **อาจล้าสมัยแล้ว** AI ไม่ได้ตรวจทีละข้อ
 
-- [req-questions-search-delete-logout.md](req-questions-search-delete-logout.md) (2026-11-17)
+- [req-questions-search-delete-logout.md](req-questions-search-delete-logout.md) (2026-11-17) · ส่วนการออกจากระบบตอบแล้ว 2026-11-27 (T2-Q2 → BR-mrr-029@v1)
 - [req-notice-room-photos-out-of-scope.md](req-notice-room-photos-out-of-scope.md) (ADR-007 ลดขอบเขตรูปภาพห้อง · รอ req ตอบ 2 ข้อ)
 - [req-request-ex-validation-delete-2026-11-18.md](req-request-ex-validation-delete-2026-11-18.md) · [req-request-ex-partial-reject-2026-11-20.md](req-request-ex-partial-reject-2026-11-20.md) (ร่างสำหรับส่ง)
 - [req-question-ex-wording-reject-edit-2026-11-18.md](req-question-ex-wording-reject-edit-2026-11-18.md) (EX ของ Email ตอนเปลี่ยนผลเป็นปฏิเสธ)
