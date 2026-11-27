@@ -12,9 +12,9 @@ is_current: true
 test_design: [BVA]
 proven_by: [EX-mrr-023, EX-mrr-024, EX-mrr-025, EX-mrr-020, EX-mrr-147]
 golden: []
-provenance: [SRC-001, SRC-021, SRC-021, SRC-046, SRC-046]
+provenance: [SRC-001, SRC-021, SRC-021, SRC-046, SRC-046, SRC-047]
 timestamp: 2026-11-18T12:30:00+07:00
-spec_hash: sha256:51517f82d339898c8e7ad953e4e9b709a83dc68e0adef0a148c44b35e635c80e
+spec_hash: sha256:47eb1ffa7a0461894fc9126bbe623f2f6fe9bd7ca31c34c7517c5f4d1791e7ac
 ---
 
 # BR-mrr-008@v1
@@ -38,6 +38,9 @@ spec_hash: sha256:51517f82d339898c8e7ad953e4e9b709a83dc68e0adef0a148c44b35e635c8
 
 > "ยอมรับให้รอบถัดไปเป็นผู้ส่ง — Email เตือนช้าได้ราว 1 นาที"
 > — [SRC-046](../sources/SRC-046.md) หน้า — §—
+
+> "Email ที่ส่งทันทีตอนจอง — ทั้ง Email จองสำเร็จ และ Email เตือนทันทีเมื่อจองตอนเหลือน้อยกว่า 15 นาที — ต้องส่งไม่เกิน 1 นาที"
+> — [SRC-047](../sources/SRC-047.md) หน้า — §—
 
 ## พิสูจน์โดย
 

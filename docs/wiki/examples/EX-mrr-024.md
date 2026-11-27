@@ -10,7 +10,7 @@ kind: boundary
 proves: [BR-mrr-008@v1]
 has_ui: false
 timestamp: 2026-11-18T12:30:00+07:00
-spec_hash: sha256:3a3c15bb3bf981968514da857f712305eae37957c2c57d36c84e853c26ac8023
+spec_hash: sha256:c3e38b35c3c02b4aeeff8736e876267a690dceebbeb8fcecd2fd5b0b0336b3ff
 ---
 
 # EX-mrr-024

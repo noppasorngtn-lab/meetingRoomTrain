@@ -14,9 +14,9 @@ test_design: [EP]
 proven_by: [EX-mrr-019, EX-mrr-020, EX-mrr-021, EX-mrr-022, EX-mrr-114, EX-mrr-115, EX-mrr-116, EX-mrr-117, EX-mrr-118, EX-mrr-124, EX-mrr-132, EX-mrr-133, EX-mrr-134, EX-mrr-135, EX-mrr-145, EX-mrr-146]
 golden: []
 supersedes: BR-mrr-007@v2
-provenance: [SRC-001, SRC-001, SRC-010, SRC-002, SRC-020, SRC-020, SRC-020, SRC-029, SRC-029, SRC-029, SRC-043, SRC-043, SRC-043, SRC-043, SRC-045]
+provenance: [SRC-001, SRC-001, SRC-010, SRC-002, SRC-020, SRC-020, SRC-020, SRC-029, SRC-029, SRC-029, SRC-043, SRC-043, SRC-043, SRC-043, SRC-045, SRC-047]
 timestamp: 2026-11-18T12:30:00+07:00
-spec_hash: sha256:a81c0a323083da809a25fb0d9c7d17c6f7dd2d34dd0331e29c74f9190de3a555
+spec_hash: sha256:a786bf0f306e340f19e61e9e1c74253ff5cb0ff43df58ae9f13d2bd18078a3ee
 ---
 
 # BR-mrr-007@v3
@@ -70,6 +70,9 @@ spec_hash: sha256:a81c0a323083da809a25fb0d9c7d17c6f7dd2d34dd0331e29c74f9190de3a5
 
 > "การอนุมัติคำขอแก้ไขหลังจบประชุมไม่ส่ง Email แม้คำขอจะเปลี่ยนเวลา"
 > — [SRC-045](../sources/SRC-045.md) หน้า — §—
+
+> "Email ที่ส่งทันทีตอนจอง — ทั้ง Email จองสำเร็จ และ Email เตือนทันทีเมื่อจองตอนเหลือน้อยกว่า 15 นาที — ต้องส่งไม่เกิน 1 นาที"
+> — [SRC-047](../sources/SRC-047.md) หน้า — §—
 
 ## พิสูจน์โดย
 

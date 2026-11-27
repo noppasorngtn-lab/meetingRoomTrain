@@ -9,7 +9,7 @@ actor: General User · งานแจ้งเตือนตามเวลา
 rules: [BR-mrr-007, BR-mrr-008, BR-mrr-019, BR-mrr-020, BR-mrr-023]
 domain_concepts: [UL-mrr-002, UL-mrr-006, UL-mrr-009]
 timestamp: 2026-11-18T12:30:00+07:00
-spec_hash: sha256:fba3fbbf9f6594a07e917718b01f2541ea00e8ff8a3f907c15a70e89071af8d7
+spec_hash: sha256:c78a200d2664212ded8bb91bbadd43fdb5eb10031b1f4eb0ac3fc3615d93b76b
 ---
 
 # REQ-mrr-005
@@ -61,6 +61,7 @@ spec_hash: sha256:fba3fbbf9f6594a07e917718b01f2541ea00e8ff8a3f907c15a70e89071af8
 - **ที่มา:** [SRC-043](../sources/SRC-043.md) `docs/qa/req-design-request-adr017-2026-11-25.md` บรรทัด 36 — *"ผู้รับว่างหลังตัด (ผู้ใช้ตอบในเซสชัน 2026-11-25): ข้ามเมลนั้น การกระทำสำเร็จต่อ"*
 - **ที่มา:** [SRC-043](../sources/SRC-043.md) `docs/qa/req-design-request-adr017-2026-11-25.md` บรรทัด 36 — *"(การเตือนยังถูกบันทึกว่า SENT)"*
 - **ที่มา:** [SRC-045](../sources/SRC-045.md) บรรทัด 3 — *"การอนุมัติคำขอแก้ไขหลังจบประชุมไม่ส่ง Email แม้คำขอจะเปลี่ยนเวลา"*
+- **ที่มา:** [SRC-047](../sources/SRC-047.md) บรรทัด 6 — *"Email ที่ส่งทันทีตอนจอง — ทั้ง Email จองสำเร็จ และ Email เตือนทันทีเมื่อจองตอนเหลือน้อยกว่า 15 นาที — ต้องส่งไม่เกิน 1 นาที"*
 - **บังคับที่:** *(ยังไม่มีใครผูกกับโค้ด — เฟส 2 เป็นคนตอบ)*
 - **พิสูจน์โดย:** [EX-mrr-019](../examples/EX-mrr-019.md), [EX-mrr-020](../examples/EX-mrr-020.md), [EX-mrr-021](../examples/EX-mrr-021.md), [EX-mrr-022](../examples/EX-mrr-022.md), [EX-mrr-114](../examples/EX-mrr-114.md), [EX-mrr-115](../examples/EX-mrr-115.md), [EX-mrr-116](../examples/EX-mrr-116.md), [EX-mrr-117](../examples/EX-mrr-117.md), [EX-mrr-118](../examples/EX-mrr-118.md), [EX-mrr-124](../examples/EX-mrr-124.md), [EX-mrr-132](../examples/EX-mrr-132.md), [EX-mrr-133](../examples/EX-mrr-133.md), [EX-mrr-134](../examples/EX-mrr-134.md), [EX-mrr-135](../examples/EX-mrr-135.md), [EX-mrr-145](../examples/EX-mrr-145.md), [EX-mrr-146](../examples/EX-mrr-146.md)
 - **เทสต์:** *(ยังไม่มี)* 🔴
@@ -72,6 +73,7 @@ spec_hash: sha256:fba3fbbf9f6594a07e917718b01f2541ea00e8ff8a3f907c15a70e89071af8
 - **ที่มา:** [SRC-021](../sources/SRC-021.md) บรรทัด 2 — *"การจองที่ยังรออนุมัติตอนถึงจุดเตือน — ไม่ส่ง Email เตือน"*
 - **ที่มา:** [SRC-046](../sources/SRC-046.md) บรรทัด 2 — *"ไม่ส่ง Email เตือนทันทีตอนจอง — งานเตือนรอบ 15 นาทีก่อนเริ่มเป็นผู้ส่ง ครั้งเดียว"*
 - **ที่มา:** [SRC-046](../sources/SRC-046.md) บรรทัด 3 — *"ยอมรับให้รอบถัดไปเป็นผู้ส่ง — Email เตือนช้าได้ราว 1 นาที"*
+- **ที่มา:** [SRC-047](../sources/SRC-047.md) บรรทัด 6 — *"Email ที่ส่งทันทีตอนจอง — ทั้ง Email จองสำเร็จ และ Email เตือนทันทีเมื่อจองตอนเหลือน้อยกว่า 15 นาที — ต้องส่งไม่เกิน 1 นาที"*
 - **บังคับที่:** *(ยังไม่มีใครผูกกับโค้ด — เฟส 2 เป็นคนตอบ)*
 - **พิสูจน์โดย:** [EX-mrr-023](../examples/EX-mrr-023.md), [EX-mrr-024](../examples/EX-mrr-024.md), [EX-mrr-025](../examples/EX-mrr-025.md), [EX-mrr-020](../examples/EX-mrr-020.md), [EX-mrr-147](../examples/EX-mrr-147.md)
 - **เทสต์:** *(ยังไม่มี)* 🔴
