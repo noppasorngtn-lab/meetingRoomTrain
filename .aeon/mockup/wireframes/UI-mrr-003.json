@@ -40,7 +40,9 @@
           "entity": null,
           "attribute": null,
           "validation": "ข้อความคงที่ 'ออกจากระบบแล้ว'",
-          "rules": [],
+          "rules": [
+            "BR-mrr-029@v1"
+          ],
           "visibleTo": [
             "ROLE-001",
             "ROLE-002",
@@ -59,7 +61,9 @@
           "accessibleName": "เข้าสู่ระบบอีกครั้ง",
           "conventions": [],
           "destination": "หน้าขอรหัสเข้าสู่ระบบ",
-          "rules": []
+          "rules": [
+            "BR-mrr-029@v1"
+          ]
         }
       ]
     }
@@ -88,7 +92,7 @@
     },
     "error": {
       "occurs": true,
-      "text": "ยกเลิก session ไม่สำเร็จ — แจ้งให้ลองใหม่ และไม่แสดงว่าออกจากระบบแล้ว"
+      "text": "ยกเลิก session ไม่สำเร็จ — แจ้ง 'ออกจากระบบไม่สำเร็จ กรุณาลองอีกครั้ง' และไม่แสดงว่าออกจากระบบแล้ว (BR-mrr-029@v1)"
     },
     "unauthorized": {
       "occurs": false,
