@@ -2,8 +2,8 @@ import { expect, request, test, type Browser } from '@playwright/test';
 import { world } from './support/world';
 
 /**
- * UI-mrr-003 ออกจากระบบ — AC-mrr-111 · 112 · 113 (FUN-mrr-015). ไม่มี BR/EX: ถือเป็นฟังก์ชันของแพลตฟอร์ม (Q3.1)
- * และ PO รับเป็นเคสนอก BR แล้ว (OQ-T1-10, 2026-11-18) — เคสจึงผูกกับ AC ของ design ไม่ใช่ EX · Tag = [Recommended].
+ * UI-mrr-003 ออกจากระบบ — BR-mrr-029@v1 · EX-mrr-148 · 149 · 150 · AC-mrr-111 · 112 · 113 (FUN-mrr-015 · ADR-023).
+ * เดิมไม่มี BR/EX (ฟังก์ชันของแพลตฟอร์ม Q3.1 · OQ-T1-10) — เจ้าของตอบ T2-Q2 เมื่อ 2026-11-27 ว่าต้องมี BR (SRC-047) · ผูกใหม่ 2026-11-27.
  *
  * ออกจากระบบปิด session ฝั่งเซิร์ฟเวอร์ จึงห้ามใช้ session ที่ spec อื่นใช้ร่วมกัน (.auth/*.json):
  * เคส 101 เข้าสู่ระบบใหม่ผ่านหน้าจอจริงด้วยบัญชี `rpt` (e2e.rptbooker@mrr.local ผู้จองของ fixture รายงาน) ได้ session ของตัวเอง
@@ -42,7 +42,7 @@ async function signInFresh(browser: Browser, email: string) {
   return { context, page };
 }
 
-test('[real] TC-AUTH-UI003-101 ผู้ใช้เข้าสู่ระบบอยู่ กดออกจากระบบ → ยกเลิก session และแสดงหน้า "ออกจากระบบแล้ว" พร้อมทางเข้าสู่ระบบอีกครั้ง (AC-mrr-111)', async ({ browser }) => {
+test('[real] TC-AUTH-UI003-101 ผู้ใช้เข้าสู่ระบบอยู่ กดออกจากระบบ → ยกเลิก session และแสดงหน้า "ออกจากระบบแล้ว" พร้อมทางเข้าสู่ระบบอีกครั้ง (BR-mrr-029 · EX-mrr-148 · AC-mrr-111)', async ({ browser }) => {
   const { context, page } = await signInFresh(browser, world.users.rpt.email);
   const token = (await context.cookies()).find((c) => c.name.toLowerCase().includes('session') || c.httpOnly)?.value;
   expect(token, 'no session cookie after sign-in').toBeTruthy();
@@ -64,7 +64,11 @@ test('[real] TC-AUTH-UI003-101 ผู้ใช้เข้าสู่ระบ�
   await context.close();
 });
 
-test('[stub] TC-AUTH-UI003-102 ยกเลิก session ไม่สำเร็จ → แสดง "ออกจากระบบไม่สำเร็จ กรุณาลองอีกครั้ง" และยังไม่แสดงว่าออกจากระบบแล้ว (AC-mrr-112)', async ({ page }) => {
+test('[stub] TC-AUTH-UI003-102 ยกเลิก session ไม่สำเร็จ → แสดง "ออกจากระบบไม่สำเร็จ กรุณาลองอีกครั้ง" และยังไม่แสดงว่าออกจากระบบแล้ว (BR-mrr-029 · EX-mrr-149 · AC-mrr-112)', async ({ browser }) => {
+  // EX-mrr-149 given: U1 เข้าสู่ระบบอยู่ — ใช้ session ร่วม tester ได้ เพราะ API logout ถูก stub ไว้ session จริงจึงไม่ถูกยกเลิก
+  const context = await browser.newContext({ baseURL: BASE, storageState: '.auth/tester.json', timezoneId: 'Asia/Bangkok', locale: 'th-TH' });
+  const page = await context.newPage();
+  expect((await page.request.get('/auth/me')).status()).toBe(200); // เข้าสู่ระบบอยู่จริงก่อนกด
   // [stub] ยังไม่มีกลไกให้ API logout ล้มจริง (t1-test-cases.md §B3: Partial) — เบราว์เซอร์ตอบแทน API ด้วย 500
   // พิสูจน์ได้แค่ว่าหน้าจอจัดการความล้มเหลวถูก ไม่พิสูจน์ว่า API จริงล้มแล้วคุกกี้คงอยู่ (ฝั่งนั้นอยู่ใน apps/api/test/auth/logout.http.spec.ts)
   await page.route('**/auth/logout', (route) => route.fulfill({ status: 500, contentType: 'application/json', body: '{"message":"error"}' }));
@@ -72,13 +76,17 @@ test('[stub] TC-AUTH-UI003-102 ยกเลิก session ไม่สำเร�
   await expect(page.getByText(MESSAGE_FAILED, { exact: true })).toBeVisible();
   await expect(page.getByText(MESSAGE_DONE, { exact: true })).toHaveCount(0);
   await expect(page.getByTestId('ui-mrr-003-confirmation-message')).toHaveCount(0);
+  // EX-mrr-149: U1 ยังเข้าสู่ระบบอยู่ — session จริงไม่ถูกแตะ เพราะ API logout ถูก stub ไว้
+  expect((await page.request.get('/auth/me')).status()).toBe(200);
+  await context.close();
 });
 
-test('[real] TC-AUTH-UI003-103 ผู้ที่ยังไม่ได้เข้าสู่ระบบเปิดหน้าออกจากระบบ → แสดง "ออกจากระบบแล้ว" พร้อมทางเข้าสู่ระบบอีกครั้ง เหมือนผู้ที่เพิ่งออก (AC-mrr-113)', async ({ browser }) => {
+test('[real] TC-AUTH-UI003-103 ผู้ที่ยังไม่ได้เข้าสู่ระบบเปิดหน้าออกจากระบบ → แสดง "ออกจากระบบแล้ว" พร้อมทางเข้าสู่ระบบอีกครั้ง เหมือนผู้ที่เพิ่งออก (BR-mrr-029 · EX-mrr-150 · AC-mrr-113)', async ({ browser }) => {
   const context = await browser.newContext({ baseURL: BASE, timezoneId: 'Asia/Bangkok', locale: 'th-TH' }); // ไม่มี session
   const page = await context.newPage();
   await page.goto('/UI-mrr-003');
   await expect(page.getByTestId('ui-mrr-003-confirmation-message')).toHaveText(MESSAGE_DONE);
   await expect(page.getByTestId('ui-mrr-003-sign-in-again')).toBeVisible();
+  await expect(page.getByText(MESSAGE_FAILED, { exact: true })).toHaveCount(0); // EX-mrr-150: ไม่แสดง error
   await context.close();
 });

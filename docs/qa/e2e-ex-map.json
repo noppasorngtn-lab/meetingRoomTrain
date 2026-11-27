@@ -584,6 +584,18 @@
     "EX-mrr-146": {
       "cases": "TC-NTF-UI008-110",
       "note": "booker adds U3 as an attendee, title and time unchanged: 200 'บันทึกการแก้ไขสำเร็จ', attendees U2+U3, no mail to anyone incl. U3 (control: a time change in the same case does mail u1 u2 u3) · real (Playwright request, test/e2e/t1-delta.spec.ts) · PASS in the 2026-11-26 full run · AC-mrr-149 (ADR-022) · mapping by AI 2026-11-27, reviewed by QA_Noppasorn 2026-11-27 (as the user reported; t1-test-cases.md B20)"
+    },
+    "EX-mrr-148": {
+      "cases": "TC-AUTH-UI003-101",
+      "note": "signed-in user clicks sign out: 'ออกจากระบบแล้ว' + sign-in-again link, the old session gets 401 on /auth/me from the browser and from a copied cookie · real · AC-mrr-111 · BR-mrr-029@v1 (ADR-023) · PASS 2026-11-27 (chromium, logout spec only) · mapping by AI 2026-11-27, reviewed by QA_Noppasorn 2026-11-27 (as the user reported; t1-test-cases.md B22)"
+    },
+    "EX-mrr-149": {
+      "cases": "TC-AUTH-UI003-102",
+      "note": "session cancel fails: 'ออกจากระบบไม่สำเร็จ กรุณาลองอีกครั้ง', no 'ออกจากระบบแล้ว' · STUB (the browser answers /auth/logout with 500), does not prove the real API; 'still signed in' asserted after review (/auth/me 200 before and after, tester session; B22.1, reviewed by QA_Noppasorn 2026-11-27 as the user reported) · AC-mrr-112 · BR-mrr-029@v1 (ADR-023) · PASS 2026-11-27 (chromium, logout spec only) · mapping by AI 2026-11-27, reviewed by QA_Noppasorn 2026-11-27 (as the user reported; t1-test-cases.md B22)"
+    },
+    "EX-mrr-150": {
+      "cases": "TC-AUTH-UI003-103",
+      "note": "no session, open the sign-out page: 'ออกจากระบบแล้ว' + sign-in-again link · real; 'no error shown' asserted after review (B22.1, reviewed by QA_Noppasorn 2026-11-27 as the user reported) · AC-mrr-113 · BR-mrr-029@v1 (ADR-023) · PASS 2026-11-27 (chromium, logout spec only) · mapping by AI 2026-11-27, reviewed by QA_Noppasorn 2026-11-27 (as the user reported; t1-test-cases.md B22)"
     }
   }
 }
