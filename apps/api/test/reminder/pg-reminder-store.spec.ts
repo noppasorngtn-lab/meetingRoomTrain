@@ -93,7 +93,7 @@ describe('PgReminderStore + ReminderJob', () => {
     expect((await rowOf(id)).reminder_status).toBe('SENT');
   });
 
-  it('TC-NTF-JOB-118 EX-mrr-147 BR-mrr-008 booked at 09:45 for 10:00: no reminder at once, the 09:45 pass sends it, once', async () => {
+  it('TC-NTF-JOB-118 EX-mrr-147 AC-mrr-150 BR-mrr-008 booked at 09:45 for 10:00: no reminder at once, the 09:45 pass sends it, once', async () => {
     // The real create path and the job share one mailbox, so a reminder from either of them is counted.
     const service = new BookingService(db, { now: () => T('09:45') }, new BookingNotifier(mail));
     const { id } = await service.create({ userId: u1 }, {
