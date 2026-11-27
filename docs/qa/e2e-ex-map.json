@@ -583,7 +583,7 @@
     },
     "EX-mrr-146": {
       "cases": "TC-NTF-UI008-110",
-      "note": "booker adds U3 as an attendee, title and time unchanged: 200 'บันทึกการแก้ไขสำเร็จ', attendees U2+U3, no mail to anyone incl. U3 (control: a time change in the same case does mail u1 u2 u3) · real (Playwright request, test/e2e/t1-delta.spec.ts) · PASS in the 2026-11-26 full run · AC-mrr-149 (ADR-022) · mapping by AI 2026-11-27, awaits QA review (t1-test-cases.md B20)"
+      "note": "booker adds U3 as an attendee, title and time unchanged: 200 'บันทึกการแก้ไขสำเร็จ', attendees U2+U3, no mail to anyone incl. U3 (control: a time change in the same case does mail u1 u2 u3) · real (Playwright request, test/e2e/t1-delta.spec.ts) · PASS in the 2026-11-26 full run · AC-mrr-149 (ADR-022) · mapping by AI 2026-11-27, reviewed by QA_Noppasorn 2026-11-27 (as the user reported; t1-test-cases.md B20)"
     }
   }
 }

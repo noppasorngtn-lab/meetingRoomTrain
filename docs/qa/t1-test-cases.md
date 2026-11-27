@@ -699,7 +699,7 @@ TC-AUD-UI010-114 และ TC-AUD-UI011-101: `Happy path` → `Positive` ตา�
 
 ## B19. ขอบ 15 นาทีของ BR-mrr-008: EX-mrr-147 และ TC-NTF-JOB-118 (2026-11-26)
 
-**สถานะ: AI-generated · รอ QA review · EX-mrr-147 validated 2026-11-27 (ผู้ใช้อนุมัติในเซสชัน)**
+**สถานะ: AI-generated · QA review ผ่าน — QA_Noppasorn 2026-11-27 (ตามที่ผู้ใช้แจ้งในเซสชัน · AI ไม่ได้ลงนามแทน) · EX-mrr-147 validated 2026-11-27 (ผู้ใช้อนุมัติในเซสชัน)**
 
 - ที่มา: OQ-T1-20 (§D) · EX-mrr-147 เติมจุดขอบ 09:45 ของ BVA · อีกสองฝั่งใช้ EX เดิม (EX-mrr-023: งานตอน 09:44 · EX-mrr-024: จองตอน 09:50)
 - TC-NTF-JOB-118 ใน `pg-reminder-store.spec.ts`: ผ่านเส้นทางจองจริง (`BookingService.create`) แล้วรันงานเตือนกับฐานข้อมูลจริง · ผ่าน 10/10 ของไฟล์ · negative check 2 แบบล้มตามคาด (จอง 09:45:01 · รีเซ็ต reminder_status ก่อนรอบ 09:50)
@@ -710,7 +710,7 @@ TC-AUD-UI010-114 และ TC-AUD-UI011-101: `Happy path` → `Positive` ตา�
 
 ## B20. ผูกเคสกับ EX-mrr-146 / EX-mrr-147 หลัง ADR-022 (2026-11-27)
 
-**สถานะ: AI-generated · รอ QA review**
+**สถานะ: AI-generated · QA review ผ่าน — QA_Noppasorn 2026-11-27 (ตามที่ผู้ใช้แจ้งในเซสชัน · AI ไม่ได้ลงนามแทน)**
 
 - design รับ EX ทั้งสองด้วย ADR-022: AC-mrr-149 (EX-mrr-146) และ AC-mrr-150 (EX-mrr-147) · `functions.json` ลงนามใหม่โดย Noppasorn 2026-11-27 (ตามที่ผู้ใช้สั่งในเซสชัน) · `/dev:plan` ผูก AC ทั้งสองกับหน่วยเดิม ไม่มีงานแก้โค้ด
 - TC-NTF-UI008-110: Requirement ID เติม `EX-mrr-146 (AC-mrr-149)` · Expected Result เปลี่ยน `[TBD] ยังไม่มี EX ของกรณีนี้` เป็น `[Explicit EX-mrr-146]` · Note เปลี่ยน `[TBD] OQ-T1-21` เป็นปิดแล้ว · สคริปต์ไม่เปลี่ยน — ตรวจแล้วว่าตรวจครบตามประโยค then ของ EX-mrr-146 (ข้อความ · รายชื่อ U2, U3 · ไม่มี Email รวม U3)
@@ -718,3 +718,4 @@ TC-AUD-UI010-114 และ TC-AUD-UI011-101: `Happy path` → `Positive` ตา�
 - TC-NTF-JOB-118: Requirement ID เติม `(AC-mrr-150)` · EX-mrr-147 ยังพิสูจน์ใน jest เท่านั้น ไม่อยู่ใน `e2e-ex-map.json`
 - `req-handoff-test-links.md` สร้างใหม่ตามที่ผู้ใช้สั่ง 2026-11-27 (เปลี่ยน 2 แถว: BR-mrr-007@v3 เพิ่ม EX 146 · BR-mrr-008@v1 เพิ่ม EX 147 · ไม่มี TC หาย) · การเติมรหัส AC ลงชื่อเคสในสคริปต์: ผู้ใช้ให้คงไว้ก่อน
 - jest ชุดเต็มของ apps/api รัน 2026-11-27 บน f3d7d04 + งานที่ยังไม่ commit: **557/557 ผ่าน (40 suites)** — ยืนยันยอดที่ §B19 คาดไว้ · ไม่ได้รัน vitest และ Playwright รอบนี้
+- หลัง review: คำตัดสินเรื่องรอบเตือนช้าได้ราว 1 นาทีบันทึกลง req แล้วเป็น SRC-046 (provenance ของ BR-mrr-008@v1 · ข้อความกฎไม่เปลี่ยน) และเติม EX ที่ขาดใน examples[] ของกฎปัจจุบัน 15 คู่ ตามที่ผู้ใช้สั่ง 2026-11-27
