@@ -10,11 +10,11 @@ belongs_to: REQ-mrr-003
 kind: constraint
 is_current: true
 test_design: [state_transition, decision_table]
-proven_by: [EX-mrr-016, EX-mrr-081, EX-mrr-082, EX-mrr-083]
+proven_by: [EX-mrr-016, EX-mrr-081, EX-mrr-082, EX-mrr-083, EX-mrr-106, EX-mrr-107, EX-mrr-108]
 golden: []
 provenance: [SRC-006]
 timestamp: 2026-11-18T12:30:00+07:00
-spec_hash: sha256:adbc3e21273ae061badfe9aed61d2ed27c7211b76cd2e888056d7217a621c510
+spec_hash: sha256:ae5a49f50e5a8e0fe00df15a5e891f94d9926128ef4acbd9e75e947750823c49
 ---
 
 # BR-mrr-012@v1

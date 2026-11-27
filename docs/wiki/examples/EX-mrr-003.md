@@ -10,7 +10,7 @@ kind: exception
 proves: [BR-mrr-001@v1]
 has_ui: true
 timestamp: 2026-11-18T12:30:00+07:00
-spec_hash: sha256:5d071dea0506958a251e9a82f74cd9118106d3c3d9790f3b4ee577d8260b4202
+spec_hash: sha256:4d9871f52c2b39ea116c326cb9edcc81406e08e3879fd9f1c909a9d989b6cf88
 ---
 
 # EX-mrr-003

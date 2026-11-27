@@ -10,7 +10,7 @@ kind: happy
 proves: [BR-mrr-007@v1, BR-mrr-007@v2, BR-mrr-007@v3]
 has_ui: false
 timestamp: 2026-11-18T12:30:00+07:00
-spec_hash: sha256:b4a2e218191be66a5a54ed0a7f88b714db62d5839662c7352a1a0779df0225d8
+spec_hash: sha256:74a48d516c4705d638377e9fa479ae0a7feda0265471e7b4de7039718e4876df
 ---
 
 # EX-mrr-021

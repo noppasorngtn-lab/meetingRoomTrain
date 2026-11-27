@@ -10,11 +10,11 @@ belongs_to: REQ-mrr-005
 kind: constraint
 is_current: true
 test_design: [BVA]
-proven_by: [EX-mrr-023, EX-mrr-024, EX-mrr-025, EX-mrr-020]
+proven_by: [EX-mrr-023, EX-mrr-024, EX-mrr-025, EX-mrr-020, EX-mrr-147]
 golden: []
-provenance: [SRC-001, SRC-021, SRC-021]
+provenance: [SRC-001, SRC-021, SRC-021, SRC-046, SRC-046]
 timestamp: 2026-11-18T12:30:00+07:00
-spec_hash: sha256:34aa0e976c090cceb53053e05e75febe20bc844257e9560a3ebadd10d07a40a9
+spec_hash: sha256:51517f82d339898c8e7ad953e4e9b709a83dc68e0adef0a148c44b35e635c80e
 ---
 
 # BR-mrr-008@v1
@@ -32,6 +32,12 @@ spec_hash: sha256:34aa0e976c090cceb53053e05e75febe20bc844257e9560a3ebadd10d07a40
 
 > "การจองที่ยังรออนุมัติตอนถึงจุดเตือน — ไม่ส่ง Email เตือน"
 > — [SRC-021](../sources/SRC-021.md) หน้า — §—
+
+> "ไม่ส่ง Email เตือนทันทีตอนจอง — งานเตือนรอบ 15 นาทีก่อนเริ่มเป็นผู้ส่ง ครั้งเดียว"
+> — [SRC-046](../sources/SRC-046.md) หน้า — §—
+
+> "ยอมรับให้รอบถัดไปเป็นผู้ส่ง — Email เตือนช้าได้ราว 1 นาที"
+> — [SRC-046](../sources/SRC-046.md) หน้า — §—
 
 ## พิสูจน์โดย
 

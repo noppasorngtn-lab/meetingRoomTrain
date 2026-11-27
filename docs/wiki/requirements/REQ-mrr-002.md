@@ -9,7 +9,7 @@ actor: Room Administrator
 rules: [BR-mrr-004, BR-mrr-011, BR-mrr-013, BR-mrr-016, BR-mrr-017, BR-mrr-018]
 domain_concepts: [UL-mrr-001, UL-mrr-002, UL-mrr-006, UL-mrr-010, UL-mrr-009]
 timestamp: 2026-11-18T12:30:00+07:00
-spec_hash: sha256:831f88c4c767cc9d972b4cf58d4bd1c15428b7c6d72fd37c5b73183a20e8dbcd
+spec_hash: sha256:01ca33427afa56d283cd58b7b8860c2b84dcb4b9e854b67682ac6db48bf05ab8
 ---
 
 # REQ-mrr-002
@@ -89,7 +89,7 @@ spec_hash: sha256:831f88c4c767cc9d972b4cf58d4bd1c15428b7c6d72fd37c5b73183a20e8db
 - **ที่มา:** [SRC-031](../sources/SRC-031.md) บรรทัด 3 — *"ข้อความบนหน้าจอหลัง Room Administrator แก้การจองแทนผู้จองคือ 'บันทึกการแก้ไข'"*
 - **ที่มา:** [SRC-038](../sources/SRC-038.md) บรรทัด 1 — *"ร่องรอยของคำขอแก้ไขหลังจบประชุมใช้ค่าช่อง การกระทำ ว่า สร้างคำขอแก้ไข · อนุมัติคำขอ · ปฏิเสธคำขอ · การปฏิเสธคำขอแก้ไขไม่บังคับเหตุผล"*
 - **บังคับที่:** *(ยังไม่มีใครผูกกับโค้ด — เฟส 2 เป็นคนตอบ)*
-- **พิสูจน์โดย:** [EX-mrr-054](../examples/EX-mrr-054.md), [EX-mrr-055](../examples/EX-mrr-055.md), [EX-mrr-056](../examples/EX-mrr-056.md), [EX-mrr-057](../examples/EX-mrr-057.md), [EX-mrr-120](../examples/EX-mrr-120.md), [EX-mrr-121](../examples/EX-mrr-121.md), [EX-mrr-122](../examples/EX-mrr-122.md), [EX-mrr-118](../examples/EX-mrr-118.md), [EX-mrr-123](../examples/EX-mrr-123.md)
+- **พิสูจน์โดย:** [EX-mrr-054](../examples/EX-mrr-054.md), [EX-mrr-055](../examples/EX-mrr-055.md), [EX-mrr-056](../examples/EX-mrr-056.md), [EX-mrr-057](../examples/EX-mrr-057.md), [EX-mrr-120](../examples/EX-mrr-120.md), [EX-mrr-121](../examples/EX-mrr-121.md), [EX-mrr-122](../examples/EX-mrr-122.md), [EX-mrr-118](../examples/EX-mrr-118.md), [EX-mrr-123](../examples/EX-mrr-123.md), [EX-mrr-129](../examples/EX-mrr-129.md), [EX-mrr-130](../examples/EX-mrr-130.md), [EX-mrr-131](../examples/EX-mrr-131.md)
 - **เทสต์:** *(ยังไม่มี)* 🔴
 
 ### [BR-mrr-018@v1](../rules/BR-mrr-018@v1.md) · ร่องรอยการกระทำดูได้เฉพาะ Room Administrator และ System Administrator — ผู้จองดูไม่ได้

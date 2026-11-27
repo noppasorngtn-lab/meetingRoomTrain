@@ -11,12 +11,12 @@ kind: policy
 is_current: true
 effective_from: 2026-10-19
 test_design: [state_transition, decision_table]
-proven_by: [EX-mrr-030, EX-mrr-033, EX-mrr-034, EX-mrr-078, EX-mrr-079, EX-mrr-080]
+proven_by: [EX-mrr-030, EX-mrr-033, EX-mrr-034, EX-mrr-078, EX-mrr-079, EX-mrr-080, EX-mrr-031, EX-mrr-032]
 golden: []
 supersedes: BR-mrr-010@v1
 provenance: [SRC-023]
 timestamp: 2026-11-18T12:30:00+07:00
-spec_hash: sha256:0cafb647130d4683769091fe1b376d7b192170ccb9d96b68b5505e47f75a5c95
+spec_hash: sha256:7147ccdbb3a67da488d289cac17524b8c522ca85186747f9de76dcb281e09670
 ---
 
 # BR-mrr-010@v2

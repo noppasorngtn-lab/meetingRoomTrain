@@ -10,11 +10,11 @@ belongs_to: REQ-mrr-001
 kind: invariant
 is_current: true
 test_design: [BVA]
-proven_by: [EX-mrr-001, EX-mrr-002, EX-mrr-003, EX-mrr-004]
+proven_by: [EX-mrr-001, EX-mrr-002, EX-mrr-003, EX-mrr-004, EX-mrr-106, EX-mrr-107, EX-mrr-108]
 golden: []
 provenance: [SRC-001, SRC-001, SRC-005, SRC-007, SRC-011]
 timestamp: 2026-11-18T12:30:00+07:00
-spec_hash: sha256:7576919468e678e518bfa0423f8edbfcad5179e05b6461bab7e903e2652150f7
+spec_hash: sha256:8b8cc277b74e93530d66bb08a009ff7ce059fb93a520d3f299fac1aa8a06b553
 ---
 
 # BR-mrr-001@v1

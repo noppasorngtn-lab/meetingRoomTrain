@@ -9,7 +9,7 @@ actor: Room Administrator
 rules: [BR-mrr-005, BR-mrr-010, BR-mrr-012]
 domain_concepts: [UL-mrr-001, UL-mrr-003, UL-mrr-007]
 timestamp: 2026-11-18T12:30:00+07:00
-spec_hash: sha256:a8467bdf1d9bd3ed2df44f56e2d868200033e11d0cb085faf302e33f99d51169
+spec_hash: sha256:0f884b721017f8c5c58de4837522d8bd10f380ff15a45ecabf7536a561180410
 ---
 
 # REQ-mrr-003
@@ -44,7 +44,7 @@ spec_hash: sha256:a8467bdf1d9bd3ed2df44f56e2d868200033e11d0cb085faf302e33f99d511
 - **ที่มา:** [SRC-001](../sources/SRC-001.md) `docs/requirements/Meeting_Room_Reservation_System_Requirements.docx` §2 — *"Room Administrator (ผู้ดูแลระบบห้องประชุม): เจ้าหน้าที่ดูแลอาคาร/สถานที่ ที่มีสิทธิ์อนุมัติ จัดการข้อมูลห้อง และกำหนดสิ่งอำนวยความสะดวก"*
 - **ที่มา:** [SRC-001](../sources/SRC-001.md) `docs/requirements/Meeting_Room_Reservation_System_Requirements.docx` §3.2 — *"เพิ่ม, แก้ไข, ปิดปรับปรุง หรือลบข้อมูลห้องประชุม พร้อมกำหนดความจุและรูปภาพ"*
 - **บังคับที่:** *(ยังไม่มีใครผูกกับโค้ด — เฟส 2 เป็นคนตอบ)*
-- **พิสูจน์โดย:** [EX-mrr-015](../examples/EX-mrr-015.md), [EX-mrr-016](../examples/EX-mrr-016.md), [EX-mrr-017](../examples/EX-mrr-017.md), [EX-mrr-018](../examples/EX-mrr-018.md), [EX-mrr-090](../examples/EX-mrr-090.md)
+- **พิสูจน์โดย:** [EX-mrr-015](../examples/EX-mrr-015.md), [EX-mrr-016](../examples/EX-mrr-016.md), [EX-mrr-017](../examples/EX-mrr-017.md), [EX-mrr-018](../examples/EX-mrr-018.md), [EX-mrr-090](../examples/EX-mrr-090.md), [EX-mrr-109](../examples/EX-mrr-109.md), [EX-mrr-110](../examples/EX-mrr-110.md)
 - **เทสต์:** *(ยังไม่มี)* 🔴
 
 ### [BR-mrr-010@v2](../rules/BR-mrr-010@v2.md) · การแก้ค่าตั้งของห้อง (เช่น ต้องอนุมัติ หรือความจุ — ไม่รวมการตั้งปิดปรับปรุง ซึ่งเป็นไปตาม BR-mrr-012) มีผลกับการจองที่ยังไม่ถึงเวลาเริ่มด้วย — ถ้าห้องถูกแก้เป็นต้องอนุมัติ การจองเดิมที่ยังไม่ถึงเวลาเริ่มจะกลับไปเป็นสถานะ 'รออนุมัติ' · ถ้าห้องถูกแก้เป็นไม่ต้องอนุมัติ การจองที่รออนุมัติอยู่จะใช้ได้ทันที
@@ -53,14 +53,14 @@ spec_hash: sha256:a8467bdf1d9bd3ed2df44f56e2d868200033e11d0cb085faf302e33f99d511
 - **มีผลตั้งแต่:** 2026-10-19
 - **ที่มา:** [SRC-023](../sources/SRC-023.md) บรรทัด 2 — *"การแก้ค่าตั้งของห้อง (เช่น ต้องอนุมัติ หรือความจุ — ไม่รวมการตั้งปิดปรับปรุง ซึ่งเป็นไปตาม BR-mrr-012) มีผลกับการจองที่ยังไม่ถึงเวลาเริ่มด้วย — ถ้าห้องถูกแก้เป็นต้องอนุมัติ การจองเดิมที่ยังไม่ถึงเวลาเริ่มจะกลับไปเป็นสถานะ 'รออนุมัติ' · ถ้าห้องถูกแก้เป็นไม่ต้องอนุมัติ การจองที่รออนุมัติอยู่จะใช้ได้ทันที"*
 - **บังคับที่:** *(ยังไม่มีใครผูกกับโค้ด — เฟส 2 เป็นคนตอบ)*
-- **พิสูจน์โดย:** [EX-mrr-030](../examples/EX-mrr-030.md), [EX-mrr-033](../examples/EX-mrr-033.md), [EX-mrr-034](../examples/EX-mrr-034.md), [EX-mrr-078](../examples/EX-mrr-078.md), [EX-mrr-079](../examples/EX-mrr-079.md), [EX-mrr-080](../examples/EX-mrr-080.md)
+- **พิสูจน์โดย:** [EX-mrr-030](../examples/EX-mrr-030.md), [EX-mrr-033](../examples/EX-mrr-033.md), [EX-mrr-034](../examples/EX-mrr-034.md), [EX-mrr-078](../examples/EX-mrr-078.md), [EX-mrr-079](../examples/EX-mrr-079.md), [EX-mrr-080](../examples/EX-mrr-080.md), [EX-mrr-031](../examples/EX-mrr-031.md), [EX-mrr-032](../examples/EX-mrr-032.md)
 - **เทสต์:** *(ยังไม่มี)* 🔴
 
 ### [BR-mrr-012@v1](../rules/BR-mrr-012@v1.md) · ห้องที่ตั้งเป็นปิดปรับปรุงรับการจองใหม่ไม่ได้ — การจองที่มีอยู่แล้วคงไว้ตามเดิม
 - **ชนิด:** constraint · **สถานะ:** validated · **วิธีออกแบบเทสต์:** state_transition, decision_table
 - **ที่มา:** [SRC-006](../sources/SRC-006.md) บรรทัด 3 — *"ห้องที่ตั้งเป็นปิดปรับปรุง ห้ามรับการจองใหม่ การจองที่มีอยู่แล้วคงไว้"*
 - **บังคับที่:** *(ยังไม่มีใครผูกกับโค้ด — เฟส 2 เป็นคนตอบ)*
-- **พิสูจน์โดย:** [EX-mrr-016](../examples/EX-mrr-016.md), [EX-mrr-081](../examples/EX-mrr-081.md), [EX-mrr-082](../examples/EX-mrr-082.md), [EX-mrr-083](../examples/EX-mrr-083.md)
+- **พิสูจน์โดย:** [EX-mrr-016](../examples/EX-mrr-016.md), [EX-mrr-081](../examples/EX-mrr-081.md), [EX-mrr-082](../examples/EX-mrr-082.md), [EX-mrr-083](../examples/EX-mrr-083.md), [EX-mrr-106](../examples/EX-mrr-106.md), [EX-mrr-107](../examples/EX-mrr-107.md), [EX-mrr-108](../examples/EX-mrr-108.md)
 - **เทสต์:** *(ยังไม่มี)* 🔴
 
 <details>

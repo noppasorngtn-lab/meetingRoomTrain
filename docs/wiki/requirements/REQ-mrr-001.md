@@ -9,7 +9,7 @@ actor: General User
 rules: [BR-mrr-001, BR-mrr-002, BR-mrr-003, BR-mrr-009, BR-mrr-014, BR-mrr-021, BR-mrr-024, BR-mrr-025, BR-mrr-026, BR-mrr-027, BR-mrr-028]
 domain_concepts: [UL-mrr-001, UL-mrr-002, UL-mrr-003, UL-mrr-005, UL-mrr-011, UL-mrr-013, UL-mrr-014]
 timestamp: 2026-11-18T12:30:00+07:00
-spec_hash: sha256:81315bc3b2662934be062c9828130184b7fa8c1632f9d6f566bc797045351539
+spec_hash: sha256:64830b415fd5e24d1ef0a0f68234021b2b3ea40008ab3c4c25d842b8c82629be
 ---
 
 # REQ-mrr-001
@@ -64,7 +64,7 @@ spec_hash: sha256:81315bc3b2662934be062c9828130184b7fa8c1632f9d6f566bc7970453515
 - **ที่มา:** [SRC-007](../sources/SRC-007.md) บรรทัด 3 — *"การจองที่รออนุมัติกันช่วงเวลานั้นไว้ จนกว่าจะถูกปฏิเสธหรือยกเลิก — แก้ BR-mrr-001 ทับ @v1"*
 - **ที่มา:** [SRC-011](../sources/SRC-011.md) บรรทัด 1 — *"QB-idem-01: ผู้ใช้กดจองซ้ำ (ดับเบิลคลิก / เน็ตหน่วงแล้วกดใหม่) — กันที่ DB แล้วแสดง error"*
 - **บังคับที่:** *(ยังไม่มีใครผูกกับโค้ด — เฟส 2 เป็นคนตอบ)*
-- **พิสูจน์โดย:** [EX-mrr-001](../examples/EX-mrr-001.md), [EX-mrr-002](../examples/EX-mrr-002.md), [EX-mrr-003](../examples/EX-mrr-003.md), [EX-mrr-004](../examples/EX-mrr-004.md)
+- **พิสูจน์โดย:** [EX-mrr-001](../examples/EX-mrr-001.md), [EX-mrr-002](../examples/EX-mrr-002.md), [EX-mrr-003](../examples/EX-mrr-003.md), [EX-mrr-004](../examples/EX-mrr-004.md), [EX-mrr-106](../examples/EX-mrr-106.md), [EX-mrr-107](../examples/EX-mrr-107.md), [EX-mrr-108](../examples/EX-mrr-108.md)
 - **เทสต์:** *(ยังไม่มี)* 🔴
 
 ### [BR-mrr-002@v2](../rules/BR-mrr-002@v2.md) · การจองต้องระบุหัวข้อการประชุมและรายชื่อผู้เข้าร่วม ส่วนอุปกรณ์เสริมเลือกหรือไม่เลือกก็ได้ · เมื่อแก้การจอง ผู้เข้าร่วมที่บัญชีไม่ active ซึ่งอยู่ในรายชื่อเดิมคงอยู่ในรายชื่อได้และไม่ทำให้บันทึกไม่ได้ · การเพิ่มผู้ใช้ที่บัญชีไม่ active ซึ่งไม่อยู่ในรายชื่อเดิม ระบบปฏิเสธ

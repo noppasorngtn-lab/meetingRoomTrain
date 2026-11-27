@@ -11,12 +11,12 @@ kind: invariant
 is_current: true
 effective_from: 2026-11-24
 test_design: [decision_table]
-proven_by: [EX-mrr-054, EX-mrr-055, EX-mrr-056, EX-mrr-057, EX-mrr-120, EX-mrr-121, EX-mrr-122, EX-mrr-118, EX-mrr-123]
+proven_by: [EX-mrr-054, EX-mrr-055, EX-mrr-056, EX-mrr-057, EX-mrr-120, EX-mrr-121, EX-mrr-122, EX-mrr-118, EX-mrr-123, EX-mrr-129, EX-mrr-130, EX-mrr-131]
 golden: []
 supersedes: BR-mrr-017@v2
 provenance: [SRC-009, SRC-009, SRC-030, SRC-030, SRC-030, SRC-031, SRC-031, SRC-031, SRC-038]
 timestamp: 2026-11-18T12:30:00+07:00
-spec_hash: sha256:768d88ec00aae6228aee9922ea4c73ad6dd5a7c9822c240c4c954908a81f17cb
+spec_hash: sha256:72d51536b12b8261e06589ab0b9850e30d10523ac15cce5dad46919d9f9e2244
 ---
 
 # BR-mrr-017@v3

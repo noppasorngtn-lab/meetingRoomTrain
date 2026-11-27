@@ -10,11 +10,11 @@ belongs_to: REQ-mrr-003
 kind: policy
 is_current: true
 test_design: [decision_table]
-proven_by: [EX-mrr-015, EX-mrr-016, EX-mrr-017, EX-mrr-018, EX-mrr-090]
+proven_by: [EX-mrr-015, EX-mrr-016, EX-mrr-017, EX-mrr-018, EX-mrr-090, EX-mrr-109, EX-mrr-110]
 golden: []
 provenance: [SRC-001, SRC-001]
 timestamp: 2026-11-18T12:30:00+07:00
-spec_hash: sha256:576da16852a1b38613f89cd223e9f742e7127aa5a34121b5486c7cda6a8d0043
+spec_hash: sha256:8676081ccacecae7449c11a2ee12947915959abaec39b2cfb7dc7730a1545784
 ---
 
 # BR-mrr-005@v1

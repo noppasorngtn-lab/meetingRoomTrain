@@ -15,7 +15,7 @@ golden: []
 superseded_by: BR-mrr-017@v2
 provenance: [SRC-009, SRC-009]
 timestamp: 2026-11-18T12:30:00+07:00
-spec_hash: sha256:9a3fe55cfb632bf8c8a825df9972d9e62cbff299b0edbc88160e555611626f53
+spec_hash: sha256:ec7da73605dfba75da896a8f91c4280d5acec18d45778fcc82246df75fb82926
 ---
 
 # BR-mrr-017@v1
