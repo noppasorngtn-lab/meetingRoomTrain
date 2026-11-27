@@ -7607,7 +7607,7 @@
       "id": "FE-mrr-045",
       "title_th": "ออกจากระบบ — ฝั่ง API",
       "app_ref": "api",
-      "type": "platform",
+      "type": "command",
       "origin": "new",
       "function_ref": "FUN-mrr-015",
       "files_planned": [],
@@ -7621,16 +7621,20 @@
       ],
       "traces_up": [
         {
+          "ref": "UC-mrr-021",
+          "hash": "sha256:dea98930b3acf34f756b6e7ed0dbbbfe2ef26b234b33a5375dbc075fc3674934"
+        },
+        {
           "ref": "AC-mrr-111",
-          "hash": "sha256:4bd489e01657b3507a55626ce40f194398a7c0942324fe3abce6018eed8a7e76"
+          "hash": "sha256:9e7ff229dfc691475117b00a11548beb85bfffdf36179df38fcf2d1c9bb7f887"
         },
         {
           "ref": "AC-mrr-112",
-          "hash": "sha256:895abd287d1291652d2f09802b611672cafedcabd336714c18653b79e2ccecbe"
+          "hash": "sha256:c4d875da9e8ccb57c19000b4cadef02b0e386bb2f6d33445321d3565678d7f66"
         },
         {
           "ref": "AC-mrr-113",
-          "hash": "sha256:55fde21079d9d121bea02b78596673b385619b6c70902297481151edd9de3c23"
+          "hash": "sha256:6e6fb259be07d6a1db13b16339fd952955304459623073d9d3757d78848bd388"
         },
         {
           "ref": "API-034",
@@ -7696,7 +7700,7 @@
       "id": "FE-mrr-046",
       "title_th": "ออกจากระบบ — หน้าจอ",
       "app_ref": "frontend-web",
-      "type": "platform",
+      "type": "command",
       "origin": "new",
       "function_ref": "FUN-mrr-015",
       "files_planned": [],
@@ -7711,16 +7715,20 @@
       ],
       "traces_up": [
         {
+          "ref": "UC-mrr-021",
+          "hash": "sha256:dea98930b3acf34f756b6e7ed0dbbbfe2ef26b234b33a5375dbc075fc3674934"
+        },
+        {
           "ref": "AC-mrr-111",
-          "hash": "sha256:4bd489e01657b3507a55626ce40f194398a7c0942324fe3abce6018eed8a7e76"
+          "hash": "sha256:9e7ff229dfc691475117b00a11548beb85bfffdf36179df38fcf2d1c9bb7f887"
         },
         {
           "ref": "AC-mrr-112",
-          "hash": "sha256:895abd287d1291652d2f09802b611672cafedcabd336714c18653b79e2ccecbe"
+          "hash": "sha256:c4d875da9e8ccb57c19000b4cadef02b0e386bb2f6d33445321d3565678d7f66"
         },
         {
           "ref": "AC-mrr-113",
-          "hash": "sha256:55fde21079d9d121bea02b78596673b385619b6c70902297481151edd9de3c23"
+          "hash": "sha256:6e6fb259be07d6a1db13b16339fd952955304459623073d9d3757d78848bd388"
         },
         {
           "ref": "UI-mrr-003",
