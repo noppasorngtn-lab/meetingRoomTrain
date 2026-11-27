@@ -101,7 +101,7 @@
   - BR-mrr-029@v1 และ EX-mrr-148..150 (2026-11-27) · EX-mrr-146 / 147 (2026-11-26 / 27): เปลี่ยนเป็น `validated` ด้วยมือใน `spec.json` ตามที่เจ้าของยืนยันในเซสชัน แล้วรัน `rollup` · `wiki` · `export-contract` · `verify-rules --cp1/--cp2` · ไม่มีช่องบันทึกว่าใครยืนยันเมื่อไร (ต่างจาก golden ที่มี `verified_by` / `verified_at`)
 - **ผล:** สถานะใน wiki และในไฟล์สัญญาไม่บอกว่ามีคนยืนยันแล้วหรือยัง · ด่านไม่จับ · ร่องรอยการยืนยันอยู่แค่ใน commit message และเอกสาร QA
 - **เสนอแก้:** คำสั่ง (หรือ flag ของ `/req:calc` · `/req:example`) ที่เปลี่ยน `draft` → `validated` พร้อม `verified_by` / `verified_at` แบบเดียวกับ `/req:golden` · และให้ verify-rules รายงาน CALC ปัจจุบันที่ยังเป็น `draft` ทั้งที่ golden ของมัน `validated` แล้ว
-- **คำถามที่ค้าง:** ระหว่างรอ plugin จะให้แก้ CALC-mrr-001@v2 ด้วยมือแบบเดียวกับ BR / EX หรือไม่ — ถ้าแก้ `requirements.json` จะเปลี่ยน และ design อาจต้องตรวจรับ
+- ~~**คำถามที่ค้าง:** ระหว่างรอ plugin จะให้แก้ CALC-mrr-001@v2 ด้วยมือแบบเดียวกับ BR / EX หรือไม่~~ **ตอบแล้ว 2026-11-27 (ผู้ใช้ตัดสินในเซสชัน): ยังไม่แก้ รอ plugin** — CALC-mrr-001@v2 คงเป็น `draft`
 
 ## Open Questions (TBD)
 
