@@ -4218,6 +4218,46 @@
       "from": "AC-mrr-150",
       "rel": "governedBy",
       "to": "BR-mrr-008@v1"
+    },
+    {
+      "from": "REQ-mrr-001",
+      "rel": "satisfiedBy",
+      "to": "FUN-mrr-015"
+    },
+    {
+      "from": "FUN-mrr-015",
+      "rel": "governedBy",
+      "to": "BR-mrr-029@v1"
+    },
+    {
+      "from": "AC-mrr-111",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-148"
+    },
+    {
+      "from": "AC-mrr-111",
+      "rel": "governedBy",
+      "to": "BR-mrr-029@v1"
+    },
+    {
+      "from": "AC-mrr-112",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-149"
+    },
+    {
+      "from": "AC-mrr-112",
+      "rel": "governedBy",
+      "to": "BR-mrr-029@v1"
+    },
+    {
+      "from": "AC-mrr-113",
+      "rel": "copiedFrom",
+      "to": "EX-mrr-150"
+    },
+    {
+      "from": "AC-mrr-113",
+      "rel": "governedBy",
+      "to": "BR-mrr-029@v1"
     }
   ]
 }
